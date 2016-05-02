@@ -72,44 +72,53 @@ function dosomething_northstar_verify_user($credentials) {
 }
 
 /**
+ * Save the user's Northstar ID to their local profile.
+ *
+ * @param $user - Drupal user
+ * @param $northstar_response - Northstar user JSON response
+ */
+function dosomething_northstar_save_id_field($user, $northstar_response) {
+  $northstar_id = !empty($northstar_response->data->id) ? $northstar_response->data->id : 'NONE';
+
+  $edit = [];
+  dosomething_user_set_fields($edit, ['northstar_id' => $northstar_id]);
+  user_save($user, $edit);
+}
+
+/**
  * Send user registration events to northstar.
  */
 function dosomething_northstar_register_user($form_state) {
   global $user;
   // Build a user that Northstar expects.
   $ns_user = dosomething_northstar_build_ns_user($user, $form_state);
-  // Send that to NS.
-  // $northstar = new Northstar();
-  // try {
-  //   $response = $northstar->updateUser($ns_user);
-  //   if ($response->getStatusCode() === '200' && module_exists('stathat')) {
-  //     stathat_send_ez_count('drupal - Northstar - user migrated - count', 1);
-  //   }
-  // }
-  // catch (Exception $e) {
-
-  //   watchdog('dosomething_northstar', 'User not migrated : ' . $e, NULL, WATCHDOG_ERROR);
-  // }
+  
   $client = _dosomething_northstar_build_http_client();
   $response = drupal_http_request($client['base_url'] . '/users', array(
     'headers' => $client['headers'],
     'method' => 'POST',
     'data' => json_encode($ns_user),
-    ));
-  if ($response->code === '200' && module_exists('stathat')) {
-    stathat_send_ez_count('drupal - Northstar - user migrated - count', 1);
-  }
-  elseif ($response->code !== '200') {
-    watchdog('dosomething_northstar', 'User not migrated : ' . $response->code, NULL, WATCHDOG_ERROR);
-  }
+  ));
+
+  // Save the newly registered user's ID to their local profile field.
+  dosomething_northstar_save_id_field($user, json_decode($response->data));
 
   // Add to request log if enabled.
   dosomething_northstar_log_request('register_user', $user, $ns_user, $response);
+  
+  if ($response->code !== '200') {
+    watchdog('dosomething_northstar', 'User not migrated : ' . $response->code, NULL, WATCHDOG_ERROR);
+    return;
+  }
+
+  if (module_exists('stathat')) {
+    stathat_send_ez_count('drupal - Northstar - user migrated - count', 1);
+  }
 }
 
 /**
- * Build the drupal_http_request object for nothstar calls.
- * This will be depricated once guzzle is fixed...
+ * Build the drupal_http_request object for Northstar calls.
+ * @returns array
  */
 function _dosomething_northstar_build_http_client() {
   $base_url = NORTHSTAR_URL;
@@ -131,7 +140,10 @@ function _dosomething_northstar_build_http_client() {
 }
 
 /**
- * Send user profile updates to northstar.
+ * Update a user's existing Northstar profile based on
+ * their Drupal ID.
+ * 
+ * @return void
  */
 function dosomething_northstar_update_user($form_state) {
   $user = $form_state['user'];
@@ -158,43 +170,13 @@ function dosomething_northstar_update_user($form_state) {
 }
 
 /**
- * If the log is enabled, log this request to the database.
+ * Get user profile data from Northstar for the given Drupal ID.
  *
- * @param string $op - label for the operation being performed
- * @param object $user - the Drupal user
- * @param array $request_body - the body of the request
- * @param string $response - response JSON
- */
-function dosomething_northstar_log_request($op, $user, $request_body, $response) {
-  if (!variable_get('dosomething_northstar_log')) return;
-
-  // Don't log plaintext passwords.
-  if (isset($request_body['password'])) {
-    $request_body['password'] = '*****';
-  }
-
-  db_insert('dosomething_northstar_request_log')
-    ->fields([
-      'op' => $op,
-      'uid' => $user->uid,
-      'user_lang' => $user->language,
-      'user_country' => $user->field_address[LANGUAGE_NONE][0]['country'],
-      'fastly_country' => dosomething_settings_get_geo_country_code(),
-      'request_values' => json_encode($request_body),
-      'response_code' => $response->code,
-      'response_values' => $response->data,
-    ])
-    ->execute();
-}
-
-/**
- * Get user data from northstar.
- *
- * @param  int  $id Drupal user id.
+ * @param int $drupal_id Drupal user id.
  * @return object
  */
-function dosomething_northstar_get_northstar_user($id) {
-  $northstar_user_info = cache_get('northstar_user_info_' . $id, 'cache_dosomething_northstar');
+function dosomething_northstar_get_northstar_user($drupal_id) {
+  $northstar_user_info = cache_get('northstar_user_info_' . $drupal_id, 'cache_dosomething_northstar');
 
   if ($northstar_user_info) {
     $northstar_user_info = $northstar_user_info->data;
@@ -202,7 +184,7 @@ function dosomething_northstar_get_northstar_user($id) {
   else {
     $client = _dosomething_northstar_build_http_client();
 
-    $northstar_user_info = drupal_http_request($client['base_url'] . '/users/drupal_id/' . $id, array(
+    $northstar_user_info = drupal_http_request($client['base_url'] . '/users/drupal_id/' . $drupal_id, array(
       'headers' => $client['headers'],
       'method' => 'GET',
       ));
@@ -210,10 +192,10 @@ function dosomething_northstar_get_northstar_user($id) {
       $northstar_user_info = $northstar_user_info->data;
 
       if (!empty($northstar_user_info->error)) {
-        $error = sprintf("Error fetching Northstar user data, uid=%d: '%s'", $id, $northstar_user_info->error);
+        $error = sprintf("Error fetching Northstar user data, uid=%d: '%s'", $drupal_id, $northstar_user_info->error);
         watchdog_exception('northstar', new Exception($error));
       } else {
-        cache_set('northstar_user_info_' . $id, $northstar_user_info, 'cache_dosomething_northstar', REQUEST_TIME + 60*60*24);
+        cache_set('northstar_user_info_' . $drupal_id, $northstar_user_info, 'cache_dosomething_northstar', REQUEST_TIME + 60*60*24);
       }
   }
 
@@ -221,11 +203,10 @@ function dosomething_northstar_get_northstar_user($id) {
 }
 
 /**
- * Build a user json object, that's accepted by Northstar.
+ * Build a user JSON object in the format that Northstar expects.
  *
- * @param obj $user
- *  Drupal user object
- *
+ * @param $user - Drupal user object
+ * @return array
  */
 function dosomething_northstar_build_ns_user($user, $form_state) {
   // Optional fields
@@ -277,44 +258,33 @@ function dosomething_northstar_build_ns_user($user, $form_state) {
   return $ns_user;
 }
 
+/**
+ * If the log is enabled, log this request to the database.
+ *
+ * @param string $op - label for the operation being performed
+ * @param object $user - the Drupal user
+ * @param array $request_body - the body of the request
+ * @param string $response - response JSON
+ */
+function dosomething_northstar_log_request($op, $user, $request_body, $response) {
+  if (!variable_get('dosomething_northstar_log')) return;
 
-class Northstar {
+  // Don't log plaintext passwords.
+  if (isset($request_body['password'])) {
+    $request_body['password'] = '*****';
+  }
 
-  // protected $client;
-
-  // public function __construct() {
-
-  //   $base_url = NORTHSTAR_URL;
-  //   if (getenv('DS_ENVIRONMENT') === 'local') {
-  //     $base_url .=  ":" . NORTHSTAR_PORT;
-  //   }
-  //   $version = NORTHSTAR_VERSION;
-
-  //   if (libraries_load('guzzle') == TRUE) {
-  //     $client = new GuzzleHttp\Client(array(
-  //       'base_url' => array($base_url . '/{version}/', array('version' => $version)),
-  //       'defaults' => array(
-  //         'headers' => array(
-  //           'X-DS-Application-Id' => NORTHSTAR_APP_ID,
-  //           'X-DS-REST-API-Key' => NORTHSTAR_APP_KEY,
-  //           'Content-Type' => 'application/json',
-  //           'Accept' => 'application/json'
-  //           ),
-  //         ),
-  //     ));
-  //     $this->client = $client;
-
-  //   }
-  // }
-
-  // public function updateUser($user) {
-  //   // return $this->client->getUrl();
-  //   $response = $this->client->post('users', array(
-  //     'body' => json_encode($user),
-  //     ));
-
-  //   // watchdog('dosomething_northstar', 'full url' . $response->getUrl(), NULL, WATCHDOG_ERROR);
-  //   return $response;
-  // }
-
+  db_insert('dosomething_northstar_request_log')
+    ->fields([
+      'op' => $op,
+      'uid' => $user->uid,
+      'user_lang' => $user->language,
+      'user_country' => $user->field_address[LANGUAGE_NONE][0]['country'],
+      'fastly_country' => dosomething_settings_get_geo_country_code(),
+      'request_values' => json_encode($request_body),
+      'response_code' => $response->code,
+      'response_values' => $response->data,
+    ])
+    ->execute();
 }
+

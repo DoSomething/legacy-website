@@ -268,6 +268,8 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
         _dosomething_user_add_signup_data($form);
       }
       else {
+        // If this is not the registration form, then register submit handler
+        // to update that existing Northstar user by their Drupal ID.
         $form['#submit'][] = 'dosomething_user_update_user';
       }
 
@@ -424,13 +426,13 @@ function dosomething_user_validate_address_field($form, &$form_state) {
   }
 }
 
-/** 
+/**
  * Validates address for dosomething_user_info_form
  *
  * @param array $form
- * A drupal form. 
+ * A drupal form.
  * @param array $form_state
- * A drupal form_state array. 
+ * A drupal form_state array.
  */
 function dosomething_user_validate_info_form_address ($form, &$form_state) {
   $first_name = $form_state['input']['first_name'];
@@ -439,7 +441,7 @@ function dosomething_user_validate_info_form_address ($form, &$form_state) {
    'country' => 'US',
    'thoroughfare' => $form_state['input']['street'],
    'premise' => $form_state['input']['sub_street'],
-   'locality' => $form_state['input']['city'], 
+   'locality' => $form_state['input']['city'],
    'administrative_area' => $form_state['input']['state'],
    'postal_code' => $form_state['input']['zipcode'],
   ];
@@ -466,7 +468,7 @@ function dosomething_user_validate_info_form_address ($form, &$form_state) {
 }
 
 /**
- * Validates that password is 6 or more characters long.  
+ * Validates that password is 6 or more characters long.
  *
  * @param array $form
  *  A drupal form.
@@ -556,41 +558,15 @@ function dosomething_user_user_pass_submit($form, &$form_state) {
 }
 
 /**
- * Trigger events after a user successfully logs in.
- *
- * Implements hook_user_login.
- */
-function dosomething_user_user_login(&$form_state, $account) {
-  if (!module_exists('dosomething_northstar')) return;
-
-  $northstar_user = null;
-
-  // Figure out whether user is logging in via email or mobile. Then, we'll
-  // send a request to Northstar's `user/verify` endpoint to see if Northstar
-  // is also able to successfully authenticate with the given credentials.
-  if (dosomething_user_get_user_by_email($form_state['input']['name'])) {
-    $northstar_user = dosomething_northstar_verify_user([
-      'email' => $form_state['input']['name'],
-      'password' => $form_state['input']['pass'],
-    ]);
-  }
-  elseif (dosomething_user_get_user_by_mobile($form_state['input']['name'])) {
-    $northstar_user = dosomething_northstar_verify_user([
-      'mobile' => dosomething_user_clean_mobile_number($form_state['input']['name']),
-      'password' => $form_state['input']['pass'],
-    ]);
-  }
-
-  // If the user exists, store it on the user's Drupal profile.
-  $northstar_id = isset($northstar_user->data->id) ? $northstar_user->data->id : 'NONE';
-  user_save($account, ['field_northstar_id' => [LANGUAGE_NONE => [0 => ['value' => $northstar_id]]]]);
-}
-
-/**
- *
+ * Custom form submission handler to update an existing user.
+ * Triggered when making changes on the user profile form.
+ * 
+ * @param $form
+ * @param $form_state
  */
 function dosomething_user_update_user($form, &$form_state) {
   if (!module_exists('dosomething_northstar')) { return; }
+  
   // Forward user updates into Northstar.
   dosomething_northstar_update_user($form_state);
 }
@@ -610,6 +586,10 @@ function dosomething_user_new_user($form, &$form_state)
 
   // Sign the user up for transactional messaging
   _dosomething_user_send_to_message_broker();
+
+  if (module_exists('dosomething_northstar')) {
+    dosomething_northstar_register_user($form_state);
+  };
 }
 
 /**
@@ -775,11 +755,37 @@ function dosomething_user_is_old_person($user = NULL) {
 }
 
 /**
- * Custom login submission handler.
+ * Custom login submission handler. This does _not_ trigger on log-ins
+ * that happen post-registration.
  */
 function dosomething_user_login_submit($form, &$form_state) {
   // Trigger an analytics event on login
   dosomething_helpers_add_analytics_event('Authentication', 'Login');
+
+  // Attempt to verify the given credentials with Northstar.
+  _dosomething_user_verify_northstar_login($form_state);
+}
+
+/**
+ * Verify the given login against Northstar's records! This is a "dry run"
+ * for eventually having authentication solely happen in Northstar.
+ *
+ * @param $form_state
+ */
+function _dosomething_user_verify_northstar_login($form_state) {
+  global $user;
+
+  // Short-circuit if Northstar is not enabled.
+  if (!module_exists('dosomething_northstar')) return;
+
+  $northstar_user = dosomething_northstar_verify_user([
+    'username' => $form_state['input']['name'],
+    'password' => $form_state['input']['pass'],
+  ]);
+
+  // If the user exists in Northstar, store their ID on their Drupal profile.
+  // @TODO: Remove this once we properly back-fill this field!
+  dosomething_northstar_save_id_field($user, $northstar_user);
 }
 
 /**
@@ -810,12 +816,7 @@ function dosomething_user_authentication_submit($form, &$form_state) {
     }
   }
 
-  // Send updated user profiles into Northstar.
-  if (module_exists('dosomething_northstar')) {
-    dosomething_northstar_register_user($form_state);
-  }
-
-  // After all logins, except reportback pages redirect to page user was just on.
+  // After all log-ins, except reportback pages redirect to page user was just on.
   if (isset($source) && stripos($source, 'reportback') > 0) {
     $form_state['redirect'] = drupal_get_path_alias($_SERVER['HTTP_REFERER']);
   }
@@ -1402,7 +1403,7 @@ function dosomething_user_info_form($form, &$form_state, $account) {
     '#type' => 'textfield',
     '#default_value' => $birthday,
     '#description' => t("Format: M/D/YYYY"),
-    '#field_suffix' => 'User age: ' . $age, 
+    '#field_suffix' => 'User age: ' . $age,
   );
   $form['picture'] = array(
     '#type' => 'fieldset',

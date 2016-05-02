@@ -96,8 +96,7 @@ class Signup extends Entity {
       $northstar_response = json_decode($northstar_response);
 
       if (!empty($northstar_response->data) && !isset($northstar_response->error)) {
-        $northstar_user = $northstar_response->data;
-        user_save($drupal_user, ['field_northstar_id' => [LANGUAGE_NONE => [0 => ['value' => $northstar_user->id]]]]);
+        dosomething_northstar_save_id_field($drupal_user, $northstar_response);
       }
     }
 
