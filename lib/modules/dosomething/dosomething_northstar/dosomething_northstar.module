@@ -89,24 +89,28 @@ function dosomething_northstar_register_user($form_state) {
   global $user;
   // Build a user that Northstar expects.
   $ns_user = dosomething_northstar_build_ns_user($user, $form_state);
+  
   $client = _dosomething_northstar_build_http_client();
   $response = drupal_http_request($client['base_url'] . '/users', array(
     'headers' => $client['headers'],
     'method' => 'POST',
     'data' => json_encode($ns_user),
-    ));
-  if ($response->code === '200' && module_exists('stathat')) {
-    stathat_send_ez_count('drupal - Northstar - user migrated - count', 1);
-  }
-  elseif ($response->code !== '200') {
-    watchdog('dosomething_northstar', 'User not migrated : ' . $response->code, NULL, WATCHDOG_ERROR);
-  }
+  ));
 
   // Save the newly registered user's ID to their local profile field.
   dosomething_northstar_save_id_field($user, json_decode($response->data));
 
   // Add to request log if enabled.
   dosomething_northstar_log_request('register_user', $user, $ns_user, $response);
+  
+  if ($response->code !== '200') {
+    watchdog('dosomething_northstar', 'User not migrated : ' . $response->code, NULL, WATCHDOG_ERROR);
+    return;
+  }
+
+  if (module_exists('stathat')) {
+    stathat_send_ez_count('drupal - Northstar - user migrated - count', 1);
+  }
 }
 
 /**
