@@ -13,11 +13,13 @@ if ($last_saved) {
   $users = db_query("SELECT u.uid
             FROM users u
             WHERE uid > $last_saved");
+  $users = $users->fetchAll();
 }
 else {
   // Get all the users!
   $users = db_query('SELECT u.uid
                    FROM users u');
+  $users = $users->fetchAll();
 }
 
 foreach ($users as $user) {
