@@ -108,8 +108,8 @@ function dosomething_northstar_register_user($form_state) {
 }
 
 /**
- * Build the drupal_http_request object for nothstar calls.
- * This will be depricated once guzzle is fixed...
+ * Build the drupal_http_request object for Northstar calls.
+ * @returns array
  */
 function _dosomething_northstar_build_http_client() {
   $base_url = NORTHSTAR_URL;
@@ -131,7 +131,10 @@ function _dosomething_northstar_build_http_client() {
 }
 
 /**
- * Send user profile updates to northstar.
+ * Update a user's existing Northstar profile based on
+ * their Drupal ID.
+ * 
+ * @return void
  */
 function dosomething_northstar_update_user($form_state) {
   $user = $form_state['user'];
@@ -159,6 +162,7 @@ function dosomething_northstar_update_user($form_state) {
 
 /**
  * If the log is enabled, log this request to the database.
+ * Get user profile data from Northstar for the given Drupal ID.
  *
  * @param string $op - label for the operation being performed
  * @param object $user - the Drupal user
@@ -188,9 +192,7 @@ function dosomething_northstar_log_request($op, $user, $request_body, $response)
 }
 
 /**
- * Get user data from northstar.
- *
- * @param  int  $id Drupal user id.
+ * @param int $drupal_id Drupal user id.
  * @return object
  */
 function dosomething_northstar_get_northstar_user($id) {
@@ -221,11 +223,10 @@ function dosomething_northstar_get_northstar_user($id) {
 }
 
 /**
- * Build a user json object, that's accepted by Northstar.
+ * Build a user JSON object in the format that Northstar expects.
  *
- * @param obj $user
- *  Drupal user object
- *
+ * @param $user - Drupal user object
+ * @return array
  */
 function dosomething_northstar_build_ns_user($user, $form_state) {
   // Optional fields
