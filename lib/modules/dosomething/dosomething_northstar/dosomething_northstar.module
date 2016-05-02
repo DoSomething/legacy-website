@@ -89,18 +89,6 @@ function dosomething_northstar_register_user($form_state) {
   global $user;
   // Build a user that Northstar expects.
   $ns_user = dosomething_northstar_build_ns_user($user, $form_state);
-  // Send that to NS.
-  // $northstar = new Northstar();
-  // try {
-  //   $response = $northstar->updateUser($ns_user);
-  //   if ($response->getStatusCode() === '200' && module_exists('stathat')) {
-  //     stathat_send_ez_count('drupal - Northstar - user migrated - count', 1);
-  //   }
-  // }
-  // catch (Exception $e) {
-
-  //   watchdog('dosomething_northstar', 'User not migrated : ' . $e, NULL, WATCHDOG_ERROR);
-  // }
   $client = _dosomething_northstar_build_http_client();
   $response = drupal_http_request($client['base_url'] . '/users', array(
     'headers' => $client['headers'],
@@ -293,43 +281,5 @@ function dosomething_northstar_build_ns_user($user, $form_state) {
 }
 
 
-class Northstar {
-
-  // protected $client;
-
-  // public function __construct() {
-
-  //   $base_url = NORTHSTAR_URL;
-  //   if (getenv('DS_ENVIRONMENT') === 'local') {
-  //     $base_url .=  ":" . NORTHSTAR_PORT;
-  //   }
-  //   $version = NORTHSTAR_VERSION;
-
-  //   if (libraries_load('guzzle') == TRUE) {
-  //     $client = new GuzzleHttp\Client(array(
-  //       'base_url' => array($base_url . '/{version}/', array('version' => $version)),
-  //       'defaults' => array(
-  //         'headers' => array(
-  //           'X-DS-Application-Id' => NORTHSTAR_APP_ID,
-  //           'X-DS-REST-API-Key' => NORTHSTAR_APP_KEY,
-  //           'Content-Type' => 'application/json',
-  //           'Accept' => 'application/json'
-  //           ),
-  //         ),
-  //     ));
-  //     $this->client = $client;
-
-  //   }
-  // }
-
-  // public function updateUser($user) {
-  //   // return $this->client->getUrl();
-  //   $response = $this->client->post('users', array(
-  //     'body' => json_encode($user),
-  //     ));
-
-  //   // watchdog('dosomething_northstar', 'full url' . $response->getUrl(), NULL, WATCHDOG_ERROR);
-  //   return $response;
-  // }
 
 }
