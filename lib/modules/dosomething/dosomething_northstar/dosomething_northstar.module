@@ -79,7 +79,10 @@ function dosomething_northstar_verify_user($credentials) {
  */
 function dosomething_northstar_save_id_field($user, $northstar_response) {
   $northstar_id = !empty($northstar_response->data->id) ? $northstar_response->data->id : 'NONE';
-  user_save($user, ['field_northstar_id' => [LANGUAGE_NONE => [0 => ['value' => $northstar_id]]]]);
+
+  $edit = [];
+  dosomething_user_set_fields($edit, ['northstar_id' => $northstar_id]);
+  user_save($user, $edit);
 }
 
 /**
