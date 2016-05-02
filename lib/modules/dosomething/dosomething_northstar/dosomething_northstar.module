@@ -254,6 +254,12 @@ function dosomething_northstar_build_ns_user($user, $form_state) {
     $ns_user['password'] = $form_state['values']['pass'];
   }
 
+  // Set the "source" for this user to Phoenix if they weren't
+  // programmatically created through the API.
+  if(empty($ns_user['source'])) {
+    $ns_user['source'] = 'phoenix';
+  }
+
   // Return fully built northstar user object.
   return $ns_user;
 }
