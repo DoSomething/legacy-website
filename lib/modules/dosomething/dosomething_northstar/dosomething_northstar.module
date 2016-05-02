@@ -72,6 +72,17 @@ function dosomething_northstar_verify_user($credentials) {
 }
 
 /**
+ * Save the user's Northstar ID to their local profile.
+ *
+ * @param $user - Drupal user
+ * @param $northstar_response - Northstar user JSON response
+ */
+function dosomething_northstar_save_id_field($user, $northstar_response) {
+  $northstar_id = !empty($northstar_response->data->id) ? $northstar_response->data->id : 'NONE';
+  user_save($user, ['field_northstar_id' => [LANGUAGE_NONE => [0 => ['value' => $northstar_id]]]]);
+}
+
+/**
  * Send user registration events to northstar.
  */
 function dosomething_northstar_register_user($form_state) {
@@ -102,6 +113,9 @@ function dosomething_northstar_register_user($form_state) {
   elseif ($response->code !== '200') {
     watchdog('dosomething_northstar', 'User not migrated : ' . $response->code, NULL, WATCHDOG_ERROR);
   }
+
+  // Save the newly registered user's ID to their local profile field.
+  dosomething_northstar_save_id_field($user, json_decode($response->data));
 
   // Add to request log if enabled.
   dosomething_northstar_log_request('register_user', $user, $ns_user, $response);
