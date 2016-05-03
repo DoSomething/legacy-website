@@ -68,7 +68,8 @@ function dosomething_reportback_build_reportbacks_query($params = array()) {
   if (isset($params['runs'])) {
     if (is_array($params['runs'])) {
       $query->condition('rb.run_nid', $params['runs'], 'IN');
-    } else {
+    } 
+    else {
       $query->condition('rb.run_nid', $params['runs'], '=');
     }
   }

@@ -90,7 +90,12 @@ class Signup extends Entity {
     $this->created_at = $data->timestamp;
 
     $this->user = [
+      'id' => NULL,
       'drupal_id' => $data->uid,
+      'first_name' => NULL,
+      'last_initial' => NULL,
+      'photo' => NULL,
+      'country' => NULL,
     ];
 
     try {
@@ -109,11 +114,11 @@ class Signup extends Entity {
       try {
         $this->reportback = Reportback::get($data->rbid);
       } catch (Exception $e) {
-        $this->reportback = null;
+        $this->reportback = NULL;
       }
     }
     else {
-      $this->reportback = null;
+      $this->reportback = NULL;
     }
   }
 }
