@@ -89,28 +89,8 @@ class Signup extends Entity {
     $this->id = $data->sid;
     $this->created_at = $data->timestamp;
 
-    $drupal_user = user_load($data->uid);
-
-    if (!isset($data->field_northstar_id_value) || $data->field_northstar_id_value === 'NONE') {
-      $northstar_response = dosomething_northstar_get_northstar_user($data->uid);
-      $northstar_response = json_decode($northstar_response);
-
-      if (!empty($northstar_response->data) && !isset($northstar_response->error)) {
-        dosomething_northstar_save_id_field($drupal_user, $northstar_response);
-      }
-    }
-
-    $last_initial = substr(dosomething_helpers_extract_field_data($drupal_user->field_last_name), 0, 1);
-    if ($last_initial === FALSE) {
-      $last_initial = NULL;
-    }
-
     $this->user = [
-      'id' => isset($northstar_user) ? $northstar_user->id : $data->field_northstar_id_value,
-      'first_name' => dosomething_helpers_extract_field_data($drupal_user->field_first_name),
-      'last_initial' => $last_initial,
-      'photo' => dosomething_helpers_extract_field_data($drupal_user->photo),
-      'country' => dosomething_helpers_extract_field_data($drupal_user->field_address),
+      'drupal_id' => $data->uid,
     ];
 
     try {
@@ -129,11 +109,11 @@ class Signup extends Entity {
       try {
         $this->reportback = Reportback::get($data->rbid);
       } catch (Exception $e) {
-        $this->reportback = null;
+        $this->reportback = NULL;
       }
     }
     else {
-      $this->reportback = null;
+      $this->reportback = NULL;
     }
   }
 }

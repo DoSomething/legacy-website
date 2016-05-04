@@ -21,6 +21,7 @@ class ReportbackTransformer extends Transformer {
    */
   public function index($parameters) {
     $filters = $this->setFilters($parameters);
+
     try {
       $reportbacks = Reportback::find($filters);
       $reportbacks = services_resource_build_index_list($reportbacks, 'reportbacks', 'id');
@@ -108,6 +109,8 @@ class ReportbackTransformer extends Transformer {
       'flagged' => dosomething_helpers_convert_string_to_boolean($parameters['flagged']),
       'runs' => dosomething_helpers_format_data($parameters['runs']),
     ];
+
+    $filters['offset'] = $this->setOffset($filters['page'], $filters['count']);
 
     // Unset False boolean values that affect the query builder.
     if (!$filters['random']) {

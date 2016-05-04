@@ -133,6 +133,8 @@ class SignupTransformer extends Transformer {
       'runs' => dosomething_helpers_format_data($parameters['runs']),
     ];
 
+    $filters['offset'] = $this->setOffset($filters['page'], $filters['count']);
+
     return $filters;
   }
 }
