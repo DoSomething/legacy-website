@@ -90,12 +90,7 @@ class Signup extends Entity {
     $this->created_at = $data->timestamp;
 
     $this->user = [
-      'id' => NULL,
       'drupal_id' => $data->uid,
-      'first_name' => NULL,
-      'last_initial' => NULL,
-      'photo' => NULL,
-      'country' => NULL,
     ];
 
     try {

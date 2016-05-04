@@ -451,12 +451,12 @@ abstract class Transformer {
    */
   protected function transformUser($data) {
     return [
-      'id' => $data->id,
-      'drupal_id' => $data->drupal_id,
-      'first_name' => $data->first_name,
-      'last_initial' => $data->last_initial,
-      'photo' => $data->photo,
-      'country' => $data->country,
+      'id' => dosomething_helpers_isset($data, 'id'),
+      'drupal_id' => dosomething_helpers_isset($data, 'drupal_id'),
+      'first_name' => dosomething_helpers_isset($data, 'first_name'),
+      'last_initial' => dosomething_helpers_isset($data, 'last_initial'),
+      'photo' => dosomething_helpers_isset($data, 'photo'),
+      'country' => dosomething_helpers_isset($data, 'country'),
     ];
   }
 
