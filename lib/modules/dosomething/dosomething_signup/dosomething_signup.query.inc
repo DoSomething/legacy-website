@@ -104,7 +104,7 @@ function dosomething_signup_build_signups_query($params = []) {
       } 
     }
     
-    $query->condition('rb.run_nid', $campaign_runs, 'IN');
+    $query->condition('s.run_nid', $campaign_runs, 'IN');
   }
 
   return $query;
