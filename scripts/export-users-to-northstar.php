@@ -12,12 +12,14 @@ $last_saved = variable_get('dosomething_northstar_last_user_migrated', NULL);
 if ($last_saved) {
   $users = db_query("SELECT u.uid
             FROM users u
-            WHERE uid > $last_saved");
+            WHERE uid > $last_saved
+            ORDER BY u.uid");
 }
 else {
   // Get all the users!
   $users = db_query('SELECT u.uid
-                   FROM users u');
+                   FROM users u
+                   ORDER BY u.uid');
 }
 
 foreach ($users as $user) {
