@@ -706,10 +706,11 @@ function dosomething_helpers_unset_array_keys(array $array = [], array $keys = [
 }
 
 /**
-* Checks to see if items are numeric. Unsets anything non-numeric and returns array of numbers.
+* Checks to see if items are numeric. Unsets anything non-numeric and returns array of numbers (or empty array).
 * @param string|array
+* @return array
 */
-function dosomething_helpers_unset_non_numeric_values($items) {
+function dosomething_helpers_unset_non_numeric_array_values($items) {
   if (is_string($items)) {
     $items = [$items];
   }
