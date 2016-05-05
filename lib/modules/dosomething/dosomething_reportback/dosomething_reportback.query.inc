@@ -66,19 +66,8 @@ function dosomething_reportback_build_reportbacks_query($params = array()) {
   }
 
   if (isset($params['runs'])) {
-    if (is_string($params['runs'])) {
-      $params['runs'] = explode(' ', $params['runs']);
-    }
-
-    $campaign_runs = [];
-    
-    foreach ($params['runs'] as $campaign_run) {
-      if (is_numeric($campaign_run)) {
-        array_push($campaign_runs, $campaign_run);
-      } 
-    }
-    
-    $query->condition('rb.run_nid', $campaign_runs, 'IN');
+    $params['runs'] = dosomething_helpers_unset_non_numeric_values($params['runs']);
+    $query->condition('rb.run_nid', $params['runs'], 'IN');
   }
 
   // Public API properties to expose:
