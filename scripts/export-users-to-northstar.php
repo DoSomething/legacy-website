@@ -43,8 +43,7 @@ foreach ($users as $user) {
   echo 'Migrated user ' . $user->uid . ' to Northstar [' . $response->code . ']' . PHP_EOL;
 
   // Store the returned Northstar ID on the user's Drupal profile.
-  $northstar_id = isset($response->data->id) ? $response->data->id : 'NONE';
-  user_save($user, ['field_northstar_id' => [LANGUAGE_NONE => [0 => ['value' => $northstar_id]]]]);
+  dosomething_northstar_save_id_field($user, json_decode($response->data));
 
   // If the script fails, we can use this to start the script from a previous person.
   variable_set('dosomething_northstar_last_user_migrated', $user->uid);
