@@ -95,6 +95,13 @@ function build_northstar_user($user) {
     }
   }
 
+  // If user has a "1234565555@mobile" placeholder username, don't send
+  // that to Northstar (since it will cause a validation error and Northstar
+  // doesn't require every account to have an email like Drupal does).
+  if(preg_match('/^[0-9]+@mobile$/', $ns_user['email'])) {
+    unset($ns_user['email']);
+  }
+
   // Set the "source" for this user to Phoenix if they weren't
   // programmatically created through the API.
   if(empty($ns_user['source'])) {
