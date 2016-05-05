@@ -521,6 +521,8 @@ function dosomething_helpers_floor_decimal($value, $decimals = 1) {
   return floor($value * pow(10, $decimals)) / pow(10, $decimals);
 }
 
+
+
 /**
  * Adds custom GA event to page
  *
@@ -701,6 +703,25 @@ function dosomething_helpers_unset_array_keys(array $array = [], array $keys = [
   }
 
   return $array;
+}
+
+/**
+* Checks to see if items are numeric. Unsets anything non-numeric and returns array of numbers (or empty array).
+* @param string|array
+* @return array
+*/
+function dosomething_helpers_unset_non_numeric_array_values($items) {
+  if (is_string($items)) {
+    $items = [$items];
+  }
+  
+  foreach ($items as $key => $item) {
+    if (! is_numeric($item)) {
+      unset($items[$key]);
+    } 
+  }
+
+  return $items;
 }
 
 /**

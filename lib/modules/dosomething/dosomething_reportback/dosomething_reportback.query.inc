@@ -13,7 +13,7 @@
  *   - nid: (string) A campaign node nid to filter by.
  *   - rbid: (string) A reportback rbid to filter by.
  *   - random: (boolean) If set, randomly sort the results.
- *   - runs: (string) Campaign run nid(s) to filter by. 
+ *   - runs: (string|array) Campaign run nid(s) to filter by. 
  * @return SelectQuery object
  */
 function dosomething_reportback_build_reportbacks_query($params = array()) {
@@ -66,12 +66,8 @@ function dosomething_reportback_build_reportbacks_query($params = array()) {
   }
 
   if (isset($params['runs'])) {
-    if (is_array($params['runs'])) {
-      $query->condition('rb.run_nid', $params['runs'], 'IN');
-    } 
-    else {
-      $query->condition('rb.run_nid', $params['runs'], '=');
-    }
+    $params['runs'] = dosomething_helpers_unset_non_numeric_array_values($params['runs']);
+    $query->condition('rb.run_nid', $params['runs'], 'IN');
   }
 
   // Public API properties to expose:
