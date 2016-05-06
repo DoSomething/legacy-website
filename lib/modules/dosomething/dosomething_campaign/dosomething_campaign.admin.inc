@@ -504,14 +504,14 @@ function dosomething_campaign_reportback_config_form_submit(&$form, &$form_state
 }
 
 /**
- * Form constructor for archiving Campaign activity to a Campaign Run.
+ * Form constructor for migrating Campaign activity to a Campaign Run.
  *
  * @param object $node
  *   A loaded campaign node.
  *
  * @ingroup forms
  */
-function dosomething_campaign_archive_activity_form($form, &$form_state, $node) {
+function dosomething_campaign_migrate_activity_form($form, &$form_state, $node) {
   $campaign_runs = dosomething_campaign_get_campaign_runs($node);
   // Should't happen, but just in case:
   if (empty($campaign_runs)) {
@@ -521,22 +521,27 @@ function dosomething_campaign_archive_activity_form($form, &$form_state, $node) 
     return $form;
   }
 
-  $form['source_nid'] = array(
-    '#type' => 'hidden',
-    '#default_value' => $node->nid,
-  );
-  $form['target_nid'] = array(
+  // $form['source_nid'] = array(
+  //   '#type' => 'hidden',
+  //   '#default_value' => $node->nid,
+  // );
+  $form['source_run_nid'] = array(
     '#type' => 'radios',
     '#required' => TRUE,
-    '#title' => t("Archive all current Signups and Reportbacks to:"),
+    '#title' => t("Signups and Reportbacks to be migrated from:"),
     '#options' => $campaign_runs,
-    '#description' => t("Warning! This cannot be undone.  Do not do this unless you really, really mean it."),
+  );
+  $form['target_run_nid'] = array(
+    '#type' => 'radios',
+    '#required' => TRUE,
+    '#title' => t("To:"),
+    '#options' => $campaign_runs,
   );
   $form['actions'] = array(
     '#type' => 'actions',
     'submit' => array(
       '#type' => 'submit',
-      '#value' => t("Archive"),
+      '#value' => t("Migrate"),
     ),
   );
   return $form;
@@ -545,20 +550,20 @@ function dosomething_campaign_archive_activity_form($form, &$form_state, $node) 
 /**
  * Submit callback for dosomething_campaign_reportback_config_form().
  */
-function dosomething_campaign_archive_activity_form_submit(&$form, &$form_state) {
+function dosomething_campaign_migrate_activity_form_submit(&$form, &$form_state) {
   $source_nid = $form_state['values']['source_nid'];
   $target_nid = $form_state['values']['target_nid'];
 
   //@todo Add batch processing for cases where there are large numbers of signups.
 
-  // Update signups.
+  // Migrate signups.
   $num_signups = db_update('dosomething_signup')
     ->fields(array(
       'nid' => $target_nid,
     ))
     ->condition('nid', $source_nid)
     ->execute();
-  // Update reportbacks.
+  // Migrate reportbacks.
   $num_reportbacks = db_update('dosomething_reportback')
     ->fields(array(
       'nid' => $target_nid,
@@ -566,7 +571,7 @@ function dosomething_campaign_archive_activity_form_submit(&$form, &$form_state)
     ->condition('nid', $source_nid)
     ->execute();
 
-  drupal_set_message(t("Archived @signups Signups and @reportbacks Reportbacks from @source to @target.", array(
+  drupal_set_message(t("Migrated @signups Signups and @reportbacks Reportbacks from @source to @target.", array(
     '@signups' => $num_signups,
     '@reportbacks' => $num_reportbacks,
     '@source' => $source_nid,

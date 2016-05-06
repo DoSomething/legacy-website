@@ -137,12 +137,12 @@ function dosomething_campaign_menu() {
     'access arguments' => array(1),
     'file' => 'dosomething_campaign.pages.inc',
   );
-  // Archive Activity form.
-  $items['node/%node/archive'] = array(
-    'title' => 'Archive Activity',
+  // Migrate Activity form.
+  $items['node/%node/migrate'] = array(
+    'title' => 'Migrate Activity',
     'page callback' => 'drupal_get_form',
-    'page arguments' => array('dosomething_campaign_archive_activity_form', 1),
-    'access callback' => 'dosomething_campaign_archive_activity_form_access',
+    'page arguments' => array('dosomething_campaign_migrate_activity_form', 1),
+    'access callback' => 'dosomething_campaign_migrate_activity_form_access',
     'access arguments' => array(1),
     'file' => 'dosomething_campaign.admin.inc',
     'type' => MENU_LOCAL_TASK,
@@ -1184,14 +1184,15 @@ function dosomething_campaign_get_default_gallery_image_urls($size = '300x300') 
 }
 
 /**
- * Access callback for the Archive Activity page callback.
+ * Access callback for the Migrate Activity page callback.
  *
  * @param object $node
- *   Loaded campaign node to check if access to Archive Activity.
+ *   Loaded campaign node to access all runs.
  *
  * @return bool
  */
-function dosomething_campaign_archive_activity_form_access($node) {
+function dosomething_campaign_migrate_activity_form_access($node) {
+
   if (!user_access('administer modules')) {
     return FALSE;
   }
