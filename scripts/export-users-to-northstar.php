@@ -41,7 +41,7 @@ foreach ($users as $user) {
   ]);
 
   // Output progress to stdout & log request details for later review.
-  dosomething_northstar_log_request('migrate', $user, json_encode($ns_user), $response);
+  dosomething_northstar_log_request('migrate', $user, $ns_user, $response);
   echo 'Migrated user ' . $user->uid . ' to Northstar [' . $response->code . ']' . PHP_EOL;
 
   // Store the returned Northstar ID on the user's Drupal profile.
