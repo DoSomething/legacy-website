@@ -1187,7 +1187,7 @@ function dosomething_campaign_get_default_gallery_image_urls($size = '300x300') 
  * Access callback for the Migrate Activity page callback.
  *
  * @param object $node
- *   Loaded campaign node to access all runs.
+ *   Loaded campaign node to check if access to Migrate Activity.
  *
  * @return bool
  */

@@ -504,7 +504,7 @@ function dosomething_campaign_reportback_config_form_submit(&$form, &$form_state
 }
 
 /**
- * Form constructor for migrating Campaign activity to a Campaign Run.
+ * Form constructor for migrating Campaign activity to another Campaign Run.
  *
  * @param object $node
  *   A loaded campaign node.
@@ -551,24 +551,24 @@ function dosomething_campaign_migrate_activity_form($form, &$form_state, $node) 
  * Submit callback for dosomething_campaign_reportback_config_form().
  */
 function dosomething_campaign_migrate_activity_form_submit(&$form, &$form_state) {
-  $source_nid = $form_state['values']['source_nid'];
-  $target_nid = $form_state['values']['target_nid'];
+  $source_nid = $form_state['values']['source_run_nid'];
+  $target_nid = $form_state['values']['target_run_nid'];
 
   //@todo Add batch processing for cases where there are large numbers of signups.
 
   // Migrate signups.
   $num_signups = db_update('dosomething_signup')
     ->fields(array(
-      'nid' => $target_nid,
+      'run_nid' => $target_nid,
     ))
-    ->condition('nid', $source_nid)
+    ->condition('run_nid', $source_nid)
     ->execute();
   // Migrate reportbacks.
   $num_reportbacks = db_update('dosomething_reportback')
     ->fields(array(
-      'nid' => $target_nid,
+      'run_nid' => $target_nid,
     ))
-    ->condition('nid', $source_nid)
+    ->condition('run_nid', $source_nid)
     ->execute();
 
   drupal_set_message(t("Migrated @signups Signups and @reportbacks Reportbacks from @source to @target.", array(
