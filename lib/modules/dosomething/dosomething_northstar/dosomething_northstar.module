@@ -156,17 +156,17 @@ function dosomething_northstar_update_user($form_state) {
     'headers' => $client['headers'],
     'method' => 'PUT',
     'data' => json_encode($ns_user),
-    ));
+  ));
 
+  // Add to request log if enabled.
+  dosomething_northstar_log_request('update_user', $user, $ns_user, $response);
+  
   if ($response->code === '200' && module_exists('stathat')) {
     stathat_send_ez_count('drupal - Northstar - user updated - count', 1);
   }
   elseif ($response->code !== '200') {
     watchdog('dosomething_northstar', 'User not updated : ' . $response->code, NULL, WATCHDOG_ERROR);
   }
-
-  // Add to request log if enabled.
-  dosomething_northstar_log_request('update_user', $user, $ns_user, $response);
 }
 
 /**
