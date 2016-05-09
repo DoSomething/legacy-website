@@ -75,6 +75,17 @@ function dosomething_campaign_menu() {
     'access arguments' => array('administer modules'),
     'file' => 'dosomething_campaign.admin.inc',
   );
+  // Admin page to migrate campaign activity. 
+  $items['admin/config/dosomething/dosomething_campaign/migrate'] = array(
+    'title' => 'Migrate Campaign Activity',
+    'description' => 'Admin form to migrate campaign activity (signups and reportbacks) from one campaign run to another campaign run.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('dosomething_campaign_migrate_activity_form'),
+    'access callback' => 'user_access',
+    'access arguments' => array('administer modules'),
+    'file' => 'dosomething_campaign.admin.inc',
+  );
+
   // Admin campaign status page.
   $items['admin/content/campaign-status'] = array(
     'title' => t('Campaign status'),
@@ -136,17 +147,6 @@ function dosomething_campaign_menu() {
     'access callback' => 'dosomething_campaign_reportback_confirmation_page_access',
     'access arguments' => array(1),
     'file' => 'dosomething_campaign.pages.inc',
-  );
-  // Migrate Activity form.
-  $items['node/%node/migrate'] = array(
-    'title' => 'Migrate Activity',
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('dosomething_campaign_migrate_activity_form', 1),
-    'access callback' => 'dosomething_campaign_migrate_activity_form_access',
-    'access arguments' => array(1),
-    'file' => 'dosomething_campaign.admin.inc',
-    'type' => MENU_LOCAL_TASK,
-    'weight' => 900,
   );
   return $items;
 }
@@ -1184,51 +1184,50 @@ function dosomething_campaign_get_default_gallery_image_urls($size = '300x300') 
 }
 
 /**
- * Access callback for the Migrate Activity page callback.
+ * Access callback for the Migrate Campaign Activity page callback.
  *
  * @param object $node
- *   Loaded campaign node to check if access to Migrate Activity.
+ *   Loaded campaign node to check if access to Migrate Campaign Activity.
  *
  * @return bool
  */
-function dosomething_campaign_migrate_activity_form_access($node) {
-
+function dosomething_campaign_migrate_activity_form_access() {
   if (!user_access('administer modules')) {
     return FALSE;
   }
-  if ($node->type === 'campaign') {
-    $runs = dosomething_campaign_get_campaign_runs($node);
-    return (!empty($runs));
-  }
-  return FALSE;
+
+  // if ($node->type === 'campaign') {
+    // $runs = dosomething_campaign_get_campaign_runs();
+    // return (!empty($runs));
+  // }
+  // return FALSE;
 }
 
 /**
- * Returns array of Campaign Run nodes for a given $node.
+ * Returns Campaign node id.
  *
- * @param object $node
- *   Loaded campaign node to check if access to Archive Activity.
- *
- * @return array
+ * @return string
  */
-function dosomething_campaign_get_campaign_runs($node) {
-  $campaign_runs = array();
-  $query = new EntityFieldQuery();
-  $query->entityCondition('entity_type', 'node')
-    ->entityCondition('bundle', 'campaign_run')
-    ->fieldCondition('field_campaigns', 'target_id', $node->nid, '=');
-  $result = $query->execute();
+// function dosomething_campaign_get_campaign() {
+//   // add box to type in campaign that auto populates what the campaign is. 
 
-  if (isset($result['node'])) {
-    $campaign_run_nids = array_keys($result['node']);
-    $campaign_run_nodes = entity_load('node', $campaign_run_nids);
-    foreach ($campaign_run_nodes as $run) {
-      $campaign_runs[$run->nid] = $run->title;
-    }
-  }
+//   $campaign_runs = array();
+//   $query = new EntityFieldQuery();
+//   $query->entityCondition('entity_type', 'node')
+//     ->entityCondition('bundle', 'campaign_run')
+//     ->fieldCondition('field_campaigns', 'target_id', $node->nid, '=');
+//   $result = $query->execute();
 
-  return $campaign_runs;
-}
+//   if (isset($result['node'])) {
+//     $campaign_run_nids = array_keys($result['node']);
+//     $campaign_run_nodes = entity_load('node', $campaign_run_nids);
+//     foreach ($campaign_run_nodes as $run) {
+//       $campaign_runs[$run->nid] = $run->title;
+//     }
+//   }
+
+//   return $campaign_runs;
+// }
 
 /**
  * Implements hook_flush_caches()

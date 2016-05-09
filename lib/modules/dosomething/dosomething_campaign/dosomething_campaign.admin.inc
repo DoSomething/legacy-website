@@ -511,32 +511,57 @@ function dosomething_campaign_reportback_config_form_submit(&$form, &$form_state
  *
  * @ingroup forms
  */
-function dosomething_campaign_migrate_activity_form($form, &$form_state, $node) {
-  $campaign_runs = dosomething_campaign_get_campaign_runs($node);
+function dosomething_campaign_migrate_activity_form($form, &$form_state) {
+  $form['source_campaign_title'] = array(
+    '#type' => 'entityreference',
+    '#required' => TRUE,
+    '#title' => t('Migrate Campaign Activity From:'),  
+    '#description' => t("Select the campaign you'd like to move campaign activity (signups and reportbacks) FROM."),
+    '#entity_type' => 'node',
+    '#bundles' => array('campaign'),
+  );
+
+  $values[] = array(
+    'entity_id' => $entity_id,
+    'entity_label' => entity_label($element['#entity_type'], $entity),
+    'entity_type' => $entity['#entity_type'],
+    'entity_bundle' => array('campaign'),
+  );
+
+  $form['target_campaign_title'] = array(
+    '#type' => 'textfield',
+    '#required' => TRUE,
+    '#title' => t('Migrate Campaign Activity To:'),  
+    '#description' => t("Select the campaign you'd like to move campaign activity (signups and reportbacks) TO."),
+    '#entity_type' => 'node',
+    '#bundles' => array('campaign'),
+  );
+
+  // $campaign_runs = dosomething_campaign_get_campaign_runs($node);
   // Should't happen, but just in case:
-  if (empty($campaign_runs)) {
-    $form['markup'] = array(
-      '#markup' => t("There are no Campaign Run nodes associated with this campaign."),
-    );
-    return $form;
-  }
+  // if (empty($campaign_runs)) {
+  //   $form['markup'] = array(
+  //     '#markup' => t("There are no Campaign Run nodes associated with this campaign."),
+  //   );
+  //   return $form;
+  // }
 
   // $form['source_nid'] = array(
   //   '#type' => 'hidden',
   //   '#default_value' => $node->nid,
   // );
-  $form['source_run_nid'] = array(
-    '#type' => 'radios',
-    '#required' => TRUE,
-    '#title' => t("Signups and Reportbacks to be migrated from:"),
-    '#options' => $campaign_runs,
-  );
-  $form['target_run_nid'] = array(
-    '#type' => 'radios',
-    '#required' => TRUE,
-    '#title' => t("To:"),
-    '#options' => $campaign_runs,
-  );
+  // $form['source_run_nid'] = array(
+  //   '#type' => 'radios',
+  //   '#required' => TRUE,
+  //   '#title' => t("Signups and Reportbacks to be migrated from:"),
+  //   '#options' => $campaign_runs,
+  // );
+  // $form['target_run_nid'] = array(
+  //   '#type' => 'radios',
+  //   '#required' => TRUE,
+  //   '#title' => t("To:"),
+  //   '#options' => $campaign_runs,
+  // );
   $form['actions'] = array(
     '#type' => 'actions',
     'submit' => array(
@@ -551,30 +576,44 @@ function dosomething_campaign_migrate_activity_form($form, &$form_state, $node) 
  * Submit callback for dosomething_campaign_reportback_config_form().
  */
 function dosomething_campaign_migrate_activity_form_submit(&$form, &$form_state) {
-  $source_nid = $form_state['values']['source_run_nid'];
-  $target_nid = $form_state['values']['target_run_nid'];
+  $source_campaign_title = $form_state['values']['source_campaign_title'];
+  $target_campaign_title = $form_state['values']['target_campaign_title'];
 
-  //@todo Add batch processing for cases where there are large numbers of signups.
+  $source_campaign_nid = db_query('SELECT n.nid
+                         FROM node n
+                         WHERE n.title = :source_campaign_title',
+                         array(
+                          ':source_campaign_title' => $source_campaign_title,
+                         ));
+
+  $target_campaign_nid = db_query('SELECT n.nid
+                         FROM node n
+                         WHERE n.title = :source_campaign_title',
+                         array(
+                         ':source_campaign_title' => $source_campaign_title,
+                         ));
+
+
 
   // Migrate signups.
-  $num_signups = db_update('dosomething_signup')
-    ->fields(array(
-      'run_nid' => $target_nid,
-    ))
-    ->condition('run_nid', $source_nid)
-    ->execute();
+  // $num_signups = db_update('dosomething_signup')
+  //   ->fields(array(
+  //     'run_nid' => $target_nid,
+  //   ))
+  //   ->condition('run_nid', $source_nid)
+  //   ->execute();
   // Migrate reportbacks.
-  $num_reportbacks = db_update('dosomething_reportback')
-    ->fields(array(
-      'run_nid' => $target_nid,
-    ))
-    ->condition('run_nid', $source_nid)
-    ->execute();
+  // $num_reportbacks = db_update('dosomething_reportback')
+  //   ->fields(array(
+  //     'run_nid' => $target_nid,
+  //   ))
+  //   ->condition('run_nid', $source_nid)
+  //   ->execute();
 
-  drupal_set_message(t("Migrated @signups Signups and @reportbacks Reportbacks from @source to @target.", array(
-    '@signups' => $num_signups,
-    '@reportbacks' => $num_reportbacks,
-    '@source' => $source_nid,
-    '@target' => $target_nid,
-  )));
+  // drupal_set_message(t("Migrated @signups Signups and @reportbacks Reportbacks from @source to @target.", array(
+  //   '@signups' => $num_signups,
+  //   '@reportbacks' => $num_reportbacks,
+  //   '@source' => $source_nid,
+  //   '@target' => $target_nid,
+  // )));
 }
