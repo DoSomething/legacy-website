@@ -215,6 +215,7 @@ function dosomething_northstar_build_ns_user($user, $form_state) {
     'mobile' => 'field_mobile',
     'birthdate' => 'field_birthdate',
     'first_name' => 'field_first_name',
+    'last_name' => 'field_last_name',
   ];
 
   // Address fields
