@@ -52,7 +52,7 @@ foreach ($users as $user) {
 }
 
 /**
- *
+ * Build a Northstar request from the $user global variable.
  */
 function build_northstar_user($user) {
   // Optional fields
