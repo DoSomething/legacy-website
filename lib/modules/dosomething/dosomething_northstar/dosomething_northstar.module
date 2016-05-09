@@ -161,6 +161,10 @@ function dosomething_northstar_update_user($user, $payload) {
   if ($response->code === '200' && module_exists('stathat')) {
     stathat_send_ez_count('drupal - Northstar - user updated - count', 1);
   }
+  elseif ($response->code === '404') {
+    // If the given Drupal ID 404s, try to register them.
+    dosomething_northstar_register_user($user, $payload);
+  }
   elseif ($response->code !== '200') {
     watchdog('dosomething_northstar', 'User not updated : ' . $response->code, NULL, WATCHDOG_ERROR);
   }
