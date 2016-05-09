@@ -87,25 +87,24 @@ function dosomething_northstar_save_id_field($user, $northstar_response) {
 
 /**
  * Send user registration events to northstar.
+ *
+ * @param $user - Drupal user object
+ * @param $payload - Array of data to be sent to Northstar
  */
-function dosomething_northstar_register_user($form_state) {
-  global $user;
-  // Build a user that Northstar expects.
-  $ns_user = dosomething_northstar_build_ns_user($user, $form_state);
-  
+function dosomething_northstar_register_user($user, $payload) {
   $client = _dosomething_northstar_build_http_client();
   $response = drupal_http_request($client['base_url'] . '/users', array(
     'headers' => $client['headers'],
     'method' => 'POST',
-    'data' => json_encode($ns_user),
+    'data' => json_encode($payload),
   ));
 
   // Save the newly registered user's ID to their local profile field.
   dosomething_northstar_save_id_field($user, json_decode($response->data));
 
   // Add to request log if enabled.
-  dosomething_northstar_log_request('register_user', $user, $ns_user, $response);
-  
+  dosomething_northstar_log_request('register_user', $user, $payload, $response);
+
   if ($response->code !== '200') {
     watchdog('dosomething_northstar', 'User not migrated : ' . $response->code, NULL, WATCHDOG_ERROR);
     return;
@@ -142,24 +141,22 @@ function _dosomething_northstar_build_http_client() {
 /**
  * Update a user's existing Northstar profile based on
  * their Drupal ID.
- * 
- * @return void
+ *
+ * @param $user - Drupal user object
+ * @param $payload - Array of data to be sent to Northstar
  */
-function dosomething_northstar_update_user($form_state) {
-  $user = $form_state['user'];
-  $id = $user->uid;
-  $ns_user = dosomething_northstar_build_ns_user($user, $form_state);
-
+function dosomething_northstar_update_user($user, $payload) {
   $client = _dosomething_northstar_build_http_client();
 
+  $id = $user->uid;
   $response = drupal_http_request($client['base_url'] . '/users/drupal_id/' . $id, array(
     'headers' => $client['headers'],
     'method' => 'PUT',
-    'data' => json_encode($ns_user),
+    'data' => json_encode($payload),
   ));
 
   // Add to request log if enabled.
-  dosomething_northstar_log_request('update_user', $user, $ns_user, $response);
+  dosomething_northstar_log_request('update_user', $user, $payload, $response);
   
   if ($response->code === '200' && module_exists('stathat')) {
     stathat_send_ez_count('drupal - Northstar - user updated - count', 1);

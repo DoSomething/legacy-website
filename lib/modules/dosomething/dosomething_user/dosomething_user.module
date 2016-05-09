@@ -568,7 +568,9 @@ function dosomething_user_update_user($form, &$form_state) {
   if (!module_exists('dosomething_northstar')) { return; }
   
   // Forward user updates into Northstar.
-  dosomething_northstar_update_user($form_state);
+  $user = $form_state['user'];
+  $northstar_user = dosomething_northstar_build_ns_user($user, $form_state);
+  dosomething_northstar_update_user($user, $northstar_user);
 }
 
 /**
@@ -579,6 +581,8 @@ function dosomething_user_update_user($form, &$form_state) {
  */
 function dosomething_user_new_user($form, &$form_state)
 {
+  global $user;
+  
   // Trigger an analytics event on registration
   // @NOTE: The 'Authentication - Login' event will *also* be triggered here,
   // since registered users are subsequently logged in to their new accounts.
@@ -588,7 +592,10 @@ function dosomething_user_new_user($form, &$form_state)
   _dosomething_user_send_to_message_broker();
 
   if (module_exists('dosomething_northstar')) {
-    dosomething_northstar_register_user($form_state);
+    $northstar_user = dosomething_northstar_build_ns_user($user, $form_state);
+    
+    // Send the prepared user to Northstar.
+    dosomething_northstar_register_user($user, $northstar_user);
   };
 }
 
@@ -659,8 +666,12 @@ function _dosomething_user_send_to_message_broker() {
 
 function dosomething_user_new_user_attributes($form, &$form_state) {
   dosomething_user_set_global_attributes();
+  
   if (module_exists('dosomething_northstar')){
-    dosomething_northstar_update_user($form_state);
+    $user = $form_state['user'];
+    $northstar_user = dosomething_northstar_build_ns_user($user, $form_state);
+    
+    dosomething_northstar_update_user($user, $northstar_user);
   }
 }
 
