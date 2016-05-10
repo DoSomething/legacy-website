@@ -913,8 +913,8 @@ function dosomething_reportback_update_7033() {
 
 /**
  * Bulk excludes backlogged reportbacks on node 362.
- * Updates any fid with a pending status to be marked as excluded if the quantity in the reportback is less than 200.  
- */   
+ * Updates any fid with a pending status to be marked as excluded if the quantity in the reportback is less than 200.
+ */
 function dosomething_reportback_update_7034() {
   $fids_to_be_marked_as_excluded = db_query("SELECT rb.rbid, rb.nid, rb.run_nid, rb.quantity, rbf.status, rbf.fid
                                             FROM dosomething_reportback rb
@@ -931,7 +931,7 @@ function dosomething_reportback_update_7034() {
       ->execute();
 
     $reportback = reportback_load($fid->rbid);
-    
+
     if (empty($reportback)) {
       continue;
     }
@@ -941,7 +941,7 @@ function dosomething_reportback_update_7034() {
 
     foreach ($items as $item) {
       $flagged_fids = [];
-      
+
       if ($item->status === 'flagged') {
         array_push($flagged_fids, $item);
       }
@@ -952,4 +952,11 @@ function dosomething_reportback_update_7034() {
       entity_save('reportback', $reportback);
     }
   }
+}
+
+/**
+ * Remove the progress log table that was used to support the hot module.
+ */
+function dosomething_reportback_update_7035() {
+  db_drop_table('dosomething_reportback_progress_log');
 }
