@@ -294,35 +294,6 @@ function dosomething_campaign_preprocess_hot_module(&$vars, &$wrapper) {
 
   $share_copy = t(variable_get('dosomething_campaign_share_copy', 'Rally your friends to crush this goal!'));
 
-
-  // json file of reportback quantity
-  $quantity_by_date = db_query("SELECT max(quantity) as quantity, max(from_unixtime(timestamp)) as maxdate
-                               FROM dosomething_reportback_progress_log
-                               WHERE nid = :nid
-                               GROUP BY date(from_unixtime(timestamp));", array(':nid' => $vars['nid']))->fetchAll();
-
-  foreach($quantity_by_date as $date) {
-    $maxdate = new DateTime($date->maxdate);
-    $dates[] = $maxdate->format($date_format);
-    $quantities[] = $date->quantity;
-  }
-
-  drupal_add_js(
-    array('dosomethingCampaign' =>
-      array(
-        'goals' => array(
-          'dates' => (isset($dates)) ? $dates : null,
-          'quantities' => (isset($quantities)) ? $quantities : null,
-          'highSeason' => array(
-            'start' => $start_date->format($date_format),
-            'end' => $end_date->format($date_format)
-          )
-        ),
-      ),
-    ),
-    'setting'
-  );
-
   // Share links
   $campaign_path = url(current_path(), array('absolute' => TRUE));
 

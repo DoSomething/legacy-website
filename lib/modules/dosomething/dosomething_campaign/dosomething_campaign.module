@@ -781,25 +781,9 @@ function dosomething_campaign_add_shipment_form_vars($node) {
  *
  * @param array $vars
  *  Campaign node varaible array.
- *
- * @return bool
+ * @deprecated
  */
 function dosomething_campaign_is_hot_module(&$vars) {
-  $hot_module_enabled = dosomething_helpers_get_variable('node', $vars['nid'], 'hot_module_enabled');
-  if ($hot_module_enabled && isset($vars['field_high_season'])) {
-    $timing = dosomething_campaign_get_goals_times($vars);
-
-    // Set the values to the vars array, so we don't need to do the math again.
-    $vars['hm_today'] = $timing['today'];
-    $vars['hm_start_date'] = $timing['start_date'];
-    $vars['hm_end_date'] = $timing['end_date'];
-    $vars['hm_readable_end_date'] = $timing['end_date']->format('F jS h') . ':' . $timing['end_date']->format('ia T');
-
-    // Hot module is only enabled when variable is set, high season dates exist and there is still days left.
-    if (!empty($vars['field_high_season']) && (($timing['start_date'] < $timing['today'])  && ($timing['today'] < $timing['end_date']))) {
-      return TRUE;
-    }
-  }
   return FALSE;
 }
 
@@ -886,26 +870,9 @@ function dosomething_campaign_is_active($node) {
   *
   * @param array $vars
   *  Campaign node varaible array.
-  *
-  * @return bool
+  * @deprecated
   */
  function dosomething_campaign_is_win_module($vars) {
-  $hot_module_enabled = dosomething_helpers_get_variable('node', $vars['nid'], 'hot_module_enabled');
-  $win_module_enabled = variable_get('dosomething_campaign_enable_win_module', NULL);
-  if ($win_module_enabled == 1 && isset($vars['field_high_season']) && $hot_module_enabled) {
-    $timing = dosomething_campaign_get_goals_times($vars);
-
-    // Set the values to the vars array, so we don't need to do the math again.
-    $vars['hm_today'] = $timing['today'];
-    $vars['hm_end_date'] = $timing['end_date'];
-
-    $win_module_end = $timing['win_module_end'];
-
-    // Win module is only enabled when variable is set, high season dates exist and there is still days left.
-    if (!empty($vars['field_high_season']) && (($timing['end_date'] < $timing['today'])  && ($timing['today'] < $win_module_end))) {
-      return TRUE;
-    }
-   }
    return FALSE;
  }
 

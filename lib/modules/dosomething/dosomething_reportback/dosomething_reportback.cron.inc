@@ -21,20 +21,6 @@ function dosomething_reportback_cron() {
                        AND rb.run_nid = run.field_current_run_target_id
                        GROUP BY n.nid;");
 
-  // Updated reportback counts accordingly.
-  foreach ($results as $result) {
-    dosomething_helpers_set_variable('node', $result->nid, 'sum_rb_quantity', (int) $result->total);
-
-    // Add a row to the reportback progress log table.
-    db_insert('dosomething_reportback_progress_log')
-      ->fields(array(
-        'nid' => $result->nid,
-        'quantity' => $result->total,
-        'timestamp' => REQUEST_TIME,
-        ))
-      ->execute();
-  }
-
   // Query for the total quantity for all active campaigns, for all the runs
   $results = db_query("SELECT n.nid, SUM(rb.quantity) as total
                        FROM node n
