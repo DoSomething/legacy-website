@@ -68,7 +68,7 @@ function _kudos_resource_definition() {
         'callback' => '_kudos_resource_create',
         'args' => [
           [
-            'name' => 'reportbackitem_ids',
+            'name' => 'reportback_item_id',
             'description' => 'The id of reportback item to create kudos record.',
             'optional' => FALSE,
             'type' => 'string',
