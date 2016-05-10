@@ -9,7 +9,7 @@
     <p class="photo__caption"><?php print filter_xss($content->caption); ?></p>
   </figcaption>
   <div class="form-actions -inline photo--actions">
-    <li><a class="button -mini js-kudos-like-button">Eat it!</a> <span class="counter"><?php print rand(13, 1042) ?></span></li>
-    <li><a class="button -mini js-kudos-trash-button">Toss it!</a> <span class="counter"><?php print rand(13, 1042) ?></span></li>
+    <li><a class="button -mini js-kudos-like-button">&#128150;</a> <span class="counter"><?php print rand(13, 1042) ?></span></li>
+    <li><a class="button -mini js-kudos-trash-button">&#128169;</a> <span class="counter"><?php print rand(13, 1042) ?></span></li>
   </div>
 </figure>
