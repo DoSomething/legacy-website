@@ -1209,10 +1209,10 @@ function dosomething_reportback_mark_reportback_as_excluded($fid) {
   $reportback = reportback_load($fid->rbid);
 
   if (empty($reportback)) {
-    continue;
+    return;
   }
 
-  // Get all reportback item files associated with reportback. 
+  // Get all reportback item files associated with reportback.
   $items = $reportback->getFids();
   $items = entity_load('reportback_item', $items);
 
