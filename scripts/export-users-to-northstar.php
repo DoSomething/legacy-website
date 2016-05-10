@@ -12,12 +12,14 @@ $last_saved = variable_get('dosomething_northstar_last_user_migrated', NULL);
 if ($last_saved) {
   $users = db_query("SELECT u.uid
             FROM users u
-            WHERE uid > $last_saved");
+            WHERE uid > $last_saved
+            ORDER BY u.uid");
 }
 else {
   // Get all the users!
   $users = db_query('SELECT u.uid
-                   FROM users u');
+                   FROM users u
+                   ORDER BY u.uid');
 }
 
 foreach ($users as $user) {
@@ -38,19 +40,19 @@ foreach ($users as $user) {
     'data' => json_encode($ns_user),
   ]);
 
-  // Log whether the request was successful or not
-  dosomething_northstar_log_request('migrate', $user, json_encode($ns_user), $response);
+  // Output progress to stdout & log request details for later review.
+  dosomething_northstar_log_request('migrate', $user, $ns_user, $response);
+  echo 'Migrated user ' . $user->uid . ' to Northstar [' . $response->code . ']' . PHP_EOL;
 
   // Store the returned Northstar ID on the user's Drupal profile.
-  $northstar_id = isset($response->data->id) ? $response->data->id : 'NONE';
-  user_save($user, ['field_northstar_id' => [LANGUAGE_NONE => [0 => ['value' => $northstar_id]]]]);
+  dosomething_northstar_save_id_field($user, json_decode($response->data));
 
   // If the script fails, we can use this to start the script from a previous person.
   variable_set('dosomething_northstar_last_user_migrated', $user->uid);
 }
 
 /**
- *
+ * Build a Northstar request from the $user global variable.
  */
 function build_northstar_user($user) {
   // Optional fields
@@ -93,6 +95,13 @@ function build_northstar_user($user) {
     if (!empty($field[$drupal_key]['value'])) {
       $ns_user[$ns_key] = $field[$drupal_key]['value'];
     }
+  }
+
+  // If user has a "1234565555@mobile" placeholder username, don't send
+  // that to Northstar (since it will cause a validation error and Northstar
+  // doesn't require every account to have an email like Drupal does).
+  if(preg_match('/^[0-9]+@mobile$/', $ns_user['email'])) {
+    unset($ns_user['email']);
   }
 
   // Set the "source" for this user to Phoenix if they weren't
