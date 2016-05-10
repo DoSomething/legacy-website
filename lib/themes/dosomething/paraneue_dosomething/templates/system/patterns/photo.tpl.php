@@ -1,4 +1,4 @@
-<figure class="photo -stacked -framed">
+<figure class="photo -stacked -framed" data-reportback-item-id="<?php print $content->id; ?>">
 <!--  --><?php //if (isset($content->admin_link)): ?>
 <!--    <div class="admin-edit">-->
 <!--      <a class="button -secondary" href="--><?php //print $content->admin_link; ?><!--">--><?php //print t('Edit Status'); ?><!--</a>-->
@@ -9,7 +9,7 @@
     <p class="photo__caption"><?php print filter_xss($content->caption); ?></p>
   </figcaption>
   <div class="form-actions -inline photo--actions">
-    <li><a class="button -mini js-kudos-like-button">&#128150;</a> <span class="counter"><?php print rand(13, 1042) ?></span></li>
-    <li><a class="button -mini js-kudos-trash-button">&#128169;</a> <span class="counter"><?php print rand(13, 1042) ?></span></li>
+    <li><a class="button -mini js-kudos-button" data-kudo-id="641">&#128150;</a> <span class="counter"><?php print rand(13, 1042) ?></span></li>
+    <li><a class="button -mini js-kudos-button" data-kudo-id="646">&#128169;</a> <span class="counter"><?php print rand(13, 1042) ?></span></li>
   </div>
 </figure>

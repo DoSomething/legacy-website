@@ -1,12 +1,12 @@
 <% if (isListItem) { %><li><% } %>
-<figure class="photo -stacked -framed">
+<figure class="photo -stacked -framed" data-reportback-item-id="...">
   <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=" alt="<%= caption %>" data-src="<%= image %>" />
   <figcaption class="__copy">
     <p class="photo__caption"><%= caption %></p>
   </figcaption>
   <div class="form-actions -inline photo--actions">
-    <li><a class="button -mini js-kudos-like-button">&#128150;</a> <span class="counter"><%= Math.floor(Math.random() * (1000 - 13) + 12) %></span></li>
-    <li><a class="button -mini js-kudos-trash-button">&#128169;</a> <span class="counter"><%= Math.floor(Math.random() * (1000 - 13) + 12) %></span></li>
+    <li><a class="button -mini js-kudos-button" data-kudo-id="641">&#128150;</a> <span class="counter"><%= Math.floor(Math.random() * (1000 - 13) + 12) %></span></li>
+    <li><a class="button -mini js-kudos-button" data-kudo-id="646">&#128169;</a> <span class="counter"><%= Math.floor(Math.random() * (1000 - 13) + 12) %></span></li>
   </div>
 </figure>
 <% if (isListItem) { %></li><% } %>
