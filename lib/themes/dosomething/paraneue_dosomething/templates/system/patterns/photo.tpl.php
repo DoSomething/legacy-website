@@ -8,8 +8,10 @@
   <figcaption class="__copy">
     <p class="photo__caption"><?php print filter_xss($content->caption); ?></p>
   </figcaption>
-  <div class="form-actions -inline photo--actions">
-    <li><a class="button -mini js-kudos-button" data-kudo-id="641">&#128150;</a> <span class="counter"><?php print $content->likes ?></span></li>
-    <li><a class="button -mini js-kudos-button" data-kudo-id="646">&#128169;</a> <span class="counter"><?php print $content->poos ?></span></li>
-  </div>
+  <?php if ($content->allow_reactions): ?>
+    <div class="form-actions -inline photo--actions">
+      <li><a class="button -mini js-kudos-button" data-kudo-id="641">&#128150;</a> <span class="counter"><?php print $content->likes ?></span></li>
+      <li><a class="button -mini js-kudos-button" data-kudo-id="646">&#128169;</a> <span class="counter"><?php print $content->poos ?></span></li>
+    </div>
+  <?php endif; ?>
 </figure>

@@ -238,8 +238,9 @@ function paraneue_dosomething_preprocess_reportback_gallery(&$vars, $count = 6) 
   else {
     $reportbackItems = $promotedReportbackItems;
   }
-
+  $allow_reactions = dosomething_helpers_get_variable('node', $vars['nid'], 'allow_reactions');
   foreach ($reportbackItems as $item) {
+    $item->allow_reactions = $allow_reactions;
     if ($item instanceof ReportbackItem) {
       $gallery['item_ids'][] = $item->id;
     }
