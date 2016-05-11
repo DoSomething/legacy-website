@@ -205,3 +205,21 @@ function dosomething_kudos_get_total_for_file_by_term_name($fid, $term) {
       ->rowCount();
   return $kudos;
 }
+
+/**
+ * Get the ids of Kudos on a file by a user and pair with corresponding term
+ * @param  string $fid
+ * @return array
+ */
+function dosomething_kudos_get_kudos_for_user_by_file($fid) {
+  global $user;
+
+  $kudos = db_select('dosomething_kudos', 'k')
+      ->fields('k', ['tid', 'kid'])
+      ->condition('fid', $fid, '=')
+      ->condition('uid', $user->uid, '=')
+      ->execute()
+      ->fetchAllAssoc('tid');
+
+  return $kudos;
+}
