@@ -47,3 +47,9 @@ function dosomething_kudos_schema() {
   return $schema;
 }
 
+/**
+ * Do not allow duplicates on fid, uid, and tid
+ */
+function dosomething_kudos_update_7001() {
+  db_add_unique_key('dosomething_kudos', 'fid_uid_tid', ['fid', 'uid', 'tid']);
+}

@@ -17,8 +17,15 @@ class KudosController extends EntityAPIController {
    * @throws Exception
    */
   public function create(array $values = []) {
-    $kudos = parent::create($values);
-    $record = $this->save($kudos);
+
+    $duplicate = $this->get($values);
+
+    // Only save the record if it is unique on fid, uid, and tid
+    if(empty($duplicate)) {
+      $kudos = parent::create($values);
+
+      $record = $this->save($kudos);
+    }
 
     if ($record) {
       // For ~reasons~ the entity save doesn't return the entity
