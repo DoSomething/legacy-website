@@ -582,7 +582,7 @@ function dosomething_signup_user_signup($nid, $account = NULL, $source = NULL) {
     }
 
     // Set default signup message if we're still in this function.
-    dosomething_signup_set_signup_message($node->title);
+    dosomething_signup_set_takeover();
   }
 }
 
@@ -812,6 +812,14 @@ function dosomething_signup_set_signup_message($title = NULL) {
   }
   $message = t("You're signed up") . $title . '! ';
   $message .=  t("Get started below.");
+  drupal_set_message($message);
+}
+
+/**
+ * Sets takeover of Drupal message after signup.
+ */
+function dosomething_signup_set_takeover() {
+  $message = "<div class='takeover'>hi</div>";
   drupal_set_message($message);
 }
 
