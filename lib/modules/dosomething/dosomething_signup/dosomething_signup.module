@@ -819,7 +819,7 @@ function dosomething_signup_set_signup_message($title = NULL) {
  * Sets takeover of Drupal message after signup.
  */
 function dosomething_signup_set_takeover() {
-  $message = "<div class='takeover'>hi</div>";
+  $message = "<div class='takeover-container'></div>";
   drupal_set_message($message);
 }
 
