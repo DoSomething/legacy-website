@@ -70,12 +70,6 @@ class KudosTransformer extends Transformer {
    * @return array
    */
   public function create($parameters) {
-    // Retain record of successfully created or failed records to report back to client.
-    $records = [
-      'created' => 0,
-      'failed' => 0,
-    ];
-
     $values = [
       'fid' => $parameters['fid'],
       'uid' => $parameters['uid'],
@@ -85,12 +79,7 @@ class KudosTransformer extends Transformer {
       $values['tid'] = $id;
 
       $record = (new KudosController)->create($values);
-
-      if ($record) {
-        $records['created'] += 1;
-      } else {
-        $records['failed'] += 1;
-      }
+      $records[] = $record;
     }
 
     return $records;
