@@ -355,6 +355,9 @@ function paraneue_dosomething_get_themed_reportback_item($data) {
   if (!$data) {
     return NULL;
   }
+  // Aggregate a like and poo count based on the tid.
+  $data->likes = dosomething_kudos_get_total_for_file_by_term_name($data->id, 'heart');
+  $data->poos = dosomething_kudos_get_total_for_file_by_term_name($data->id, 'poo');
 
   if ($data instanceof ReportbackItem && user_access('view any reportback')) {
     $data->admin_link = '/admin/reportback/' . $data->reportback['id'];
