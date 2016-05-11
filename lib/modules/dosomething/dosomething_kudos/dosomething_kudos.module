@@ -190,13 +190,23 @@ function dosomething_kudos_get_totals_by_taxonomy_term($data) {
 }
 
 /**
+ * Given a term in the kudos vocab, return the tid of that term.
+ * @param  $name string
+ * @return int
+ */
+function dosomething_kudos_get_term_id_by_name($name) {
+  return array_pop(taxonomy_get_term_by_name($name, 'kudos'))->tid;
+
+}
+
+/**
  * Aggregate the total number of Kudos kudoed on a particular file.
  * @param  string $fid
  * @param  string $term
  * @return int
  */
 function dosomething_kudos_get_total_for_file_by_term_name($fid, $term) {
-  $tid = array_pop(taxonomy_get_term_by_name($term, 'kudos'))->tid;
+  $tid = dosomething_kudos_get_term_id_by_name($term);
   $kudos = db_select('dosomething_kudos', 'k')
       ->fields('k')
       ->condition('fid', $fid, '=')

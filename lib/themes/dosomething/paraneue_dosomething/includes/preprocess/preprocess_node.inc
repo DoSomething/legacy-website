@@ -239,8 +239,14 @@ function paraneue_dosomething_preprocess_reportback_gallery(&$vars, $count = 6) 
     $reportbackItems = $promotedReportbackItems;
   }
   $allow_reactions = dosomething_helpers_get_variable('node', $vars['nid'], 'allow_reactions');
+  $allowed_tids = [];
+  if ($allow_reactions) {
+    array_push($allowed_tids, dosomething_kudos_get_term_id_by_name('heart'));
+    array_push($allowed_tids, dosomething_kudos_get_term_id_by_name('poo'));
+  };
   foreach ($reportbackItems as $item) {
     $item->allow_reactions = $allow_reactions;
+    $item->allowed_reactions = $allowed_tids;
     if ($item instanceof ReportbackItem) {
       $gallery['item_ids'][] = $item->id;
     }
