@@ -15,7 +15,7 @@ function paraneue_dosomething_preprocess_html(&$vars) {
   ]);
 
   $vars['drupal_user_id'] = ! empty($user) ? $user->uid : '';
-  $vars['csrf_token'] = drupal_get_token();
+  $vars['csrf_token'] = drupal_get_token('services');
 
   // Used to print current tagged version in page source
   $vars['ds_version'] = variable_get('ds_version', '[dev]');
