@@ -26,7 +26,7 @@ class KudosController extends EntityAPIController {
 
       $record = $this->save($kudos);
     }
-    
+
     if ($record) {
       // For ~reasons~ the entity save doesn't return the entity
       // So we need to query for the record and return it.
