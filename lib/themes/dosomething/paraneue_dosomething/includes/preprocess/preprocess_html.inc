@@ -4,6 +4,8 @@
  * Implements theme_preprocess_html().
  */
 function paraneue_dosomething_preprocess_html(&$vars) {
+  global $user;
+
   // Add theme stylesheet
   drupal_add_css(PARANEUE_PATH . '/dist/app.css', [
     'group' => CSS_THEME,
@@ -11,6 +13,9 @@ function paraneue_dosomething_preprocess_html(&$vars) {
     'every_page' => TRUE,
     'preprocess' => FALSE
   ]);
+
+  $vars['drupal_user_id'] = ! empty($user) ? $user->uid : '';
+  $vars['csrf_token'] = drupal_get_token('services');
 
   // Used to print current tagged version in page source
   $vars['ds_version'] = variable_get('ds_version', '[dev]');
@@ -32,5 +37,4 @@ function paraneue_dosomething_preprocess_html(&$vars) {
     ),
     'setting'
   );
-
 }
