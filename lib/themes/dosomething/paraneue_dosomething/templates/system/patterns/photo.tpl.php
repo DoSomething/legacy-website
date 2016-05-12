@@ -10,8 +10,8 @@
   </figcaption>
   <?php if ($content->allow_reactions): ?>
     <div class="form-actions -inline photo--actions">
-      <li><a class="button -mini js-kudos-button" data-kudo-id="<?php print $content->allowed_reactions[0] ?>">&#128150;</a> <span class="counter"><?php print $content->likes ?></span></li>
-      <li><a class="button -mini js-kudos-button" data-kudo-id="<?php print $content->allowed_reactions[1] ?>">&#128169;</a> <span class="counter"><?php print $content->poos ?></span></li>
+      <li><a class="button -mini js-kudos-button <?php print ! empty($content->existing_kids[$content->allowed_reactions[0]]->kid) ? 'is-active' : '' ?>" data-kudo-id="<?php print $content->allowed_reactions[0] ?>" data-kid="<?php print dosomething_helpers_isset($content->existing_kids[$content->allowed_reactions[0]], 'kid') ?>">&#128150;</a> <span class="counter"><?php print $content->likes ?></span></li>
+      <li><a class="button -mini js-kudos-button <?php print ! empty($content->existing_kids[$content->allowed_reactions[1]]->kid) ? 'is-active' : '' ?>" data-kudo-id="<?php print $content->allowed_reactions[1] ?>" data-kid="<?php print dosomething_helpers_isset($content->existing_kids[$content->allowed_reactions[1]], 'kid') ?>">&#128169;</a> <span class="counter"><?php print $content->poos ?></span></li>
     </div>
   <?php endif; ?>
 </figure>
