@@ -3,4 +3,4 @@ That's it!
 If this is the first time you ran "vagrant up", be sure to read the documentation
 on the dosomething wiki to finish building your local environment:
 
-https://github.com/DoSomething/phoenix/wiki/Building-your-local-environment
+https://github.com/DoSomething/phoenix/wiki/Building-your-local-environment-(NFS)
