@@ -25,15 +25,50 @@
 
     .__copy {
       font-size: $font-smaller;
-      height: 60px;
+      height: 110px;
       line-height: 1.2;
       overflow: hidden;
       margin-top: ($base-spacing / 2);
       word-wrap: break-word;
 
+      .photo__caption {
+        font-family: $font-handwritten;
+        font-size: $font-regular;
+      }
+
+      .footnote {
+        font-size: $font-small;
+      }
+
+      .form-actions {
+        margin-top: 6px;
+      }
+
       @include media($large) {
         font-size: $font-small;
       }
+    }
+  }
+
+  .photo--actions {
+    width: 100%;
+  }
+
+  .photo--shares {
+    float: right;
+    position: relative;
+    top: -24px;
+
+    @include media($mobile) {
+      display: none;
+    }
+
+    li + li {
+      padding-left: 12px;
+    }
+
+    a:after {
+      font-size: 18px;
     }
   }
 

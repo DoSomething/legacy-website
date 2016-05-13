@@ -1,0 +1,34 @@
+.button.-mini {
+  font-size: 13px !important;
+  padding-top: 6px !important;
+  padding-bottom: 4px !important;
+  background: $light-gray;
+  color: $dark-gray;
+  text-transform: none;
+
+  &.is-active {
+    background-color: $purple;
+    color: #fff;
+  }
+}
+
+
+.counter {
+  display: inline-block;
+  color: $med-gray;
+  font-weight: $weight-bold;
+  font-size: 13px !important;
+
+  &.is-active {
+    color: $purple;
+  }
+}
+
+
+.social-icon.-secondary:after {
+  color: $light-gray;
+
+  &:hover {
+    color: $med-gray;
+  }
+}

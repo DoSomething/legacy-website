@@ -17,15 +17,41 @@ class KudosController extends EntityAPIController {
    * @throws Exception
    */
   public function create(array $values = []) {
-    $kudos = parent::create($values);
 
-    $record = $this->save($kudos);
+    $duplicate = $this->get($values);
+
+    // Only save the record if it is unique on fid, uid, and tid
+    if(empty($duplicate)) {
+      $kudos = parent::create($values);
+
+      $record = $this->save($kudos);
+    }
 
     if ($record) {
-      return TRUE;
+      // For ~reasons~ the entity save doesn't return the entity
+      // So we need to query for the record and return it.
+      $kudo = $this->get($values);
+      return $kudo;
     }
 
     return FALSE;
+  }
+
+  /**
+   * Overrides get() method in EntityAPIController.
+   *
+   * @param $values
+   *
+   * @return object
+   */
+  public function get($values) {
+    return db_select('dosomething_kudos', 'k')
+      ->fields('k')
+      ->condition('fid', $values['fid'], '=')
+      ->condition('uid', $values['uid'], '=')
+      ->condition('tid', $values['tid'], '=')
+      ->execute()
+      ->fetchAssoc();
   }
 
   /**
