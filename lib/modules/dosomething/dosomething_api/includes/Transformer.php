@@ -203,7 +203,6 @@ abstract class Transformer {
     // If an instance of Campaign class, then there is much
     // more information that can be obtained.
     if ($data instanceof Campaign) {
-
       // Show all properties for "full" display.
       if ($data->display === 'full') {
         $output['created_at'] = $data->created_at;
@@ -244,6 +243,8 @@ abstract class Transformer {
         $output['causes'] = $data->causes;
 
         $output['action_types'] = $data->action_types;
+
+        $output['attachments'] = $data->attachments;
 
         $output['issue'] = $data->issue;
 
