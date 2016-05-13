@@ -257,13 +257,9 @@ class Campaign {
 
     $items = dosomething_helpers_extract_field_data($this->node->field_downloads);
 
-//    print_r($items);
-
     if (dosomething_helpers_array_is_associative($items)) {
       $items = [$items];
     }
-
-//    print_r($items);
 
     foreach ($items as $item) {
       $attachment = [];
