@@ -353,10 +353,6 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
         '#value' => $config['shipment_item'],
         '#access' => FALSE,
       );
-      // If shipping shirts:
-      if ($config['shipment_item'] == 'shirt') {
-        dosomething_shipment_shirt_form_element($form['elements'], $form_state);
-      }
     }
   }
 
