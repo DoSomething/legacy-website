@@ -1,8 +1,21 @@
- <div class='takeover'>
+<div class='takeover'>
   <h2><%= header %></h2>
   <p><%= caption %></p>
 
-  <div class="takeover__campaigns">
+  <!-- SCREEN 1 -->
+  <div class="takeover__screen takeover__campaigns" data-index="0">
+    <h2>Screen 1</h2>
+  </div>
+  <!-- SCREEN 2 -->
+  <div class="takeover__screen takeover__campaigns" data-index="1">
+    <h2>Screen 2</h2>
+  </div>
+  <!-- SCREEN 3 -->
+  <div class="takeover__screen takeover__campaigns" data-index="2">
+    <h2>Screen 3</h2>
+  </div>
+  <!-- SCREEN 4 -->
+  <div class="takeover__screen takeover__campaigns" data-index="3">
     <% for (var i=0; i < campaigns.length; i++){ %>
       <ul class="form-actions -inline -padded takeover__campaign">
         <li class="takeover__campaign-item">
@@ -15,4 +28,9 @@
       </ul>
     <% } %>
   </div>
- </div>
+
+  <div>
+    <a class="button takeover__previous">Previous</a>
+    <a class="button takeover__next">Next</a>
+  </div>
+</div>

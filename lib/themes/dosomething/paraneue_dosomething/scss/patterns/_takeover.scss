@@ -20,4 +20,12 @@
       }
     }
   }
+
+  .takeover__screen {
+    display: none;
+
+    &.active {
+      display: block;
+    }
+  }
 }
