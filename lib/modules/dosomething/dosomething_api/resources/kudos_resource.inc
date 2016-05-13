@@ -73,7 +73,7 @@ function _kudos_resource_definition() {
             'optional' => FALSE,
             'type' => 'string',
             'source' => [
-              'param' => 'reportback_item_id',
+              'data' => 'reportback_item_id',
             ],
           ],
           [
@@ -82,7 +82,7 @@ function _kudos_resource_definition() {
             'optional' => FALSE,
             'type' => 'string',
             'source' => [
-              'param' => 'user_id',
+              'data' => 'user_id',
             ],
           ],
           [
@@ -91,7 +91,7 @@ function _kudos_resource_definition() {
             'optional' => FALSE,
             'type' => 'array',
             'source' => [
-              'param' => 'term_ids',
+              'data' => 'term_ids',
             ],
           ],
         ],
