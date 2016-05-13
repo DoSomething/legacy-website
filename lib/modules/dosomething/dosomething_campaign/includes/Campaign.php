@@ -6,7 +6,7 @@ class Campaign {
   protected $variables;
 
   /**
-   * Properties always exposed.
+   * Properties exposed in teaser Campaign view.
    */
   public $id;
   public $title;
@@ -237,7 +237,7 @@ class Campaign {
 
   /**
    * Get all affiliates (partners, etc) for the campaign.
-   * 
+   *
    * @return array
    */
   protected function getAffiliates() {
@@ -257,11 +257,19 @@ class Campaign {
 
     $items = dosomething_helpers_extract_field_data($this->node->field_downloads);
 
+//    print_r($items);
+
+    if (dosomething_helpers_array_is_associative($items)) {
+      $items = [$items];
+    }
+
+//    print_r($items);
+
     foreach ($items as $item) {
       $attachment = [];
 
-      $attachment['title'] = !empty($item['title']) ? $item['title'] : NULL;
-      $attachment['description'] = !empty($item['description']) ? $item['description'] : NULL;
+      $attachment['title'] = $item['title'];
+      $attachment['description'] = $item['description'];
       $attachment['uri'] = file_create_url($item['uri']);
       $attachment['type'] = $item['type'];
 
