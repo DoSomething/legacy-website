@@ -257,6 +257,10 @@ class Campaign {
 
     $items = dosomething_helpers_extract_field_data($this->node->field_downloads);
 
+    if (!$items) {
+      return $data;
+    }
+
     if (dosomething_helpers_array_is_associative($items)) {
       $items = [$items];
     }
