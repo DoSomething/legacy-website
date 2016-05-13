@@ -11,6 +11,15 @@ include_once('dosomething_helpers.strongarm.inc');
 include_once('dosomething_helpers.variable.inc');
 include_once('dosomething_helpers.share.inc');
 
+/**
+ * Utility function to determine if an array is associative.
+ *
+ * @param array $data
+ * @return bool
+ */
+function dosomething_helpers_array_is_associative(array $data) {
+  return count(array_filter(array_keys($data), 'is_string')) > 0;
+}
 
 /**
  * Utility function to check if a variable is set, and return it
@@ -148,7 +157,6 @@ function dosomething_helpers_delete_test_nodes() {
   }
 }
 
-
 /**
  * Utility function to extract content data from fields, while accounting
  * for language selection.
@@ -159,66 +167,48 @@ function dosomething_helpers_delete_test_nodes() {
  * @return mixed|null
  */
 function dosomething_helpers_extract_field_data($field, $language = LANGUAGE_NONE) {
-  if (isset($field) && !empty($field)) {
+  if (!isset($field) || empty($field)) {
+    return NULL;
+  }
 
-    // ---
-    // Temporary fix for translatable fields.
-    // If no specific language requested, attempt to return English value first.
-    //
-    // In future the API will be extended with functionally that controls
-    // output language with a URL parameter.
-    if ($language === LANGUAGE_NONE) {
-      if (!empty($field['en'])) {
-        $language = 'en';
-      }
+  $data = dosomething_helpers_get_field_data_by_language($field, $language);
+
+  $values = [];
+
+  foreach ($data as $item => $content) {
+    $keys = array_keys($content);
+
+    if (in_array('date_type', $keys)) {
+      // Date values, so need to extract using custom method.
+      $values[] = dosomething_helpers_extract_field_dates($content);
     }
-    // ---
-
-    if (!array_key_exists($language, $field)) {
-      return NULL;
+    elseif (in_array('country', $keys)) {
+      //TODO: Build function to get all address data, not just country.
+      $values[] = $content['country'];
     }
-
-    $data = $field[$language];
-
-    $values = [];
-
-    foreach ($data as $item => $content) {
-      $keys = array_keys($content);
-
-      if (in_array('date_type', $keys)) {
-        // Date values, so need to extract using custom method.
-        $values[] = dosomething_helpers_extract_field_dates($content);
-      }
-      elseif (in_array('country', $keys)) {
-        //TODO: Build function to get all address data, not just country.
-        $values[] = $content['country'];
-      }
-      elseif (in_array('type', $keys)) {
-        if ($content['type'] === 'image') {
-          $values[] = dosomething_helpers_extract_field_image($content);
-        } else {
-          // Default to first item; typically an id value.
-          $values[] = $content[$keys[0]];
-        }
-      }
-      elseif ($keys[0] === 'value') {
-        // Text value, so need to extract using custom method.
-        $values[] = dosomething_helpers_extract_field_text($content);
-      }
-      else {
-        // ID value.
+    elseif (in_array('type', $keys)) {
+      if ($content['type'] === 'image' || $content['type'] === 'document') {
+        $values[] = dosomething_helpers_extract_field_file_attachment($content);
+      } else {
+        // Default to first item; typically an id value.
         $values[] = $content[$keys[0]];
       }
     }
-
-    if (count($values) > 1) {
-      return $values;
+    elseif ($keys[0] === 'value') {
+      // Text value, so need to extract using custom method.
+      $values[] = dosomething_helpers_extract_field_text($content);
     }
-
-    return $values[0];
+    else {
+      // ID value.
+      $values[] = $content[$keys[0]];
+    }
   }
 
-  return NULL;
+  if (count($values) > 1) {
+    return $values;
+  }
+
+  return $values[0];
 }
 
 
@@ -236,7 +226,8 @@ function dosomething_helpers_extract_field_dates($data) {
   return $values;
 }
 
-function dosomething_helpers_extract_field_image($data) {
+
+function dosomething_helpers_extract_field_file_attachment($data) {
   $values = [];
 
   $values['id'] = isset($data['fid']) ? $data['fid'] : NULL;
@@ -245,6 +236,8 @@ function dosomething_helpers_extract_field_image($data) {
   $values['file_name'] = isset($data['filename']) ? $data['filename'] : NULL;
   $values['file_mime'] = isset($data['filemime']) ? $data['filemime'] : NULL;
   $values['file_size'] = isset($data['filesize']) ? $data['filesize'] : NULL;
+  $values['title'] = isset($data['title']) && !empty($data['title']) ? $data['title'] : NULL;
+  $values['description'] = isset($data['description']) && !empty($data['description']) ? $data['description'] : NULL;
   $values['timestamp'] = isset($data['timestamp']) ? $data['timestamp'] : NULL;
 
   return $values;
@@ -307,6 +300,38 @@ function dosomething_helpers_format_data($data) {
   return $data;
 }
 
+/**
+ * Utility function to extract data translated in the specified language from an
+ * array of available translations.
+ *
+ * @param $field
+ * @param string $language Language selection, defaults to Drupal constant for "undefined".
+ * @return array|null
+ */
+function dosomething_helpers_get_field_data_by_language($field, $language = LANGUAGE_NONE) {
+  if (!$field) {
+    return NULL;
+  }
+
+  // ---
+  // Temporary fix for translatable fields.
+  // If no specific language requested, attempt to return English value first.
+  //
+  // In future the API will be extended with functionally that controls
+  // output language with a URL parameter.
+  if ($language === LANGUAGE_NONE) {
+    if (!empty($field['en'])) {
+      $language = 'en';
+    }
+  }
+  // ---
+
+  if (!array_key_exists($language, $field)) {
+    return NULL;
+  }
+
+  return $field[$language];
+}
 
 /**
  * Wrapper function for Drupal's ip_address function.
@@ -714,11 +739,11 @@ function dosomething_helpers_unset_non_numeric_array_values($items) {
   if (is_string($items)) {
     $items = [$items];
   }
-  
+
   foreach ($items as $key => $item) {
     if (! is_numeric($item)) {
       unset($items[$key]);
-    } 
+    }
   }
 
   return $items;

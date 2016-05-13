@@ -5,17 +5,24 @@ class Campaign {
   protected $node;
   protected $variables;
 
+  /**
+   * Properties exposed in teaser Campaign view.
+   */
   public $id;
   public $title;
   public $display;
   public $tagline;
   public $campaign_runs;
-  public $created_at;
-  public $updated_at;
   public $status;
   public $type;
   public $language;
   public $translations;
+
+  /**
+   * Properties exposed in full Campaign view.
+   */
+  public $created_at;
+  public $updated_at;
   public $time_commitment;
   public $cover_image;
   public $scholarship;
@@ -26,6 +33,7 @@ class Campaign {
   public $latest_news;
   public $causes;
   public $action_types;
+  public $attachments;
   public $issue;
   public $tags;
   public $timing;
@@ -179,6 +187,8 @@ class Campaign {
 
         $this->action_types = $this->getActionTypes();
 
+        $this->attachments = $this->getAttachments();
+
         $this->issue = $this->getIssue();
         $this->tags = $this->getTags();
 
@@ -225,12 +235,48 @@ class Campaign {
     return $data;
   }
 
-  protected function getAffiliates()
-  {
+  /**
+   * Get all affiliates (partners, etc) for the campaign.
+   *
+   * @return array
+   */
+  protected function getAffiliates() {
     // @TODO: Only grabs partners for now. Update with further affiliates as needed.
     return [
       'partners' => $this->getPartners(),
     ];
+  }
+
+  /**
+   * Get all downloadable attachments for the campaign.
+   *
+   * @return array
+   */
+  protected function getAttachments() {
+    $data = [];
+
+    $items = dosomething_helpers_extract_field_data($this->node->field_downloads);
+
+    if (!$items) {
+      return $data;
+    }
+
+    if (dosomething_helpers_array_is_associative($items)) {
+      $items = [$items];
+    }
+
+    foreach ($items as $item) {
+      $attachment = [];
+
+      $attachment['title'] = $item['title'];
+      $attachment['description'] = $item['description'];
+      $attachment['uri'] = file_create_url($item['uri']);
+      $attachment['type'] = $item['type'];
+
+      $data[] = $attachment;
+    }
+
+    return $data;
   }
 
   /**
