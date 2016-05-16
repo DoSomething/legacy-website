@@ -31,6 +31,10 @@
       margin-top: ($base-spacing / 2);
       word-wrap: break-word;
 
+      .photo__caption {
+        font-size: $font-smaller;
+      }
+
       .footnote {
         font-size: $font-small;
       }
