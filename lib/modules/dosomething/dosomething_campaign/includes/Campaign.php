@@ -33,6 +33,7 @@ class Campaign {
   public $latest_news;
   public $causes;
   public $action_types;
+  public $action_guides;
   public $attachments;
   public $issue;
   public $tags;
@@ -187,6 +188,8 @@ class Campaign {
 
         $this->action_types = $this->getActionTypes();
 
+        $this->action_types = $this->getActionGuides();
+
         $this->attachments = $this->getAttachments();
 
         $this->issue = $this->getIssue();
@@ -201,6 +204,42 @@ class Campaign {
       }
 
       $this->reportback_info = $this->getReportbackInfo();
+    }
+  }
+
+  protected function getActionGuides() {
+    $data = [];
+    
+    $action_guide_ids = dosomething_helpers_extract_field_data($this->node->field_action_guide);
+
+    if (! $action_guide_ids) {
+      return $data;
+    }
+
+    if (! is_array($action_guide_ids)) {
+      $action_guide_ids = [$action_guide_ids];
+    }
+
+    $items = node_load_multiple($action_guide_ids);
+
+    foreach ($items as $item) {
+      $action_guide = [];
+
+      $action_guide['id'] = $item->nid;
+      $action_guide['title'] = $item->title;
+      $action_guide['subtitle'] = dosomething_helpers_extract_field_data($item->field_subtitle);
+      $action_guide['description'] = dosomething_helpers_extract_field_data($item->field_description);
+
+      $action_guide['intro']['title'] = dosomething_helpers_extract_field_data($item->field_intro_title);
+      $action_guide['intro']['copy'] = dosomething_helpers_extract_field_data($item->field_intro);
+
+      $action_guide['additional_text']['title'] = dosomething_helpers_extract_field_data($item->field_additional_text_title);
+      $action_guide['additional_text']['copy'] = dosomething_helpers_extract_field_data($item->field_additional_text);
+
+      $action_guide['created_at'] = $item->created;
+      $action_guide['updated_at'] = $item->changed;
+
+      $data[] = $action_guide;
     }
   }
 
