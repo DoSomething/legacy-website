@@ -3,16 +3,20 @@
   <p><%= caption %></p>
 
   <div class="takeover__campaigns">
-     <ul class="form-actions -inline -padded takeover__campaign">
+    <ul class="form-actions -inline -padded takeover__campaign">
         <li class="takeover__campaign-item">
-          <h3>Thumb wars</h3>
-          <p>Description klSJHDADSF ASJDLA KASJDF UWE a lkjsdfhasdkfjh wudahksjdhf suew gkjak utgt akslkguihwh vjaskdjhfau wgag skauwgakja sdf askjdhfluweg akjhsdlkuyfwl </p>
+          <% var campaignsLength = campaigns.length; %>
+          <% for (var i=0; i < campaignsLength; i++){ %>
+          <% console.log(campaigns[0][0]) %>
+            <h3><%= campaigns[i][0] %></h3>
+            <p><%= campaigns[i][1] %></p>
         </li>
       <li class="takeover__campaign-item">
-        <input type="submit" class="button signup-button" value="Signup" data-campaign-id="1173">
+        <input type="submit" class="button signup-button" value="Signup" data-campaign-id=<%= campaigns[i][2] %>>
       </li>
+          <% } %>
     </ul>
-     <ul class="form-actions -inline -padded takeover__campaign">
+    <!--  <ul class="form-actions -inline -padded takeover__campaign">
         <li class="takeover__campaign-item">
         <h3>Space Jam</h3>
         <p>Everybody get up! It's time to JAM now.</p>
@@ -29,6 +33,6 @@
       <li class="takeover__campaign-item">
         <input type="submit" class="button signup-button" value="Signup" data-campaign-id="1283">
       </li>
-    </ul>
+    </ul> -->
   </div>
  </div>
