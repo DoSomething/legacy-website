@@ -14,8 +14,6 @@
  */
 function dosomething_reward_redeem_form($form, &$form_state, $reward) {
   $submit_label = variable_get('dosomething_reward_redeem_form_button_text');
-  $shirt_options = dosomething_shipment_get_shirt_options();
-  $size_options = dosomething_shipment_get_shirt_size_options();
 
   $form['id'] = array(
     '#type' => 'hidden',
@@ -26,9 +24,6 @@ function dosomething_reward_redeem_form($form, &$form_state, $reward) {
 
   // Add Address form fields.
   dosomething_user_address_form_element($form, $form_state);
-
-  // Add Shirt form fields.
-  dosomething_shipment_shirt_form_element($form, $form_state, $friend = TRUE);
 
   $form['actions'] = array(
     '#type' => 'actions',
