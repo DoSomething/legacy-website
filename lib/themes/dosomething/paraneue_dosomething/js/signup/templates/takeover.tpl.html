@@ -7,12 +7,11 @@
         <li class="takeover__campaign-item">
           <% var campaignsLength = campaigns.length; %>
           <% for (var i=0; i < campaignsLength; i++){ %>
-          <% console.log(campaigns[0][0]) %>
-            <h3><%= campaigns[i][0] %></h3>
-            <p><%= campaigns[i][1] %></p>
+            <h3><%= campaigns[i]['title'] %></h3>
+            <p><%= campaigns[i]['blurb'] %></p>
         </li>
       <li class="takeover__campaign-item">
-        <input type="submit" class="button signup-button" value="Signup" data-campaign-id=<%= campaigns[i][2] %>>
+        <input type="submit" class="button signup-button" value="Signup" data-campaign-id=<%= campaigns[i]['nid'] %>>
       </li>
           <% } %>
     </ul>
