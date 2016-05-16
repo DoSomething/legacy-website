@@ -40,7 +40,7 @@
   </section>
 
   <?php if (!empty($reportbacks)): ?>
-    <section class="container">
+    <section class="container -padded">
       <h2 class="heading -banner"><span><?php print t('You Did'); ?></span></h2>
       <div class="wrapper">
         <?php print $reportback_gallery; ?>
