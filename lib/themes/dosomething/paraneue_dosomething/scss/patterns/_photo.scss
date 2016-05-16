@@ -31,11 +31,6 @@
       margin-top: ($base-spacing / 2);
       word-wrap: break-word;
 
-      .photo__caption {
-        font-family: $font-handwritten;
-        font-size: $font-regular;
-      }
-
       .footnote {
         font-size: $font-small;
       }
@@ -53,23 +48,4 @@
   .photo--actions {
     width: 100%;
   }
-
-  .photo--shares {
-    float: right;
-    position: relative;
-    top: -24px;
-
-    @include media($mobile) {
-      display: none;
-    }
-
-    li + li {
-      padding-left: 12px;
-    }
-
-    a:after {
-      font-size: 18px;
-    }
-  }
-
 }
