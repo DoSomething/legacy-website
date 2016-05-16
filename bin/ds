@@ -486,8 +486,8 @@ function pull_db {
       echo "Reverting features..."
       drush -y fra
 
-      echo "Disabling Optimizely module locally."
-      drush -y dis optimizely
+      echo "Disabling external modules locally."
+      drush -y dis optimizely dosomething_northstar dosomething_gladiator
 
       echo "Clearing cache..."
       drush cc all
