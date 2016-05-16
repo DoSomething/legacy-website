@@ -1,6 +1,8 @@
 <article id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?> clearfix"<?php print $attributes; ?>>
 
-  <h2 class="heading -banner"><?php print $title; ?></h2>
+  <div class="modal__block">
+    <h2><?php print $title; ?></h2>
+  </div>
 
   <div class="modal__block">
     <?php if (isset($subtitle)): ?>
