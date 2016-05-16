@@ -244,6 +244,8 @@ abstract class Transformer {
 
         $output['action_types'] = $data->action_types;
 
+        $output['action_guides'] = $data->action_guides;
+
         $output['attachments'] = $data->attachments;
 
         $output['issue'] = $data->issue;
