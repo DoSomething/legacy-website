@@ -188,7 +188,7 @@ class Campaign {
 
         $this->action_types = $this->getActionTypes();
 
-        $this->action_types = $this->getActionGuides();
+        $this->action_guides = $this->getActionGuides();
 
         $this->attachments = $this->getAttachments();
 
@@ -207,9 +207,14 @@ class Campaign {
     }
   }
 
+  /**
+   * Get Action Guides for campaign if available.
+   *
+   * @return array
+   */
   protected function getActionGuides() {
     $data = [];
-    
+
     $action_guide_ids = dosomething_helpers_extract_field_data($this->node->field_action_guide);
 
     if (! $action_guide_ids) {
@@ -241,6 +246,8 @@ class Campaign {
 
       $data[] = $action_guide;
     }
+
+    return $data;
   }
 
   /**
