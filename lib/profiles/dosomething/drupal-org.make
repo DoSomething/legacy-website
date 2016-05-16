@@ -65,7 +65,7 @@ projects[entity_autocomplete][subdir] = "contrib"
 ; Patch adds the status of the actual node, changes header to from "STATUS" to "TRANSLATION STATUS" for more clarity, and changes TRANSLATION STATUS options to Published, Unpublished, or Not translated.
 ; See https://github.com/DoSomething/phoenix/issues/5876 and https://www.drupal.org/node/2702055
 ; Dev branch used: 2015-Aug-16
-projects[entity_translation][version] = "1.x-dev"
+projects[entity_translation][version] = "1.x-beta5"
 projects[entity_translation][subdir] = "contrib"
 projects[entity_translation][patch][] = "https://www.drupal.org/files/issues/entity_translation-adds_node_status_changes_to_unpublished_and_adds_translation_status_to_header-2702055-3-7.43.patch"
 
