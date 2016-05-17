@@ -74,15 +74,16 @@ function dosomething_northstar_verify_user($credentials) {
 /**
  * Save the user's Northstar ID to their local profile.
  *
- * @param $user - Drupal user
+ * @param $uid - Drupal user ID
  * @param $northstar_response - Northstar user JSON response
  */
-function dosomething_northstar_save_id_field($user, $northstar_response) {
+function dosomething_northstar_save_id_field($uid, $northstar_response) {
   $northstar_id = !empty($northstar_response->data->id) ? $northstar_response->data->id : 'NONE';
+  $user = user_load($uid);
 
   $edit = [];
   dosomething_user_set_fields($edit, ['northstar_id' => $northstar_id]);
-  user_save((object) ['uid' => $user->uid], $edit);
+  user_save($user, $edit);
 }
 
 /**
@@ -100,7 +101,7 @@ function dosomething_northstar_register_user($user, $payload) {
   ));
 
   // Save the newly registered user's ID to their local profile field.
-  dosomething_northstar_save_id_field($user, json_decode($response->data));
+  dosomething_northstar_save_id_field($user->uid, json_decode($response->data));
 
   // Add to request log if enabled.
   dosomething_northstar_log_request('register_user', $user, $payload, $response);
