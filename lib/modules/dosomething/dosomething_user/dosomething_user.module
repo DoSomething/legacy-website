@@ -796,7 +796,7 @@ function _dosomething_user_verify_northstar_login($form_state) {
 
   // If the user exists in Northstar, store their ID on their Drupal profile.
   // @TODO: Remove this once we properly back-fill this field!
-  dosomething_northstar_save_id_field($user, $northstar_user);
+  dosomething_northstar_save_id_field($user->uid, $northstar_user);
 }
 
 /**
