@@ -831,37 +831,3 @@ function dosomething_helpers_get_current_campaign_run_for_user($nid, $user = NUL
   // @TODO: may want to investigate how it loads the proper translation...
   return node_load($run['id']);
 }
-
-function dosomething_helpers_user_update(&$edit, $account, $category) {
-  $added_rids = array_diff_key($edit['roles'], $edit['original']->roles);
-  if ($added_rids) {
-    $added_roles = array();
-    foreach ($added_rids as $added_rid) {
-      $added_roles[] = user_role_load($added_rid)->name;
-    }
-    $added_roles = implode(', ', $added_roles);
-    watchdog('dosomething_helpers', 'User given the following roles: !added_roles', array('!added_roles' => $added_roles), WATCHDOG_WARNING, url('user/' . $edit['original']->uid . '/edit'));
-    $params['added_roles'] = $added_roles;
-    $params['account'] = $account;
-    drupal_mail('dosomething_helpers', 'warning', variable_get('devops_email'), language_default()->language, $params);
-  }
-}
-
-function dosomething_helpers_mail($key, &$message, $params) {
-  $data['user'] = $params['account'];
-  $options['language'] = $message['language'];
-  user_mail_tokens($variables, $data, $options);
-  switch($key) {
-    case 'warning':
-      $langcode = language_default()->language;
-      $message['subject'] = t('User Permissions Notification from !site', array('!site' => 'DoSomething.org'), array('langcode' => $langcode));
-      $message['body'][] = t("DevOps! User has received the following roles: !added_roles. !url",
-        array(
-          '!added_roles' => $params['added_roles'],
-          '!url' => url('user/' . $params['account']->uid . '/edit', array('absolute' => TRUE))
-        ),
-        array('langcode' => $langcode)
-        );
-      break;
-  }
-}
