@@ -248,8 +248,6 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
 
     case 'user_profile_form':
     case 'user_register_form':
-      // Gather helper text.
-      _dosomething_user_register_helper_text($form);
       // Conditionally displays certain fields based on configuration settings.
       _dosomething_user_global_display_fields($form);
 
@@ -266,6 +264,8 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
         _dosomething_user_register_display_fields($form);
         // Add campaign data, if needed.
         _dosomething_user_add_signup_data($form);
+        // Gather helper text.
+        _dosomething_user_register_helper_text($form);
       }
       else {
         // If this is not the registration form, then register submit handler
