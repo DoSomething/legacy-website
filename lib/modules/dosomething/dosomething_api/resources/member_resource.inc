@@ -152,6 +152,12 @@ function _member_resource_create($account) {
   if ($user = user_load_by_mail($email)) {
     return services_error(t('Email @email is registered to User uid @uid.', array('@email' => $email, '@uid' => $user->uid)), 403);
   }
+  // Check if account exists for phone.
+  $mobile = $account['mobile'];
+  if ($mobile && $user = dosomething_user_get_user_by_mobile($mobile)) {
+    return services_error(t('Mobile @mobile is registered to User uid @uid.', array('@mobile' => $mobile, '@uid' => $user->uid)), 403);
+  }
+  
   // Initialize array to pass to user_save().
   $edit = array();
   $edit['mail'] = $email;
