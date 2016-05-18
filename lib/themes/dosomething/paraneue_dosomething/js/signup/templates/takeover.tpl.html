@@ -3,16 +3,16 @@
   <p><%= caption %></p>
 
   <div class="takeover__campaigns">
-    <ul class="form-actions -inline -padded takeover__campaign">
+    <% for (var i=0; i < campaigns.length; i++){ %>
+      <ul class="form-actions -inline -padded takeover__campaign">
         <li class="takeover__campaign-item">
-          <% for (var i=0; i < campaigns.length; i++){ %>
-            <h3><%= campaigns[i]['title'] %></h3>
-            <p><%= campaigns[i]['blurb'] %></p>
+              <h3><%= campaigns[i]['title'] %></h3>
+              <p><%= campaigns[i]['blurb'] %></p>
+          </li>
+        <li class="takeover__campaign-item">
+          <input type="submit" class="button signup-button" value="Signup" data-campaign-id=<%= campaigns[i]['nid'] %>>
         </li>
-      <li class="takeover__campaign-item">
-        <input type="submit" class="button signup-button" value="Signup" data-campaign-id=<%= campaigns[i]['nid'] %>>
-      </li>
-          <% } %>
-    </ul>
+      </ul>
+    <% } %>
   </div>
  </div>
