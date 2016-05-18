@@ -152,6 +152,12 @@ function _member_resource_create($account) {
   if ($user = user_load_by_mail($email)) {
     return services_error(t('Email @email is registered to User uid @uid.', array('@email' => $email, '@uid' => $user->uid)), 403);
   }
+  // Check if account exists for phone.
+  $mobile = $account['mobile'];
+  if ($mobile && $user = dosomething_user_get_user_by_mobile($mobile)) {
+    return services_error(t('Mobile @mobile is registered to User uid @uid.', array('@mobile' => $mobile, '@uid' => $user->uid)), 403);
+  }
+  
   // Initialize array to pass to user_save().
   $edit = array();
   $edit['mail'] = $email;
@@ -168,7 +174,7 @@ function _member_resource_create($account) {
     'first_name' => $account['first_name'],
     'country' => dosomething_settings_get_affiliate_country_code(),
     'last_name' => !empty($account['last_name']) ? $account['last_name'] : NULL,
-    'mobile' => !empty($account['mobile']) ? $account['mobile'] : NULL,
+    'mobile' => !empty($account['mobile']) ? dosomething_user_clean_mobile_number($account['mobile']) : NULL,
     'user_registration_source' => !empty($account['user_registration_source']) ? $account['user_registration_source'] : NULL,
   );
 
