@@ -130,7 +130,7 @@ function _member_resource_access($op) {
 /**
  * Callback for User create.
  *
- * @param obj $account
+ * @param $account
  *   Array passed to the endpoint. Possible keys:
  *   - email (string). Required.
  *   - password (string).
@@ -150,14 +150,14 @@ function _member_resource_create($account) {
   $email = $account['email'];
   // Check if account exists for email.
   if ($user = user_load_by_mail($email)) {
-    return services_error(t('Email @email is registered to User uid @uid.', array('@email' => $email, '@uid' => $user->uid)), 403);
+    return services_error(t('Email @email is registered to User uid @uid.', ['@email' => $email, '@uid' => $user->uid]), 403);
   }
   // Check if account exists for phone.
   $mobile = $account['mobile'];
   if ($mobile && $user = dosomething_user_get_user_by_mobile($mobile)) {
-    return services_error(t('Mobile @mobile is registered to User uid @uid.', array('@mobile' => $mobile, '@uid' => $user->uid)), 403);
+    return services_error(t('Mobile @mobile is registered to User uid @uid.', ['@mobile' => $mobile, '@uid' => $user->uid]), 403);
   }
-  
+
   // Initialize array to pass to user_save().
   $edit = array();
   $edit['mail'] = $email;
@@ -172,13 +172,16 @@ function _member_resource_create($account) {
   $fields = array(
     'birthdate' => $account['birthdate'],
     'first_name' => $account['first_name'],
-    'country' => dosomething_settings_get_affiliate_country_code(),
+    'country' => !empty($account['country']) ? $account['country'] : 'US',
     'last_name' => !empty($account['last_name']) ? $account['last_name'] : NULL,
     'mobile' => !empty($account['mobile']) ? dosomething_user_clean_mobile_number($account['mobile']) : NULL,
     'user_registration_source' => !empty($account['user_registration_source']) ? $account['user_registration_source'] : NULL,
   );
 
   dosomething_user_set_fields($edit, $fields);
+
+  // Infer the user's language from their country code field.
+  $edit['language'] = dosomething_global_convert_country_to_language($fields['country']);
 
   try {
     $account = user_save('', $edit);
