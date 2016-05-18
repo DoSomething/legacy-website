@@ -130,7 +130,7 @@ function _member_resource_access($op) {
 /**
  * Callback for User create.
  *
- * @param obj $account
+ * @param $account
  *   Array passed to the endpoint. Possible keys:
  *   - email (string). Required.
  *   - password (string).
@@ -172,7 +172,7 @@ function _member_resource_create($account) {
   $fields = array(
     'birthdate' => $account['birthdate'],
     'first_name' => $account['first_name'],
-    'country' => dosomething_settings_get_affiliate_country_code(),
+    'country' => !empty($account['country']) ? $account['country'] : 'US',
     'last_name' => !empty($account['last_name']) ? $account['last_name'] : NULL,
     'mobile' => !empty($account['mobile']) ? dosomething_user_clean_mobile_number($account['mobile']) : NULL,
     'user_registration_source' => !empty($account['user_registration_source']) ? $account['user_registration_source'] : NULL,
