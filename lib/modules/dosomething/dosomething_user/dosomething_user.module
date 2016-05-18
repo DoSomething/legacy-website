@@ -560,13 +560,13 @@ function dosomething_user_user_pass_submit($form, &$form_state) {
 /**
  * Custom form submission handler to update an existing user.
  * Triggered when making changes on the user profile form.
- * 
+ *
  * @param $form
  * @param $form_state
  */
 function dosomething_user_update_user($form, &$form_state) {
   if (!module_exists('dosomething_northstar')) { return; }
-  
+
   // Forward user updates into Northstar.
   $user = $form_state['user'];
   $northstar_user = dosomething_northstar_build_ns_user($user, $form_state);
@@ -582,7 +582,7 @@ function dosomething_user_update_user($form, &$form_state) {
 function dosomething_user_new_user($form, &$form_state)
 {
   global $user;
-  
+
   // Trigger an analytics event on registration
   // @NOTE: The 'Authentication - Login' event will *also* be triggered here,
   // since registered users are subsequently logged in to their new accounts.
@@ -593,7 +593,7 @@ function dosomething_user_new_user($form, &$form_state)
 
   if (module_exists('dosomething_northstar')) {
     $northstar_user = dosomething_northstar_build_ns_user($user, $form_state);
-    
+
     // Send the prepared user to Northstar.
     dosomething_northstar_register_user($user, $northstar_user);
   };
@@ -666,11 +666,11 @@ function _dosomething_user_send_to_message_broker() {
 
 function dosomething_user_new_user_attributes($form, &$form_state) {
   dosomething_user_set_global_attributes();
-  
+
   if (module_exists('dosomething_northstar')){
     $user = $form_state['user'];
     $northstar_user = dosomething_northstar_build_ns_user($user, $form_state);
-    
+
     dosomething_northstar_update_user($user, $northstar_user);
   }
 }
@@ -1703,5 +1703,45 @@ function dosomething_user_views_pre_render(&$view) {
     // Remove grouping labels
     $table_style = 'table caption { display: none }';
     drupal_add_css($table_style, ['type' => 'inline']);
+  }
+}
+
+/**
+ * Implements hook_user_update().
+ */
+function dosomething_user_user_update(&$edit, $account, $category) {
+  $added_rids = array_diff_key($edit['roles'], $edit['original']->roles);
+  if ($added_rids) {
+    $added_roles = array();
+    foreach ($added_rids as $added_rid) {
+      $added_roles[] = user_role_load($added_rid)->name;
+    }
+    $added_roles = implode(', ', $added_roles);
+    watchdog('dosomething_user', 'User given the following roles: !added_roles', array('!added_roles' => $added_roles), WATCHDOG_WARNING, url('user/' . $edit['original']->uid . '/edit'));
+    $params['added_roles'] = $added_roles;
+    $params['account'] = $account;
+    drupal_mail('dosomething_user', 'warning', variable_get('devops_email'), language_default()->language, $params);
+  }
+}
+
+/**
+ * Implements hook_mail().
+ */
+function dosomething_user_mail($key, &$message, $params) {
+  $data['user'] = $params['account'];
+  $options['language'] = $message['language'];
+  user_mail_tokens($variables, $data, $options);
+  switch($key) {
+    case 'warning':
+      $langcode = language_default()->language;
+      $message['subject'] = t('User Permissions Notification from !site', array('!site' => 'DoSomething.org'), array('langcode' => $langcode));
+      $message['body'][] = t("DevOps! User has received the following roles: !added_roles. !url",
+        array(
+          '!added_roles' => $params['added_roles'],
+          '!url' => url('user/' . $params['account']->uid . '/edit', array('absolute' => TRUE))
+        ),
+        array('langcode' => $langcode)
+        );
+      break;
   }
 }
