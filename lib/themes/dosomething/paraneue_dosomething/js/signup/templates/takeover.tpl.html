@@ -3,32 +3,16 @@
   <p><%= caption %></p>
 
   <div class="takeover__campaigns">
-     <ul class="form-actions -inline -padded takeover__campaign">
+    <% for (var i=0; i < campaigns.length; i++){ %>
+      <ul class="form-actions -inline -padded takeover__campaign">
         <li class="takeover__campaign-item">
-          <h3>Thumb wars</h3>
-          <p>Description klSJHDADSF ASJDLA KASJDF UWE a lkjsdfhasdkfjh wudahksjdhf suew gkjak utgt akslkguihwh vjaskdjhfau wgag skauwgakja sdf askjdhfluweg akjhsdlkuyfwl </p>
-        </li>
-      <li class="takeover__campaign-item">
-        <input type="submit" class="button signup-button" value="Signup" data-campaign-id="1173">
-      </li>
-    </ul>
-     <ul class="form-actions -inline -padded takeover__campaign">
+              <h3><%= campaigns[i]['title'] %></h3>
+              <p><%= campaigns[i]['blurb'] %></p>
+          </li>
         <li class="takeover__campaign-item">
-        <h3>Space Jam</h3>
-        <p>Everybody get up! It's time to JAM now.</p>
+          <input type="submit" class="button signup-button" value="Signup" data-campaign-id=<%= campaigns[i]['nid'] %>>
         </li>
-      <li class="takeover__campaign-item">
-        <input type="submit" class="button signup-button" value="Signup" data-campaign-id="1631">
-      </li>
-    </ul>
-     <ul class="form-actions -inline -padded takeover__campaign">
-        <li class="takeover__campaign-item">
-        <h3>Patient Playbook</h3>
-        <p>Description klSJHDADSF ASJDLA KASJDF UWE a lkjsdfhasdkfjh wudahksjdhf suew gkjak utgt akslkguihwh vjaskdjhfau wgag skauwgakja sdf askjdhfluweg akjhsdlkuyfwl </p>
-        </li>
-      <li class="takeover__campaign-item">
-        <input type="submit" class="button signup-button" value="Signup" data-campaign-id="1283">
-      </li>
-    </ul>
+      </ul>
+    <% } %>
   </div>
  </div>

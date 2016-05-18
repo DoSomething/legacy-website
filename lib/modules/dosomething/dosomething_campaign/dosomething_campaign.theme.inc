@@ -388,6 +388,29 @@ function dosomething_campaign_preprocess_media_vars(&$vars, &$wrapper) {
 function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
   $campaign = $vars['campaign'];
 
+  // Get 3 recommended campaigns from recommendation engine.
+  $signup_takeover_recommended_nids = dosomething_campaign_get_recommended_campaign_nids(NULL, NULL, 3);
+  $signup_takeover_recommended_campaigns = [];
+
+  foreach ($signup_takeover_recommended_nids as $campaign) {
+    $campaign_array = [];
+    $campaign_object = node_load($campaign);
+    $campaign_array['title'] = $campaign_object->title;
+    $campaign_array['blurb'] = $campaign_object->field_call_to_action['en'][0]['value'];
+    $campaign_array['nid'] = $campaign;
+    array_push($signup_takeover_recommended_campaigns, $campaign_array);
+  }
+
+  // Send 3 campaigns to signup takeover, prompting user to signup for multiple campaigns.
+  drupal_add_js(
+    array(
+      'dosomethingCampaign' => array(
+        'recommendedCampaigns' => $signup_takeover_recommended_campaigns,
+      ),
+    ),
+    array('type' => 'setting')
+  );
+
   // Progress
   $vars['campaign_progress'] = dosomething_reportback_get_reportback_total_plus_override($vars['nid']);
 
