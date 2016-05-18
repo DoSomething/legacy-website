@@ -1706,6 +1706,9 @@ function dosomething_user_views_pre_render(&$view) {
   }
 }
 
+/**
+ * Implements hook_user_update().
+ */
 function dosomething_user_user_update(&$edit, $account, $category) {
   $added_rids = array_diff_key($edit['roles'], $edit['original']->roles);
   if ($added_rids) {
@@ -1721,6 +1724,9 @@ function dosomething_user_user_update(&$edit, $account, $category) {
   }
 }
 
+/**
+ * Implements hook_mail().
+ */
 function dosomething_user_mail($key, &$message, $params) {
   $data['user'] = $params['account'];
   $options['language'] = $message['language'];
