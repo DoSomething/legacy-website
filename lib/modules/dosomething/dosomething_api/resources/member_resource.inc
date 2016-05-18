@@ -150,14 +150,14 @@ function _member_resource_create($account) {
   $email = $account['email'];
   // Check if account exists for email.
   if ($user = user_load_by_mail($email)) {
-    return services_error(t('Email @email is registered to User uid @uid.', array('@email' => $email, '@uid' => $user->uid)), 403);
+    return services_error(t('Email @email is registered to User uid @uid.', ['@email' => $email, '@uid' => $user->uid]), 403);
   }
   // Check if account exists for phone.
   $mobile = $account['mobile'];
   if ($mobile && $user = dosomething_user_get_user_by_mobile($mobile)) {
-    return services_error(t('Mobile @mobile is registered to User uid @uid.', array('@mobile' => $mobile, '@uid' => $user->uid)), 403);
+    return services_error(t('Mobile @mobile is registered to User uid @uid.', ['@mobile' => $mobile, '@uid' => $user->uid]), 403);
   }
-  
+
   // Initialize array to pass to user_save().
   $edit = array();
   $edit['mail'] = $email;
@@ -179,6 +179,20 @@ function _member_resource_create($account) {
   );
 
   dosomething_user_set_fields($edit, $fields);
+
+  // Set user's language if provided, or infer from country code
+  if(! empty($account['language'])) {
+    $languages = array_keys(variable_get('dosomething_global_language_map', ''));
+
+    // Only allow whitelisted languages.
+    if(! in_array($account['language'], $languages)) {
+      return services_error(t('The language @language is not supported.', ['@language' => $account['language']]), 422);
+    }
+
+    $edit['language'] = $account['language'];
+  } else {
+    $edit['language'] = dosomething_global_convert_country_to_language($fields['country']);
+  }
 
   try {
     $account = user_save('', $edit);
