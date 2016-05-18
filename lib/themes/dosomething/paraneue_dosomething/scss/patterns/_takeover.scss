@@ -1,4 +1,16 @@
+$transition: 1s;
+
 .takeover {
+  position: relative;
+  height: 450px;
+  // background-color: $yellow;
+
+  &:after {
+    clear: both;
+    content: "";
+    display: table;
+  }
+
   h2, h3 {
     color: $white;
   }
@@ -6,7 +18,7 @@
   .takeover__campaign {
     .takeover__campaign-item {
       display: block;
-      width: 100%;
+      // width: 100%;
       text-align: left;
       padding-left: 0px;
 
@@ -18,14 +30,26 @@
   }
 
   .takeover__screen {
+    position: absolute;
+    left: -100000px;
+    transition: $transition;
     display: none;
 
     &.active {
       display: block;
+      left: 0px;
+      transition: $transition;
+
+      .takeover__campaign-item {
+        // width: 100%;
+        // transition: .5s;
+      }
     }
   }
 
   .takeover__buttons {
+    position: absolute;
+    bottom: 0px;
     padding-top: $base-spacing;
   }
 }
