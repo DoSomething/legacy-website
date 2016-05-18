@@ -2,7 +2,11 @@ Vagrant.configure("2") do |config|
 
   ## Choose your base box
   config.vm.box = "dosomething/phoenix"
-  config.vm.box_version = "1.0.8"
+  if ENV['DS_VAGRANT_BETA']
+    config.vm.box_version = "2.0.0.beta1"
+  else
+    config.vm.box_version = "1.0.8"
+  end
 
   config.vm.provider "virtualbox" do |v|
     v.customize ["modifyvm", :id, "--memory", 3072]
@@ -20,14 +24,9 @@ Vagrant.configure("2") do |config|
   config.ssh.forward_agent = true
 
   # Mount shared folders
-  if ENV['DS_VAGRANT_MOUNT_NFS']
-    # NFS
-    config.vm.network :private_network, ip: "10.11.12.13"
-    config.vm.synced_folder ".", "/var/www/dev.dosomething.org", type: "nfs"
-  else
-    # SSHFS -- reverse mount from within Vagrant box
-    config.sshfs.paths = { "/var/www/dev.dosomething.org" => "../dosomething-mount" }
-  end
+  # NFS
+  config.vm.network :private_network, ip: "10.11.12.13"
+  config.vm.synced_folder ".", "/var/www/dev.dosomething.org", type: "nfs"
 
   # Allow `npm link` for Neue
   if File.exists?("/usr/local/lib/node_modules/@dosomething/forge")
@@ -51,6 +50,9 @@ Vagrant.configure("2") do |config|
   # Solr.
   config.vm.network :forwarded_port, guest: 8983, host: 8983
 
-  config.vm.provision :shell, :inline => 'more /vagrant/scripts/install_complete.txt'
-end
+  # Welcome message.
+  config.vm.provision :shell do |h|
+    h.inline = 'cat /var/www/dev.dosomething.org/scripts/install_complete.txt'
+  end
 
+end

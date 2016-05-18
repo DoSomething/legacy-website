@@ -1,23 +1,52 @@
+$transition: .7s;
+
 .takeover {
-  h2 {
+  position: relative;
+  height: 600px;
+  overflow: hidden;
+
+  &:after {
+    clear: both;
+    content: "";
+    display: table;
+  }
+
+
+  @include media($medium) {
+    height: 450px;
+  }
+
+  h2, h3 {
     color: $white;
   }
 
-  .takeover__campaign {
+  .takeover__screen {
+    position: absolute;
+    left: -1400px;
+    transition: $transition;
+    max-width: 1350px;
+
+    &.active {
+      left: 0px;
+      transition: $transition;
+    }
+
     .takeover__campaign-item {
       display: block;
       width: 100%;
       text-align: left;
       padding-left: 0px;
 
-      h3 {
-        color: $white;
-      }
-
       @include media($medium) {
         display: table-cell;
         padding-left: $base-spacing;
       }
     }
+  }
+
+  .takeover__buttons {
+    position: absolute;
+    bottom: 0px;
+    padding-top: $base-spacing;
   }
 }
