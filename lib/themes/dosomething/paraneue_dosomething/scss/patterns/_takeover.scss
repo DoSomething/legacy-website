@@ -1,9 +1,9 @@
-$transition: 1s;
+$transition: .7s;
 
 .takeover {
   position: relative;
-  height: 450px;
-  // background-color: $yellow;
+  height: 600px;
+  overflow: hidden;
 
   &:after {
     clear: both;
@@ -11,38 +11,35 @@ $transition: 1s;
     display: table;
   }
 
+
+  @include media($medium) {
+    height: 450px;
+  }
+
   h2, h3 {
     color: $white;
   }
 
-  .takeover__campaign {
+  .takeover__screen {
+    position: absolute;
+    left: -1400px;
+    transition: $transition;
+    max-width: 1350px;
+
+    &.active {
+      left: 0px;
+      transition: $transition;
+    }
+
     .takeover__campaign-item {
       display: block;
-      // width: 100%;
+      width: 100%;
       text-align: left;
       padding-left: 0px;
 
       @include media($medium) {
         display: table-cell;
         padding-left: $base-spacing;
-      }
-    }
-  }
-
-  .takeover__screen {
-    position: absolute;
-    left: -100000px;
-    transition: $transition;
-    display: none;
-
-    &.active {
-      display: block;
-      left: 0px;
-      transition: $transition;
-
-      .takeover__campaign-item {
-        // width: 100%;
-        // transition: .5s;
       }
     }
   }
