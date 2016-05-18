@@ -31,7 +31,7 @@ function paraneue_dosomething_get_gallery_item($content, $type = 'figure', $use_
 
     if (empty($content['image'])) {
       $content['image'] = theme('image', array(
-        'path' => FORGE_ASSET_PATH . '/dist/assets/images/apple-touch-icon-precomposed.png'
+        'path' => FORGE_ASSET_PATH . '/assets/images/apple-touch-icon-precomposed.png'
       ));
     }
   }
