@@ -69,15 +69,13 @@ function paraneue_dosomething_add_info_bar(&$vars) {
   if (module_exists('dosomething_global')) {
     $country_code = dosomething_global_get_current_prefix();
 
-    if ($country_code) {
-      $country_contact_emails = array(
-        'br' => 'ajuda@dosomething.org',
-        'mx' => 'ayuda@dosomething.org',
-        );
-    }
+    $country_contact_emails = [
+      'br' => 'ajuda@dosomething.org',
+      'mx' => 'ayuda@dosomething.org',
+    ];
 
     // For the countries in $country_contact_emails, use a contact email address instead of zendesk form.
-    if (array_key_exists($country_code, $country_contact_emails)) {
+    if ($country_code && array_key_exists($country_code, $country_contact_emails)) {
       $info_bar_vars['contact_us_email'] = '<a href="mailto:' . $country_contact_emails[$country_code] .'">'. $country_contact_emails[$country_code] . '</a>';
       // All other countries get the zendesk form.
     }
