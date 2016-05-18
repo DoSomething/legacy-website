@@ -1,5 +1,5 @@
 .takeover {
-  h2 {
+  h2, h3 {
     color: $white;
   }
 
@@ -9,10 +9,6 @@
       width: 100%;
       text-align: left;
       padding-left: 0px;
-
-      h3 {
-        color: $white;
-      }
 
       @include media($medium) {
         display: table-cell;
