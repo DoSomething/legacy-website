@@ -42,16 +42,6 @@ function dosomething_api_services_resources() {
   return $resources;
 }
 
-
-/**
- * Implements hook_ctools_plugin_directory().
- */
-function dosomething_api_ctools_plugin_directory($module, $plugin) {
-  if ($module == 'restful') {
-    return 'plugins/' . $plugin;
-  }
-}
-
 /**
  * Implements hook_flush_caches().
  *
