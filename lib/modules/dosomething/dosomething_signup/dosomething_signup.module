@@ -581,8 +581,36 @@ function dosomething_signup_user_signup($nid, $account = NULL, $source = NULL) {
       return;
     }
 
-    // Set default signup message if we're still in this function.
-    dosomething_signup_set_takeover();
+    $existing_user = dosomething_signup_is_existing_user($account->uid, $sid);
+
+    // Set signup message, depending on type of user with specific params.
+    if ($existing_user) {
+      // pass repeat-signup-existing in source param to dosomething_signup_set_takeover();
+    }
+    else {
+      // pass repeat-signup-new in source param to
+      dosomething_signup_set_takeover();
+    }
+  }
+}
+
+/**
+ * Returns true if user is an existing user.
+ * @param object $user
+ *  The user object.
+ * @param int $sid
+ * The signup id the user just signed up for.
+ */
+function dosomething_signup_is_existing_user($uid, $sid) {
+  $signup = signup_load($sid);
+  $user = user_load($uid);
+
+  // Check to see if the user was created at the same time as the signup
+  if ($user->created != $signup->timestamp) {
+    return TRUE;
+  }
+  else {
+    return FALSE;
   }
 }
 
@@ -841,7 +869,7 @@ function dosomething_signup_set_presignup_message($title) {
 }
 
 /**
- * Returns total number of Signups based on supplied set of filters. 
+ * Returns total number of Signups based on supplied set of filters.
  *
  * @param array $filters
  * @return int

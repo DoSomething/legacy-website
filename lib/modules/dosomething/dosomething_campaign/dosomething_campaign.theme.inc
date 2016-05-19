@@ -10,7 +10,7 @@
  */
 function dosomething_campaign_preprocess_node(&$vars) {
   if ($vars['type'] != 'campaign' || $vars['view_mode'] != 'full') return;
-  dosomething_signup_set_takeover();
+  // dosomething_signup_set_takeover();
   $node = $vars['node'];
   $vars['campaign'] = dosomething_campaign_load($node);
 
