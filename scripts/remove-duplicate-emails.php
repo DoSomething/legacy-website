@@ -6,7 +6,9 @@
  * drush --script-path=../scripts/ php-script remove-duplicate-emails.php
  */
 
-$users = db_query('SELECT * FROM users u WHERE mail IN (SELECT mail FROM users GROUP BY mail HAVING COUNT(mail) > 1);');
+$users = db_query('SELECT * FROM users 
+  WHERE mail IN (SELECT mail FROM users GROUP BY mail HAVING COUNT(mail) > 1)
+  AND uid NOT IN (SELECT MIN(uid) FROM users GROUP BY mail HAVING COUNT(mail) > 1)');
 
 foreach ($users as $user) {
   $user = user_load($user->uid);
