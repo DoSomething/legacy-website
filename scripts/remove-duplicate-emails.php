@@ -14,7 +14,7 @@ foreach ($users as $user) {
   $user = user_load($user->uid);
 
   if($user->access == 0) {
-    print 'Deleting ' . $user->uid . ' ('. $user->mail . ')' . PHP_EOL;
+    print 'Deleting ' . $user->uid . ' (' . $user->mail . ')' . PHP_EOL;
 
     $northstar_id = $user->field_northstar_id[LANGUAGE_NONE][0]['value'];
 
@@ -24,6 +24,6 @@ foreach ($users as $user) {
 
     user_delete($user->uid);
   } else {
-    print 'Ignoring duplicate ' . $user->uid . ' ('. $user->mail . ')' . PHP_EOL;
+    print 'Ignoring duplicate ' . $user->uid . ' (' . $user->mail . ')' . PHP_EOL;
   }
 }
