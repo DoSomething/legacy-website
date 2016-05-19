@@ -159,7 +159,7 @@ function _member_resource_create($account) {
   }
 
   // Initialize array to pass to user_save().
-  $edit = array();
+  $edit = [];
   $edit['mail'] = $email;
   $edit['name'] = $email;
   $edit['status'] = 1;
@@ -169,14 +169,14 @@ function _member_resource_create($account) {
   }
 
   // List of available properties to save:
-  $fields = array(
+  $fields = [
     'birthdate' => $account['birthdate'],
     'first_name' => $account['first_name'],
     'country' => !empty($account['country']) ? $account['country'] : 'US',
     'last_name' => !empty($account['last_name']) ? $account['last_name'] : NULL,
     'mobile' => !empty($account['mobile']) ? dosomething_user_clean_mobile_number($account['mobile']) : NULL,
     'user_registration_source' => !empty($account['user_registration_source']) ? $account['user_registration_source'] : NULL,
-  );
+  ];
 
   dosomething_user_set_fields($edit, $fields);
 
