@@ -252,3 +252,12 @@ function dosomething_kudos_get_kudos_by_file($fid) {
 
   return $result;
 }
+
+/**
+ * Get the name of a kudo by the term id
+ * @param  string $tid
+ * @return string
+ */
+function dosomething_kudos_get_name_by_tid($tid) {
+  return taxonomy_term_load($tid)->name;
+}

@@ -47,7 +47,7 @@ function paraneue_dosomething_preprocess_user_profile(&$vars) {
         foreach ($kudos_term_ids as $term_id) {
 
           // Get the term name from the id and make it plural if necessary
-          $name = taxonomy_term_load($term_id->tid)->name;
+          $name = dosomething_kudos_get_name_by_tid($term_id->tid);
           if ($term_id->kudo_count > 1)
             $name .= 's';
 
