@@ -39,6 +39,23 @@ function paraneue_dosomething_preprocess_user_profile(&$vars) {
         $impact = l($impact, 'reportback/' . $rbid);
       }
       $img = dosomething_image_get_themed_image_by_fid($reportback->fids[0], '300x300');
+
+      // Get all those kudos
+      $kudos_term_ids = dosomething_kudos_get_kudos_by_file($reportback->fids[0]);
+      if ($kudos_term_ids) {
+        $impact .= '<br/>';
+        foreach ($kudos_term_ids as $term_id) {
+
+          // Get the term name from the id and make it plural if necessary
+          $name = taxonomy_term_load($term_id->tid)->name;
+          if ($term_id->kudo_count > 1)
+            $name .= 's';
+
+          // Add the kudos into the description
+          $impact .= $term_id->kudo_count . ' ' . $name . '<br/>';
+        }
+      }
+
       // Media gallery template expects a full URL.
       $url = dosomething_global_url('node/' . $reportback->nid);
       $content = array(
