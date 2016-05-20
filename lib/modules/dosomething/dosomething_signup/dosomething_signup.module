@@ -585,7 +585,8 @@ function dosomething_signup_user_signup($nid, $account = NULL, $source = NULL) {
 
     // Set signup message, depending on type of user with specific params.
     if ($existing_user) {
-      // pass repeat-signup-existing in source param to dosomething_signup_set_takeover();
+      // pass repeat-signup-existing in source param to
+      dosomething_signup_set_signup_message();
     }
     else {
       // pass repeat-signup-new in source param to
