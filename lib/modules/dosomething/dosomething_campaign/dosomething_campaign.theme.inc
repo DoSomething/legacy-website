@@ -402,12 +402,12 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
   }
 
   // Check to see if this is a user's first signup for a campaign.
-  $existing_user = dosomething_signup_not_first_signup($user->uid);
-  if ($existing_user) {
-    $user_status = 'user-status-existing';
+  $new_user = dosomething_signup_first_signup($user->uid);
+  if ($new_user) {
+    $user_status = 'user-status-new';
   }
   else {
-    $user_status = 'user-status-new';
+    $user_status = 'user-status-existing';
   }
 
   // Send 3 campaigns to signup takeover, prompting user to signup for multiple campaigns. Also send param for existing or new user.

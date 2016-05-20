@@ -581,33 +581,31 @@ function dosomething_signup_user_signup($nid, $account = NULL, $source = NULL) {
       return;
     }
 
-    $existing_user = dosomething_signup_not_first_signup($account->uid);
+    $new_user = dosomething_signup_first_signup($account->uid);
 
     // Set signup message, depending on type of user with specific params.
-    if ($existing_user) {
-      // pass repeat-signup-existing in source param to
-      dosomething_signup_set_signup_message();
+    if ($new_user) {
+      dosomething_signup_set_takeover();
     }
     else {
-      // pass repeat-signup-new in source param to
-      dosomething_signup_set_takeover();
+      dosomething_signup_set_signup_message();
     }
   }
 }
 
 /**
- * Returns true if user this is not a user's first signup.
+ * Returns true if user this is a user's first signup.
  * @param int $user uid
  */
-function dosomething_signup_not_first_signup($uid) {
+function dosomething_signup_first_signup($uid) {
   // Check to see if the user has signed up for any campaigns, not including campaign they just signed up for.
   $signups = count(dosomething_signup_get_signups_query(['user' => $uid]));
 
   if ($signups > 1) {
-    return TRUE;
+    return FALSE;
   }
   else {
-    return FALSE;
+    return TRUE;
   }
 }
 
