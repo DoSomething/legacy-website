@@ -416,6 +416,8 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
     array(
       'dosomethingCampaign' => array(
         'recommendedCampaigns' => $signup_takeover_recommended_campaigns,
+      ),
+      'dosomethingUser' => array(
         'userStatus' => $user_status,
       ),
     ),
