@@ -596,6 +596,7 @@ function dosomething_signup_user_signup($nid, $account = NULL, $source = NULL) {
 /**
  * Returns true if user this is a user's first signup.
  * @param int $user uid
+ * @return bool
  */
 function dosomething_signup_first_signup($uid) {
   // Check to see if the user has signed up for any campaigns, not including campaign they just signed up for.
