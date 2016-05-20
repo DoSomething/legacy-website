@@ -1,6 +1,6 @@
 <?php
 /**
- * Script to remove users with
+ * Script to remove users with duplicate email accounts.
  *
  * to run:
  * drush --script-path=../scripts/ php-script remove-duplicate-emails.php
