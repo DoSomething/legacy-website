@@ -581,8 +581,32 @@ function dosomething_signup_user_signup($nid, $account = NULL, $source = NULL) {
       return;
     }
 
-    // Set default signup message if we're still in this function.
-    dosomething_signup_set_takeover();
+    $new_user = dosomething_signup_first_signup($account->uid);
+
+    // Set signup message, depending on type of user with specific params.
+    if ($new_user) {
+      dosomething_signup_set_takeover();
+    }
+    else {
+      dosomething_signup_set_signup_message();
+    }
+  }
+}
+
+/**
+ * Returns true if user this is a user's first signup.
+ * @param int $user uid
+ * @return bool
+ */
+function dosomething_signup_first_signup($uid) {
+  // Check to see if the user has signed up for any campaigns, not including campaign they just signed up for.
+  $signups = count(dosomething_signup_get_signups_query(['user' => $uid]));
+
+  if ($signups > 1) {
+    return FALSE;
+  }
+  else {
+    return TRUE;
   }
 }
 
@@ -841,7 +865,7 @@ function dosomething_signup_set_presignup_message($title) {
 }
 
 /**
- * Returns total number of Signups based on supplied set of filters. 
+ * Returns total number of Signups based on supplied set of filters.
  *
  * @param array $filters
  * @return int
