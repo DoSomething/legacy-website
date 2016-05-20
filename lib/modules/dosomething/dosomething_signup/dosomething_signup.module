@@ -581,7 +581,7 @@ function dosomething_signup_user_signup($nid, $account = NULL, $source = NULL) {
       return;
     }
 
-    $existing_user = dosomething_signup_is_existing_user($account->uid, $sid);
+    $existing_user = dosomething_signup_not_first_signup($account->uid);
 
     // Set signup message, depending on type of user with specific params.
     if ($existing_user) {
@@ -595,18 +595,14 @@ function dosomething_signup_user_signup($nid, $account = NULL, $source = NULL) {
 }
 
 /**
- * Returns true if user is an existing user.
- * @param object $user
- *  The user object.
- * @param int $sid
- * The signup id the user just signed up for.
+ * Returns true if user this is not a user's first signup.
+ * @param int $user uid
  */
-function dosomething_signup_is_existing_user($uid, $sid) {
-  $signup = signup_load($sid);
-  $user = user_load($uid);
+function dosomething_signup_not_first_signup($uid) {
+  // Check to see if the user has signed up for any campaigns, not including campaign they just signed up for.
+  $signups = count(dosomething_signup_get_signups_query(['user' => $uid]));
 
-  // Check to see if the user was created at the same time as the signup
-  if ($user->created != $signup->timestamp) {
+  if ($signups > 1) {
     return TRUE;
   }
   else {
