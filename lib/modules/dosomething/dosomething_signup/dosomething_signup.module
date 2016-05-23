@@ -833,7 +833,7 @@ function dosomething_signup_set_presignup_message($title) {
 }
 
 /**
- * Returns total number of Signups based on supplied set of filters. 
+ * Returns total number of Signups based on supplied set of filters.
  *
  * @param array $filters
  * @return int

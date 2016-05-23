@@ -532,6 +532,14 @@ function dosomething_campaign_organ_donation_config_form($form, &$form_state, $n
     '#size' => 20,
   );
 
+  $form['organ_donation']['actions'] = array(
+    '#type' => 'actions',
+    'submit' => array(
+      '#type' => 'submit',
+      '#value' => 'Save',
+    ),
+  );
+
   return $form;
 }
 

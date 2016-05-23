@@ -383,6 +383,16 @@
         </div>
       </div>
 
+
+      <?php // Organ Donation Modal // ?>
+      <?php if ($register_organ_donor): ?>
+        <div data-modal id="modal-organ-donation" role="dialog">
+          <div class="modal__block">
+            <div class="takeover-container -no-slide">asdfadf</div>
+          </div>
+        </div>
+      <?php endif; ?>
+
       <?php if (isset($official_rules)): ?>
         <div class="container__block -narrow">
           <div class="footnote">

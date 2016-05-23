@@ -351,7 +351,6 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
 
   $optimizely_js = 'window["optimizely"] = window["optimizely"] || []; window.optimizely.push(["trackEvent", "Action Page View"]);';
   drupal_add_js($optimizely_js, 'inline');
-
 }
 
 /**

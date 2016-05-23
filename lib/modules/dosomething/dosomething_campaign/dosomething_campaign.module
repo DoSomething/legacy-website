@@ -669,6 +669,9 @@ function dosomething_campaign_node_view($node, $view_mode, $langcode) {
     // Add signup_data_form variables if needed.
     dosomething_campaign_add_signup_data_form_vars($node);
 
+    // Flag if we need to register an organ donor on the page.
+    dosomething_campaign_add_oragan_donation_vars($node);
+
     if (module_exists('dosomething_shipment')) {
       dosomething_campaign_add_shipment_form_vars($node);
     }
@@ -750,6 +753,14 @@ function dosomething_campaign_add_signup_data_form_vars(&$node) {
       $node->content['skip_signup_data_form'] = drupal_get_form('dosomething_signup_user_skip_signup_data_form', $signup);
     }
   }
+}
+
+/*
+ * Adds flag to the node that tells us if we need to show the organ donation modal after sign up.
+ */
+function dosomething_campaign_add_oragan_donation_vars(&$node) {
+  // @TODO - Check if the form has been subitted already. If it has, then set this flag to false for the page.
+  $node->register_organ_donor = dosomething_helpers_get_variable('node', $node->nid, 'register_organ_donors');
 }
 
 /**
