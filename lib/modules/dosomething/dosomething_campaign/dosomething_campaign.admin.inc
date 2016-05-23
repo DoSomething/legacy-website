@@ -288,10 +288,13 @@ function dosomething_campaign_admin_custom_settings_page($node) {
     $output .= render($signup_data_config_form);
   }
   if (module_exists('dosomething_helpers')) {
-    $form_id = 'dosomething_campaign_reportback_config_form';
-    $reportback_field_form = drupal_get_form($form_id, $node);
-    $output .= render($reportback_field_form);
+    $forms = ['dosomething_campaign_reportback_config_form', 'dosomething_campaign_organ_donation_config_form'];
+
+    foreach ($forms as $form_id) {
+      $output .= render(drupal_get_form($form_id, $node));
+    }
   }
+
   return $output;
 }
 
@@ -498,4 +501,49 @@ function dosomething_campaign_archive_activity_form_submit(&$form, &$form_state)
     '@source' => $source_nid,
     '@target' => $target_nid,
   )));
+}
+
+/*
+ * Organ donation configuration form. Allows admins to turn on/off the
+ * organ donation modal after signup.
+ *
+ */
+function dosomething_campaign_organ_donation_config_form($form, &$form_state, $node) {
+  // Load the node's helpers variables.
+  $vars = dosomething_helpers_get_variables('node', $node->nid);
+
+  $form['nid'] = array(
+    '#type' => 'hidden',
+    '#value' => $node->nid,
+  );
+
+  $form['organ_donation'] = array(
+    '#type' => 'fieldset',
+    '#title' => t("Organ Donation"),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
+
+  $form['organ_donation']['register_organ_donors'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Register organ donors after signup.'),
+    '#description' => t('If set, after a user signs up for the campaign they will be presented with a modal to register as an organ donor'),
+    '#default_value' => $vars['register_organ_donors'],
+    '#size' => 20,
+  );
+
+  return $form;
+}
+
+/**
+ * Submit callback for dosomething_campaign_organ_donation_config_form().
+ */
+function dosomething_campaign_organ_donation_config_form_submit(&$form, &$form_state) {
+  $var_name = 'register_organ_donors';
+
+  $values = $form_state['values'];
+
+  dosomething_helpers_set_variable('node', $values['nid'], $var_name, $values[$var_name]);
+
+  drupal_set_message("Updated.");
 }
