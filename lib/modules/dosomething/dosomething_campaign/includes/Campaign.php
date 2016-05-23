@@ -314,6 +314,7 @@ class Campaign {
     foreach ($items as $item) {
       $attachment = [];
 
+      $attachment['id'] = $item['id'];
       $attachment['title'] = $item['title'];
       $attachment['description'] = $item['description'];
       $attachment['uri'] = file_create_url($item['uri']);
