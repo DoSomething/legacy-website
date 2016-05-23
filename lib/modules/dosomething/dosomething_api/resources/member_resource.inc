@@ -305,6 +305,6 @@ function _member_resource_get_activity_result($uid, $nid) {
  */
 function _member_resource_reset($uid) {
   $account = user_load($uid);
-  $reset_url = user_pass_reset_url($account);
+  $reset_url = user_pass_reset_url($account) . '/login';
   return $reset_url;
 }
