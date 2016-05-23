@@ -406,24 +406,14 @@ function deploy {
 function composer {
   if hash composer 2>/dev/null;
   then
-    cd $WEB_PATH/profiles/dosomething/libraries/zendesk
-    echo -e "\e[4mInstalling composer dependencies for Zendesk...\e[0m"
+    echo -e "\e[4mInstalling Composer dependencies...\e[0m"
     eval "/usr/local/bin/composer install"
 
     cd $WEB_PATH/profiles/dosomething/libraries/messagebroker-phplib
-    echo -e "\e[4mInstalling composer dependencies for Message Broker PHPLIB...\e[0m"
-    eval "/usr/local/bin/composer install"
-
-    cd $WEB_PATH/profiles/dosomething/libraries/stripe-php
-    echo -e "\e[4mInstalling composer dependencies for Stripe PHP Library...\e[0m"
-    eval "/usr/local/bin/composer install"
-
-    cd $WEB_PATH/profiles/dosomething/libraries/guzzle
-    echo -e "\e[4mInstalling composer dependencies for Guzzle PHP Library...\e[0m"
+    echo -e "\e[4mInstalling Composer dependencies for Message Broker PHPLIB...\e[0m"
     eval "/usr/local/bin/composer install"
 
     cd $BASE_PATH
-
   fi
 }
 

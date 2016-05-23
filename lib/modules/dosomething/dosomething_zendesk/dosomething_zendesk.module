@@ -35,35 +35,19 @@ function dosomething_zendesk_permission() {
 }
 
 /**
- * Implements hook_libraries_info().
- */
-function dosomething_zendesk_libraries_info() {
-  $libraries['zendesk'] = array(
-    'name' => 'Zendesk',
-    'path' => 'vendor',
-    'files' => array(
-      'php' => array(
-        'autoload.php'
-      ),
-    ),
-    'version' => 1
-  );
-  return $libraries;
-}
-
-/**
  * Returns a Zendesk Client object with auth vars.
  */
 function dosomething_zendesk_get_client() {
-  $library = libraries_load('zendesk');
-  if (empty($library['loaded'])) {
+  if (! class_exists(\Zendesk\API\Client::class)) {
     return FALSE;
   }
+  
   $subdomain = variable_get('dosomething_zendesk_subdomain');
   $username = variable_get('dosomething_zendesk_username');
   $token = variable_get('dosomething_zendesk_token');
   $client = new Zendesk\API\Client($subdomain, $username);
   $client->setAuth('token', $token);
+  
   return $client;
 }
 
@@ -72,6 +56,7 @@ function dosomething_zendesk_get_client() {
  *
  * @param object $entity
  *   Optional. A loaded entity which this zendesk form is being rendered on.
+ * @return array 
  */
 function dosomething_zendesk_form($form, &$form_state, $entity = NULL)  {
   // Initialize zendesk group_id as NULL.
