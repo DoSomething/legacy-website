@@ -16,7 +16,5 @@ npm-debug.log
 Gemfile.lock
 .fuse_hidden*
 lib/themes/dosomething/paraneue_dosomething/dist/
-lib/themes/dosomething/paraneue_dosomething/bower_components/
-lib/themes/dosomething/paraneue_dosomething/vendor/
 tmp/
-.sass-cache
+vendor/

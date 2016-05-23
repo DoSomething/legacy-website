@@ -288,14 +288,6 @@ projects[stage_file_proxy][subdir] = "contrib"
 
 ; LIBRARIES
 
-; DSAPI PHP Library
-;libraries[dsapi][download][type] = "git"
-;libraries[dsapi][download][url] = "git@github.com:DoSomething/dsapi-php.git"
-
-; Guzzle
-libraries[guzzle][download][type] = "git"
-libraries[guzzle][download][url] = "https://github.com/guzzle/guzzle.git"
-
 ; Message Broker PHP Library
 libraries[messagebroker-phplib][download][type] = "git"
 libraries[messagebroker-phplib][download][url] = "https://github.com/DoSomething/messagebroker-phplib.git"
@@ -315,17 +307,6 @@ libraries[predis][download][url] = "https://github.com/nrk/predis.git"
 libraries[predis][download][revision] = "4123fcd85d61354c6c9900db76c9597dbd129bf6"
 
 ; Stathat
+; @TODO: We should use our Stathat-PHP library here! :)
 libraries[stathat][download][type] = "get"
 libraries[stathat][download][url] = "https://www.stathat.com/downloads/stathat.php"
-
-; Stripe PHP
-libraries[stripe-php][download][type] = "git"
-libraries[stripe-php][download][url] = "https://github.com/stripe/stripe-php"
-; Pin to v.1.18.0 release, which supports Client::setApiKey methods we Use
-libraries[stripe-php][download][tag] = "v1.18.0"
-
-; Zendesk PHP
-libraries[zendesk][download][type] = "git"
-libraries[zendesk][download][url] = "https://github.com/zendesk/zendesk_api_client_php"
-; Use last working commit. See https://github.com/DoSomething/phoenix/issues/2064
-libraries[zendesk][download][revision] = "6aa9662fb1ed45b6bcc93ef9e1e4ab14685e80ac"
