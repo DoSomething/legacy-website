@@ -21,23 +21,6 @@ function dosomething_payment_menu() {
 }
 
 /**
- * Implements hook_libraries_info().
- */
-function dosomething_payment_libraries_info() {
-  $libraries['stripe-php'] = array(
-    'name' => 'Stripe',
-    'path' => 'lib',
-    'files' => array(
-      'php' => array(
-        'Stripe.php',
-      ),
-    ),
-    'version' => 1,
-  );
-  return $libraries;
-}
-
-/**
  * Implements hook_block_info().
  */
 function dosomething_payment_block_info() {
@@ -272,9 +255,8 @@ function dosomething_payment_form_submit($form, &$form_state) {
  *   TRUE if success, FALSE if not.
  */
 function dosomething_payment_stripe_get_client() {
-  $library = libraries_load('stripe-php');
-  if (empty($library['loaded'])) {
-    $error = t("Stripe library not found.");
+  if (! class_exists(Stripe::class)) {
+    $error = t("Stripe class not found.");
     watchdog('dosomething_payment', $error, NULL, WATCHDOG_ERROR);
     return FALSE;
   }
