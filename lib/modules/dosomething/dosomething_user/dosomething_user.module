@@ -1710,6 +1710,18 @@ function dosomething_user_views_pre_render(&$view) {
  * Implements hook_user_update().
  */
 function dosomething_user_user_update(&$edit, $account, $category) {
+  if (!empty($edit['roles'])) {
+    _dosomething_user_audit_roles($edit, $account);
+  }
+}
+
+/**
+ * Audit changes to user roles and send an alert to DevOps.
+ *
+ * @param $edit
+ * @param $account
+ */
+function _dosomething_user_audit_roles(&$edit, $account) {
   $added_rids = array_diff_key($edit['roles'], $edit['original']->roles);
   if ($added_rids) {
     $added_roles = array();
