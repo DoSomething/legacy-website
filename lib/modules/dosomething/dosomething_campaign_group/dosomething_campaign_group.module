@@ -161,24 +161,3 @@ function dosomething_campaign_group_get_parent_nid($nid) {
     ->execute();
   return $result->fetchField(0);
 }
-
-/**
- * Returns whether a Campaign Group nid requires automatic parent signup.
- *
- * @param int $nid
- *   The Campaign Group Node nid to check.
- *
- * @return bool
- */
-function dosomething_campaign_group_is_automatic_parent_signup($nid) {
-  $query = new EntityFieldQuery();
-  $query->entityCondition('entity_type', 'node')
-    ->entityCondition('bundle', 'campaign_group')
-    ->propertyCondition('nid', $nid)
-    ->fieldCondition('field_automatic_parent_signup', 'value', 1);
-  $result = $query->execute();
-  if (isset($result['node'])) {
-    return TRUE;
-  }
-  return FALSE;
-}

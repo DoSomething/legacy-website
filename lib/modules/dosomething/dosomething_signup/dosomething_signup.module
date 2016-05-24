@@ -519,17 +519,6 @@ function dosomething_signup_entity_insert($entity, $type) {
 
   // Send relevant third-party subscribe requests.
   dosomething_signup_third_party_subscribe($account, $node);
-
-  // Check if inserted signup nid belongs to a Campaign Group.
-  if (module_exists('dosomething_campaign_group')) {
-    // Check if the signup node is a child of a campaign_group.
-    $group_nid = dosomething_campaign_group_get_parent_nid($entity->nid);
-    // If a parent exists and it should creare a parent signup:
-    if ($group_nid && dosomething_campaign_group_is_automatic_parent_signup($group_nid)) {
-      // Create a signup for the group nid.
-      dosomething_signup_create($group_nid);
-    }
-  }
 }
 
 /**
@@ -833,7 +822,7 @@ function dosomething_signup_set_presignup_message($title) {
 }
 
 /**
- * Returns total number of Signups based on supplied set of filters. 
+ * Returns total number of Signups based on supplied set of filters.
  *
  * @param array $filters
  * @return int
