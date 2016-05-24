@@ -894,7 +894,7 @@ function dosomething_signup_get_signup_nids_by_uid($uid) {
  */
 function dosomething_signup_node_unsignup_access($node) {
   // Only display for node types that implement signup forms.
-  if ($node->type == 'campaign' || $node->type == 'campaign_group') {
+  if ($node->type == 'campaign') {
     // Only allow access if user staff and is signed up.
     return dosomething_user_is_staff() && dosomething_signup_exists($node->nid);
   }

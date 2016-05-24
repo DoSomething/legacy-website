@@ -25,19 +25,6 @@
 
       <?php if (isset($end_date)): ?><p class="header__date"><?php print $end_date; ?></p><?php endif; ?>
 
-      <?php if (isset($signup_button_primary)): ?>
-        <div class="header__signup">
-          <?php print render($signup_button_primary); ?>
-          <?php if (isset($scholarship)): ?>
-            <div class="message-callout -below -white -dynamic-right">
-              <div class="message-callout__copy">
-                <p><?php print $scholarship; ?></p>
-              </div>
-            </div>
-          <?php endif; ?>
-        </div>
-      <?php endif; ?>
-
       <?php if (!empty($sponsor_logos)): ?>
         <div class="promotions"><?php print $sponsor_logos; ?></div>
       <?php endif; ?>
@@ -79,21 +66,6 @@
       </div>
     </section>
   <?php endif; ?>
-
-  <?php if (isset($post_signup_copy)): ?>
-    <section class="container">
-      <div class="wrapper">
-        <div class="container__block -narrow">
-          <?php if (isset($post_signup_title)): ?>
-            <h2 class="inline-sponsor-color"><?php print $post_signup_title; ?></h2>
-          <?php endif; ?>
-
-          <?php print $post_signup_copy; ?>
-        </div>
-      </div>
-    </section>
-  <?php endif; ?>
-
 
   <?php if (isset($pre_launch_copy)): ?>
     <section class="container">

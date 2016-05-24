@@ -8,7 +8,7 @@ include_once 'dosomething_campaign_group.features.inc';
 
 
 function dosomething_campaign_group_preprocess_node(&$vars) {
-  if ($vars['type'] == 'campaign_group' && $vars['view_mode'] == 'full') {
+  if ($vars['type'] != 'campaign_group' && $vars['view_mode'] != 'full') { return; }
     $content = $vars['content'];
     $template_vars = array(
       'text' => array(
@@ -16,7 +16,6 @@ function dosomething_campaign_group_preprocess_node(&$vars) {
         'additional_text_title',
         'intro_title',
         'intro',
-        'signup_form_button_text',
         'call_to_action',
       ),
       'image' => array(
@@ -25,121 +24,99 @@ function dosomething_campaign_group_preprocess_node(&$vars) {
       ),
     );
 
-    // Determine Campaign Group attributes based on its children.
-    $campaign_group_data = dosomething_campaign_group_get_child_data($vars['node']);
+  // Determine Campaign Group attributes based on its children.
+  $campaign_group_data = dosomething_campaign_group_get_child_data($vars['node']);
 
-    // Store child nid's to render within the theme.
-    $vars['campaigns'] = $campaign_group_data['nids'];
+  // Store child nid's to render within the theme.
+  $vars['campaigns'] = $campaign_group_data['nids'];
 
-    // If Campaign Group is in pre-launch state:
-    if ($campaign_group_data['pre_launch']) {
-      // Add relevant fields to set as template vars.
-      $template_vars['text'][] = 'pre_launch_copy';
-      $template_vars['text'][] = 'pre_launch_title';
-    }
-
-    // If current user is signed up:
-    $sid = dosomething_signup_exists($vars['node']->nid);
-    if ($sid) {
-      // Set the post_signup vars.
-      $template_vars['text'][] = 'post_signup_title';
-      $template_vars['text'][] = 'post_signup_copy';
-    }
-
-    foreach ($template_vars as $key => $labels) {
-      foreach ($labels as $label) {
-        $field = "field_{$label}";
-          if (isset($content[$field])) {
-          switch ($key) {
-            case 'text':
-              $vars[$label] = $content[$field][0]['#markup'];
-              break;
-            case 'image':
-              $size = '550x300';
-              $vars[$label] = dosomething_image_get_themed_image($vars[$field][0]['entity']->nid, 'landscape', $size);
-            default:
-              break;
-          }
-        }
-      }
-    }
-
-    $node = menu_get_object();
-    $wrapper = entity_metadata_wrapper('node', $node);
-
-    // Timing.
-    $display_date = $wrapper->field_display_end_date->value();
-    // Check if there is a value in the date field.
-    $high_season = $wrapper->field_high_season->value();
-    if ($display_date == 1 && isset($high_season)) {
-      $end_date = date('F d', $wrapper->field_high_season->value2->value());
-      $vars['end_date'] = 'Ends ' . $end_date;
-    }
-
-    // Hero Images.
-    dosomething_helpers_preprocess_hero_images($vars);
-
-    // Add inline css based on vars.
-    dosomething_helpers_add_inline_css($vars);
-
-    $wrapper = entity_metadata_wrapper('node', $vars['node']);
-    if ($wrapper->field_video->value()->field_video_id) {
-      $vars['intro_video'] = theme('dosomething_video_embed', array('field' => $wrapper->field_video->value()));
-    }
-
-    $scholarship = $wrapper->field_scholarship_amount->value();
-    if (isset($scholarship)) {
-      $vars['scholarship'] = 'Win a $' . number_format($scholarship, 0, '', ',') . ' Scholarship';
-    }
-
-    // Collect all field_collection values as vars.
-    $field_collections = array('faq');
-    foreach ($field_collections as $fc) {
-      $vars[$fc] = dosomething_helpers_get_field_collection_values($wrapper, 'field_' . $fc);
-    }
-
-    if (!empty($vars['field_partners'])) {
-      // Sets partners, sponsors, and partner_info arrays if present.
-      dosomething_helpers_preprocess_partners_vars($vars);
-    }
-
-    // Preprocess gallery variables.
-    dosomething_static_content_preprocess_galleries($vars);
-
-    if (empty($sid)) {
-      $vars['display_signup_form'] = $vars['field_display_signup_form'][0]['value'];
-      if ($vars['display_signup_form']) {
-        $label = NULL;
-        if (module_exists('dosomething_helpers')) {
-          // Check if a Signup Form Submit Label has been set.
-          $label = dosomething_helpers_get_variable('node', $node->nid, 'signup_form_submit_label');
-        }
-        // Adds signup_button_primary and signup_button_secondary vars.
-        $ids = array('primary', 'secondary');
-        dosomething_signup_preprocess_signup_button($vars, $label, NULL, $ids);
-      }
-    }
-
-
-    // Theme modal items if any exist.
-    $modal_items = array();
-
-    if (isset($vars['faq'])) {
-      $modal_items['faq'] = $vars['faq'];
-    }
-
-    if (isset($vars['partner_info']) && !empty($vars['partner_info'])) {
-      $modal_items['partner_info'] = $vars['partner_info'];
-    }
-
-    if (!empty($modal_items)) {
-      $vars['modals'] = theme('modal_links', array('modals' => $modal_items));
-    }
-
-    // Include Zendesk Form
-    $vars['zendesk_form'] = drupal_get_form('dosomething_zendesk_form', $node);
-
+  // If Campaign Group is in pre-launch state:
+  if ($campaign_group_data['pre_launch']) {
+    // Add relevant fields to set as template vars.
+    $template_vars['text'][] = 'pre_launch_copy';
+    $template_vars['text'][] = 'pre_launch_title';
   }
+
+  foreach ($template_vars as $key => $labels) {
+    foreach ($labels as $label) {
+      $field = "field_{$label}";
+        if (isset($content[$field])) {
+        switch ($key) {
+          case 'text':
+            $vars[$label] = $content[$field][0]['#markup'];
+            break;
+          case 'image':
+            $size = '550x300';
+            $vars[$label] = dosomething_image_get_themed_image($vars[$field][0]['entity']->nid, 'landscape', $size);
+          default:
+            break;
+        }
+      }
+    }
+  }
+
+  $node = menu_get_object();
+  $wrapper = entity_metadata_wrapper('node', $node);
+
+  // Timing.
+  $display_date = $wrapper->field_display_end_date->value();
+  // Check if there is a value in the date field.
+  $high_season = $wrapper->field_high_season->value();
+  if ($display_date == 1 && isset($high_season)) {
+    $end_date = date('F d', $wrapper->field_high_season->value2->value());
+    $vars['end_date'] = 'Ends ' . $end_date;
+  }
+
+  // Hero Images.
+  dosomething_helpers_preprocess_hero_images($vars);
+
+  // Add inline css based on vars.
+  dosomething_helpers_add_inline_css($vars);
+
+  $wrapper = entity_metadata_wrapper('node', $vars['node']);
+  if ($wrapper->field_video->value()->field_video_id) {
+    $vars['intro_video'] = theme('dosomething_video_embed', array('field' => $wrapper->field_video->value()));
+  }
+
+  $scholarship = $wrapper->field_scholarship_amount->value();
+  if (isset($scholarship)) {
+    $vars['scholarship'] = 'Win a $' . number_format($scholarship, 0, '', ',') . ' Scholarship';
+  }
+
+  // Collect all field_collection values as vars.
+  $field_collections = array('faq');
+  foreach ($field_collections as $fc) {
+    $vars[$fc] = dosomething_helpers_get_field_collection_values($wrapper, 'field_' . $fc);
+  }
+
+  if (!empty($vars['field_partners'])) {
+    // Sets partners, sponsors, and partner_info arrays if present.
+    dosomething_helpers_preprocess_partners_vars($vars);
+  }
+
+  // Preprocess gallery variables.
+  dosomething_static_content_preprocess_galleries($vars);
+
+
+  // Theme modal items if any exist.
+  $modal_items = array();
+
+  if (isset($vars['faq'])) {
+    $modal_items['faq'] = $vars['faq'];
+  }
+
+  if (isset($vars['partner_info']) && !empty($vars['partner_info'])) {
+    $modal_items['partner_info'] = $vars['partner_info'];
+  }
+
+  if (!empty($modal_items)) {
+    $vars['modals'] = theme('modal_links', array('modals' => $modal_items));
+  }
+
+  // Include Zendesk Form
+  $vars['zendesk_form'] = drupal_get_form('dosomething_zendesk_form', $node);
+
+
 }
 
 /**
