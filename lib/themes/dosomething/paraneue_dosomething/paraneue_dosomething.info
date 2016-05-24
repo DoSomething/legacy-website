@@ -22,9 +22,8 @@ settings[header_who_we_are_subtext] = 'Young people + Social change'
 settings[header_who_we_are_link] = '538'
 settings[header_explore_campaigns_text] = 'Explore Campaigns'
 settings[header_explore_campaigns_subtext] = 'Any cause, anytime, anywhere.'
-; settings[header_explore_campaigns_link] = 'campaigns'
+
 ; Footer
-settings[footer_affiliate_logo] = 0
 ; Footer social networks menu
 settings[footer_social_facebook_enabled]  = 1
 settings[footer_social_facebook_url]      = https://www.facebook.com/dosomething

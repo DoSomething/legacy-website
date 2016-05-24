@@ -54,49 +54,6 @@ function paraneue_dosomething_form_system_theme_settings_alter(&$form, &$form_st
   }
 }
 
-/**
- * Sets setting form file status so it doesn't get removed by a cron job.
- */
-function paraneue_dosomething_theme_settings_handle_files($form, &$form_state) {
-  // A shortcut to form values.
-  $input = &$form_state['input'];
-
-  // Act only when footer_affiliate_logo_file exists.
-  if (empty($input['footer_affiliate_logo_file']['fid'])) {
-    return;
-  }
-  $file = file_load($input['footer_affiliate_logo_file']['fid']);
-  if (empty($file)) {
-    return;
-  }
-
-  // Set footer_affiliate_logo_file status and record if it changed.
-  if (!empty($input['footer_affiliate_logo'])) {
-    // Logo is enabled, store file permanently.
-    $changed      = $file->status != FILE_STATUS_PERMANENT;
-    $file->status = FILE_STATUS_PERMANENT;
-  }
-  else {
-    // Logo is disabled, allow cron to cleanup the file.
-    $changed      = $file->status != 0;
-    $file->status = 0;
-  }
-
-  // Act only when file status actually changed.
-  if ($changed) {
-    file_save($file);
-
-    // Handle file usage reference.
-    if ($file->status == FILE_STATUS_PERMANENT) {
-      file_usage_add($file, 'paraneue_dosomething', 'paraneue_dosomething', $file->fid);
-    }
-    else {
-      // Remove usage reference if the logo disabled.
-      file_usage_delete($file, 'paraneue_dosomething', 'paraneue_dosomething');
-    }
-  }
-}
-
 function _paraneue_dosomething_theme_settings_header(&$form, $form_state) {
   $form['header'] = [
     '#type'  => 'fieldset',
@@ -157,12 +114,6 @@ function _paraneue_dosomething_theme_settings_header(&$form, $form_state) {
     '#title'         => 'Subtext',
     '#default_value' => theme_get_setting('header_explore_campaigns_subtext'),
   ];
-  // $form['header']['explore_campaigns']['header_explore_campaigns_link'] = array(
-  //   '#type'          => 'entity_autocomplete',
-  //   '#title'         => 'Link to',
-  //   '#bundles'       => array('static_content'),
-  //   '#default_value' => theme_get_setting('header_explore_campaigns_link'),
-  // );
 }
 
 function _paraneue_dosomething_theme_settings_footer(&$form, $form_state) {
@@ -171,41 +122,6 @@ function _paraneue_dosomething_theme_settings_footer(&$form, $form_state) {
     '#title' => t('Footer'),
   ];
   $footer = &$form['footer'];
-
-  // Affiliate logo.
-  $footer['logo'] = [
-    '#type'        => 'fieldset',
-    '#title'       => t('Affiliate logo'),
-    '#collapsible' => TRUE,
-  ];
-  $footer['logo']['footer_affiliate_logo'] = [
-    '#type'          => 'checkbox',
-    '#title'         => t('Enable affiliate logo'),
-    '#default_value' => theme_get_setting('footer_affiliate_logo'),
-  ];
-  $footer['logo']['settings'] = [
-    '#type' => 'container',
-    '#states' => [
-      'invisible' => [
-        'input[name="footer_affiliate_logo"]' => ['checked' => FALSE],
-      ],
-    ],
-  ];
-  $form_logo_settings = &$footer['logo']['settings'];
-  $form_logo_settings['footer_affiliate_logo_text'] = [
-    '#type'          => 'textfield',
-    '#title'         => t('Text'),
-    '#default_value' => theme_get_setting('footer_affiliate_logo_text'),
-  ];
-  $form_logo_settings['footer_affiliate_logo_file'] = [
-    '#type'              => 'managed_file',
-    '#title'             => t('File'),
-    '#upload_location'   => file_default_scheme() . '://theme/footer-logo/',
-    '#default_value'     => theme_get_setting('footer_affiliate_logo_file'),
-    '#upload_validators' => [
-      'file_validate_extensions' => ['png'],
-    ],
-  ];
 
   // Social.
   // @todo: consider using drupal menu?
