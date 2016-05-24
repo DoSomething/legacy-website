@@ -61,12 +61,5 @@ function dosomething_settings_admin_config_form($form, &$form_state) {
     '#default_value' => variable_get($var_name),
   );
 
-  $var_name = 'dosomething_settings_enable_snowflakes';
-  $form['fun'][$var_name] = array(
-    '#type' => 'checkbox',
-    '#title' => t('Enable Snowflakes!'),
-    '#default_value' => variable_get('dosomething_settings_enable_snowflakes', FALSE),
-  );
-
   return system_settings_form($form);
 }
