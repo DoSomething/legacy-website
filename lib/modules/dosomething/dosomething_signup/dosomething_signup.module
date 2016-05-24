@@ -562,14 +562,6 @@ function dosomething_signup_user_signup($nid, $account = NULL, $source = NULL) {
   if ($sid = dosomething_signup_create($nid, $account->uid, $source)) {
     $node = node_load($nid);
 
-    // Check if a field_signup_confirm_msg field is set and store the msg.
-    if ($msg = $node->field_signup_confirm_msg[$account->language][0]['value']) {
-      // Display that message.
-      drupal_set_message($msg);
-      // Exit out of function.
-      return;
-    }
-
     // Set default signup message if we're still in this function.
     dosomething_signup_set_signup_message($node->title);
   }
