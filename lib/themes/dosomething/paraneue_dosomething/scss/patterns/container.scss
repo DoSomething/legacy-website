@@ -1,6 +1,0 @@
-.container > .wrapper {
-  // Whaaa? This fixes issues with container__block's margin
-  // escaping outside of the container by creating a new block
-  // formatting context.
-  float: left;
-}
