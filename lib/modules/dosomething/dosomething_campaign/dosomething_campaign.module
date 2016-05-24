@@ -641,14 +641,6 @@ function dosomething_campaign_theme($existing, $type, $theme, $path) {
     'submit_campaign_idea' => array(
       'template' => 'submit-campaign-idea',
     ),
-    'win_module_block' => array(
-      'template' => 'win-module',
-      'path' => drupal_get_path('module', 'dosomething_campaign') . '/theme',
-    ),
-    'hot_module_block' => array(
-      'template' => 'hot-module',
-      'path' => drupal_get_path('module', 'dosomething_campaign') . '/theme',
-    ),
   );
 }
 
@@ -777,17 +769,6 @@ function dosomething_campaign_add_shipment_form_vars($node) {
 }
 
 /**
- * For a given campaign node, determines if the hot module should be enabled.
- *
- * @param array $vars
- *  Campaign node varaible array.
- * @deprecated
- */
-function dosomething_campaign_is_hot_module(&$vars) {
-  return FALSE;
-}
-
-/**
  * For given campaign $node, determines if the pitch page should be displayed.
  *
  * @todo: Assumes the campaign is in a live state, for now.
@@ -865,17 +846,6 @@ function dosomething_campaign_is_active($node) {
   return FALSE;
 }
 
-/**
-  * For a given campaign node, determine if the win module should be enabled
-  *
-  * @param array $vars
-  *  Campaign node varaible array.
-  * @deprecated
-  */
- function dosomething_campaign_is_win_module($vars) {
-   return FALSE;
- }
-
  /**
    * Set the given DateTime to America/New_York and end of day
    *
@@ -900,35 +870,6 @@ function dosomething_campaign_set_est_timezone($date, $add_four = FALSE, $end_of
     $date->setTime(23, 59, 59);
   }
   return $date;
-}
-
-/**
- * Returns array of date times ofor the given campaign node
- *
- * @param Object or Array
- *    vars array or node object to pull from
- *
- * @return array $timing
- *    today - The current day
- *    start_date - The day the campaign starts
- *    end_date - The day the campaign ends
- */
-function dosomething_campaign_get_goals_times($node) {
-  if (!isset($node)) {
-    return NULL;
-  }
-  date_default_timezone_set('EST');
-  $high_season = is_array($node) ? $node['field_high_season'] : $node->field_high_season[$node->language];
-  if($high_season == NULL) {
-    return NULL;
-  }
-  $timing = [
-    "today" => new DateTime(),
-    "start_date" => new DateTime($high_season[0]['value']),
-    "end_date" => date_modify(new DateTime($high_season[0]['value2']), '+23 hours +59 minutes +59 seconds'),
-    "win_module_end" => date_modify(new DateTime($high_season[0]['value2']), '+30 days'),
-  ];
-  return $timing;
 }
 
 /**

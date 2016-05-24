@@ -18,11 +18,9 @@
     "extends": "@dosomething/eslint-config"
   },
   "dependencies": {
-    "chart.js": "~1.0.2",
     "@dosomething/forge": "~6.7.0",
     "dosomething-modal": "~0.3.0",
     "dosomething-validation": "~0.2.0",
-    "dotty": "0.0.2",
     "es5-shim": "^4.1.1",
     "fixed-sticky": "DFurnes/fixed-sticky#umd",
     "html5shiv": "aFarkas/html5shiv.git#3.7.2",

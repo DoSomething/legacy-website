@@ -615,39 +615,6 @@ function dosomething_campaign_get_scholarship($nid) {
   return $wrapper->field_scholarship_amount->value();
 }
 
-/**
- * Returns the human-readable time left during a campaign's hot phase.
- *
- * @param node
- *  A loaded campaign node
- *
- * @return string
- *  Formatted time (e.g. "4 days left")
- */
-function dosomething_campaign_get_hot_time_left($node, &$vars = NULL) {
-  if (!isset($vars) && !isset($vars['hm_today'])) {
-    $timing = dosomething_campaign_get_goals_times($node);
-
-    if (!isset($timing)) {
-      return;
-    }
-  }
-
-  $today = $vars['hm_today'] ?: $timing['today'];
-  $end_date = $vars['hm_end_date'] ?: $timing['end_date'];
-  $difference = $today->diff($end_date, true);
-  $days_left = $difference->days;
-  $hours_left = $difference->h + ($days_left * 24);
-
-  if ($hours_left > 48) {
-    $time_left = t($days_left . ' days left');
-  }
-  else {
-    $time_left = t($hours_left . ' hours left');
-  }
-
-  return $time_left;
-}
 
 /**
  * Get all the campaign runs associated with a node translation.

@@ -1,7 +1,0 @@
-<?php
-/**
- * @file
- * Code for the dosomething_campaign_hot_shares module.
- */
-
-include_once 'dosomething_campaign_hot_shares.cron.inc';

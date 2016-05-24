@@ -30,15 +30,6 @@
     </ul>
   </nav>
 
-  <?php // FOMO SUITE MODULES ////////////////////////////////////////////////////// ?>
-  <?php if (isset($win_module)): ?>
-    <?php print $win_module; ?>
-  <?php endif; ?>
-
-  <?php if (isset($hot_module)): ?>
-    <?php print $hot_module; ?>
-  <?php endif; ?>
-
   <?php // KNOW IT ////////////////////////////////////////////////////// ?>
   <section id="know" class="container -padded">
     <div class="wrapper">
@@ -54,7 +45,7 @@
             <p><?php print $campaign->fact_problem['fact']; ?><sup><?php print $campaign->fact_problem['footnotes']; ?></sup></p>
 
             <?php // Show problem social share buttons if feature flag is turned on. ?>
-            <?php if ($show_problem_shares && !isset($hot_module) && !isset($win_module)): ?>
+            <?php if ($show_problem_shares): ?>
               <div class="message-callout -above-horizontal -blue">
                 <div class="message-callout__copy">
                   <p><?php print $problem_share_prompt; ?></p>
@@ -64,7 +55,7 @@
             <?php endif; ?>
           <?php endif; ?>
 
-          <?php if ($show_problem_shares && !isset($hot_module) && !isset($win_module)): ?>
+          <?php if ($show_problem_shares): ?>
             <?php // If there's a PSA image or video, output it in this column. ?>
             <?php if (isset($psa)): ?>
               <p <?php if ($is_video_psa) echo 'class="media-video"'; ?>>
@@ -101,8 +92,8 @@
 
           <?php endif; ?>
 
-          <?php if ($show_problem_shares && !isset($hot_module) && !isset($win_module)): ?>
-            <?php // Alway output modals in the second column. ?>
+          <?php if ($show_problem_shares): ?>
+            <?php // Always output modals in the second column. ?>
             <?php if (isset($modals)): ?>
              <?php print $modals; ?>
             <?php endif; ?>

@@ -1,6 +1,0 @@
-name = Dosomething Campaign Hot Shares
-description = Create hot module share functionality
-core = 7.x
-package = DoSomething
-version = 7.x-1.0
-project = dosomething_campaign_hot_shares

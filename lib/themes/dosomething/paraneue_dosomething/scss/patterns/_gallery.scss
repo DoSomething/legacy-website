@@ -1,51 +1,8 @@
 .gallery {
 
+  // @TODO: Move to Forge.
   .gallery__heading {
     margin-top: $base-spacing;
-  }
-
-  &.-shuffle {
-    &.-quartet {
-      @include media($medium) {
-        margin: 0 auto;
-        width: span(10 of 12);
-      }
-
-      @include media($large) {
-        width: span(12 of 12);
-      }
-
-      li {
-        @include span(5 of 10);
-
-        @include media($large) {
-          @include span(3 of 12);
-        }
-      }
-    }
-
-    li {
-      position: relative;
-
-
-      &:nth-child(odd) {
-        top: 7px;
-        transform: rotate(-1deg);
-      }
-
-      &:nth-child(even) {
-        top: -5px;
-        transform: rotate(1deg);
-      }
-
-      &:nth-child(4n-1) {
-        transform: rotate(-3deg);
-      }
-
-      &:nth-child(5n-1) {
-        transform: rotate(3deg);
-      }
-    }
   }
 
 }

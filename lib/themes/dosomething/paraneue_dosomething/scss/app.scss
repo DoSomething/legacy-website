@@ -22,22 +22,17 @@ $asset-path: "";
 @import "overrides/drupal";
 
 // Local patterns
+@import "patterns/admin-edit";
 @import "patterns/button";
-@import "patterns/author-callout";
-@import "patterns/container";
-@import "patterns/photo";
+@import "patterns/card";
+@import "patterns/counter";
 @import "patterns/gallery";
+@import "patterns/photo";
 @import "patterns/promotion";
 @import "patterns/statistic";
 @import "patterns/tile";
-@import "patterns/card";
-@import "patterns/cta";
-@import "patterns/admin-edit";
-@import "patterns/stat-card";
-@import "patterns/fun";
 
 // Content styles by section
-@import "content/affiliate";
 @import "content/auth";
 @import "content/campaign";
 @import "content/campaign-sms";
@@ -55,7 +50,6 @@ $asset-path: "";
 @import "content/reportback-permalink";
 @import "content/search";
 @import "content/user";
-@import "content/win-module";
 
 // One-off pages
 @import "content/campaign/hunt-mcc";
