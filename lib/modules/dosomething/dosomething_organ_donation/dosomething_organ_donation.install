@@ -1,0 +1,44 @@
+<?php
+/**
+ * @file
+ * Installation and schema hooks for dosomething_organ_donation.module
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function dosomething_organ_donation_schema() {
+  $schema = array();
+  $schema['dosomething_organ_donation'] = array(
+    'description' => 'Table for tracking organ donation registrations',
+    'fields' => array(
+      'sid' => array(
+        'description' => 'The signup id associated with this registration',
+        'type' => 'serial',
+        'not null' => TRUE,
+      ),
+      'uid' => array(
+        'description' => 'The {users}.uid that registered.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'signup_data_form_timestamp' => array(
+        'description' => 'The Unix timestamp when the valid registration went through.',
+        'type' => 'int',
+        'not null' => FALSE,
+      ),
+      'drop_screen' => array(
+        'description' => 'The screen the user was on when the registration modal closed',
+        'type' => 'int',
+        'not null' => FALSE,
+      ),
+    ),
+    'primary key' => array('sid'),
+    'indexes' => array(
+      'uid' => array('uid'),
+    ),
+  );
+
+  return $schema;
+}
