@@ -557,6 +557,7 @@ function dosomething_helpers_utm_parameters($nid, $options = NULL) {
     'utm_source' => (isset($options['utm_source'])) ? $options['utm_source'] : 'dosomething',
     'utm_medium' => (isset($options['utm_medium'])) ? $options['utm_medium'] : 'site',
     'utm_campaign' => $utm_campaign,
+    'source' => $options['source'],
   );
 
   return '?' . http_build_query($utm_params, '', '&');
@@ -714,11 +715,11 @@ function dosomething_helpers_unset_non_numeric_array_values($items) {
   if (is_string($items)) {
     $items = [$items];
   }
-  
+
   foreach ($items as $key => $item) {
     if (! is_numeric($item)) {
       unset($items[$key]);
-    } 
+    }
   }
 
   return $items;

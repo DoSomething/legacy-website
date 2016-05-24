@@ -100,12 +100,13 @@ function dosomething_helpers_get_tumblr_intent($path, $options) {
  * @return
  *   An array of paths, indexed by type.
  */
-function dosomething_helpers_utm_share_paths($share_types, $path, $utm_campaign) {
+function dosomething_helpers_utm_share_paths($share_types, $path, $utm_campaign, $source = NULL) {
   foreach ($share_types as $type => $options) {
     $utm_params = dosomething_helpers_utm_parameters(NULL,
       array(
         'utm_medium' => $type,
         'utm_campaign' => $utm_campaign,
+        'source' => $source,
       )
     );
     $share_paths[$type] = $path . $utm_params;

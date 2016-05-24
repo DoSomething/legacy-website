@@ -9,6 +9,7 @@
  * Implements hook_preprocess_node().
  */
 function dosomething_campaign_preprocess_node(&$vars) {
+  dosomething_signup_set_takeover();
   if ($vars['type'] != 'campaign' || $vars['view_mode'] != 'full') return;
   $node = $vars['node'];
   $vars['campaign'] = dosomething_campaign_load($node);
@@ -410,6 +411,26 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
     $user_status = 'user-status-existing';
   }
 
+  // Add social share bars.
+  $share_types = array(
+    'facebook' => array(
+      'type' => 'feed_dialog',
+      'parameters' => array(
+        'picture' => $problem_share_image,
+      ),
+    ),
+    'twitter' => array(
+      'tweet' => (isset($campaign->fact_problem)) ? $campaign->fact_problem['fact'] : NULL,
+    ),
+    'tumblr' => array(
+      'posttype' => 'photo',
+      'content' => $problem_share_image,
+      'caption' => t("This is REAL, do something about this with me: "),
+    ),
+  );
+
+  $share_paths = dosomething_helpers_utm_share_paths($share_types, '/node/' . $vars['campaign']->nid, $utm_campaign, $user->uid);
+
   // Send 3 campaigns to signup takeover, prompting user to signup for multiple campaigns. Also send param for existing or new user.
   drupal_add_js(
     array(
@@ -418,6 +439,7 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
       ),
       'dosomethingUser' => array(
         'userStatus' => $user_status,
+        'sharePaths' => $share_paths,
       ),
     ),
     array('type' => 'setting')
