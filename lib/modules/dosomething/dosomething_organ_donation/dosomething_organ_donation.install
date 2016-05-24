@@ -14,7 +14,7 @@ function dosomething_organ_donation_schema() {
     'fields' => array(
       'sid' => array(
         'description' => 'The signup id associated with this registration',
-        'type' => 'serial',
+        'type' => 'int',
         'not null' => TRUE,
       ),
       'uid' => array(
@@ -23,7 +23,7 @@ function dosomething_organ_donation_schema() {
         'not null' => TRUE,
         'default' => 0,
       ),
-      'signup_data_form_timestamp' => array(
+      'registration_form_timestamp' => array(
         'description' => 'The Unix timestamp when the valid registration went through.',
         'type' => 'int',
         'not null' => FALSE,

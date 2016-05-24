@@ -1,1 +1,41 @@
-dosomething_organ_donation.module
+<?php
+/**
+ * @file
+ * Code for the dosomething_organ_donation feature.
+ */
+
+/*
+ * Implements hook_menu()
+ *
+ * @TODO - figure out security stuff.
+ */
+function dosomething_organ_donation_menu() {
+  $items = array();
+
+  $items['organ-donation/registration'] = array(
+    'page callback' => 'dosomething_organ_donation_store_registration',
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  // Return the $items array to register the path
+  return $items;
+}
+
+function dosomething_organ_donation_store_registration() {
+  $sid = $_GET['sid'];
+
+  if ($sid) {
+    db_insert('dosomething_organ_donation')
+      ->fields([
+        'sid' => $sid,
+        // 'registration_form_timestamp' =>  REQUEST_TIME,
+    ])->execute();
+  }
+
+  $response = [
+    'sid' => $sid,
+  ];
+
+  drupal_json_output($response);
+}
