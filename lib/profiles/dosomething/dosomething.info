@@ -83,7 +83,6 @@ dependencies[] = dosomething_api
 dependencies[] = dosomething_action_guide
 dependencies[] = dosomething_campaign
 dependencies[] = dosomething_campaign_problem_shares
-dependencies[] = dosomething_campaign_hot_shares
 dependencies[] = dosomething_campaign_group
 dependencies[] = dosomething_campaign_run
 dependencies[] = dosomething_fact
