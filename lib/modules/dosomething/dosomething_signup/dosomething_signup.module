@@ -905,12 +905,6 @@ function dosomething_signup_get_login_signup_nid() {
           return $obj->nid;
         }
         break;
-      case 'campaign_group':
-        // Should only signup on login if the signup form is displayed.
-        if ($obj->field_display_signup_form[LANGUAGE_NONE][0]['value'] == 1) {
-          return $obj->nid;
-        }
-        break;
       default:
         return NULL;
     }
