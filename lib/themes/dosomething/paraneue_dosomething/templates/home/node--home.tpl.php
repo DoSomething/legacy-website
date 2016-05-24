@@ -76,10 +76,6 @@
             </div>
           </div>
         </div>
-
-        <div class="campaign-search">
-          <button class="button"><?php print t('Find a Campaign'); ?></button>
-        </div>
       </div>
     <?php endif; ?>
   </div>
