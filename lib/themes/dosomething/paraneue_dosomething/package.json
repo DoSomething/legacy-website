@@ -18,7 +18,6 @@
     "extends": "@dosomething/eslint-config"
   },
   "dependencies": {
-    "chart.js": "~1.0.2",
     "@dosomething/forge": "~6.7.0",
     "dosomething-modal": "~0.3.0",
     "dosomething-validation": "~0.2.0",
