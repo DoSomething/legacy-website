@@ -12,15 +12,3 @@
     color: #fff;
   }
 }
-
-// @TODO: Make this into a real pattern.
-.counter {
-  display: inline-block;
-  color: $med-gray;
-  font-weight: $weight-bold;
-  font-size: 13px !important;
-
-  &.is-active {
-    color: $purple;
-  }
-}

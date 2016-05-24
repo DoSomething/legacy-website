@@ -1,0 +1,11 @@
+// @TODO: Move to Forge if this is shipped.
+.counter {
+  display: inline-block;
+  color: $med-gray;
+  font-weight: $weight-bold;
+  font-size: 13px !important;
+
+  &.is-active {
+    color: $purple;
+  }
+}

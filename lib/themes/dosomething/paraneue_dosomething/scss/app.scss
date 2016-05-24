@@ -22,15 +22,16 @@ $asset-path: "";
 @import "overrides/drupal";
 
 // Local patterns
+@import "patterns/admin-edit";
 @import "patterns/button";
-@import "patterns/photo";
+@import "patterns/card";
+@import "patterns/counter";
 @import "patterns/gallery";
+@import "patterns/photo";
 @import "patterns/promotion";
+@import "patterns/stat-card";
 @import "patterns/statistic";
 @import "patterns/tile";
-@import "patterns/card";
-@import "patterns/admin-edit";
-@import "patterns/stat-card";
 
 // Content styles by section
 @import "content/affiliate";
