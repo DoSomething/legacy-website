@@ -8,7 +8,7 @@ include_once 'dosomething_campaign_group.features.inc';
 
 
 function dosomething_campaign_group_preprocess_node(&$vars) {
-  if ($vars['type'] != 'campaign_group' && $vars['view_mode'] != 'full') { return; }
+  if ($vars['type'] !== 'campaign_group' || $vars['view_mode'] !== 'full') return;
     $content = $vars['content'];
     $template_vars = array(
       'text' => array(
@@ -115,8 +115,6 @@ function dosomething_campaign_group_preprocess_node(&$vars) {
 
   // Include Zendesk Form
   $vars['zendesk_form'] = drupal_get_form('dosomething_zendesk_form', $node);
-
-
 }
 
 /**

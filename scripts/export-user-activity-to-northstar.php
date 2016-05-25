@@ -3,23 +3,21 @@
  * Script to export user information from drupal into Northstar.
  *
  * to run:
- * drush --script-path=../scripts/ php-script export-users-to-northstar.php
+ * drush --script-path=../scripts/ php-script export-user-actvity-to-northstar.php
  */
 
 include_once('../lib/modules/dosomething/dosomething_northstar/dosomething_northstar.module');
 
-$last_saved = variable_get('dosomething_northstar_last_user_migrated', NULL);
+$last_saved = variable_get('dosomething_northstar_last_user_activity_migrated', NULL);
 if ($last_saved) {
   $users = db_query("SELECT u.uid
             FROM users u
-            WHERE uid > $last_saved
-            ORDER BY u.uid");
+            WHERE uid > $last_saved");
 }
 else {
   // Get all the users!
   $users = db_query('SELECT u.uid
-                   FROM users u
-                   ORDER BY u.uid');
+                   FROM users u');
 }
 
 foreach ($users as $user) {
@@ -27,32 +25,20 @@ foreach ($users as $user) {
   $user = user_load($user->uid);
   $ns_user = build_northstar_user($user);
 
-  // Don't "forward" the anonymous user.
-  if($user->uid == 0) {
-    continue;
-  }
-
   // Use old drupal_http_request method.
   $client = _dosomething_northstar_build_http_client();
   $response = drupal_http_request($client['base_url'] . '/users', [
     'headers' => $client['headers'],
     'method' => 'POST',
     'data' => json_encode($ns_user),
-  ]);
-
-  // Output progress to stdout & log request details for later review.
-  dosomething_northstar_log_request('migrate', $user, $ns_user, $response);
-  echo 'Migrated user ' . $user->uid . ' to Northstar [' . $response->code . ']' . PHP_EOL;
-
-  // Store the returned Northstar ID on the user's Drupal profile.
-  dosomething_northstar_save_id_field($user->uid, json_decode($response->data));
+    ]);
 
   // If the script fails, we can use this to start the script from a previous person.
-  variable_set('dosomething_northstar_last_user_migrated', $user->uid);
+  variable_set('dosomething_northstar_last_user_activity_migrated', $user->uid);
 }
 
 /**
- * Build a Northstar request from the $user global variable.
+ *
  */
 function build_northstar_user($user) {
   // Optional fields
@@ -96,19 +82,5 @@ function build_northstar_user($user) {
       $ns_user[$ns_key] = $field[$drupal_key]['value'];
     }
   }
-
-  // If user has a "1234565555@mobile" placeholder username, don't send
-  // that to Northstar (since it will cause a validation error and Northstar
-  // doesn't require every account to have an email like Drupal does).
-  if(preg_match('/^[0-9]+@mobile$/', $ns_user['email'])) {
-    unset($ns_user['email']);
-  }
-
-  // Set the "source" for this user to Phoenix if they weren't
-  // programmatically created through the API.
-  if(empty($ns_user['source'])) {
-    $ns_user['source'] = 'phoenix';
-  }
-
   return $ns_user;
 }
