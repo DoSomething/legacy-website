@@ -31,20 +31,6 @@ function dosomething_northstar_menu() {
 }
 
 /**
- * Implements hook_libraries_info().
- */
-function dosomething_northstar_libraries_info() {
-  $libraries['guzzle'] = array(
-    'name' => 'guzzle',
-    'path' => 'vendor',
-    'files' => ['php' => ['autoload.php']],
-    'version' => 5.0,
-  );
-  return $libraries;
-}
-
-
-/**
  * Verify the given credentials against Northstar, returning the authorized
  * user account if one exists.
  *
