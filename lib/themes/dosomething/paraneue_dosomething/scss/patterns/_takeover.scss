@@ -26,6 +26,11 @@ $transition: .7s;
     transition: $transition;
     max-width: 1350px;
 
+    li {
+      display: inline;
+      padding-right: 15px;
+    }
+
     &.active {
       left: 0px;
       transition: $transition;

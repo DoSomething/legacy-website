@@ -435,8 +435,9 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
 
   // $share_paths = dosomething_helpers_utm_share_paths($share_types, $campaign_path, $utm_campaign, $user->uid);
 
-  $organ_donations_share_button_markup = dosomething_helpers_share_bar($campaign_path .
-  '?source=' . $user->uid, $share_types, 'organ_donation_referral');
+  $share_link = $campaign_path . '?source=' . $user->uid;
+
+  $organ_donations_share_button_markup = dosomething_helpers_share_bar($share_link, $share_types, 'organ_donation_referral');
 
   // Send 3 campaigns to signup takeover, prompting user to signup for multiple campaigns. Also send param for existing or new user.
   drupal_add_js(
@@ -446,6 +447,7 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
       ),
       'dosomethingUser' => array(
         'userStatus' => $user_status,
+        'shareLink' => $share_link,
         'sharePaths' => $share_paths,
         'shareButtonMarkup' => $organ_donations_share_button_markup,
       ),
