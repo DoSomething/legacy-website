@@ -22,7 +22,7 @@ function dosomething_organ_donation_menu() {
 }
 
 /*
- * Stores meta data about the organ registration in the dosomething_organ_registration table.
+ * Stores meta data about the organ registration in the dosomething_organ_donation table.
  *
  */
 function dosomething_organ_donation_store_registration() {
