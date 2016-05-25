@@ -26,22 +26,29 @@ function dosomething_organ_donation_menu() {
  *
  */
 function dosomething_organ_donation_store_registration() {
-  if ($_GET['sid']) {
-    db_insert('dosomething_organ_donation')
-      ->fields([
-        'sid' => $_GET['sid'],
-        'uid' => $_GET['uid'],
-        'registration_form_timestamp' =>  REQUEST_TIME,
-    ])->execute();
+  try {
+    if ($_GET['sid'] && $_GET['uid']) {
+      db_insert('dosomething_organ_donation')
+        ->fields([
+          'sid' => $_GET['sid'],
+          'uid' => $_GET['uid'],
+          'registration_form_timestamp' =>  REQUEST_TIME,
+      ])->execute();
 
-    $response = [
-      'status' => 'registration data stored',
-    ];
-  } else {
-    $response = [
-      'status' => 'no signup id provided',
-    ];
+      $response = [
+        'status' => 'registration data stored',
+      ];
+    } else {
+      $response = [
+        'status' => 'Required parameters not found.',
+      ];
+    }
+
+    drupal_json_output($response);
+  }
+  catch (Exception $e) {
+    drupal_json_output($e);
   }
 
-  drupal_json_output($response);
+  return;
 }
