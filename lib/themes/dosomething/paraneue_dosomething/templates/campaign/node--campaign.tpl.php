@@ -388,7 +388,7 @@
       <?php if ($register_organ_donor): ?>
         <div data-modal id="modal-organ-donation" role="dialog">
           <div class="modal__block">
-            <div class="takeover-container -no-slide">asdfadf</div>
+            <div class="takeover-container -no-slide"></div>
           </div>
         </div>
       <?php endif; ?>
