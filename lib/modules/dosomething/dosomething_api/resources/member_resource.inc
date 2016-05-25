@@ -168,7 +168,7 @@ function _member_resource_create($request) {
   // Initialize array to pass to user_save().
   $edit = [
     'mail' => $email,
-    'name' => $email,
+    'name' => user_password(), // Overridden below.
     'status' => 1,
     'created' => REQUEST_TIME,
   ];
@@ -192,7 +192,13 @@ function _member_resource_create($request) {
   $edit['language'] = dosomething_global_convert_country_to_language($fields['country']);
 
   try {
-    return user_save('', $edit);
+    $user = user_save('', $edit);
+    
+    // Ensure user has UID set for name, since insert hooks don't fire on API.
+    // @see: dosomething_user_user_insert
+    user_save($user, ['name' => $user->uid]);
+    
+    return $user;
   }
   catch (Exception $e) {
     services_error($e);
