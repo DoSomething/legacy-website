@@ -42,12 +42,15 @@ function dosomething_organ_donation_store_registration() {
       $response = [
         'status' => 'Required parameters not found.',
       ];
+
+      watchdog('dosomething_organ_donation', $response, NULL, WATCHDOG_ERROR);
     }
 
     drupal_json_output($response);
   }
   catch (Exception $e) {
     drupal_json_output($e);
+    watchdog('dosomething_organ_donation', $e, NULL, WATCHDOG_ERROR);
   }
 
   return;
