@@ -393,9 +393,9 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
   $signup_takeover_recommended_nids = dosomething_campaign_get_recommended_campaign_nids(NULL, NULL, 3);
   $signup_takeover_recommended_campaigns = [];
 
-  foreach ($signup_takeover_recommended_nids as $campaign) {
+  foreach ($signup_takeover_recommended_nids as $recommended_campaign) {
     $campaign_array = [];
-    $campaign_object = node_load($campaign);
+    $campaign_object = node_load($recommended_campaign);
     $campaign_array['title'] = $campaign_object->title;
     $campaign_array['blurb'] = $campaign_object->field_call_to_action['en'][0]['value'];
     $campaign_array['nid'] = $campaign;
@@ -410,6 +410,10 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
   else {
     $user_status = 'user-status-existing';
   }
+
+  $country_prefix = (dosomething_global_get_current_prefix()) ? strtoupper(dosomething_global_get_current_prefix()) : 'global';
+  $problem_share_image = $base_url . 'sites/default/files/images/problem-' . $campaign->nid . '-' . $country_prefix . '.png';
+  $campaign_path = url(current_path(), array('absolute' => TRUE));
 
   // Add social share bars.
   $share_types = array(
@@ -429,7 +433,10 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
     ),
   );
 
-  $share_paths = dosomething_helpers_utm_share_paths($share_types, '/node/' . $vars['campaign']->nid, $utm_campaign, $user->uid);
+  // $share_paths = dosomething_helpers_utm_share_paths($share_types, $campaign_path, $utm_campaign, $user->uid);
+
+  $organ_donations_share_button_markup = dosomething_helpers_share_bar($campaign_path .
+  '?source=' . $user->uid, $share_types, 'organ_donation_referral');
 
   // Send 3 campaigns to signup takeover, prompting user to signup for multiple campaigns. Also send param for existing or new user.
   drupal_add_js(
@@ -440,6 +447,7 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
       'dosomethingUser' => array(
         'userStatus' => $user_status,
         'sharePaths' => $share_paths,
+        'shareButtonMarkup' => $organ_donations_share_button_markup,
       ),
     ),
     array('type' => 'setting')

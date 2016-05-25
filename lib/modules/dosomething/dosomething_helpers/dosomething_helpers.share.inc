@@ -97,6 +97,8 @@ function dosomething_helpers_get_tumblr_intent($path, $options) {
  *   The absolute path of the page being shared.
  * @param string $utm_campaign
  *   A custom value to use for 'utm_campaign'.
+ * @param string $source
+ *   A unique value, such as a uid, to indicate source of share link for tracking purposes.
  * @return
  *   An array of paths, indexed by type.
  */
@@ -130,6 +132,7 @@ function dosomething_helpers_utm_share_paths($share_types, $path, $utm_campaign,
  */
 function dosomething_helpers_share_bar($path, $share_types, $share_description, $classes = NULL) {
   $share_utm_paths = dosomething_helpers_utm_share_paths($share_types, $path, $share_description);
+
   $share_bar = '<ul class="' . $classes . '">';
   $share_intents = [];
 
