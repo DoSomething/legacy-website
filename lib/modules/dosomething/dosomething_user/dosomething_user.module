@@ -875,6 +875,8 @@ function dosomething_user_user_insert(&$edit, &$account, $category = NULL) {
 function _dosomething_user_add_signup_data(&$form) {
   if (!module_exists('dosomething_signup')) { return; }
 
+  global $user;
+
   // If we're viewing a node to signup for:
   if ($nid = dosomething_signup_get_login_signup_nid()) {
     $form['nid'] = array(
@@ -892,6 +894,7 @@ function _dosomething_user_add_signup_data(&$form) {
     }
 
     // Use the global url as the form action so the user gets redirected to the right page.
+    $node = node_load($nid);
     $lang_code = dosomething_global_get_language($user, $node);
 
     $url_options = array(
