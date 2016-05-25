@@ -316,6 +316,8 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
     break;
 
     case 'user_pass':
+      $form['name']['#attributes']['data-validate'] = "email";
+      $form['name']['#attributes']['data-validate-required'] = true;
       $form['name']['#description'] = t('Forgot your password? We’ve all been there. Reset by entering your email.');
       $form['#submit'][] = 'dosomething_user_user_pass_submit';
     break;
