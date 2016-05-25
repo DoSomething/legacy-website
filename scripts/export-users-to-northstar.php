@@ -55,60 +55,13 @@ foreach ($users as $user) {
  * Build a Northstar request from the $user global variable.
  */
 function build_northstar_user($user) {
-  // Optional fields
-  $optional = [
-    'mobile'       => 'field_mobile',
-    'birthdate'    => 'field_birthdate',
-    'first_name'   => 'field_first_name',
-    'last_name'    => 'field_last_name',
-    'source'       => 'field_user_registration_source',
-    'school_id'    => 'field_school_id',
-  ];
+  $northstar_user = dosomething_northstar_transform_user($user);
 
-  // Address fields
-  $address = [
-    'country'        => 'country',
-    'addr_street1'   => 'thoroughfare',
-    'addr_street2'   => 'premise',
-    'addr_city'      => 'locality',
-    'addr_state'     => 'administrative_area',
-    'addr_zip'       => 'postal_code',
-  ];
+  // Since we're sending an existing user, we'll also attach their hashed password
+  // (which Northstar can understand thanks to it's DrupalPasswordHash class), and
+  // the created_at timestamp on the original account.
+  $northstar_user['drupal_password'] = $user->pass;
+  $northstar_user['created_at'] = $user->created;
 
-  $ns_user = [
-    'email'            => $user->mail,
-    'drupal_id'        => $user->uid,
-    'drupal_password'  => $user->pass,
-    'created_at'       => $user->created,
-  ];
-
-  // Set values in ns_user if they are set.
-  foreach ($optional as $ns_key => $drupal_key) {
-   $field = $user->$drupal_key;
-    if (!empty($field[LANGUAGE_NONE][0]['value'])) {
-      $ns_user[$ns_key] = $field[LANGUAGE_NONE][0]['value'];
-    }
-  }
-  // Set address values.
-  foreach ($address as $ns_key => $drupal_key) {
-    $field = $user->field_address[LANGUAGE_NONE][0];
-    if (!empty($field[$drupal_key]['value'])) {
-      $ns_user[$ns_key] = $field[$drupal_key]['value'];
-    }
-  }
-
-  // If user has a "1234565555@mobile" placeholder username, don't send
-  // that to Northstar (since it will cause a validation error and Northstar
-  // doesn't require every account to have an email like Drupal does).
-  if(preg_match('/^[0-9]+@mobile$/', $ns_user['email'])) {
-    unset($ns_user['email']);
-  }
-
-  // Set the "source" for this user to Phoenix if they weren't
-  // programmatically created through the API.
-  if(empty($ns_user['source'])) {
-    $ns_user['source'] = 'phoenix';
-  }
-
-  return $ns_user;
+  return $northstar_user;
 }

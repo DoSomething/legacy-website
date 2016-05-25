@@ -158,7 +158,7 @@ function dosomething_northstar_update_user($user, $payload) {
 
   // Add to request log if enabled.
   dosomething_northstar_log_request('update_user', $user, $payload, $response);
-  
+
   if ($response->code === '200' && module_exists('stathat')) {
     stathat_send_ez_count('drupal - Northstar - user updated - count', 1);
   }
@@ -205,12 +205,12 @@ function dosomething_northstar_get_northstar_user($drupal_id) {
 }
 
 /**
- * Build a user JSON object in the format that Northstar expects.
+ * Transform Drupal user fields into the appropriate schema for Northstar.
  *
  * @param $user - Drupal user object
  * @return array
  */
-function dosomething_northstar_build_ns_user($user, $form_state) {
+function dosomething_northstar_transform_user($user) {
   // Optional fields
   $optional = [
     'mobile' => 'field_mobile',
@@ -229,7 +229,7 @@ function dosomething_northstar_build_ns_user($user, $form_state) {
     'addr_zip' => 'postal_code',
   ];
 
-  $ns_user = [
+  $northstar_user = [
     'email'         => $user->mail,
     'drupal_id'     => $user->uid,
     'language'      => $user->language,
@@ -237,34 +237,53 @@ function dosomething_northstar_build_ns_user($user, $form_state) {
 
   // Set values in ns_user if they are set.
   foreach ($optional as $ns_key => $drupal_key) {
-   $field = $user->$drupal_key;
+    $field = $user->$drupal_key;
     if (isset($field[LANGUAGE_NONE][0]['value'])) {
-      $ns_user[$ns_key] = $field[LANGUAGE_NONE][0]['value'];
+      $northstar_user[$ns_key] = $field[LANGUAGE_NONE][0]['value'];
     }
   }
   foreach ($address as $ns_key => $drupal_key) {
     $field = $user->field_address[LANGUAGE_NONE][0];
 
     if ($drupal_key == 'country') {
-      $ns_user[$ns_key] = $field[$drupal_key];
+      $northstar_user[$ns_key] = $field[$drupal_key];
     } else if (isset($field[$drupal_key]['value'])) {
-      $ns_user[$ns_key] = $field[$drupal_key]['value'];
+      $northstar_user[$ns_key] = $field[$drupal_key]['value'];
     }
   }
 
-  // Don't send blank passwords from the user update screen.
-  if (!empty($form_state['values']['pass'])) {
-    $ns_user['password'] = $form_state['values']['pass'];
+  // If user has a "1234565555@mobile" placeholder email, don't send
+  // that to Northstar (since it will cause a validation error and Northstar
+  // doesn't require every account to have an email like Drupal does).
+  if(preg_match('/^[0-9]+@mobile$/', $northstar_user['email'])) {
+    unset($northstar_user['email']);
   }
 
   // Set the "source" for this user to Phoenix if they weren't
   // programmatically created through the API.
-  if(empty($ns_user['source'])) {
-    $ns_user['source'] = 'phoenix';
+  if(empty($northstar_user['source'])) {
+    $northstar_user['source'] = 'phoenix';
   }
 
-  // Return fully built northstar user object.
-  return $ns_user;
+  return $northstar_user;
+}
+
+/**
+ * Build a Northstar user from a Drupal form submission.
+ *
+ * @param $user - Drupal user object
+ * @param $form_state - Form fields from registration/profile form.
+ * @return array
+ */
+function dosomething_northstar_build_ns_user($user, $form_state) {
+  $northstar_user = dosomething_northstar_transform_user($user);
+
+  // Don't send blank passwords from the user update screen.
+  if (!empty($form_state['values']['pass'])) {
+    $northstar_user['password'] = $form_state['values']['pass'];
+  }
+
+  return $northstar_user;
 }
 
 /**
