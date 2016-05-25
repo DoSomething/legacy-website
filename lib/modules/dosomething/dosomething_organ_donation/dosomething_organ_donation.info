@@ -7,5 +7,3 @@ dependencies[] = entity
 dependencies[] = dosomething_helpers
 dependencies[] = dosomething_signup
 dependencies[] = dosomething_campaign
-
-

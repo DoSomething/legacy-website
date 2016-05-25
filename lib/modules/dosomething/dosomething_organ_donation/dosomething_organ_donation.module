@@ -26,12 +26,14 @@ function dosomething_organ_donation_menu() {
  *
  */
 function dosomething_organ_donation_store_registration() {
+  $params = drupal_get_query_parameters();
+
   try {
-    if ($_GET['sid'] && $_GET['uid']) {
+    if ($params['sid'] && $params['uid']) {
       db_insert('dosomething_organ_donation')
         ->fields([
-          'sid' => $_GET['sid'],
-          'uid' => $_GET['uid'],
+          'sid' => $params['sid'],
+          'uid' => $params['uid'],
           'registration_form_timestamp' =>  REQUEST_TIME,
       ])->execute();
 
@@ -50,6 +52,7 @@ function dosomething_organ_donation_store_registration() {
   }
   catch (Exception $e) {
     drupal_json_output($e);
+
     watchdog('dosomething_organ_donation', $e, NULL, WATCHDOG_ERROR);
   }
 
