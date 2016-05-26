@@ -351,6 +351,20 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
 
   $optimizely_js = 'window["optimizely"] = window["optimizely"] || []; window.optimizely.push(["trackEvent", "Action Page View"]);';
   drupal_add_js($optimizely_js, 'inline');
+
+  // Pass the signup id to the front end.
+  if (module_exists('dosomething_signup')) {
+    if ($sid = dosomething_signup_exists($vars['nid'])) {
+      drupal_add_js(
+        array('dosomethingSignup' =>
+          array(
+            'sid' => $sid,
+          ),
+        ),
+        'setting'
+      );
+    }
+  }
 }
 
 /**
