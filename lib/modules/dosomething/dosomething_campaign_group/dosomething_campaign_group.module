@@ -16,7 +16,6 @@ function dosomething_campaign_group_preprocess_node(&$vars) {
         'additional_text_title',
         'intro_title',
         'intro',
-        'signup_form_button_text',
         'call_to_action',
       ),
       'image' => array(
@@ -36,14 +35,6 @@ function dosomething_campaign_group_preprocess_node(&$vars) {
       // Add relevant fields to set as template vars.
       $template_vars['text'][] = 'pre_launch_copy';
       $template_vars['text'][] = 'pre_launch_title';
-    }
-
-    // If current user is signed up:
-    $sid = dosomething_signup_exists($vars['node']->nid);
-    if ($sid) {
-      // Set the post_signup vars.
-      $template_vars['text'][] = 'post_signup_title';
-      $template_vars['text'][] = 'post_signup_copy';
     }
 
     foreach ($template_vars as $key => $labels) {
@@ -105,21 +96,6 @@ function dosomething_campaign_group_preprocess_node(&$vars) {
 
     // Preprocess gallery variables.
     dosomething_static_content_preprocess_galleries($vars);
-
-    if (empty($sid)) {
-      $vars['display_signup_form'] = $vars['field_display_signup_form'][0]['value'];
-      if ($vars['display_signup_form']) {
-        $label = NULL;
-        if (module_exists('dosomething_helpers')) {
-          // Check if a Signup Form Submit Label has been set.
-          $label = dosomething_helpers_get_variable('node', $node->nid, 'signup_form_submit_label');
-        }
-        // Adds signup_button_primary and signup_button_secondary vars.
-        $ids = array('primary', 'secondary');
-        dosomething_signup_preprocess_signup_button($vars, $label, NULL, $ids);
-      }
-    }
-
 
     // Theme modal items if any exist.
     $modal_items = array();

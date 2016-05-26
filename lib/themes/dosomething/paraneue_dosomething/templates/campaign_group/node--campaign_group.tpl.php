@@ -6,7 +6,6 @@
  * - $nid: Node ID for grouped campaigns page (integer).
  * - $title: Title of grouped campaigns page (string).
  * - $subtitle: Subtitle of grouped campaigns page (string).
- * - $signup_button: Render array for outputting Signup form button (array).
  * - $call_to_action: Call To Action of grouped campaigns page (string).
  * - $scholarship: Scholarship amount (string).
  * - $partners: Array of partners for grouped campaigns (array).
@@ -80,21 +79,6 @@
     </section>
   <?php endif; ?>
 
-  <?php if (isset($post_signup_copy)): ?>
-    <section class="container">
-      <div class="wrapper">
-        <div class="container__block -narrow">
-          <?php if (isset($post_signup_title)): ?>
-            <h2 class="inline-sponsor-color"><?php print $post_signup_title; ?></h2>
-          <?php endif; ?>
-
-          <?php print $post_signup_copy; ?>
-        </div>
-      </div>
-    </section>
-  <?php endif; ?>
-
-
   <?php if (isset($pre_launch_copy)): ?>
     <section class="container">
       <div class="wrapper">
@@ -146,17 +130,6 @@
         </section>
       <?php endforeach; ?>
     </section>
-  <?php endif; ?>
-
-  <?php if (isset($signup_button_secondary)): ?>
-    <div class="cta">
-      <div class="wrapper">
-        <h2 class="cta__message"><?php print $call_to_action; ?></h2>
-        <?php if (isset($signup_button_secondary)): ?>
-          <?php print render($signup_button_secondary); ?>
-        <?php endif; ?>
-      </div>
-    </div>
   <?php endif; ?>
 
   <?php if ($info_bar): ?>
