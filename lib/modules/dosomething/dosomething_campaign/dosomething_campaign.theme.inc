@@ -395,34 +395,46 @@ function dosomething_campaign_preprocess_shipment_form(&$vars) {
 function dosomething_campaign_preprocess_pitch_page(&$vars, &$wrapper) {
   // Use the pitch page template to theme.
   $vars['theme_hook_suggestions'][] = 'node__' . $vars['type'] . '__pitch';
+
   // Track that we're viewing a pitch page.
   $vars['campaign']->is_pitch_page = TRUE;
+
   // Check for a signup button copy override.
   $label = $vars['campaign']->variables['signup_form_submit_label'];
+
   // Adds signup_button_primary and signup_button_secondary variables.
   $ids = array('primary', 'secondary');
   dosomething_signup_preprocess_signup_button($vars, $label, NULL, $ids);
+
   // Render the form array now, so we can print it multiple times on the page.
   $vars['signup_button_secondary'] = render($vars['signup_button_secondary']);
+
   // Begin $tagline variable:
   $vars['tagline'] = t('A DoSomething.org campaign.') . ' ';
+
   // If Member Count variable is set:
   if ($count = dosomething_user_get_member_count(TRUE)) {
     // Add it into the $tagline.
-    $vars['tagline'] .= t('Join over @count members taking action.', array(
+    $vars['tagline'] .= t('Join over @count members taking action.', [
       '@count' => $count,
-    ));
+    ]);
+
     $vars['tagline'] .= ' ';
   }
+
   // Moar $tagline.
   $vars['tagline'] .= t('Any cause, anytime, anywhere.');
 
   $campaign_progress = dosomething_reportback_get_reportback_total_plus_override($vars['nid']);
+
   // Get sign up total and add it to cta
   $signup_count = (int) dosomething_helpers_get_variable('node', $vars['nid'], 'web_signup_count') + (int) dosomething_helpers_get_variable('node', $vars['nid'], 'mobile_signup_count');
-  $vars['signup_cta'] .= t('Join @signup_count people doing this.', array(
+
+  if ($signup_count) {
+    $vars['signup_cta'] = t('Join @signup_count people doing this.', [
       '@signup_count' => number_format($signup_count, 0, '', ','),
-    ));
+    ]);
+  }
 
   // @TODO: format this, based on % of goal left. refs #4444
   $time_left = $vars['campaign']->high_season_end;
