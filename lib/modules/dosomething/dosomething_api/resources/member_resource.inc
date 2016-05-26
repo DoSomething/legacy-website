@@ -210,6 +210,9 @@ function _member_resource_create($request) {
       dosomething_northstar_register_user($user, $payload);
     }
 
+    // Don't return the hashed password in the response!
+    unset($user->pass);
+    
     return $user;
   }
   catch (Exception $e) {
