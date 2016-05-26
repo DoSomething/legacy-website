@@ -1,0 +1,9 @@
+name = DoSomething Organ Donation
+description = Functionality for collecting organ donation registrations
+core = 7.x
+package = DoSomething
+version = 7.x-0.3
+dependencies[] = entity
+dependencies[] = dosomething_helpers
+dependencies[] = dosomething_signup
+dependencies[] = dosomething_campaign

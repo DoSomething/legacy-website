@@ -109,6 +109,12 @@ projects[dosomething_notfound][download][type] = local
 projects[dosomething_notfound][download][source] = './lib/modules/dosomething/dosomething_notfound'
 projects[dosomething_notfound][subdir] = "dosomething"
 
+; Dosomething Organ Donation
+projects[dosomething_organ_donation][type] = "module"
+projects[dosomething_organ_donation][download][type] = local
+projects[dosomething_organ_donation][download][source] = './lib/modules/dosomething/dosomething_organ_donation'
+projects[dosomething_organ_donation][subdir] = "dosomething"
+
 ; Dosomething Payment
 projects[dosomething_payment][type] = "module"
 projects[dosomething_payment][download][type] = local

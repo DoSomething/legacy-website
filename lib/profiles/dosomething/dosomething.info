@@ -93,6 +93,7 @@ dependencies[] = dosomething_image
 dependencies[] = dosomething_kudos
 dependencies[] = dosomething_mbp
 dependencies[] = dosomething_northstar
+dependencies[] = dosomething_organ_donation
 dependencies[] = dosomething_helpers
 dependencies[] = dosomething_home
 dependencies[] = dosomething_reportback

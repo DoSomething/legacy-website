@@ -1,0 +1,60 @@
+<?php
+/**
+ * @file
+ * Code for the dosomething_organ_donation feature.
+ */
+
+/*
+ * Implements hook_menu()
+ *
+ */
+function dosomething_organ_donation_menu() {
+  $items = array();
+
+  $items['organ-donation/registration'] = array(
+    'page callback' => 'dosomething_organ_donation_store_registration',
+    'access callback' => 'user_is_logged_in',
+    'type' => MENU_CALLBACK,
+  );
+
+  // Return the $items array to register the path
+  return $items;
+}
+
+/*
+ * Stores meta data about the organ registration in the dosomething_organ_donation table.
+ *
+ */
+function dosomething_organ_donation_store_registration() {
+  $params = drupal_get_query_parameters();
+
+  try {
+    if ($params['sid'] && $params['uid']) {
+      db_insert('dosomething_organ_donation')
+        ->fields([
+          'sid' => $params['sid'],
+          'uid' => $params['uid'],
+          'registration_form_timestamp' =>  REQUEST_TIME,
+      ])->execute();
+
+      $response = [
+        'status' => 'registration data stored',
+      ];
+    } else {
+      $response = [
+        'status' => 'Required parameters not found.',
+      ];
+
+      watchdog('dosomething_organ_donation', $response, NULL, WATCHDOG_ERROR);
+    }
+
+    drupal_json_output($response);
+  }
+  catch (Exception $e) {
+    drupal_json_output($e);
+
+    watchdog('dosomething_organ_donation', $e, NULL, WATCHDOG_ERROR);
+  }
+
+  return;
+}
