@@ -161,7 +161,7 @@ function _member_resource_create($request) {
   if ($mobile && $user = dosomething_user_get_user_by_mobile($mobile)) {
     return services_error(t('Mobile @mobile is registered to User uid @uid.', ['@mobile' => $mobile, '@uid' => $user->uid]), 403);
   }
-  if (!dosomething_user_valid_mobile($mobile)) {
+  if ($mobile && !dosomething_user_valid_mobile($mobile)) {
     return services_error(t('Mobile @mobile is not a valid phone number.', ['@mobile' => $mobile]), 422);
   }
   
