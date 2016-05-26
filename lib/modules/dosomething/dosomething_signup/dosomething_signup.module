@@ -519,17 +519,6 @@ function dosomething_signup_entity_insert($entity, $type) {
 
   // Send relevant third-party subscribe requests.
   dosomething_signup_third_party_subscribe($account, $node);
-
-  // Check if inserted signup nid belongs to a Campaign Group.
-  if (module_exists('dosomething_campaign_group')) {
-    // Check if the signup node is a child of a campaign_group.
-    $group_nid = dosomething_campaign_group_get_parent_nid($entity->nid);
-    // If a parent exists and it should creare a parent signup:
-    if ($group_nid && dosomething_campaign_group_is_automatic_parent_signup($group_nid)) {
-      // Create a signup for the group nid.
-      dosomething_signup_create($group_nid);
-    }
-  }
 }
 
 /**
@@ -619,9 +608,6 @@ function dosomething_signup_mbp_request($account, $node, $opt_in) {
   if ($node->type == 'campaign') {
     dosomething_mbp_request('campaign_signup', $params);
   }
-  elseif ($node->type == 'campaign_group') {
-    dosomething_mbp_request('campaign_group_signup', $params);
-  }
 }
 
 /**
@@ -638,7 +624,7 @@ function dosomething_signup_mbp_request($account, $node, $opt_in) {
  *   Associative array of values to use as params to a mbp_request.
  */
 function dosomething_signup_get_mbp_params($account, $node, $opt_in) {
-  if (!($node->type == 'campaign' || $node->type == 'campaign_group')) {
+  if (!($node->type == 'campaign')) {
     return FALSE;
   }
   if (module_exists('dosomething_global')) {
@@ -685,9 +671,8 @@ function dosomething_signup_get_mbp_params($account, $node, $opt_in) {
     $params['mc_opt_in_path_id'] = $opt_in;
   }
 
-  // Add additional values to $params based on campaign / campaign_group
+  // Add additional values to $params based on campaign
   dosomething_signup_get_mbp_params_campaign($params, $wrapper);
-  dosomething_signup_get_mbp_params_campaign_group($params, $wrapper);
   // Add any mailchimp params if needed.
   dosomething_signup_get_mbp_params_mailchimp($params, $node);
   return $params;
@@ -711,23 +696,6 @@ function dosomething_signup_get_mbp_params_campaign(&$params, $wrapper) {
   }
 }
 
-/**
- * Adds campaign group params in a signup mbp request.
- *
- * @param array $params
- *   Params array to be sent to a mbp request.
- * @param object $node
- *   Details about the node that the signup was made on.
- */
-function dosomething_signup_get_mbp_params_campaign_group(&$params, $node) {
-  if ($node->type == 'campaign_group') {
-    $copy = '';
-    if (isset($node->field_transactional_email_copy[$params['user_language']][0]['safe_value'])) {
-      $copy = $node->field_transactional_email_copy[$params['user_language']][0]['safe_value'];
-    }
-    $params['transactional_email_copy'] = $copy;
-  }
-}
 
 /**
  * Checks if Mailchimp params should be included in a signup mbp request.
@@ -833,7 +801,7 @@ function dosomething_signup_set_presignup_message($title) {
 }
 
 /**
- * Returns total number of Signups based on supplied set of filters. 
+ * Returns total number of Signups based on supplied set of filters.
  *
  * @param array $filters
  * @return int
@@ -894,7 +862,7 @@ function dosomething_signup_get_signup_nids_by_uid($uid) {
  */
 function dosomething_signup_node_unsignup_access($node) {
   // Only display for node types that implement signup forms.
-  if ($node->type == 'campaign' || $node->type == 'campaign_group') {
+  if ($node->type == 'campaign') {
     // Only allow access if user staff and is signed up.
     return dosomething_user_is_staff() && dosomething_signup_exists($node->nid);
   }
@@ -913,12 +881,6 @@ function dosomething_signup_get_login_signup_nid() {
     switch ($obj->type) {
       case 'campaign':
         if (module_exists('dosomething_campaign') && dosomething_campaign_get_campaign_type($obj) != 'sms_game') {
-          return $obj->nid;
-        }
-        break;
-      case 'campaign_group':
-        // Should only signup on login if the signup form is displayed.
-        if ($obj->field_display_signup_form[LANGUAGE_NONE][0]['value'] == 1) {
           return $obj->nid;
         }
         break;
