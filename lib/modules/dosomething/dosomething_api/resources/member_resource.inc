@@ -130,11 +130,11 @@ function _member_resource_access($op) {
 /**
  * Callback for User create.
  *
- * @param $account
+ * @param $request
  *   Array passed to the endpoint. Possible keys:
  *   - email (string). Required.
  *   - password (string).
- *   - birthdate (datestring).
+ *   - birthdate (date string).
  *   - first_name (string).
  *   - last_name (string).
  *   - mobile (string).
@@ -143,49 +143,62 @@ function _member_resource_access($op) {
  * @return mixed
  *   Object of the newly created user if successful. String if errors.
  */
-function _member_resource_create($account) {
-  if (!isset($account['email'])) {
+function _member_resource_create($request) {
+  if (!isset($request['email'])) {
     return services_error("Email is required.");
   }
-  $email = $account['email'];
-  // Check if account exists for email.
+  $email = $request['email'];
+  // Check if email is formatted correctly and not already in use.
   if ($user = user_load_by_mail($email)) {
     return services_error(t('Email @email is registered to User uid @uid.', ['@email' => $email, '@uid' => $user->uid]), 403);
   }
+  if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    return services_error(t('Email @email is not a valid email address.', ['@email' => $email]), 422);
+  }
+  
   // Check if account exists for phone.
-  $mobile = $account['mobile'];
+  $mobile = $request['mobile'];
   if ($mobile && $user = dosomething_user_get_user_by_mobile($mobile)) {
     return services_error(t('Mobile @mobile is registered to User uid @uid.', ['@mobile' => $mobile, '@uid' => $user->uid]), 403);
   }
-
-  // Initialize array to pass to user_save().
-  $edit = [];
-  $edit['mail'] = $email;
-  $edit['name'] = $email;
-  $edit['status'] = 1;
-  $edit['created'] = REQUEST_TIME;
-  if (isset($account['password'])) {
-    $edit['pass'] = $account['password'];
+  if (!dosomething_user_valid_mobile($mobile)) {
+    return services_error(t('Mobile @mobile is not a valid phone number.', ['@mobile' => $mobile]), 422);
   }
+  
+  // Initialize array to pass to user_save().
+  $edit = [
+    'mail' => $email,
+    'name' => user_password(), // Overridden below.
+    'status' => 1,
+    'created' => REQUEST_TIME,
+  ];
 
-  // List of available properties to save:
+  // Map request input to Drupal fields, or use default values.
   $fields = [
-    'birthdate' => $account['birthdate'],
-    'first_name' => $account['first_name'],
-    'country' => !empty($account['country']) ? $account['country'] : 'US',
-    'last_name' => !empty($account['last_name']) ? $account['last_name'] : NULL,
-    'mobile' => !empty($account['mobile']) ? dosomething_user_clean_mobile_number($account['mobile']) : NULL,
-    'user_registration_source' => !empty($account['user_registration_source']) ? $account['user_registration_source'] : NULL,
+    'birthdate' => $request['birthdate'],
+    'first_name' => $request['first_name'],
+    'country' => !empty($request['country']) ? $request['country'] : 'US',
+    'last_name' => !empty($request['last_name']) ? $request['last_name'] : NULL,
+    'mobile' => !empty($request['mobile']) ? dosomething_user_clean_mobile_number($request['mobile']) : NULL,
+    'user_registration_source' => !empty($request['user_registration_source']) ? $request['user_registration_source'] : NULL,
   ];
 
   dosomething_user_set_fields($edit, $fields);
+
+  // Set given password, or generate a random one if blank.
+  $edit['pass'] = !empty($request['password']) ? $request['password'] : user_password();
 
   // Infer the user's language from their country code field.
   $edit['language'] = dosomething_global_convert_country_to_language($fields['country']);
 
   try {
-    $account = user_save('', $edit);
-    return $account;
+    $user = user_save('', $edit);
+    
+    // Ensure user has UID set for name, since insert hooks don't fire on API.
+    // @see: dosomething_user_user_insert
+    user_save($user, ['name' => $user->uid]);
+    
+    return $user;
   }
   catch (Exception $e) {
     services_error($e);
