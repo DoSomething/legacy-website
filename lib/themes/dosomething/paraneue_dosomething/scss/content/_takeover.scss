@@ -17,9 +17,7 @@ $transition: .7s;
   overflow: hidden;
 
   &:after {
-    clear: both;
-    content: "";
-    display: table;
+    @include clearfix;
   }
 
   @include media($medium) {
@@ -37,7 +35,7 @@ $transition: .7s;
     transition: $transition;
     max-width: 1350px;
 
-    &.active {
+    &.is-active {
       left: 0px;
       transition: $transition;
     }
