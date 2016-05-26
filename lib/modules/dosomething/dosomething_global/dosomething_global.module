@@ -461,10 +461,12 @@ function dosomething_global_convert_country_to_language($country) {
 }
 
 /**
- * Converts the given language into its assigned URL prefix.
+ * Converts the given language code into its assigned URL
+ * prefix (us, mx, br, etc). If language code not found as
+ * part of supported language list then it defaults to an
+ * empty string for global URL.
  *
  * @param string $language
- *  The language to get the prefix for (eg: 'en', 'en-global', 'es-mx')
  *
  * @return string
  */
@@ -472,7 +474,6 @@ function dosomething_global_get_prefix_for_language($language) {
   $languages = language_list();
 
   if (! array_key_exists($language, $languages)) {
-    // The prefix for en-global is an empty string.
     return '';
   }
 
