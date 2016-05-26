@@ -9,13 +9,13 @@
  *
  */
 function dosomething_organ_donation_menu() {
-  $items = array();
+  $items = [];
 
-  $items['organ-donation/registration'] = array(
+  $items['organ-donation/registration'] = [
     'page callback' => 'dosomething_organ_donation_store_registration',
     'access callback' => 'user_is_logged_in',
     'type' => MENU_CALLBACK,
-  );
+  ];
 
   // Return the $items array to register the path
   return $items;
@@ -57,4 +57,73 @@ function dosomething_organ_donation_store_registration() {
   }
 
   return;
+}
+
+/*
+ * Organ donation configuration form. Allows admins to turn on/off the
+ * organ donation modal after signup.
+ *
+ */
+function dosomething_organ_donation_config_form($form, &$form_state, $node) {
+  // Load the node's helpers variables.
+  $vars = dosomething_helpers_get_variables('node', $node->nid);
+
+  $form['nid'] = [
+    '#type' => 'hidden',
+    '#value' => $node->nid,
+  ];
+
+  $form['organ_donation'] = [
+    '#type' => 'fieldset',
+    '#title' => t("Organ Donation"),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  ];
+
+  $form['organ_donation']['register_organ_donors'] = [
+    '#type' => 'checkbox',
+    '#title' => t('Register organ donors after signup.'),
+    '#description' => t('If set, after a user signs up for the campaign they will be presented with a modal to register as an organ donor'),
+    '#default_value' => $vars['register_organ_donors'],
+    '#size' => 20,
+  ];
+
+  $form['organ_donation']['actions'] = [
+    '#type' => 'actions',
+    'submit' => [
+      '#type' => 'submit',
+      '#value' => 'Save',
+    ],
+  ];
+
+  return $form;
+}
+
+/**
+ * Submit callback for dosomething_campaign_organ_donation_config_form().
+ */
+function dosomething_organ_donation_config_form_submit(&$form, &$form_state) {
+  $var_name = 'register_organ_donors';
+
+  $values = $form_state['values'];
+
+  dosomething_helpers_set_variable('node', $values['nid'], $var_name, $values[$var_name]);
+
+  drupal_set_message("Updated.");
+}
+
+/**
+ * Checks if the user has already registered.
+ *
+ * @param object $node
+ * @return bool
+ */
+function dosomething_organ_donation_has_registered($node) {
+  $organ_registration_turned_on = dosomething_helpers_get_variable('node', $node->nid, 'register_organ_donors');
+
+  $sid = dosomething_signup_exists($node->nid);
+  $result = db_select('dosomething_organ_donation', 'od')->fields('od',['registration_form_timestamp'])->condition('sid', $sid, '=')->execute();
+  $result = $result->fetchAll();
+
+  return ($organ_registration_turned_on && count($result) === 0) ? FALSE : TRUE;
 }
