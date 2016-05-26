@@ -759,8 +759,17 @@ function dosomething_campaign_add_signup_data_form_vars(&$node) {
  * Adds flag to the node that tells us if we need to show the organ donation modal after sign up.
  */
 function dosomething_campaign_add_oragan_donation_vars(&$node) {
-  // @TODO - Check if the form has been subitted already. If it has, then set this flag to false for the page.
-  $node->register_organ_donor = dosomething_helpers_get_variable('node', $node->nid, 'register_organ_donors');
+  $organ_registration_turned_on = dosomething_helpers_get_variable('node', $node->nid, 'register_organ_donors');
+
+  $sid = dosomething_signup_exists($node->nid);
+  $result = db_select('dosomething_organ_donation', 'od')->fields('od',['registration_form_timestamp'])->condition('sid', $sid, '=')->execute();
+  $result = $result->fetchAll();
+
+  if (count($result)) {
+    $organ_registration_turned_on = 0;
+  }
+
+  $node->register_organ_donor = $organ_registration_turned_on;
 }
 
 /**
