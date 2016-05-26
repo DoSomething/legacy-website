@@ -27,8 +27,7 @@ $transition: .7s;
   }
 
   .heading.-emphasized {
-    margin-left: 0px;
-    margin-top: 0px;
+    margin: 0px 0px 10px 0px;
     z-index: -10;
   }
 
@@ -60,5 +59,27 @@ $transition: .7s;
     position: absolute;
     bottom: 0px;
     padding-top: $base-spacing;
+  }
+
+  .button {
+    &.-muted {
+      background: none;
+      color: $med-gray;
+      font-size: $font-small;
+      font-weight: $weight-normal;
+      text-transform: none;
+      border: 0 none;
+      padding: 0px;
+
+      &:hover {
+        color: $off-black;
+        background-color: none;
+        text-decoration: underline;
+      }
+
+      &:focus {
+        box-shadow: none;
+      }
+    }
   }
 }
