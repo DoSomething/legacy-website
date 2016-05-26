@@ -31,8 +31,8 @@
       <script type="text/javascript" src="<?php print '/' . VENDOR_ASSET_PATH . '/respond.js/dest/respond.min.js' ?>"></script>
   <![endif]-->
 
-  <link rel="shortcut icon" href="<?php print '/' . FORGE_ASSET_PATH . '/dist/assets/images/favicon.ico' ?>">
-  <link rel="apple-touch-icon-precomposed" href="<?php print '/' . FORGE_ASSET_PATH . '/dist/assets/images/apple-touch-icon-precomposed.png' ?>">
+  <link rel="shortcut icon" href="<?php print '/' . FORGE_ASSET_PATH . '/assets/images/favicon.ico' ?>">
+  <link rel="apple-touch-icon-precomposed" href="<?php print '/' . FORGE_ASSET_PATH . '/assets/images/apple-touch-icon-precomposed.png' ?>">
   <?php print $head; ?>
 
   <script type="text/javascript" src="<?php print '/' . PARANEUE_PATH . '/dist/modernizr.js' ?>"></script>
