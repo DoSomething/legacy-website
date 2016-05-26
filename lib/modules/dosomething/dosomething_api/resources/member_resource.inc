@@ -144,11 +144,14 @@ function _member_resource_access($op) {
  *   Object of the newly created user if successful. String if errors.
  */
 function _member_resource_create($request) {
+  $query = drupal_get_query_parameters();
+  
   if (!isset($request['email'])) {
     return services_error("Email is required.");
   }
-  $email = $request['email'];
+  
   // Check if email is formatted correctly and not already in use.
+  $email = $request['email'];
   if ($user = user_load_by_mail($email)) {
     return services_error(t('Email @email is registered to User uid @uid.', ['@email' => $email, '@uid' => $user->uid]), 403);
   }
@@ -198,6 +201,15 @@ function _member_resource_create($request) {
     // @see: dosomething_user_user_insert
     user_save($user, ['name' => $user->uid]);
     
+    // Forward users to Northstar, unless `?forward=false` is explicitly set.
+    $should_forward = isset($query['forward']) ? filter_var($query['forward'], FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE) : true;
+    if ($should_forward && module_exists('dosomething_northstar')) {
+      $payload = dosomething_northstar_transform_user($user);
+      $payload['password'] = $edit['pass'];
+      
+      dosomething_northstar_register_user($user, $payload);
+    }
+
     return $user;
   }
   catch (Exception $e) {
