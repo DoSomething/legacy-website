@@ -472,6 +472,15 @@ function _dosomething_reportback_get_permalink_copy_vars($user) {
   if (!$user->field_first_name ) {
     $user->field_first_name[LANGUAGE_NONE][0]['value'] = t('your friend');
   }
+  $first_name = dosomething_helpers_extract_field_data($user->field_first_name, LANGUAGE_NONE);
+
+  if (strpos($user->field_first_name, '@') !== FALSE) {
+    $non_owners_title = t(variable_get('dosomething_campaign_permalink_nonowners_page_title_backup', ''));
+  }
+  else {
+    $non_owners_title = token_replace(t(variable_get('dosomething_campaign_permalink_nonowners_page_title', '')), array('user' => $user));
+  }
+
   return array(
     'owners_rb_subtitle' => t(variable_get('dosomething_campaign_permalink_confirmation_owners_page_subtitle', '')),
     'owners_rb_scholarship' => t(variable_get('dosomething_campaign_permalink_confirmation_owners_scholarship', '')),
@@ -479,7 +488,7 @@ function _dosomething_reportback_get_permalink_copy_vars($user) {
     'owners_rb_social_cta' => t(variable_get('dosomething_campaign_permalink_confirmation_owners_social_cta', '')),
     'owners_title' => t(variable_get('dosomething_campaign_permalink_owners_page_title', '')),
     'owners_subtitle' => t(variable_get('dosomething_campaign_permalink_owners_page_subtitle', '')),
-    'non_owners_title' => token_replace(t(variable_get('dosomething_campaign_permalink_nonowners_page_title', '')), array('user' => $user)),
+    'non_owners_title' => $non_owners_title,
     'non_owners_closed_cta' => t(variable_get('dosomething_campaign_permalink_nonowners_closed_cta', '')),
     'non_owners_closed_button' => t(variable_get('dosomething_campaign_permalink_nonowners_closed_button_copy', '')),
   );
@@ -1225,7 +1234,7 @@ function dosomething_reportback_mark_reportback_as_excluded($fid) {
     }
   }
 
-  // If there are no flagged reportback item files, change the reportback flagged status to 0. 
+  // If there are no flagged reportback item files, change the reportback flagged status to 0.
   if (empty($flagged_fids)) {
     $reportback->flagged = 0;
     entity_save('reportback', $reportback);

@@ -247,6 +247,13 @@ function dosomething_campaign_admin_config_form($form, &$form_state) {
     '#required' => TRUE,
     '#default_value' => t(variable_get('dosomething_campaign_permalink_nonowners_page_title')),
   );
+  $form['permalink']['nonowners']['dosomething_campaign_permalink_nonowners_page_title_backup'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Permalink non-owners page title backup'),
+    '#description' => t('If the title contains sensitive user information this is used as a backup.'),
+    '#required' => TRUE,
+    '#default_value' => t(variable_get('dosomething_campaign_permalink_nonowners_page_title_backup', 'Join DoSomething.org!')),
+  );
   $form['permalink']['nonowners']['dosomething_campaign_permalink_nonowners_closed_cta'] = array(
     '#type' => 'textfield',
     '#title' => t('Permalink non-owners campaign closed CTA'),
