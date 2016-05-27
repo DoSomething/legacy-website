@@ -115,11 +115,11 @@ function dosomething_campaign_preprocess_common_vars(&$vars, &$wrapper) {
       $vars['problem_share_prompt'] = $problem_share_prompt;
     }
 
-    $base_url = dosomething_helpers_get_base_url();
-    $campaign_path = dosomething_helpers_get_current_url_path();
+    $base_url = url(base_path(), ['absolute'=> TRUE, 'language' => dosomething_global_get_language_by_language_code('en-global')]);
+    $campaign_path = url(current_path(), array('absolute' => TRUE));
 
     // Create the image path to the problem fact statement image generated for the node.
-    $country_prefix = dosomething_helpers_get_country_prefix();
+    $country_prefix = (dosomething_global_get_current_prefix()) ? strtoupper(dosomething_global_get_current_prefix()) : 'global';
     $problem_share_image = $base_url . 'sites/default/files/images/problem-' . $vars['nid'] . '-' . $country_prefix . '.png';
 
     $share_types = array(
@@ -366,10 +366,10 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
   }
 
   // Pass custom share links to the front end. Unique by UID.
-  $base_url = dosomething_helpers_get_base_url();
-  $country_prefix_for_organ_donation_share = dosomething_helpers_get_country_prefix();
+  $base_url = url(base_path(), array('absolute'=> TRUE, 'language' => 'en-global'));
+  $country_prefix_for_organ_donation_share = (dosomething_global_get_current_prefix()) ? strtoupper(dosomething_global_get_current_prefix()) : 'global';
   $organ_donation_share_image = $base_url . 'sites/default/files/images/problem-' . $campaign->nid . '-' . $country_prefix_for_organ_donation_share . '.png';
-  $campaign_path = dosomething_helpers_get_current_url_path();
+  $campaign_path = url(current_path(), array('absolute' => TRUE));
 
   // Add social share bar.
   $organ_donation_share_types = array(
