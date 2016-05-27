@@ -32,8 +32,8 @@ function dosomething_helpers_get_facebook_intent($link, $type = NULL, $custom_op
     // different from what is set in the metatags.
     case 'feed_dialog':
       // Build the redirect url.
-      $base_path = url(base_path(), array('absolute' => TRUE, 'language' => 'en-global'));
-      $redirect_path = url(base_path(), array('absolute' => TRUE, 'language' => 'en-global')) . 'ds-share-complete';
+      $base_path = url(base_path(), ['absolute' => TRUE, 'language' => dosomething_global_get_language_by_language_code('en-global')]);
+      $redirect_path = url(base_path(), ['absolute' => TRUE, 'language' => dosomething_global_get_language_by_language_code('en-global')]) . 'ds-share-complete';
 
       // Pass in all the feed dialog parameters
       $facebook_app_id = variable_get('dosomething_settings_facebook_app_id');

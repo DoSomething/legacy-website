@@ -897,10 +897,10 @@ function _dosomething_user_add_signup_data(&$form) {
 
     // Use the global url as the form action so the user gets redirected to the right page.
     $node = node_load($nid);
-    $lang_code = dosomething_global_get_language($user, $node);
+    $language = dosomething_global_get_language_by_language_code(dosomething_global_get_language($user, $node));
 
     $url_options = array(
-      'language' => $lang_code,
+      'language' => $language,
       'query' => array(
         'source' => $source,
       ),
