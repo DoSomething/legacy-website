@@ -437,20 +437,6 @@ function dosomething_campaign_preprocess_pitch_page(&$vars, &$wrapper) {
 
   // Moar $tagline.
   $vars['tagline'] .= t('Any cause, anytime, anywhere.');
-
-  $campaign_progress = dosomething_reportback_get_reportback_total_plus_override($vars['nid']);
-
-  // Get sign up total and add it to cta
-  $signup_count = (int) dosomething_helpers_get_variable('node', $vars['nid'], 'web_signup_count') + (int) dosomething_helpers_get_variable('node', $vars['nid'], 'mobile_signup_count');
-
-  if ($signup_count) {
-    $vars['signup_cta'] = t('Join @signup_count people doing this.', [
-      '@signup_count' => number_format($signup_count, 0, '', ','),
-    ]);
-  }
-
-  // @TODO: format this, based on % of goal left. refs #4444
-  $time_left = $vars['campaign']->high_season_end;
 }
 
 /**
