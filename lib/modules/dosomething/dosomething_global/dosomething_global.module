@@ -466,18 +466,21 @@ function dosomething_global_convert_country_to_language($country) {
  * part of supported language list then it defaults to an
  * empty string for global URL.
  *
- * @param string $language
+ * @param string $language_code
  *
  * @return string
+ *
+ * @TODO: update function name to better reflect what it does.
+ * dosomething_global_get_prefix_for_language_by_language_code?
  */
-function dosomething_global_get_prefix_for_language($language) {
-  $languages = language_list();
+function dosomething_global_get_prefix_for_language($language_code) {
+  $language = dosomething_global_get_language_by_language_code($language_code);
 
-  if (! array_key_exists($language, $languages)) {
+  if (! $language) {
     return '';
   }
 
-  return $languages[$language]->prefix;
+  return $language->prefix;
 }
 
 /**
