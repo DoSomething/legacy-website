@@ -627,21 +627,26 @@ function dosomething_signup_get_mbp_params($account, $node, $opt_in) {
   if (!($node->type == 'campaign')) {
     return FALSE;
   }
-  if (module_exists('dosomething_global')) {
-    list($user_language, $user_country) = dosomething_global_user_details($account);
-    $campaign_country_code = dosomething_global_get_current_country_code();
-    $campaign_language = dosomething_global_convert_country_to_language($campaign_country_code);
+
+  if (!module_exists('dosomething_global')) {
+    return FALSE;
   }
+
+  list($user_language, $user_country) = dosomething_global_user_details($account);
+  $campaign_country_code = dosomething_global_get_current_country_code();
+  $campaign_language_code = dosomething_global_convert_country_to_language($campaign_country_code);
+  $campaign_language = dosomething_global_get_language_by_language_code($campaign_language_code);
 
   $wrapper = entity_metadata_wrapper('node', $node);
   $language = dosomething_global_get_language($account, $node);
-  $url_options = array(
+  $url_options = [
     'language' => $campaign_language,
     'absolute' => TRUE,
     'query' => array(
       'source' => 'node/' . $node->nid,
     ),
-  );
+  ];
+
   $campaign_link = dosomething_global_url('node/' . $node->nid, $url_options);
 
   // Get node title, normal for collections, translatable for campaigns.
@@ -651,7 +656,7 @@ function dosomething_signup_get_mbp_params($account, $node, $opt_in) {
     $title = $node->title;
   }
 
-  $params = array(
+  $params = [
     'email' => $account->mail,
     'uid' => $account->uid,
     'first_name' => dosomething_user_get_field('field_first_name', $account),
@@ -661,9 +666,9 @@ function dosomething_signup_get_mbp_params($account, $node, $opt_in) {
     'campaign_link' => $campaign_link,
     'user_language' => $user_language,
     'user_country' => $user_country,
-    'campaign_language' => $campaign_language,
+    'campaign_language' => $campaign_language->language,
     'campaign_country' => $campaign_country_code,
-  );
+  ];
 
   // Don't subscribe 26+ yo users for Mobile Commons.
   $user_is_old = dosomething_user_is_old_person($account);
@@ -675,6 +680,7 @@ function dosomething_signup_get_mbp_params($account, $node, $opt_in) {
   dosomething_signup_get_mbp_params_campaign($params, $wrapper);
   // Add any mailchimp params if needed.
   dosomething_signup_get_mbp_params_mailchimp($params, $node);
+
   return $params;
 }
 

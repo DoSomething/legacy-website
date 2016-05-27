@@ -466,18 +466,21 @@ function dosomething_global_convert_country_to_language($country) {
  * part of supported language list then it defaults to an
  * empty string for global URL.
  *
- * @param string $language
+ * @param string $language_code
  *
  * @return string
+ *
+ * @TODO: update function name to better reflect what it does.
+ * dosomething_global_get_prefix_for_language_by_language_code?
  */
-function dosomething_global_get_prefix_for_language($language) {
-  $languages = language_list();
+function dosomething_global_get_prefix_for_language($language_code) {
+  $language = dosomething_global_get_language_by_language_code($language_code);
 
-  if (! array_key_exists($language, $languages)) {
+  if (! $language) {
     return '';
   }
 
-  return $languages[$language]->prefix;
+  return $language->prefix;
 }
 
 /**
@@ -557,6 +560,23 @@ function dosomething_global_get_language($account, stdClass $node = NULL, $respe
 }
 
 /**
+ * Get the language object for the specified language code if it exists
+ * as one of the supported languages.
+ *
+ * @param $language_code (e.g. en, en-global, es-mx, pt-br)
+ * @return null|object
+ */
+function dosomething_global_get_language_by_language_code($language_code) {
+  $languages = language_list();
+
+  if (array_key_exists($language_code, $languages)) {
+    return $languages[$language_code];
+  }
+
+  return NULL;
+}
+
+/**
  * Return an array containing only the list of language
  * prefixes supported.
  *
@@ -624,8 +644,6 @@ function dosomething_global_redirect_node_edit($node, $user_language) {
  *  - 404 the user
  */
 function dosomething_global_redirect_node($language, $node, $redirect_status) {
-  $languages = language_list();
-
   // Don't do redirects for privileged users.
   if ($redirect_status == 302) {
     if (user_access('access administration menu')) {
@@ -655,19 +673,22 @@ function dosomething_global_redirect_node($language, $node, $redirect_status) {
  */
 function dosomething_global_url($path, $options = NULL) {
   global $language;
+
   $languages = language_list();
 
   if (!isset($options['language'])) {
     if (isset($language)) {
-      $options['language'] = $language->language;
+      $options['language'] = $language;
     }
     else {
-      $options['language'] = language_default('language');
+      $options['language'] = dosomething_global_get_language_by_language_code(language_default('language'));
     }
   }
-  if (!isset($options['prefix']) && !empty($languages[$options['language']]->prefix)) {
+
+  if (!isset($options['language']->prefix) && !empty($languages[$options['language']]->prefix)) {
     $options['prefix'] = $languages[$options['language']]->prefix . '/';
   }
+
   return url($path, $options);
 }
 
@@ -680,16 +701,21 @@ function dosomething_global_url($path, $options = NULL) {
  *    The language of the URL
  * @param string $fragment
  *    Optional fragment to append
+ * @return string
  */
 function dosomething_global_node_url($nid, $language, $fragment = NULL) {
   $raw_url = 'node/' . $nid;
+
   if (isset($fragment)) {
     $raw_url .= '#' . $fragment;
   }
+
   $prefix = dosomething_global_get_prefix_for_language($language);
+
   if (!empty($prefix)) {
     $prefix .= '/';
   }
+
   return $GLOBALS['base_url'] . '/' . $prefix . drupal_get_path_alias($raw_url, $language);
 }
 

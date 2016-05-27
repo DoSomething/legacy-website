@@ -565,27 +565,38 @@ function dosomething_campaign_get_campaigns_doing($uid = NULL) {
  *   An array of variables.
  */
 function dosomething_campaign_get_campaign_block_vars($nid, $image_size = '740x480', $source = NULL) {
+  global $user;
+
   $node = node_load($nid);
   $clc = dosomething_helpers_get_current_language_content_code();
 
-  global $user;
   $language = dosomething_global_get_language($user, $node);
+
+  if (! is_object($language)) {
+    dosomething_global_get_language_by_language_code($language);
+  }
+
   // Build a global URL and remove the first slash returned
-  $path_alias = preg_replace('/\//', '', dosomething_global_url('node/' . $nid, array('language' => $language)), 1);
+  $path_alias = preg_replace('/\//', '', dosomething_global_url('node/' . $nid, ['language' => $language]), 1);
 
   if ($source) {
     $path_alias .= '?source=' . $source;
   }
+
   $image = NULL;
   $image_nid = NULL;
+
   if (!empty($node->field_image_campaign_cover)) {
     $image_nid = $node->field_image_campaign_cover[$clc][0]['target_id'];
     $image = dosomething_image_get_themed_image_url($image_nid, 'landscape', $image_size);
   }
+
   $cta = NULL;
+
   if (!empty($node->field_call_to_action)) {
     $cta = $node->field_call_to_action[$clc][0]['value'];
   }
+
   $title = $node->title_field[$clc][0]['safe_value'];
 
   return array(

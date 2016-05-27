@@ -115,7 +115,7 @@ function dosomething_campaign_preprocess_common_vars(&$vars, &$wrapper) {
       $vars['problem_share_prompt'] = $problem_share_prompt;
     }
 
-    $base_url = url(base_path(), array('absolute'=> TRUE, 'language' => 'en-global'));
+    $base_url = url(base_path(), ['absolute'=> TRUE, 'language' => dosomething_global_get_language_by_language_code('en-global')]);
     $campaign_path = url(current_path(), array('absolute' => TRUE));
 
 
