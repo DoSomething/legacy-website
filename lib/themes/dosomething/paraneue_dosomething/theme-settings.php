@@ -42,11 +42,6 @@ function paraneue_dosomething_form_system_theme_settings_alter(&$form, &$form_st
   _paraneue_dosomething_theme_settings_footer($form, $form_state);
   _paraneue_dosomething_theme_settings_user($form, $form_state);
 
-  if (!isset($form['#submit'])) {
-    $form['#submit'] = [];
-  }
-  $form['#submit'][] = 'paraneue_dosomething_theme_settings_handle_files';
-
   // Work-around for this bug: https://drupal.org/node/1862892.
   $theme_settings_path = drupal_get_path('theme', 'paraneue_dosomething') . '/theme-settings.php';
   if (!in_array($theme_settings_path, $form_state['build_info']['files'])) {
