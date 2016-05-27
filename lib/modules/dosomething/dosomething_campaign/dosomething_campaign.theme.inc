@@ -115,12 +115,17 @@ function dosomething_campaign_preprocess_common_vars(&$vars, &$wrapper) {
       $vars['problem_share_prompt'] = $problem_share_prompt;
     }
 
+<<<<<<< HEAD
     $base_url = url(base_path(), ['absolute'=> TRUE, 'language' => dosomething_global_get_language_by_language_code('en-global')]);
     $campaign_path = url(current_path(), array('absolute' => TRUE));
+=======
+    $base_url = url(base_path(), array('absolute'=> TRUE, 'language' => 'en-global'));
+    $campaign_path = dosomething_helpers_get_current_url_path();
+>>>>>>> adds share links to modal but facebook and tumblr not working quite right
 
 
     // Create the image path to the problem fact statement image generated for the node.
-    $country_prefix = (dosomething_global_get_current_prefix()) ? strtoupper(dosomething_global_get_current_prefix()) : 'global';
+    $country_prefix = dosomething_helpers_get_country_prefix();
     $problem_share_image = $base_url . 'sites/default/files/images/problem-' . $vars['nid'] . '-' . $country_prefix . '.png';
 
     $share_types = array(
@@ -365,6 +370,49 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
       );
     }
   }
+
+  // Pass custom share links to the front end. Unique by UID.
+  $country_prefix = dosomething_helpers_get_country_prefix();
+  $problem_share_image = $base_url . 'sites/default/files/images/problem-' . $campaign->nid . '-' . $country_prefix . '.png';
+  $campaign_path = dosomething_helpers_get_current_url_path();
+
+  // Add social share bar.
+  $share_types = array(
+    'facebook' => array(
+      'type' => 'feed_dialog',
+      'parameters' => array(
+        'picture' => $problem_share_image,
+      ),
+    ),
+    'twitter' => array(
+      'tweet' => (isset($campaign->fact_problem)) ? $campaign->fact_problem['fact'] : NULL,
+    ),
+    'tumblr' => array(
+      'posttype' => 'photo',
+      'content' => $problem_share_image,
+      'caption' => t("This is REAL, do something about this with me: "),
+    ),
+  );
+
+  $share_link = $campaign_path . '?source=' . $vars['user']->uid;;
+
+  $organ_donations_share_button_markup = dosomething_helpers_share_bar($share_link, $share_types, 'organ_donation_referral');
+
+  // Send 3 campaigns to signup takeover, prompting user to signup for multiple campaigns. Also send param for existing or new user.
+  drupal_add_js(
+    array(
+      'dosomethingCampaign' => array(
+        'recommendedCampaigns' => $signup_takeover_recommended_campaigns,
+      ),
+      'dosomethingUser' => array(
+        'userStatus' => $user_status,
+        'shareLink' => $share_link,
+        'sharePaths' => $share_paths,
+        'shareButtonMarkup' => $organ_donations_share_button_markup,
+      ),
+    ),
+    array('type' => 'setting')
+  );
 }
 
 /**
