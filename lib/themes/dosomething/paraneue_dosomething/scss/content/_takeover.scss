@@ -1,0 +1,83 @@
+$transition: .7s;
+
+.modal-close-button {
+  z-index: 10;
+}
+
+// NOTE: this is a bit of a hack cause the layout was breaking
+// when the validation displays messages. Worth figuring out what
+// is really going here.
+.validation.is-showing-message {
+  top: 0;
+}
+
+.takeover {
+  position: relative;
+  height: 600px;
+  overflow: hidden;
+
+  &:after {
+    @include clearfix;
+  }
+
+  @include media($medium) {
+    height: 525px;
+  }
+
+  .heading.-emphasized {
+    margin: 0px 0px 10px 0px;
+    z-index: -10;
+  }
+
+  .takeover__screen {
+    position: absolute;
+    left: -1400px;
+    transition: $transition;
+    max-width: 1350px;
+
+    &.is-active {
+      left: 0px;
+      transition: $transition;
+    }
+
+    .takeover__campaign-item {
+      display: block;
+      width: 100%;
+      text-align: left;
+      padding-left: 0px;
+
+      @include media($medium) {
+        display: table-cell;
+        padding-left: $base-spacing;
+      }
+    }
+  }
+
+  .takeover__buttons {
+    position: absolute;
+    bottom: 0px;
+    padding-top: $base-spacing;
+  }
+
+  .button {
+    &.-muted {
+      background: none;
+      color: $med-gray;
+      font-size: $font-small;
+      font-weight: $weight-normal;
+      text-transform: none;
+      border: 0 none;
+      padding: 0px;
+
+      &:hover {
+        color: $off-black;
+        background-color: none;
+        text-decoration: underline;
+      }
+
+      &:focus {
+        box-shadow: none;
+      }
+    }
+  }
+}
