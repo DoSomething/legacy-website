@@ -301,6 +301,15 @@ function dosomething_helpers_format_data($data) {
 }
 
 /**
+ * Utility funciton to get base URL.
+ *
+ * @return string
+ */
+function dosomething_helpers_get_base_url(){
+  return url(base_path(), array('absolute'=> TRUE, 'language' => 'en-global'));
+}
+
+/**
  * Utility function to get country prefix.
  *
  * @return string
