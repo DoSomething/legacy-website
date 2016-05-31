@@ -252,4 +252,3 @@ function paraneue_dosomething_preprocess_page(&$vars) {
     }
   }
 }
-

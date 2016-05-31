@@ -517,6 +517,8 @@ function dosomething_global_get_language($account, stdClass $node = NULL, $respe
     // Respect the URL first.
     $request_path = explode('/', request_path());
     if (!empty($request_path[0])) {
+      
+      // Otherwise try & match it against configured languages
       $languages = language_list();
       foreach ($languages as $langcode => $lang_data) {
         if ($lang_data->prefix == $request_path[0]) {

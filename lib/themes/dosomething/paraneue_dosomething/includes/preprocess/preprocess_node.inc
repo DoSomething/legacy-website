@@ -361,4 +361,3 @@ function paraneue_dosomething_preprocess_node_notfound(&$vars) {
     $vars['campaign_results'] = paraneue_dosomething_get_recommended_campaign_gallery(NULL, NULL, 3);
   }
 }
-
