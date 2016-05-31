@@ -207,7 +207,7 @@ function dosomething_taxonomy_get_partners_data($field_partners, $logo_style = '
  *   Multi-dimensional array of partners/sponsors, or NULL if empty.
  *
  */
-function dosomething_taxonomy_get_partners_vars($field_partners = array(), $language_code = NULL) {
+function dosomething_taxonomy_get_partners_vars($field_partners = array(), $language_code = 'en-global') {
 
   if (empty($field_partners)) {
     return;

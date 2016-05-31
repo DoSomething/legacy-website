@@ -84,7 +84,7 @@ function dosomething_helpers_preprocess_partners_vars(&$vars) {
     return;
   }
 
-  $language_code = dosomething_global_get_language($vars['user'], $vars['node']);
+  $language_code = dosomething_global_convert_country_to_language(dosomething_global_get_current_prefix());
   $partners_vars = dosomething_taxonomy_get_partners_vars($vars['field_partners'], $language_code);
 
   if (empty($partners_vars)) {
