@@ -83,7 +83,10 @@ function dosomething_helpers_preprocess_partners_vars(&$vars) {
   if (empty($vars['field_partners'])) {
     return;
   }
-  $partners_vars = dosomething_taxonomy_get_partners_vars($vars['field_partners']);
+
+  $language_code = dosomething_global_get_language($vars['user'], $vars['node']);
+  $partners_vars = dosomething_taxonomy_get_partners_vars($vars['field_partners'], $language_code);
+
   if (empty($partners_vars)) {
     return;
   }

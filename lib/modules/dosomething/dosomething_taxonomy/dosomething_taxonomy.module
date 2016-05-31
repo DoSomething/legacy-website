@@ -199,12 +199,15 @@ function dosomething_taxonomy_get_partners_data($field_partners, $logo_style = '
  *
  * @param array $field_partners
  *   An loaded field_partners field array.
+ * @param string $language_code
+ *   The optional language code which indicates to only return partners
+ *   translated in that lang.
  *
  * @return mixed
  *   Multi-dimensional array of partners/sponsors, or NULL if empty.
  *
  */
-function dosomething_taxonomy_get_partners_vars($field_partners = array()) {
+function dosomething_taxonomy_get_partners_vars($field_partners = array(), $language_code = NULL) {
 
   if (empty($field_partners)) {
     return;
@@ -229,6 +232,12 @@ function dosomething_taxonomy_get_partners_vars($field_partners = array()) {
 
     // Store partner term data.
     $term = taxonomy_term_load($fc_item->field_partner->value()->tid);
+
+    // First check the language matches if a code was specified
+    if (isset($language_code) && !array_key_exists($language_code, $term->translations->data)) {
+      continue;
+    }
+
     $term_wrapper = dosomething_helpers_term_metadata_wrapper($term);
     $partners[$delta]['tid'] = $term_wrapper->getIdentifier();
     $partners[$delta]['name'] = $term_wrapper->label();
