@@ -69,6 +69,11 @@ function dosomething_signup_schema() {
         'type' => 'int',
         'not null' => FALSE,
       ),
+      transactional' => array(
+        'description' => 'Boolean indicating if transactional messaging should be sent',
+        'type' => 'int',
+        'not null' => TRUE,
+      ),
     ),
     'primary key' => array('sid'),
     'unique keys' => array(
