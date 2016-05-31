@@ -391,7 +391,7 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
 
   $custom_share_link = $campaign_path . '?source=' . $vars['user']->uid;;
 
-  $organ_donations_share_button_markup = dosomething_helpers_share_bar($custom_share_link, $organ_donation_share_types, 'organ_donation_referral');
+  $organ_donations_share_button_markup = dosomething_helpers_share_bar($custom_share_link, $organ_donation_share_types, 'organ_donation_referral', 'social-menu');
 
   // Send custom share links and share bar to front end.
   drupal_add_js(
