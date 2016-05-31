@@ -283,7 +283,7 @@ function _campaign_resource_signup($nid, $values) {
   }
 
   // transactional = FALSE will result in neither email or SMS transactional messages from being sent.
-  return dosomething_signup_create($nid, $values['uid'], $values['source'], $values['transactional']);
+  return dosomething_signup_create($nid, $values['uid'], $values['source'], NULL, $values['transactional']);
 }
 
 
