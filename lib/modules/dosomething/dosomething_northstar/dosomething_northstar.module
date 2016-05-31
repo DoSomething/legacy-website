@@ -50,7 +50,7 @@ function dosomething_northstar_verify_user($credentials) {
   // Add to request log if enabled.
   dosomething_northstar_log_request('verify_user', $user, $credentials, $response);
 
-  if($response->code !== '200') {
+  if (!_dosomething_northstar_is_successful_response($response)) {
     return null;
   }
 
@@ -92,7 +92,7 @@ function dosomething_northstar_register_user($user, $payload) {
   // Add to request log if enabled.
   dosomething_northstar_log_request('register_user', $user, $payload, $response);
 
-  if ($response->code !== '200') {
+  if (_dosomething_northstar_is_successful_response($response)) {
     watchdog('dosomething_northstar', 'User not migrated : ' . $response->code, NULL, WATCHDOG_ERROR);
     return;
   }
@@ -145,14 +145,16 @@ function dosomething_northstar_update_user($user, $payload) {
   // Add to request log if enabled.
   dosomething_northstar_log_request('update_user', $user, $payload, $response);
 
-  if ($response->code === '200' && module_exists('stathat')) {
-    stathat_send_ez_count('drupal - Northstar - user updated - count', 1);
+  if (_dosomething_northstar_is_successful_response($response)) {
+    if (module_exists('stathat')) {
+      stathat_send_ez_count('drupal - Northstar - user updated - count', 1);
+    }
   }
   elseif ($response->code === '404') {
     // If the given Drupal ID 404s, try to register them.
     dosomething_northstar_register_user($user, $payload);
   }
-  elseif ($response->code !== '200') {
+  else {
     watchdog('dosomething_northstar', 'User not updated : ' . $response->code, NULL, WATCHDOG_ERROR);
   }
 }
@@ -270,6 +272,18 @@ function dosomething_northstar_build_ns_user($user, $form_state) {
   }
 
   return $northstar_user;
+}
+
+/**
+ * Return whether the response has a "successful" status code or not.
+ * 
+ * @param $response
+ * @return bool
+ */
+function _dosomething_northstar_is_successful_response($response) {
+  $code = (int) $response->code;
+
+  return $code >= 200 && $code <= 299;
 }
 
 /**
