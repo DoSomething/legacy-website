@@ -573,7 +573,7 @@ function dosomething_campaign_get_campaign_block_vars($nid, $image_size = '740x4
   $language = dosomething_global_get_language($user, $node);
 
   if (! is_object($language)) {
-    dosomething_global_get_language_by_language_code($language);
+    $language = dosomething_global_get_language_by_language_code($language);
   }
 
   // Build a global URL and remove the first slash returned
@@ -586,18 +586,22 @@ function dosomething_campaign_get_campaign_block_vars($nid, $image_size = '740x4
   $image = NULL;
   $image_nid = NULL;
 
-  if (!empty($node->field_image_campaign_cover)) {
+  if (!empty($node->field_image_campaign_cover) && array_key_exists($clc, $node->field_image_campaign_cover)) {
     $image_nid = $node->field_image_campaign_cover[$clc][0]['target_id'];
     $image = dosomething_image_get_themed_image_url($image_nid, 'landscape', $image_size);
   }
 
   $cta = NULL;
 
-  if (!empty($node->field_call_to_action)) {
+  if (!empty($node->field_call_to_action) && array_key_exists($clc, $node->field_call_to_action)) {
     $cta = $node->field_call_to_action[$clc][0]['value'];
   }
 
-  $title = $node->title_field[$clc][0]['safe_value'];
+  $title = NULL;
+
+  if (array_key_exists($clc, $node->title_field)) {
+    $title = $node->title_field[$clc][0]['safe_value'];
+  }
 
   return array(
     'nid' => $nid,
