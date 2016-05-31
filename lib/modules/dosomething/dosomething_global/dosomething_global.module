@@ -67,7 +67,10 @@ function dosomething_global_init() {
   if ($url_variables['url_path_prefix'] != dosomething_global_get_prefix_for_language(DOSOMETHING_GLOBAL_DEFAULT_LANG_CODE)) {
     return;
   }
-  else if($user_variables['user_language'] == DOSOMETHING_GLOBAL_DEFAULT_LANG_CODE) {
+  else if ($user_variables['user_language'] == DOSOMETHING_GLOBAL_DEFAULT_LANG_CODE) {
+    return;
+  }
+  else if (!array_key_exists($user_variables['user_language'], $languages)) {
     return;
   }
 
