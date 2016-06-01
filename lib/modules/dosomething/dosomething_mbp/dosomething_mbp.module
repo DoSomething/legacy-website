@@ -99,6 +99,7 @@ function dosomething_mbp_get_transactional_payload($origin, $params = NULL) {
   $payload = array(
     'activity' => $origin,
     'email' => $params['email'],
+    'transactional' => $params['transactional'],
     'uid' => $params['uid'],
     'merge_vars' => array(
       'MEMBER_COUNT' => dosomething_user_get_member_count(TRUE),

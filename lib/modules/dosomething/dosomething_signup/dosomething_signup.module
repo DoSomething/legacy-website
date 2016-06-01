@@ -229,11 +229,13 @@ function dosomething_signup_get_query_source() {
  * @param int $timestamp
  *   (optional) The timestamp of the signup.
  *   If not provided, uses @dries time.
+ * @param bool $transactional
+ *   (optional) Flag to trigger sending transactional messages related to signup.
  *
  * @return mixed
  *   The sid of the newly inserted signup, or FALSE if error.
  */
-function dosomething_signup_create($nid, $uid = NULL, $source = NULL, $timestamp = NULL) {
+function dosomething_signup_create($nid, $uid = NULL, $source = NULL, $timestamp = NULL, $transactional = TRUE) {
   global $user;
 
   if (!isset($uid)) {
@@ -257,6 +259,7 @@ function dosomething_signup_create($nid, $uid = NULL, $source = NULL, $timestamp
     'run_nid' => $run->nid,
     'source'=> $source,
     'timestamp' => $timestamp,
+    'transactional' => $transactional,
   );
 
   try {
@@ -534,8 +537,11 @@ function dosomething_signup_third_party_subscribe($account, $node) {
     $var_name = 'dosomething_signup_mobilecommons_opt_in_path_general_campaign';
     $opt_in = variable_get($var_name);
   }
+
+  $var_name  = 'transactional';
+  $transactional = dosomething_helpers_get_variable('node', $node->nid, $var_name);
   // Send message broker request.
-  dosomething_signup_mbp_request($account, $node, $opt_in);
+  dosomething_signup_mbp_request($account, $node, $opt_in, $transactional);
 }
 
 /**
@@ -585,7 +591,7 @@ function dosomething_signup_user_signup($nid, $account = NULL, $source = NULL) {
  * @param int $opt_in
  *   The opt-in path to use for opt-in.
  */
-function dosomething_signup_mbp_request($account, $node, $opt_in) {
+function dosomething_signup_mbp_request($account, $node, $opt_in, $transactional) {
   // Send MBP request.
   if (!module_exists('dosomething_mbp')) {
     return;
@@ -602,7 +608,7 @@ function dosomething_signup_mbp_request($account, $node, $opt_in) {
   }
 
   // Gather mbp params for the signup.
-  $params = dosomething_signup_get_mbp_params($account, $node, $opt_in);
+  $params = dosomething_signup_get_mbp_params($account, $node, $opt_in, $transactional);
 
   // Send campaign mbp request.
   if ($node->type == 'campaign') {
@@ -619,11 +625,13 @@ function dosomething_signup_mbp_request($account, $node, $opt_in) {
  *   Details about the node that the signup was made on.
  * @param int $opt_in
  *   The opt-in path to use for opt-in.
+ * @param bool $transactional
+ *   A flag to disable sending transactional messaging.
  *
  * @return array
  *   Associative array of values to use as params to a mbp_request.
  */
-function dosomething_signup_get_mbp_params($account, $node, $opt_in) {
+function dosomething_signup_get_mbp_params($account, $node, $opt_in, $transactional) {
   if (!($node->type == 'campaign')) {
     return FALSE;
   }
@@ -668,6 +676,7 @@ function dosomething_signup_get_mbp_params($account, $node, $opt_in) {
     'user_country' => $user_country,
     'campaign_language' => $campaign_language->language,
     'campaign_country' => $campaign_country_code,
+    'transactional' => $transactional,
   ];
 
   // Don't subscribe 26+ yo users for Mobile Commons.
