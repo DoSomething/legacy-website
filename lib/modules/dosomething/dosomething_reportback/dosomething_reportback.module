@@ -780,7 +780,6 @@ function dosomething_reportback_set_properties(&$entity, $values) {
     'quantity',
     'why_participated',
     'num_participants',
-    'source',
   );
 
   // For each of them:
@@ -808,6 +807,10 @@ function dosomething_reportback_set_files(&$entity, $values) {
 
     if (!empty($values['caption'])) {
       $entity->caption = filter_xss($values['caption'], array());
+    }
+
+    if (!empty($values['source'])) {
+      $entity->source = filter_xss($values['source'], array());
     }
   }
 }
