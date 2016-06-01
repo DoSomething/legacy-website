@@ -263,6 +263,7 @@ function _campaign_resource_index($ids, $staff_pick, $term_ids, $count, $random,
  *   The signup data to post. Expected keys:
  *   - uid: The user uid (int).  Optional, uses global $user if not set.
  *   - source (string).
+ *   - transactionals (bool). Optional flag to disable sending transactional messages.
  */
 function _campaign_resource_signup($nid, $values) {
   global $user;
@@ -272,13 +273,14 @@ function _campaign_resource_signup($nid, $values) {
   if (!isset($values['source'])) {
     $values['source'] = NULL;
   }
+  if (!isset($values['transactionals'])) {
+    $values['transactionals'] = NULL;
+  }
   if (DOSOMETHING_SIGNUP_LOG_SIGNUPS) {
     watchdog('dosomething_api', '_campaign_resource_signup values:' . json_encode($values));
   }
-  // @todo: Pass parameter into signup_create whether or not to send SMS.
-  // Since SMS campaign signups would hit this endpoint, would not want
-  // to send an additional "You've signed up text".
-  return dosomething_signup_create($nid, $values['uid'], $values['source']);
+  // transactionals = FALSE will result in neither email or SMS transactional messages being sent.
+  return dosomething_signup_create($nid, $values['uid'], $values['source'], NULL, $values['transactionals']);
 }
 
 
