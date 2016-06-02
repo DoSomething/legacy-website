@@ -632,11 +632,13 @@ function dosomething_signup_mbp_request($account, $node, $opt_in, $transactional
  *   Details about the node that the signup was made on.
  * @param int $opt_in
  *   The opt-in path to use for opt-in.
+ * @param bool $transactionals
+ *   Control if transactional messaging should be sent.
  *
  * @return array
  *   Associative array of values to use as params to a mbp_request.
  */
-function dosomething_signup_get_mbp_params($account, $node, $opt_in) {
+function dosomething_signup_get_mbp_params($account, $node, $opt_in, $transactionals) {
   if (!($node->type == 'campaign')) {
     return FALSE;
   }
@@ -681,6 +683,7 @@ function dosomething_signup_get_mbp_params($account, $node, $opt_in) {
     'user_country' => $user_country,
     'campaign_language' => $campaign_language->language,
     'campaign_country' => $campaign_country_code,
+    'transactionals' => $transactionals,
   ];
 
   // Don't subscribe 26+ yo users for Mobile Commons.
