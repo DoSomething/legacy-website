@@ -551,6 +551,24 @@ function restart_php5_fpm {
   fi
 }
 
+#=== FUNCTION ==================================================================
+# NAME: restart_php7_fpm
+# DESCRIPTION: Restarts php7.0-fpm on servers running php7.
+#===============================================================================
+function restart_php7_fpm {
+  PHP_FPM_STATUS="$(sudo service php7.0-fpm status)"
+  PHP_VERSION="$(php -v|grep --only-matching --perl-regexp "7\.\\d+\.\\d+")"
+
+  if $(echo ${PHP_FPM_STATUS} | grep --quiet "php7.0-fpm start/running") && $(echo ${PHP_VERSION} | grep --quiet "7.0")
+  then
+    echo "Restarting PHP-FPM now"
+    sudo service php7.0-fpm restart
+  else
+    echo "Either php7.0-fpm is not running or php -v < 7.0. Not restarting."
+  fi
+}
+
+
 # ==============================================================================
 # Commands
 # ==============================================================================
@@ -668,7 +686,16 @@ fi
 #----------------------------------------------------------------------
 # restart php5-fpm
 #----------------------------------------------------------------------
-if [[ $1 == "restart_php" ]]
+if [[ $1 == "restart_php5" ]]
 then
   restart_php5_fpm
 fi
+
+#----------------------------------------------------------------------
+# restart php7.0-fpm
+#----------------------------------------------------------------------
+if [[ $1 == "restart_php7" ]]
+then
+  restart_php7_fpm
+fi
+
