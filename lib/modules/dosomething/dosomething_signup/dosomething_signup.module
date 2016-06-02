@@ -600,8 +600,11 @@ function dosomething_signup_user_signup($nid, $account = NULL, $source = NULL) {
  * @param int $opt_in
  *   The opt-in path to use for opt-in.
  * @param bool $transactionals
+ *   (optional) A flag to disable sending transactional messages.
+ * @param string $source
+ *   (optional) A idendify name of the original source that requested the campaign signup.
  */
-function dosomething_signup_mbp_request($account, $node, $opt_in, $transactionals) {
+function dosomething_signup_mbp_request($account, $node, $opt_in, $transactionals = NULL, $source = NULL) {
   // Send MBP request.
   if (!module_exists('dosomething_mbp')) {
     return;
@@ -618,7 +621,7 @@ function dosomething_signup_mbp_request($account, $node, $opt_in, $transactional
   }
 
   // Gather mbp params for the signup.
-  $params = dosomething_signup_get_mbp_params($account, $node, $opt_in, $transactionals);
+  $params = dosomething_signup_get_mbp_params($account, $node, $opt_in, $transactionals, $source);
 
   // Send campaign mbp request.
   if ($node->type == 'campaign') {
