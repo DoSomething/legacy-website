@@ -105,26 +105,25 @@ function dosomething_mbp_get_transactional_payload($origin, $params = NULL) {
     ),
   );
 
-  if (isset($params['transactionals'])) {
-    $payload['transactionals'] = $params['transactionals'];
+  // Optional values
+  $optional_params = [
+    'transactionals',
+    'source',
+    'user_language',
+    'campaign_language',
+    'campaign_country',
+  ];
+  foreach ($optional_params as $op) {
+    if (isset($params[$op])) {
+      $payload[$op] = $params[$op];
+    }
   }
-  if (isset($params['source'])) {
-    $payload['source'] = $params['source'];
-  }
+
   if (isset($params['user_country'])) {
     $payload['user_country'] = $params['user_country'];
   }
   else {
     $payload['user_country'] = dosomething_settings_get_geo_country_code();
-  }
-  if (isset($params['user_language'])) {
-    $payload['user_language'] = $params['user_language'];
-  }
-  if (isset($params['campaign_language'])) {
-    $payload['campaign_language'] = $params['campaign_language'];
-  }
-  if (isset($params['campaign_country'])) {
-    $payload['campaign_country'] = $params['campaign_country'];
   }
 
   // If email template wasn't set use request details to define template name.
