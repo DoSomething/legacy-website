@@ -229,11 +229,14 @@ function dosomething_signup_get_query_source() {
  * @param int $timestamp
  *   (optional) The timestamp of the signup.
  *   If not provided, uses @dries time.
+ * @param bool $transactionals
+ *   (optional) A flag to disable sending transactional messaging.
+ *   The default is to send messaging.
  *
  * @return mixed
  *   The sid of the newly inserted signup, or FALSE if error.
  */
-function dosomething_signup_create($nid, $uid = NULL, $source = NULL, $timestamp = NULL) {
+function dosomething_signup_create($nid, $uid = NULL, $source = NULL, $timestamp = NULL, $transactionals = NULL) {
   global $user;
 
   if (!isset($uid)) {
@@ -257,6 +260,7 @@ function dosomething_signup_create($nid, $uid = NULL, $source = NULL, $timestamp
     'run_nid' => $run->nid,
     'source'=> $source,
     'timestamp' => $timestamp,
+    'transactionals' => $transactionals,
   );
 
   try {
