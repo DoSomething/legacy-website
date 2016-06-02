@@ -638,8 +638,9 @@ function dosomething_signup_mbp_request($account, $node, $opt_in, $transactional
  *   Details about the node that the signup was made on.
  * @param int $opt_in
  *   The opt-in path to use for opt-in.
- * @param bool $transactionals
- *   (optional) Control if transactional messaging should be sent.
+ * @param bool $source
+ *   (optional) The source of the user campaign signup. Can be internal to this application ("campaigns") or a
+ *   souce defined in a call to the Campaign Signup API endpoint.
  * @param bool $transactionals
  *   (optional) Control if transactional messaging should be sent.
  *
