@@ -41,13 +41,13 @@ function dosomething_zendesk_get_client() {
   if (! class_exists(\Zendesk\API\Client::class)) {
     return FALSE;
   }
-  
+
   $subdomain = variable_get('dosomething_zendesk_subdomain');
   $username = variable_get('dosomething_zendesk_username');
   $token = variable_get('dosomething_zendesk_token');
   $client = new Zendesk\API\Client($subdomain, $username);
   $client->setAuth('token', $token);
-  
+
   return $client;
 }
 
@@ -56,9 +56,11 @@ function dosomething_zendesk_get_client() {
  *
  * @param object $entity
  *   Optional. A loaded entity which this zendesk form is being rendered on.
- * @return array 
+ * @return array
  */
 function dosomething_zendesk_form($form, &$form_state, $entity = NULL)  {
+  global $user;
+
   // Initialize zendesk group_id as NULL.
   $group_id = NULL;
 
@@ -108,10 +110,12 @@ function dosomething_zendesk_form($form, &$form_state, $entity = NULL)  {
   if ($entity) {
     // Check if entity has a Zendesk group id.
     $group_id = dosomething_zendesk_get_zendesk_group_id($entity);
+
     // If staff_pick field exists:
-    if (isset($entity->field_staff_pick) && isset($entity->field_staff_pick[LANGUAGE_NONE][0])) {
+    $lang_code = dosomething_global_get_language($user, $entity);
+    if (isset($entity->field_staff_pick) && isset($entity->field_staff_pick[$lang_code][0])) {
       // If entity is a staff pick:
-      if ($entity->field_staff_pick[LANGUAGE_NONE][0]['value'] == 1) {
+      if ($entity->field_staff_pick[$lang_code][0]['value'] == 1) {
         $form['priority']['#value'] = 'high';
       }
     }
@@ -209,7 +213,7 @@ function dosomething_zendesk_form_submit($form, &$form_state) {
     global $user;
     $values['email'] = $user->mail;
   }
- 
+
   // Attempt to submit a ticket via Zendesk API.
   if (dosomething_zendesk_create_ticket($values)) {
     $msg = t("Thanks for submitting your question.") . ' ';
@@ -297,11 +301,11 @@ function dosomething_zendesk_get_ticket_array($values) {
     'priority' => $values['priority'],
     'custom_fields' => array(
       array(
-        'id' => DOSOMETHING_ZENDESK_FIELD_ID_BROWSER, 
+        'id' => DOSOMETHING_ZENDESK_FIELD_ID_BROWSER,
         'value' => $values['browser'],
       ),
       array(
-        'id' => DOSOMETHING_ZENDESK_FIELD_ID_IP_ADDRESS, 
+        'id' => DOSOMETHING_ZENDESK_FIELD_ID_IP_ADDRESS,
         'value' => $values['ip_address'],
       ),
     ),
@@ -317,7 +321,7 @@ function dosomething_zendesk_get_ticket_array($values) {
 
 /**
  * Verifies that given $email exists for a zendesk user.
- * 
+ *
  * If a zendesk user doesn't exist for $email, creates one.
  *
  * @param string $email
@@ -348,7 +352,7 @@ function dosomething_zendesk_verify_zendesk_user($email, $client = NULL) {
         'id' => $id,
         'user_fields' => array(
           'profile_url' => $profile_fields['profile_url'],
-          'profile_uid' => $profile_fields['profile_uid'],        
+          'profile_uid' => $profile_fields['profile_uid'],
         ),
       );
       $client->users()->update($updated_user);
@@ -383,13 +387,13 @@ function dosomething_zendesk_create_zendesk_user($email, $client = NULL) {
     $first_name = dosomething_user_get_field('field_first_name', $account);
     $uid = $account->uid;
   }
-  
+
   // Use the email address as the name if there's no first name available.
   if (!$first_name) {
     $first_name = $email;
   }
 
-  // Get profile fields 
+  // Get profile fields
   $profile_fields = dosomething_zendesk_get_profile_fields($uid);
 
   $new_user = array(
@@ -415,7 +419,7 @@ function dosomething_zendesk_create_zendesk_user($email, $client = NULL) {
 
 /**
  * Creates profile fields from given UID
- * 
+ *
  * @return array
  *  Array containing profile_uid and profile_url
  */

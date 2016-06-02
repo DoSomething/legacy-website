@@ -38,7 +38,7 @@ function dosomething_home_preprocess_node(&$vars) {
       // Grab all tiles attributes.
       $tiles = array();
       $tiles['nid'] = $nid;
-      $tiles['is_staff_pick'] = $node->field_staff_pick[LANGUAGE_NONE][0]['value'];
+      $tiles['is_staff_pick'] = $node->field_staff_pick[$lang_code][0]['value'];
       // node_load() doesn't allow language to be passed in and using dosomething_global_get_language()
       // will go through the proper chain to pull the correct language.
       $tiles['title'] = $node->title_field[$lang_code][0]['safe_value'];
