@@ -104,6 +104,10 @@ function dosomething_mbp_get_transactional_payload($origin, $params = NULL) {
       'MEMBER_COUNT' => dosomething_user_get_member_count(TRUE),
     ),
   );
+
+  if (isset($params['transactionals'])) {
+    $payload['transactionals'] = $params['transactionals'];
+  }
   if (isset($params['user_country'])) {
     $payload['user_country'] = $params['user_country'];
   }
