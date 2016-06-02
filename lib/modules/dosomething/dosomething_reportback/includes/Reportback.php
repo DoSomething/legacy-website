@@ -262,6 +262,7 @@ class Reportback extends Entity {
       'caption' => $values->caption,
       'remote_addr' => dosomething_helpers_ip_address(),
       'status' => $status,
+      'source' => $values->source,
     ]);
     return $reportback_file->save();
   }
