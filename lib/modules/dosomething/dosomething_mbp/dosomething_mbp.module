@@ -108,6 +108,9 @@ function dosomething_mbp_get_transactional_payload($origin, $params = NULL) {
   if (isset($params['transactionals'])) {
     $payload['transactionals'] = $params['transactionals'];
   }
+  if (isset($params['source'])) {
+    $payload['source'] = $params['source'];
+  }
   if (isset($params['user_country'])) {
     $payload['user_country'] = $params['user_country'];
   }
