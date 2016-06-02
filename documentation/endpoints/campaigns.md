@@ -240,3 +240,53 @@ curl -X GET \
 }
 ```
 
+## Campaign reportback
+
+Creates or updates a User Reportback for the given Campaign nid.
+
+**POST** `https://www.dosomething.org/api/v1/campaigns/[nid]/reportback`
+
+Must be authenticated to post.
+
+  - **uid**: (int).
+    The user uid reporting back.  If not included, the uid of the current user will be used.
+  - **nid**: (int) required.
+    The node nid the user is reporting back to.
+  - **quantity**: (int) required.
+    The number of reportback nouns verbed.
+  - **why_participated**: (string) required.
+    The reason why the user participated.
+  - **file_url**: (string) required if `file` is not provided.
+    An image URL for the reportback.
+  - **file**: (string) required if `file_url` is not provided.
+    Base64 encoded file string to save.
+  - **filename**: (string) required if `file` is provided.
+    Necessary for Drupal File API save (see `dosomething_reportback_get_file_dest`).
+  - **caption**: (string).
+    Corresponding caption for the reportback image.
+  - **source**: (string).
+    Where the reportback file was submitted from.
+
+Response: The reportback rbid if success, `FALSE` if not.
+
+Example request:
+````
+curl https://www.dosomething.org/api/v1/campaigns/23/reportback -X POST 
+--header "Content-type: application/json" 
+--header "Accept: application/json" 
+--header "X-CSRF-Token: G136HF5yB5ZZawvrsOfU4gw0poUOaQygPrsJlaFakMU" 
+--header "Cookie:SESSd57f2aef87e6d4352ce5db4659184fa7=mKI5_yfoXYBz3r4o95utui4fwBV_lUO1JNN1nEVsPRg" 
+-d '{
+  "quantity": 30,
+  "uid": 1702889,
+  "file_url": "http://voldemortwearsarmani.files.wordpress.com/2013/01/batman-chronicles.jpg",
+  "why_participated": "Test from API",
+  "caption": "API Testing!",
+  "source": "Mobile App"
+}'
+````
+
+Example response:
+````
+["127"]
+````
