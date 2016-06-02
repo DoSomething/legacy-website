@@ -639,12 +639,14 @@ function dosomething_signup_mbp_request($account, $node, $opt_in, $transactional
  * @param int $opt_in
  *   The opt-in path to use for opt-in.
  * @param bool $transactionals
- *   Control if transactional messaging should be sent.
+ *   (optional) Control if transactional messaging should be sent.
+ * @param bool $transactionals
+ *   (optional) Control if transactional messaging should be sent.
  *
  * @return array
  *   Associative array of values to use as params to a mbp_request.
  */
-function dosomething_signup_get_mbp_params($account, $node, $opt_in, $transactionals) {
+function dosomething_signup_get_mbp_params($account, $node, $opt_in, $transactionals = NULL, $source = NULL) {
   if (!($node->type == 'campaign')) {
     return FALSE;
   }
@@ -689,8 +691,14 @@ function dosomething_signup_get_mbp_params($account, $node, $opt_in, $transactio
     'user_country' => $user_country,
     'campaign_language' => $campaign_language->language,
     'campaign_country' => $campaign_country_code,
-    'transactionals' => $transactionals,
   ];
+
+  if (isset($transactionals)) {
+    $params['transactionals'] = $transactionals;
+  }
+  if (isset($source)) {
+    $params['source'] = $source;
+  }
 
   // Don't subscribe 26+ yo users for Mobile Commons.
   $user_is_old = dosomething_user_is_old_person($account);
