@@ -88,6 +88,14 @@ function dosomething_organ_donation_config_form($form, &$form_state, $node) {
     '#size' => 20,
   ];
 
+  $form['organ_donation']['organize_api_token'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Organize API Token'),
+    '#description' => t('The organize API Token'),
+    '#required' => TRUE,
+    '#default_value' =>  $vars['organize_api_token']
+  );
+
   $form['organ_donation']['actions'] = [
     '#type' => 'actions',
     'submit' => [
@@ -103,11 +111,12 @@ function dosomething_organ_donation_config_form($form, &$form_state, $node) {
  * Submit callback for dosomething_campaign_organ_donation_config_form().
  */
 function dosomething_organ_donation_config_form_submit(&$form, &$form_state) {
-  $var_name = 'register_organ_donors';
+  $var_names = ['register_organ_donors', 'organize_api_token'];
 
-  $values = $form_state['values'];
-
-  dosomething_helpers_set_variable('node', $values['nid'], $var_name, $values[$var_name]);
+  foreach($var_names as $var_name) {
+    $values = $form_state['values'];
+    dosomething_helpers_set_variable('node', $values['nid'], $var_name, $values[$var_name]);
+  }
 
   drupal_set_message("Updated.");
 }
