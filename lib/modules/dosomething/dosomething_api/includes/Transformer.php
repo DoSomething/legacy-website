@@ -400,7 +400,6 @@ abstract class Transformer {
       'uri' => $data->uri,
       'media' => $data->media,
       'created_at' => $data->created_at,
-      'source' => $data->source,
     ];
 
     $kudos = $data->kudos ?: [];

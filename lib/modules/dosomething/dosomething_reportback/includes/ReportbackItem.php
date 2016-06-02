@@ -95,7 +95,6 @@ class ReportbackItem extends Entity {
     $this->id = $data->fid;
     $this->status = $data->status;
     $this->caption = !empty($data->caption) ? $data->caption : t('DoSomething? Just did!');
-    $this->source = !empty($data->source) ? $data->source : null;
     $this->created_at = $data->timestamp;
     $this->media = [
       'uri' => dosomething_image_get_themed_image_url_by_fid($data->fid, '480x480'),
