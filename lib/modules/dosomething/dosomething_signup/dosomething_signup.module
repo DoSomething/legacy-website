@@ -524,7 +524,7 @@ function dosomething_signup_entity_insert($entity, $type) {
   }
 
   // Send relevant third-party subscribe requests.
-  dosomething_signup_third_party_subscribe($account, $node, transactionals, $source);
+  dosomething_signup_third_party_subscribe($account, $node, $transactionals, $source);
 }
 
 /**
