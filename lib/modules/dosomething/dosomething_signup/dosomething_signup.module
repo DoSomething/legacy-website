@@ -596,8 +596,9 @@ function dosomething_signup_user_signup($nid, $account = NULL, $source = NULL) {
  *   Details about the node that the signup was made on.
  * @param int $opt_in
  *   The opt-in path to use for opt-in.
+ * @param bool $transactionals
  */
-function dosomething_signup_mbp_request($account, $node, $opt_in) {
+function dosomething_signup_mbp_request($account, $node, $opt_in, $transactionals) {
   // Send MBP request.
   if (!module_exists('dosomething_mbp')) {
     return;
@@ -614,7 +615,7 @@ function dosomething_signup_mbp_request($account, $node, $opt_in) {
   }
 
   // Gather mbp params for the signup.
-  $params = dosomething_signup_get_mbp_params($account, $node, $opt_in);
+  $params = dosomething_signup_get_mbp_params($account, $node, $opt_in, $transactionals);
 
   // Send campaign mbp request.
   if ($node->type == 'campaign') {
