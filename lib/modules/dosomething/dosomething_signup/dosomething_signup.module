@@ -512,6 +512,7 @@ function dosomething_signup_entity_insert($entity, $type) {
 
   $account = user_load($entity->uid);
   $node = node_load($entity->nid);
+  $transactionals = $entity->transactionals;
 
   // If this is a SMS Game Campaign node:
   if (module_exists('dosomething_campaign') && dosomething_campaign_get_campaign_type($node) == 'sms_game') {
@@ -522,7 +523,7 @@ function dosomething_signup_entity_insert($entity, $type) {
   }
 
   // Send relevant third-party subscribe requests.
-  dosomething_signup_third_party_subscribe($account, $node);
+  dosomething_signup_third_party_subscribe($account, $node, transactionals);
 }
 
 /**
