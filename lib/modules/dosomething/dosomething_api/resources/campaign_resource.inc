@@ -264,6 +264,7 @@ function _campaign_resource_index($ids, $staff_pick, $term_ids, $count, $random,
  *   - uid: The user uid (int).  Optional, uses global $user if not set.
  *   - source (string).
  *   - transactionals (bool). Optional flag to disable sending transactional messages.
+ *       Defaults to sending messages.
  */
 function _campaign_resource_signup($nid, $values) {
   global $user;
@@ -274,7 +275,7 @@ function _campaign_resource_signup($nid, $values) {
     $values['source'] = NULL;
   }
   if (!isset($values['transactionals'])) {
-    $values['transactionals'] = NULL;
+    $values['transactionals'] = TRUE;
   }
   if (DOSOMETHING_SIGNUP_LOG_SIGNUPS) {
     watchdog('dosomething_api', '_campaign_resource_signup values:' . json_encode($values));
