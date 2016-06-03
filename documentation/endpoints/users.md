@@ -141,7 +141,12 @@ curl -H "Accept: application/json" http://staging.beta.dosomething.org/api/v1/us
 ## Get Member Count
 
 ```
-POST /api/v1/get_member_count
+POST /api/v1/users/get_member_count
+```
+
+**Example Request:**
+```sh
+curl -X POST http://staging.beta.dosomething.org/api/v1/users/get_member_count
 ```
 
 **Example Response:**
@@ -150,8 +155,8 @@ POST /api/v1/get_member_count
 // 200 Okay
 
 {
-   "formatted": "2,900,343",
-   "readable": "2.9 million"
+  "formatted": "3,596,441",
+  "readable": "3.5 million"
 }
 ```
 
