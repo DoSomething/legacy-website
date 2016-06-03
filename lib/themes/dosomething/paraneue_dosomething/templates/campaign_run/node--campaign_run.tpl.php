@@ -12,7 +12,12 @@
 </h4>
 
 <h4>Run Description:
-  <p><?php print_r($field_campaigns); ?></p>
+  <p>
+  	<?php
+  		$run_nid = node_load($field_campaigns[0]['entity']->field_current_run['en'][0]['target_id']);
+  		print render($run_nid->description_field['en'][0]['value']);
+  	?>
+  </p>
 </h4>
 
 <?php
