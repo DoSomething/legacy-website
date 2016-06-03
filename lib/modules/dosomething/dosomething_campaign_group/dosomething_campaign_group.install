@@ -36,3 +36,20 @@ function dosomething_campaign_group_update_7003(&$sandbox) {
 function dosomething_campaign_group_update_7004(&$sandbox) {
   field_delete_field('field_signup_form_button_text');
 }
+
+/**
+ * Remove all signup fields from campaign group.
+ */
+function dosomething_campaign_group_update_7005(&$sandbox) {
+  $fields = [
+    'field_automatic_parent_signup',
+    'field_display_signup_form',
+    'field_post_signup_copy',
+    'field_post_signup_title',
+    'field_signup_confirm_msg',
+    'field_transactional_email_copy',
+  ];
+  foreach($fields as $field) {
+    field_delete_field($field);
+  }
+}
