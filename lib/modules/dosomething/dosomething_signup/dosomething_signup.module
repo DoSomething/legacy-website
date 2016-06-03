@@ -236,7 +236,8 @@ function dosomething_signup_get_query_source() {
  * @return mixed
  *   The sid of the newly inserted signup, or FALSE if error.
  */
-function dosomething_signup_create($nid, $uid = NULL, $source = NULL, $timestamp = NULL, $transactionals = TRUE) {
+function dosomething_signup_create($nid, $uid = NULL, $source = NULL, $timestamp = NULL, $transactionals = TRUE
+) {
   global $user;
 
   if (!isset($uid)) {
@@ -510,11 +511,6 @@ function dosomething_signup_entity_insert($entity, $type) {
   // If not a signup, exit out of function.
   if ($type != 'signup') { return; }
 
-  $account = user_load($entity->uid);
-  $node = node_load($entity->nid);
-  $transactionals = $entity->transactionals;
-  $source = $entity->source;
-
   // If this is a SMS Game Campaign node:
   if (module_exists('dosomething_campaign') && dosomething_campaign_get_campaign_type($node) == 'sms_game') {
     // Third party subscription is handled elsewhere,
@@ -523,8 +519,13 @@ function dosomething_signup_entity_insert($entity, $type) {
     return;
   }
 
+  $account = user_load($entity->uid);
+  $node = node_load($entity->nid);
+  $options['transactionals'] = $entity->transactionals;
+  $options['source'] = $entity->source;
+
   // Send relevant third-party subscribe requests.
-  dosomething_signup_third_party_subscribe($account, $node, $source, $transactionals);
+  dosomething_signup_third_party_subscribe($account, $node, $options);
 }
 
 /**
@@ -534,12 +535,14 @@ function dosomething_signup_entity_insert($entity, $type) {
  *    User details who signed up for a campaign.
  * @param object $node
  *   Details about the campaign the user signed up to.
- * @parm string $source
- *    A value defining where the request to sign a user up to a campaign originated.
- * @parm bool $trasactionals
- *    A flag to prevent sending transactionals when FALSE. Defaults to TRUE when NULL.
+ * @parm array $options
+ *   Possible options used for the subscribe request.
+ *   - source
+ *     A value defining where the request to sign a user up to a campaign originated.
+ *   - trasactionals
+ *     A flag to prevent sending transactionals when FALSE. Defaults to TRUE when NULL.
  */
-function dosomething_signup_third_party_subscribe($account, $node, $source = NULL, $transactionals = NULL) {
+function dosomething_signup_third_party_subscribe($account, $node, $options) {
   $var_name  = 'mobilecommons_opt_in_path';
   // Is there an override set on this campaign?
   $opt_in = dosomething_helpers_get_variable('node', $node->nid, $var_name);
@@ -550,7 +553,7 @@ function dosomething_signup_third_party_subscribe($account, $node, $source = NUL
     $opt_in = variable_get($var_name);
   }
   // Send message broker request.
-  dosomething_signup_mbp_request($account, $node, $opt_in, $transactionals, $source);
+  dosomething_signup_mbp_request($account, $node, $opt_in, $options['transactionals'], $options['source']);
 }
 
 /**
