@@ -524,7 +524,7 @@ function dosomething_signup_entity_insert($entity, $type) {
   }
 
   // Send relevant third-party subscribe requests.
-  dosomething_signup_third_party_subscribe($account, $node, $transactionals, $source);
+  dosomething_signup_third_party_subscribe($account, $node, $source, $transactionals);
 }
 
 /**
@@ -534,12 +534,12 @@ function dosomething_signup_entity_insert($entity, $type) {
  *    User details who signed up for a campaign.
  * @param object $node
  *   Details about the campaign the user signed up to.
- * @parm bool $trasactionals
- *    A flag to prevent sending transactionals when FALSE. Defaults to TRUE when NULL.
  * @parm string $source
  *    A value defining where the request to sign a user up to a campaign originated.
+ * @parm bool $trasactionals
+ *    A flag to prevent sending transactionals when FALSE. Defaults to TRUE when NULL.
  */
-function dosomething_signup_third_party_subscribe($account, $node, $transactionals = NULL, $source = NULL) {
+function dosomething_signup_third_party_subscribe($account, $node, $source = NULL, $transactionals = NULL) {
   $var_name  = 'mobilecommons_opt_in_path';
   // Is there an override set on this campaign?
   $opt_in = dosomething_helpers_get_variable('node', $node->nid, $var_name);
