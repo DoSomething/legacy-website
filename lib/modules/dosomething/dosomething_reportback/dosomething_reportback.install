@@ -243,6 +243,12 @@ function dosomething_reportback_schema() {
         'length' => 128,
         'default' => NULL,
       ),
+      'source' => array(
+        'description' => 'Source which reportback file was submitted from.',
+        'type' => 'varchar',
+        'length' => 128,
+        'default' => NULL,
+      ),
     ),
     'primary key' => array('rbid', 'fid'),
   );
@@ -959,4 +965,16 @@ function dosomething_reportback_update_7034() {
  */
 function dosomething_reportback_update_7035() {
   db_drop_table('dosomething_reportback_progress_log');
+}
+
+/**
+ * Add a column for the source of the reportback file
+ */
+function dosomething_reportback_update_7036() {
+  $table_name = 'dosomething_reportback_file';
+  $schema = dosomething_reportback_schema();
+  $field_name = 'source';
+  if (!db_field_exists($tbl_name, $fld_name)) {
+    db_add_field($table_name, $field_name, $schema[$table_name]['fields'][$field_name]);
+  }
 }

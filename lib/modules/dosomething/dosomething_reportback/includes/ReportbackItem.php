@@ -11,6 +11,7 @@ class ReportbackItem extends Entity {
   public $reportback;
   public $campaign;
   public $user;
+  public $source;
 
   /**
    * Overrides construct for parent Entity class.

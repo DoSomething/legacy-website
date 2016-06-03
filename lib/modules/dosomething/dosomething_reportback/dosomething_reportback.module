@@ -808,6 +808,10 @@ function dosomething_reportback_set_files(&$entity, $values) {
     if (!empty($values['caption'])) {
       $entity->caption = filter_xss($values['caption'], array());
     }
+
+    if (!empty($values['source'])) {
+      $entity->source = filter_xss($values['source'], array());
+    }
   }
 }
 
