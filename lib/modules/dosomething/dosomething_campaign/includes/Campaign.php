@@ -167,7 +167,7 @@ class Campaign {
         ];
 
         $this->scholarship = $this->getScholarship();
-        $this->staff_pick = $this->getStaffPickStatus();
+        $this->staff_pick = $this->getStaffPickStatus($this->language);
 
         $this->competition =  dosomething_helpers_convert_string_to_boolean(dosomething_campaign_is_competition($this->id));
 
@@ -680,8 +680,8 @@ class Campaign {
    *
    * @return bool
    */
-  protected function getStaffPickStatus() {
-    return (bool) dosomething_helpers_extract_field_data($this->node->field_staff_pick);
+  protected function getStaffPickStatus($language) {
+    return (bool) dosomething_helpers_extract_field_data($this->node->field_staff_pick, $language['language_code']);
   }
 
   /**
