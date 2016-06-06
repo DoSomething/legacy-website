@@ -4,6 +4,11 @@
  * Code for the dosomething_organ_donation feature.
  */
 
+define('ORGANIZE_API_URL', variable_get('dosomething_organize_url', 'https://fiftythree-dev.organize.org/api'));
+define('ORGANIZE_API_VERSION', variable_get('dosomething_organize_api_version', 'v4'));
+define('ORGANIZE_API_AUTH_TOKEN', variable_get('dosomething_organize_auth_token', ''));
+
+
 /*
  * Implements hook_menu()
  *
@@ -23,6 +28,15 @@ function dosomething_organ_donation_menu() {
     'type' => MENU_CALLBACK,
   ];
 
+   $items['admin/config/services/organs'] = [
+    'title' => 'Oranize API Settings',
+    'description' => 'Manage Organize connection settings.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('dosomething_organize_config_form'),
+    'access arguments' => array('administer modules'),
+    'file' => 'dosomething_organ_donation.admin.inc',
+  ];
+
   // Return the $items array to register the path
   return $items;
 }
@@ -32,14 +46,13 @@ function dosomething_organ_donation_menu() {
  * @returns array
  */
 function _dosomething_organ_donation_build_http_client($nid) {
-  $base_url = 'https://fiftythree-dev.organize.org/api/v4/';
-  $organize_api_token = dosomething_helpers_get_variables('node', $nid, 'organize_api_token');
-  $organize_api_token = $organize_api_token['organize_api_token'];
+  $base_url = ORGANIZE_API_URL . '/' . ORGANIZE_API_VERSION . '/';
+  $token = 'Token ' . ORGANIZE_API_AUTH_TOKEN;
 
   $client = [
     'base_url' => $base_url,
     'headers' => [
-      'Authorization' => 'Token ' . $organize_api_token,
+      'Authorization' => $token,
     ],
   ];
 
@@ -53,28 +66,20 @@ function _dosomething_organ_donation_build_http_client($nid) {
 function dosomething_organ_donation_send_postal_code() {
   $params = drupal_get_query_parameters();
 
-  if ($params['postal_code'] && $params['nid']) {
-    if (!node_load($params['nid'])) {
-      $response = [
-        'error' => 'Node id not found.'
-      ];
-      return drupal_json_output($response);
-    }
+  $client = _dosomething_organ_donation_build_http_client();
 
-    $client = _dosomething_organ_donation_build_http_client($params['nid']);
+  $response = drupal_http_request($client['base_url'] . 'postal-codes/' . $params['postal_code'] . '/', [
+    'headers' => $client['headers'],
+    'method' => 'GET',
+  ]);
 
-    $response = drupal_http_request($client['base_url'] . 'postal-codes/' . $params['postal_code'] . '/', [
-      'headers' => $client['headers'],
-      'method' => 'GET',
-    ]);
-
-    if ($response->error) {
-      $response = [
-        'error' => 'Postal code not found.'
-      ];
-    }
-    return drupal_json_output($response);
+  if ($response->error) {
+    $response = [
+      'error' => 'Postal code not found.'
+    ];
   }
+  return drupal_json_output($response);
+
 }
 
 
@@ -144,14 +149,6 @@ function dosomething_organ_donation_config_form($form, &$form_state, $node) {
     '#default_value' => $vars['register_organ_donors'],
     '#size' => 20,
   ];
-
-  $form['organ_donation']['organize_api_token'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Organize API Token'),
-    '#description' => t('The organize API Token'),
-    '#required' => TRUE,
-    '#default_value' =>  $vars['organize_api_token']
-  );
 
   $form['organ_donation']['actions'] = [
     '#type' => 'actions',
