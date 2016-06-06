@@ -1,8 +1,10 @@
 <% if (isListItem) { %><li><% } %>
-<figure class="photo -stacked -framed" data-reportback-item-id="...">
-  <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=" alt="<%= caption %>" data-src="<%= image %>" />
-  <figcaption class="__copy">
-    <p class="photo__caption"><%= caption %></p>
-  </figcaption>
-</figure>
+<div class="photo -stacked -framed" data-reportback-item-id="...">
+  <figure class="wrapper">
+    <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=" alt="<%= caption %>" data-src="<%= image %>" />
+    <figcaption class="photo__copy">
+      <p class="photo__caption"><%= caption %></p>
+    </figcaption>
+  </figure>
+</div>
 <% if (isListItem) { %></li><% } %>
