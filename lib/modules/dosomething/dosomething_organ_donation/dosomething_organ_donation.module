@@ -78,7 +78,8 @@ function dosomething_organ_donation_send_postal_code() {
       'error' => 'Postal code not found.'
     ];
   }
-  return drupal_json_output($response);
+  // Only return the data.
+  return drupal_json_output(json_decode($response->data));
 
 }
 
