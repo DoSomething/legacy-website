@@ -131,5 +131,4 @@ features[variable][] = user_pictures
 features[variable][] = user_register
 features[views_view][] = content_search
 features[views_view][] = user_search
-files[] = dosomething_user.test
 files[] = includes/dosomething_user_remote.inc
