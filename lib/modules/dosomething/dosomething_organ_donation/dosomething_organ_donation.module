@@ -32,7 +32,7 @@ function dosomething_organ_donation_menu() {
  * @returns array
  */
 function _dosomething_organ_donation_build_http_client($nid) {
-  $base_url = 'https://fiftythree-dev.organize.org/api/v2/postal-codes/';
+  $base_url = 'https://fiftythree-dev.organize.org/api/v4/';
   $organize_api_token = dosomething_helpers_get_variables('node', $nid, 'organize_api_token');
   $organize_api_token = $organize_api_token['organize_api_token'];
 
@@ -56,18 +56,18 @@ function dosomething_organ_donation_send_postal_code() {
   if ($params['postal_code'] && $params['nid']) {
     $client = _dosomething_organ_donation_build_http_client($params['nid']);
 
-    $response = drupal_http_request($client['base_url'] . $params['postal_code'] . '/', [
+    $response = drupal_http_request($client['base_url'] . 'postal-codes/' . $params['postal_code'] . '/', [
       'headers' => $client['headers'],
       'method' => 'GET',
     ]);
-  }
-  else {
-    $response = [
-      'status' => 'Postal code not found.',
-    ];
-  }
 
-  return drupal_json_output($response);
+    if ($response->error) {
+      $response = [
+        'error' => 'Postal code not found.',
+      ];
+    }
+    return drupal_json_output($response);
+  }
 }
 
 
