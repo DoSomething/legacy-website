@@ -23,6 +23,15 @@ function dosomething_organ_donation_menu() {
     'type' => MENU_CALLBACK,
   ];
 
+   $items['admin/config/services/organs'] = [
+    'title' => 'Oranize API Settings',
+    'description' => 'Manage Organize connection settings.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('dosomething_organize_config_form'),
+    'access arguments' => array('administer modules'),
+    'file' => 'dosomething_organ_donation.admin.inc',
+  ];
+
   // Return the $items array to register the path
   return $items;
 }
@@ -144,14 +153,6 @@ function dosomething_organ_donation_config_form($form, &$form_state, $node) {
     '#default_value' => $vars['register_organ_donors'],
     '#size' => 20,
   ];
-
-  $form['organ_donation']['organize_api_token'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Organize API Token'),
-    '#description' => t('The organize API Token'),
-    '#required' => TRUE,
-    '#default_value' =>  $vars['organize_api_token']
-  );
 
   $form['organ_donation']['actions'] = [
     '#type' => 'actions',
