@@ -433,7 +433,7 @@ function dosomething_campaign_reportback_config_form($form, &$form_state, $node)
  * Submit callback for dosomething_campaign_reportback_config_form().
  */
 function dosomething_campaign_reportback_config_form_submit(&$form, &$form_state) {
-  $var_names = ['collect_num_participants', 'allow_reactions'];
+  $var_names = ['collect_num_participants', 'disable_reactions'];
   foreach($var_names as $var_name) {
     $values = $form_state['values'];
     dosomething_helpers_set_variable('node', $values['nid'], $var_name, $values[$var_name]);
