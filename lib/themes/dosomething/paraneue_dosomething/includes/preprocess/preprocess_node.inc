@@ -250,12 +250,12 @@ function paraneue_dosomething_preprocess_reportback_gallery(&$vars, $count = 6) 
   $disable_reactions = dosomething_helpers_get_variable('node', $vars['nid'], 'disable_reactions');
   $allowed_tids = [];
 
-  if ($disable_reactions) {
+  if (!$disable_reactions) {
     array_push($allowed_tids, dosomething_kudos_get_term_id_by_name('heart'));
   }
 
   foreach ($reportbackItems as $item) {
-    $item->$disable_reactions = $disable_reactions;
+    $item->disable_reactions = $disable_reactions;
     $item->allowed_reactions = $allowed_tids;
     if ($item instanceof ReportbackItem) {
       $gallery['item_ids'][] = $item->id;
