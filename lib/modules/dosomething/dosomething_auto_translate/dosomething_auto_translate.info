@@ -2,4 +2,3 @@ name = DoSomething Auto Translate
 description = Auto translates node content with the google translate API
 package = DoSomething
 core = 7.x
-files[] = tests/dosomething_auto_translate.test

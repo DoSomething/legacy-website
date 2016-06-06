@@ -20,4 +20,3 @@ features[user_permission][] = edit own reportback
 features[user_permission][] = view any reportback
 features[user_permission][] = view own reportback
 features[views_view][] = reportback_files
-files[] = dosomething_reportback.test

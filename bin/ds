@@ -29,12 +29,6 @@ CONFIG_DIR='config'
 # Full config path
 CONFIG_PATH=$BASE_PATH/$CONFIG_DIR
 
-# The test directory name
-TEST_DIR='tests'
-
-# Full test path
-TEST_PATH=$BASE_PATH/$TEST_DIR
-
 # Build directory name
 BUILD_DIR='build'
 
@@ -100,15 +94,6 @@ ds pull [stage|stage.$AFFILIATE|prod] [--db|--files]
   --files
     Pulls down files only. If pulling from an affiliate site, only the files directory
     can be synced to avoid overwriting the html directory.
-
-ds test
-  Run unit and US integration tests.
-
-  --unit
-  Runs unit tests using Mocha.
-
-  --integration
-  Runs integration tests using CasperJS.
 
 ds --help
   Displays this help message.
@@ -653,16 +638,6 @@ then
     pull_db $2
     pull_files $2
   fi
-fi
-
-#----------------------------------------------------------------------
-# test
-#----------------------------------------------------------------------
-if [[ $1 == "test" ]]
-then
-  shift
-  cd $BASE_PATH
-  $BASE_PATH/bin/test $@
 fi
 
 #----------------------------------------------------------------------

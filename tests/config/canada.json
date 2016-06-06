@@ -1,8 +1,0 @@
-{
-  "url": "http://dev.canada.dosomething.org:8888",
-  "mocha": "index",
-  "casperjs": [
-    "canada/**/*"
-  ],
-  "xunit": false
-}

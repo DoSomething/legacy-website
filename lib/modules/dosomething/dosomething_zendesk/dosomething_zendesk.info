@@ -6,4 +6,3 @@ dependencies[] = features
 configure = admin/config/services/dosomething_zendesk
 features[features_api][] = api:2
 features[user_permission][] = administer zendesk
-files[] = dosomething_zendesk.test
