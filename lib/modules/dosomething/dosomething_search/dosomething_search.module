@@ -180,9 +180,7 @@ function dosomething_search_filter_types($type) {
  */
 function dosomething_search_apachesolr_index_document_build_node(ApacheSolrDocument $document, $entity, $env_id) {
   if ($entity->type == 'campaign' || $entity->type == 'campaign_group') {
-    $wrapper = entity_metadata_wrapper('node', $entity);
-    global $language_content;
-    $wrapper->language($language_content->language);
+    $wrapper = dosomething_helpers_node_metadata_wrapper($entity);
 
     $image_nid = $wrapper->field_image_campaign_cover->getIdentifier();
     if ($image_nid) {
