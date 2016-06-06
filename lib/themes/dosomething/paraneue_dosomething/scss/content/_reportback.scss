@@ -75,7 +75,7 @@
 
   .photo {
     &.-framed {
-      .__copy {
+      .photo__copy {
         @include media($large) {
           height: 90px;
         }

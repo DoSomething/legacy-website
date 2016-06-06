@@ -26,34 +26,34 @@
     img {
       width: 100%;
     }
+  }
+}
 
-    .__copy {
-      font-size: $font-smaller;
-      height: 110px;
-      line-height: 1.2;
-      overflow: hidden;
-      margin-top: ($base-spacing / 2);
-      word-wrap: break-word;
+.photo__copy {
+  font-size: $font-smaller;
+  height: 110px;
+  line-height: 1.2;
+  overflow: hidden;
+  margin-top: ($base-spacing / 2);
+  word-wrap: break-word;
 
-      .photo__caption {
-        font-size: $font-smaller;
-      }
-
-      .footnote {
-        font-size: $font-small;
-      }
-
-      .form-actions {
-        margin-top: 6px;
-      }
-
-      @include media($large) {
-        font-size: $font-small;
-      }
-    }
+  .photo__caption {
+    font-size: $font-smaller;
   }
 
-  .photo--actions {
-    width: 100%;
+  .footnote {
+    font-size: $font-small;
   }
+
+  .form-actions {
+    margin-top: 6px;
+  }
+
+  @include media($large) {
+    font-size: $font-small;
+  }
+}
+
+.photo__actions {
+  width: 100%;
 }
