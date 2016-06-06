@@ -217,7 +217,7 @@ function dosomething_kudos_get_total_for_file_by_term_name($fid, $term) {
 }
 
 /**
- * Get the ids of Kudos on a file by a user and pair with corresponding term
+ * Get the ids of Kudos on a file that were kudoed by the current user and pair with corresponding term
  * @param  string $fid
  * @return array
  */
@@ -232,4 +232,32 @@ function dosomething_kudos_get_kudos_for_user_by_file($fid) {
       ->fetchAllAssoc('tid');
 
   return $kudos;
+}
+
+/**
+ * Get the kudos on a file as an array of term -> total
+ * @param  string $fid
+ * @return array
+ */
+function dosomething_kudos_get_kudos_by_file($fid) {
+  $kudos = db_select('dosomething_kudos', 'k')
+        ->fields('k', ['tid'])
+        ->condition('fid', $fid, '=')
+        ->groupBy('tid');
+
+  $kudos->addExpression('COUNT(k.kid)', 'kudo_count');
+  $kudos = $kudos->execute();
+
+  $result = $kudos->fetchAllAssoc('tid');
+
+  return $result;
+}
+
+/**
+ * Get the name of a kudo by the term id
+ * @param  string $tid
+ * @return string
+ */
+function dosomething_kudos_get_name_by_tid($tid) {
+  return taxonomy_term_load($tid)->name;
 }
