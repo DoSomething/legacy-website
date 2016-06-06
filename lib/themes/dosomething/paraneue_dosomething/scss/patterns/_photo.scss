@@ -37,20 +37,12 @@
   margin-top: ($base-spacing / 2);
   word-wrap: break-word;
 
-  .photo__caption {
-    font-size: $font-smaller;
-  }
-
-  .footnote {
-    font-size: $font-small;
-  }
-
-  .form-actions {
-    margin-top: 6px;
-  }
-
   @include media($large) {
     font-size: $font-small;
+  }
+
+  .photo__caption {
+    font-size: $font-smaller;
   }
 }
 
