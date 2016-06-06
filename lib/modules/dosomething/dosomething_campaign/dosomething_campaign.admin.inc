@@ -412,11 +412,11 @@ function dosomething_campaign_reportback_config_form($form, &$form_state, $node)
     '#default_value' => $vars['collect_num_participants'],
     '#size' => 20,
   );
-  $form['rb']['allow_reactions'] = array(
+  $form['rb']['disable_reactions'] = array(
     '#type' => 'checkbox',
-    '#title' => t('Enable voting on the reportback items'),
-    '#description' => t('If set, users will be able to react to reportback items.'),
-    '#default_value' => $vars['allow_reactions'],
+    '#title' => t('Disable voting on the reportback items'),
+    '#description' => t('If set, users will not be able to react to reportback items.'),
+    '#default_value' => $vars['disable_reactions'],
     '#size' => 20,
   );
   $form['rb']['actions'] = array(

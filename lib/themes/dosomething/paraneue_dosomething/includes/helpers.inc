@@ -356,7 +356,7 @@ function paraneue_dosomething_get_themed_reportback_item($data) {
     return NULL;
   }
 
-  if ($data->id && $data->allow_reactions) {
+  if ($data->id && $data->disable_reactions) {
     $data->reaction_totals = [
       'heart' => dosomething_kudos_get_total_for_file_by_term_name($data->id, 'heart'),
     ];
