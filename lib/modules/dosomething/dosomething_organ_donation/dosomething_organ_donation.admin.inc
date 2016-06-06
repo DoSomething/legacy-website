@@ -2,11 +2,11 @@
 
 /**
  * @file
- * Northstar admin settings.
+ * Organize admin settings.
  */
 
 /**
- * System settings form for northstar config.
+ * System settings form for Organize config.
  */
 function dosomething_organize_config_form($form, &$form_state) {
   $form = array();
