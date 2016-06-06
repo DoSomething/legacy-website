@@ -261,7 +261,7 @@ function paraneue_dosomething_get_node_gallery_item($nid, $source = NULL) {
     'tagline' => $node->field_call_to_action[$clc][0]['value'],
     'status' => $node->status,
     'image' => $image,
-    'is_staff_pick' => $node->field_staff_pick[LANGUAGE_NONE][0]['value'],
+    'is_staff_pick' => $node->field_staff_pick[$clc][0]['value'],
   );
   return array(
     'content' => $content,

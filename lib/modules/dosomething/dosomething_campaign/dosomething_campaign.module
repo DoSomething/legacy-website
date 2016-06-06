@@ -612,7 +612,7 @@ function dosomething_campaign_get_campaign_block_vars($nid, $image_size = '740x4
     'nid_image' => $image_nid,
     'path_alias' => $path_alias,
     'status' => $node->status,
-    'staff_pick' => $node->field_staff_pick[LANGUAGE_NONE][0]['value'],
+    'staff_pick' => $node->field_staff_pick[$clc][0]['value'],
   );
 }
 
