@@ -54,6 +54,13 @@ function dosomething_organ_donation_send_postal_code() {
   $params = drupal_get_query_parameters();
 
   if ($params['postal_code'] && $params['nid']) {
+    if (!node_load($params['nid'])) {
+      $response = [
+        'error' => 'Node id not found.'
+      ];
+      return drupal_json_output($response);
+    }
+
     $client = _dosomething_organ_donation_build_http_client($params['nid']);
 
     $response = drupal_http_request($client['base_url'] . 'postal-codes/' . $params['postal_code'] . '/', [
@@ -63,7 +70,7 @@ function dosomething_organ_donation_send_postal_code() {
 
     if ($response->error) {
       $response = [
-        'error' => 'Postal code not found.',
+        'error' => 'Postal code not found.'
       ];
     }
     return drupal_json_output($response);
