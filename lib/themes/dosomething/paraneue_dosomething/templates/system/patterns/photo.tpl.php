@@ -1,5 +1,5 @@
 <div class="photo -stacked -framed" data-reportback-item-id="<?php print $content->id; ?>">
-  <figure class=wrapper>
+  <figure class="wrapper">
     <?php if (isset($content->admin_link)): ?>
       <div class="admin-edit">
         <a class="button -secondary" href="<?php print $content->admin_link; ?>"><?php print t('Edit Status'); ?></a>
