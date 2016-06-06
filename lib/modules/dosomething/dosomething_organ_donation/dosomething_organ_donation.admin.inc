@@ -20,7 +20,7 @@ function dosomething_organize_config_form($form, &$form_state) {
     '#title' => t('Organize URL'),
     '#description' => t('Without the trailing slash'),
     '#required' => TRUE,
-    '#default_value' => variable_get('dosomething_organize_url', 'https://fiftythree-dev.organize.org/api/'),
+    '#default_value' => variable_get('dosomething_organize_url', 'https://fiftythree-dev.organize.org/api'),
   );
 
   $form['organize']['dosomething_organize_api_version'] = array(
