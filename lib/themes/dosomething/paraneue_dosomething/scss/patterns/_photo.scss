@@ -1,6 +1,10 @@
 .photo {
   position: relative;
 
+  > .wrapper {
+    position: relative;
+  }
+
   .admin-edit {
     display: none;
   }
