@@ -229,11 +229,15 @@ function dosomething_signup_get_query_source() {
  * @param int $timestamp
  *   (optional) The timestamp of the signup.
  *   If not provided, uses @dries time.
+ * @param bool $transactionals
+ *   (optional) A flag to disable sending transactional messaging.
+ *   The default is to send messaging.
  *
  * @return mixed
  *   The sid of the newly inserted signup, or FALSE if error.
  */
-function dosomething_signup_create($nid, $uid = NULL, $source = NULL, $timestamp = NULL) {
+function dosomething_signup_create($nid, $uid = NULL, $source = NULL, $timestamp = NULL, $transactionals = TRUE
+) {
   global $user;
 
   if (!isset($uid)) {
@@ -257,6 +261,7 @@ function dosomething_signup_create($nid, $uid = NULL, $source = NULL, $timestamp
     'run_nid' => $run->nid,
     'source'=> $source,
     'timestamp' => $timestamp,
+    'transactionals' => $transactionals,
   );
 
   try {
@@ -506,9 +511,6 @@ function dosomething_signup_entity_insert($entity, $type) {
   // If not a signup, exit out of function.
   if ($type != 'signup') { return; }
 
-  $account = user_load($entity->uid);
-  $node = node_load($entity->nid);
-
   // If this is a SMS Game Campaign node:
   if (module_exists('dosomething_campaign') && dosomething_campaign_get_campaign_type($node) == 'sms_game') {
     // Third party subscription is handled elsewhere,
@@ -517,14 +519,30 @@ function dosomething_signup_entity_insert($entity, $type) {
     return;
   }
 
+  $account = user_load($entity->uid);
+  $node = node_load($entity->nid);
+  $options['transactionals'] = $entity->transactionals;
+  $options['source'] = $entity->source;
+
   // Send relevant third-party subscribe requests.
-  dosomething_signup_third_party_subscribe($account, $node);
+  dosomething_signup_third_party_subscribe($account, $node, $options);
 }
 
 /**
  * Sends third-party subscription requests for given $account and $node.
+ *
+ * @param object $account
+ *    User details who signed up for a campaign.
+ * @param object $node
+ *   Details about the campaign the user signed up to.
+ * @parm array $options
+ *   Possible options used for the subscribe request.
+ *   - source
+ *     A value defining where the request to sign a user up to a campaign originated.
+ *   - trasactionals
+ *     A flag to prevent sending transactionals when FALSE. Defaults to TRUE when NULL.
  */
-function dosomething_signup_third_party_subscribe($account, $node) {
+function dosomething_signup_third_party_subscribe($account, $node, $options = []) {
   $var_name  = 'mobilecommons_opt_in_path';
   // Is there an override set on this campaign?
   $opt_in = dosomething_helpers_get_variable('node', $node->nid, $var_name);
@@ -535,7 +553,7 @@ function dosomething_signup_third_party_subscribe($account, $node) {
     $opt_in = variable_get($var_name);
   }
   // Send message broker request.
-  dosomething_signup_mbp_request($account, $node, $opt_in);
+  dosomething_signup_mbp_request($account, $node, $opt_in, $options);
 }
 
 /**
@@ -576,8 +594,13 @@ function dosomething_signup_user_signup($nid, $account = NULL, $source = NULL) {
  *   Details about the node that the signup was made on.
  * @param int $opt_in
  *   The opt-in path to use for opt-in.
+ * @param array $options
+ *   - transactionals
+ *   (optional) A flag to disable sending transactional messages.
+ *   - source
+ *   (optional) A idendify name of the original source that requested the campaign signup.
  */
-function dosomething_signup_mbp_request($account, $node, $opt_in) {
+function dosomething_signup_mbp_request($account, $node, $opt_in, $options = []) {
   // Send MBP request.
   if (!module_exists('dosomething_mbp')) {
     return;
@@ -594,7 +617,7 @@ function dosomething_signup_mbp_request($account, $node, $opt_in) {
   }
 
   // Gather mbp params for the signup.
-  $params = dosomething_signup_get_mbp_params($account, $node, $opt_in);
+  $params = dosomething_signup_get_mbp_params($account, $node, $opt_in, $options);
 
   // Send campaign mbp request.
   if ($node->type == 'campaign') {
@@ -611,11 +634,17 @@ function dosomething_signup_mbp_request($account, $node, $opt_in) {
  *   Details about the node that the signup was made on.
  * @param int $opt_in
  *   The opt-in path to use for opt-in.
+ * @param array $options
+ *   - source
+ *   (optional) The source of the user campaign signup. Can be internal to this application ("campaigns") or a
+ *   souce defined in a call to the Campaign Signup API endpoint.
+ *   - transactionals
+ *   (optional) Control if transactional messaging should be sent.
  *
  * @return array
  *   Associative array of values to use as params to a mbp_request.
  */
-function dosomething_signup_get_mbp_params($account, $node, $opt_in) {
+function dosomething_signup_get_mbp_params($account, $node, $opt_in, $options = []) {
   if (!($node->type == 'campaign')) {
     return FALSE;
   }
@@ -661,6 +690,13 @@ function dosomething_signup_get_mbp_params($account, $node, $opt_in) {
     'campaign_language' => $campaign_language->language,
     'campaign_country' => $campaign_country_code,
   ];
+
+  if (isset($options['transactionals'])) {
+    $params['transactionals'] = $options['transactionals'];
+  }
+  if (isset($options['source'])) {
+    $params['source'] = $options['source'];
+  }
 
   // Don't subscribe 26+ yo users for Mobile Commons.
   $user_is_old = dosomething_user_is_old_person($account);
