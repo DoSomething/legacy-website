@@ -15,9 +15,16 @@
   </figure>
 
   <?php if ($content->id && $content->allow_reactions): ?>
+
     <ul class="form-actions -inline photo__actions">
-      <li><a class="button -mini js-kudos-button <?php print ! empty($content->existing_kids[$content->allowed_reactions[0]]->kid) ? 'is-active' : '' ?>" data-kudo-id="<?php print $content->allowed_reactions[0] ?>" data-kid="<?php print dosomething_helpers_isset($content->existing_kids[$content->allowed_reactions[0]], 'kid') ?>">&#128150;</a> <span class="counter"><?php print $content->likes ?></span></li>
-      <li><a class="button -mini js-kudos-button <?php print ! empty($content->existing_kids[$content->allowed_reactions[1]]->kid) ? 'is-active' : '' ?>" data-kudo-id="<?php print $content->allowed_reactions[1] ?>" data-kid="<?php print dosomething_helpers_isset($content->existing_kids[$content->allowed_reactions[1]], 'kid') ?>">&#128169;</a> <span class="counter"><?php print $content->poos ?></span></li>
+
+      <?php foreach($content->allowed_reactions as $key => $id): ?>
+        <li>
+          <a class="button -mini js-kudos-button <?php print dosomething_kudos_term_is_selected($id, $content) ? 'is-active' : '' ?>" data-kudo-id="<?php print $id ?>"><?php print dosomething_kudos_get_icon_by_term_id($id) ?></a>
+          <span class="counter"><?php print dosomething_kudos_get_count_by_term_id($id, $content) ?></span>
+        </li>
+      <?php endforeach; ?>
+
     </ul>
   <?php endif; ?>
 
