@@ -11,6 +11,23 @@ include_once 'includes/KudosController.php';
 include_once 'includes/KudosTransformer.php';
 
 
+function dosomething_kudos_menu() {
+  $items = array();
+
+  // Admin Kudos configuration page.
+  $items['admin/config/dosomething/dosomething_kudos'] = array(
+    'title' => 'DoSomething Kudos',
+    'description' => 'Admin form to set Kudos variables.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('dosomething_kudos_admin_config_form'),
+    'access callback' => 'user_access',
+    'access arguments' => array('administer modules'),
+    'file' => 'dosomething_kudos.admin.inc',
+  );
+
+  return $items;
+}
+
 /**
  * Implements hook_entity_info().
  *
