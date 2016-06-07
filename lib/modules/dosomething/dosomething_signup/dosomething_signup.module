@@ -542,7 +542,7 @@ function dosomething_signup_entity_insert($entity, $type) {
  *   - trasactionals
  *     A flag to prevent sending transactionals when FALSE. Defaults to TRUE when NULL.
  */
-function dosomething_signup_third_party_subscribe($account, $node, $options) {
+function dosomething_signup_third_party_subscribe($account, $node, $options = []) {
   $var_name  = 'mobilecommons_opt_in_path';
   // Is there an override set on this campaign?
   $opt_in = dosomething_helpers_get_variable('node', $node->nid, $var_name);
