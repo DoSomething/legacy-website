@@ -16,8 +16,10 @@
 
   <?php if ($content->id && $content->allow_reactions): ?>
     <ul class="form-actions -inline photo__actions">
-      <li><a class="button -mini js-kudos-button <?php print ! empty($content->existing_kids[$content->allowed_reactions[0]]->kid) ? 'is-active' : '' ?>" data-kudo-id="<?php print $content->allowed_reactions[0] ?>" data-kid="<?php print dosomething_helpers_isset($content->existing_kids[$content->allowed_reactions[0]], 'kid') ?>">&#128150;</a> <span class="counter"><?php print $content->likes ?></span></li>
-      <li><a class="button -mini js-kudos-button <?php print ! empty($content->existing_kids[$content->allowed_reactions[1]]->kid) ? 'is-active' : '' ?>" data-kudo-id="<?php print $content->allowed_reactions[1] ?>" data-kid="<?php print dosomething_helpers_isset($content->existing_kids[$content->allowed_reactions[1]], 'kid') ?>">&#128169;</a> <span class="counter"><?php print $content->poos ?></span></li>
+      <li>
+        <a class="button -mini js-kudos-button <?php print dosomething_kudos_term_is_selected($content, 'heart') ? 'is-active' : '' ?>" data-kudo-id="<?php print array_pop($content->allowed_reactions); ?>">&#128150;</a>
+        <span class="counter"><?php print $content->reaction_totals['heart']; ?></span>
+      </li>
     </ul>
   <?php endif; ?>
 

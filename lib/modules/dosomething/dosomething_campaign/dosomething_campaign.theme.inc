@@ -76,7 +76,11 @@ function dosomething_campaign_preprocess_node(&$vars) {
  */
 function dosomething_campaign_preprocess_common_vars(&$vars, &$wrapper) {
   if (isset($wrapper->field_issue)) {
-    $vars['issue'] = $wrapper->field_issue->value()->name;
+    $issue = $wrapper->field_issue->value();
+
+    if ($issue) {
+      $vars['issue'] = $issue->name;
+    }
   }
   dosomething_campaign_preprocess_facts_vars($vars, $wrapper);
   dosomething_campaign_preprocess_media_vars($vars, $wrapper);

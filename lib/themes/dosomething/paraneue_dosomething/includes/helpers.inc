@@ -356,10 +356,11 @@ function paraneue_dosomething_get_themed_reportback_item($data) {
     return NULL;
   }
 
-  if ($data->allow_reactions) {
-    // Aggregate a like and poo count based on the tid.
-    $data->likes = dosomething_kudos_get_total_for_file_by_term_name($data->id, 'heart');
-    $data->poos = dosomething_kudos_get_total_for_file_by_term_name($data->id, 'poo');
+  if ($data->id && $data->allow_reactions) {
+    $data->reaction_totals = [
+      'heart' => dosomething_kudos_get_total_for_file_by_term_name($data->id, 'heart'),
+    ];
+
     $data->existing_kids = dosomething_kudos_get_kudos_for_user_by_file($data->id);
   }
 
@@ -398,6 +399,7 @@ function paraneue_dosomething_get_placeholder_reportbacks($count = 6) {
 
   for ($i = 0; $i < $count; $i++) {
     $placeholder = (object) [];
+    $placeholder->id = NULL;
     $placeholder->caption = $placeholder_captions[$i];
     $placeholder->media['uri'] = $placeholder_urls[$i];
     $placeholder->media['type'] = 'image';

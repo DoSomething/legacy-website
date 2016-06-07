@@ -195,8 +195,9 @@ function dosomething_kudos_get_totals_by_taxonomy_term($data) {
  * @return int
  */
 function dosomething_kudos_get_term_id_by_name($name) {
-  return array_pop(taxonomy_get_term_by_name($name, 'kudos'))->tid;
+  $term = taxonomy_get_term_by_name($name, 'kudos');
 
+  return array_pop($term)->tid;
 }
 
 /**
@@ -233,3 +234,31 @@ function dosomething_kudos_get_kudos_for_user_by_file($fid) {
 
   return $kudos;
 }
+
+/**
+ * Check to see if the kudos term has been selected by the user on specified
+ * reportback.
+ *
+ * @param  object $reportback_item
+ * @param  string $term
+ * @return bool
+ */
+function dosomething_kudos_term_is_selected($reportback_item, $term) {
+  if (! $reportback_item->existing_kids) {
+    return false;
+  }
+
+  $id = dosomething_kudos_get_term_id_by_name($term);
+
+  if (! $id) {
+    return false;
+  }
+
+  if (! isset($reportback_item->existing_kids[$id])) {
+    return false;
+  }
+
+  return true;
+}
+
+
