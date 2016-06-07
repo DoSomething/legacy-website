@@ -15,16 +15,11 @@
   </figure>
 
   <?php if ($content->id && $content->allow_reactions): ?>
-
     <ul class="form-actions -inline photo__actions">
-
-      <?php foreach($content->allowed_reactions as $key => $id): ?>
-        <li>
-          <a class="button -mini js-kudos-button <?php print dosomething_kudos_term_is_selected($id, $content) ? 'is-active' : '' ?>" data-kudo-id="<?php print $id ?>"><?php print dosomething_kudos_get_icon_by_term_id($id) ?></a>
-          <span class="counter"><?php print dosomething_kudos_get_count_by_term_id($id, $content) ?></span>
-        </li>
-      <?php endforeach; ?>
-
+      <li>
+        <a class="button -mini js-kudos-button <?php print dosomething_kudos_term_is_selected($content, 'heart') ? 'is-active' : '' ?>" data-kudo-id="<?php print array_pop($content->allowed_reactions); ?>">&#128150;</a>
+        <span class="counter"><?php print $content->reaction_totals['heart']; ?></span>
+      </li>
     </ul>
   <?php endif; ?>
 

@@ -239,12 +239,18 @@ function dosomething_kudos_get_kudos_for_user_by_file($fid) {
  * Check to see if the kudos term has been selected by the user on specified
  * reportback.
  *
- * @param  string $id
  * @param  object $reportback_item
+ * @param  string $term
  * @return bool
  */
-function dosomething_kudos_term_is_selected($id, $reportback_item) {
+function dosomething_kudos_term_is_selected($reportback_item, $term) {
   if (! $reportback_item->existing_kids) {
+    return false;
+  }
+
+  $id = dosomething_kudos_get_term_id_by_name($term);
+
+  if (! $id) {
     return false;
   }
 
@@ -253,43 +259,6 @@ function dosomething_kudos_term_is_selected($id, $reportback_item) {
   }
 
   return true;
-}
-
-/**
- * Get the icon associated with the kudos term id.
- *
- * @param  string $id
- * @return string
- * @TODO: this will eventually be changed to refere to SVG icon paths for our custom kudos icons!
- */
-function dosomething_kudos_get_icon_by_term_id($id) {
-  $id = (string) $id;
-
-  $icons = [
-    '641' => '&#128150;',
-    '646' => '&#128169;',
-  ];
-
-  return $icons[$id];
-}
-
-/**
- * Get the count for a kudos term on a Reportback item by the
- * kudos term id.
- *
- * @param  string $id
- * @param  object $reportbackItem
- * @return string
- */
-function dosomething_kudos_get_count_by_term_id($id, $reportbackItem) {
-  $id = (string) $id;
-
-  $count_term = [
-    '641' => 'likes',
-    '646' => 'poos',
-  ];
-
-  return $reportbackItem->$count_term[$id];
 }
 
 
