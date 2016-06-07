@@ -263,7 +263,7 @@ function dosomething_kudos_term_is_selected($id, $reportback_item) {
  * @TODO: this will eventually be changed to refere to SVG icon paths for our custom kudos icons!
  */
 function dosomething_kudos_get_icon_by_term_id($id) {
-  settype($id, 'string');
+  $id = (string) $id;
 
   $icons = [
     '641' => '&#128150;',
@@ -282,7 +282,7 @@ function dosomething_kudos_get_icon_by_term_id($id) {
  * @return string
  */
 function dosomething_kudos_get_count_by_term_id($id, $reportbackItem) {
-  settype($id, 'string');
+  $id = (string) $id;
 
   $count_term = [
     '641' => 'likes',
