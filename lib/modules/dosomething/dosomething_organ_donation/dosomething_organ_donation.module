@@ -67,58 +67,60 @@ function _dosomething_organ_donation_build_http_client($nid) {
   return $client;
 }
 
-/*
+/**
  * POST user's information to Organize's Registration API endpoint.
  *
+ * @param array $values
+ *   Values from the registration form.
  */
-function dosomething_organ_donation_post_registration() {
-  $data->email = 'clee@dosomething.org';
-  $data->first_name = 'Chloe';
-  $data->last_name = 'Lee';
-  $data->street_address = '150 E 83rd Street';
-  $data->city = 'New York';
-  $data->state = 'NY';
-  $data->postal_code = '10028';
-  $data->license_id = 'S395019395u5';
-  $data->gender = 'F';
-  $data->source_url = 'www.dosomething.org';
-  $data->middle_name = 'Alessandra';
-  $data->agree_to_tos = 'checked';
-  $data->birthdate = '4/12/1989';
-  $data->subscribe_to_email_list = 'checked';
-  $data->ssn = '3419';
+function dosomething_organ_donation_post_registration($values) {
+  $values['email'] = 'clee@dosomething.org';
+  $values['first_name'] = 'Chloe';
+  $values['last_name'] = 'Lee';
+  $values['street_address'] = '150 E 83rd Street';
+  $values['city'] = 'New York';
+  $values['state'] = 'NY';
+  $values['postal_code'] = '10028';
+  $values['license_id'] = 'S395019395u5';
+  $values['gender'] = 'F';
+  $values['source_url'] = 'www.dosomething.org';
+  $values['middle_name'] = 'Alessandra';
+  $values['agree_to_tos'] = 1;
+  $values['birthdate'] = '4/12/1989';
+  $values['subscribe_to_email_list'] = 1;
+  $values['ssn'] = '3419';
 
-  $client = _dosomething_organ_donation_build_http_client('1631');
+  $client = _dosomething_organ_donation_build_http_client();
 
   $options = [
     'method' => 'POST',
     'headers' => $client['headers'],
     'data' =>
       json_encode([
-        'email' => $data->email,
-        'first_name' => $data->first_name,
-        'middle_name' => $data->middle_name,
-        'last_name' => $data->last_name,
-        'birthdate' => $data->birthdate,
-        'street_address' => $data->street_address,
-        'apartment' => $data->apartment,
-        'city' => $data->city,
-        'state' => $data->state,
-        'postal_code' => $data->postal_code,
-        'license_id' => $data->license_id,
-        'phone_number' => $data->phone_number,
-        'ssn' => $data->ssn,
-        'place_of_birth' => $data->place_of_birth,
-        'maiden_name_mother' => $data->maiden_name_mother,
-        'country_of_birth' => $data->country_of_birth,
-        'gender' => $data->gender,
+        'email' => $values['email'],
+        'first_name' => $values['first_name'],
+        'middle_name' => $values['middle_name'],
+        'last_name' => $values['last_name'],
+        'birthdate' => $values['birthdate'],
+        'street_address' => $values['street_address'],
+        'apartment' => $values['apartment'],
+        'city' => $values['city'],
+        'state' => $values['state'],
+        'postal_code' => $values['postal_code'],
+        'license_id' => $values['license_id'],
+        'phone_number' => $dvalues['phone_number'],
+        'ssn' => $values['ssn'],
+        'place_of_birth' => $values['place_of_birth'],
+        'maiden_name_mother' => $values['maiden_name_mother'],
+        'country_of_birth' => $values['country_of_birth'],
+        'gender' => $values['gender'],
         'source_url' => 'www.dosomething.org',
       ]),
   ];
 
   $response = drupal_http_request($client['base_url'] . 'registrations/', $options);
 
-  return drupal_json_output($response);
+  return drupal_json_output(json_decode($response->data));
 }
 
 /*
@@ -140,6 +142,7 @@ function dosomething_organ_donation_send_postal_code() {
       'error' => 'Postal code not found.'
     ];
   }
+
   // Only return the data.
   return drupal_json_output(json_decode($response->data));
 
