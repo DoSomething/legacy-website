@@ -608,7 +608,7 @@ function dosomething_signup_user_signup($nid, $account = NULL, $source = NULL) {
  *   - source
  *   (optional) A idendify name of the original source that requested the campaign signup.
  */
-function dosomething_signup_mbp_request($account, $node, $opt_in, $options) {
+function dosomething_signup_mbp_request($account, $node, $opt_in, $options = []) {
   // Send MBP request.
   if (!module_exists('dosomething_mbp')) {
     return;
@@ -652,7 +652,7 @@ function dosomething_signup_mbp_request($account, $node, $opt_in, $options) {
  * @return array
  *   Associative array of values to use as params to a mbp_request.
  */
-function dosomething_signup_get_mbp_params($account, $node, $opt_in, $options) {
+function dosomething_signup_get_mbp_params($account, $node, $opt_in, $options = []) {
   if (!($node->type == 'campaign')) {
     return FALSE;
   }
