@@ -14,7 +14,7 @@
     </figcaption>
   </figure>
 
-  <?php if ($content->id && $content->allow_reactions): ?>
+  <?php if ($content->id && !$content->disable_reactions): ?>
     <ul class="form-actions -inline photo__actions">
       <li>
         <a class="button -mini js-kudos-button <?php print dosomething_kudos_term_is_selected($content, 'heart') ? 'is-active' : '' ?>" data-kudo-id="<?php print array_pop($content->allowed_reactions); ?>">&#128150;</a>
