@@ -29,7 +29,7 @@ function dosomething_organ_donation_menu() {
   ];
 
    $items['admin/config/services/organs'] = [
-    'title' => 'Oranize API Settings',
+    'title' => 'Organize API Settings',
     'description' => 'Manage Organize connection settings.',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('dosomething_organize_config_form'),
