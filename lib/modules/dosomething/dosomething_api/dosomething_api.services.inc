@@ -211,6 +211,9 @@ function dosomething_api_default_services_endpoint() {
         'password_reset_url' => array(
           'enabled' => '1',
         ),
+        'magic_login_url' => array(
+          'enabled' => '1',
+        ),
       ),
     ),
   );

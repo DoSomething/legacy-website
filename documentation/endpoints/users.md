@@ -211,3 +211,18 @@ POST /api/v1/users/{uid}/password_reset_url
 [ 'http://dev.dosomething.org:8888/user/reset/1700226/1425495228/P-f-5d6kHLrOXl0VrQfXavgmMjiNz042uihpxJW4jBc' ]
 ```
 
+## Create Magic Login URL
+
+Only available to a logged in administrator. Must include UID of the user in the URL.
+
+```
+POST /api/v1/users/{uid}/magic_login_url
+```
+
+**Example Response:**
+
+```js
+// 200 Okay
+
+[ 'http://dev.dosomething.org:8888/user/magic/1700226/1425495228/P-f-5d6kHLrOXl0VrQfXavgmMjiNz042uihpxJW4jBc' ]
+```

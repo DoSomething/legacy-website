@@ -110,6 +110,26 @@ function _member_resource_definition() {
         'access callback' => '_member_resource_access',
         'access arguments' => array('password_reset_url'),
       ),
+      'magic_login_url' => array(
+        'help' => 'Create a magic login link for a user.',
+        'file' => array(
+          'type' => 'inc',
+          'module' => 'dosomething_api',
+          'name' => 'resources/member_resource',
+        ),
+        'args' => array(
+          array(
+            'name' => 'uid',
+            'optional' => FALSE,
+            'source' => array('path' => 0),
+            'type' => 'int',
+            'description' => 'The UID of the user who we\'re making a magic login link for.',
+          ),
+        ),
+        'callback' => '_member_resource_magic_login_url',
+        'access callback' => '_member_resource_access',
+        'access arguments' => array('magic_login_url'),
+      ),
     ),
   );
   return $member_resource;
@@ -145,11 +165,11 @@ function _member_resource_access($op) {
  */
 function _member_resource_create($request) {
   $query = drupal_get_query_parameters();
-  
+
   if (!isset($request['email'])) {
     return services_error("Email is required.");
   }
-  
+
   // Check if email is formatted correctly and not already in use.
   $email = $request['email'];
   if ($user = user_load_by_mail($email)) {
@@ -158,7 +178,7 @@ function _member_resource_create($request) {
   if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     return services_error(t('Email @email is not a valid email address.', ['@email' => $email]), 422);
   }
-  
+
   // Check if account exists for phone.
   $mobile = $request['mobile'];
   if ($mobile && $user = dosomething_user_get_user_by_mobile($mobile)) {
@@ -167,7 +187,7 @@ function _member_resource_create($request) {
   if ($mobile && !dosomething_user_valid_mobile($mobile)) {
     return services_error(t('Mobile @mobile is not a valid phone number.', ['@mobile' => $mobile]), 422);
   }
-  
+
   // Initialize array to pass to user_save().
   $edit = [
     'mail' => $email,
@@ -196,23 +216,23 @@ function _member_resource_create($request) {
 
   try {
     $user = user_save('', $edit);
-    
+
     // Ensure user has UID set for name, since insert hooks don't fire on API.
     // @see: dosomething_user_user_insert
     user_save($user, ['name' => $user->uid]);
-    
+
     // Forward users to Northstar, unless `?forward=false` is explicitly set.
     $should_forward = isset($query['forward']) ? filter_var($query['forward'], FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE) : true;
     if ($should_forward && module_exists('dosomething_northstar')) {
       $payload = dosomething_northstar_transform_user($user);
       $payload['password'] = $edit['pass'];
-      
+
       dosomething_northstar_register_user($user, $payload);
     }
 
     // Don't return the hashed password in the response!
     unset($user->pass);
-    
+
     return $user;
   }
   catch (Exception $e) {
@@ -335,4 +355,13 @@ function _member_resource_reset($uid) {
   $account = user_load($uid);
   $reset_url = user_pass_reset_url($account) . '/login';
   return $reset_url;
+}
+
+/**
+ * Callback for the `/users/{nid}/magic_login_url` endpoint.
+ *
+ * @return string
+ */
+function _member_resource_magic_login_url() {
+  return '...';
 }
