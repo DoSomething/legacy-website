@@ -553,7 +553,7 @@ function dosomething_signup_third_party_subscribe($account, $node, $options = []
     $opt_in = variable_get($var_name);
   }
   // Send message broker request.
-  dosomething_signup_mbp_request($account, $node, $opt_in, $options['transactionals'], $options['source']);
+  dosomething_signup_mbp_request($account, $node, $opt_in, $options);
 }
 
 /**
@@ -602,12 +602,13 @@ function dosomething_signup_user_signup($nid, $account = NULL, $source = NULL) {
  *   Details about the node that the signup was made on.
  * @param int $opt_in
  *   The opt-in path to use for opt-in.
- * @param bool $transactionals
+ * @param array $options
+ *   - transactionals
  *   (optional) A flag to disable sending transactional messages.
- * @param string $source
+ *   - source
  *   (optional) A idendify name of the original source that requested the campaign signup.
  */
-function dosomething_signup_mbp_request($account, $node, $opt_in, $transactionals = NULL, $source = NULL) {
+function dosomething_signup_mbp_request($account, $node, $opt_in, $options) {
   // Send MBP request.
   if (!module_exists('dosomething_mbp')) {
     return;
@@ -624,7 +625,7 @@ function dosomething_signup_mbp_request($account, $node, $opt_in, $transactional
   }
 
   // Gather mbp params for the signup.
-  $params = dosomething_signup_get_mbp_params($account, $node, $opt_in, $transactionals, $source);
+  $params = dosomething_signup_get_mbp_params($account, $node, $opt_in, $options);
 
   // Send campaign mbp request.
   if ($node->type == 'campaign') {
@@ -641,16 +642,17 @@ function dosomething_signup_mbp_request($account, $node, $opt_in, $transactional
  *   Details about the node that the signup was made on.
  * @param int $opt_in
  *   The opt-in path to use for opt-in.
- * @param bool $source
+ * @param array $options
+ *   - source
  *   (optional) The source of the user campaign signup. Can be internal to this application ("campaigns") or a
  *   souce defined in a call to the Campaign Signup API endpoint.
- * @param bool $transactionals
+ *   - transactionals
  *   (optional) Control if transactional messaging should be sent.
  *
  * @return array
  *   Associative array of values to use as params to a mbp_request.
  */
-function dosomething_signup_get_mbp_params($account, $node, $opt_in, $transactionals = NULL, $source = NULL) {
+function dosomething_signup_get_mbp_params($account, $node, $opt_in, $options) {
   if (!($node->type == 'campaign')) {
     return FALSE;
   }
@@ -697,11 +699,11 @@ function dosomething_signup_get_mbp_params($account, $node, $opt_in, $transactio
     'campaign_country' => $campaign_country_code,
   ];
 
-  if (isset($transactionals)) {
-    $params['transactionals'] = $transactionals;
+  if (isset($options['transactionals'])) {
+    $params['transactionals'] = $options['transactionals'];
   }
-  if (isset($source)) {
-    $params['source'] = $source;
+  if (isset($options['source'])) {
+    $params['source'] = $options['source'];
   }
 
   // Don't subscribe 26+ yo users for Mobile Commons.
