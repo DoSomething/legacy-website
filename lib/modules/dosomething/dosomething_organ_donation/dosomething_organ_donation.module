@@ -52,7 +52,6 @@ function dosomething_organ_donation_menu() {
  * @returns array
  */
 function _dosomething_organ_donation_build_http_client($nid) {
-
   $base_url = ORGANIZE_API_URL . '/' . ORGANIZE_API_VERSION . '/';
   $token = 'Token ' . ORGANIZE_API_AUTH_TOKEN;
 
@@ -74,22 +73,6 @@ function _dosomething_organ_donation_build_http_client($nid) {
  *   Values from the registration form.
  */
 function dosomething_organ_donation_post_registration($values) {
-  $values['email'] = 'clee@dosomething.org';
-  $values['first_name'] = 'Chloe';
-  $values['last_name'] = 'Lee';
-  $values['street_address'] = '150 E 83rd Street';
-  $values['city'] = 'New York';
-  $values['state'] = 'NY';
-  $values['postal_code'] = '10028';
-  $values['license_id'] = 'S395019395u5';
-  $values['gender'] = 'F';
-  $values['source_url'] = 'www.dosomething.org';
-  $values['middle_name'] = 'Alessandra';
-  $values['agree_to_tos'] = TRUE;
-  $values['birthdate'] = '4/12/1989';
-  $values['subscribe_to_email_list'] = FALSE;
-  $values['ssn'] = '3419';
-
   $client = _dosomething_organ_donation_build_http_client();
 
   $options = [
