@@ -81,28 +81,7 @@ function dosomething_organ_donation_post_registration($values) {
     'method' => 'POST',
     'headers' => $client['headers'],
     'data' =>
-      json_encode([
-        'email' => $values['email'],
-        'first_name' => $values['first_name'],
-        'middle_name' => $values['middle_name'],
-        'last_name' => $values['last_name'],
-        'birthdate' => $values['birthdate'],
-        'street_address' => $values['street_address'],
-        'apartment' => $values['apartment'],
-        'city' => $values['city'],
-        'state' => $values['state'],
-        'postal_code' => $values['postal_code'],
-        'license_id' => $values['license_id'],
-        'phone_number' => $values['phone_number'],
-        'ssn' => $values['ssn'],
-        'place_of_birth' => $values['place_of_birth'],
-        'maiden_name_mother' => $values['maiden_name_mother'],
-        'country_of_birth' => $values['country_of_birth'],
-        'gender' => $values['gender'],
-        'source_url' => 'www.dosomething.org',
-        'agree_to_tos' => $values['agree_to_tos'],
-        'subscribe_to_email_list' => $values['subscribe_to_email_list'],
-      ]),
+      json_encode($values),
   ];
 
   $response = drupal_http_request($client['base_url'] . 'registrations/', $options);
