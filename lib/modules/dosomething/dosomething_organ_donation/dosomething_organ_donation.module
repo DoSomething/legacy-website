@@ -75,24 +75,8 @@ function _dosomething_organ_donation_build_http_client($nid) {
  *   Values from the registration form.
  */
 function dosomething_organ_donation_post_registration($values) {
-    $values = [
-    'email' => 'clee@dosomething.org',
-    'first_name' => 'Chloe',
-    'last_name' => 'Lee',
-    'street_address' => '150 E 83rd Street',
-    'city' => 'New York',
-    'state' => 'NY',
-    'postal_code' => '10028',
-    'license_id' => 'S39fdsaf3df5',
-    'gender' => 'F',
-    'source_url' => 'www.dosomething.org',
-    'middle_name' => 'Alessandra',
-    'agree_to_tos' => TRUE,
-    'birthdate' => '4/12/1989',
-    'subscribe_to_email_list' => FALSE,
-    'ssn' => '3419'
-  ];
   $client = _dosomething_organ_donation_build_http_client();
+  $values['source'] = 'www.dosomething.org';
 
   $options = [
     'method' => 'POST',
