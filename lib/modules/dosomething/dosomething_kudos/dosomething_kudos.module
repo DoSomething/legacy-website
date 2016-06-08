@@ -10,7 +10,6 @@ include_once 'includes/Kudos.php';
 include_once 'includes/KudosController.php';
 include_once 'includes/KudosTransformer.php';
 
-
 /**
  * Implements hook_entity_info().
  *
@@ -260,5 +259,3 @@ function dosomething_kudos_term_is_selected($reportback_item, $term) {
 
   return true;
 }
-
-

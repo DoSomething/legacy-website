@@ -412,11 +412,11 @@ function dosomething_campaign_reportback_config_form($form, &$form_state, $node)
     '#default_value' => $vars['collect_num_participants'],
     '#size' => 20,
   );
-  $form['rb']['allow_reactions'] = array(
+  $form['rb']['disable_reactions'] = array(
     '#type' => 'checkbox',
-    '#title' => t('Enable voting on the reportback items'),
-    '#description' => t('If set, users will be able to react to reportback items.'),
-    '#default_value' => $vars['allow_reactions'],
+    '#title' => t('Disable voting on the reportback items'),
+    '#description' => t('If set, users will not be able to react to reportback items.'),
+    '#default_value' => $vars['disable_reactions'],
     '#size' => 20,
   );
   $form['rb']['actions'] = array(
@@ -433,7 +433,7 @@ function dosomething_campaign_reportback_config_form($form, &$form_state, $node)
  * Submit callback for dosomething_campaign_reportback_config_form().
  */
 function dosomething_campaign_reportback_config_form_submit(&$form, &$form_state) {
-  $var_names = ['collect_num_participants', 'allow_reactions'];
+  $var_names = ['collect_num_participants', 'disable_reactions'];
   foreach($var_names as $var_name) {
     $values = $form_state['values'];
     dosomething_helpers_set_variable('node', $values['nid'], $var_name, $values[$var_name]);
