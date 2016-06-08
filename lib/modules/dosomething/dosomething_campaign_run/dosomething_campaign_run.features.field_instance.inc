@@ -792,7 +792,7 @@ function dosomething_campaign_run_field_default_field_instances() {
     'bundle' => 'campaign_run',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => '',
+    'description' => 'Run titles should be formatted like: Comeback Clothes run 1 or Teens for Jeans run 3. Please do not capitalize "run" or put anything but a space between the campaign name and the word "run."',
     'display' => array(
       'default' => array(
         'label' => 'above',
