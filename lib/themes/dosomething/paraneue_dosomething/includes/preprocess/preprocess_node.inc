@@ -183,7 +183,7 @@ function paraneue_dosomething_preprocess_node_campaign(&$vars) {
     drupal_add_js($js, 'inline');
   }
 
-  if (function_exists('dosomething_organ_donation_store_registration')) {
+  if (module_exists('dosomething_organ_donation')) {
     if ($vars['node']->register_organ_donor) {
       // Add JS to open the signup data form modal.
       $id = 'modal-organ-donation';
