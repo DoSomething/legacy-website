@@ -211,3 +211,25 @@ POST /api/v1/users/{uid}/password_reset_url
 [ 'http://dev.dosomething.org:8888/user/reset/1700226/1425495228/P-f-5d6kHLrOXl0VrQfXavgmMjiNz042uihpxJW4jBc' ]
 ```
 
+## Create Magic Login URL
+
+Only available to a logged in administrator. Must include UID of the user in the URL.
+
+You may optionally append a `?redirect=` query parameter to the returned link to indicate where to redirect
+after logging in. For example, use `?redirect=node/1144` to log in & redirect to Teens For Jeans.
+
+```
+POST /api/v1/users/{uid}/magic_login_url
+```
+
+**Example Response:**
+
+```js
+// 200 Okay
+
+{
+  "url": "http://dev.dosomething.org:8888/user/magic/1700226/1425495228/P-f-5d6kHLrOXl0VrQfXavgmMjiNz042uihpxJW4jBc",
+  "expires": "2016-06-08T15:12:52+00:00"
+}
+```
+
