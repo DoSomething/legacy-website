@@ -109,6 +109,11 @@ function dosomething_user_menu() {
     'access callback' => 'user_view_access',
     'access arguments' => array(1),
   );
+  $items['user/magic/%'] = array(
+    'page callback' => 'dosomething_user_magic_session',
+    'page arguments' => array(2, 3, 4),
+    'access callback' => TRUE,
+  );
   return $items;
 }
 
@@ -1761,4 +1766,78 @@ function dosomething_user_mail($key, &$message, $params) {
         );
       break;
   }
+}
+
+/**
+ * Menu callback for the `/users/{uid}/magic/{timestamp}/{login_token}` route. This
+ * uses a token generated from the `magic_login_url` endpoint to create a one-time
+ * session for a user. Modeled after Drupal's password reset links.
+ * @see user_pass_reset in user.pages.inc
+ *
+ * @param $uid
+ * @param $timestamp
+ * @param $login_token
+ *
+ * @return string
+ */
+function dosomething_user_magic_session($uid, $timestamp, $login_token) {
+  global $user;
+  
+  $query = drupal_get_query_parameters();
+  $redirect = ! empty($query['redirect']) ? $query['redirect'] : '/';
+
+  // When processing the one-time login link, we have to make sure that a user
+  // isn't already logged in to a different account.
+  if ($user->uid && $user->$uid !== $uid) {
+    drupal_set_message(t('You\'re already logged in to a different account!'), 'error');
+    drupal_goto($redirect, ['external' => FALSE]);
+  }
+
+  // Load active account by UID & check validity of the login link.
+  $account = reset(user_load_multiple([$uid], ['status' => '1']));
+  if (! dosomething_user_check_magic_login_validity($account, $timestamp, $login_token)) {
+    dosomething_user_reject_magic_login_link();
+  }
+
+  // Looks good! Set the new user via the global.
+  $user = $account;
+
+  // Use user_login_finalize() to set the login timestamp of the user,
+  // which prevents further use of the one-time login link.
+  user_login_finalize();
+
+  watchdog('user', 'User %name used one-time login link at time %timestamp.', ['%name' => $account->name, '%timestamp' => $timestamp]);
+  drupal_goto($redirect, ['external' => FALSE]);
+}
+
+/**
+ * Check that a magic login link is valid: it hasn't expired, the referred account exists and
+ * hasn't logged in since generating the link, and the hash of those parameters is correct.
+ * 
+ * @param $account
+ * @param $timestamp
+ * @param $login_token
+ * @return bool
+ */
+function dosomething_user_check_magic_login_validity($account, $timestamp, $login_token) {
+  if(! $account) {
+    return false;
+  }
+  
+  $timeout = variable_get('user_password_reset_timeout', 86400);
+  $has_expired = REQUEST_TIME - $timestamp > $timeout;
+  
+  $valid_parameters = $account->uid && $timestamp >= $account->login && $timestamp <= REQUEST_TIME;
+  $valid_hash = $login_token == user_pass_rehash($account->pass, $timestamp, $account->login, $account->uid);
+  
+  return ! $has_expired && $valid_parameters && $valid_hash;
+}
+
+/**
+ * Reject an invalid magic login link by aborting, setting a flash message, and
+ * redirecting to the homepage.
+ */
+function dosomething_user_reject_magic_login_link() {
+  drupal_set_message(t('You have tried to use an invalid one-time login link.'), 'error');
+  drupal_goto('/');
 }

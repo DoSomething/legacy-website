@@ -358,10 +358,25 @@ function _member_resource_reset($uid) {
 }
 
 /**
- * Callback for the `/users/{nid}/magic_login_url` endpoint.
+ * Callback for the `/users/{nid}/magic_login_url` endpoint. This creates
+ * a one-time login link for the given user.
+ * @see dosomething_user_magic_session
  *
- * @return string
+ * @return array
  */
-function _member_resource_magic_login_url() {
-  return '...';
+function _member_resource_magic_login_url($uid) {
+  $account = user_load($uid);
+  $timestamp = REQUEST_TIME;
+
+  if (! $account) {
+    return services_error('That user does not exist', 404);
+  }
+
+  // Create a one-time login URL using the same methods as built-in Drupal password reset.
+  $magic_url = url("user/magic/$uid/$timestamp/" . user_pass_rehash($account->pass, $timestamp, $account->login, $account->uid), ['absolute' => TRUE]);
+
+  return [
+    'url' => $magic_url,
+    'expires' => date('c', $timestamp),
+  ];
 }
