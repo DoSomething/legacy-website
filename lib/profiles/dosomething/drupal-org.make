@@ -251,7 +251,7 @@ projects[views_limit_grouping][version] = "1.x-dev"
 projects[views_limit_grouping][subdir] = "contrib"
 
 ; XML Sitemap
-projects[xmlsitemap][version] = "2.0"
+projects[xmlsitemap][version] = "2.3"
 projects[xmlsitemap][subdir] = "contrib"
 
 
