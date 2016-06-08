@@ -248,7 +248,7 @@ function paraneue_dosomething_preprocess_reportback_gallery(&$vars, $count = 6) 
   }
 
   // Check both the global checkbox & node specific one
-  $disable_reactions = !variable_get('dosomething_kudos_enabled', FALSE) || dosomething_helpers_get_variable('node', $vars['nid'], 'disable_reactions');
+  $disable_reactions = !variable_get('dosomething_reportback_kudos_enabled', FALSE) || dosomething_helpers_get_variable('node', $vars['nid'], 'disable_reactions');
 
   $allowed_tids = [];
 
