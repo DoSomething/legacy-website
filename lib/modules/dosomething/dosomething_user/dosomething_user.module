@@ -1806,7 +1806,7 @@ function dosomething_user_magic_session($uid, $timestamp, $login_token) {
   // which prevents further use of the one-time login link.
   user_login_finalize();
 
-  watchdog('user', 'User %name used one-time login link at time %timestamp.', ['%name' => $account->name, '%timestamp' => $timestamp]);
+  watchdog('user', 'User %uid used one-time login link at time %timestamp.', ['%name' => $account->uid, '%timestamp' => $timestamp]);
   drupal_goto($redirect, ['external' => FALSE]);
 }
 
