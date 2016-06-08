@@ -24,13 +24,15 @@ function dosomething_organ_donation_menu() {
 
   $items['organ-donation/post-registration'] = [
     'page callback' => 'dosomething_organ_donation_post_registration',
-    'access callback' => 'user_is_logged_in',
+    'access callback' => 'user_access',
+    'access arguments' => array('administer actions'),
     'type' => MENU_CALLBACK,
   ];
 
   $items['organ-donation/send-postal-code'] = [
     'page callback' => 'dosomething_organ_donation_send_postal_code',
-    'access callback' => 'user_is_logged_in',
+    'access callback' => 'user_access',
+    'access arguments' => array('administer actions'),
     'type' => MENU_CALLBACK,
   ];
 
@@ -91,7 +93,7 @@ function dosomething_organ_donation_post_registration($values) {
         'state' => $values['state'],
         'postal_code' => $values['postal_code'],
         'license_id' => $values['license_id'],
-        'phone_number' => $dvalues['phone_number'],
+        'phone_number' => $values['phone_number'],
         'ssn' => $values['ssn'],
         'place_of_birth' => $values['place_of_birth'],
         'maiden_name_mother' => $values['maiden_name_mother'],
