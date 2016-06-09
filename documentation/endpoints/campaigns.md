@@ -1,6 +1,6 @@
 # Campaigns
 
-## Retrieve all campag
+## Retrieve all campaigns
 
 ```
 GET https://www.dosomething.org/api/v1/campaigns
