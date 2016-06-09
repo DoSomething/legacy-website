@@ -133,35 +133,35 @@ function dosomething_helpers_variable_form($form, &$form_state, $node) {
         ),
       ),
     );
+    $form['custom_social_sharing'] = [
+      '#type' => 'fieldset',
+      '#title' => t('Custom Social Sharing'),
+      '#collapsible' => TRUE,
+      '#collapsed' => TRUE,
+    ];
+    $form['custom_social_sharing']['unique_link'] = [
+      '#type' => 'checkbox',
+      '#title' => t('Create unique social share links for each user.'),
+      '#description' => t("If set, unique social share links will be created using user's id."),
+      '#default_value' => $vars['unique_link'],
+    ];
+    $form['custom_social_sharing']['custom_text'] = [
+      '#type' => 'textfield',
+      '#title' => t('Create custom text'),
+      '#description' => t("Custom text to share with the social links."),
+      '#default_value' => $vars['custom_text'],
+      '#attributes' => array(
+        'maxlength' => '140',
+      ),
+    ];
+    $form['actions'] = array(
+      '#type' => 'actions',
+      'submit' => array(
+        '#type' => 'submit',
+        '#value' => 'Save',
+      ),
+    );
   }
-
-  $form['actions'] = array(
-    '#type' => 'actions',
-    'submit' => array(
-      '#type' => 'submit',
-      '#value' => 'Save',
-    ),
-  );
-
-  $form['unique_social_share_link'] = [
-    '#type' => 'fieldset',
-    '#title' => t('Unique Social Share Link'),
-    '#collapsible' => TRUE,
-    '#collapsed' => TRUE,
-  ];
-  $form['unique_social_share_link']['create_unique_link'] = [
-    '#type' => 'checkbox',
-    '#title' => t('Create unique social share link for each user.'),
-    '#description' => t("If set, unique social share links will be created using user's id."),
-    '#default_value' => $vars['create_unique_link'],
-  ];
-  $form['organ_donation']['actions'] = [
-    '#type' => 'actions',
-    'submit' => [
-      '#type' => 'submit',
-      '#value' => 'Save',
-    ],
-  ];
 
   return $form;
 }
