@@ -25,7 +25,11 @@
     }
 
     &.is-active {
-      content: url("https://files.slack.com/files-pri/T024GV2BW-F1EP7FJHZ/download/pink-heart.svg");
+      content: url("../images/pink-heart.svg");
+    }
+
+    &:not(.is-active) {
+      content: url("../images/gray-heart.svg");
     }
   }
 }
