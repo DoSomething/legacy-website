@@ -10,8 +10,7 @@
 function dosomething_campaign_run_field_default_field_instances() {
   $field_instances = array();
 
-  // Exported field_instance:
-  // 'field_collection_item-field_gallery_collection-field_gallery'.
+  // Exported field_instance: 'field_collection_item-field_gallery_collection-field_gallery'
   $field_instances['field_collection_item-field_gallery_collection-field_gallery'] = array(
     'bundle' => 'field_gallery_collection',
     'deleted' => 0,
@@ -54,8 +53,7 @@ function dosomething_campaign_run_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance:
-  // 'field_collection_item-field_gallery_collection-field_gallery_type'.
+  // Exported field_instance: 'field_collection_item-field_gallery_collection-field_gallery_type'
   $field_instances['field_collection_item-field_gallery_collection-field_gallery_type'] = array(
     'bundle' => 'field_gallery_collection',
     'default_value' => NULL,
@@ -93,8 +91,7 @@ function dosomething_campaign_run_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance:
-  // 'field_collection_item-field_winners-field_gallery_image'.
+  // Exported field_instance: 'field_collection_item-field_winners-field_gallery_image'
   $field_instances['field_collection_item-field_winners-field_gallery_image'] = array(
     'bundle' => 'field_winners',
     'default_value' => NULL,
@@ -140,7 +137,7 @@ function dosomething_campaign_run_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'field_collection_item-field_winners-field_user'.
+  // Exported field_instance: 'field_collection_item-field_winners-field_user'
   $field_instances['field_collection_item-field_winners-field_user'] = array(
     'bundle' => 'field_winners',
     'default_value' => NULL,
@@ -186,8 +183,7 @@ function dosomething_campaign_run_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance:
-  // 'field_collection_item-field_winners-field_winner_description'.
+  // Exported field_instance: 'field_collection_item-field_winners-field_winner_description'
   $field_instances['field_collection_item-field_winners-field_winner_description'] = array(
     'bundle' => 'field_winners',
     'default_value' => NULL,
@@ -228,8 +224,7 @@ function dosomething_campaign_run_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance:
-  // 'field_collection_item-field_winners-field_winner_name'.
+  // Exported field_instance: 'field_collection_item-field_winners-field_winner_name'
   $field_instances['field_collection_item-field_winners-field_winner_name'] = array(
     'bundle' => 'field_winners',
     'default_value' => NULL,
@@ -270,8 +265,7 @@ function dosomething_campaign_run_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance:
-  // 'field_collection_item-field_winners-field_winner_quote'.
+  // Exported field_instance: 'field_collection_item-field_winners-field_winner_quote'
   $field_instances['field_collection_item-field_winners-field_winner_quote'] = array(
     'bundle' => 'field_winners',
     'default_value' => NULL,
@@ -312,8 +306,7 @@ function dosomething_campaign_run_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance:
-  // 'field_collection_item-field_winners-field_winner_type'.
+  // Exported field_instance: 'field_collection_item-field_winners-field_winner_type'
   $field_instances['field_collection_item-field_winners-field_winner_type'] = array(
     'bundle' => 'field_winners',
     'default_value' => NULL,
@@ -351,7 +344,51 @@ function dosomething_campaign_run_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-campaign_run-field_additional_text'.
+  // Exported field_instance: 'node-campaign_run-description_field'
+  $field_instances['node-campaign_run-description_field'] = array(
+    'bundle' => 'campaign_run',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'Describe why you are creating a new run. Write it with enough context so that a future campaign lead could read it and immediately understand why a new run was created. Will this run have a scholarship? Is there a celebrity endorsing the campaign? Does the campaign have a new sponsor? In which countries is this run going to be available? etc.',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 13,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'description_field',
+    'label' => 'Description',
+    'required' => TRUE,
+    'settings' => array(
+      'display_summary' => 0,
+      'entity_translation_sync' => FALSE,
+      'hide_label' => array(
+        'entity' => FALSE,
+        'page' => FALSE,
+      ),
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => -5,
+    ),
+  );
+
+  // Exported field_instance: 'node-campaign_run-field_additional_text'
   $field_instances['node-campaign_run-field_additional_text'] = array(
     'bundle' => 'campaign_run',
     'default_value' => NULL,
@@ -392,7 +429,7 @@ function dosomething_campaign_run_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-campaign_run-field_additional_text_title'.
+  // Exported field_instance: 'node-campaign_run-field_additional_text_title'
   $field_instances['node-campaign_run-field_additional_text_title'] = array(
     'bundle' => 'campaign_run',
     'default_value' => NULL,
@@ -433,7 +470,7 @@ function dosomething_campaign_run_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-campaign_run-field_campaigns'.
+  // Exported field_instance: 'node-campaign_run-field_campaigns'
   $field_instances['node-campaign_run-field_campaigns'] = array(
     'bundle' => 'campaign_run',
     'default_value' => NULL,
@@ -479,7 +516,7 @@ function dosomething_campaign_run_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-campaign_run-field_gallery_collection'.
+  // Exported field_instance: 'node-campaign_run-field_gallery_collection'
   $field_instances['node-campaign_run-field_gallery_collection'] = array(
     'bundle' => 'campaign_run',
     'default_value' => NULL,
@@ -524,7 +561,7 @@ function dosomething_campaign_run_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-campaign_run-field_intro'.
+  // Exported field_instance: 'node-campaign_run-field_intro'
   $field_instances['node-campaign_run-field_intro'] = array(
     'bundle' => 'campaign_run',
     'default_value' => NULL,
@@ -565,7 +602,7 @@ function dosomething_campaign_run_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-campaign_run-field_run_date'.
+  // Exported field_instance: 'node-campaign_run-field_run_date'
   $field_instances['node-campaign_run-field_run_date'] = array(
     'bundle' => 'campaign_run',
     'deleted' => 0,
@@ -619,7 +656,7 @@ function dosomething_campaign_run_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-campaign_run-field_total_participants'.
+  // Exported field_instance: 'node-campaign_run-field_total_participants'
   $field_instances['node-campaign_run-field_total_participants'] = array(
     'bundle' => 'campaign_run',
     'default_value' => NULL,
@@ -660,7 +697,7 @@ function dosomething_campaign_run_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-campaign_run-field_total_quantity'.
+  // Exported field_instance: 'node-campaign_run-field_total_quantity'
   $field_instances['node-campaign_run-field_total_quantity'] = array(
     'bundle' => 'campaign_run',
     'default_value' => NULL,
@@ -701,7 +738,7 @@ function dosomething_campaign_run_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-campaign_run-field_total_quantity_label'.
+  // Exported field_instance: 'node-campaign_run-field_total_quantity_label'
   $field_instances['node-campaign_run-field_total_quantity_label'] = array(
     'bundle' => 'campaign_run',
     'default_value' => NULL,
@@ -742,7 +779,7 @@ function dosomething_campaign_run_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-campaign_run-field_winners'.
+  // Exported field_instance: 'node-campaign_run-field_winners'
   $field_instances['node-campaign_run-field_winners'] = array(
     'bundle' => 'campaign_run',
     'default_value' => NULL,
@@ -787,12 +824,12 @@ function dosomething_campaign_run_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-campaign_run-title_field'.
+  // Exported field_instance: 'node-campaign_run-title_field'
   $field_instances['node-campaign_run-title_field'] = array(
     'bundle' => 'campaign_run',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => '',
+    'description' => 'Run titles should be formatted like: Comeback Clothes run 1 or Teens for Jeans run 3. Please do not capitalize "run" or put anything but a space between the campaign name and the word "run."',
     'display' => array(
       'default' => array(
         'label' => 'above',
@@ -810,60 +847,18 @@ function dosomething_campaign_run_field_default_field_instances() {
     'entity_type' => 'node',
     'field_name' => 'title_field',
     'label' => 'Title',
-    'required' => TRUE,
+    'required' => 1,
     'settings' => array(
       'entity_translation_sync' => FALSE,
       'hide_label' => array(
-        'entity' => FALSE,
-        'page' => FALSE,
+        'entity' => 0,
+        'page' => 0,
       ),
       'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
-      'module' => 'text',
-      'settings' => array(
-        'size' => 60,
-      ),
-      'type' => 'text_textfield',
-      'weight' => -5,
-    ),
-  );
-
-  // Exported field_instance: 'node-campaign_run-description_field'.
-  $field_instances['node-campaign_run-description_field'] = array(
-    'bundle' => 'campaign_run',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => 'Describe why you are creating a new run. Write it with enough context so that a future campaign lead could read it and immediately understand why a new run was created. Will this run have a scholarship? Is there a celebrity endorsing the campaign? Does the campaign have a new sponsor? In which countries is this run going to be available? etc.',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 13,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'description_field',
-    'label' => 'Description',
-    'required' => TRUE,
-    'settings' => array(
-      'entity_translation_sync' => FALSE,
-      'hide_label' => array(
-        'entity' => FALSE,
-        'page' => FALSE,
-      ),
-      'text_processing' => 0,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
+      'active' => 1,
       'module' => 'text',
       'settings' => array(
         'size' => 60,
@@ -878,12 +873,15 @@ function dosomething_campaign_run_field_default_field_instances() {
   t('Additional Text');
   t('Additional Text Title');
   t('Campaign');
+  t('Describe why you are creating a new run. Write it with enough context so that a future campaign lead could read it and immediately understand why a new run was created. Will this run have a scholarship? Is there a celebrity endorsing the campaign? Does the campaign have a new sponsor? In which countries is this run going to be available? etc.');
+  t('Description');
   t('Gallery');
   t('Gallery Image');
   t('Intro');
   t('Klout Gallery');
   t('Reference the campaign this run is associated with. Start typing the campaign name and select the appropriate one.');
   t('Run Date');
+  t('Run titles should be formatted like: Comeback Clothes run 1 or Teens for Jeans run 3. Please do not capitalize "run" or put anything but a space between the campaign name and the word "run."');
   t('Title');
   t('Total Participants');
   t('Total Quantity');
