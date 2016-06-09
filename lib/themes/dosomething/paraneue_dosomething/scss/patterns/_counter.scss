@@ -1,12 +1,31 @@
 // @TODO: Move to Forge if this is shipped.
 .counter {
-  display: inline-block;
   color: $med-gray;
   font-weight: $weight-bold;
-  font-size: 13px !important;
-  padding-left: 3px;
+  font-size: 16px;
+  padding-left: 4px;
 
   &.is-active {
-    color: $purple;
+    color: $dark-gray;
+  }
+}
+
+.photo__actions li {
+  * {
+    display: inline;
+    vertical-align: middle;
+  }
+
+  img {
+    width: 30px !important;
+    height: 26px;
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    &.is-active {
+      content: url("https://files.slack.com/files-pri/T024GV2BW-F1EP7FJHZ/download/pink-heart.svg");
+    }
   }
 }
