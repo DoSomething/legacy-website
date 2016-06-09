@@ -142,6 +142,27 @@ function dosomething_helpers_variable_form($form, &$form_state, $node) {
       '#value' => 'Save',
     ),
   );
+
+  $form['unique_social_share_link'] = [
+    '#type' => 'fieldset',
+    '#title' => t('Unique Social Share Link'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  ];
+  $form['unique_social_share_link']['create_unique_link'] = [
+    '#type' => 'checkbox',
+    '#title' => t('Create unique social share link for each user.'),
+    '#description' => t("If set, unique social share links will be created using user's id."),
+    '#default_value' => $vars['create_unique_link'],
+  ];
+  $form['organ_donation']['actions'] = [
+    '#type' => 'actions',
+    'submit' => [
+      '#type' => 'submit',
+      '#value' => 'Save',
+    ],
+  ];
+
   return $form;
 }
 
