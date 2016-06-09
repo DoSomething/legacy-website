@@ -54,7 +54,7 @@ function dosomething_organ_donation_menu() {
  * @returns array
  */
 function _dosomething_organ_donation_build_http_client() {
-  $base_url = ORGANIZE_API_URL . '/' . ORGANIZE_API_VERSION . '/';
+  $base_url = ORGANIZE_API_URL;
   $token = 'Token ' . ORGANIZE_API_AUTH_TOKEN;
 
   $client = [
@@ -83,9 +83,9 @@ function dosomething_organ_donation_post_registration($values) {
     'headers' => $client['headers'],
     'data' =>
       json_encode($values),
-  ];
+];
 
-  $response = drupal_http_request($client['base_url'] . 'registrations/', $options);
+  $response = drupal_http_request($client['base_url'] . '/v2/registrations/', $options);
 
   return drupal_json_output(json_decode($response->data));
 }
@@ -99,7 +99,7 @@ function dosomething_organ_donation_send_postal_code() {
 
   $client = _dosomething_organ_donation_build_http_client();
 
-  $response = drupal_http_request($client['base_url'] . 'postal-codes/' . $params['postal_code'] . '/', [
+  $response = drupal_http_request($client['base_url'] . '/v4/postal-codes/' . $params['postal_code'] . '/', [
     'headers' => $client['headers'],
     'method' => 'GET',
   ]);
