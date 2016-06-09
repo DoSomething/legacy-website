@@ -2,7 +2,9 @@
 
 ## Retrieve all campag
 
-**GET** `https://www.dosomething.org/api/v1/campaigns`
+```
+GET https://www.dosomething.org/api/v1/campaigns
+```
 
 Note: Only campaigns with a campaign type of `campaign` are returned (e.g. `sms_game` campaigns [are filtered](https://github.com/DoSomething/LetsDoThis-iOS/issues/813#issuecomment-189545768))
 ### Optional Query Parameters
@@ -33,7 +35,9 @@ Note: Only campaigns with a campaign type of `campaign` are returned (e.g. `sms_
 
 ## Retrieve a campaign
 
-**GET** `https://www.dosomething.org/api/v1/campaigns/:id`
+```
+GET https://www.dosomething.org/api/v1/campaigns/:id
+```
 
 - **id** _(int)_ [Required]
  - The id of the campaign node to retrieve data for.
@@ -239,7 +243,9 @@ Example response:
 
 This uses Drupal Services `content` endpoint and should only be used in legacy requests.
 
-**GET** `https://www.dosomething.org/api/v1/content/:nid`
+```
+GET https://www.dosomething.org/api/v1/content/:nid
+```
 
 **nid** (int) Required. The Node nid to retrieve content for.
 
@@ -255,7 +261,9 @@ curl https://www.dosomething.org/api/v1/content/5140 \
 
 Creates a User Signup for the given Campaign nid if a Signup does not exist.
 
-**POST** `https://www.dosomething.org/api/v1/campaigns/[nid]/signup`
+```
+POST https://www.dosomething.org/api/v1/campaigns/[nid]/signup
+```
 
 Must be authenticated to post.
 
@@ -289,7 +297,9 @@ Response: Signup sid, if success.
 
 Creates or updates a User Reportback for the given Campaign nid.
 
-**POST** `https://www.dosomething.org/api/v1/campaigns/[nid]/reportback`
+```
+POST https://www.dosomething.org/api/v1/campaigns/[nid]/reportback
+```
 
 Must be authenticated to post.
 
@@ -334,4 +344,4 @@ curl https://www.dosomething.org/api/v1/campaigns/23/reportback -X POST
 Example response:
 ````
 ["127"]
-````
+````x
