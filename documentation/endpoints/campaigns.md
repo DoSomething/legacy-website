@@ -1,244 +1,289 @@
-# Campaigns Endpoint
+# Campaigns
 
-- [Retrieve A Campaign](#retrieve-a-campaign)
+## Retrieve all campag
 
-## Retrieve A Campaign
+**GET** `https://www.dosomething.org/api/v1/campaigns`
 
-Get data for a specified campaign.
+Note: Only campaigns with a campaign type of `campaign` are returned (e.g. `sms_game` campaigns [are filtered](https://github.com/DoSomething/LetsDoThis-iOS/issues/813#issuecomment-189545768))
+### Optional Query Parameters
 
+- **ids** _(string|csv)_
+  - Specify the campaign(s) to return
+  - ex: `/campaigns?ids=123,456,789`
+- **count** _(default is 25)_
+  - Set the number of campaigns to return in a single response
+  - ex: `/campaigns?count=25`
+- **page** _(integer)_
+  - For pagination, specify page of campaigns to return in the response
+  - ex: `/campaigns?page=2`
+- **staff_pick** _(boolean)_
+  - If set to `true`, will only return _staff pick_ campaigns
+  - ex: `/campaigns?staff_pick=true`
+- **term_ids** _(string|csv)_
+  - Return only campaigns that are tagged with the term IDs specified
+  - ex: `/campaigns?term_ids=123,456,789`
+- **random** _(boolean)_
+  - If set to `true`, will return campaigns in random order
+  - ex: `/campaigns?random=true`
+- **cache** _(boolean)_
+  - Defaults to `true`
+  - If set to `false` will not cache request and if already cached, it will be removed from cache
+  - ex: `/campaigns?cache=false`
+
+
+## Retrieve a campaign
+
+**GET** `https://www.dosomething.org/api/v1/campaigns/:id`
+
+- **id** _(int)_ [Required]
+ - The id of the campaign node to retrieve data for.
+
+Example request:
 ```
-GET /api/v1/campaign/:id
+https://www.dosomething.org/api/v1/campaign/1247
 ```
 
-**Headers**
-
-```javascript
-Accept: application/json
-Content-Type: application/json
+Example response:
 ```
-
-**Example Request**
-
-```sh
-curl -X GET \
-  -H "Content-Type: application/json" \
-  -H "Accept: application/json" \
-  https://www.dosomething.org/api/v1/campaigns/362
-```
-
-**Example Response**
-
-```javascript
-// 200 Okay
-
 {
-  "data": {
-    "id": "362",
-    "title": "Comeback Clothes",
-    "campaign_runs": {
-      "current": {
-        "en": {
-          "id": "1227"
+  data: {
+    id: "362",
+    title: "Comeback Clothes",
+    campaign_runs: {
+      current: {
+        en: {
+          id: "1227"
         }
       },
-      "past": [
-        
-      ]
+      past: [ ]
     },
-    "language": {
-      "language_code": "en",
-      "prefix": "us"
+    language: {
+      language_code: "en",
+      prefix: "us"
     },
-    "translations": {
-      "original": "en",
-      "en": {
-        "language_code": "en",
-        "prefix": "us"
+    translations: {
+      original: "en",
+      en: {
+        language_code: "en",
+        prefix: "us"
       },
-      "en-global": {
-        "language_code": "en-global",
-        "prefix": null
+      en-global: {
+        language_code: "en-global",
+        prefix: null
       }
     },
-    "tagline": "Recycle old or worn-out clothes to help all the planets.",
-    "status": "active",
-    "type": "campaign",
-    "created_at": "1393518858",
-    "updated_at": "1461690475",
-    "time_commitment": 5,
-    "cover_image": {
-      "default": {
-        "uri": "http://dev.dosomething.org:8888/sites/default/files/styles/300x300/public/ComebackClothes_hero_square.jpg?itok=tWoJlXKl",
-        "sizes": {
-          "landscape": {
-            "uri": "http://dev.dosomething.org:8888/sites/default/files/styles/1440x810/public/ComebackClothes_hero_landscape.jpg?itok=urtK3cfp"
+    tagline: "Recycle old or worn-out clothes to help all the planets.",
+    created_at: "1393518858",
+    updated_at: "1452893294",
+    status: "closed",
+    time_commitment: 5,
+    cover_image: {
+      default: {
+        uri: "http://dev.dosomething.org:8888/sites/default/files/styles/300x300/public/ComebackClothes_hero_square.jpg?itok=4FFah0EJ",
+        sizes: {
+          landscape: {
+            uri: "http://dev.dosomething.org:8888/sites/default/files/styles/1440x810/public/ComebackClothes_hero_landscape.jpg?itok=f9LusEHG"
           },
-          "square": {
-            "uri": "http://dev.dosomething.org:8888/sites/default/files/styles/300x300/public/ComebackClothes_hero_square.jpg?itok=tWoJlXKl"
+          square: {
+            uri: "http://dev.dosomething.org:8888/sites/default/files/styles/300x300/public/ComebackClothes_hero_square.jpg?itok=4FFah0EJ"
           }
         },
-        "type": "image",
-        "dark_background": false
+        type: "image",
+        dark_background: false
       },
-      "alternate": null
+      alternate: null
     },
-    "staff_pick": true,
-    "competition": false,
-    "facts": {
-      "problem": "11.1 million tons of fabric that could be recycled ends up in landfills every year. That's the equivalent of over 70 billion t-shirts.",
-      "solution": null,
-      "sources": [
+    staff_pick: true,
+    competition: true,
+    facts: {
+      problem: "11.1 million tons of fabric that could be recycled ends up in landfills every year. That's the equivalent of over 70 billion t-shirts.",
+      solution: null,
+      sources: [
         {
-          "formatted": "<p>\"Textiles.\" United States Environmental Protection Agency. Accessed February 24, 2014. http://www.epa.gov/osw/conserve/materials/textiles.htm</p>\n"
+          formatted: "<p>"Textiles." United States Environmental Protection Agency. Accessed February 24, 2014. http://www.epa.gov/osw/conserve/materials/textiles.htm</p> "
         }
       ]
     },
-    "solutions": {
-      "copy": {
-        "raw": "Instead of trashing old clothes, give them a second life by recycling them. You’ll save water, energy, and landfill space.",
-        "formatted": "<p>Instead of trashing old clothes, give them a second life by recycling them. You’ll save water, energy, and landfill space.</p>\n"
+    solutions: {
+      copy: {
+        raw: "Instead of trashing old clothes, give them a second life by recycling them. You’ll save water, energy, and landfill space.",
+        formatted: "<p>Instead of trashing old clothes, give them a second life by recycling them. You’ll save water, energy, and landfill space.</p> "
       },
-      "support_copy": {
-        "raw": "Run a drive at your school to collect recycled clothes and drop them off at your local H&M.",
-        "formatted": "<p>Run a drive at your school to collect recycled clothes and drop them off at your local H&amp;M.</p>\n"
+      support_copy: {
+        raw: "Run a drive at your school to collect recycled clothes and drop them off at your local H&M.",
+        formatted: "<p>Run a drive at your school to collect recycled clothes and drop them off at your local H&amp;M.</p> "
       }
     },
-    "pre_step": {
-      "header": "Run Your Drive!",
-      "copy": {
-        "raw": "If you’re lucky, you’ll see more mustard-, blood-, and mystery-liquid-stained stuff than ever before! Gross! Hooray!",
-        "formatted": "<p>If you’re lucky, you’ll see more mustard-, blood-, and mystery-liquid-stained stuff than ever before! Gross! Hooray!</p>\n"
+    pre_step: {
+      header: "Run Your Drive!",
+      copy: {
+        raw: "If you’re lucky, you’ll see more mustard-, blood-, and mystery-liquid-stained stuff than ever before! Gross! Hooray!",
+        formatted: "<p>If you’re lucky, you’ll see more mustard-, blood-, and mystery-liquid-stained stuff than ever before! Gross! Hooray!</p> "
       }
     },
-    "latest_news": {
-      "latest_news": null
+    latest_news: {
+      latest_news: null
     },
-    "causes": {
-      "primary": {
-        "id": "4",
-        "name": "environment"
+    causes: {
+      primary: {
+        id: "4",
+        name: "environment"
       },
-      "secondary": [
+      secondary: [
         {
-          "id": "4",
-          "name": "environment"
+          id: "4",
+          name: "environment"
         }
       ]
     },
-    "action_types": {
-      "primary": {
-        "id": "7",
-        "name": "donate something"
+    action_types: {
+      primary: {
+        id: "7",
+        name: "donate something"
       },
-      "secondary": [
+      secondary: [
         {
-          "id": "7",
-          "name": "donate something"
+          id: "7",
+          name: "donate something"
         },
         {
-          "id": "11",
-          "name": "host an event"
+          id: "11",
+          name: "host an event"
         },
         {
-          "id": "8",
-          "name": "improve a space"
+        id: "8",
+        name: "improve a space"
         }
       ]
     },
-    "issue": {
-      "id": "347",
-      "name": "recycling"
+    issue: {
+      id: "347",
+      name: "recycling"
     },
-    "tags": [
+    tags: [
       {
-        "id": "48",
-        "name": "trash"
+        id: "48",
+        name: "trash"
       },
       {
-        "id": "348",
-        "name": "recycling"
+        id: "348",
+        name: "recycling"
       },
       {
-        "id": "349",
-        "name": "clothes"
+        id: "349",
+        name: "clothes"
       },
       {
-        "id": "350",
-        "name": "h&m"
+        id: "350",
+        name: "h&m"
       },
       {
-        "id": "102",
-        "name": "drive"
+        id: "102",
+        name: "drive"
       },
       {
-        "id": "49",
-        "name": "earth"
+        id: "49",
+        name: "earth"
       },
       {
-        "id": "351",
-        "name": "planet"
+        id: "351",
+        name: "planet"
       },
       {
-        "id": "97",
-        "name": "environment"
+        id: "97",
+        name: "environment"
       },
       {
-        "id": "352",
-        "name": "eco"
+        id: "352",
+        name: "eco"
       },
       {
-        "id": "366",
-        "name": "collection"
+        id: "366",
+        name: "collection"
       },
       {
-        "id": "668",
-        "name": "music"
+        id: "668",
+        name: "music"
       }
     ],
-    "timing": {
-      "high_season": {
-        "start": "2015-07-18T00:00:00+0000",
-        "end": "2015-07-25T00:00:00+0000"
+    timing: {
+      high_season: {
+        start: "2015-07-18T00:00:00+0000",
+        end: "2015-07-25T00:00:00+0000"
       },
-      "low_season": null
+      low_season: null
     },
-    "services": {
-      "mobile_commons": {
-        "opt_in_path_id": "165501",
-        "friends_opt_in_path_id": null
+    services: {
+      mobile_commons: {
+        opt_in_path_id: "165501",
+        friends_opt_in_path_id: null
       },
-      "mailchimp": {
-        "grouping_id": null,
-        "group_name": null
+      mailchimp: {
+        grouping_id: null,
+        group_name: null
       }
     },
-    "affiliates": {
-      "partners": [
-        {
-          "name": "H&M",
-          "sponsor": true,
-          "copy": {
-            "raw": "H&M was the first fast fashion company, and now they’re leading the movement toward a more sustainable fashion future. We <3 them and they <3 the earth. At H&M, sustainability is a word of action – something they do rather than something they simply say. It is an ongoing process that requires determination, passion and teamwork.\r\n\r\nH&M wants to make more sustainable choices in fashion affordable and desirable to as many people as possible.\r\n\r\nWe believe that partnering with a sustainably minded company can create real and long-term changes. With our 2.5 million members and H&M's millions of customers, we can extend this impact even further – from improving the livelihood of a cotton farmer to how people everywhere dispose of their worn-out clothing.\r\n\r\nLearn more about <a href=”http://about.hm.com/en/About/Sustainability/HMConscious/Aboutconscious.html>H&M’s sustainability initiatives here.</a>",
-            "formatted": "<p>H&amp;M was the first fast fashion company, and now they’re leading the movement toward a more sustainable fashion future. We &lt;3 them and they &lt;3 the earth. At H&amp;M, sustainability is a word of action – something they do rather than something they simply say. It is an ongoing process that requires determination, passion and teamwork.</p>\n\n<p>H&amp;M wants to make more sustainable choices in fashion affordable and desirable to as many people as possible.</p>\n\n<p>We believe that partnering with a sustainably minded company can create real and long-term changes. With our 2.5 million members and H&amp;M's millions of customers, we can extend this impact even further – from improving the livelihood of a cotton farmer to how people everywhere dispose of their worn-out clothing.</p>\n\n<p>Learn more about <a href=\"//about.hm.com/en/About/Sustainability/HMConscious/Aboutconscious.html\">H&amp;M’s sustainability initiatives here.</a></p>\n"
-          },
-          "uri": "http://www.hm.com/",
-          "media": {
-            "uri": "http://dev.dosomething.org:8888/sites/default/files/styles/wmax-423px/public/partners/hm-logo.png?itok=hf89RS8a",
-            "type": "image"
-          }
-        }
-      ]
+    reportback_info: {
+      copy: "Submit your photo before June 20 to qualify for the scholarship.",
+      confirmation_message: "Going green is always in style! Thanks for helping the Earth.",
+      noun: "Items",
+      verb: "Recycled"
     },
-    "reportback_info": {
-      "copy": "Submit your photo before June 20 to qualify for the scholarship.",
-      "confirmation_message": "Going green is always in style! Thanks for helping the Earth.",
-      "noun": "Items",
-      "verb": "Recycled"
-    },
-    "uri": "http://dev.dosomething.org:8888/api/v1/campaigns/362"
+    uri: "http://dev.dosomething.org:8888/api/v1/campaigns/362"
   }
 }
 ```
+
+
+## Retrieve a non-transformed campaign
+
+This uses Drupal Services `content` endpoint and should only be used in legacy requests.
+
+**GET** `https://www.dosomething.org/api/v1/content/:nid`
+
+**nid** (int) Required. The Node nid to retrieve content for.
+
+Example request:
+```
+curl https://www.dosomething.org/api/v1/content/5140 \
+ -H "Accept: application/json"
+```
+
+
+
+## Campaign signup
+
+Creates a User Signup for the given Campaign nid if a Signup does not exist.
+
+**POST** `https://www.dosomething.org/api/v1/campaigns/[nid]/signup`
+
+Must be authenticated to post.
+
+  - **uid**: (int).
+    The user uid reporting back.  If not included, the uid of the current user will be used.
+  - **source**: (string) required.
+    The signup source, e.g. `iphone`, `android`
+
+Example request:
+````
+curl https://www.dosomething.org/api/v1/campaigns/23/signup -X POST
+--header "Content-type: application/json"
+--header "Accept: application/json"
+--header "X-CSRF-Token: G136HF5yB5ZZawvrsOfU4gw0poUOaQygPrsJlaFakMU"
+--header "Cookie:SESSd57f2aef87e6d4352ce5db4659184fa7=mKI5_yfoXYBz3r4o95utui4fwBV_lUO1JNN1nEVsPRg"
+-d '{
+  "uid": 1702889,
+  "source": "sms"
+}'
+````
+
+Response: Signup sid, if success.
+
+````
+[
+    "1307"
+]
+````
 
 ## Campaign reportback
 
@@ -271,11 +316,11 @@ Response: The reportback rbid if success, `FALSE` if not.
 
 Example request:
 ````
-curl https://www.dosomething.org/api/v1/campaigns/23/reportback -X POST 
---header "Content-type: application/json" 
---header "Accept: application/json" 
---header "X-CSRF-Token: G136HF5yB5ZZawvrsOfU4gw0poUOaQygPrsJlaFakMU" 
---header "Cookie:SESSd57f2aef87e6d4352ce5db4659184fa7=mKI5_yfoXYBz3r4o95utui4fwBV_lUO1JNN1nEVsPRg" 
+curl https://www.dosomething.org/api/v1/campaigns/23/reportback -X POST
+--header "Content-type: application/json"
+--header "Accept: application/json"
+--header "X-CSRF-Token: G136HF5yB5ZZawvrsOfU4gw0poUOaQygPrsJlaFakMU"
+--header "Cookie:SESSd57f2aef87e6d4352ce5db4659184fa7=mKI5_yfoXYBz3r4o95utui4fwBV_lUO1JNN1nEVsPRg"
 -d '{
   "quantity": 30,
   "uid": 1702889,
