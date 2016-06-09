@@ -787,12 +787,12 @@ function dosomething_campaign_run_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-campaign_run-title_field'.
+  // Exported field_instance: 'node-campaign_run-title_field'
   $field_instances['node-campaign_run-title_field'] = array(
     'bundle' => 'campaign_run',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => '',
+    'description' => 'Run titles should be formatted like: Comeback Clothes run 1 or Teens for Jeans run 3. Please do not capitalize "run" or put anything but a space between the campaign name and the word "run."',
     'display' => array(
       'default' => array(
         'label' => 'above',
@@ -878,12 +878,15 @@ function dosomething_campaign_run_field_default_field_instances() {
   t('Additional Text');
   t('Additional Text Title');
   t('Campaign');
+  t('Describe why you are creating a new run. Write it with enough context so that a future campaign lead could read it and immediately understand why a new run was created. Will this run have a scholarship? Is there a celebrity endorsing the campaign? Does the campaign have a new sponsor? In which countries is this run going to be available? etc.');
+  t('Description');
   t('Gallery');
   t('Gallery Image');
   t('Intro');
   t('Klout Gallery');
   t('Reference the campaign this run is associated with. Start typing the campaign name and select the appropriate one.');
   t('Run Date');
+  t('Run titles should be formatted like: Comeback Clothes run 1 or Teens for Jeans run 3. Please do not capitalize "run" or put anything but a space between the campaign name and the word "run."');
   t('Title');
   t('Total Participants');
   t('Total Quantity');
