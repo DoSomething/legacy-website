@@ -23,14 +23,6 @@ function dosomething_organize_config_form($form, &$form_state) {
     '#default_value' => variable_get('dosomething_organize_url', 'https://fiftythree-dev.organize.org/api'),
   );
 
-  $form['organize']['dosomething_organize_api_version'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Organize API version number'),
-    '#description' => t('Again, no slashes needed'),
-    '#required' => TRUE,
-    '#default_value' => variable_get('dosomething_organize_api_version', 'v4'),
-  );
-
   $form['organize']['dosomething_organize_auth_token'] = array(
     '#type' => 'textfield',
     '#title' => t('App key'),
