@@ -325,7 +325,7 @@ Must be authenticated to post.
 Response: The reportback rbid if success, `FALSE` if not.
 
 Example request:
-````
+```
 curl https://www.dosomething.org/api/v1/campaigns/23/reportback -X POST
 --header "Content-type: application/json"
 --header "Accept: application/json"
@@ -339,9 +339,9 @@ curl https://www.dosomething.org/api/v1/campaigns/23/reportback -X POST
   "caption": "API Testing!",
   "source": "Mobile App"
 }'
-````
+```
 
 Example response:
-````
+```
 ["127"]
-````x
+```
