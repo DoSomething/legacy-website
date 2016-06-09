@@ -22,14 +22,14 @@ function dosomething_organ_donation_menu() {
     'type' => MENU_CALLBACK,
   ];
 
-  $items['organ-donation/registration'] = [
+  $items['organize/registration'] = [
     'page callback' => 'dosomething_organ_donation_post_registration',
     'access callback' => 'user_access',
     'access arguments' => array('administer modules'),
     'type' => MENU_CALLBACK,
   ];
 
-  $items['organ-donation/postal-code'] = [
+  $items['organize/postal-code'] = [
     'page callback' => 'dosomething_organ_donation_send_postal_code',
     'access callback' => 'user_access',
     'access arguments' => array('administer modules'),
@@ -53,7 +53,7 @@ function dosomething_organ_donation_menu() {
  * Build the drupal_http_request object for Organize calls.
  * @returns array
  */
-function _dosomething_organ_donation_build_http_client($nid) {
+function _dosomething_organ_donation_build_http_client() {
   $base_url = ORGANIZE_API_URL . '/' . ORGANIZE_API_VERSION . '/';
   $token = 'Token ' . ORGANIZE_API_AUTH_TOKEN;
 
@@ -103,12 +103,6 @@ function dosomething_organ_donation_send_postal_code() {
     'headers' => $client['headers'],
     'method' => 'GET',
   ]);
-
-  if ($response->error) {
-    $response = [
-      'error' => 'Postal code not found.'
-    ];
-  }
 
   // Only return the data.
   return drupal_json_output(json_decode($response->data));
