@@ -1,10 +1,21 @@
 <% if (isListItem) { %><li><% } %>
-<div class="photo -stacked -framed" data-reportback-item-id="...">
+<div class="photo -stacked -framed" data-reportback-item-id="<%= id %>">
   <figure class="wrapper">
     <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=" alt="<%= caption %>" data-src="<%= image %>" />
     <figcaption class="photo__copy">
       <p class="photo__caption"><%= caption %></p>
     </figcaption>
   </figure>
+
+  <% if (reactions.enabled) { %>
+  <ul class="form-actions -inline photo_actions">
+    <% for (i = 0, count = reactions.data.length; i < count; i++) { %>
+      <li>
+        <a class="button -mini js-kudos-button" data-kudo-id="<%= reactions.data[i].termId %>" data-kid="">&#128150;</a>
+        <span class="counter"><%= reactions.data[i].total %></span>
+      </li>
+    <% } %>
+  </ul>
+  <% } %>
 </div>
 <% if (isListItem) { %></li><% } %>
