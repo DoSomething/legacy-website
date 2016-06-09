@@ -10,36 +10,14 @@
 function dosomething_campaign_run_field_default_field_bases() {
   $field_bases = array();
 
-  // Exported field_base: 'field_description_field'
-  $field_bases['field_description_field'] = array(
-    'active' => 1,
-    'cardinality' => -1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'field_description_field',
-    'indexes' => array(
-      'revision_id' => array(
-        0 => 'revision_id',
-      ),
-    ),
-    'locked' => 0,
-    'module' => 'field_collection',
-    'settings' => array(
-      'entity_translation_sync' => FALSE,
-      'hide_blank_items' => 1,
-      'path' => '',
-    ),
-    'translatable' => 0,
-    'type' => 'field_collection',
-  );
-
-  // Exported field_base: 'field_gallery_collection'.
+  // Exported field_base: 'field_gallery_collection'
   $field_bases['field_gallery_collection'] = array(
     'active' => 1,
     'cardinality' => -1,
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_gallery_collection',
+    'foreign keys' => array(),
     'indexes' => array(
       'revision_id' => array(
         0 => 'revision_id',
@@ -56,13 +34,14 @@ function dosomething_campaign_run_field_default_field_bases() {
     'type' => 'field_collection',
   );
 
-  // Exported field_base: 'field_gallery_type'.
+  // Exported field_base: 'field_gallery_type'
   $field_bases['field_gallery_type'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_gallery_type',
+    'foreign keys' => array(),
     'indexes' => array(
       'value' => array(
         0 => 'value',
@@ -83,13 +62,14 @@ function dosomething_campaign_run_field_default_field_bases() {
     'type' => 'list_text',
   );
 
-  // Exported field_base: 'field_run_date'.
+  // Exported field_base: 'field_run_date'
   $field_bases['field_run_date'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_run_date',
+    'foreign keys' => array(),
     'indexes' => array(),
     'locked' => 0,
     'module' => 'date',
@@ -113,13 +93,21 @@ function dosomething_campaign_run_field_default_field_bases() {
     'type' => 'datetime',
   );
 
-  // Exported field_base: 'field_total_participants'.
+  // Exported field_base: 'field_total_participants'
   $field_bases['field_total_participants'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_total_participants',
+    'foreign keys' => array(
+      'format' => array(
+        'columns' => array(
+          'format' => 'format',
+        ),
+        'table' => 'filter_format',
+      ),
+    ),
     'indexes' => array(
       'format' => array(
         0 => 'format',
@@ -135,13 +123,21 @@ function dosomething_campaign_run_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_total_quantity'.
+  // Exported field_base: 'field_total_quantity'
   $field_bases['field_total_quantity'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_total_quantity',
+    'foreign keys' => array(
+      'format' => array(
+        'columns' => array(
+          'format' => 'format',
+        ),
+        'table' => 'filter_format',
+      ),
+    ),
     'indexes' => array(
       'format' => array(
         0 => 'format',
@@ -157,13 +153,21 @@ function dosomething_campaign_run_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_total_quantity_label'.
+  // Exported field_base: 'field_total_quantity_label'
   $field_bases['field_total_quantity_label'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_total_quantity_label',
+    'foreign keys' => array(
+      'format' => array(
+        'columns' => array(
+          'format' => 'format',
+        ),
+        'table' => 'filter_format',
+      ),
+    ),
     'indexes' => array(
       'format' => array(
         0 => 'format',
@@ -179,13 +183,21 @@ function dosomething_campaign_run_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_user'.
+  // Exported field_base: 'field_user'
   $field_bases['field_user'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_user',
+    'foreign keys' => array(
+      'users' => array(
+        'columns' => array(
+          'target_id' => 'uid',
+        ),
+        'table' => 'users',
+      ),
+    ),
     'indexes' => array(
       'target_id' => array(
         0 => 'target_id',
@@ -213,13 +225,21 @@ function dosomething_campaign_run_field_default_field_bases() {
     'type' => 'entityreference',
   );
 
-  // Exported field_base: 'field_winner_description'.
+  // Exported field_base: 'field_winner_description'
   $field_bases['field_winner_description'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_winner_description',
+    'foreign keys' => array(
+      'format' => array(
+        'columns' => array(
+          'format' => 'format',
+        ),
+        'table' => 'filter_format',
+      ),
+    ),
     'indexes' => array(
       'format' => array(
         0 => 'format',
@@ -234,13 +254,21 @@ function dosomething_campaign_run_field_default_field_bases() {
     'type' => 'text_long',
   );
 
-  // Exported field_base: 'field_winner_name'.
+  // Exported field_base: 'field_winner_name'
   $field_bases['field_winner_name'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_winner_name',
+    'foreign keys' => array(
+      'format' => array(
+        'columns' => array(
+          'format' => 'format',
+        ),
+        'table' => 'filter_format',
+      ),
+    ),
     'indexes' => array(
       'format' => array(
         0 => 'format',
@@ -256,13 +284,21 @@ function dosomething_campaign_run_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_winner_quote'.
+  // Exported field_base: 'field_winner_quote'
   $field_bases['field_winner_quote'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_winner_quote',
+    'foreign keys' => array(
+      'format' => array(
+        'columns' => array(
+          'format' => 'format',
+        ),
+        'table' => 'filter_format',
+      ),
+    ),
     'indexes' => array(
       'format' => array(
         0 => 'format',
@@ -277,13 +313,14 @@ function dosomething_campaign_run_field_default_field_bases() {
     'type' => 'text_long',
   );
 
-  // Exported field_base: 'field_winner_type'.
+  // Exported field_base: 'field_winner_type'
   $field_bases['field_winner_type'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_winner_type',
+    'foreign keys' => array(),
     'indexes' => array(
       'value' => array(
         0 => 'value',
@@ -303,13 +340,14 @@ function dosomething_campaign_run_field_default_field_bases() {
     'type' => 'list_text',
   );
 
-  // Exported field_base: 'field_winners'.
+  // Exported field_base: 'field_winners'
   $field_bases['field_winners'] = array(
     'active' => 1,
     'cardinality' => -1,
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_winners',
+    'foreign keys' => array(),
     'indexes' => array(
       'revision_id' => array(
         0 => 'revision_id',
