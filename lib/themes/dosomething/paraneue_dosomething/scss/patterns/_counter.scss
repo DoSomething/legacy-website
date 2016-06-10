@@ -11,25 +11,24 @@
 }
 
 .photo__actions li {
-  * {
+  span, .photo__kudos {
     display: inline;
     vertical-align: middle;
   }
 
-  img {
-    width: 30px !important;
+  .photo__kudos {
+    width: 30px;
     height: 26px;
+    border: none;
+    background: url("../images/gray-heart.svg");
+    background-size: 100%;
 
     &:hover {
       cursor: pointer;
     }
 
     &.is-active {
-      content: url("../images/pink-heart.svg");
-    }
-
-    &:not(.is-active) {
-      content: url("../images/gray-heart.svg");
+      background-image: url("../images/pink-heart.svg");
     }
   }
 }
