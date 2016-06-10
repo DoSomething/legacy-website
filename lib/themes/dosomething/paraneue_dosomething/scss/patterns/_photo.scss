@@ -3,6 +3,10 @@
 
   > .wrapper {
     position: relative;
+
+    img {
+      width: 100%;
+    }
   }
 
   .admin-edit {
@@ -21,10 +25,6 @@
 
     @include media($larger) {
       padding: ($base-spacing / 2);
-    }
-
-    img {
-      width: 100%;
     }
   }
 }

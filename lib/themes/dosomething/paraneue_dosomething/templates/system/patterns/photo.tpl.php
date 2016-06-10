@@ -17,7 +17,7 @@
   <?php if ($content->id && !$content->disable_reactions): ?>
     <ul class="form-actions -inline photo__actions">
       <li>
-        <a class="button -mini js-kudos-button <?php print dosomething_kudos_term_is_selected($content, 'heart') ? 'is-active' : '' ?>" data-kudo-id="<?php print $content->allowed_reactions[0]; ?>" data-kid="<?php print dosomething_helpers_isset($content->existing_kids[$content->allowed_reactions[0]], 'kid') ?>" >&#128150;</a>
+        <button class="js-kudos-button photo__kudos <?php print dosomething_kudos_term_is_selected($content, 'heart') ? 'is-active' : '' ?>" data-kudo-id="<?php print $content->allowed_reactions[0]; ?>" data-kid="<?php print dosomething_helpers_isset($content->existing_kids[$content->allowed_reactions[0]], 'kid') ?>"></button>
         <span class="counter"><?php print $content->reaction_totals['heart']; ?></span>
       </li>
     </ul>
