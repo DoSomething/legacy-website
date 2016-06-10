@@ -11,7 +11,7 @@
   <ul class="form-actions -inline photo_actions">
     <% for (i = 0, count = reactions.data.length; i < count; i++) { %>
       <li>
-        <a class="button -mini js-kudos-button" data-kudo-id="<%= reactions.data[i].termId %>" data-kid="">&#128150;</a>
+        <a class="button -mini js-kudos-button <% if (reactions.data[i].userReacted) {%>is-active<% } %>" data-kudo-id="<%= reactions.data[i].termId %>" data-kid="">&#128150;</a>
         <span class="counter"><%= reactions.data[i].total %></span>
       </li>
     <% } %>

@@ -276,6 +276,25 @@ function paraneue_dosomething_preprocess_reportback_gallery(&$vars, $count = 6) 
   // Get total remaining after subtracting the RB Items already retrieved.
   $gallery['remaining'] = $gallery['total_sum'] - $gallery['prefetched'];
 
+  global $user;
+
+  drupal_add_js(
+    [
+      'dsKudosReactions' => [
+        'enabled' => !$disable_reactions,
+        'user' => isset($user->uid) ? $user->uid : null,
+        'terms' => [
+          // @TODO: Ideally this would call a function that retrieves all
+          // kudos reaction terms and sets up the associative array, but
+          // for the time being we are only using a single term, "heart",
+          // so let's keep it simple ;)
+          'heart' => dosomething_kudos_get_term_id_by_name('heart'),
+        ],
+      ]
+    ],
+    'setting'
+  );
+
   return $gallery;
 }
 
