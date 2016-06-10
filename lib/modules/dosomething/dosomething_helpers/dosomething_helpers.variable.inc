@@ -11,6 +11,27 @@ function dosomething_helpers_variable_form($form, &$form_state, $node) {
     '#type' => 'hidden',
     '#value' => $node->nid,
   );
+  $form['custom_social_sharing'] = [
+    '#type' => 'fieldset',
+    '#title' => t('Custom Social Sharing'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  ];
+  $form['custom_social_sharing']['unique_link'] = [
+    '#type' => 'checkbox',
+    '#title' => t('Create unique social share links for each user.'),
+    '#description' => t("If set, unique social share links will be created using user's id."),
+    '#default_value' => $vars['unique_link'],
+  ];
+  $form['custom_social_sharing']['custom_text'] = [
+    '#type' => 'textfield',
+    '#title' => t('Create custom text'),
+    '#description' => t("Custom text to share with the social links."),
+    '#default_value' => $node->field_call_to_action['en'][0]['value'],
+    '#attributes' => array(
+      'maxlength' => '140',
+    ),
+  ];
   $form['styles'] = array(
     '#type' => 'fieldset',
     '#title' => t('Styles'),
@@ -133,35 +154,15 @@ function dosomething_helpers_variable_form($form, &$form_state, $node) {
         ),
       ),
     );
-    $form['custom_social_sharing'] = [
-      '#type' => 'fieldset',
-      '#title' => t('Custom Social Sharing'),
-      '#collapsible' => TRUE,
-      '#collapsed' => TRUE,
-    ];
-    $form['custom_social_sharing']['unique_link'] = [
-      '#type' => 'checkbox',
-      '#title' => t('Create unique social share links for each user.'),
-      '#description' => t("If set, unique social share links will be created using user's id."),
-      '#default_value' => $vars['unique_link'],
-    ];
-    $form['custom_social_sharing']['custom_text'] = [
-      '#type' => 'textfield',
-      '#title' => t('Create custom text'),
-      '#description' => t("Custom text to share with the social links."),
-      '#default_value' => $vars['custom_text'],
-      '#attributes' => array(
-        'maxlength' => '140',
-      ),
-    ];
-    $form['actions'] = array(
-      '#type' => 'actions',
-      'submit' => array(
-        '#type' => 'submit',
-        '#value' => 'Save',
-      ),
-    );
   }
+
+  $form['actions'] = array(
+    '#type' => 'actions',
+    'submit' => array(
+      '#type' => 'submit',
+      '#value' => 'Save',
+    ),
+  );
 
   return $form;
 }
@@ -176,6 +177,10 @@ function dosomething_helpers_variable_form_submit(&$form, &$form_state) {
 
   form_state_values_clean($form_state);
   $values = $form_state['values'];
+
+  print_r($values);
+  die();
+
   // Store hidden nid.
   $nid = $values['nid'];
   // Remove from values.
