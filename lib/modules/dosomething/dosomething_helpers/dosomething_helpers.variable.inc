@@ -17,17 +17,17 @@ function dosomething_helpers_variable_form($form, &$form_state, $node) {
     '#collapsible' => TRUE,
     '#collapsed' => TRUE,
   ];
-  $form['custom_social_sharing']['unique_link'] = [
+  $form['custom_social_sharing']['social_share_unique_link'] = [
     '#type' => 'checkbox',
     '#title' => t('Create unique social share links for each user.'),
     '#description' => t("If set, unique social share links will be created using user's id."),
-    '#default_value' => $vars['unique_link'],
+    '#default_value' => $vars['social_share_unique_link'],
   ];
-  $form['custom_social_sharing']['custom_text'] = [
+  $form['custom_social_sharing']['social_share_custom_text'] = [
     '#type' => 'textfield',
-    '#title' => t('Create custom text'),
+    '#title' => t('Custom social share language'),
     '#description' => t("Custom text to share with the social links."),
-    '#default_value' => $node->field_call_to_action['en'][0]['value'],
+    '#default_value' => $vars['social_share_custom_text'],
     '#attributes' => array(
       'maxlength' => '140',
     ),
@@ -177,9 +177,6 @@ function dosomething_helpers_variable_form_submit(&$form, &$form_state) {
 
   form_state_values_clean($form_state);
   $values = $form_state['values'];
-
-  print_r($values);
-  die();
 
   // Store hidden nid.
   $nid = $values['nid'];
