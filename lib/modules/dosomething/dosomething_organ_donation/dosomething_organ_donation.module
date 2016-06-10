@@ -104,6 +104,13 @@ function dosomething_organ_donation_send_postal_code() {
     'method' => 'GET',
   ]);
 
+  if ($response->code === '500') {
+    $response = [
+      'error' => $response->status_message,
+    ];
+
+    return drupal_json_output($response);
+  }
   // Only return the data.
   return drupal_json_output(json_decode($response->data));
 
@@ -137,10 +144,10 @@ function dosomething_organ_donation_store_registration() {
       watchdog('dosomething_organ_donation', $response, NULL, WATCHDOG_ERROR);
     }
 
-    drupal_json_output($response);
+    return drupal_json_output($response);
   }
   catch (Exception $e) {
-    drupal_json_output($e);
+    return drupal_json_output($e);
 
     watchdog('dosomething_organ_donation', $e, NULL, WATCHDOG_ERROR);
   }
