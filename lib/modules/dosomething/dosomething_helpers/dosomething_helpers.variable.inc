@@ -15,7 +15,7 @@ function dosomething_helpers_variable_form($form, &$form_state, $node) {
     '#type' => 'fieldset',
     '#title' => t('Custom Social Sharing'),
     '#collapsible' => TRUE,
-    '#collapsed' => TRUE,
+    '#collapsed' => FALSE,
   ];
   $form['custom_social_sharing']['social_share_unique_link'] = [
     '#type' => 'checkbox',
@@ -36,7 +36,7 @@ function dosomething_helpers_variable_form($form, &$form_state, $node) {
     '#type' => 'fieldset',
     '#title' => t('Styles'),
     '#collapsible' => TRUE,
-    '#collapsed' => FALSE,
+    '#collapsed' => TRUE,
   );
   $form['styles']['sponsor_color'] = array(
     '#type' => 'textfield',
