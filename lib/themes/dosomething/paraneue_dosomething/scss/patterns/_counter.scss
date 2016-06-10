@@ -20,15 +20,15 @@
     width: 30px;
     height: 26px;
     border: none;
-    background: url("../images/gray-heart.svg");
-    background-size: 100%;
+    background: url("../images/outline-heart.svg");
+    background-size: cover;
 
     &:hover {
       cursor: pointer;
     }
 
     &.is-active {
-      background-image: url("../images/pink-heart.svg");
+      background-image: url("../images/filled-heart.svg");
     }
   }
 }
