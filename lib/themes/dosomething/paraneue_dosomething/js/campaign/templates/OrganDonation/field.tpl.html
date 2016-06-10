@@ -1,0 +1,50 @@
+<!-- Text Fields -->
+<% if (type === 'string' && typeof(choices) === 'undefined') { %>
+  <div class="form-item">
+    <label class="field-label" for="<%= field_name %>"><%= human_name %></label>
+    <input type="text" class="text-field" name="<%= field_name %>" <% if (required) { %> data-validate-required <% } %> data-validate="<%= field_name %>">
+    <% if (help_text !== "") { %>
+      <p class="footnote"><%= help_text %></p>
+    <% } %>
+  </div>
+<% } %>
+
+<!-- Dates -->
+<% if (type === 'date') { %>
+  <div class="form-item">
+      <label class="field-label" for="<%= field_name %>"><%= human_name %></label>
+      <input type="date" class="text-field" name="<%= field_name %>" <% if (required) { %> data-validate-required <% } %> data-validate="<%= field_name %>">
+      <% if (help_text !== "") { %>
+        <p class="footnote"><%= help_text %></p>
+      <% } %>
+  </div>
+<% } %>
+
+<!-- Dropdowns -->
+<% if (typeof(choices) !== 'undefined') { %>
+  <div class="form-item">
+    <label class="field-label" for="<%= field_name %>"><%= human_name %></label>
+    <div class="select">
+      <select name="<%= field_name %>" <% if (required) { %> data-validate-required <% } %>>
+        <% for (var i = 0; i < choices.length; i++) { %>
+          <option value="<%= choices[i][0] %>"><%= choices[i][1] %></option>
+        <% } %>
+      </select>
+    </div>
+    <% if (help_text !== "") { %>
+      <p class="footnote"><%= help_text %></p>
+    <% } %>
+  </div>
+<% } %>
+
+<!-- Checkboxes -->
+<% if (type === 'boolean') { %>
+  <label class="field-label" for="<%= field_name %>"></label>
+  <div class="form-item">
+    <label class="option -checkbox">
+      <input type="checkbox" id="<%= field_name %>" name="<%= field_name %>" <% if (required) { %> data-validate-required <% } %>>
+      <span class="option__indicator"></span>
+      <span><%= human_name %></span>
+    </label>
+  </div>
+<% } %>

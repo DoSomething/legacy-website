@@ -21,7 +21,7 @@ $transition: .7s;
   }
 
   @include media($medium) {
-    height: 525px;
+    height: 500px;
   }
 
   .heading.-emphasized {
@@ -40,16 +40,8 @@ $transition: .7s;
       transition: $transition;
     }
 
-    .takeover__campaign-item {
-      display: block;
-      width: 100%;
-      text-align: left;
-      padding-left: 0px;
-
-      @include media($medium) {
-        display: table-cell;
-        padding-left: $base-spacing;
-      }
+    form {
+      max-width: 500px;
     }
   }
 
