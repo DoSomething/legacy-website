@@ -126,15 +126,6 @@ function dosomething_campaign_preprocess_common_vars(&$vars, &$wrapper) {
     $country_prefix = (dosomething_global_get_current_prefix()) ? strtoupper(dosomething_global_get_current_prefix()) : 'global';
     $problem_share_image = $base_url . 'sites/default/files/images/problem-' . $vars['nid'] . '-' . $country_prefix . '.png';
 
-    if (isset($campaign->variables['social_share_custom_text'])) {
-      $tweet = $campaign->variables['social_share_custom_text'];
-      $tumblr_caption = $campaign->variables['social_share_custom_text'];
-    }
-    else {
-      $tweet = isset($campaign->fact_problem) ? $campaign->fact_problem['fact'] : NULL;
-      $tumblr_caption = t("This is REAL, do something about this with me: ");
-    }
-
     $share_types = array(
       'facebook' => array(
         'type' => 'feed_dialog',
@@ -143,22 +134,16 @@ function dosomething_campaign_preprocess_common_vars(&$vars, &$wrapper) {
         ),
       ),
       'twitter' => array(
-        'tweet' => $tweet,
+        'tweet' => (isset($campaign->fact_problem)) ? $campaign->fact_problem['fact'] : NULL,
       ),
       'tumblr' => array(
         'posttype' => 'photo',
         'content' => $problem_share_image,
-        'caption' => $tumblr_caption,
+        'caption' => t("This is REAL, do something about this with me: "),
       ),
     );
 
-    if ($campaign->variables['social_share_unique_link'] == 1) {
-      $custom_share_link = $campaign_path . '?source=user/' . $vars['user']->uid;
-      $vars['share_bar'] = dosomething_helpers_share_bar($custom_share_link, $share_types, 'problem_shares', 'social-menu -with-callout');
-    }
-    else {
-      $vars['share_bar'] = dosomething_helpers_share_bar($campaign_path, $share_types, 'problem_shares', 'social-menu -with-callout');
-    }
+    $vars['share_bar'] = dosomething_helpers_share_bar($campaign_path, $share_types, 'problem_shares', 'social-menu -with-callout');
   }
 }
 
@@ -408,7 +393,7 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
     ),
   );
 
-  $custom_share_link = $campaign_path . '?source=user/' . $vars['user']->uid;
+  $custom_share_link = $campaign_path . '?source=' . $vars['user']->uid;;
 
   $organ_donations_share_button_markup = dosomething_helpers_share_bar($custom_share_link, $organ_donation_share_types, 'organ_donation_referral', 'social-menu');
 
