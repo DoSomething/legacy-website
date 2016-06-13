@@ -7,6 +7,11 @@
     <div class="modal__block">
       <form>
           <div class="form-item -padded">
+              <label for="birthday"><!-- Validation errors get placed here. --></label>
+              <input type="text" name="birthday" id="birthday" data-validate="birthday" data-validate-required class="text-field" placeholder="Enter Birthday" />
+          </div>
+
+          <div class="form-item -padded">
               <label for="postal_code"><!-- Validation errors get placed here. --></label>
               <input type="text" name="postal_code" id="postal_code" data-validate="zipcode" data-validate-required class="text-field" placeholder="Enter Zip Code" />
           </div>
