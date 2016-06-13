@@ -33,6 +33,12 @@ Endpoint                                       | Functionality
 `GET /api/v1/kudos`                            | [Retrieve all kudos](endpoints/campaigns.md#retrieve-all-kudos)
 `GET /api/v1/kudos/:id`                        | [Retrieve a kudos](endpoints/campaigns.md#retrieve-a-kudos)
 
+#### Reportbacks
+Endpoint                                       | Functionality                                           
+---------------------------------------------- | --------------------------------------------------------
+`GET /api/v1/reportbacks`                      | [Retrieve all reportbacks](endpoints/campaigns.md#retrieve-all-reportbacks)
+`GET /api/v1/reportbacks/:id`                  | [Retrieve a reportback](endpoints/campaigns.md#retrieve-a-reportback)
+
 #### Users
 Endpoint                                       | Functionality                                           
 ---------------------------------------------- | --------------------------------------------------------
