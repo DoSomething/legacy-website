@@ -20,6 +20,45 @@ Endpoint                                       | Functionality
 ---------------------------------------------- | --------------------------------------------------------
 `GET /api/v1/content/:id`                      | [Retrieve a non-transformed campaign](endpoints/campaigns.md#retrieve-a-non-transformed-campaign)
 
+#### Signups
+Endpoint                                       | Functionality                                           
+---------------------------------------------- | --------------------------------------------------------
+`GET /api/v1/signups`                          | [Retrieve all signups](endpoints/signups.md#retrieve-all-signups)
+`GET /api/v1/signups/:id`                      | [Retrieve a signup](endpoints/signups.md#retrieve-a-signup)
+
+#### Kudos
+Endpoint                                       | Functionality                                           
+---------------------------------------------- | --------------------------------------------------------
+`POST /api/v1/kudos`                           | [Create a kudos](endpoints/kudos.md#create-a-kudos)
+`GET /api/v1/kudos`                            | [Retrieve all kudos](endpoints/kudos.md#retrieve-all-kudos)
+`GET /api/v1/kudos/:id`                        | [Retrieve a kudos](endpoints/kudos.md#retrieve-a-kudos)
+
+#### Reportbacks
+Endpoint                                       | Functionality                                           
+---------------------------------------------- | --------------------------------------------------------
+`GET /api/v1/reportbacks`                      | [Retrieve all reportbacks](endpoints/reportbacks.md#retrieve-all-reportbacks)
+`GET /api/v1/reportbacks/:id`                  | [Retrieve a reportback](endpoints/reportbacks.md#retrieve-a-reportback)
+
+#### Reportback Items
+Endpoint                                       | Functionality                                           
+---------------------------------------------- | --------------------------------------------------------
+`GET /api/v1/reportback-items`                 | [Retrieve all reportback items](endpoints/reportback-items.md#retrieve-all-reportback-items)
+`GET /api/v1/reportback-items/:id`             | [Retrieve a reportback item](endpoints/reportbacks-items.md#retrieve-a-reportback-item)
+`POST /api/v1/reportback-files/:id`            | [Review a reportback file](endpoints/reportbacks-items.md#review-a-reportback-file)
+
+#### System
+Endpoint                                       | Functionality                                           
+---------------------------------------------- | --------------------------------------------------------
+`POST /api/v1/system/connect`                  | [Connection status](endpoints/system.md#connection-status)
+`GET /api/v1/system/set_variable`              | [Set a variable](endpoints/system.md#set-a-variable)
+
+#### Terms
+Endpoint                                       | Functionality                                           
+---------------------------------------------- | --------------------------------------------------------
+`GET /api/v1/terms`                            | [Retrieve all terms](endpoints/terms.md#retrieve-all-terms)
+`GET /api/v1/taxonomy_term/:id`                | [Retrieve a term](endpoints/terms.md#retrieve-a-term)
+
+
 #### Users
 Endpoint                                       | Functionality                                           
 ---------------------------------------------- | --------------------------------------------------------
