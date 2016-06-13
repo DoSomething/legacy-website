@@ -43,8 +43,8 @@ Endpoint                                       | Functionality
 Endpoint                                       | Functionality                                           
 ---------------------------------------------- | --------------------------------------------------------
 `GET /api/v1/reportback-items`                 | [Retrieve all reportback items](endpoints/reportback-items.md#retrieve-all-reportback-items)
-`GET /api/v1/reportback-items/:id`             | [Retrieve a reportback item](endpoints/reportbacks-items.md#retrieve-a-reportback-item)
-`POST /api/v1/reportback-files/:id`            | [Review a reportback file](endpoints/reportbacks-items.md#review-a-reportback-file)
+`GET /api/v1/reportback-items/:id`             | [Retrieve a reportback item](endpoints/reportback-items.md#retrieve-a-reportback-item)
+`POST /api/v1/reportback-files/:id`            | [Review a reportback file](endpoints/reportback-items.md#review-a-reportback-file)
 
 #### System
 Endpoint                                       | Functionality                                           
