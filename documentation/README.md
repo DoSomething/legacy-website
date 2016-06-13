@@ -26,6 +26,13 @@ Endpoint                                       | Functionality
 `GET /api/v1/signups`                          | [Retrieve all signups](endpoints/campaigns.md#retrieve-all-signups)
 `GET /api/v1/signups/:id`                      | [Retrieve a signup](endpoints/campaigns.md#retrieve-a-signup)
 
+#### Kudos
+Endpoint                                       | Functionality                                           
+---------------------------------------------- | --------------------------------------------------------
+`POST /api/v1/kudos`                           | [Create a kudos](endpoints/campaigns.md#create-a-kudos)
+`GET /api/v1/kudos`                            | [Retrieve all kudos](endpoints/campaigns.md#retrieve-all-kudos)
+`GET /api/v1/kudos/:id`                        | [Retrieve a kudos](endpoints/campaigns.md#retrieve-a-kudos)
+
 #### Users
 Endpoint                                       | Functionality                                           
 ---------------------------------------------- | --------------------------------------------------------
