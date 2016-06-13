@@ -27,6 +27,10 @@
       cursor: pointer;
     }
 
+    &:focus {
+     outline: none;
+    }
+
     &.is-active {
       background-image: url("../images/filled-heart.svg");
     }
