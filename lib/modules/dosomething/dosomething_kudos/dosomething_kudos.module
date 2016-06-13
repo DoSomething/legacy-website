@@ -262,6 +262,11 @@ function dosomething_kudos_term_is_selected($reportback_item, $term) {
   return true;
 }
 
+/**
+ * Returns whether it is safe or not to display kudos on a given nid
+ * @param  int $nid NID of the campaign to check
+ * @return bool
+ */
 function dosomething_kudos_disable_reactions($nid) {
   return !variable_get('dosomething_reportback_kudos_enabled', FALSE) || dosomething_helpers_get_variable('node', $nid, 'disable_reactions');
 }
