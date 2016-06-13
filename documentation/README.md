@@ -20,6 +20,12 @@ Endpoint                                       | Functionality
 ---------------------------------------------- | --------------------------------------------------------
 `GET /api/v1/content/:id`                      | [Retrieve a non-transformed campaign](endpoints/campaigns.md#retrieve-a-non-transformed-campaign)
 
+#### Signups
+Endpoint                                       | Functionality                                           
+---------------------------------------------- | --------------------------------------------------------
+`GET /api/v1/signups`                          | [Retrieve all signups](endpoints/campaigns.md#retrieve-all-signups)
+`GET /api/v1/signups/:id`                      | [Retrieve a signup](endpoints/campaigns.md#retrieve-a-signup)
+
 #### Users
 Endpoint                                       | Functionality                                           
 ---------------------------------------------- | --------------------------------------------------------
