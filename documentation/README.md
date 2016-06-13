@@ -46,6 +46,12 @@ Endpoint                                       | Functionality
 `GET /api/v1/reportback-items/:id`             | [Retrieve a reportback item](endpoints/reportbacks-items.md#retrieve-a-reportback-item)
 `POST /api/v1/reportback-files/:id`            | [Review a reportback file](endpoints/reportbacks-items.md#review-a-reportback-file)
 
+#### System
+Endpoint                                       | Functionality                                           
+---------------------------------------------- | --------------------------------------------------------
+`POST /api/v1/system/connect`                  | [Connection status](endpoints/system.md#connection-status)
+`GET /api/v1/system/set_variable`              | [Set a variable](endpoints/system.md#set-a-variable)
+
 #### Terms
 Endpoint                                       | Functionality                                           
 ---------------------------------------------- | --------------------------------------------------------
