@@ -23,21 +23,21 @@ Endpoint                                       | Functionality
 #### Signups
 Endpoint                                       | Functionality                                           
 ---------------------------------------------- | --------------------------------------------------------
-`GET /api/v1/signups`                          | [Retrieve all signups](endpoints/campaigns.md#retrieve-all-signups)
-`GET /api/v1/signups/:id`                      | [Retrieve a signup](endpoints/campaigns.md#retrieve-a-signup)
+`GET /api/v1/signups`                          | [Retrieve all signups](endpoints/signups.md#retrieve-all-signups)
+`GET /api/v1/signups/:id`                      | [Retrieve a signup](endpoints/signups.md#retrieve-a-signup)
 
 #### Kudos
 Endpoint                                       | Functionality                                           
 ---------------------------------------------- | --------------------------------------------------------
-`POST /api/v1/kudos`                           | [Create a kudos](endpoints/campaigns.md#create-a-kudos)
-`GET /api/v1/kudos`                            | [Retrieve all kudos](endpoints/campaigns.md#retrieve-all-kudos)
-`GET /api/v1/kudos/:id`                        | [Retrieve a kudos](endpoints/campaigns.md#retrieve-a-kudos)
+`POST /api/v1/kudos`                           | [Create a kudos](endpoints/kudos.md#create-a-kudos)
+`GET /api/v1/kudos`                            | [Retrieve all kudos](endpoints/kudos.md#retrieve-all-kudos)
+`GET /api/v1/kudos/:id`                        | [Retrieve a kudos](endpoints/kudos.md#retrieve-a-kudos)
 
 #### Reportbacks
 Endpoint                                       | Functionality                                           
 ---------------------------------------------- | --------------------------------------------------------
-`GET /api/v1/reportbacks`                      | [Retrieve all reportbacks](endpoints/campaigns.md#retrieve-all-reportbacks)
-`GET /api/v1/reportbacks/:id`                  | [Retrieve a reportback](endpoints/campaigns.md#retrieve-a-reportback)
+`GET /api/v1/reportbacks`                      | [Retrieve all reportbacks](endpoints/reportbacks.md#retrieve-all-reportbacks)
+`GET /api/v1/reportbacks/:id`                  | [Retrieve a reportback](endpoints/reportbacks.md#retrieve-a-reportback)
 
 #### Users
 Endpoint                                       | Functionality                                           
