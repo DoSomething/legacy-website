@@ -1,22 +1,11 @@
 <!-- Text Fields -->
-<% if (type === 'string' && typeof(choices) === 'undefined') { %>
+<% if (type === 'string' && typeof(choices) === 'undefined' || type === 'date') { %>
   <div class="form-item">
     <label class="field-label" for="<%= field_name %>"><%= human_name %></label>
-    <input type="text" class="text-field" name="<%= field_name %>" <% if (required) { %> data-validate-required <% } %> data-validate="<%= field_name %>">
+    <input type="text" class="text-field" name="<%= field_name %>" id="<%= field_name %>" <% if (field_name === 'birthday') { %> placeholder='MM/DD/YYYY' <% } %> <% if (typeof(validate) !== 'undefined') { %> data-validate="<%= field_name %>" <% } %> <% if (required === true) { %> data-validate-required <% } %>>
     <% if (help_text !== "") { %>
       <p class="footnote"><%= help_text %></p>
     <% } %>
-  </div>
-<% } %>
-
-<!-- Dates -->
-<% if (type === 'date') { %>
-  <div class="form-item">
-      <label class="field-label" for="<%= field_name %>"><%= human_name %></label>
-      <input type="date" class="text-field" name="<%= field_name %>" <% if (required) { %> data-validate-required <% } %> data-validate="<%= field_name %>">
-      <% if (help_text !== "") { %>
-        <p class="footnote"><%= help_text %></p>
-      <% } %>
   </div>
 <% } %>
 
