@@ -31,7 +31,7 @@ GET https://www.dosomething.org/api/v1/reportbacks
  - Comma separated list of campaign run ids to get reportbacks
  - eg: `/reportbacks?runs=6737`
 
-## Retrieve a specific reportback
+## Retrieve a reportback
 
 ```
 GET https://www.dosomething.org/api/v1/reportbacks/:id
