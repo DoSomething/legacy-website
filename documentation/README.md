@@ -46,6 +46,12 @@ Endpoint                                       | Functionality
 `GET /api/v1/reportback-items/:id`             | [Retrieve a reportback item](endpoints/reportbacks-items.md#retrieve-a-reportback-item)
 `POST /api/v1/reportback-files/:id`            | [Review a reportback file](endpoints/reportbacks-items.md#review-a-reportback-file)
 
+#### Terms
+Endpoint                                       | Functionality                                           
+---------------------------------------------- | --------------------------------------------------------
+`GET /api/v1/terms`                            | [Retrieve all terms](endpoints/terms.md#retrieve-all-terms)
+`GET /api/v1/taxonomy_term/:id`                | [Retrieve a term](endpoints/terms.md#retrieve-a-term)
+
 
 #### Users
 Endpoint                                       | Functionality                                           
