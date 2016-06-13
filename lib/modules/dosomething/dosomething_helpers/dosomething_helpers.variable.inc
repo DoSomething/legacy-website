@@ -11,11 +11,32 @@ function dosomething_helpers_variable_form($form, &$form_state, $node) {
     '#type' => 'hidden',
     '#value' => $node->nid,
   );
+  $form['custom_social_sharing'] = [
+    '#type' => 'fieldset',
+    '#title' => t('Custom Social Sharing'),
+    '#collapsible' => TRUE,
+    '#collapsed' => FALSE,
+  ];
+  $form['custom_social_sharing']['social_share_unique_link'] = [
+    '#type' => 'checkbox',
+    '#title' => t('Create unique social share links for each user.'),
+    '#description' => t("If set, unique social share links will be created using user's id."),
+    '#default_value' => $vars['social_share_unique_link'],
+  ];
+  $form['custom_social_sharing']['social_share_custom_text'] = [
+    '#type' => 'textfield',
+    '#title' => t('Custom social share language'),
+    '#description' => t("Custom text to share with the social links."),
+    '#default_value' => $vars['social_share_custom_text'],
+    '#attributes' => array(
+      'maxlength' => '140',
+    ),
+  ];
   $form['styles'] = array(
     '#type' => 'fieldset',
     '#title' => t('Styles'),
     '#collapsible' => TRUE,
-    '#collapsed' => FALSE,
+    '#collapsed' => TRUE,
   );
   $form['styles']['sponsor_color'] = array(
     '#type' => 'textfield',
@@ -142,6 +163,7 @@ function dosomething_helpers_variable_form($form, &$form_state, $node) {
       '#value' => 'Save',
     ),
   );
+
   return $form;
 }
 
@@ -155,6 +177,7 @@ function dosomething_helpers_variable_form_submit(&$form, &$form_state) {
 
   form_state_values_clean($form_state);
   $values = $form_state['values'];
+
   // Store hidden nid.
   $nid = $values['nid'];
   // Remove from values.
