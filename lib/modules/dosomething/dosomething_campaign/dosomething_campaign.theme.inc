@@ -153,7 +153,7 @@ function dosomething_campaign_preprocess_common_vars(&$vars, &$wrapper) {
     );
 
     if ($campaign->variables['social_share_unique_link'] == 1) {
-      $custom_share_link = $campaign_path . '?source=' . $vars['user']->uid;
+      $custom_share_link = $campaign_path . '?source=user/' . $vars['user']->uid;
       $vars['share_bar'] = dosomething_helpers_share_bar($custom_share_link, $share_types, 'problem_shares', 'social-menu -with-callout');
     }
     else {
@@ -408,7 +408,7 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
     ),
   );
 
-  $custom_share_link = $campaign_path . '?source=' . $vars['user']->uid;
+  $custom_share_link = $campaign_path . '?source=user/' . $vars['user']->uid;
 
   $organ_donations_share_button_markup = dosomething_helpers_share_bar($custom_share_link, $organ_donation_share_types, 'organ_donation_referral', 'social-menu');
 
