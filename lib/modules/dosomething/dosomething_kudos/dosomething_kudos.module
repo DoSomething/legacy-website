@@ -243,7 +243,9 @@ function dosomething_kudos_get_kudos_for_user_by_file($fid) {
  * @return bool
  */
 function dosomething_kudos_term_is_selected($reportback_item, $term) {
-  if (! $reportback_item->existing_kids) {
+  // We need to check both array & objects b/c preprocess_node works w/ RB Item objects
+  // and preprocess_user works w/ content arrays.
+  if ((is_array($reportback_item) && empty($reportback_item['existing_kids'])) && ! $reportback_item->existing_kids) {
     return false;
   }
 
@@ -253,9 +255,13 @@ function dosomething_kudos_term_is_selected($reportback_item, $term) {
     return false;
   }
 
-  if (! isset($reportback_item->existing_kids[$id])) {
+  if ((is_array($reportback_item) && empty($reportback_item['existing_kids'][$id])) && ! isset($reportback_item->existing_kids[$id])) {
     return false;
   }
 
   return true;
+}
+
+function dosomething_kudos_disable_reactions($nid) {
+  return !variable_get('dosomething_reportback_kudos_enabled', FALSE) || dosomething_helpers_get_variable('node', $nid, 'disable_reactions');
 }

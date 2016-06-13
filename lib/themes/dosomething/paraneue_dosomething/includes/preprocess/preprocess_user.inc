@@ -48,10 +48,20 @@ function paraneue_dosomething_preprocess_user_profile(&$vars) {
         'description' => $impact,
       );
 
+      $disable_reactions = dosomething_kudos_disable_reactions($reportback->nid);
+      if (!$disable_reactions) {
+        $content['id'] = $rbid;
+        $content['disable_reactions'] = $disable_reactions;
+        $content['allowed_reactions'] = [dosomething_kudos_get_term_id_by_name('heart')];
+        $content['reaction_totals'] = [
+          'heart' => dosomething_kudos_get_total_for_file_by_term_name($rbid, 'heart'),
+        ];
+        $content['existing_kids'] = dosomething_kudos_get_kudos_for_user_by_file($rbid);
+      }
+
       $reportback_items[$delta] = paraneue_dosomething_get_gallery_item($content, 'figure', TRUE, ['-left', '-medium']);
     }
   }
   // Theme a gallery of reportbacks, and give the user profile template access to it.
   $vars['reportback_gallery'] = paraneue_dosomething_get_gallery($reportback_items, 'duo', [], TRUE);
 }
-
