@@ -28,7 +28,7 @@
     <?php if (array_key_exists('disable_reactions', $content) && !$content['disable_reactions']): ?>
       <ul class="form-actions -inline photo__actions" <?php print $content['id'] ? 'data-reportback-item-id="' . $content['id'] . '"' : ''; ?>>
         <li>
-          <button class="js-kudos-button photo__kudos <?php print dosomething_kudos_term_is_selected($content, 'heart') ? 'is-active' : '' ?>" data-kudo-id="<?php print $content['allowed_reactions'][0]; ?>" data-kid="<?php print dosomething_helpers_isset($content['existing_kids'][$content['allowed_reactions'][0]], 'kid') ?>"></button>
+          <button class="js-kudos-button photo__kudos <?php print dosomething_kudos_term_is_selected($content, 'heart') ? 'is-active' : '' ?>" data-kudo-id="<?php print $content['allowed_reactions'][0]; ?>" data-kid="<?php print array_key_exists($content['allowed_reactions'][0], $content['existing_kids']) ? $content['existing_kids'][$content['allowed_reactions'][0]] : FALSE ?>"></button>
           <span class="counter"><?php print $content['reaction_totals']['heart']; ?></span>
         </li>
       </ul>
