@@ -7,6 +7,14 @@ The Services API endpoints use Drupal sessions to authenticate and authorize req
 
 ## Endpoints
 
+#### Authentication
+Endpoint                                       | Functionality                                           
+---------------------------------------------- | --------------------------------------------------------
+`POST /api/v1/auth/login`                      | [Log in](endpoints/auth.md#log-in)
+`POST /api/v1/auth/logout`                     | [Log out](endpoints/auth.md#log-out)
+`GET /api/v1/auth/token`                       | [Get auth token](endpoints/auth.md#retrieve-a-token)
+
+
 #### Campaigns
 Endpoint                                       | Functionality                                           
 ---------------------------------------------- | --------------------------------------------------------
