@@ -17,11 +17,12 @@
   }
 
   .photo__kudos {
-    width: 30px;
-    height: 26px;
-    border: none;
-    background: url("../images/outline-heart.svg");
+    background: transparent url("../images/outline-heart.svg") no-repeat 0 0;
     background-size: cover;
+    border: none;
+    height: 25px;
+    padding: 0;
+    width: 29px;
 
     &:hover {
       cursor: pointer;
