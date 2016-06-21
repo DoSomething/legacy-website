@@ -974,7 +974,7 @@ function dosomething_reportback_update_7036() {
   $table_name = 'dosomething_reportback_file';
   $schema = dosomething_reportback_schema();
   $field_name = 'source';
-  if (!db_field_exists($tbl_name, $fld_name)) {
+  if (!db_field_exists($table_name, $field_name)) {
     db_add_field($table_name, $field_name, $schema[$table_name]['fields'][$field_name]);
   }
 }
