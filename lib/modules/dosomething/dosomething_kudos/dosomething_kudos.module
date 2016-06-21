@@ -243,12 +243,9 @@ function dosomething_kudos_get_kudos_for_user_by_file($fid) {
  * @return bool
  */
 function dosomething_kudos_term_is_selected($reportback_item, $term) {
-  // We need to check both array & objects b/c preprocess_node works w/ RB Item objects
-  // and preprocess_user works w/ content arrays.
-  if (is_array($reportback_item) && empty($reportback_item['existing_kids'])) {
-    return false;
-  }
-  else if (!is_array($reportback_item) && !$reportback_item->existing_kids) {
+  $reportback_item = (object) $reportback_item;
+
+  if (! $reportback_item->existing_kids) {
     return false;
   }
 
@@ -258,7 +255,7 @@ function dosomething_kudos_term_is_selected($reportback_item, $term) {
     return false;
   }
 
-  if ((is_array($reportback_item) && empty($reportback_item['existing_kids'][$id])) && ! isset($reportback_item->existing_kids[$id])) {
+  if (! isset($reportback_item->existing_kids[$id])) {
     return false;
   }
 
