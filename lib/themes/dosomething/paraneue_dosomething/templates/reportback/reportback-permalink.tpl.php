@@ -18,6 +18,7 @@
  * - $user->first_name                   : User's first name
  * - $node->fact_problem['fact']
  * - $node->fact_solution['fact']
+ * $Kudos                                : Kudos data
  *
  */
 ?>
@@ -38,6 +39,14 @@
             <div class="caption">
               <?php print filter_xss($rb['caption']); ?> - <?php print check_plain($user->first_name); ?>
             </div>
+          <?php endif; ?>
+          <?php if (isset($kudos) && !$kudos['disable_reactions']): ?>
+            <ul class="form-actions -inline photo__actions" <?php print $kudos['id'] ? 'data-reportback-item-id="' . $kudos['id'] . '"' : ''; ?>>
+              <li>
+                <button class="js-kudos-button photo__kudos <?php print dosomething_kudos_term_is_selected($kudos, 'heart') ? 'is-active' : '' ?>" data-kudo-id="<?php print $kudos['allowed_reactions'][0]; ?>" data-kid="<?php print dosomething_helpers_isset($kudos['existing_kids'][$kudos['allowed_reactions'][0]], 'kid') ?>"></button>
+                <span class="counter"><?php print $kudos['reaction_totals']['heart']; ?></span>
+              </li>
+            </ul>
           <?php endif; ?>
         </div>
         <div class="card__column">
