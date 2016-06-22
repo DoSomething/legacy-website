@@ -580,14 +580,14 @@ function dosomething_signup_update_signup_data($values, $config = NULL, $respons
     $entity = signup_load($values['sid']);
     $entity->signup_data_form_timestamp = REQUEST_TIME;
     $entity->signup_data_form_response = $response;
+
+    // Did the person say yes or no to the competition?
+    ($config['competition_signup']) ?  $entity->competition = 1 : $entity->competition = 0;
+
     // If non-skip, store any additional signup data:
     if ($response) {
       if (isset($values['why_signedup'])) {
         $entity->why_signedup = $values['why_signedup'];
-      }
-
-      if ($config['competition_signup']) {
-        $entity->competition = 1;
       }
     }
     $entity->save();
