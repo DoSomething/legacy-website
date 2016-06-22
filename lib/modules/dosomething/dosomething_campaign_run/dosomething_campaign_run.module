@@ -277,21 +277,6 @@ function dosomething_campaign_run_form_campaign_run_node_form_alter(&$form, &$fo
   // Add title help text.
   $form['title']['#description'] = t('The title is not user facing, it just helps when searching for content. Suggestion: Use campaign name and year campaign ended (i.e. Comeback Clothes 2014).');
 
-  // If the campaign nid is set let's add some help text!
-  // This will break when we create MX & BR (and etc) campaign runs. the helpers extract only checks for 'en'
-  $campaign_nid = dosomething_helpers_extract_field_data($form['#node']->field_campaigns);
-  if ($campaign_nid) {
-    // Get totals & language from the campaign.
-    $signup_total_members = dosomething_signup_get_signup_total_by_nid($campaign_nid);
-    $reportback_quantity = dosomething_reportback_get_reportback_total_by_nid($campaign_nid);
-    $language = dosomething_reportback_get_noun_and_verb($campaign_nid);
-
-    // Add the text to the form.
-    // @TODO: why doesn't this work in the ['#description'] place?
-    $form['field_total_participants'][LANGUAGE_NONE]['#suffix'] = '<div class="description">' . $signup_total_members . ' members have signed up. </div>';
-    $form['field_total_quantity'][LANGUAGE_NONE]['#suffix'] = '<div class="description">' . $reportback_quantity . ' ' .$language->noun . ' ' . $language->verb . ' have been reported back. </div>';
-  }
-
   drupal_add_css(drupal_get_path('module', 'dosomething_campaign_run') . '/campaign_run_node.css');
 }
 
