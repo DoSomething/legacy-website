@@ -10,6 +10,18 @@
   }
 }
 
+.card__column {
+  .photo__actions, .caption {
+    display: inline-block;
+    width: initial;
+  }
+
+  .photo__actions {
+    float: right;
+    margin-top: 22px;
+  }
+}
+
 .photo__actions li {
   span, .photo__kudos {
     display: inline;
