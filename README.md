@@ -1,4 +1,4 @@
-# DoSomething.org Platform
+# DoSomething.org Phoenix Platform 🔥
 This is the Drupal 7 app powering [DoSomething.org](http://www.dosomething.org/) and our international affiliates. Yes, this is our production website, and yes, [it's open-source](https://blog.dosomething.org/we-open-sourced-our-code-heres-why-you-should-too/). Feel free to fork this repository, submit pull requests, or use it as a reference for your own Drupal website.
 
 # Getting Started
