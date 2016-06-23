@@ -429,9 +429,9 @@
                 </div>
                 <div class="modal__block">
                   <h3>Share with your friends!</h3>
-                  <p><%= shareButtonMarkup %></p>
+                  <p><?php print $organ_share_bar ?></p>
                   <p>Copy and paste your share link:</p>
-                  <code><%= shareLink %></code>
+                  <code><?php print $custom_organ_share_link ?></code>
                   <div class="form-item -padded submit-done-container">
                     <input type="submit" class="button submit-done" value="Done" />
                   </div>

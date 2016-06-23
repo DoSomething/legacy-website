@@ -393,20 +393,12 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
     ),
   );
 
-  $custom_share_link = $campaign_path . '?source=user/' . $vars['user']->uid;;
+  $custom_organ_share_link = $campaign_path . '?source=user/' . $vars['user']->uid;;
 
-  $organ_donations_share_button_markup = dosomething_helpers_share_bar($custom_share_link, $organ_donation_share_types, 'organ_donation_referral', 'social-menu');
+  $organ_donations_share_button_markup = dosomething_helpers_share_bar($custom_organ_share_link, $organ_donation_share_types, 'organ_donation_referral', 'social-menu');
 
-  // Send custom share links and share bar to front end.
-  drupal_add_js(
-    array(
-      'dosomethingUser' => array(
-        'shareLink' => $custom_share_link,
-        'shareButtonMarkup' => $organ_donations_share_button_markup,
-      ),
-    ),
-    array('type' => 'setting')
-  );
+  $vars['custom_organ_share_link'] = $custom_organ_share_link;
+  $vars['organ_share_bar'] = $organ_donations_share_button_markup;
 }
 
 /**
