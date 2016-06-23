@@ -1,22 +1,11 @@
 <!-- Text Fields -->
-<% if (type === 'string' && typeof(choices) === 'undefined') { %>
+<% if (type === 'string' && typeof(choices) === 'undefined' || type === 'date') { %>
   <div class="form-item">
     <label class="field-label" for="<%= field_name %>"><%= human_name %></label>
-    <input type="text" class="text-field" name="<%= field_name %>" <% if (required) { %> data-validate-required <% } %> data-validate="<%= field_name %>">
+    <input type="text" class="text-field registration-value" name="<%= field_name %>" id="<%= field_name %>" <% if (field_name === 'birthdate') { %> placeholder='MM/DD/YYYY' <% } %> <% if (typeof(validate) !== 'undefined') { %> data-validate="<%= validation_name %>" <% } %> <% if (required === true) { %> data-validate-required <% } %>>
     <% if (help_text !== "") { %>
       <p class="footnote"><%= help_text %></p>
     <% } %>
-  </div>
-<% } %>
-
-<!-- Dates -->
-<% if (type === 'date') { %>
-  <div class="form-item">
-      <label class="field-label" for="<%= field_name %>"><%= human_name %></label>
-      <input type="date" class="text-field" name="<%= field_name %>" <% if (required) { %> data-validate-required <% } %> data-validate="<%= field_name %>">
-      <% if (help_text !== "") { %>
-        <p class="footnote"><%= help_text %></p>
-      <% } %>
   </div>
 <% } %>
 
@@ -25,7 +14,7 @@
   <div class="form-item">
     <label class="field-label" for="<%= field_name %>"><%= human_name %></label>
     <div class="select">
-      <select name="<%= field_name %>" <% if (required) { %> data-validate-required <% } %>>
+      <select class="registration-value" name="<%= field_name %>" <% if (required) { %> data-validate-required <% } %>>
         <% for (var i = 0; i < choices.length; i++) { %>
           <option value="<%= choices[i][0] %>"><%= choices[i][1] %></option>
         <% } %>
@@ -42,7 +31,7 @@
   <label class="field-label" for="<%= field_name %>"></label>
   <div class="form-item">
     <label class="option -checkbox">
-      <input type="checkbox" id="<%= field_name %>" name="<%= field_name %>" <% if (required) { %> data-validate-required <% } %>>
+      <input class="registration-value" type="checkbox" value="true" id="<%= field_name %>" name="<%= field_name %>" <% if (required) { %> data-validate-required <% } %>>
       <span class="option__indicator"></span>
       <span><%= human_name %></span>
     </label>

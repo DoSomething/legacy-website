@@ -74,16 +74,19 @@ function _dosomething_organ_donation_build_http_client() {
  * @param array $values
  *   Values from the registration form.
  */
-function dosomething_organ_donation_post_registration($values) {
+function dosomething_organ_donation_post_registration() {
+  $params = drupal_get_query_parameters();
+
+  $params['source_url'] = 'www.dosomething.org';
+
   $client = _dosomething_organ_donation_build_http_client();
-  $values['source'] = 'www.dosomething.org';
 
   $options = [
     'method' => 'POST',
     'headers' => $client['headers'],
     'data' =>
-      json_encode($values),
-];
+      json_encode($params),
+  ];
 
   $response = drupal_http_request($client['base_url'] . '/v2/registrations/', $options);
 
