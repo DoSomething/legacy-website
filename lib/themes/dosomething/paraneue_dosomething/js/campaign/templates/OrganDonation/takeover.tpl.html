@@ -1,5 +1,4 @@
 <div class='takeover'>
-  <!-- SCREEN 1 -->
   <div class="takeover__screen js-collect-zip-code" data-index="0">
     <div class="modal__block">
       <h2 class="heading -emphasized">Thanks for signing up.</h2>
@@ -17,18 +16,18 @@
       </form>
     </div>
   </div>
-  <!-- SCREEN 2 -->
-  <div class="takeover__screen js-collect-registration" data-index="1">
 
-  </div>
-  <!-- SCREEN 3 -->
-  <div class="takeover__screen" data-index="2">
+  <div class="takeover__screen js-collect-registration" data-index="1"></div>
+
+  <div class="takeover__screen js-share-confirmation" data-index="2">
     <div class="modal__block">
-      <h2 class="heading -emphasized">Share with your friends!</h2>
+      <h2 class="heading -emphasized">Thanks for registering!</h2>
     </div>
     <div class="modal__block">
+      <h3>Share with your friends!</h3>
       <p><%= shareButtonMarkup %></p>
-      <p>Copy and paste your share <a href="<%= shareLink %>">link</a>
+      <p>Copy and paste your share link:</p>
+      <code><%= shareLink %></code>
     </div>
   </div>
 </div>
