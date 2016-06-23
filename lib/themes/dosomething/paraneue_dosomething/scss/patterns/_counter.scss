@@ -11,24 +11,24 @@
 }
 
 .card__column {
-  .photo__actions, .caption {
+  .kudos, .caption {
     display: inline-block;
     width: initial;
   }
 
-  .photo__actions {
+  .kudos {
     float: right;
     margin-top: 22px;
   }
 }
 
-.photo__actions li {
-  span, .photo__kudos {
+.kudos li {
+  span, .kudos__icon {
     display: inline;
     vertical-align: middle;
   }
 
-  .photo__kudos {
+  .kudos__icon {
     background: transparent url("../images/outline-heart.svg") no-repeat 0 0;
     background-size: cover;
     border: none;
