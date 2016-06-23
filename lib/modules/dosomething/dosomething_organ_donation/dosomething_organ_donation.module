@@ -75,8 +75,29 @@ function _dosomething_organ_donation_build_http_client() {
  *   Values from the registration form.
  */
 function dosomething_organ_donation_post_registration($values) {
+  $params = drupal_get_query_parameters();
+
   $client = _dosomething_organ_donation_build_http_client();
-  $values['source'] = 'www.dosomething.org';
+// email=sbsmith86%40gmail.com&first_name=Sara&
+  //middle_name=&last_name=Smith&gender=M&birthdate=03%2F11%2F1986&
+  //street_address=244+Madison+St+%231L&street_address_2=&city=Brooklyn&
+  //state=NY&postal_code=11216&ssn=1234&agree_to_tos=on
+  $values = [
+    'email' => $params['email'],
+    'first_name' => $params['first_name'],
+    'last_name' => $params['last_name'],
+    'street_address' => $params['street_address'],
+    'city' => $params['city'],
+    'state' => $params['state'],
+    'postal_code' => $params['postal_code'],
+    'license_id' => $params['license_id'],
+    'gender' => $params['gender'],
+    'source_url' => 'www.dosomething.org',
+    'middle_name' => $params['middle_name'],
+    'agree_to_tos' => ($params['agree_to_tos'] === 'on') ? 'TRUE' : 'FALSE',
+    'birthdate' => $params['birthdate'],
+    'ssn' => $params['ssn'],
+  ];
 
   $options = [
     'method' => 'POST',
