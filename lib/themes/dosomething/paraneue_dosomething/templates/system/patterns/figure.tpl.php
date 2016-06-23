@@ -26,9 +26,9 @@
       <?php print $content['description']; ?>
     <?php endif; ?>
     <?php if (array_key_exists('disable_reactions', $content) && !$content['disable_reactions']): ?>
-      <ul class="form-actions -inline photo__actions" <?php print $content['id'] ? 'data-reportback-item-id="' . $content['id'] . '"' : ''; ?>>
+      <ul class="form-actions -inline kudos" <?php print $content['id'] ? 'data-reportback-item-id="' . $content['id'] . '"' : ''; ?>>
         <li>
-          <button class="js-kudos-button photo__kudos <?php print dosomething_kudos_term_is_selected($content, 'heart') ? 'is-active' : '' ?>" data-kudos-term-id="<?php print $content['allowed_reactions'][0]; ?>" data-kid="<?php print array_key_exists($content['allowed_reactions'][0], $content['existing_kids']) ? dosomething_helpers_isset($content['existing_kids'][$content['allowed_reactions'][0]], 'kid') : false ?>"></button>
+          <button class="js-kudos-button kudos__icon <?php print dosomething_kudos_term_is_selected($content, 'heart') ? 'is-active' : '' ?>" data-kudos-term-id="<?php print $content['allowed_reactions'][0]; ?>" data-kid="<?php print array_key_exists($content['allowed_reactions'][0], $content['existing_kids']) ? dosomething_helpers_isset($content['existing_kids'][$content['allowed_reactions'][0]], 'kid') : false ?>"></button>
           <span class="counter"><?php print $content['reaction_totals']['heart']; ?></span>
         </li>
       </ul>

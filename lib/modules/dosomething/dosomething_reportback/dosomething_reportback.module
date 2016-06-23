@@ -514,12 +514,28 @@ function dosomething_reportback_form_alter(&$form, &$form_state, $form_id) {
 function dosomething_reportback_view_entity($entity) {
   $rb_simple_user = dosomething_user_get_simple_user($rb_user = user_load($entity->uid));
   global $user;
+
   $is_owner = ($user->uid == $rb_simple_user->uid) ? 1 : 0;
   $fid = $_GET['fid'];
+
   if (!$fid) {
     // Get the most recently uploaded item.
     $fid = array_pop($entity->fids);
   }
+
+
+  // @TODO Can we templatize/DRY some of this? It's fairly similiar code in multiple places.
+  $disable_reactions = dosomething_kudos_disable_reactions($entity->nid);
+
+  if (! $disable_reactions) {
+    $kudos = [];
+    $kudos['rbid'] = $entity->rbid;
+    $kudos['disable_reactions'] = $disable_reactions;
+    $kudos['allowed_reactions'] = [dosomething_kudos_get_term_id_by_name('heart')];
+    $kudos['reaction_totals'] = ['heart' => dosomething_kudos_get_total_for_file_by_term_name($entity->rbid, 'heart')];
+    $kudos['existing_kids'] = dosomething_kudos_get_kudos_for_user_by_file($entity->rbid);
+  }
+
   // Try to get the permalink from cache.
   if ($cached_permalink = cache_get('ds_permalink_' . $entity->rbid . '_' . $fid . '_' . $is_owner, 'cache_dosomething_reportback')) {
     $permalink_vars = $cached_permalink->data;
@@ -591,6 +607,7 @@ function dosomething_reportback_view_entity($entity) {
       'share_bar' => $share_bar,
       'share_enabled' => $share_enabled,
       'why_participated_short' => $why_participated_short,
+      'kudos' => $kudos,
     );
 
     cache_set('ds_permalink_' . $entity->rbid . '_' . $fid . '_' . $is_owner, $permalink_vars, 'cache_dosomething_reportback');

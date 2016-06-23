@@ -10,13 +10,25 @@
   }
 }
 
-.photo__actions li {
-  span, .photo__kudos {
+.card__column {
+  .kudos, .caption {
+    display: inline-block;
+    width: initial;
+  }
+
+  .kudos {
+    float: right;
+    margin-top: 22px;
+  }
+}
+
+.kudos li {
+  span, .kudos__icon {
     display: inline;
     vertical-align: middle;
   }
 
-  .photo__kudos {
+  .kudos__icon {
     background: transparent url("../images/outline-heart.svg") no-repeat 0 0;
     background-size: cover;
     border: none;
