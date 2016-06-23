@@ -7,7 +7,7 @@ $transition: .7s;
 // NOTE: this is a bit of a hack cause the layout was breaking
 // when the validation displays messages. Worth figuring out what
 // is really going here.
-.validation.is-showing-message {
+.takeover .validation.is-showing-message {
   top: 0;
 }
 
