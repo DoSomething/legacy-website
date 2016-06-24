@@ -208,6 +208,7 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
     $materials['category'] = 'materials';
     $materials['title'] = t('Stuff You Need');
     $materials['content'] = $campaign->items_needed;
+    // @TODO: if organ donation campaign, add in the share link here
     $vars['plan'][] = $materials;
   }
 
