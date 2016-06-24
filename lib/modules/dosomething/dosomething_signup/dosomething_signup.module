@@ -510,7 +510,7 @@ function dosomething_signup_views_data() {
 function dosomething_signup_entity_insert($entity, $type) {
   // If not a signup, exit out of function.
   if ($type != 'signup') { return; }
-
+  $node = node_load($entity->nid);
   // If this is a SMS Game Campaign node:
   if (module_exists('dosomething_campaign') && dosomething_campaign_get_campaign_type($node) == 'sms_game') {
     // Third party subscription is handled elsewhere,
@@ -518,9 +518,7 @@ function dosomething_signup_entity_insert($entity, $type) {
     // Exit out of function.
     return;
   }
-
   $account = user_load($entity->uid);
-  $node = node_load($entity->nid);
   $options['transactionals'] = $entity->transactionals;
   $options['source'] = $entity->source;
 
