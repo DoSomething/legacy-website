@@ -386,7 +386,59 @@
       <?php // Organ Donation Modal // ?>
       <?php if (isset($register_organ_donor)): ?>
         <div data-modal id="modal-organ-donation" role="dialog">
-            <div class="takeover-container -no-slide"></div>
+          <div class="takeover-container">
+            <div class='takeover'>
+              <div class="takeover__screen js-collect-zip-code" data-index="0">
+                <div class="modal__block">
+                  <h2 class="heading -emphasized">Thanks for signing up.</h2>
+                </div>
+                <div class="modal__block">
+                  <form>
+                      <div class="form-item -padded">
+                          <label for="postal_code"><!-- Validation errors get placed here. --></label>
+                          <input type="text" name="postal_code" id="postal_code" data-validate="zipcode" data-validate-required class="text-field" placeholder="Enter Zip Code" />
+                      </div>
+
+                      <div class="form-item -padded submit-button-container">
+                          <input type="submit" class="button submit-postal-code" value="Submit" />
+                      </div>
+                  </form>
+                </div>
+              </div>
+
+              <div class="takeover__screen js-collect-registration" data-index="1">
+                <div class="modal__block">
+                  <h2 class="heading -emphasized">Signup to register</h2>
+                  <div class="button -muted back-button">&LeftArrow; back</div>
+                </div>
+                <div class="modal__block">
+                  <form class="organize-registration-form">
+                      <div class="js-form-fields">
+                        <?php // fields get injected here based on response from Organize ?>
+                      </div>
+                      <div class="form-item -padded submit-registration-container">
+                          <input type="submit" class="button submit-registration" value="Submit" />
+                      </div>
+                  </form>
+                </div>
+              </div>
+
+              <div class="takeover__screen js-share-confirmation" data-index="2">
+                <div class="modal__block">
+                  <h2 class="heading -emphasized">Thanks for registering!</h2>
+                </div>
+                <div class="modal__block">
+                  <h3>Share with your friends!</h3>
+                  <p><?php print $organ_share_bar ?></p>
+                  <p>Copy and paste your share link:</p>
+                  <code><?php print $custom_organ_share_link ?></code>
+                  <div class="form-item -padded submit-done-container">
+                    <input type="submit" class="button submit-done" value="Done" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       <?php endif; ?>
 
