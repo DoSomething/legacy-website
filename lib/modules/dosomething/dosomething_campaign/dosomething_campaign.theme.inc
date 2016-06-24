@@ -204,11 +204,19 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
   // Plan.
 
   // 1) Materials
+
+  // Build the share link here in case registering organ donors
+  $campaign_path = url(current_path(), array('absolute' => TRUE));
+  $custom_organ_share_link = $campaign_path . '?source=user/' . $vars['user']->uid;
+
   if (isset($campaign->items_needed)) {
     $materials['category'] = 'materials';
     $materials['title'] = t('Stuff You Need');
     $materials['content'] = $campaign->items_needed;
-    // @TODO: if organ donation campaign, add in the share link here
+    // if organ donation campaign, add in the share link here
+    if ($campaign->variables['register_organ_donors']) {
+      $materials['content'] .= '<ul><li><a href=' . $custom_organ_share_link . '>Your Custom Share Link</a></li></ul>';
+    }
     $vars['plan'][] = $materials;
   }
 
@@ -374,7 +382,6 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
   $base_url = url(base_path(), array('absolute'=> TRUE, 'language' => 'en-global'));
   $country_prefix_for_organ_donation_share = (dosomething_global_get_current_prefix()) ? strtoupper(dosomething_global_get_current_prefix()) : 'global';
   $organ_donation_share_image = $base_url . 'sites/default/files/images/problem-' . $campaign->nid . '-' . $country_prefix_for_organ_donation_share . '.png';
-  $campaign_path = url(current_path(), array('absolute' => TRUE));
 
   // Add social share bar.
   $organ_donation_share_types = array(
@@ -393,8 +400,6 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
       'caption' => t("This is REAL, do something about this with me: "),
     ),
   );
-
-  $custom_organ_share_link = $campaign_path . '?source=user/' . $vars['user']->uid;;
 
   $organ_donations_share_button_markup = dosomething_helpers_share_bar($custom_organ_share_link, $organ_donation_share_types, 'organ_donation_referral', 'social-menu');
 
