@@ -119,7 +119,7 @@ class Kudos extends Entity {
       $northstar_response = json_decode($northstar_response);
 
       if ($northstar_response && !isset($northstar_response->error)) {
-        $northstar_user = (array) $northstar_response->data;
+        $northstar_user = $northstar_response->data;
       }
     }
 
