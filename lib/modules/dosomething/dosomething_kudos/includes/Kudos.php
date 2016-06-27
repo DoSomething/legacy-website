@@ -4,6 +4,14 @@ class Kudos extends Entity {
 
   protected $entity;
 
+  /**
+   * Approved reactions that are accessible and viewable.
+   * Edit this array to allow for additional kudos reactions across the platform.
+   *
+   * @var array
+   */
+  protected static $approved_reactions = ['heart'];
+
   public $id;
   public $term;
   public $reportback_item;
@@ -86,6 +94,15 @@ class Kudos extends Entity {
   }
 
   /**
+   * Get the approved reactions.
+   *
+   * @return array
+   */
+  public static function getApprovedReactions() {
+    return static::$approved_reactions;
+  }
+
+  /**
    * Build out the instantiated Kudos class object with supplied data.
    *
    * @param $data
@@ -102,7 +119,7 @@ class Kudos extends Entity {
       $northstar_response = json_decode($northstar_response);
 
       if ($northstar_response && !isset($northstar_response->error)) {
-        $northstar_user = array_shift($northstar_response->data);
+        $northstar_user = $northstar_response->data;
       }
     }
 

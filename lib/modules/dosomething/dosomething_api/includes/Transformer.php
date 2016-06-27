@@ -390,9 +390,11 @@ abstract class Transformer {
    *   - media: (array) Reportback Item media.
    *   - created_at: (string) Date Reportback Item was created.
    *   - kudos: (array) Ids of kudos for Reportback Item.
+   * @param  array  $options
+   *   - current_user: (string) User id.
    * @return array
    */
-  protected function transformReportbackItem($data) {
+  protected function transformReportbackItem($data, $options) {
     $output = [
       'id' => $data->id,
       'status' => $data->status,
@@ -403,9 +405,11 @@ abstract class Transformer {
     ];
 
     $kudos = $data->kudos ?: [];
+
     try {
       $kudos = Kudos::get($kudos);
-      $kudos = dosomething_kudos_sort($kudos);
+
+      $kudos = dosomething_kudos_sort($kudos, $options);
     }
     catch (Exception $error) {
       $kudos = [];

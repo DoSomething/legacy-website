@@ -4,12 +4,16 @@ class ReportbackItemTransformer extends ReportbackTransformer {
 
   private $accessibleStatuses = ['promoted', 'approved'];
 
+  private $options = [];
+
   /**
    * @param  array $parameters Any parameters obtained from query string.
    * @return array
    */
   public function index($parameters) {
-    $filters = $this->setFilters($parameters);
+    $filters = $this->setDatabaseQueryFilters($parameters);
+
+    $this->setTransformerOptions($parameters);
 
     try {
       $reportbackItems = ReportbackItem::find($filters);
@@ -72,7 +76,7 @@ class ReportbackItemTransformer extends ReportbackTransformer {
   protected function transform($item) {
     $data = [];
 
-    $data += $this->transformReportbackItem($item);
+    $data += $this->transformReportbackItem($item, $this->options);
 
     $data['reportback'] = $this->transformReportback((object) $item->reportback);
 
@@ -81,37 +85,6 @@ class ReportbackItemTransformer extends ReportbackTransformer {
     $data['user'] = $this->transformUser((object) $item->user);
 
     return $data;
-  }
-
-  /**
-   * Set the filters based on request URL parameters.
-   *
-   * @param  array $parameters
-   * @return array
-   */
-  private function setFilters($parameters) {
-    $filters = [
-      'nid' => dosomething_helpers_format_data($parameters['campaigns']),
-      'status' => $this->removeUnauthorizedStatuses(dosomething_helpers_format_data($parameters['status'])),
-      'exclude' => dosomething_helpers_format_data($parameters['exclude']),
-      'count' => (int) $parameters['count'] ?: 25,
-      'page' => (int) $parameters['page'],
-      'random' => dosomething_helpers_convert_string_to_boolean($parameters['random']),
-      'load_user' => dosomething_helpers_convert_string_to_boolean($parameters['load_user']),
-    ];
-
-    $filters['offset'] = $this->setOffset($filters['page'], $filters['count']);
-
-    if ($filters['exclude'] && !is_array($filters['exclude'])) {
-      $filters['exclude'] = [$filters['exclude']];
-    }
-
-    // Unset False boolean values that affect the query builder.
-    if (!$filters['random']) {
-      unset($filters['random']);
-    }
-
-    return $filters;
   }
 
   /**
@@ -166,5 +139,46 @@ class ReportbackItemTransformer extends ReportbackTransformer {
     if(!$data) {
       throw new Exception('Access denied.');
     }
+  }
+
+  /**
+   * Set the database query filters based on request URL parameters.
+   *
+   * @param  array $parameters
+   * @return array
+   */
+  private function setDatabaseQueryFilters($parameters) {
+    $filters = [
+      'nid' => dosomething_helpers_format_data($parameters['campaigns']),
+      'status' => $this->removeUnauthorizedStatuses(dosomething_helpers_format_data($parameters['status'])),
+      'exclude' => dosomething_helpers_format_data($parameters['exclude']),
+      'count' => (int) $parameters['count'] ?: 25,
+      'page' => (int) $parameters['page'],
+      'random' => dosomething_helpers_convert_string_to_boolean($parameters['random']),
+      'load_user' => dosomething_helpers_convert_string_to_boolean($parameters['load_user']),
+    ];
+
+    $filters['offset'] = $this->setOffset($filters['page'], $filters['count']);
+
+    if ($filters['exclude'] && !is_array($filters['exclude'])) {
+      $filters['exclude'] = [$filters['exclude']];
+    }
+
+    // Unset False boolean values that affect the query builder.
+    if (!$filters['random']) {
+      unset($filters['random']);
+    }
+
+    return $filters;
+  }
+
+  /**
+   * Set the transformer logic options based on request URL parameters.
+   *
+   * @param  array $parameters
+   * @return void
+   */
+  private function setTransformerOptions($parameters) {
+    $this->options['current_user'] = $parameters['current_user'];
   }
 }
