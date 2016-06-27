@@ -8,10 +8,10 @@
   </figure>
 
   <% if (reactions.enabled) { %>
-  <ul class="form-actions -inline photo__actions">
+  <ul class="form-actions -inline kudos">
     <% for (var i = 0; i < reactions.data.length; i++) { %>
       <li>
-        <button class="photo__kudos js-kudos-button <% if (reactions.data[i].userReacted) { %>is-active<% } %>" data-kudos-term-id="<%= reactions.data[i].termId %>" data-kid="<% if (reactions.data[i].kudosId) { %><%= reactions.data[i].kudosId %><% } %>"></button>
+        <button class="kudos__icon js-kudos-button <% if (reactions.data[i].userReacted) { %>is-active<% } %>" data-kudos-term-id="<%= reactions.data[i].termId %>" data-kid="<% if (reactions.data[i].kudosId) { %><%= reactions.data[i].kudosId %><% } %>"></button>
         <span class="counter"><%= reactions.data[i].total %></span>
       </li>
     <% } %>
