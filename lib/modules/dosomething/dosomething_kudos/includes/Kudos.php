@@ -6,10 +6,11 @@ class Kudos extends Entity {
 
   /**
    * Approved reactions that are accessible and viewable.
-   * Edit this array to allow for additional kudos reactions.
+   * Edit this array to allow for additional kudos reactions across the platform.
+   *
    * @var array
    */
-  protected $approved_reactions = ['heart'];
+  protected static $approved_reactions = ['heart'];
 
   public $id;
   public $term;
@@ -94,12 +95,11 @@ class Kudos extends Entity {
 
   /**
    * Get the approved reactions.
+   *
    * @return array
    */
   public static function getApprovedReactions() {
-    $kudos = new static;
-
-    return $kudos->approved_reactions;
+    return static::$approved_reactions;
   }
 
   /**
