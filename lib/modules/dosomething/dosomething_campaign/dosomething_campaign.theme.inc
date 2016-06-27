@@ -206,9 +206,9 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
   // 1) Materials
 
   // Build the share link here in case registering organ donors
-  $campaign_path = url(current_path(), array('absolute' => TRUE));
+  $campaign_path = dosomething_global_url(current_path(), array('absolute' => TRUE));
   $share_path = 'user/' . $vars['user']->uid;
-  $custom_organ_share_link = url($campaign_path, array('query' => array('source' => $share_path)));
+  $custom_organ_share_link = dosomething_global_url($campaign_path, array('query' => array('source' => $share_path)));
 
   if (isset($campaign->items_needed)) {
     $materials['category'] = 'materials';
