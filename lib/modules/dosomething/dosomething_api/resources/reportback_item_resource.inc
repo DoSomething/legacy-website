@@ -93,7 +93,7 @@ function _reportback_item_resource_definition() {
           ],
           [
             'name' => 'current_user',
-            'description' => 'Provide a user id that response data should take into account when retrieving data.',
+            'description' => 'Provide current user ID that response data should take into account when retrieving data.',
             'optional' => TRUE,
             'type' => 'string',
             'source' => array('param' => 'current_user'),
