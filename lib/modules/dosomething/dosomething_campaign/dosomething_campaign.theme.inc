@@ -207,7 +207,8 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
 
   // Build the share link here in case registering organ donors
   $campaign_path = url(current_path(), array('absolute' => TRUE));
-  $custom_organ_share_link = $campaign_path . '?source=user/' . $vars['user']->uid;
+  $share_path = 'user/' . $vars['user']->uid;
+  $custom_organ_share_link = url($campaign_path, array('query' => array('source' => $share_path)));
 
   if (isset($campaign->items_needed)) {
     $materials['category'] = 'materials';
@@ -215,7 +216,7 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
     $materials['content'] = $campaign->items_needed;
     // if organ donation campaign, add in the share link here
     if ($campaign->variables['register_organ_donors']) {
-      $materials['content'] .= '<ul><li><a href=' . $custom_organ_share_link . '>Your Custom Share Link</a></li></ul>';
+      $materials['content'] .= '<ul><li>Copy and paste your custom link to invite friends and family to become an organ donor: <code>' . $custom_organ_share_link . '</code></li></ul>';
     }
     $vars['plan'][] = $materials;
   }
