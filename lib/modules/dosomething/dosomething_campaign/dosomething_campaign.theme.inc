@@ -219,15 +219,17 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
       $materials['content'] .= '<ul><li>Copy and paste your custom link to invite friends and family to become an organ donor: <code>' . $custom_organ_share_link . '</code></li></ul>';
       drupal_add_js(
         array('dosomethingUser' =>
-          array(
+          array('userInfo' =>
+            array(
             'email' => $vars['user']->mail,
             'first_name' => dosomething_user_get_field('field_first_name'),
             'last_name' => dosomething_user_get_field('field_last_name'),
-            'birthday' => dosomething_user_get_field('field_birthdate', NULL, 'm/d/Y'),
+            'birthdate' => dosomething_user_get_field('field_birthdate', NULL, 'm/d/Y'),
             'street_address' => dosomething_user_get_field('field_address')['thoroughfare'],
             'street_address_2' => dosomething_user_get_field('field_address')['premise'],
             'city' => dosomething_user_get_field('field_address')['locality'],
             'state' => dosomething_user_get_field('field_address')['administrative_area'],
+            ),
           ),
         ),
         'setting'
