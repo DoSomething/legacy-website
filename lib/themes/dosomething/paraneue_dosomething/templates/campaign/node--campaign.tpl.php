@@ -393,14 +393,14 @@
                   <h2 class="heading -emphasized">Thanks for signing up.</h2>
                 </div>
                 <div class="modal__block">
-                  <form>
+                  <form class="organize-zipcode-form">
                       <div class="form-item -padded">
-                          <label for="postal_code"><!-- Validation errors get placed here. --></label>
-                          <input type="text" name="postal_code" id="postal_code" data-validate="zipcode" data-validate-required class="text-field" placeholder="Enter Zip Code" />
+                        <label class="field-label" for="postal_code">Zip Code</label>
+                        <input type="text" name="postal_code" id="postal_code" data-validate="zipcode" data-validate-required class="text-field" placeholder="Enter Zip Code" />
                       </div>
 
                       <div class="form-item -padded submit-button-container">
-                          <input type="submit" class="button submit-postal-code" value="Submit" />
+                        <input type="submit" class="button submit-postal-code" value="Submit" />
                       </div>
                   </form>
                 </div>
@@ -417,7 +417,7 @@
                         <?php // fields get injected here based on response from Organize ?>
                       </div>
                       <div class="form-item -padded submit-registration-container">
-                          <input type="submit" class="button submit-registration" value="Submit" />
+                        <input type="submit" class="button submit-registration" name="submit-registration" value="Submit" />
                       </div>
                   </form>
                 </div>
