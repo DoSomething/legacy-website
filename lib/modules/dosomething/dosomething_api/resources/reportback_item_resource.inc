@@ -91,6 +91,14 @@ function _reportback_item_resource_definition() {
             'source' => array('param' => 'load_user'),
             'default value' => FALSE,
           ],
+          [
+            'name' => 'current_user',
+            'description' => 'Provide current user ID that response data should take into account when retrieving data.',
+            'optional' => TRUE,
+            'type' => 'string',
+            'source' => array('param' => 'current_user'),
+            'default value' => NULL,
+          ],
         ],
         'access callback' => '_reportback_item_resource_access',
         'access arguments' => array('index'),
@@ -135,7 +143,7 @@ function _reportback_item_resource_access($op) {
  * @param  bool    $load_user
  * @return array
  */
-function _reportback_item_resource_index($campaigns, $exclude, $status, $count, $random, $page, $load_user) {
+function _reportback_item_resource_index($campaigns, $exclude, $status, $count, $random, $page, $load_user, $current_user) {
   $parameters = array(
     'campaigns' => $campaigns,
     'exclude' => $exclude,
@@ -144,6 +152,7 @@ function _reportback_item_resource_index($campaigns, $exclude, $status, $count, 
     'random' => $random,
     'page' => $page,
     'load_user' => $load_user,
+    'current_user' => $current_user,
   );
 
   $reportbackItems = new ReportbackItemTransformer;

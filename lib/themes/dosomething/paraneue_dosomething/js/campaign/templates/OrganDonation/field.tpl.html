@@ -1,14 +1,14 @@
-<!-- add value property to these to add in the default -->
 <!-- Text Fields -->
 <% if (type === 'string' && typeof(choices) === 'undefined' || type === 'date') { %>
   <div class="form-item">
-    <label class="field-label" for="<%= field_name %>"><%= human_name %></label>
+    <label class="field-label" for="<%= field_name %>"><%= human_name %> <% if (required !== true) { %><em>(optional)</em><% } %></label>
     <input type="text" class="text-field registration-value" name="<%= field_name %>" id="<%= field_name %>" <% if (field_name === 'birthdate') { %> placeholder='MM/DD/YYYY' <% } %>  <% if (typeof pre_fill_value != 'undefined') { %> value="<%= pre_fill_value %>" <% } %> <% if (typeof(validate) !== 'undefined') { %> data-validate="<%= validation_name %>" <% } %> <% if (required === true) { %> data-validate-required <% } %>>
     <% if (help_text !== "") { %>
       <p class="footnote"><%= help_text %></p>
     <% } %>
   </div>
 <% } %>
+
 
 <!-- Dropdowns -->
 <% if (typeof(choices) !== 'undefined') { %>
@@ -33,8 +33,8 @@
 
 <!-- Checkboxes -->
 <% if (type === 'boolean') { %>
-  <label class="field-label" for="<%= field_name %>"></label>
   <div class="form-item">
+    <label class="field-label" for="<%= field_name %>"></label>
     <label class="option -checkbox">
       <input class="registration-value" type="checkbox" value="true" id="<%= field_name %>" name="<%= field_name %>" <% if (required) { %> data-validate-required <% } %>>
       <span class="option__indicator"></span>
