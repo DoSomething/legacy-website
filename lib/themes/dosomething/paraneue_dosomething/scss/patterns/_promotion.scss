@@ -1,7 +1,6 @@
 $btw-mobile-and-tablet: "(min-width: 860px)";
 $btw-tablet-and-desktop: "(min-width: 960px)";
 
-// Temp to be moved to the module in Neue!
 .header .promotions {
   // Shift it down so that the "creator" portraits are adjacent to the bottom of the Header
   position: relative;
@@ -31,8 +30,6 @@ $btw-tablet-and-desktop: "(min-width: 960px)";
     padding-bottom: $base-spacing / 2;
   }
 }
-
-
 
 
 // Promotions Grouping
@@ -142,10 +139,6 @@ $btw-tablet-and-desktop: "(min-width: 960px)";
 
   .__image + .__image {
     margin-top: $base-spacing / 2;
-
-    //@include media($btw-mobile-and-tablet) {
-    //  margin-top: 0;
-    //}
   }
 
   img {
