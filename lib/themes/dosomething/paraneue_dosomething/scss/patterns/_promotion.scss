@@ -2,19 +2,17 @@ $btw-mobile-and-tablet: "(min-width: 860px)";
 $btw-tablet-and-desktop: "(min-width: 960px)";
 
 // Temp to be moved to the module in Neue!
-[role="banner"] .promotions {
-  clear: both;
-  padding: 18px 0 9px;
+.header .promotions {
+  // Shift it down so that the "creator" portraits are adjacent to the bottom of the Header
+  position: relative;
+  top: $base-spacing;
 
-  @include media($tablet) {
-    padding-top: 28px;
+  @include media($mobile) {
+    margin-top: $base-spacing;
   }
 
   @include media($btw-mobile-and-tablet) {
-    bottom: -28px;
-    padding: 0;
-    position: absolute;
-    right: 0;
+    float: right;
   }
 
   &.-dual {
@@ -30,9 +28,7 @@ $btw-tablet-and-desktop: "(min-width: 960px)";
   }
 
   .promotion--sponsor {
-    @include media($btw-mobile-and-tablet) {
-      padding-bottom: 28px;
-    }
+    padding-bottom: $base-spacing / 2;
   }
 }
 
@@ -141,7 +137,15 @@ $btw-tablet-and-desktop: "(min-width: 960px)";
 .promotion--sponsor {
 
   .__image {
-    max-width: 125px;
+    max-width: 175px;
+  }
+
+  .__image + .__image {
+    margin-top: $base-spacing / 2;
+
+    //@include media($btw-mobile-and-tablet) {
+    //  margin-top: 0;
+    //}
   }
 
   img {
