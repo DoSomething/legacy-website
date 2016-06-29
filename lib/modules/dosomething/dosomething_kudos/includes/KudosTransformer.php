@@ -32,7 +32,7 @@ class KudosTransformer extends Transformer {
 
     $data = $this->transformCollection($kudos);
     // @TODO: may be better to build an $options array with items...
-    $data = dosomething_kudos_sort($data, ['display' => 'full']);
+    $data = dosomething_kudos_sort($data);
 
     return [
       'kudos' => [
