@@ -163,7 +163,7 @@ function dosomething_helpers_variable_form($form, &$form_state, $node) {
     $form['magic_link']['magic_link_copy'] = [
       '#type' => 'textfield',
       '#title' => t('Magic Link Copy'),
-      '#description' => t('Custom text to explain the magic link.'),
+      '#description' => t('Custom text to explain the magic link. The magic link will bring the user to the web version of the site and log them in automatically.'),
       '#default_value' => $vars['magic_link_copy'],
       '#attributes' => array(
         'maxlength' => '140',
