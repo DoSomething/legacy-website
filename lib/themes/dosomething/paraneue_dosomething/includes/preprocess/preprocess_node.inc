@@ -281,8 +281,8 @@ function paraneue_dosomething_preprocess_reportback_gallery(&$vars, $count = 6) 
   drupal_add_js(
     [
       'dsKudosReactions' => [
+        'approved' => Kudos::getApprovedReactions(),
         'enabled' => !$disable_reactions,
-        'user' => isset($user->uid) ? $user->uid : null,
         'terms' => [
           // @TODO: Ideally this would call a function that retrieves all
           // kudos reaction terms and sets up the associative array, but
@@ -290,6 +290,7 @@ function paraneue_dosomething_preprocess_reportback_gallery(&$vars, $count = 6) 
           // so let's keep it simple ;)
           'heart' => dosomething_kudos_get_term_id_by_name('heart'),
         ],
+        'user' => isset($user->uid) ? $user->uid : null,
       ]
     ],
     'setting'
