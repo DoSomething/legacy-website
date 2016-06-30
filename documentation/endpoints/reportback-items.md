@@ -183,13 +183,11 @@ GET https://www.dosomething.org/api/v1/reportback-items/:id
 ```
 
 Example request:
-
 ```
 https://www.dosomething.org/api/v1/reportback-items/85071
 ```
 
 Example response:
-
 ```
 {
   data: {
