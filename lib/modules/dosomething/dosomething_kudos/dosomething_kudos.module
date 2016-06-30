@@ -163,6 +163,11 @@ function dosomething_kudos_group_by_taxonomy_term($data, $options = []) {
       $item = (object) $item;
     }
 
+    // If term is not in approved reactions list, skip it!
+    if (!in_array($item->term['name'], Kudos::getApprovedReactions())) {
+      continue;
+    }
+
     // If the term is not already in the $output array then add it.
     if (!array_key_exists($item->term['id'], $output)) {
       $output[$item->term['id']] = [
