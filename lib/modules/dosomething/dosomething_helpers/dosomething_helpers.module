@@ -32,6 +32,8 @@ function dosomething_helpers_array_is_associative(array $data) {
  * @param null $value  Set a default value to assign if $var not set.
  *
  * @return array|object|string|integer|null
+ *
+ * @todo rename this function to dosomething_helpers_get_value()
  */
 function dosomething_helpers_isset($var, $key = NULL, $value = NULL) {
   if (is_array($var) && $key) {
@@ -43,6 +45,15 @@ function dosomething_helpers_isset($var, $key = NULL, $value = NULL) {
   }
 
   return isset($var) ? $var : $value;
+}
+
+function dosomething_helpers_get_nested_value($data, $nested_key, $key, $default_value = NULL) {
+  if (gettype($data) === 'object') {
+    $data = (array) $data;
+  }
+
+
+
 }
 
 
