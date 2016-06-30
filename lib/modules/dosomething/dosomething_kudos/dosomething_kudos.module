@@ -205,7 +205,8 @@ function dosomething_kudos_resolve_current_user_activity($current_user, $data, $
 }
 
 /**
- * [dosomething_kudos_compare_current_user_activity description]
+ * Compare current user activity against specified Reportback Item data.
+ *
  * @param  object  $data
  * @param  object  $current_user
  * @return null|array
