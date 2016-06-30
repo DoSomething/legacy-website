@@ -47,16 +47,6 @@ function dosomething_helpers_isset($var, $key = NULL, $value = NULL) {
   return isset($var) ? $var : $value;
 }
 
-function dosomething_helpers_get_nested_value($data, $nested_key, $key, $default_value = NULL) {
-  if (gettype($data) === 'object') {
-    $data = (array) $data;
-  }
-
-
-
-}
-
-
 /**
  * Implements hook_menu().
  */
