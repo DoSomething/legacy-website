@@ -154,6 +154,21 @@ function dosomething_helpers_variable_form($form, &$form_state, $node) {
         ),
       ),
     );
+    $form['magic_link'] = [
+      '#type' => 'fieldset',
+      '#title' => t('Magic Link'),
+      '#collapsible' => TRUE,
+      '#collapsed' => TRUE,
+    ];
+    $form['magic_link']['magic_link_copy'] = [
+      '#type' => 'textfield',
+      '#title' => t('Magic Link Copy'),
+      '#description' => t('Custom text to explain the magic link.'),
+      '#default_value' => $vars['magic_link_copy'],
+      '#attributes' => array(
+        'maxlength' => '140',
+      ),
+    ];
   }
 
   $form['actions'] = array(
@@ -213,6 +228,7 @@ function dosomething_helpers_get_variable_names() {
     'count_pending',
     'count_promoted',
     'goal',
+    'magic_link_copy',
     'mobilecommons_opt_in_path',
     'mobilecommons_friends_opt_in_path',
     'progress',
