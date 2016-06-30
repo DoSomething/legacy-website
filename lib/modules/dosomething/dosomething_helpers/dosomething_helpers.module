@@ -686,6 +686,21 @@ function dosomething_helpers_get_current_language_content_code() {
 }
 
 /**
+ * Get the current, logged in user.
+ *
+ * @return null|object
+ */
+function dosomething_helpers_get_current_user() {
+  global $user;
+
+  if (!$user->uid) {
+    return null;
+  }
+
+  return $user;
+}
+
+/**
  * Get the filesystem path relative to the application root.
  *
  * @param $path

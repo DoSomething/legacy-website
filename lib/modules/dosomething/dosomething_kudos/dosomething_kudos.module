@@ -90,7 +90,7 @@ function dosomething_kudos_get_kudos_query($params = []) {
  * @param  array $options
  * @return array
  */
-function dosomething_kudos_sort($data, $options = []) {
+function dosomething_kudos_sort($data) {
   // The array containing collection of kudos items passed to this function
   // consists of individual kudos items. However, within this collection
   // there could be multiple kudos items that all fall within the same
@@ -100,7 +100,7 @@ function dosomething_kudos_sort($data, $options = []) {
 
   usort($data, 'dosomething_kudos_sort_by_taxonomy_term');
 
-  $data = dosomething_kudos_group_by_taxonomy_term($data, $options);
+  $data = dosomething_kudos_group_by_taxonomy_term($data);
 
   return $data;
 }
@@ -127,34 +127,13 @@ function dosomething_kudos_sort_by_taxonomy_term($a, $b) {
 }
 
 /**
- * Get current user from supplied data array or global user.
- *
- * @param  array  $data
- * @return null|string
- */
-function dosomething_kudos_get_current_user($data = []) {
-  if (isset($data['current_user'])) {
-    return $data['current_user'];
-  }
-
-  global $user;
-
-  if (!$user->uid) {
-    return null;
-  }
-
-  return $user->uid;
-}
-
-/**
  * Group all kudos in collection and organize them by taxonomy term,
  * including current users activity on retrieved kudos records.
  *
  * @param  array $data Array containing Kudos items.
- * @param  array $options
  * @return array
  */
-function dosomething_kudos_group_by_taxonomy_term($data, $options = []) {
+function dosomething_kudos_group_by_taxonomy_term($data) {
   $output = [];
   $activity = [];
 
@@ -183,7 +162,7 @@ function dosomething_kudos_group_by_taxonomy_term($data, $options = []) {
 
     $output[$item->term['id']]['current_user'] = null;
 
-    $current_user = dosomething_kudos_get_current_user($options);
+    $current_user = dosomething_helpers_get_current_user();
 
     if ($current_user) {
       $current_user_activity = dosomething_kudos_compare_current_user_activity($item, $current_user);
@@ -200,7 +179,7 @@ function dosomething_kudos_group_by_taxonomy_term($data, $options = []) {
 /**
  * For each kudos term on a Reportback Item, append the current user's activity on that term.
  *
- * @param  string  $current_user
+ * @param  object  $current_user
  * @param  array  $data
  * @param  array  $activity
  * @return array
@@ -215,7 +194,7 @@ function dosomething_kudos_resolve_current_user_activity($current_user, $data, $
       $data[$index]['current_user'] = $activity[$item['term']['id']];
     } else {
       $data[$index]['current_user'] = [
-        'drupal_id' => $current_user,
+        'drupal_id' => $current_user->uid,
         'reacted' => false,
         'kudos_id' => null,
       ];
@@ -228,20 +207,20 @@ function dosomething_kudos_resolve_current_user_activity($current_user, $data, $
 /**
  * [dosomething_kudos_compare_current_user_activity description]
  * @param  object  $data
- * @param  string  $current_user
+ * @param  object  $current_user
  * @return null|array
  */
 function dosomething_kudos_compare_current_user_activity($data, $current_user) {
   $reaction_user = $data->user;
 
-  $reacted = $reaction_user['drupal_id'] === $current_user ? true : false;
+  $reacted = $reaction_user['drupal_id'] === $current_user->uid ? true : false;
 
   if (! $reacted) {
     return false;
   }
 
   return [
-    'drupal_id' => $current_user,
+    'drupal_id' => $current_user->uid,
     'reacted' => $reacted,
     'kudos_id' => $reacted ? $data->id : null,
   ];
