@@ -24,14 +24,14 @@ function dosomething_organ_donation_menu() {
 
   $items['organize/registration'] = [
     'page callback' => 'dosomething_organ_donation_post_registration',
-    'access callback' => 'user_access',
+    'access callback' => 'user_is_logged_in',
     'access arguments' => array('administer modules'),
     'type' => MENU_CALLBACK,
   ];
 
   $items['organize/postal-code'] = [
     'page callback' => 'dosomething_organ_donation_send_postal_code',
-    'access callback' => 'user_access',
+    'access callback' => 'user_is_logged_in',
     'access arguments' => array('administer modules'),
     'type' => MENU_CALLBACK,
   ];
