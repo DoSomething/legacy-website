@@ -90,6 +90,32 @@ function dosomething_organ_donation_post_registration() {
 
   $response = drupal_http_request($client['base_url'] . '/v2/registrations/', $options);
 
+  // Load the user so we can make updates
+  global $user;
+  $account = user_load($user->uid);
+
+  // Update address (there doesn't seem to be a way to update the whole address using dosomething_user_set_fields)
+  $new_field_address = [
+    'administrative_area' => $params['state'],
+    'locality' => $params['city'],
+    'postal_code' => $params['postal_code'],
+    'thoroughfare' => $params['street_address'],
+    'premise' => $params['street_address_2'],
+  ];
+  $account->field_address[LANGUAGE_NONE][0] = $new_field_address;
+
+  // Update name and birthday
+  $new_fields = [
+    'first_name' => $params['first_name'],
+    'last_name' => $params['last_name'],
+    'birthdate' => date('Y-m-d', strtotime($params['birthdate'])),
+  ];
+  $formatted_fields = [];
+  dosomething_user_set_fields($formatted_fields, $new_fields);
+
+  // Save the updates
+  user_save($account, $formatted_fields);
+
   return drupal_json_output(json_decode($response->data));
 }
 
