@@ -266,6 +266,10 @@ abstract class Transformer {
         $output['uri'] = $data->uri;
       }
 
+      $magic_link_copy = dosomething_helpers_get_variable('node', $data->id, 'magic_link_copy');
+      if ($magic_link_copy) {
+        $output['magic_link_copy'] = $magic_link_copy;
+      }
     }
 
     return $output;
