@@ -92,7 +92,6 @@ function dosomething_organ_donation_post_registration() {
 
   // Load the user so we can make updates
   global $user;
-  $account = user_load($user->uid);
 
   // Update address (there doesn't seem to be a way to update the whole address using dosomething_user_set_fields)
   $new_field_address = [
@@ -102,7 +101,7 @@ function dosomething_organ_donation_post_registration() {
     'thoroughfare' => $params['street_address'],
     'premise' => $params['street_address_2'],
   ];
-  $account->field_address[LANGUAGE_NONE][0] = $new_field_address;
+  $user->field_address[LANGUAGE_NONE][0] = $new_field_address;
 
   // Update name and birthday
   $new_fields = [
@@ -114,7 +113,7 @@ function dosomething_organ_donation_post_registration() {
   dosomething_user_set_fields($formatted_fields, $new_fields);
 
   // Save the updates
-  user_save($account, $formatted_fields);
+  user_save($user, $formatted_fields);
 
   return drupal_json_output(json_decode($response->data));
 }
