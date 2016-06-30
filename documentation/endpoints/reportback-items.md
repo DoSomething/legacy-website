@@ -1,10 +1,12 @@
+# Reportback Items
+
 ## Retrieve all reportback items
 
 ```
 GET https://www.dosomething.org/api/v1/reportback-items
 ```
 
-## Optional query Parameters
+## Optional query parameters
 
 - **campaigns** _(string|csv)_
   - Comma separated list of campaign ids
