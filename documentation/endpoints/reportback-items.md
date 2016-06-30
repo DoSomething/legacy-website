@@ -28,13 +28,11 @@ GET https://www.dosomething.org/api/v1/reportback-items
   - ex: `/reportbacks?load_user=true`
 
 Example request:
-
 ```
 https://www.dosomething.org/api/v1/reportback-items?campaigns=1321,362,1283&status=promoted,approved&count=3&random=true
 ```
 
 Example response:
-
 ```
 {
   meta : {
@@ -52,6 +50,7 @@ Example response:
   data: [
     {
       id: "572",
+      status: "approved",
       caption: "DoSomething? Just did!",
       uri: "https://www.dosomething.org/api/v1/reportback-items/572",
       media: {
@@ -59,7 +58,22 @@ Example response:
         type: "image"
       },
       created_at: "1402439166",
-      status: "approved",
+      kudos: {
+        data: [
+          {
+            term: {
+              id: "641",
+              name: "heart",
+              total: 15
+            },
+            "current_user": {
+              drupal_id: "4878998",
+              reacted: false,
+              kudos_id: null
+            }
+          }
+        ]
+      },
       reportback: {
         id: "78",
         created_at: "1395858155",
@@ -78,6 +92,7 @@ Example response:
     },
     {
       id: "658",
+      status: "approved",
       caption: "DoSomething? Just did!",
       uri: "https://www.dosomething.org/api/v1/reportback-items/658",
       media: {
@@ -85,7 +100,22 @@ Example response:
         type: "image"
       },
       created_at: "1402428343",
-      status: "approved",
+      kudos: {
+        data: [
+          {
+            term: {
+              id: "641",
+              name: "heart",
+              total: 15
+            },
+            "current_user": {
+              drupal_id: "4878998",
+              reacted: true,
+              kudos_id: "1015"
+            }
+          }
+        ]
+      },
       reportback: {
         id: "89",
         created_at: "1394658072",
@@ -108,6 +138,7 @@ Example response:
     },
     {
       id: "5874",
+      status: "approved",
       caption: "Morbi leo risus porta ac.",
       uri: "https://www.dosomething.org/api/v1/reportback-items/5874",
       media: {
@@ -115,7 +146,9 @@ Example response:
         type: "image"
       },
       created_at: "1423757294",
-      status: "approved",
+      kudos: {
+        data: []
+      },
       reportback: {
         id: "895",
         created_at: "1423757294",
@@ -159,6 +192,7 @@ Example response:
 {
   data: {
     id: "85071",
+    status: "approved",
     caption: "For a great cause!",
     uri: "https://www.dosomething.org/api/v1/reportback-items/85071",
     media: {
@@ -166,7 +200,22 @@ Example response:
       type: "image"
     },
     created_at: "1426110120",
-    status: "approved",
+    kudos: {
+      data: [
+        {
+          term: {
+            id: "641",
+            name: "heart",
+            total: 36
+          },
+          "current_user": {
+            drupal_id: "4878998",
+            reacted: true,
+            kudos_id: "1099"
+          }
+        }
+      ]
+    },
     reportback: {
       id: "63344",
       created_at: "1425694214",
