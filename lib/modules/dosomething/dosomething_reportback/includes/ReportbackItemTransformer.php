@@ -4,16 +4,12 @@ class ReportbackItemTransformer extends ReportbackTransformer {
 
   private $accessibleStatuses = ['promoted', 'approved'];
 
-  private $options = [];
-
   /**
    * @param  array $parameters Any parameters obtained from query string.
    * @return array
    */
   public function index($parameters) {
     $filters = $this->setDatabaseQueryFilters($parameters);
-
-    $this->setTransformerOptions($parameters);
 
     try {
       $reportbackItems = ReportbackItem::find($filters);
@@ -76,7 +72,7 @@ class ReportbackItemTransformer extends ReportbackTransformer {
   protected function transform($item) {
     $data = [];
 
-    $data += $this->transformReportbackItem($item, $this->options);
+    $data += $this->transformReportbackItem($item);
 
     $data['reportback'] = $this->transformReportback((object) $item->reportback);
 
@@ -170,15 +166,5 @@ class ReportbackItemTransformer extends ReportbackTransformer {
     }
 
     return $filters;
-  }
-
-  /**
-   * Set the transformer logic options based on request URL parameters.
-   *
-   * @param  array $parameters
-   * @return void
-   */
-  private function setTransformerOptions($parameters) {
-    $this->options['current_user'] = $parameters['current_user'];
   }
 }

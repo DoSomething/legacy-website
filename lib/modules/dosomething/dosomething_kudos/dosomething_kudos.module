@@ -90,7 +90,7 @@ function dosomething_kudos_get_kudos_query($params = []) {
  * @param  array $options
  * @return array
  */
-function dosomething_kudos_sort($data, $options = []) {
+function dosomething_kudos_sort($data) {
   // The array containing collection of kudos items passed to this function
   // consists of individual kudos items. However, within this collection
   // there could be multiple kudos items that all fall within the same
@@ -98,15 +98,10 @@ function dosomething_kudos_sort($data, $options = []) {
   // group the kudos based on taxonomy term, along with providing a total
   // count of kudos for each term.
 
-  // @TODO: Not sure if necessary, but setting for now to make sure not to break things.
-  if (!isset($options['display'])) {
-    $options['display'] = 'teaser';
-  }
-
   usort($data, 'dosomething_kudos_sort_by_taxonomy_term');
 
-  $data = dosomething_kudos_group_by_taxonomy_term($data, $options);
-  $data = dosomething_kudos_get_totals_by_taxonomy_term($data);
+  $data = dosomething_kudos_group_by_taxonomy_term($data);
+
   return $data;
 }
 
@@ -131,67 +126,105 @@ function dosomething_kudos_sort_by_taxonomy_term($a, $b) {
   return $result;
 }
 
-
 /**
- * Group all kudos in collection and organize them by taxonomy term.
+ * Group all kudos in collection and organize them by taxonomy term,
+ * including current users activity on retrieved kudos records.
  *
  * @param  array $data Array containing Kudos items.
- * @param  array $options
  * @return array
  */
-function dosomething_kudos_group_by_taxonomy_term($data, $options = []) {
-  $terms = [];
+function dosomething_kudos_group_by_taxonomy_term($data) {
+  $output = [];
+  $activity = [];
 
   foreach ($data as $item) {
     if (!($item instanceof Kudos)) {
       $item = (object) $item;
     }
 
-    if (!array_key_exists($item->term['id'], $terms)) {
-      $terms[$item->term['id']] = [
+    // If term is not in approved reactions list, skip it!
+    if (!in_array($item->term['name'], Kudos::getApprovedReactions())) {
+      continue;
+    }
+
+    // If the term is not already in the $output array then add it.
+    if (!array_key_exists($item->term['id'], $output)) {
+      $output[$item->term['id']] = [
         'term' => $item->term,
       ];
     }
 
-    $output = [
-      'id' => $item->id,
-      'user' => $item->user,
-    ];
-
-    if ($options['display'] === 'full') {
-      $output['reportback_item'] = $item->reportback_item;
+    if (!isset($output[$item->term['id']]['term']['total'])) {
+      $output[$item->term['id']]['term']['total'] = 0;
     }
 
-    if (isset($item->uri)) {
-      $output['uri'] = $item->uri;
-    }
+    $output[$item->term['id']]['term']['total'] += 1;
 
-    $terms[$item->term['id']]['kudos_items']['data'][] = $output;
+    $output[$item->term['id']]['current_user'] = null;
+
+    $current_user = dosomething_helpers_get_current_user();
+
+    if ($current_user) {
+      $current_user_activity = dosomething_kudos_compare_current_user_activity($item, $current_user);
+
+      if ($current_user_activity) {
+        $activity[$item->term['id']] = $current_user_activity;
+      }
+    }
   }
 
-
-  return array_values($terms);
+  return dosomething_kudos_resolve_current_user_activity($current_user, $output, $activity);
 }
 
-
 /**
- * Calculate total kudos per taxonomy term for a collection of kudos.
+ * For each kudos term on a Reportback Item, append the current user's activity on that term.
  *
- * @param array $data
+ * @param  object  $current_user
+ * @param  array  $data
+ * @param  array  $activity
  * @return array
  */
-function dosomething_kudos_get_totals_by_taxonomy_term($data) {
-  $output = [];
-
-  foreach ($data as $term) {
-    $total = count($term['kudos_items']['data']);
-
-    $term['kudos_items'] = ['total' => $total] + ['data' => $term['kudos_items']['data']];
-
-    $output[] = $term;
+function dosomething_kudos_resolve_current_user_activity($current_user, $data, $activity) {
+  if (!$current_user) {
+    return $data;
   }
 
-  return $output;
+  foreach ($data as $index => $item) {
+    if (isset($activity[$index])) {
+      $data[$index]['current_user'] = $activity[$item['term']['id']];
+    } else {
+      $data[$index]['current_user'] = [
+        'drupal_id' => $current_user->uid,
+        'reacted' => false,
+        'kudos_id' => null,
+      ];
+    }
+  }
+
+  return array_values($data);
+}
+
+/**
+ * Compare current user activity against specified Reportback Item data.
+ *
+ * @param  object  $data
+ * @param  object  $current_user
+ * @return null|array
+ */
+function dosomething_kudos_compare_current_user_activity($data, $current_user) {
+  $reaction_user = $data->user;
+
+  $reacted = $reaction_user['drupal_id'] === $current_user->uid ? true : false;
+
+  if (! $reacted) {
+    return false;
+  }
+
+  return [
+    'drupal_id' => $current_user->uid,
+    'reacted' => $reacted,
+    'kudos_id' => $reacted ? $data->id : null,
+  ];
 }
 
 /**
