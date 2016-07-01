@@ -74,6 +74,7 @@ class KudosTransformer extends Transformer {
     $values = [
       'fid' => $parameters['fid'],
       'uid' => $parameters['uid'],
+      'created' => time(),
     ];
 
     foreach($parameters['tids'] as $id) {
