@@ -8,41 +8,47 @@
  * Implements hook_schema().
  */
 function dosomething_kudos_schema() {
-  $schema = array();
-  $schema['dosomething_kudos'] = array(
+  $schema = [];
+  $schema['dosomething_kudos'] = [
     'description' => 'Table of kudos interactions on reportback items.',
-    'fields' => array(
-      'kid' => array(
+    'fields' => [
+      'kid' => [
         'description' => 'The primary identifier for a kudos record.',
         'type' => 'serial',
         'not null' => TRUE,
-      ),
-      'fid' => array(
+      ],
+      'fid' => [
         'description' => 'The {reportback_file}.fid that this kudos applies to.',
         'type' => 'int',
         'not null' => TRUE,
         'default' => 0,
-      ),
-      'uid' => array(
+      ],
+      'uid' => [
         'description' => 'The {users}.uid that applied the kudos.',
         'type' => 'int',
         'not null' => TRUE,
         'default' => 0,
-      ),
-      'tid' => array(
+      ],
+      'tid' => [
         'description' => 'The {taxonomy_term}.tid that this kudos belongs to.',
         'type' => 'int',
         'not null' => TRUE,
         'default' => 0,
-      ),
-    ),
-    'primary key' => array('kid'),
-    'indexes' => array(
-      'fid' => array('fid'),
-      'uid' => array('uid'),
-      'tid' => array('tid'),
-    ),
-  );
+      ],
+      'created' => [
+        'description' => 'The Unix timestamp when the kudos reaction was created.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ],
+    ],
+    'primary key' => ['kid'],
+    'indexes' => [
+      'fid' => ['fid'],
+      'uid' => ['uid'],
+      'tid' => ['tid'],
+    ],
+  ];
 
   return $schema;
 }
@@ -52,4 +58,30 @@ function dosomething_kudos_schema() {
  */
 function dosomething_kudos_update_7001() {
   db_add_unique_key('dosomething_kudos', 'fid_uid_tid', ['fid', 'uid', 'tid']);
+}
+
+/**
+ * Add the created field to the dosomething_kudos table to indicate
+ * when a kudos reaction record is created.
+ */
+function dosomething_kudos_update_7002() {
+  $field_name = 'created';
+  $table = 'dosomething_kudos';
+  $schema = dosomething_kudos_schema();
+
+  if (!db_field_exists($table, $field_name)) {
+    db_add_field($table, $field_name, $schema[$table]['fields'][$field_name]);
+  }
+}
+
+/**
+ * Set the created timestamp to June 13, 2016 for all kudos with the
+ * created value set to 0.
+ */
+function dosomething_kudos_update_7003() {
+  $sql = 'UPDATE dosomething_kudos kudos
+    SET kudos.created = ' . mktime(0, 0, 0, 6, 13, 2016) . '
+    WHERE kudos.created = 0';
+
+  db_query($sql);
 }
