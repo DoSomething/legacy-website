@@ -238,12 +238,20 @@ function dosomething_reportback_files_form($form, &$form_state, $status = NULL, 
  * Form submit callback for dosomething_reportback_files_form_submit.
  */
 function dosomething_reportback_files_form_submit($form, &$form_state) {
+  $user = dosomething_helpers_get_current_user();
+
   $rb_files = $form_state['values']['rb_files'];
   if (empty($rb_files) || !is_array($rb_files)) {
     return;
   }
 
   foreach ($rb_files as $fid => $values) {
+    $kudos = [
+      'fid' => $fid,
+      'uid' => $user->uid,
+      'tid' => dosomething_kudos_get_term_id_by_name(array_pop(Kudos::getApprovedReactions())),
+      'created' => time(),
+    ];
 
     $rbf = reportback_file_load($fid);
 
@@ -259,6 +267,11 @@ function dosomething_reportback_files_form_submit($form, &$form_state) {
 
     if (!$save) {
       form_set_error(t("An error has occurred."));
+    }
+
+    // Save kudos reaction from admin on RB item.
+    if ($values['status'] === 'promoted' || $values['status'] === 'approved') {
+      $record = (new KudosController)->create($kudos);
     }
 
     // Rotate the original image, if a rotation option was selected.
