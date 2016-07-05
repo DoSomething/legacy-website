@@ -249,7 +249,8 @@ function dosomething_reportback_files_form_submit($form, &$form_state) {
     $kudos = [
       'fid' => $fid,
       'uid' => $user->uid,
-      'tid' => dosomething_kudos_get_term_id_by_name(array_pop(Kudos::getApprovedReactions())),
+      // @TODO: use array_pop(Kudos::getApprovedReactions()) once new Kudos refactor is fully approved.
+      'tid' => dosomething_kudos_get_term_id_by_name('heart'),
       'created' => time(),
     ];
 
