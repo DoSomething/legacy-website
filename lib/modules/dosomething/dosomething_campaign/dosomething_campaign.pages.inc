@@ -18,10 +18,12 @@ function dosomething_campaign_reportback_confirmation_page($node) {
   $clc = dosomething_helpers_get_current_language_content_code();
 
   // Initialize $vars to pass to the reportback_confirmation theme function.
+  $scholarship_language = t('You\'ve taken the first step in being entered to win the scholarship. Next step is to complete the experience!');
+
   $vars = [
     'back_to_campaign_link' => NULL,
     'call_to_action' => NULL,
-    'copy' => $node->field_reportback_confirm_msg[$clc][0]['value'],
+    'copy' => $node->field_scholarship_amount[$clc][0]['value'] ? $scholarship_language : $node->field_reportback_confirm_msg[$clc][0]['value'],
     'more_campaigns_link' => NULL,
     'page_title' => NULL,
     'recommended' => NULL,
