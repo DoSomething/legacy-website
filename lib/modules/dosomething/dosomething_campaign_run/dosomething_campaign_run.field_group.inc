@@ -88,7 +88,9 @@ function dosomething_campaign_run_field_group_info() {
     'format_settings' => array(
       'formatter' => 'collapsible',
       'instance_settings' => array(
-        'description' => '',
+        'description' => 'These dates determine whether the campaign is open or closed, and group sign up and reportback activity. If the run has no end date selected, the campaign will stay active. If the campaign run does have an end date, the campaign will automatically switch to the closed state at 12:05 AM the day after the end date. </br></br>
+
+          To select an end date, click "Show End Date" and use the dropdown menu to select a date. Be sure the date is correct, and not simply the date that autofills in the field. If the campaign is translated and open across different translations, then the start and end dates must be correctly set for every translation of the run.',
         'classes' => 'group-timing field-group-fieldset',
         'required_fields' => 1,
       ),
