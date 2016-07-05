@@ -215,7 +215,7 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
     $materials['title'] = t('Stuff You Need');
     $materials['content'] = $campaign->items_needed;
     // if organ donation campaign, add in the share link here
-    if ($campaign->variables['register_organ_donors']) {
+    if (array_key_exists('register_organ_donors', $campaign->variables) && $campaign->variables['register_organ_donors']) {
       $materials['content'] .= '<ul><li>Copy and paste your custom link to invite friends and family to become an organ donor: <code>' . $custom_organ_share_link . '</code></li></ul>';
       drupal_add_js(
         array('dosomethingUser' =>
