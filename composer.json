@@ -14,5 +14,8 @@
   "require": {
     "stripe/stripe-php": "^1.18.0",
     "zendesk/zendesk_api_client_php": "^1.2.0"
+  },
+  "require-dev": {
+    "symfony/var-dumper": "^3.1"
   }
 }
