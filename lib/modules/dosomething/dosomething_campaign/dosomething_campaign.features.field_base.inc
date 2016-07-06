@@ -50,7 +50,7 @@ function dosomething_campaign_field_default_field_bases() {
       ),
       'target_type' => 'node',
     ),
-    'translatable' => 0,
+    'translatable' => 1,
     'type' => 'entityreference',
   );
 
@@ -1491,7 +1491,7 @@ function dosomething_campaign_field_default_field_bases() {
       'allowed_values_function' => '',
       'entity_translation_sync' => FALSE,
     ),
-    'translatable' => 1,
+    'translatable' => 0,
     'type' => 'list_boolean',
   );
 

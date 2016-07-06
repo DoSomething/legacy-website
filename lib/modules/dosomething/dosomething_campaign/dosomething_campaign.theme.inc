@@ -286,6 +286,9 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
   }
   if (!empty($action_guides)) {
     foreach ($action_guides as $delta => $target) {
+      if (! isset($target['entity'])) {
+        break;
+      }
       $action_guide = $target['entity'];
       $action_guide_wrapper = entity_metadata_wrapper('node', $action_guide);
       $action_guide_desc = $action_guide_wrapper->field_description->value();
