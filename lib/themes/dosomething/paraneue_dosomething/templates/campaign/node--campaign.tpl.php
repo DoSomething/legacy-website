@@ -433,7 +433,7 @@
                   <p>Copy and paste your share link:</p>
                   <code><?php print $custom_organ_share_link ?></code>
                   <div class="form-item -padded submit-done-container">
-                    <input type="submit" class="button submit-done" value="Done" />
+                    <input type="submit" class="button js-close-modal" value="Done" />
                   </div>
                 </div>
               </div>
