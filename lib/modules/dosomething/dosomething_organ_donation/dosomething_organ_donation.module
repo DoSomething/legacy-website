@@ -127,6 +127,7 @@ function dosomething_organ_donation_send_postal_code() {
  *
  */
 function dosomething_organ_donation_store_registration() {
+  // Grab this to get the sid
   $params = drupal_get_query_parameters();
 
   try {
@@ -244,8 +245,11 @@ function dosomething_organ_donation_update_user($params) {
     'locality' => $params['city'],
     'postal_code' => $params['postal_code'],
     'thoroughfare' => $params['street_address'],
-    'premise' => $params['street_address_2'],
   ];
+  // If this field is present I think it would be optional, so check if we have it first
+  if (array_key_exists('street_address_2', $params)) {
+    $new_field_address['premise'] = $params['street_address_2'];
+  }
   $user->field_address[LANGUAGE_NONE][0] = $new_field_address;
 
   // Update name and birthday
