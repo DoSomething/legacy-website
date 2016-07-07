@@ -523,6 +523,7 @@ function dosomething_reportback_view_entity($entity) {
     $fid = array_pop($entity->fids);
   }
 
+  $kudos = [];
   if (! dosomething_kudos_disable_reactions($entity->nid)) {
     $kudos = dosomething_kudos_get_kudos_data_for_fid($fid);
   }
