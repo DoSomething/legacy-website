@@ -360,7 +360,9 @@ function paraneue_dosomething_get_themed_reportback_item($data) {
     return NULL;
   }
 
-  $data->kudos = dosomething_kudos_get_kudos_data_for_fid($data->id, $data->nid);
+  if (dosomething_kudos_disable_reactions($data->nid)) {
+    $data->kudos = dosomething_kudos_get_kudos_data_for_fid($data->id);
+  }
 
   if ($data instanceof ReportbackItem && user_access('view any reportback')) {
     $data->admin_link = '/admin/reportback/' . $data->reportback['id'];

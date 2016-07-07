@@ -523,7 +523,9 @@ function dosomething_reportback_view_entity($entity) {
     $fid = array_pop($entity->fids);
   }
 
-  $kudos = dosomething_kudos_get_kudos_data_for_fid($fid, $entity->nid);
+  if (dosomething_kudos_disable_reactions($entity->nid)) {
+    $kudos = dosomething_kudos_get_kudos_data_for_fid($fid);
+  }
 
   // Try to get the permalink from cache.
   if ($cached_permalink = cache_get('ds_permalink_' . $entity->rbid . '_' . $fid . '_' . $is_owner, 'cache_dosomething_reportback')) {

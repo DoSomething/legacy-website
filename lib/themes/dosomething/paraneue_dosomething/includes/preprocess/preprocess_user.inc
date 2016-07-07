@@ -49,7 +49,9 @@ function paraneue_dosomething_preprocess_user_profile(&$vars) {
         'description' => $impact,
       );
 
-      $content['kudos'] = dosomething_kudos_get_kudos_data_for_fid($fid, $reportback->nid);
+      if (dosomething_kudos_disable_reactions($reportback->nid)) {
+        $content['kudos'] = dosomething_kudos_get_kudos_data_for_fid($fid);
+      }
 
       $reportback_items[$delta] = paraneue_dosomething_get_gallery_item($content, 'figure', TRUE, ['-left', '-medium']);
     }
