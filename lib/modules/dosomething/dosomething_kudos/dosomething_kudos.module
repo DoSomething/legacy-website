@@ -309,3 +309,21 @@ function dosomething_kudos_term_is_selected($reportback_item, $term) {
 function dosomething_kudos_disable_reactions($nid) {
   return !variable_get('dosomething_reportback_kudos_enabled', FALSE) || dosomething_helpers_get_variable('node', $nid, 'disable_reactions');
 }
+
+function dosomething_kudos_get_kudos_data_for_fid($fid, $nid) {
+  $disable_reactions = dosomething_kudos_disable_reactions($nid);
+  if ($disable_reactions) {
+    return;
+  }
+
+  $kudos = [];
+  $kudos['fid'] = $fid;
+  $kudos['reaction_totals'] = [
+    'heart' => dosomething_kudos_get_total_for_file_by_term_name($fid, 'heart'),
+  ];
+  $kudos['existing_kids'] = dosomething_kudos_get_kudos_for_user_by_file($fid);
+  $kudos['reaction_totals'] = ['heart' => dosomething_kudos_get_total_for_file_by_term_name($fid, 'heart')];
+  $kudos['allowed_reactions'] = [dosomething_kudos_get_term_id_by_name('heart')];
+
+  return $kudos;
+}
