@@ -284,19 +284,20 @@ function dosomething_campaign_run_form_campaign_run_node_form_alter(&$form, &$fo
  * Customize the Run Date form
  */
 function dosomething_campaign_run_after_build($form, &$form_state) {
+  // Make sure we change for the relevant language
   if (!isset($form['nid']['#value'])) {
-    $form['field_run_date'][LANGUAGE_NONE][0]['show_todate']['#title'] = t('Select End Date');
+    $language = LANGUAGE_NONE;
   }
   else {
-    // Make sure to account for all the language options as well
-    $prefixes = dosomething_global_get_language_prefix_list();
-    foreach ($prefixes as $lang) {
-      if (isset($form['field_run_date'][$lang]))
-      {
-        $form['field_run_date'][$lang][0]['show_todate']['#title'] = t('Select End Date');
+    $language_list = dosomething_global_get_language_prefix_list();
+    foreach($language_list as $lang) {
+      if (isset($form['field_run_date'][$lang])) {
+          $language = $lang;
       }
     }
   }
+
+  $form['field_run_date'][$language][0]['show_todate']['#title'] = t('Select End Date');
 
   return $form;
 }
