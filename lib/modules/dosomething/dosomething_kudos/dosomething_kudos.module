@@ -313,7 +313,7 @@ function dosomething_kudos_disable_reactions($nid) {
 function dosomething_kudos_get_kudos_data_for_fid($fid, $nid) {
   $disable_reactions = dosomething_kudos_disable_reactions($nid);
   if ($disable_reactions) {
-    return;
+    return NULL;
   }
 
   $kudos = [];
@@ -324,6 +324,7 @@ function dosomething_kudos_get_kudos_data_for_fid($fid, $nid) {
   $kudos['existing_kids'] = dosomething_kudos_get_kudos_for_user_by_file($fid);
   $kudos['reaction_totals'] = ['heart' => dosomething_kudos_get_total_for_file_by_term_name($fid, 'heart')];
   $kudos['allowed_reactions'] = [dosomething_kudos_get_term_id_by_name('heart')];
+  $kudos['disable_reactions'] = $disable_reactions;
 
   return $kudos;
 }

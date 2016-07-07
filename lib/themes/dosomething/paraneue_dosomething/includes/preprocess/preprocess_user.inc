@@ -31,6 +31,7 @@ function paraneue_dosomething_preprocess_user_profile(&$vars) {
     foreach ($reportbacks as $delta => $rbid) {
       $reportback = reportback_load((int) $rbid);
       $impact = $reportback->quantity . ' ' . $reportback->noun . ' ' . $reportback->verb;
+      $fid = $reportback->fids[0];
       if (user_access('view any reportback')) {
         // Link to the full reportback entity view.
         $impact = l($impact, 'admin/reportback/' . $rbid);
@@ -38,7 +39,7 @@ function paraneue_dosomething_preprocess_user_profile(&$vars) {
       else {
         $impact = l($impact, 'reportback/' . $rbid);
       }
-      $img = dosomething_image_get_themed_image_by_fid($reportback->fids[0], '300x300');
+      $img = dosomething_image_get_themed_image_by_fid($fid, '300x300');
       // Media gallery template expects a full URL.
       $url = dosomething_global_url('node/' . $reportback->nid);
       $content = array(
@@ -48,16 +49,7 @@ function paraneue_dosomething_preprocess_user_profile(&$vars) {
         'description' => $impact,
       );
 
-      $disable_reactions = dosomething_kudos_disable_reactions($reportback->nid);
-      if (!$disable_reactions) {
-        $content['id'] = $rbid;
-        $content['disable_reactions'] = $disable_reactions;
-        $content['allowed_reactions'] = [dosomething_kudos_get_term_id_by_name('heart')];
-        $content['reaction_totals'] = [
-          'heart' => dosomething_kudos_get_total_for_file_by_term_name($rbid, 'heart'),
-        ];
-        $content['existing_kids'] = dosomething_kudos_get_kudos_for_user_by_file($rbid);
-      }
+      $content['kudos'] = dosomething_kudos_get_kudos_data_for_fid($fid, $reportback->nid);
 
       $reportback_items[$delta] = paraneue_dosomething_get_gallery_item($content, 'figure', TRUE, ['-left', '-medium']);
     }

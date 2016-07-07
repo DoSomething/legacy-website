@@ -599,7 +599,7 @@ function dosomething_reportback_view_entity($entity) {
       'kudos' => $kudos,
     );
 
-    // cache_set('ds_permalink_' . $entity->rbid . '_' . $fid . '_' . $is_owner, $permalink_vars, 'cache_dosomething_reportback');
+    cache_set('ds_permalink_' . $entity->rbid . '_' . $fid . '_' . $is_owner, $permalink_vars, 'cache_dosomething_reportback');
   }
   // Don't ever cache the signup button, as this changes/blocks submission.
   if($node->status == 'closed') {
