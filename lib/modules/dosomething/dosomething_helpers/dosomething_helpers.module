@@ -29,22 +29,56 @@ function dosomething_helpers_array_is_associative(array $data) {
  *
  * @param string|array|object $var  Variable to check.
  * @param string $key  If $var is an array or object, key to check.
- * @param null $value  Set a default value to assign if $var not set.
+ * @param null $default  Set a default value to assign if $var not set.
  *
  * @return array|object|string|integer|null
  *
  * @todo rename this function to dosomething_helpers_get_value()
  */
-function dosomething_helpers_isset($var, $key = NULL, $value = NULL) {
+function dosomething_helpers_isset($var, $key = NULL, $default = NULL) {
   if (is_array($var) && $key) {
-    return isset($var[$key]) ? $var[$key] : $value;
+    return isset($var[$key]) ? $var[$key] : $default;
   }
 
   if (is_object($var) && $key) {
-    return isset($var->$key) ? $var->$key : $value;
+    return isset($var->$key) ? $var->$key : $default;
   }
 
-  return isset($var) ? $var : $value;
+  return isset($var) ? $var : $default;
+}
+
+/**
+ * Utility function to check and obtain a nested value in an array.
+ *
+ * @param  array $data
+ * @param  string $key
+ * @param  string $parent_key
+ * @return string|null
+ *
+ * @todo  should update to check if array or object and just make it smarter in general.
+ */
+function dosomething_helpers_get_nested_value($data, $key, $parent_key = NULL) {
+  if (!$data) {
+    return NULL;
+  }
+
+  // Search a specific item in array for key.
+  if ($parent_key) {
+    if (isset($data[$parent_key])) {
+      return dosomething_helpers_isset($data[$parent_key], $key);
+    }
+  }
+
+  // Search all items in array for key.
+  foreach ($data as $item) {
+    $result = dosomething_helpers_isset($item, $key);
+
+    if ($result) {
+      return $result;
+    }
+  }
+
+  return NULL;
 }
 
 /**
