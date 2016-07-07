@@ -360,7 +360,7 @@ function paraneue_dosomething_get_themed_reportback_item($data) {
     return NULL;
   }
 
-  if (! dosomething_kudos_disable_reactions($data->campaign->id)) {
+  if (! dosomething_kudos_disable_reactions($data->campaign->id) && $data->id) {
     $data->kudos = dosomething_kudos_get_kudos_data_for_fid($data->id);
   }
 
