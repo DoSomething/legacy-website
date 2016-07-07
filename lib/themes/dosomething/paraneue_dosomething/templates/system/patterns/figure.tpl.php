@@ -25,7 +25,7 @@
     <?php if (!empty($content['description'])): ?>
       <?php print $content['description']; ?>
     <?php endif; ?>
-    <?php if (array_key_exists('disable_reactions', $content['kudos']) && !$content['kudos']['disable_reactions']): ?>
+    <?php if (isset($content['kudos']) && isset($content['kudos']['fid'])): ?>
       <ul class="form-actions -inline kudos" <?php print $content['kudos']['fid'] ? 'data-reportback-item-id="' . $content['kudos']['fid'] . '"' : ''; ?>>
         <li>
           <button class="js-kudos-button kudos__icon <?php print dosomething_kudos_term_is_selected($content['kudos'], 'heart') ? 'is-active' : '' ?>" data-kudos-term-id="<?php print $content['kudos']['allowed_reactions'][0]; ?>" data-kid="<?php print array_key_exists($content['kudos']['allowed_reactions'][0], $content['kudos']['existing_kids']) ? dosomething_helpers_isset($content['kudos']['existing_kids'][$content['kudos']['allowed_reactions'][0]], 'kid') : false ?>"></button>
