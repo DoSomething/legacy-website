@@ -13,4 +13,4 @@ Fixes #
 #### Checklist
 - [ ] Documentation added for new features/changed endpoints.
 - [ ] Tested on staging.
-- [ ] Pinged a PM if this is a larger PR that would benefit from some addtional testing love.
+- [ ] Pinged a PM if this is a larger PR that would benefit from some additional testing love.
