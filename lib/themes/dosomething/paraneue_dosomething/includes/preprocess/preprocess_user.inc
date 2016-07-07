@@ -49,7 +49,7 @@ function paraneue_dosomething_preprocess_user_profile(&$vars) {
         'description' => $impact,
       );
 
-      if (dosomething_kudos_disable_reactions($reportback->nid)) {
+      if (! dosomething_kudos_disable_reactions($reportback->nid)) {
         $content['kudos'] = dosomething_kudos_get_kudos_data_for_fid($fid);
       }
 
