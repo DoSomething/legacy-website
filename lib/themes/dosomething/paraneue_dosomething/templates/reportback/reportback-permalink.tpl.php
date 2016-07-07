@@ -40,7 +40,7 @@
               <?php print filter_xss($rb['caption']); ?> - <?php print check_plain($user->first_name); ?>
             </div>
           <?php endif; ?>
-          <?php if (isset($kudos) && !$kudos['disable_reactions']): ?>
+          <?php if (isset($content['kudos']) && isset($content['kudos']['fid'])): ?>
             <ul class="form-actions -inline kudos <?php print json_encode($kudos) ?>" <?php print $kudos['fid'] ? 'data-reportback-item-id="' . $kudos['fid'] . '"' : ''; ?>>
               <li>
                 <button class="js-kudos-button kudos__icon <?php print dosomething_kudos_term_is_selected($kudos, 'heart') ? 'is-active' : '' ?>" data-kudos-term-id="<?php print $kudos['allowed_reactions'][0]; ?>" data-kid="<?php print dosomething_helpers_isset($kudos['existing_kids'][$kudos['allowed_reactions'][0]], 'kid') ?>"></button>

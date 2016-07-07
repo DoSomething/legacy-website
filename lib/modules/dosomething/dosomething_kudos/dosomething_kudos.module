@@ -319,7 +319,7 @@ function dosomething_kudos_get_kudos_data_for_fid($fid = NULL) {
   if (! $fid) {
     return [];
   }
-  
+
   $kudos = [];
   $kudos['fid'] = $fid;
   $kudos['reaction_totals'] = [
