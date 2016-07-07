@@ -229,6 +229,7 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
             'street_address_2' => dosomething_user_get_field('field_address')['premise'],
             'city' => dosomething_user_get_field('field_address')['locality'],
             'state' => dosomething_user_get_field('field_address')['administrative_area'],
+            'uid' => $vars['user']->uid,
             ),
           ),
         ),

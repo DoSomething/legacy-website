@@ -130,15 +130,12 @@ function dosomething_organ_donation_store_registration() {
   // Grab this to get the sid
   $params = drupal_get_query_parameters();
 
-  // Grab this to get the uid
-  global $user;
-
   try {
-    if ($params['sid'] && $user->uid) {
+    if ($params['sid'] && $params['uid']) {
       db_insert('dosomething_organ_donation')
         ->fields([
           'sid' => $params['sid'],
-          'uid' => $user->uid,
+          'uid' => $params['uid'],
           'registration_form_timestamp' =>  REQUEST_TIME,
       ])->execute();
 
