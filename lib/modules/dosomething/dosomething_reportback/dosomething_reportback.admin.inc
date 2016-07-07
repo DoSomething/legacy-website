@@ -28,12 +28,6 @@ function dosomething_reportback_admin_config_form($form, &$form_state) {
     '#default_value' => variable_get('dosomething_reportback_display_permalink_share', FALSE),
     '#description' => t("Displays the permalink share form/copy"),
   );
-  $form['dosomething_reportback_kudos_enabled'] = array(
-    '#type' => 'checkbox',
-    '#title' => t('Enable Kudos globally for all campaigns.'),
-    '#default_value' => variable_get('dosomething_reportback_kudos_enabled', FALSE),
-    '#description' => t("Allows admins to enable/disable Kudos feature."),
-  );
   return system_settings_form($form);
 }
 
