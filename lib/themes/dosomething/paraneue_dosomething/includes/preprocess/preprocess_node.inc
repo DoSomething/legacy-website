@@ -250,13 +250,11 @@ function paraneue_dosomething_preprocess_reportback_gallery(&$vars, $count = 6) 
   }
 
   foreach ($reportbackItems as $item) {
-    $id = $item->id;
     if ($item instanceof ReportbackItem) {
-      $gallery['item_ids'][] = $id;
+      $gallery['item_ids'][] = $item->id;
     }
 
-    $item = paraneue_dosomething_get_themed_reportback_item($item);
-    $gallery['items'][] = $item;
+    $gallery['items'][] = paraneue_dosomething_get_themed_reportback_item($item);
   }
 
   // Get total of Promoted & Approved RB Items prefetched.
