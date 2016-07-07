@@ -416,6 +416,9 @@
                       <div class="js-form-fields">
                         <?php // fields get injected here based on response from Organize ?>
                       </div>
+                      <div class="form-item">
+                        <div class="js-organize-errors"></div>
+                      </div>
                       <div class="form-item -padded submit-registration-container">
                         <input type="submit" class="button submit-registration" name="submit-registration" value="Submit" />
                       </div>
