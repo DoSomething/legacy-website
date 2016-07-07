@@ -360,12 +360,8 @@ function paraneue_dosomething_get_themed_reportback_item($data) {
     return NULL;
   }
 
-  if ($data->id && !$data->disable_reactions) {
-    $data->reaction_totals = [
-      'heart' => dosomething_kudos_get_total_for_file_by_term_name($data->id, 'heart'),
-    ];
-
-    $data->existing_kids = dosomething_kudos_get_kudos_for_user_by_file($data->id);
+  if ($data->id && !dosomething_kudos_disable_reactions($data->campaign->id)) {
+    $data->kudos = dosomething_kudos_get_kudos_data_for_fid($data->id);
   }
 
   if ($data instanceof ReportbackItem && user_access('view any reportback')) {

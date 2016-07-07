@@ -249,21 +249,11 @@ function paraneue_dosomething_preprocess_reportback_gallery(&$vars, $count = 6) 
     $reportbackItems = $promotedReportbackItems;
   }
 
-  // Check both the global checkbox & node specific one
-  $disable_reactions = dosomething_kudos_disable_reactions($vars['nid']);
-
-  $allowed_tids = [];
-
-  if (!$disable_reactions) {
-    array_push($allowed_tids, dosomething_kudos_get_term_id_by_name('heart'));
-  }
-
   foreach ($reportbackItems as $item) {
-    $item->disable_reactions = $disable_reactions;
-    $item->allowed_reactions = $allowed_tids;
     if ($item instanceof ReportbackItem) {
       $gallery['item_ids'][] = $item->id;
     }
+
     $gallery['items'][] = paraneue_dosomething_get_themed_reportback_item($item);
   }
 
@@ -282,7 +272,7 @@ function paraneue_dosomething_preprocess_reportback_gallery(&$vars, $count = 6) 
     [
       'dsKudosReactions' => [
         'approved' => Kudos::getApprovedReactions(),
-        'enabled' => !$disable_reactions,
+        'enabled' => !dosomething_kudos_disable_reactions($vars['nid']),
         'terms' => [
           // @TODO: Ideally this would call a function that retrieves all
           // kudos reaction terms and sets up the associative array, but

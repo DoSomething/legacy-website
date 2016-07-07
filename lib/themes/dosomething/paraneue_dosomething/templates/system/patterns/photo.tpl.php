@@ -13,12 +13,11 @@
       <p class="photo__caption"><?php print filter_xss($content->caption); ?></p>
     </figcaption>
   </figure>
-
-  <?php if ($content->id && !$content->disable_reactions): ?>
+  <?php if (isset($content->kudos) && isset($content->kudos['fid'])): ?>
     <ul class="form-actions -inline kudos">
       <li>
-        <button class="js-kudos-button kudos__icon <?php print dosomething_kudos_term_is_selected($content, 'heart') ? 'is-active' : '' ?>" data-kudos-term-id="<?php print $content->allowed_reactions[0]; ?>" data-kid="<?php print dosomething_helpers_isset($content->existing_kids[$content->allowed_reactions[0]], 'kid') ?>"></button>
-        <span class="counter"><?php print $content->reaction_totals['heart']; ?></span>
+        <button class="js-kudos-button kudos__icon <?php print dosomething_kudos_term_is_selected($content->kudos, 'heart') ? 'is-active' : '' ?>" data-kudos-term-id="<?php print $content->kudos['allowed_reactions'][0]; ?>" data-kid="<?php print dosomething_helpers_isset($content->kudos['existing_kids'][$content->kudos['allowed_reactions'][0]], 'kid') ?>"></button>
+        <span class="counter"><?php print $content->kudos['reaction_totals']['heart']; ?></span>
       </li>
     </ul>
   <?php endif; ?>
