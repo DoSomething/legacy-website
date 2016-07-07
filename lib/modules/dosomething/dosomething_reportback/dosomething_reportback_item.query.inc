@@ -20,7 +20,7 @@
 * @return SelectQuery object
 */
 function dosomething_reportback_build_reportback_items_query($params = array()) {
-  $query = db_select('dosomething_reportback_file', 'rbf');
+  $query = db_select('dosomething_reportback_file', 'rbf', array('target' => 'slave'));
   $query->join('dosomething_reportback', 'rb', 'rbf.rbid = rb.rbid');
   $query->leftJoin('field_data_field_reportback_noun', 'fn', 'rb.nid = fn.entity_id');
   $query->leftJoin('field_data_field_reportback_verb', 'fv', 'rb.nid = fv.entity_id');
