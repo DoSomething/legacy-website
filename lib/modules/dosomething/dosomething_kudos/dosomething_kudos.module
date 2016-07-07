@@ -313,10 +313,9 @@ function dosomething_kudos_disable_reactions($nid) {
 /**
  * Grab all Kudos data required to render the markup for a given reportback fid
  * @param  int $fid Reportback file id
- * @param  int $nid Campaign id for this reportback
  * @return array Values needed to render Kudos markup
  */
-function dosomething_kudos_get_kudos_data_for_fid($fid, $nid) {
+function dosomething_kudos_get_kudos_data_for_fid($fid) {
   $kudos = [];
   $kudos['fid'] = $fid;
   $kudos['reaction_totals'] = [
