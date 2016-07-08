@@ -275,16 +275,14 @@ function dosomething_kudos_get_kudos_for_user_by_file($fid) {
 
 /**
  * Check to see if the kudos term has been selected by the user on specified
- * reportback.
+ * reportback item kudos data.
  *
- * @param  object $reportback_item
+ * @param  array $kudos
  * @param  string $term
  * @return bool
  */
-function dosomething_kudos_term_is_selected($reportback_item, $term) {
-  $reportback_item = (object) $reportback_item;
-
-  if (! $reportback_item->existing_kids) {
+function dosomething_kudos_term_is_selected($kudos, $term) {
+  if (! $kudos['existing_kids']) {
     return false;
   }
 
@@ -294,7 +292,7 @@ function dosomething_kudos_term_is_selected($reportback_item, $term) {
     return false;
   }
 
-  if (! isset($reportback_item->existing_kids[$id])) {
+  if (! isset($kudos['existing_kids'][$id])) {
     return false;
   }
 

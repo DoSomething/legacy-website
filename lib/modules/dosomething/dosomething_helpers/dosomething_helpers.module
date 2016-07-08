@@ -29,22 +29,22 @@ function dosomething_helpers_array_is_associative(array $data) {
  *
  * @param string|array|object $var  Variable to check.
  * @param string $key  If $var is an array or object, key to check.
- * @param null $value  Set a default value to assign if $var not set.
+ * @param null $default  Set a default value to assign if $var not set.
  *
  * @return array|object|string|integer|null
  *
  * @todo rename this function to dosomething_helpers_get_value()
  */
-function dosomething_helpers_isset($var, $key = NULL, $value = NULL) {
+function dosomething_helpers_isset($var, $key = NULL, $default = NULL) {
   if (is_array($var) && $key) {
-    return isset($var[$key]) ? $var[$key] : $value;
+    return isset($var[$key]) ? $var[$key] : $default;
   }
 
   if (is_object($var) && $key) {
-    return isset($var->$key) ? $var->$key : $value;
+    return isset($var->$key) ? $var->$key : $default;
   }
 
-  return isset($var) ? $var : $value;
+  return isset($var) ? $var : $default;
 }
 
 /**
