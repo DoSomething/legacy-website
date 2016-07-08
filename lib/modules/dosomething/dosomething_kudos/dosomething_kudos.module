@@ -282,9 +282,7 @@ function dosomething_kudos_get_kudos_for_user_by_file($fid) {
  * @return bool
  */
 function dosomething_kudos_term_is_selected($kudos, $term) {
-  $kudos = (object) $kudos;
-
-  if (! $kudos->existing_kids) {
+  if (! $kudos['existing_kids']) {
     return false;
   }
 
@@ -294,7 +292,7 @@ function dosomething_kudos_term_is_selected($kudos, $term) {
     return false;
   }
 
-  if (! isset($kudos->existing_kids[$id])) {
+  if (! isset($kudos['existing_kids'][$id])) {
     return false;
   }
 
