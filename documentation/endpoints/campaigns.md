@@ -233,7 +233,8 @@ Example response:
       noun: "Items",
       verb: "Recycled"
     },
-    uri: "http://dev.dosomething.org:8888/api/v1/campaigns/362"
+    uri: "http://dev.dosomething.org:8888/api/v1/campaigns/362",
+    magic_link_copy: "Here's why you should click this magic link"
   }
 }
 ```
