@@ -48,40 +48,6 @@ function dosomething_helpers_isset($var, $key = NULL, $default = NULL) {
 }
 
 /**
- * Utility function to check and obtain a nested value in an array.
- *
- * @param  array $data
- * @param  string $key
- * @param  string $parent_key
- * @return string|null
- *
- * @todo  should update to check if array or object and just make it smarter in general.
- */
-function dosomething_helpers_get_nested_value($data, $key, $parent_key = NULL) {
-  if (!$data) {
-    return NULL;
-  }
-
-  // Search a specific item in array for key.
-  if ($parent_key) {
-    if (isset($data[$parent_key])) {
-      return dosomething_helpers_isset($data[$parent_key], $key);
-    }
-  }
-
-  // Search all items in array for key.
-  foreach ($data as $item) {
-    $result = dosomething_helpers_isset($item, $key);
-
-    if ($result) {
-      return $result;
-    }
-  }
-
-  return NULL;
-}
-
-/**
  * Implements hook_menu().
  */
 function dosomething_helpers_menu() {
