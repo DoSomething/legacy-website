@@ -13,7 +13,8 @@
   },
   "require": {
     "stripe/stripe-php": "^1.18.0",
-    "zendesk/zendesk_api_client_php": "^1.2.0"
+    "zendesk/zendesk_api_client_php": "^1.2.0",
+    "tightenco/collect": "^5.2"
   },
   "require-dev": {
     "symfony/var-dumper": "^3.1"
