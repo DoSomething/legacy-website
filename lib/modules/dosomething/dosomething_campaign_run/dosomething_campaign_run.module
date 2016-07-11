@@ -274,10 +274,32 @@ function dosomething_campaign_run_add_campaign_run_info(&$form, &$form_state) {
  * Implements hook_form_NODE_TYPE_alter().
  */
 function dosomething_campaign_run_form_campaign_run_node_form_alter(&$form, &$form_state, $form_id) {
-  // Add title help text.
-  $form['title']['#description'] = t('The title is not user facing, it just helps when searching for content. Suggestion: Use campaign name and year campaign ended (i.e. Comeback Clothes 2014).');
+  // Alter the Run Date text
+  $form['#after_build'][] = 'dosomething_campaign_run_after_build';
 
   drupal_add_css(drupal_get_path('module', 'dosomething_campaign_run') . '/campaign_run_node.css');
+}
+
+/**
+ * Customize the Run Date form
+ */
+function dosomething_campaign_run_after_build($form, &$form_state) {
+  // Make sure we change for the relevant language
+  if (!isset($form['nid']['#value'])) {
+    $language = LANGUAGE_NONE;
+  }
+  else {
+    $language_list = dosomething_global_get_language_prefix_list();
+    foreach($language_list as $lang) {
+      if (isset($form['field_run_date'][$lang])) {
+          $language = $lang;
+      }
+    }
+  }
+
+  $form['field_run_date'][$language][0]['show_todate']['#title'] = t('Select End Date');
+
+  return $form;
 }
 
 /*
