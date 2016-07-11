@@ -81,6 +81,11 @@ function dosomething_campaign_admin_config_form($form, &$form_state) {
     '#required' => TRUE,
     '#default_value' => t(variable_get('dosomething_campaign_problem_share_prompt')),
   );
+  $form['campaign']['action_page']['dosomething_campaign_enable_onboarding'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Enable onboarding'),
+    '#default_value' => variable_get('dosomething_campaign_enable_onboarding'),
+  );
 
   // SMS Game variables.
   $form['sms_game'] = array(
