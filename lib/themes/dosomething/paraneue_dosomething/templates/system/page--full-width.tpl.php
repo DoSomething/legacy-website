@@ -12,6 +12,7 @@
 <?php if (!empty($tabs['#primary'])): ?><nav class="admin-tabs"><?php print render($tabs); ?></nav><?php endif; ?>
 <?php print $messages; ?>
 
+<div id="onboarding" class="wrapper"></div>
 <div class="wrapper">
   <?php print $variables['navigation']; ?>
   <?php if(isset($variables['header'])) print $variables['header']; ?>
@@ -22,4 +23,3 @@
 
   <?php print $variables['footer']; ?>
 </div>
-
