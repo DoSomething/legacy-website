@@ -83,7 +83,8 @@ function paraneue_dosomething_add_info_bar(&$vars) {
 
       // If the campaign is closed, link to the help center
       // If the campaign is open, link to the FAQs if there are any
-      if (isset($vars['field_campaign_status'][0]['value']) && $vars['field_campaign_status'][0]['value'] == 'closed') {
+      $node = node_load($vars['nid']);
+      if (dosomething_campaign_is_closed($node)) {
         $info_bar_vars['help_center'] = true;
         $info_bar_vars['faqs'] = NULL;
       }
