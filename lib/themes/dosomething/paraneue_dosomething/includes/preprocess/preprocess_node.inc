@@ -206,14 +206,7 @@ function paraneue_dosomething_preprocess_node_campaign(&$vars) {
         'every_page' => FALSE,
         'preprocess' => FALSE,
       ]);
-      drupal_add_js(
-        array('dsOnboarding' =>
-          array(
-            'enabled' => true
-          )
-        ),
-        'setting'
-      );
+      drupal_add_js(['dsOnboarding' => ['enabled' => true]], 'setting');
     }
   }
 
