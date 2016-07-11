@@ -26,6 +26,9 @@
             <?php if($faqs): ?>
               <p>Or get your question answered right away by first <a href="#" data-modal-href="#modal-faq">checking our FAQs</a>  which are updated regularly.</p>
             <?php endif; ?>
+            <?php if($help_center): ?>
+              <p>Before submitting your question, be sure to check out our in-depth <a href="https://help.dosomething.org/hc">Help Center</a> to see if it's been answered before!</p>
+            <?php endif; ?>
           </div>
           <div class="modal__block">
             <?php print render($zendesk_form); ?>

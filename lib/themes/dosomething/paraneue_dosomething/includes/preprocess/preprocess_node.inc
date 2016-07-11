@@ -80,8 +80,20 @@ function paraneue_dosomething_add_info_bar(&$vars) {
       // All other countries get the zendesk form.
     }
     else {
+
+      // If the campaign is closed, link to the help center
+      // If the campaign is open, link to the FAQs if there are any
+      if (isset($vars['field_campaign_status'][0]['value']) && $vars['field_campaign_status'][0]['value'] == 'closed') {
+        $info_bar_vars['help_center'] = true;
+        $info_bar_vars['faqs'] = NULL;
+      }
+      else {
+        $info_bar_vars['faqs'] = !empty($vars['field_faq']);
+        $info_bar_vars['help_center'] = NULL;
+      }
+
       $zendesk_form_header = t(variable_get('dosomething_zendesk_form_header'));
-      $info_bar_vars['faqs'] = !empty($vars['field_faq']);
+
       $info_bar_vars['zendesk_form_header'] = $zendesk_form_header;
 
       if (isset($vars['zendesk_form'])) {
