@@ -213,6 +213,18 @@ function paraneue_dosomething_preprocess_node_campaign(&$vars) {
   if (isset($vars['is_pitch_page'])) {
     $vars['show_persistent_signup'] = theme_get_setting('show_persistent_signup');
   }
+
+  drupal_add_js(
+    [
+      'dsUser' => [
+        'info' => dosomething_helpers_get_current_user(),
+        // @TODO: add a way to include user activity if it is a feature that is needed.
+        // Maybe a function like: dosomething_helpers_get_current_user_activity();
+        'activity' => NULL,
+      ]
+    ],
+    'setting'
+  );
 }
 
 /**

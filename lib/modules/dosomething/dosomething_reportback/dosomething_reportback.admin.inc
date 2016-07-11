@@ -242,7 +242,7 @@ function dosomething_reportback_files_form_submit($form, &$form_state) {
   foreach ($rb_files as $fid => $values) {
     $kudos = [
       'fid' => $fid,
-      'uid' => $user->uid,
+      'uid' => $user['drupal_id'],
       // @TODO: use array_pop(Kudos::getApprovedReactions()) once new Kudos refactor is fully approved.
       'tid' => dosomething_kudos_get_term_id_by_name('heart'),
       'created' => time(),
