@@ -33,7 +33,7 @@ function dosomething_helpers_array_is_associative(array $data) {
  *
  * @return array|object|string|integer|null
  *
- * @todo rename this function to dosomething_helpers_get_value()
+ * @deprecated use data_get() helper function from the Collect composer package /vendor/tightenco/collect
  */
 function dosomething_helpers_isset($var, $key = NULL, $default = NULL) {
   if (is_array($var) && $key) {
@@ -717,19 +717,19 @@ function dosomething_helpers_get_user_info($drupal_id) {
   $northstar_user = $northstar_response->data;
 
   return [
-    'id' => dosomething_helpers_isset($northstar_user, 'id'),
-    'email' => dosomething_helpers_isset($northstar_user, 'email'),
-    'first_name' => dosomething_helpers_isset($northstar_user, 'first_name'),
-    'last_name' => dosomething_helpers_isset($northstar_user, 'last_name'),
-    'last_initial' => dosomething_helpers_isset($northstar_user, 'last_initial'),
-    'photo' => dosomething_helpers_isset($northstar_user, 'photo'),
-    'birthdate' => dosomething_helpers_isset($northstar_user, 'birthdate'),
-    'addr_street1' => dosomething_helpers_isset($northstar_user, 'addr_street1'),
-    'addr_street2' => dosomething_helpers_isset($northstar_user, 'addr_street2'),
-    'addr_city' => dosomething_helpers_isset($northstar_user, 'addr_city'),
-    'addr_state' => dosomething_helpers_isset($northstar_user, 'addr_state'),
-    'addr_zip' => dosomething_helpers_isset($northstar_user, 'addr_zip'),
-    'country' => dosomething_helpers_isset($northstar_user, 'country'),
+    'id' => data_get($northstar_user, 'id'),
+    'email' => data_get($northstar_user, 'email'),
+    'first_name' => data_get($northstar_user, 'first_name'),
+    'last_name' => data_get($northstar_user, 'last_name'),
+    'last_initial' => data_get($northstar_user, 'last_initial'),
+    'photo' => data_get($northstar_user, 'photo'),
+    'birthdate' => data_get($northstar_user, 'birthdate'),
+    'addr_street1' => data_get($northstar_user, 'addr_street1'),
+    'addr_street2' => data_get($northstar_user, 'addr_street2'),
+    'addr_city' => data_get($northstar_user, 'addr_city'),
+    'addr_state' => data_get($northstar_user, 'addr_state'),
+    'addr_zip' => data_get($northstar_user, 'addr_zip'),
+    'country' => data_get($northstar_user, 'country'),
     'drupal_id' => $drupal_id,
   ];
 }
