@@ -67,7 +67,6 @@
   <div class="info-bar -dark">
     <div class="wrapper">
       <?php print $tagline; ?>
-      <em><?php print t('*mic drop'); ?></em>
     </div>
   </div>
 
