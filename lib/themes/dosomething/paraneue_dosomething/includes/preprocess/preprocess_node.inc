@@ -199,8 +199,9 @@ function paraneue_dosomething_preprocess_node_campaign(&$vars) {
   if (!isset($vars['is_pitch_page'])) {
     $vars['reportbacks_gallery'] = paraneue_dosomething_preprocess_reportback_gallery($vars);
 
+    // @Temporary: add lab.js with Onboarding experiment.
     if (variable_get('dosomething_campaign_enable_onboarding', FALSE)) {
-      drupal_add_js(PARANEUE_PATH . '/dist/onboarding.js', [
+      drupal_add_js(PARANEUE_PATH . '/dist/lab.js', [
         'group'      => JS_THEME,
         'weight'     => 1000,
         'every_page' => FALSE,
