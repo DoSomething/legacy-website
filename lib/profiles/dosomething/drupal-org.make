@@ -278,7 +278,7 @@ projects[devel][version] = "1.4"
 projects[devel][subdir] = "contrib"
 
 ; Coder
-projects[coder][version] = "2.2"
+projects[coder][version] = "2.6"
 projects[coder][subdir] = "contrib"
 
 ; Stage File Proxy
