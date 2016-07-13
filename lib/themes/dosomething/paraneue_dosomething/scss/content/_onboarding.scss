@@ -1,4 +1,82 @@
 .onboarding {
   background-color: $purple;
   color: #fff;
+  position: relative;
+
+  > .wrapper {
+    padding: $base-spacing 0 $section-spacing;
+  }
+}
+
+// @TODO: maybe this close button should be a pattern
+// since it is used in the modal and this onboarding component?
+.onboarding__close-button {
+  background-color: transparent;
+  border: 0 none;
+  color: $med-gray;
+  display: block;
+  font-size: 42px;
+  line-height: 1;
+  position: absolute;
+  right: $base-spacing;
+  top: 0;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.slideshow {
+  //
+}
+
+.slideshow__slide {
+  .heading {
+    &.-beta {
+      color: #fff;
+      font-size: $font-medium;
+      font-weight: 600;
+    }
+  }
+
+  p + .heading {
+    margin-top: $section-spacing;
+  }
+}
+
+.slideshow__controller {
+  display: table;
+  margin: 0 auto;
+  min-height: 41px;
+  padding: 0 ($base-spacing / 2);
+  position: relative;
+
+  > ul {
+    overflow: hidden;
+
+    > li {
+      float: left;
+      padding: 0 5px;
+    }
+  }
+
+
+  > button {
+    background-color: transparent;
+    border: 2px solid #fff;
+    color: #fff;
+    cursor: pointer;
+    font-size: $font-regular;
+    padding: 8px 20px;
+    position: absolute;
+    top: 0;
+  }
+
+  .button--prev {
+    right: 100%;
+  }
+
+  .button--next {
+    left: 100%
+  }
 }
