@@ -51,6 +51,7 @@
   padding: 0 ($base-spacing / 2);
   position: relative;
 
+  // @TODO: use classnames to help decouple from DOM hierarchy.
   > ul {
     overflow: hidden;
 
@@ -61,6 +62,7 @@
   }
 
 
+  // @TODO: switch this to be a new modifier on the button class.
   > button {
     background-color: transparent;
     border: 2px solid #fff;
