@@ -151,7 +151,7 @@ function _paraneue_dosomething_theme_settings_footer(&$form, $form_state) {
       '#type' => 'container',
       '#states' => [
         'invisible' => [
-          'input[name="' . $setting_enabled  . '"]' => ['checked' => FALSE],
+          'input[name="' . $setting_enabled . '"]' => ['checked' => FALSE],
         ],
       ],
     ];

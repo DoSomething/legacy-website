@@ -41,5 +41,5 @@ if (db_table_exists($table)) {
   echo 'done ';
 }
 else {
-  echo 'Are you outta your mind? ' . $arg[2] . ' is not a valid table' .  "\n";
+  echo 'Are you outta your mind? ' . $arg[2] . ' is not a valid table' . "\n";
 }

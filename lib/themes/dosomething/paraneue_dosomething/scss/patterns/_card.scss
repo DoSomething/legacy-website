@@ -40,3 +40,51 @@
     font-size: $font-medium;
   }
 }
+
+
+// @TODO: currently using this temporary class
+// but will be aiming to consolidate all "card"
+// styles together, so that card becomes more of
+// a styled container.
+.beta-card {
+  background-color: $white;
+  border-radius: 4px;
+  color: $dark-gray;
+  // @TODO: remove width restriction once slide layout updated.
+  max-width: 330px;
+
+  .beta-card__header,
+  .beta-card__body {
+    .heading {
+      color: $dark-gray;
+    }
+  }
+
+  .tagline {
+    font-size: $font-small;
+  }
+
+  .form-actions {
+    padding-top: gutter();
+  }
+}
+
+.beta-card__row {
+  margin: gutter() 0;
+}
+
+.beta-card__block {
+  padding: 0 $base-spacing;
+
+  .beta-card__header & {
+    padding: gutter() gutter() 0;
+  }
+
+  &.-centered {
+    text-align: center;
+  }
+
+  &.-flushed {
+    padding: 0;
+  }
+}
