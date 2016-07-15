@@ -1,6 +1,6 @@
 .onboarding {
   background-color: $purple;
-  color: #fff;
+  color: $white;
   position: relative;
 
   > .wrapper {
@@ -32,11 +32,7 @@
 
 .slideshow__slide {
   .heading {
-    &.-beta {
-      color: #fff;
-      font-size: $font-medium;
-      font-weight: 600;
-    }
+    color: #fff;
   }
 
   p + .heading {
