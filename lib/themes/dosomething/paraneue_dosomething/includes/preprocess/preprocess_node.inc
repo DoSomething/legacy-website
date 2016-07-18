@@ -112,7 +112,6 @@ function paraneue_dosomething_add_info_bar(&$vars) {
  * @see paraneue_dosomething_preprocess_node().
  */
 function paraneue_dosomething_preprocess_node_campaign(&$vars) {
-
   // List of partials to add as $vars.
   $partials = array(
     'campaign_creator',
@@ -228,6 +227,14 @@ function paraneue_dosomething_preprocess_node_campaign(&$vars) {
     $vars['show_persistent_signup'] = theme_get_setting('show_persistent_signup');
   }
 
+  // Get prepared Campaign data.
+  try {
+    $current_campaign = Campaign::get($vars['nid']);
+  }
+  catch (Exception $error) {
+    $current_campaign = NULL;
+  }
+
   drupal_add_js(
     [
       'dsUser' => [
@@ -235,7 +242,8 @@ function paraneue_dosomething_preprocess_node_campaign(&$vars) {
         // @TODO: add a way to include user activity if it is a feature that is needed.
         // Maybe a function like: dosomething_helpers_get_current_user_activity();
         'activity' => NULL,
-      ]
+      ],
+      'dsCampaign' => $current_campaign,
     ],
     'setting'
   );

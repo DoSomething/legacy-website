@@ -710,7 +710,7 @@ function dosomething_helpers_get_user_info($drupal_id) {
   if (! module_exists('dosomething_northstar')) {
     return NULL;
   }
-  
+
   $northstar_response = dosomething_northstar_get_northstar_user($drupal_id);
   $northstar_response = json_decode($northstar_response);
 
