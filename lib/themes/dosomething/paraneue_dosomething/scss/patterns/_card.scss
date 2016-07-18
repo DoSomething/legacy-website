@@ -50,8 +50,6 @@
   background-color: $white;
   border-radius: 4px;
   color: $dark-gray;
-  // @TODO: remove width restriction once slide layout updated.
-  max-width: 330px;
 
   .beta-card__header,
   .beta-card__body {
