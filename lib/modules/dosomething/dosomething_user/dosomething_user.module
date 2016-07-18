@@ -1860,8 +1860,15 @@ function dosomething_user_get_bages($uid) {
   // Loop through each cause space, get by name, and then once you hit 5 show this.
   $causes = taxonomy_get_tree(2);
   foreach ($causes as $cause) {
-    $badges['causes'][$cause->name] = dosomething_user_get_cause_space_badge($uid, $cause->tid);
+    $badges['causes'][strtolower($cause->name)] = dosomething_user_get_cause_space_badge($uid, $cause->tid);
   }
+
+  // Loop through action types.
+  $actions = taxonomy_get_tree(1);
+  foreach ($actions as $action) {
+    $badges['actions'][strtolower($action->name)] = dosomething_user_get_action_space_badge($uid, $action->tid);
+  }
+
   // Get special type badges.
   return $badges;
 }
@@ -1897,7 +1904,7 @@ function dosomething_user_get_max_reportback_file_updates($uid) {
     return $results;
 }
 /**
- * Get the number of reportbacks for a person in each cause space.
+ * Get the number of reportbacks for a person in each primary cause space.
  * @param  [type] $uid       [description]
  * @param  [type] $cause_tid [description]
  * @return [type]            [description]
@@ -1909,6 +1916,22 @@ function dosomething_user_get_cause_space_badge($uid, $cause_tid) {
                       INNER JOIN taxonomy_term_data t on t.tid = c.field_primary_cause_tid
                       WHERE rb.uid = $uid
                       AND t.tid = $cause_tid")->rowCount();
+
+  return $results;
+}
+/**
+ * Get number of reportbacks for a person in each primary action type.
+ * @param  [type] $uid       [description]
+ * @param  [type] $cause_tid [description]
+ * @return [type]            [description]
+ */
+function dosomething_user_get_action_space_badge($uid, $action_tid) {
+  $results = db_query("SELECT rb.rbid
+                      FROM dosomething_reportback rb
+                      INNER JOIN field_data_field_primary_action_type a on rb.nid = a.entity_id
+                      INNER JOIN taxonomy_term_data t on t.tid = a.field_primary_action_type_tid
+                      WHERE rb.uid = $uid
+                      AND t.tid = $action_tid")->rowCount();
 
   return $results;
 }
