@@ -116,3 +116,19 @@ function dosomething_user_get_kudos_count($uid) {
 
   return $results;
 }
+
+/**
+ * Get the number of time a user has reported back on a particular campaign
+ * @param   $uid
+ * @param   $nid
+ * @return  int
+ */
+function dosomething_user_get_superfan($uid, $nid) {
+   $results = db_query("SELECT COUNT(rb.rbid)
+                       FROM users u
+                       INNER JOIN dosomething_reportback rb on rb.uid = u.uid
+                       WHERE u.uid = $uid AND rb.nid = $nid
+                       GROUP BY rb.uid,rb.nid");
+
+   return $results->fetchField();
+}
