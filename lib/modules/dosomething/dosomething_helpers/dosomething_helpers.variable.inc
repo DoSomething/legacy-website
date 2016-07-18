@@ -266,7 +266,6 @@ function dosomething_helpers_get_variable_names() {
     'external_signup_goal',
     'external_new_member_goal',
     'external_impact_goal',
-    'goal',
     'internal_signup_goal',
     'internal_new_member_goal',
     'internal_impact_goal',
