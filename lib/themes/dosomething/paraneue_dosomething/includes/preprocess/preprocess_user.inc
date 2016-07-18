@@ -9,7 +9,6 @@ function paraneue_dosomething_preprocess_user_profile(&$vars) {
   global $base_url;
   global $user;
   $language = $user->language;
-
   if ($doing = $vars['doing']) {
     foreach ($doing as $delta => $value) {
       $image = dosomething_image_get_themed_image($value['nid_image'], 'landscape', '400x400');

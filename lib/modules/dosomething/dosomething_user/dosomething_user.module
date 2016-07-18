@@ -1782,7 +1782,7 @@ function dosomething_user_mail($key, &$message, $params) {
  */
 function dosomething_user_magic_session($uid, $timestamp, $login_token) {
   global $user;
-  
+
   $query = drupal_get_query_parameters();
   $redirect = ! empty($query['redirect']) ? $query['redirect'] : '/';
 
@@ -1813,7 +1813,7 @@ function dosomething_user_magic_session($uid, $timestamp, $login_token) {
 /**
  * Check that a magic login link is valid: it hasn't expired, the referred account exists and
  * hasn't logged in since generating the link, and the hash of those parameters is correct.
- * 
+ *
  * @param $account
  * @param $timestamp
  * @param $login_token
@@ -1823,13 +1823,13 @@ function dosomething_user_check_magic_login_validity($account, $timestamp, $logi
   if(! $account) {
     return false;
   }
-  
+
   $timeout = variable_get('user_password_reset_timeout', 86400);
   $has_expired = REQUEST_TIME - $timestamp > $timeout;
-  
+
   $valid_parameters = $account->uid && $timestamp >= $account->login && $timestamp <= REQUEST_TIME;
   $valid_hash = $login_token == user_pass_rehash($account->pass, $timestamp, $account->login, $account->uid);
-  
+
   return ! $has_expired && $valid_parameters && $valid_hash;
 }
 
@@ -1841,3 +1841,55 @@ function dosomething_user_reject_magic_login_link() {
   drupal_set_message(t('You have tried to use an invalid one-time login link.'), 'error');
   drupal_goto('/');
 }
+
+
+////// This stuff should be in it's own file.
+/**
+ * Gets all badges for a user.
+ * @param  [int] $uid
+ * @return [array]
+ */
+function dosomething_user_get_bages($uid) {
+  // we can mod this by 5 to give badges for each 5 or something.
+  $badges['signups']  = dosomething_user_get_activity_count($uid, 'signup');
+  $badges['reportbacks'] = dosomething_user_get_activity_count($uid, 'reportback');
+
+  // Update your rb a lot.
+  $badges['shutterbug'] = dosomething_user_get_max_reportback_file_updates($uid);
+
+  // Get special type badges.
+  // $badges['causes'];
+  return $badges;
+}
+
+/**
+ * [dosomething_user_get_activity_count description]
+ * @param  [type] $uid  [description]
+ * @param  [type] $type [description]
+ * @return [type]       [description]
+ */
+function dosomething_user_get_activity_count($uid, $type) {
+  $table = 'dosomething_' . $type;
+  $results = db_query("SELECT *
+                      FROM $table
+                      WHERE uid = $uid")->rowCount();
+
+  return $results;
+}
+/**
+ * [dosomething_user_get_max_reportback_file_updates description]
+ * @param  [type] $uid [description]
+ * @return [type]      [description]
+ */
+function dosomething_user_get_max_reportback_file_updates($uid) {
+    $results = db_query("SELECT count(fid) as total
+                        FROM dosomething_reportback_file rbf
+                        INNER JOIN dosomething_reportback rb on rbf.rbid = rb.rbid
+                        WHERE rb.uid = $uid
+                        GROUP BY rbf.rbid
+                        ORDER BY total desc
+                        LIMIT 1");
+
+    return $results->fetchField();
+}
+
