@@ -9,7 +9,7 @@
  * @param  [int] $uid
  * @return [array]
  */
-function dosomething_user_get_bages($uid) {
+function dosomething_user_get_badges($uid) {
   // we can mod this by 5 to give badges for each 5 or something.
   $badges['signups']  = dosomething_user_get_activity_count($uid, 'signup');
   $badges['reportbacks'] = dosomething_user_get_activity_count($uid, 'reportback');
@@ -33,6 +33,11 @@ function dosomething_user_get_bages($uid) {
   }
 
   // Get special type badges.
+  $special_badge_campaigns = [362];
+  foreach ($special_badge_campaigns as $special_campaign) {
+    $badges['special'][$special_campaign] = dosomething_user_get_superfan($uid, $special_campaign);
+  }
+
   return $badges;
 }
 
@@ -110,4 +115,20 @@ function dosomething_user_get_kudos_count($uid) {
                       WHERE uid = $uid")->rowCount();
 
   return $results;
+}
+
+/**
+ * Get the number of time a user has reported back on a particular campaign
+ * @param   $uid
+ * @param   $nid
+ * @return  int
+ */
+function dosomething_user_get_superfan($uid, $nid) {
+   $results = db_query("SELECT COUNT(rb.rbid)
+                       FROM users u
+                       INNER JOIN dosomething_reportback rb on rb.uid = u.uid
+                       WHERE u.uid = $uid AND rb.nid = $nid
+                       GROUP BY rb.uid,rb.nid")->fetchField();
+
+   return $results;
 }
