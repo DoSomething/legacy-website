@@ -1854,11 +1854,15 @@ function dosomething_user_get_bages($uid) {
   $badges['signups']  = dosomething_user_get_activity_count($uid, 'signup');
   $badges['reportbacks'] = dosomething_user_get_activity_count($uid, 'reportback');
 
-  // Update your rb a lot.
+  // Only if you hit like 5.
   $badges['shutterbug'] = dosomething_user_get_max_reportback_file_updates($uid);
 
+  // Loop through each cause space, get by name, and then once you hit 5 show this.
+  $causes = taxonomy_get_tree(2);
+  foreach ($causes as $cause) {
+    $badges['causes'][$cause->name] = dosomething_user_get_cause_space_badge($uid, $cause->tid);
+  }
   // Get special type badges.
-  // $badges['causes'];
   return $badges;
 }
 
@@ -1888,8 +1892,23 @@ function dosomething_user_get_max_reportback_file_updates($uid) {
                         WHERE rb.uid = $uid
                         GROUP BY rbf.rbid
                         ORDER BY total desc
-                        LIMIT 1");
+                        LIMIT 1")->fetchField();
 
-    return $results->fetchField();
+    return $results;
 }
+/**
+ * Get the number of reportbacks for a person in each cause space.
+ * @param  [type] $uid       [description]
+ * @param  [type] $cause_tid [description]
+ * @return [type]            [description]
+ */
+function dosomething_user_get_cause_space_badge($uid, $cause_tid) {
+  $results = db_query("SELECT rb.rbid
+                      FROM dosomething_reportback rb
+                      INNER JOIN field_data_field_primary_cause c on rb.nid = c.entity_id
+                      INNER JOIN taxonomy_term_data t on t.tid = c.field_primary_cause_tid
+                      WHERE rb.uid = $uid
+                      AND t.tid = $cause_tid")->rowCount();
 
+  return $results;
+}
