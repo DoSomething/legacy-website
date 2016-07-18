@@ -33,10 +33,10 @@ function dosomething_user_get_badges($uid) {
   }
 
   // Get special type badges.
-  // $special_badge_campaigns = [nids of whatever ones we want here]
-  // foreach ($special_badge_campaigns as $special_campaign) {
-  //   $badges['special'][$special_campaign] = dosomething_user_get_superfan($uid, $special_campaign);
-  // }
+  $special_badge_campaigns = [362];
+  foreach ($special_badge_campaigns as $special_campaign) {
+    $badges['special'][$special_campaign] = dosomething_user_get_superfan($uid, $special_campaign);
+  }
 
   return $badges;
 }
@@ -128,7 +128,7 @@ function dosomething_user_get_superfan($uid, $nid) {
                        FROM users u
                        INNER JOIN dosomething_reportback rb on rb.uid = u.uid
                        WHERE u.uid = $uid AND rb.nid = $nid
-                       GROUP BY rb.uid,rb.nid");
+                       GROUP BY rb.uid,rb.nid")->fetchField();
 
-   return $results->fetchField();
+   return $results;
 }
