@@ -86,6 +86,42 @@ function dosomething_helpers_variable_form($form, &$form_state, $node) {
     '#default_value' => $vars['signup_form_submit_label'],
     '#size' => 20,
   );
+  $form['campaign_goals'] = [
+    '#type' => 'fieldset',
+    '#title' => t('Campaign Goals'),
+    '#collapsible' => TRUE,
+    '#collapsed' => FALSE,
+  ];
+  $form['campaign_goals']['external_signup_goal'] = [
+    '#type' => 'textfield',
+    '#title' => t('External Signup Goal'),
+    '#default_value' => $vars['external_signup_goal'],
+  ];
+  $form['campaign_goals']['external_new_member_goal'] = [
+    '#type' => 'textfield',
+    '#title' => t('External New Member Goal'),
+    '#default_value' => $vars['external_new_member_goal'],
+  ];
+  $form['campaign_goals']['external_impact_goal'] = [
+    '#type' => 'textfield',
+    '#title' => t('External Impact'),
+    '#default_value' => $vars['external_impact_goal'],
+  ];
+  $form['campaign_goals']['internal_signup_goal'] = [
+    '#type' => 'textfield',
+    '#title' => t('Internal Signup Goal'),
+    '#default_value' => $vars['internal_signup_goal'],
+  ];
+  $form['campaign_goals']['internal_new_member_goal'] = [
+    '#type' => 'textfield',
+    '#title' => t('Internal New Member Goal'),
+    '#default_value' => $vars['internal_new_member_goal'],
+  ];
+  $form['campaign_goals']['internal_impact_goal'] = [
+    '#type' => 'textfield',
+    '#title' => t('internal Impact'),
+    '#default_value' => $vars['internal_impact_goal'],
+  ];
   if (module_exists('dosomething_shipment')) {
     $form['shipment'] = array(
       '#type' => 'fieldset',
@@ -227,7 +263,12 @@ function dosomething_helpers_get_variable_names() {
     'count_flagged',
     'count_pending',
     'count_promoted',
-    'goal',
+    'external_signup_goal',
+    'external_new_member_goal',
+    'external_impact_goal',
+    'internal_signup_goal',
+    'internal_new_member_goal',
+    'internal_impact_goal',
     'magic_link_copy',
     'mobilecommons_opt_in_path',
     'mobilecommons_friends_opt_in_path',
