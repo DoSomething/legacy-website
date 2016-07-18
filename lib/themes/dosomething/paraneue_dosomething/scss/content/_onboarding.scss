@@ -86,15 +86,23 @@
  * Add to the _regions/_container pattern.
  */
 .container__block  {
-  &.-third {
+  &.-primary {
     @include media($tablet) {
-      @include span(4 of 12)
+      @include span(6 of 12)
+    }
+
+    @include media($desktop) {
+      @include span(8 of 12)
     }
   }
 
-  &.-two-thirds {
+  &.-secondary {
     @include media($tablet) {
-      @include span(8 of 12)
+      @include span(6 of 12)
+    }
+
+    @include media($desktop) {
+      @include span(4 of 12)
     }
   }
 }
