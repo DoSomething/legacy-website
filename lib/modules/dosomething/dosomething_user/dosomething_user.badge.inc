@@ -14,6 +14,9 @@ function dosomething_user_get_bages($uid) {
   $badges['signups']  = dosomething_user_get_activity_count($uid, 'signup');
   $badges['reportbacks'] = dosomething_user_get_activity_count($uid, 'reportback');
 
+  // How many kudos has the user given, mod by 5.
+  $badges['kudos'] = dosomething_user_get_kudos_count($uid);
+
   // Only if you hit like 5.
   $badges['shutterbug'] = dosomething_user_get_max_reportback_file_updates($uid);
 
@@ -92,6 +95,19 @@ function dosomething_user_get_action_space_badge($uid, $action_tid) {
                       INNER JOIN taxonomy_term_data t on t.tid = a.field_primary_action_type_tid
                       WHERE rb.uid = $uid
                       AND t.tid = $action_tid")->rowCount();
+
+  return $results;
+}
+
+/**
+ * Get the total number of kudos this user has given.
+ * @param   $uid
+ * @return  int
+ */
+function dosomething_user_get_kudos_count($uid) {
+  $results = db_query("SELECT fid
+                      FROM dosomething_kudos
+                      WHERE uid = $uid")->rowCount();
 
   return $results;
 }
