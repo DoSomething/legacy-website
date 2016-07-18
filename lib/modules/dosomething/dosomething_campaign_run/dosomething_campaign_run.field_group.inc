@@ -24,8 +24,8 @@ function dosomething_campaign_run_field_group_info() {
     'weight' => '0',
     'children' => array(
       0 => 'field_campaigns',
-      1 => 'description_field',
-      2 => 'title_field',
+      1 => 'title_field',
+      2 => 'description_field',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -38,6 +38,40 @@ function dosomething_campaign_run_field_group_info() {
     ),
   );
   $field_groups['group_basic_info|node|campaign_run|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_goals|node|campaign_run|form';
+  $field_group->group_name = 'group_goals';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'campaign_run';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'goals',
+    'weight' => '12',
+    'children' => array(
+      0 => 'field_external_signup_goal',
+      1 => 'field_external_new_member_goal',
+      2 => 'field_external_impact_goal',
+      3 => 'field_internal_signup_goal',
+      4 => 'field_internal_new_member_goal',
+      5 => 'field_internal_impact_goal',
+    ),
+    'format_type' => 'fieldset',
+    'format_settings' => array(
+      'label' => 'goals',
+      'instance_settings' => array(
+        'required_fields' => 0,
+        'id' => '',
+        'classes' => 'group-goals field-group-fieldset',
+        'description' => '',
+      ),
+      'formatter' => 'collapsible',
+    ),
+  );
+  $field_groups['group_goals|node|campaign_run|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -193,6 +227,7 @@ function dosomething_campaign_run_field_group_info() {
   t('Totals');
   t('What You Did');
   t('Winners');
+  t('goals');
 
   return $field_groups;
 }

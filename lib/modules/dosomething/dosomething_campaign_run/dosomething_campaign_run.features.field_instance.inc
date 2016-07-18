@@ -351,6 +351,50 @@ function dosomething_campaign_run_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-campaign_run-description_field'.
+  $field_instances['node-campaign_run-description_field'] = array(
+    'bundle' => 'campaign_run',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'Describe why you are creating a new run. Write it with enough context so that a future campaign lead could read it and immediately understand why a new run was created. Will this run have a scholarship? Is there a celebrity endorsing the campaign? Does the campaign have a new sponsor? In which countries is this run going to be available? etc.',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 13,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'description_field',
+    'label' => 'Description',
+    'required' => TRUE,
+    'settings' => array(
+      'display_summary' => 0,
+      'entity_translation_sync' => FALSE,
+      'hide_label' => array(
+        'entity' => FALSE,
+        'page' => FALSE,
+      ),
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => -5,
+    ),
+  );
+
   // Exported field_instance: 'node-campaign_run-field_additional_text'.
   $field_instances['node-campaign_run-field_additional_text'] = array(
     'bundle' => 'campaign_run',
@@ -479,6 +523,148 @@ function dosomething_campaign_run_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-campaign_run-field_external_impact_goal'.
+  $field_instances['node-campaign_run-field_external_impact_goal'] = array(
+    'bundle' => 'campaign_run',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'number',
+        'settings' => array(
+          'decimal_separator' => '.',
+          'prefix_suffix' => TRUE,
+          'scale' => 0,
+          'thousand_separator' => '',
+        ),
+        'type' => 'number_integer',
+        'weight' => 16,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_external_impact_goal',
+    'label' => 'External Impact Goal',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'max' => '',
+      'min' => '',
+      'prefix' => '',
+      'suffix' => '',
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'number',
+      'settings' => array(),
+      'type' => 'number',
+      'weight' => 12,
+    ),
+  );
+
+  // Exported field_instance:
+  // 'node-campaign_run-field_external_new_member_goal'.
+  $field_instances['node-campaign_run-field_external_new_member_goal'] = array(
+    'bundle' => 'campaign_run',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'number',
+        'settings' => array(
+          'decimal_separator' => '.',
+          'prefix_suffix' => TRUE,
+          'scale' => 0,
+          'thousand_separator' => '',
+        ),
+        'type' => 'number_integer',
+        'weight' => 15,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_external_new_member_goal',
+    'label' => 'External New Member Goal',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'max' => '',
+      'min' => '',
+      'prefix' => '',
+      'suffix' => '',
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'number',
+      'settings' => array(),
+      'type' => 'number',
+      'weight' => 11,
+    ),
+  );
+
+  // Exported field_instance: 'node-campaign_run-field_external_signup_goal'.
+  $field_instances['node-campaign_run-field_external_signup_goal'] = array(
+    'bundle' => 'campaign_run',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'number',
+        'settings' => array(
+          'decimal_separator' => '.',
+          'prefix_suffix' => TRUE,
+          'scale' => 0,
+          'thousand_separator' => '',
+        ),
+        'type' => 'number_integer',
+        'weight' => 14,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_external_signup_goal',
+    'label' => 'External Signup Goal',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'max' => '',
+      'min' => '',
+      'prefix' => '',
+      'suffix' => '',
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'number',
+      'settings' => array(),
+      'type' => 'number',
+      'weight' => 10,
+    ),
+  );
+
   // Exported field_instance: 'node-campaign_run-field_gallery_collection'.
   $field_instances['node-campaign_run-field_gallery_collection'] = array(
     'bundle' => 'campaign_run',
@@ -521,6 +707,148 @@ function dosomething_campaign_run_field_default_field_instances() {
       'settings' => array(),
       'type' => 'field_collection_embed',
       'weight' => 5,
+    ),
+  );
+
+  // Exported field_instance: 'node-campaign_run-field_internal_impact_goal'.
+  $field_instances['node-campaign_run-field_internal_impact_goal'] = array(
+    'bundle' => 'campaign_run',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'number',
+        'settings' => array(
+          'decimal_separator' => '.',
+          'prefix_suffix' => TRUE,
+          'scale' => 0,
+          'thousand_separator' => '',
+        ),
+        'type' => 'number_integer',
+        'weight' => 19,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_internal_impact_goal',
+    'label' => 'Internal Impact Goal',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'max' => '',
+      'min' => '',
+      'prefix' => '',
+      'suffix' => '',
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'number',
+      'settings' => array(),
+      'type' => 'number',
+      'weight' => 15,
+    ),
+  );
+
+  // Exported field_instance:
+  // 'node-campaign_run-field_internal_new_member_goal'.
+  $field_instances['node-campaign_run-field_internal_new_member_goal'] = array(
+    'bundle' => 'campaign_run',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'number',
+        'settings' => array(
+          'decimal_separator' => '.',
+          'prefix_suffix' => TRUE,
+          'scale' => 0,
+          'thousand_separator' => '',
+        ),
+        'type' => 'number_integer',
+        'weight' => 18,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_internal_new_member_goal',
+    'label' => 'Internal New Member Goal',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'max' => '',
+      'min' => '',
+      'prefix' => '',
+      'suffix' => '',
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'number',
+      'settings' => array(),
+      'type' => 'number',
+      'weight' => 14,
+    ),
+  );
+
+  // Exported field_instance: 'node-campaign_run-field_internal_signup_goal'.
+  $field_instances['node-campaign_run-field_internal_signup_goal'] = array(
+    'bundle' => 'campaign_run',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'number',
+        'settings' => array(
+          'decimal_separator' => '.',
+          'prefix_suffix' => TRUE,
+          'scale' => 0,
+          'thousand_separator' => '',
+        ),
+        'type' => 'number_integer',
+        'weight' => 17,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_internal_signup_goal',
+    'label' => 'Internal Signup Goal',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'max' => '',
+      'min' => '',
+      'prefix' => '',
+      'suffix' => '',
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'number',
+      'settings' => array(),
+      'type' => 'number',
+      'weight' => 13,
     ),
   );
 
@@ -787,7 +1115,7 @@ function dosomething_campaign_run_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-campaign_run-title_field'
+  // Exported field_instance: 'node-campaign_run-title_field'.
   $field_instances['node-campaign_run-title_field'] = array(
     'bundle' => 'campaign_run',
     'default_value' => NULL,
@@ -830,49 +1158,6 @@ function dosomething_campaign_run_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-campaign_run-description_field'.
-  $field_instances['node-campaign_run-description_field'] = array(
-    'bundle' => 'campaign_run',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => 'Describe why you are creating a new run. Write it with enough context so that a future campaign lead could read it and immediately understand why a new run was created. Will this run have a scholarship? Is there a celebrity endorsing the campaign? Does the campaign have a new sponsor? In which countries is this run going to be available? etc.',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 13,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'description_field',
-    'label' => 'Description',
-    'required' => TRUE,
-    'settings' => array(
-      'entity_translation_sync' => FALSE,
-      'hide_label' => array(
-        'entity' => FALSE,
-        'page' => FALSE,
-      ),
-      'text_processing' => 0,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'module' => 'text',
-      'settings' => array(
-        'size' => 60,
-      ),
-      'type' => 'text_textfield',
-      'weight' => -5,
-    ),
-  );
-
   // Translatables
   // Included for use with string extractors like potx.
   t('Additional Text');
@@ -880,8 +1165,14 @@ function dosomething_campaign_run_field_default_field_instances() {
   t('Campaign');
   t('Describe why you are creating a new run. Write it with enough context so that a future campaign lead could read it and immediately understand why a new run was created. Will this run have a scholarship? Is there a celebrity endorsing the campaign? Does the campaign have a new sponsor? In which countries is this run going to be available? etc.');
   t('Description');
+  t('External Impact Goal');
+  t('External New Member Goal');
+  t('External Signup Goal');
   t('Gallery');
   t('Gallery Image');
+  t('Internal Impact Goal');
+  t('Internal New Member Goal');
+  t('Internal Signup Goal');
   t('Intro');
   t('Klout Gallery');
   t('Reference the campaign this run is associated with. Start typing the campaign name and select the appropriate one.');
