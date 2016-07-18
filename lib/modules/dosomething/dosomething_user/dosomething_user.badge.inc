@@ -9,7 +9,7 @@
  * @param  [int] $uid
  * @return [array]
  */
-function dosomething_user_get_bages($uid) {
+function dosomething_user_get_badges($uid) {
   // we can mod this by 5 to give badges for each 5 or something.
   $badges['signups']  = dosomething_user_get_activity_count($uid, 'signup');
   $badges['reportbacks'] = dosomething_user_get_activity_count($uid, 'reportback');
@@ -33,6 +33,11 @@ function dosomething_user_get_bages($uid) {
   }
 
   // Get special type badges.
+  // $special_badge_campaigns = [nids of whatever ones we want here]
+  // foreach ($special_badge_campaigns as $special_campaign) {
+  //   $badges['special'][$special_campaign] = dosomething_user_get_superfan($uid, $special_campaign);
+  // }
+
   return $badges;
 }
 
