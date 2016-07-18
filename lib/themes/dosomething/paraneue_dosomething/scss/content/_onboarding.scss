@@ -4,6 +4,8 @@
   position: relative;
 
   > .wrapper {
+    max-width: 1440px;
+    margin: 0 auto;
     padding: $base-spacing 0 $section-spacing;
   }
 }
@@ -76,5 +78,23 @@
 
   .button--next {
     left: 100%
+  }
+}
+
+/**
+ * @TODO: move into Forge pattern library if approved.
+ * Add to the _regions/_container pattern.
+ */
+.container__block  {
+  &.-third {
+    @include media($tablet) {
+      @include span(4 of 12)
+    }
+  }
+
+  &.-two-thirds {
+    @include media($tablet) {
+      @include span(8 of 12)
+    }
   }
 }
