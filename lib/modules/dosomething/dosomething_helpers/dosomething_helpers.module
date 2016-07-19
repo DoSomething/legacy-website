@@ -688,16 +688,40 @@ function dosomething_helpers_get_current_language_content_code() {
 /**
  * Get the current, logged in user.
  *
+ * @param  null|object $user
  * @return null|array
  */
-function dosomething_helpers_get_current_user() {
-  global $user;
+function dosomething_helpers_get_current_user($user = NULL) {
+  if (!$user) {
+    global $user;
+  }
 
   if (!$user->uid) {
-    return null;
+    return NULL;
   }
 
   return dosomething_helpers_get_user_info($user->uid);
+}
+
+/**
+ * Get activity for the current, logged in user.
+ *
+ * @param  null|object $user
+ * @return null|array
+ */
+function dosomething_helpers_get_current_user_activity($user = NULL) {
+  if (!$user) {
+    global $user;
+  }
+
+  if (!$user->uid) {
+    return NULL;
+  }
+
+  return [
+    // @TODO: add other user activity info to this array.
+    'signups' => dosomething_signup_get_signup_nids_by_uid($user->uid),
+  ];
 }
 
 /**
