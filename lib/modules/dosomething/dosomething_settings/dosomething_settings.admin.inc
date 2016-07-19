@@ -61,5 +61,25 @@ function dosomething_settings_admin_config_form($form, &$form_state) {
     '#default_value' => variable_get($var_name),
   );
 
+  $form['review'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Review service'),
+    '#description' => t('Settings for Vision')
+  );
+
+  $var_name = 'dosomething_settings_vision_url';
+  $form['review'][$var_name] = array(
+    '#type' => 'textfield',
+    '#title' => t('Review URL for Vision'),
+    '#default_value' => variable_get($var_name),
+  );
+
+  $var_name = 'dosomething_settings_vision_key';
+  $form['review'][$var_name] = array(
+    '#type' => 'textfield',
+    '#title' => t('Key for Vision'),
+    '#default_value' => variable_get($var_name),
+  );
+
   return system_settings_form($form);
 }
