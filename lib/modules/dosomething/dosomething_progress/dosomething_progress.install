@@ -1,0 +1,52 @@
+<?php
+/**
+ * @file
+ * Installation and schema hooks for dosomething_progress.module
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function dosomething_progress_schema() {
+  $schema = array();
+  $schema['dosomething_progress'] = array(
+    'description' => 'Table for tracking user campaign progress',
+    'fields' => array(
+      'sid' => array(
+        'description' => 'The signup id associated with this user and campaign',
+        'type' => 'int',
+        'not null' => TRUE,
+      ),
+      'uid' => array(
+        'description' => 'The {users}.uid that registered.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'kudo' => array(
+        'description' => 'Whether or not the user has kudoed a reportback on this campaign',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'did_it' => array(
+        'description' => 'Whether or not the user has completed the campaign',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'rbid' => array(
+        'description' => 'The reportback id for the user\'s reportback on this campaign',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+    ),
+    'primary key' => array('sid'),
+    'indexes' => array(
+      'uid' => array('uid'),
+    ),
+  );
+
+  return $schema;
+}

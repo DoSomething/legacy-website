@@ -1,0 +1,29 @@
+<?php
+/**
+ * @file
+ * Code for the dosomething_organ_donation feature.
+ */
+
+/*
+ * Implements hook_menu()
+ *
+ */
+function dosomething_progress_menu() {
+  $items = array();
+
+  $items['campaign-progress'] = array(
+    'page callback' => 'dosomething_progress_check',
+    'access callback' => 'user_is_logged_in',
+    'type' => MENU_CALLBACK,
+  );
+
+  // Return the $items array to register the path
+  return $items;
+}
+
+/*
+ *
+ */
+function dosomething_progress_check() {
+
+}
