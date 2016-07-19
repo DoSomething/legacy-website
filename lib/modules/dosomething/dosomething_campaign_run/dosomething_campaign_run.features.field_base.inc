@@ -10,27 +10,55 @@
 function dosomething_campaign_run_field_default_field_bases() {
   $field_bases = array();
 
-  // Exported field_base: 'field_description_field'
-  $field_bases['field_description_field'] = array(
+  // Exported field_base: 'field_external_impact_goal'.
+  $field_bases['field_external_impact_goal'] = array(
     'active' => 1,
-    'cardinality' => -1,
+    'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
-    'field_name' => 'field_description_field',
-    'indexes' => array(
-      'revision_id' => array(
-        0 => 'revision_id',
-      ),
-    ),
+    'field_name' => 'field_external_impact_goal',
+    'indexes' => array(),
     'locked' => 0,
-    'module' => 'field_collection',
+    'module' => 'number',
     'settings' => array(
       'entity_translation_sync' => FALSE,
-      'hide_blank_items' => 1,
-      'path' => '',
     ),
     'translatable' => 0,
-    'type' => 'field_collection',
+    'type' => 'number_integer',
+  );
+
+  // Exported field_base: 'field_external_new_member_goal'.
+  $field_bases['field_external_new_member_goal'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_external_new_member_goal',
+    'indexes' => array(),
+    'locked' => 0,
+    'module' => 'number',
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+    ),
+    'translatable' => 0,
+    'type' => 'number_integer',
+  );
+
+  // Exported field_base: 'field_external_signup_goal'.
+  $field_bases['field_external_signup_goal'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_external_signup_goal',
+    'indexes' => array(),
+    'locked' => 0,
+    'module' => 'number',
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+    ),
+    'translatable' => 0,
+    'type' => 'number_integer',
   );
 
   // Exported field_base: 'field_gallery_collection'.
@@ -81,6 +109,57 @@ function dosomething_campaign_run_field_default_field_bases() {
     ),
     'translatable' => 0,
     'type' => 'list_text',
+  );
+
+  // Exported field_base: 'field_internal_impact_goal'.
+  $field_bases['field_internal_impact_goal'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_internal_impact_goal',
+    'indexes' => array(),
+    'locked' => 0,
+    'module' => 'number',
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+    ),
+    'translatable' => 0,
+    'type' => 'number_integer',
+  );
+
+  // Exported field_base: 'field_internal_new_member_goal'.
+  $field_bases['field_internal_new_member_goal'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_internal_new_member_goal',
+    'indexes' => array(),
+    'locked' => 0,
+    'module' => 'number',
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+    ),
+    'translatable' => 0,
+    'type' => 'number_integer',
+  );
+
+  // Exported field_base: 'field_internal_signup_goal'.
+  $field_bases['field_internal_signup_goal'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_internal_signup_goal',
+    'indexes' => array(),
+    'locked' => 0,
+    'module' => 'number',
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+    ),
+    'translatable' => 0,
+    'type' => 'number_integer',
   );
 
   // Exported field_base: 'field_run_date'.
