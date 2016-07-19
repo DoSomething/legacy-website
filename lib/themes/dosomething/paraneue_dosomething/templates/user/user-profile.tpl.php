@@ -80,4 +80,23 @@
     </div>
   </section>
 
+<!--     <section class="container -padded">
+      <h2 class="heading -banner"><span><?php print t('Badges'); ?></span></h2>
+      <div class="wrapper">
+        <?php foreach ($badges as $badge => $level): ?>
+          <?php if(is_array($level)): ?>
+              <?php foreach ($level as $type => $count): ?>
+                  <?php print $type; ?>
+                  <?php print $count; ?>
+                  </br>
+              <?php endforeach; ?>
+          <?php else: ?>
+            <?php print $badge; ?>
+            <?php print $level; ?>
+          <?php endif; ?>
+          </br>
+        <?php endforeach; ?>
+      </div>
+    </section> -->
+
 </article>
