@@ -299,6 +299,11 @@ function dosomething_helpers_add_js_campaign_and_user_data($vars) {
   );
 }
 
+/**
+ * Add JavaScript for Onboarding feature.
+ *
+ * @return void
+ */
 function dosomething_helpers_add_js_onboarding() {
   // @Temporary: add onboarding.js with Onboarding experiment.
   if (variable_get('dosomething_campaign_enable_onboarding', FALSE)) {
