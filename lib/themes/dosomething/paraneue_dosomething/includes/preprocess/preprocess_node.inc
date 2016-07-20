@@ -210,41 +210,11 @@ function paraneue_dosomething_preprocess_node_campaign(&$vars) {
   // If this is not the pitch page:
   if (!isset($vars['is_pitch_page'])) {
     $vars['reportbacks_gallery'] = paraneue_dosomething_preprocess_reportback_gallery($vars);
-
-    // @Temporary: add lab.js with Onboarding experiment.
-    if (variable_get('dosomething_campaign_enable_onboarding', FALSE)) {
-      drupal_add_js(PARANEUE_PATH . '/dist/lab.js', [
-        'group'      => JS_THEME,
-        'weight'     => 1000,
-        'every_page' => FALSE,
-        'preprocess' => FALSE,
-      ]);
-      drupal_add_js(['dsOnboarding' => ['enabled' => true]], 'setting');
-    }
   }
 
   if (isset($vars['is_pitch_page'])) {
     $vars['show_persistent_signup'] = theme_get_setting('show_persistent_signup');
   }
-
-  // Get prepared Campaign data.
-  try {
-    $current_campaign = Campaign::get($vars['nid']);
-  }
-  catch (Exception $error) {
-    $current_campaign = NULL;
-  }
-
-  drupal_add_js(
-    [
-      'dsUser' => [
-        'info' => dosomething_helpers_get_current_user($vars['user']),
-        'activity' => dosomething_helpers_get_current_user_activity($vars['user']),
-      ],
-      'dsCampaign' => $current_campaign,
-    ],
-    'setting'
-  );
 }
 
 /**

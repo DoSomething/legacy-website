@@ -269,3 +269,50 @@ function dosomething_helpers_add_inline_css(&$vars) {
     drupal_add_css($style_alt_background, $option['type'] = 'inline');
   }
 }
+
+/**
+ * Add internal script to provide data for frontend.
+ *
+ * @param  array $vars
+ * @return void
+ */
+function dosomething_helpers_add_js_campaign_and_user_data($vars) {
+  try {
+    $current_campaign = Campaign::get($vars['nid']);
+  }
+  catch (Exception $error) {
+    $current_campaign = NULL;
+  }
+
+  $current_user = dosomething_helpers_get_current_user($vars['user']);
+
+  // Add useful user & campaign data to campaign pages.
+  drupal_add_js(
+    [
+      'dsUser' => [
+        'info' => $current_user,
+        'activity' => dosomething_helpers_get_current_user_activity($vars['user']),
+      ],
+      'dsCampaign' => $current_campaign,
+    ],
+    'setting'
+  );
+}
+
+/**
+ * Add JavaScript for Onboarding feature.
+ *
+ * @return void
+ */
+function dosomething_helpers_add_js_onboarding() {
+  // @Temporary: add onboarding.js with Onboarding experiment.
+  if (variable_get('dosomething_campaign_enable_onboarding', FALSE)) {
+    drupal_add_js(PARANEUE_PATH . '/dist/onboarding.js', [
+      'group'      => JS_THEME,
+      'weight'     => 1000,
+      'every_page' => FALSE,
+      'preprocess' => FALSE,
+    ]);
+    drupal_add_js(['dsOnboarding' => ['enabled' => true]], 'setting');
+  }
+}
