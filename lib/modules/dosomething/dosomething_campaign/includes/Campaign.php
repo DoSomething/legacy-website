@@ -51,6 +51,10 @@ class Campaign {
    * @throws Exception
    */
   public static function get($ids, $display = 'teaser') {
+
+    // dump(debug_backtrace());
+    watchdog('dosomething_campaign_class', 'Campaign Class called', [], WATCHDOG_DEBUG);
+
     $single_campaign = FALSE;
     $campaigns = [];
 
