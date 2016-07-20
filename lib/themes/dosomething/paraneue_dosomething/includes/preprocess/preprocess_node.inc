@@ -210,8 +210,6 @@ function paraneue_dosomething_preprocess_node_campaign(&$vars) {
   // If this is not the pitch page:
   if (!isset($vars['is_pitch_page'])) {
     $vars['reportbacks_gallery'] = paraneue_dosomething_preprocess_reportback_gallery($vars);
-
-    //////// if ($current_user && $current_campaign->status !== 'closed')
   }
 
   if (isset($vars['is_pitch_page'])) {
