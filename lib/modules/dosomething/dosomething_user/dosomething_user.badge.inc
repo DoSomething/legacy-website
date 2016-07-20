@@ -4,6 +4,37 @@
  * Code for the DoSomething User badges.
  */
 
+function dosomething_users_map_badge($key, $badges, $type) {
+  if (array_key_exists($key, $badges[$type])) {
+    return $badges[$type][$key];
+  }
+}
+
+
+function dosomething_users_get_signup_badge_images($numbah) {
+  // master list of all badges and what they mean.
+  $badges['signups'][1] = '&#128150';
+  $badges['signups'][3] = '&#128150&#128150&#128150';
+  $badges['signups'][5] = '&#128150&#128150&#128150&#128150&#128150';
+  $badges['signups'][10] = '&#128150&#128150&#128150&#128150&#128150&#128150&#128150&#128150&#128150&#128150';
+
+  return dosomething_users_map_badge($numbah, $badges, 'signups');
+}
+
+
+function dosomething_users_get_reportback_badge_images($numbah) {
+  $badges['reportbacks'][1] = '&#128247';
+  $badges['reportbacks'][3] = '&#128247&#128247&#128247';
+  $badges['reportbacks'][5] = '&#128247&#128247&#128247&#128247&#128247';
+  $badges['reportbacks'][10] = '&#128247&#128247&#128247&#128247&#128247&#128247&#128247&#128247&#128247&#128247';
+  $badges['reportbacks'][15] = '&#128247&#128247&#128247&#128247&#128247&#128247&#128247&#128247&#128247&#128247&#128247&#128247&#128247&#128247&#128247';
+
+  return dosomething_users_map_badge($numbah, $badges, 'reportbacks');
+
+}
+
+
+
 /**
  * Gets all badges for a user.
  * @param  [int] $uid
@@ -11,11 +42,14 @@
  */
 function dosomething_user_get_badges($uid) {
   // we can mod this by 5 to give badges for each 5 or something.
-  $badges['signups']  = dosomething_user_get_activity_count($uid, 'signup');
-  $badges['reportbacks'] = dosomething_user_get_activity_count($uid, 'reportback');
-
-  // How many kudos has the user given, mod by 5.
+  $badges['signups']['count']  = dosomething_user_get_activity_count($uid, 'signup');
+  $badges['reportbacks']['count'] = dosomething_user_get_activity_count($uid, 'reportback');
   $badges['kudos'] = dosomething_user_get_kudos_count($uid);
+
+
+  $badges['signups']['image'] = array_map('dosomething_users_get_signup_badge_images', range(0, $badges['signups']['count']));
+  $badges['reportbacks']['image'] = array_map('dosomething_users_get_reportback_badge_images', range(0, $badges['reportbacks']['count']));
+
 
   // Only if you hit like 5.
   $badges['shutterbug'] = dosomething_user_get_max_reportback_file_updates($uid);
