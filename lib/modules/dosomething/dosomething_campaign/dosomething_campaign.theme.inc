@@ -29,8 +29,8 @@ function dosomething_campaign_preprocess_node(&$vars) {
   // Add inline css based on vars.
   dosomething_helpers_add_inline_css($vars);
 
-  // Add internal js script based on vars.
-  dosomething_helpers_add_js($vars);
+  // Add internal js script with campaign and user data for frontend.
+  dosomething_helpers_add_js_campaign_and_user_data($vars);
 
   // Preprocess common vars between all campaign types for non-pitch templates.
   dosomething_campaign_preprocess_common_vars($vars, $wrapper);
@@ -70,6 +70,9 @@ function dosomething_campaign_preprocess_node(&$vars) {
     dosomething_campaign_preprocess_sms_game($vars, $wrapper);
     return;
   }
+
+  // Include the JS for Onboarding.
+  dosomething_helpers_add_js_onboarding();
 
   // Preprocess the vars for the campaign action page.
   dosomething_campaign_preprocess_action_page($vars, $wrapper);

@@ -276,7 +276,7 @@ function dosomething_helpers_add_inline_css(&$vars) {
  * @param  array $vars
  * @return void
  */
-function dosomething_helpers_add_js($vars) {
+function dosomething_helpers_add_js_campaign_and_user_data($vars) {
   try {
     $current_campaign = Campaign::get($vars['nid']);
   }
@@ -297,17 +297,17 @@ function dosomething_helpers_add_js($vars) {
     ],
     'setting'
   );
+}
 
-  // @Temporary: add lab.js with Onboarding experiment.
-  if ($current_user && variable_get('dosomething_campaign_enable_onboarding', FALSE)) {
-    if ($current_campaign->status !== 'closed' && $current_campaign->type !== 'sms_game' && !dosomething_campaign_is_pitch_page($vars['node'])) {
-      drupal_add_js(PARANEUE_PATH . '/dist/lab.js', [
-        'group'      => JS_THEME,
-        'weight'     => 1000,
-        'every_page' => FALSE,
-        'preprocess' => FALSE,
-      ]);
-      drupal_add_js(['dsOnboarding' => ['enabled' => true]], 'setting');
-    }
+function dosomething_helpers_add_js_onboarding() {
+  // @Temporary: add onboarding.js with Onboarding experiment.
+  if (variable_get('dosomething_campaign_enable_onboarding', FALSE)) {
+    drupal_add_js(PARANEUE_PATH . '/dist/onboarding.js', [
+      'group'      => JS_THEME,
+      'weight'     => 1000,
+      'every_page' => FALSE,
+      'preprocess' => FALSE,
+    ]);
+    drupal_add_js(['dsOnboarding' => ['enabled' => true]], 'setting');
   }
 }
