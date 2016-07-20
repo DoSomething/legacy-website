@@ -48,6 +48,19 @@
     </section>
   <?php endif; ?>
 
+    <?php if (!empty($badges)): ?>
+    <section class="container -padded">
+      <h2 class="heading -banner"><span><?php print t('Badges'); ?></span></h2>
+      <div class="wrapper">
+       <?php foreach($badges['the_thing'] as $badge): ?>
+        <?php if (!empty($badge)) :?>
+          <?php echo $badge; ?>
+        <?php endif; ?>
+        <?php endforeach; ?>
+      </div>
+    </section>
+  <?php endif; ?>
+
   <section class="container -padded">
     <h2 class="heading -banner"><span><?php print t('Your Info'); ?></span></h2>
     <div class="wrapper">
