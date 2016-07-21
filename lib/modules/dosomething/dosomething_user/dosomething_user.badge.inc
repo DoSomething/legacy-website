@@ -50,11 +50,36 @@ function dosomething_user_get_kudos_badge_images() {
   return $badges;
 }
 
-function dosomething_user_get_badge_images($type) {
+function dosomething_user_get_cause_badge_images($type) {
+  $badges['mental_health'][1] = 'mental health';
+  $badges['animals'][1] = 'animals';
+  $badges['bullying'][1] = 'bullying';
+  $badges['disasters'][1] = 'disasters';
+  $badges['discrimination'][1] = 'discrimination';
+  $badges['education'][1] = 'education';
+  $badges['environment'][1] = 'environment';
+  $badges['homelessness'][1] = 'homelessness';
+  $badges['physical_health'][1] = 'physical_health';
+  $badges['poverty'][1] = 'poverty';
+  $badges['relationships'][1] = 'relationships';
+  $badges['sex'][1] = 'sex';
+  $badges['violence'][1] = 'violence';
 
-  $handler = 'dosomething_user_get_' . $type . '_badge_images';
-  if (function_exists($handler)) {
-    $badges[$type] = $handler();
+  return $badges[$type];
+}
+
+function dosomething_user_get_badge_images($type, $group) {
+  if ($group) {
+    $handler = 'dosomething_user_get_' . $group . '_badge_images';
+    if (function_exists($handler)) {
+      $badges[$type] = $handler($type);
+    }
+  }
+  else {
+    $handler = 'dosomething_user_get_' . $type . '_badge_images';
+    if (function_exists($handler)) {
+      $badges[$type] = $handler();
+    }
   }
 
   $max = max(array_keys($badges[$type]));
@@ -65,98 +90,8 @@ function dosomething_user_get_badge_images($type) {
   }
   // Resort the array.
   ksort($badges[$type]);
+
   return $badges[$type];
-}
-
-function dosomething_users_get_mental_health_badge_images($numbah) {
-  $name = 'mental health';
-  $badges['causes']['mental health'][1] = '&#127777';
-
-  return dosomething_users_map_badge_causes($numbah, $badges, $name);
-}
-
-function dosomething_users_get_animals_badge_images($numbah) {
-  $name = 'animals';
-  $badges['causes']['animals'][1] = '&#127777';
-
-  return dosomething_users_map_badge_causes($numbah, $badges, $name);
-}
-
-function dosomething_users_get_bullying_badge_images($numbah) {
-  $name = 'bullying';
-  $badges['causes']['bullying'][1] = '&#127777';
-
-  return dosomething_users_map_badge_causes($numbah, $badges, $name);
-}
-
-function dosomething_users_get_disasters_badge_images($numbah) {
-  $name = 'disasters';
-  $badges['causes']['disasters'][1] = '&#127777';
-
-  return dosomething_users_map_badge_causes($numbah, $badges, $name);
-}
-
-function dosomething_users_get_discrimination_badge_images($numbah) {
-  $name = 'discrimination';
-  $badges['causes']['discrimination'][1] = '&#127777';
-
-  return dosomething_users_map_badge_causes($numbah, $badges, $name);
-}
-
-function dosomething_users_get_education_badge_images($numbah) {
-  $name = 'education';
-  $badges['causes']['education'][1] = '&#127777';
-
-  return dosomething_users_map_badge_causes($numbah, $badges, $name);
-}
-
-function dosomething_users_get_environment_badge_images($numbah) {
-  $name = 'environment';
-  $badges['causes']['environment'][1] = '&#127777';
-
-  return dosomething_users_map_badge_causes($numbah, $badges, $name);
-}
-
-function dosomething_users_get_homelessness_badge_images($numbah) {
-  $name = 'homelessness';
-  $badges['causes']['homelessness'][1] = '&#127777';
-
-  return dosomething_users_map_badge_causes($numbah, $badges, $name);
-}
-
-function dosomething_users_get_physical_health_badge_images($numbah) {
-  $name = 'physical_health';
-  $badges['causes']['physical_health'][1] = '&#127777';
-
-  return dosomething_users_map_badge_causes($numbah, $badges, $name);
-}
-
-function dosomething_users_get_poverty_badge_images($numbah) {
-  $name = 'poverty';
-  $badges['causes']['poverty'][1] = '&#127777';
-
-  return dosomething_users_map_badge_causes($numbah, $badges, $name);
-}
-
-function dosomething_users_get_relationships_badge_images($numbah) {
-  $name = 'relationships';
-  $badges['causes']['relationships'][1] = '&#127777';
-
-  return dosomething_users_map_badge_causes($numbah, $badges, $name);
-}
-
-function dosomething_users_get_sex_badge_images($numbah) {
-  $name = 'sex';
-  $badges['causes']['sex'][1] = '&#127777';
-
-  return dosomething_users_map_badge_causes($numbah, $badges, $name);
-}
-
-function dosomething_users_get_violence_badge_images($numbah) {
-  $name = 'violence';
-  $badges['causes']['violence'][1] = '&#127777';
-
-  return dosomething_users_map_badge_causes($numbah, $badges, $name);
 }
 
 function dosomething_users_get_362_badge_images($numbah) {
@@ -196,8 +131,7 @@ function dosomething_user_get_badges($uid) {
   $causes = taxonomy_get_tree(2);
   foreach ($causes as $cause) {
       $badges['causes'][strtolower($cause->name)]['count'] = dosomething_user_get_cause_space_badge($uid, $cause->tid);
-      $badges['causes'][strtolower($cause->name)]['image'] = array_map('dosomething_users_get_' . str_replace(' ', '_', strtolower($cause->name)) . '_badge_images', range(0,$badges['causes'][strtolower($cause->name)]['count']));
-    
+      $badges['causes'][strtolower($cause->name)]['image'] = array_slice(dosomething_user_get_badge_images(str_replace(' ', '_', strtolower($cause->name)), 'cause'), 0, $badges['causes'][strtolower($cause->name)]['count']);
   }
 
   // Loop through action types.
@@ -210,7 +144,7 @@ function dosomething_user_get_badges($uid) {
   $special_badge_campaigns = [362];
   foreach ($special_badge_campaigns as $special_campaign) {
     $badges['special'][$special_campaign]['count'] = dosomething_user_get_superfan($uid, $special_campaign);
-    $badges['special'][$special_campaign]['image'] = array_map('dosomething_users_get_' . $special_campaign . '_badge_images', range(0,$badges['special'][$special_campaign]['count']));
+    $badges['special'][$special_campaign]['image'] = array_slice(dosomething_user_get_badge_images($type), 0, $badges['special'][$special_campaign]['count']);
   }
 
   return $badges;
