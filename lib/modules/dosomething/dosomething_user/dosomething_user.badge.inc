@@ -50,6 +50,12 @@ function dosomething_user_get_kudos_badge_images() {
   return $badges;
 }
 
+/**
+ * Gets all badges images for a category or subcategory of badges
+ *
+ * @param  $type
+ * @return [array]
+ */
 function dosomething_user_get_cause_badge_images($type) {
   $badges['mental_health'][1] = 'mental health';
   $badges['animals'][1] = 'animals';
@@ -68,13 +74,23 @@ function dosomething_user_get_cause_badge_images($type) {
   return $badges[$type];
 }
 
+/**
+ * Gets all badge images for a category or subcategory of badges
+ *
+ * @param  $type
+ * @param  $group
+ * @return [array]
+ */
 function dosomething_user_get_badge_images($type, $group) {
+  // If the badge type is part of a group (like cause area, action type, or special campaign),
+  // we call the function for that group to get the image array for the given subcategory
   if ($group) {
     $handler = 'dosomething_user_get_' . $group . '_badge_images';
     if (function_exists($handler)) {
       $badges[$type] = $handler($type);
     }
   }
+  // If the badge type is not a subcategory, call its function directly
   else {
     $handler = 'dosomething_user_get_' . $type . '_badge_images';
     if (function_exists($handler)) {
@@ -82,6 +98,7 @@ function dosomething_user_get_badge_images($type, $group) {
     }
   }
 
+  // Go through the array of badge images and fill in the empty indices with null
   $max = max(array_keys($badges[$type]));
   for ($i = 1; $i <= $max; $i++) {
     if (! array_key_exists($i, $badges[$type])) {
