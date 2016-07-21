@@ -22,6 +22,12 @@ function dosomething_users_map_badge_causes($key, $badges, $type) {
   }
 }
 
+function dosomething_users_map_special_badge($key, $badges, $type) {
+  if (array_key_exists($key, $badges['special'][$type])) {
+    return $badges['special'][$type][$key];
+  }
+}
+
 function dosomething_user_get_reportbacks_badge_images() {
   $badges[1] = '&#128247';
   $badges[3] = '3';
