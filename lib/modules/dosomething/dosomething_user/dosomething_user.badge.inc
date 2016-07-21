@@ -4,14 +4,12 @@
  * Code for the DoSomething User badges.
  */
 
+if (!defined('PARANEUE_PATH')) {
+  define('PARANEUE_PATH', drupal_get_path('theme', 'paraneue_dosomething'));
+}
+
 function dosomething_user_get_signups_badge_images() {
   $badges[1] = '&#128150';
-  $badges[3] = '3';
-  $badges[5] = '5';
-  $badges[10] = '10';
-  $badges[20] = '20';
-  $badges[30] = '&#128150';
-  $badges[40] = '&#128150';
 
   return $badges;
 }
@@ -29,12 +27,9 @@ function dosomething_users_map_special_badge($key, $badges, $type) {
 }
 
 function dosomething_user_get_reportbacks_badge_images() {
-  $badges[1] = '&#128247';
-  $badges[3] = '3';
-  $badges[5] = '5';
-  $badges[10] = '10';
-  $badges[15] = '15';
-  $badges[30] = '30';
+  $badges[1] = PARANEUE_PATH . '/images/badges/reportbacks-1.png';
+  $badges[3] = PARANEUE_PATH . '/images/badges/reportbacks-3.png';
+  $badges[5] = PARANEUE_PATH . '/images/badges/reportbacks-5.png';
 
   return $badges;
 }

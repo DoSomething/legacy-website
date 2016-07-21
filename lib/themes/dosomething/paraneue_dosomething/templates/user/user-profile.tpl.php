@@ -84,8 +84,6 @@
     </section>
   <?php endif; ?>
 
-
-
   <section class="container -padded">
     <h2 class="heading -banner"><span><?php print t('Your Info'); ?></span></h2>
     <div class="wrapper">
