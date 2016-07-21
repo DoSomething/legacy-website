@@ -28,14 +28,17 @@
     <section class="container -padded">
       <h2 class="heading -banner"><span><?php print t('Badges'); ?></span></h2>
       <div class="wrapper">
+      <ul class="gallery -quartet">
        <?php foreach($badges as $key => $type_of_badge): ?>
         <?php if (is_array($type_of_badge)): ?>
           <?php foreach ($type_of_badge as $type => $data): ?>
             <?php foreach ($data['image'] as $badge => $image): ?>
               <?php if (!empty($image)) :?>
-                <div class="avatar">
-                  <img src="http://forge.dosomething.org/styleguide/assets/placeholder.jpg"/>
-                </div>
+                <li>
+                  <article class="tile">
+                    <img src="http://forge.dosomething.org/styleguide/assets/placeholder.jpg"/>
+                  </article>
+                </li>
               <?php endif; ?>
             <?php endforeach; ?>
           <?php endforeach; ?>
@@ -43,13 +46,16 @@
         <?php if (!empty($type_of_badge['image'])) :?>
           <?php foreach($type_of_badge['image'] as $image): ?>
             <?php if (!empty($image)) :?>
-              <div class="avatar">
-                <img src="http://forge.dosomething.org/styleguide/assets/placeholder.jpg"/>
-              </div>
+              <li>
+                <article class="tile">
+                  <img src="http://forge.dosomething.org/styleguide/assets/placeholder.jpg"/>
+                </article>
+              </li>
             <?php endif; ?>
           <?php endforeach; ?>
         <?php endif; ?>
         <?php endforeach; ?>
+        </ul>
       </div>
     </section>
   <?php endif; ?>
