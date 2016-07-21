@@ -52,14 +52,14 @@
     <section class="container -padded">
       <h2 class="heading -banner"><span><?php print t('Badges'); ?></span></h2>
       <div class="wrapper">
-       <?php foreach($badges as $key => $type_of_badge): ?>
-        <?php if (!empty($type_of_badge['image'])) :?>
-          <?php foreach($type_of_badge['image'] as $image): ?>
-            <?php if (!empty($image)) :?>
-            <?php echo $image; ?>
-            <?php endif; ?>
-          <?php endforeach; ?>
-        <?php endif; ?>
+        <?php foreach($badges as $key => $type_of_badge): ?>
+          <?php if (!empty($type_of_badge['image'])) :?>
+            <?php foreach($type_of_badge['image'] as $image): ?>
+              <?php if (!empty($image)) :?>
+                <img src = "/<?php echo $image; ?> "/>
+              <?php endif; ?>
+            <?php endforeach; ?>
+          <?php endif; ?>
         <?php endforeach; ?>
       </div>
     </section>
