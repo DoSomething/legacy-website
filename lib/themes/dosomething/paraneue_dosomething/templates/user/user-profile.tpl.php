@@ -24,6 +24,36 @@
     </div>
   </header>
 
+  <?php if (!empty($badges)): ?>
+    <section class="container -padded">
+      <h2 class="heading -banner"><span><?php print t('Badges'); ?></span></h2>
+      <div class="wrapper">
+       <?php foreach($badges as $key => $type_of_badge): ?>
+        <?php if (is_array($type_of_badge)): ?>
+          <?php foreach ($type_of_badge as $type => $data): ?>
+            <?php foreach ($data['image'] as $badge => $image): ?>
+              <?php if (!empty($image)) :?>
+                <div class="avatar">
+                  <img src="http://forge.dosomething.org/styleguide/assets/placeholder.jpg"/>
+                </div>
+              <?php endif; ?>
+            <?php endforeach; ?>
+          <?php endforeach; ?>
+        <?php endif; ?>
+        <?php if (!empty($type_of_badge['image'])) :?>
+          <?php foreach($type_of_badge['image'] as $image): ?>
+            <?php if (!empty($image)) :?>
+              <div class="avatar">
+                <img src="http://forge.dosomething.org/styleguide/assets/placeholder.jpg"/>
+              </div>
+            <?php endif; ?>
+          <?php endforeach; ?>
+        <?php endif; ?>
+        <?php endforeach; ?>
+      </div>
+    </section>
+  <?php endif; ?>
+
   <section class="container -padded">
     <h2 class="heading -banner"><span><?php print t("You're Doing"); ?></span></h2>
     <div class="wrapper">
@@ -48,22 +78,7 @@
     </section>
   <?php endif; ?>
 
-    <?php if (!empty($badges)): ?>
-    <section class="container -padded">
-      <h2 class="heading -banner"><span><?php print t('Badges'); ?></span></h2>
-      <div class="wrapper">
-       <?php foreach($badges as $key => $type_of_badge): ?>
-        <?php if (!empty($type_of_badge['image'])) :?>
-          <?php foreach($type_of_badge['image'] as $image): ?>
-            <?php if (!empty($image)) :?>
-            <?php echo $image; ?>
-            <?php endif; ?>
-          <?php endforeach; ?>
-        <?php endif; ?>
-        <?php endforeach; ?>
-      </div>
-    </section>
-  <?php endif; ?>
+
 
   <section class="container -padded">
     <h2 class="heading -banner"><span><?php print t('Your Info'); ?></span></h2>
