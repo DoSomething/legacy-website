@@ -4,34 +4,60 @@
  * Code for the DoSomething User badges.
  */
 
-function dosomething_users_map_badge($key, $badges, $type) {
-  if (array_key_exists($key, $badges[$type])) {
-    return $badges[$type][$key];
+function dosomething_user_get_signups_badge_images() {
+  $badges[1] = '&#128150';
+  $badges[3] = '3';
+  $badges[5] = '5';
+  $badges[10] = '10';
+  $badges[20] = '20';
+  $badges[30] = '&#128150';
+  $badges[40] = '&#128150';
+
+  return $badges;
+}
+
+
+function dosomething_user_get_reportbacks_badge_images() {
+  $badges[1] = '&#128247';
+  $badges[3] = '3';
+  $badges[5] = '5';
+  $badges[10] = '10';
+  $badges[15] = '15';
+  $badges[30] = '30';
+
+  return $badges;
+}
+
+function dosomething_user_get_kudos_badge_images() {
+  $badges[1] = '&#x1F6B2';
+  $badges[3] = '&#x1F6B2';
+  $badges[5] = '&#x1F6B2';
+  $badges[10] = '&#x1F6B2';
+  $badges[15] = '&#x1F6B2';
+  $badges[30] = '&#x1F6B2';
+
+  return $badges;
+}
+
+
+function dosomething_user_get_badge_images($type) {
+
+  $handler = 'dosomething_user_get_' . $type . '_badge_images';
+  if (function_exists($handler)) {
+    $badges[$type] = $handler();
   }
+
+  $max = max(array_keys($badges[$type]));
+  for ($i = 1; $i <= $max; $i++) {
+    if (! array_key_exists($i, $badges[$type])) {
+      $badges[$type][$i] = NULL;
+    }
+  }
+  // Resort the array.
+  ksort($badges[$type]);
+  return $badges[$type];
 }
 
-
-function dosomething_users_get_signup_badge_images($numbah) {
-  // master list of all badges and what they mean.
-  $badges['signups'][1] = '&#128150';
-  $badges['signups'][3] = '&#128150&#128150&#128150';
-  $badges['signups'][5] = '&#128150&#128150&#128150&#128150&#128150';
-  $badges['signups'][10] = '&#128150&#128150&#128150&#128150&#128150&#128150&#128150&#128150&#128150&#128150';
-
-  return dosomething_users_map_badge($numbah, $badges, 'signups');
-}
-
-
-function dosomething_users_get_reportback_badge_images($numbah) {
-  $badges['reportbacks'][1] = '&#128247';
-  $badges['reportbacks'][3] = '&#128247&#128247&#128247';
-  $badges['reportbacks'][5] = '&#128247&#128247&#128247&#128247&#128247';
-  $badges['reportbacks'][10] = '&#128247&#128247&#128247&#128247&#128247&#128247&#128247&#128247&#128247&#128247';
-  $badges['reportbacks'][15] = '&#128247&#128247&#128247&#128247&#128247&#128247&#128247&#128247&#128247&#128247&#128247&#128247&#128247&#128247&#128247';
-
-  return dosomething_users_map_badge($numbah, $badges, 'reportbacks');
-
-}
 
 
 
@@ -42,14 +68,15 @@ function dosomething_users_get_reportback_badge_images($numbah) {
  */
 function dosomething_user_get_badges($uid) {
   // we can mod this by 5 to give badges for each 5 or something.
-  $badges['signups']['count']  = dosomething_user_get_activity_count($uid, 'signup');
+  $badges['signups']['count'] = dosomething_user_get_activity_count($uid, 'signup');
   $badges['reportbacks']['count'] = dosomething_user_get_activity_count($uid, 'reportback');
-  $badges['kudos'] = dosomething_user_get_kudos_count($uid);
+  $badges['kudos']['count'] = dosomething_user_get_kudos_count($uid);
 
 
-  $badges['signups']['image'] = array_map('dosomething_users_get_signup_badge_images', range(0, $badges['signups']['count']));
-  $badges['reportbacks']['image'] = array_map('dosomething_users_get_reportback_badge_images', range(0, $badges['reportbacks']['count']));
-
+  // Get the images for the badges.
+  foreach ($badges as $type => $count) {
+    $badges[$type]['image'] = array_slice(dosomething_user_get_badge_images($type), 0, $count['count']);
+  }
 
   // Only if you hit like 5.
   $badges['shutterbug'] = dosomething_user_get_max_reportback_file_updates($uid);
