@@ -35,12 +35,7 @@ function dosomething_user_get_reportbacks_badge_images() {
 }
 
 function dosomething_user_get_kudos_badge_images() {
-  $badges[1] = PARANEUE_PATH . '/images/badges/default.png';
-  $badges[3] = PARANEUE_PATH . '/images/badges/default.png';
   $badges[5] = PARANEUE_PATH . '/images/badges/kudos-5.png';
-  $badges[10] = PARANEUE_PATH . '/images/badges/default.png';
-  $badges[15] = PARANEUE_PATH . '/images/badges/default.png';
-  $badges[30] = PARANEUE_PATH . '/images/badges/default.png';
 
   return $badges;
 }
@@ -76,6 +71,12 @@ function dosomething_user_get_special_badge_images($specialty) {
   return $badges[$specialty];
 }
 
+function dosomething_user_get_shutterbug_badge_images() {
+  $badges[1] = PARANEUE_PATH . '/images/badges/default.png';
+
+  return $badges;
+}
+
 /**
  * Gets all badge images for a category or subcategory of badges
  *
@@ -86,6 +87,7 @@ function dosomething_user_get_special_badge_images($specialty) {
 function dosomething_user_get_badge_images($type, $group) {
   // If the badge type is part of a group (like cause area, action type, or special campaign),
   // we call the function for that group to get the image array for the given subcategory
+  // @TODO:  it might be good to always call dosomething_user_get_type_badge_images and then only pass group if it's set
   if ($group) {
     $handler = 'dosomething_user_get_' . $group . '_badge_images';
     if (function_exists($handler)) {
@@ -132,7 +134,8 @@ function dosomething_user_get_badges($uid) {
 
   // Only if you hit like 5.
   $badges['shutterbug']['count'] = dosomething_user_get_max_reportback_file_updates($uid);
-  $badges['shutterbug']['image'] = array_map('dosomething_users_get_shutterbug_badge_images', range(0, $badges['shutterbug']['count']));
+  $badges['shutterbug']['image'] = array_slice(dosomething_user_get_badge_images('shutterbug'), 0, $badges['shutterbug']['count']);
+
 
   // Loop through each cause space, get by name, and then once you hit 5 show this.
   $causes = taxonomy_get_tree(2);
