@@ -35,7 +35,7 @@
             <?php foreach ($data['image'] as $badge => $image): ?>
               <?php if (!empty($image)) :?>
                 <li>
-                  <article class="tile">
+                  <article class="figure">
                      <img src = "/<?php echo $image; ?> "/>
                   </article>
                 </li>
@@ -47,8 +47,7 @@
           <?php foreach($type_of_badge['image'] as $image): ?>
             <?php if (!empty($image)) :?>
               <li>
-                <article class="tile">
-
+                <article class="figure">
                    <img src = "/<?php echo $image; ?> "/>
                 </article>
               </li>

@@ -35,12 +35,12 @@ function dosomething_user_get_reportbacks_badge_images() {
 }
 
 function dosomething_user_get_kudos_badge_images() {
-  $badges[1] = '&#x1F6B2';
-  $badges[3] = '&#x1F6B2';
+  $badges[1] = PARANEUE_PATH . '/images/badges/default.png';
+  $badges[3] = PARANEUE_PATH . '/images/badges/default.png';
   $badges[5] = PARANEUE_PATH . '/images/badges/kudos-5.png';
-  $badges[10] = '&#x1F6B2';
-  $badges[15] = '&#x1F6B2';
-  $badges[30] = '&#x1F6B2';
+  $badges[10] = PARANEUE_PATH . '/images/badges/default.png';
+  $badges[15] = PARANEUE_PATH . '/images/badges/default.png';
+  $badges[30] = PARANEUE_PATH . '/images/badges/default.png';
 
   return $badges;
 }
@@ -52,22 +52,28 @@ function dosomething_user_get_kudos_badge_images() {
  * @return [array]
  */
 function dosomething_user_get_cause_badge_images($type) {
-  $badges['mental_health'][1] = 'mental health';
-  $badges['animals'][1] = 'animals';
-  $badges['bullying'][1] = 'bullying';
-  $badges['disasters'][1] = 'disasters';
-  $badges['discrimination'][1] = 'discrimination';
-  $badges['education'][1] = 'education';
+  $badges['mental_health'][1] = PARANEUE_PATH . '/images/badges/default.png';
+  $badges['animals'][1] = PARANEUE_PATH . '/images/badges/default.png';
+  $badges['bullying'][1] = PARANEUE_PATH . '/images/badges/default.png';
+  $badges['disasters'][1] = PARANEUE_PATH . '/images/badges/default.png';
+  $badges['discrimination'][1] = PARANEUE_PATH . '/images/badges/default.png';
+  $badges['education'][1] = PARANEUE_PATH . '/images/badges/default.png';
   $badges['environment'][1] = PARANEUE_PATH . '/images/badges/environment-1.png';
   $badges['environment'][3] = PARANEUE_PATH . '/images/badges/environment-5.png';
-  $badges['homelessness'][1] = 'homelessness';
-  $badges['physical_health'][1] = 'physical_health';
-  $badges['poverty'][1] = 'poverty';
-  $badges['relationships'][1] = 'relationships';
-  $badges['sex'][1] = 'sex';
-  $badges['violence'][1] = 'violence';
+  $badges['homelessness'][1] = PARANEUE_PATH . '/images/badges/default.png';
+  $badges['physical_health'][1] = PARANEUE_PATH . '/images/badges/default.png';
+  $badges['poverty'][1] = PARANEUE_PATH . '/images/badges/default.png';
+  $badges['relationships'][1] = PARANEUE_PATH . '/images/badges/default.png';
+  $badges['sex'][1] = PARANEUE_PATH . '/images/badges/default.png';
+  $badges['violence'][1] = PARANEUE_PATH . '/images/badges/default.png';
 
   return $badges[$type];
+}
+
+function dosomething_user_get_special_badge_images($specialty) {
+  $badges[$specialty][1] = PARANEUE_PATH . '/images/badges/special-1.png';
+
+  return $badges[$specialty];
 }
 
 /**
@@ -105,18 +111,6 @@ function dosomething_user_get_badge_images($type, $group) {
   ksort($badges[$type]);
 
   return $badges[$type];
-}
-
-function dosomething_users_get_362_badge_images($numbah) {
-  $badges['special'][362][1] = '&#127777';
-
-  return dosomething_users_map_special_badge($numbah, $badges, 362);
-}
-
-function dosomething_users_get_badge_number_from_count($numbah) {
-  $badges['special'][362][1] = '&#127777';
-
-  return $number;
 }
 
 /**
@@ -157,7 +151,7 @@ function dosomething_user_get_badges($uid) {
   $special_badge_campaigns = [362];
   foreach ($special_badge_campaigns as $special_campaign) {
     $badges['special'][$special_campaign]['count'] = dosomething_user_get_superfan($uid, $special_campaign);
-    $badges['special'][$special_campaign]['image'] = array_slice(dosomething_user_get_badge_images($type), 0, $badges['special'][$special_campaign]['count']);
+    $badges['special'][$special_campaign]['image'] = array_slice(dosomething_user_get_badge_images($special_campaign, 'special'), 0, $badges['special'][$special_campaign]['count']);
   }
 
   return $badges;
