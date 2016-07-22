@@ -9,7 +9,7 @@ if (!defined('PARANEUE_PATH')) {
 }
 
 function dosomething_user_get_signups_badge_images() {
-  $badges[1] = '&#128150';
+  $badges[1] = PARANEUE_PATH . '/images/badges/signup-1.png';
 
   return $badges;
 }
@@ -37,7 +37,7 @@ function dosomething_user_get_reportbacks_badge_images() {
 function dosomething_user_get_kudos_badge_images() {
   $badges[1] = '&#x1F6B2';
   $badges[3] = '&#x1F6B2';
-  $badges[5] = '&#x1F6B2';
+  $badges[5] = PARANEUE_PATH . '/images/badges/kudos-5.png';
   $badges[10] = '&#x1F6B2';
   $badges[15] = '&#x1F6B2';
   $badges[30] = '&#x1F6B2';
@@ -58,7 +58,8 @@ function dosomething_user_get_cause_badge_images($type) {
   $badges['disasters'][1] = 'disasters';
   $badges['discrimination'][1] = 'discrimination';
   $badges['education'][1] = 'education';
-  $badges['environment'][1] = 'environment';
+  $badges['environment'][1] = PARANEUE_PATH . '/images/badges/environment-1.png';
+  $badges['environment'][3] = PARANEUE_PATH . '/images/badges/environment-5.png';
   $badges['homelessness'][1] = 'homelessness';
   $badges['physical_health'][1] = 'physical_health';
   $badges['poverty'][1] = 'poverty';

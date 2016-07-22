@@ -36,7 +36,7 @@
               <?php if (!empty($image)) :?>
                 <li>
                   <article class="tile">
-                    <img src="http://forge.dosomething.org/styleguide/assets/placeholder.jpg"/>
+                     <img src = "/<?php echo $image; ?> "/>
                   </article>
                 </li>
               <?php endif; ?>
@@ -48,7 +48,8 @@
             <?php if (!empty($image)) :?>
               <li>
                 <article class="tile">
-                  <img src="http://forge.dosomething.org/styleguide/assets/placeholder.jpg"/>
+
+                   <img src = "/<?php echo $image; ?> "/>
                 </article>
               </li>
             <?php endif; ?>
