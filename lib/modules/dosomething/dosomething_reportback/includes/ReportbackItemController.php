@@ -60,27 +60,25 @@ class ReportbackItemController extends EntityAPIController {
       ];
     }
 
+    $build['source'] = [
+      '#prefix' => '<p>',
+      '#markup' => t('Source') . ': ' . $entity->source,
+      '#suffix' => '</p>',
+    ];
+
     if (!empty($entity->reviewed)) {
       $reviewer = user_load($entity->reviewer);
       $reason = NULL;
       if (!empty($reportback->flagged_reason)) {
         $reason = ' ' . t('as') . ' ' . $reportback->flagged_reason;
       }
+      $summary = $reviewer->mail . ' <strong>' . $entity->status . '</strong> ';
+      $summary .= format_date($entity->reviewed, 'short') . $reason . ' from ';
+      $summary .= '<pre>' . $entity->review_source . '</pre>';
+
       $build['reviewed'] = [
-        '#prefix' => '<p>',
-        '#markup' => '<strong>' . ucfirst($entity->status) . '</strong> ' . format_date($entity->reviewed, 'short') . $reason,
-        '#suffix' => '</p>',
-      ];
-      if ($reviewer->uid > 0) {
-        $build['reviewer'] = [
-          '#prefix' => '<p>',
-          '#markup' => $reviewer->mail,
-          '#suffix' => '</p>',
-        ];
-      }
-      $build['review_source'] = [
-        '#prefix' => '<p>',
-        '#markup' => t('Source') . ': ' . $entity->review_source,
+        '#prefix' => '<p><hr />',
+        '#markup' => $summary,
         '#suffix' => '</p>',
       ];
     }
