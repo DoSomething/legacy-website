@@ -9,11 +9,22 @@ if (!defined('PARANEUE_PATH')) {
 }
 
 function dosomething_user_get_signups_badge_images() {
-  $badges[1] = '&#128150';
+  $badges[1] = PARANEUE_PATH . '/images/badges/signup-1.png';
 
   return $badges;
 }
 
+function dosomething_users_map_badge_causes($key, $badges, $type) {
+  if (array_key_exists($key, $badges['causes'][$type])) {
+    return $badges['causes'][$type][$key];
+  }
+}
+
+function dosomething_users_map_special_badge($key, $badges, $type) {
+  if (array_key_exists($key, $badges['special'][$type])) {
+    return $badges['special'][$type][$key];
+  }
+}
 
 function dosomething_user_get_reportbacks_badge_images() {
   $badges[1] = PARANEUE_PATH . '/images/badges/reportbacks-1.png';
@@ -24,24 +35,74 @@ function dosomething_user_get_reportbacks_badge_images() {
 }
 
 function dosomething_user_get_kudos_badge_images() {
-  $badges[1] = '&#x1F6B2';
-  $badges[3] = '&#x1F6B2';
-  $badges[5] = '&#x1F6B2';
-  $badges[10] = '&#x1F6B2';
-  $badges[15] = '&#x1F6B2';
-  $badges[30] = '&#x1F6B2';
+  $badges[5] = PARANEUE_PATH . '/images/badges/kudos-5.png';
 
   return $badges;
 }
 
+/**
+ * Gets all badges images for a category or subcategory of badges
+ *
+ * @param  $type
+ * @return [array]
+ */
+function dosomething_user_get_cause_badge_images($type) {
+  $badges['mental_health'][1] = PARANEUE_PATH . '/images/badges/default.png';
+  $badges['animals'][1] = PARANEUE_PATH . '/images/badges/default.png';
+  $badges['bullying'][1] = PARANEUE_PATH . '/images/badges/default.png';
+  $badges['disasters'][1] = PARANEUE_PATH . '/images/badges/default.png';
+  $badges['discrimination'][1] = PARANEUE_PATH . '/images/badges/default.png';
+  $badges['education'][1] = PARANEUE_PATH . '/images/badges/default.png';
+  $badges['environment'][1] = PARANEUE_PATH . '/images/badges/environment-1.png';
+  $badges['environment'][3] = PARANEUE_PATH . '/images/badges/environment-5.png';
+  $badges['homelessness'][1] = PARANEUE_PATH . '/images/badges/default.png';
+  $badges['physical_health'][1] = PARANEUE_PATH . '/images/badges/default.png';
+  $badges['poverty'][1] = PARANEUE_PATH . '/images/badges/default.png';
+  $badges['relationships'][1] = PARANEUE_PATH . '/images/badges/default.png';
+  $badges['sex'][1] = PARANEUE_PATH . '/images/badges/default.png';
+  $badges['violence'][1] = PARANEUE_PATH . '/images/badges/default.png';
 
-function dosomething_user_get_badge_images($type) {
+  return $badges[$type];
+}
 
-  $handler = 'dosomething_user_get_' . $type . '_badge_images';
-  if (function_exists($handler)) {
-    $badges[$type] = $handler();
+function dosomething_user_get_special_badge_images($specialty) {
+  $badges[$specialty][1] = PARANEUE_PATH . '/images/badges/special-1.png';
+
+  return $badges[$specialty];
+}
+
+function dosomething_user_get_shutterbug_badge_images() {
+  $badges[1] = PARANEUE_PATH . '/images/badges/default.png';
+
+  return $badges;
+}
+
+/**
+ * Gets all badge images for a category or subcategory of badges
+ *
+ * @param  $type
+ * @param  $group
+ * @return [array]
+ */
+function dosomething_user_get_badge_images($type, $group) {
+  // If the badge type is part of a group (like cause area, action type, or special campaign),
+  // we call the function for that group to get the image array for the given subcategory
+  // @TODO:  it might be good to always call dosomething_user_get_type_badge_images and then only pass group if it's set
+  if ($group) {
+    $handler = 'dosomething_user_get_' . $group . '_badge_images';
+    if (function_exists($handler)) {
+      $badges[$type] = $handler($type);
+    }
+  }
+  // If the badge type is not a subcategory, call its function directly
+  else {
+    $handler = 'dosomething_user_get_' . $type . '_badge_images';
+    if (function_exists($handler)) {
+      $badges[$type] = $handler();
+    }
   }
 
+  // Go through the array of badge images and fill in the empty indices with null
   $max = max(array_keys($badges[$type]));
   for ($i = 1; $i <= $max; $i++) {
     if (! array_key_exists($i, $badges[$type])) {
@@ -50,11 +111,9 @@ function dosomething_user_get_badge_images($type) {
   }
   // Resort the array.
   ksort($badges[$type]);
+
   return $badges[$type];
 }
-
-
-
 
 /**
  * Gets all badges for a user.
@@ -64,9 +123,9 @@ function dosomething_user_get_badge_images($type) {
 function dosomething_user_get_badges($uid) {
   // we can mod this by 5 to give badges for each 5 or something.
   $badges['signups']['count'] = dosomething_user_get_activity_count($uid, 'signup');
+
   $badges['reportbacks']['count'] = dosomething_user_get_activity_count($uid, 'reportback');
   $badges['kudos']['count'] = dosomething_user_get_kudos_count($uid);
-
 
   // Get the images for the badges.
   foreach ($badges as $type => $count) {
@@ -74,12 +133,15 @@ function dosomething_user_get_badges($uid) {
   }
 
   // Only if you hit like 5.
-  $badges['shutterbug'] = dosomething_user_get_max_reportback_file_updates($uid);
+  $badges['shutterbug']['count'] = dosomething_user_get_max_reportback_file_updates($uid);
+  $badges['shutterbug']['image'] = array_slice(dosomething_user_get_badge_images('shutterbug'), 0, $badges['shutterbug']['count']);
+
 
   // Loop through each cause space, get by name, and then once you hit 5 show this.
   $causes = taxonomy_get_tree(2);
   foreach ($causes as $cause) {
-    $badges['causes'][strtolower($cause->name)] = dosomething_user_get_cause_space_badge($uid, $cause->tid);
+      $badges['causes'][strtolower($cause->name)]['count'] = dosomething_user_get_cause_space_badge($uid, $cause->tid);
+      $badges['causes'][strtolower($cause->name)]['image'] = array_slice(dosomething_user_get_badge_images(str_replace(' ', '_', strtolower($cause->name)), 'cause'), 0, $badges['causes'][strtolower($cause->name)]['count']);
   }
 
   // Loop through action types.
@@ -91,7 +153,8 @@ function dosomething_user_get_badges($uid) {
   // Get special type badges.
   $special_badge_campaigns = [362];
   foreach ($special_badge_campaigns as $special_campaign) {
-    $badges['special'][$special_campaign] = dosomething_user_get_superfan($uid, $special_campaign);
+    $badges['special'][$special_campaign]['count'] = dosomething_user_get_superfan($uid, $special_campaign);
+    $badges['special'][$special_campaign]['image'] = array_slice(dosomething_user_get_badge_images($special_campaign, 'special'), 0, $badges['special'][$special_campaign]['count']);
   }
 
   return $badges;
