@@ -154,22 +154,36 @@ function dosomething_helpers_variable_form($form, &$form_state, $node) {
         ),
       ),
     );
-    $form['magic_link'] = [
-      '#type' => 'fieldset',
-      '#title' => t('Magic Link'),
-      '#collapsible' => TRUE,
-      '#collapsed' => TRUE,
-    ];
-    $form['magic_link']['magic_link_copy'] = [
-      '#type' => 'textfield',
-      '#title' => t('Magic Link Copy'),
-      '#description' => t('Custom text to explain the magic link. The magic link will bring the user to the web version of the site and log them in automatically.'),
-      '#default_value' => $vars['magic_link_copy'],
-      '#attributes' => array(
-        'maxlength' => '140',
-      ),
-    ];
   }
+
+  $form['magic_link'] = [
+    '#type' => 'fieldset',
+    '#title' => t('Magic Link'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  ];
+  $form['magic_link']['magic_link_copy'] = [
+    '#type' => 'textfield',
+    '#title' => t('Magic Link Copy'),
+    '#description' => t('Custom text to explain the magic link. The magic link will bring the user to the web version of the site and log them in automatically.'),
+    '#default_value' => $vars['magic_link_copy'],
+    '#attributes' => array(
+      'maxlength' => '140',
+    ),
+  ];
+  $form['voter_registration'] = [
+  '#type' => 'fieldset',
+  '#title' => t('Rock the Vote Registration'),
+  '#collapsible' => TRUE,
+  '#collapsed' => TRUE,
+  ];
+  $form['voter_registration']['enable_voter_registration'] = [
+    '#type' => 'textfield',
+    '#type' => 'checkbox',
+    '#title' => t('Enable Voter Registration'),
+    '#description' => t(''),
+    '#default_value' => $vars['enable_voter_registration'],
+  ];
 
   $form['actions'] = array(
     '#type' => 'actions',
@@ -215,7 +229,7 @@ function dosomething_helpers_variable_form_submit(&$form, &$form_state) {
  * Returns array of all variable names.
  */
 function dosomething_helpers_get_variable_names() {
-  return array(
+  return [
     'alt_bg_fid',
     'sponsor_color',
     'alt_background_color',
@@ -227,6 +241,7 @@ function dosomething_helpers_get_variable_names() {
     'count_flagged',
     'count_pending',
     'count_promoted',
+    'enable_voter_registration',
     'magic_link_copy',
     'mobilecommons_opt_in_path',
     'mobilecommons_friends_opt_in_path',
@@ -244,7 +259,7 @@ function dosomething_helpers_get_variable_names() {
     'signup_form_submit_label',
     'sms_game_mp_story_id',
     'sms_game_mp_story_type',
-  );
+  ];
 }
 
 /**

@@ -172,6 +172,11 @@
                   <?php if (isset($shipment_form_link)): ?>
                     <li><a href="#" data-modal-href="#modal-shipment-form"><?php print $shipment_form_link; ?></a></li>
                   <?php endif; ?>
+
+                  <?php if (array_key_exists('enable_voter_registration', $campaign->variables) && $campaign->variables['enable_voter_registration']) : ?>
+                    <li><a href="https://register2.rockthevote.com/?partner=35164&source=embed-rtv234x60v1" class="floatbox" data-fb-options="width:618 height:max scrolling:yes"> Register to Vote </a></li>
+                    <script type="text/javascript" src="https://register2.rockthevote.com/widget_loader.js"></script>
+                  <?php endif; ?>
                 </ul>
               <?php endif; ?>
               <?php  // End: Materials content section. ?>
