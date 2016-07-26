@@ -53,6 +53,7 @@
   background-color: $white;
 
   .beta-card__video {
+    // The video element incorrectly sits in the beta card, quick hack to fix it. 
     margin-bottom: -10px;
   }
 
