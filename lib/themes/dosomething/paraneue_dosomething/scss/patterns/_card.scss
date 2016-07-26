@@ -50,9 +50,10 @@
   border-radius: 4px;
   color: $dark-gray;
   overflow: hidden;
+  background-color: $white;
 
-  &.-white {
-    background-color: $white;
+  .beta-card__video {
+    margin-bottom: -10px;
   }
 
   .beta-card__header,
