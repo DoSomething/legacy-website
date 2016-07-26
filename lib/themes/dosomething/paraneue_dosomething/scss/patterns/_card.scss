@@ -47,10 +47,13 @@
 // styles together, so that card becomes more of
 // a styled container.
 .beta-card {
-  background-color: $white;
   border-radius: 4px;
   color: $dark-gray;
   overflow: hidden;
+
+  &.-white {
+    background-color: $white;
+  }
 
   .beta-card__header,
   .beta-card__body {
