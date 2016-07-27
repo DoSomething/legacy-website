@@ -136,7 +136,7 @@ function paraneue_dosomething_preprocess_node_campaign(&$vars) {
     // Construct the proper end date text
     if (!empty($vars['field_high_season'])) {
       $end_date = new DateTime($vars['field_high_season'][0]['value2']);
-      $vars['campaign_end_date'] = $end_date->format('F jS');
+      $vars['campaign_end_date'] = $end_date->format('F j');
     }
 
     // Set campaign headings.
