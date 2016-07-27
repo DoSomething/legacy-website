@@ -47,10 +47,15 @@
 // styles together, so that card becomes more of
 // a styled container.
 .beta-card {
-  background-color: $white;
   border-radius: 4px;
   color: $dark-gray;
   overflow: hidden;
+  background-color: $white;
+
+  .beta-card__video {
+    // The video element incorrectly sits in the beta card, quick hack to fix it. 
+    margin-bottom: -10px;
+  }
 
   .beta-card__header,
   .beta-card__body {
