@@ -19,6 +19,7 @@
 
   <meta name="csrf-token" content="<?php print $csrf_token; ?>">
   <meta name="drupal-user-id" content="<?php print $drupal_user_id; ?>">
+  <meta name="referrer" content="no-referrer" />
 
   <title><?php print $head_title; ?></title>
 
