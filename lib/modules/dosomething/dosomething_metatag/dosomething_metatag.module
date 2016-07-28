@@ -19,7 +19,15 @@ function dosomething_metatag_preprocess_page(&$vars) {
         'content' => 'noindex,nofollow',
       )
     );
+    $no_refer_meta_tag = [
+      '#tag' => 'meta',
+      '#attributes' => [
+        'name' => 'referrer',
+        'content' => 'no-referrer',
+      ]
+    ];
     drupal_add_html_head($robots_meta_tag, 'robots_meta_tag');
+    drupal_add_html_head($no_refer_meta_tag, 'no_refer_meta_tag');
   } else {
     // Prevent search engines from using DMOZ site descriptions.
     $dmoz_meta_tag = array(
