@@ -212,18 +212,18 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
 
   // 1) Materials
 
-  // Build the share link here in case registering organ donors
-  $campaign_path = dosomething_global_url(current_path(), array('absolute' => TRUE));
+  // Build the unique share link.
   $share_path = 'user/' . $vars['user']->uid;
-  $custom_organ_share_link = dosomething_global_url($campaign_path, array('query' => array('source' => $share_path)));
+  $custom_social_share_link = dosomething_global_url(current_path(), array('absolute' => TRUE,'query' => array('source' => $share_path)));
 
   if (isset($campaign->items_needed)) {
     $materials['category'] = 'materials';
     $materials['title'] = t('Stuff You Need');
     $materials['content'] = $campaign->items_needed;
     // if organ donation campaign, add in the share link here
-    if (array_key_exists('register_organ_donors', $campaign->variables) && $campaign->variables['register_organ_donors']) {
-      $materials['content'] .= '<ul><li>Copy and paste your custom link to invite friends and family to become an organ donor: <code>' . $custom_organ_share_link . '</code></li></ul>';
+    if (array_key_exists('social_share_unique_link', $campaign->variables) && $campaign->variables['social_share_unique_link']) {
+      $copy = $campaign->variables['social_share_custom_text'] ?: t("Share your link!");
+      $materials['content'] .= '<ul><li> ' . $copy . '<code>' . $custom_social_share_link . '</code></li></ul>';
       drupal_add_js(
         array('dosomethingUser' =>
           array('userInfo' =>

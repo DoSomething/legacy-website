@@ -259,6 +259,8 @@ function dosomething_helpers_get_variable_names() {
     'signup_form_submit_label',
     'sms_game_mp_story_id',
     'sms_game_mp_story_type',
+    'social_share_unique_link',
+    'social_share_custom_text',
   ];
 }
 
