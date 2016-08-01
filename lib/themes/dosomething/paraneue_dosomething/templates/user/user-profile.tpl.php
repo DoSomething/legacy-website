@@ -43,6 +43,10 @@
     <section class="container -padded">
       <h2 class="heading -banner"><span><?php print t('You Did'); ?></span></h2>
       <div class="wrapper">
+        <?php // Missing Photo Link // ?>
+        <div class="container__block">
+          <a href="#" data-modal-href="#modal-missing-photos">Is your photo not showing up?</a>
+        </div>
         <?php print $reportback_gallery; ?>
       </div>
     </section>
@@ -81,3 +85,28 @@
   </section>
 
 </article>
+
+<?php // Missing Photo Modal // ?>
+<div data-modal id="modal-missing-photos" role="dialog">
+  <div class="modal__block">
+    <h2 class="heading -emphasized" style="margin: 0;">Is your photo not showing up?</h2>
+  </div>
+  <div class="modal__block with-lists">
+    <p>Last week, we had some issues with our site, and a bug deleted a bunch of images (which may have included yours).</p>
+    <p>Some good news:
+      <ul>
+        <li>We’ve fixed the issue so new photos will not be deleted. </li>
+        <li>Even though your photo isn’t showing up, your impact is being counted as is your entry into the scholarship.</li>
+      </ul>
+    </p>
+    <p>Here are a few things you can do:
+      <ul>
+        <li>If you have any new photos to add to or any campaigns you’re signed up for go ahead and upload those now to start sharing your impact.</li>
+        <li>If you still have your old photo on your phone or computer, please re-upload it now to guarantee it’s showing up on the campaign you participated in and your profile. If the campaign is now closed, feel free to reach out to us at <a href="mailto:help@dosomething.org">help@dosomething.org</a> and we'll totally upload your photo for you.</li>
+      </ul>
+    </p>
+    <p>
+      (P.S. If you have any other questions or problems uploading or viewing photos on the site, definitely let us know. Thanks so much!)</p>
+    </p>
+  </div>
+</div>
