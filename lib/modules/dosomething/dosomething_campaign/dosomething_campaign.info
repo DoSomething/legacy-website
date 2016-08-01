@@ -181,4 +181,4 @@ features[variable][] = node_preview_campaign
 features[variable][] = node_submitted_campaign
 features[variable][] = pathauto_node_campaign_pattern
 features[views_view][] = campaigns_by_term
-mtime = 1470075907
+mtime = 1470076450
