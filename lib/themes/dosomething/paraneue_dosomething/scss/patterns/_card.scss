@@ -52,11 +52,6 @@
   overflow: hidden;
   background-color: $white;
 
-  .beta-card__video {
-    // The video element incorrectly sits in the beta card, quick hack to fix it. 
-    margin-bottom: -10px;
-  }
-
   .beta-card__header,
   .beta-card__body {
     .heading {
