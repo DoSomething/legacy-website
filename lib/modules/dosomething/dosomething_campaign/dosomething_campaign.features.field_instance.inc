@@ -2668,6 +2668,56 @@ function dosomething_campaign_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-campaign-field_staff_pick_label'
+  $field_instances['node-campaign-field_staff_pick_label'] = array(
+    'bundle' => 'campaign',
+    'default_value' => array(
+      0 => array(
+        'value' => 0,
+      ),
+    ),
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 77,
+      ),
+      'search_index' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_staff_pick_label',
+    'label' => 'Display staff pick label',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'display_label' => 0,
+      ),
+      'type' => 'options_onoff',
+      'weight' => 16,
+    ),
+  );
+
   // Exported field_instance: 'node-campaign-field_starter_statement'
   $field_instances['node-campaign-field_starter_statement'] = array(
     'bundle' => 'campaign',
@@ -3200,6 +3250,7 @@ function dosomething_campaign_field_default_field_instances() {
   t('Created By');
   t('Created Copy');
   t('Current Run');
+  t('Display staff pick label');
   t('Do It Gallery');
   t('Downloads');
   t('During Copy');
