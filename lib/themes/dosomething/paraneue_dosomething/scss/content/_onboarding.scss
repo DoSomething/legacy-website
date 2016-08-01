@@ -8,6 +8,12 @@
     margin: 0 auto;
     padding: $base-spacing 0 $section-spacing;
   }
+
+  // @TODO: Seems like we want border radius on media moving forward
+  // so maybe we add the border-radius to all media-* classes?
+  & .media-video {
+    border-radius: 4px;
+  }
 }
 
 // @TODO: maybe this close button should be a pattern
@@ -24,6 +30,7 @@
   top: 0;
 
   &:hover {
+    color: #ccc;
     cursor: pointer;
   }
 }
