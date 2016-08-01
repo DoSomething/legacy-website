@@ -427,6 +427,7 @@ function dosomething_campaign_field_group_info() {
       5 => 'field_primary_cause',
       6 => 'field_staff_pick',
       7 => 'field_tags',
+      8 => 'field_staff_pick_label',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
