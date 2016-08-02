@@ -86,6 +86,22 @@ function dosomething_campaign_admin_config_form($form, &$form_state) {
     '#title' => t('Enable onboarding'),
     '#default_value' => variable_get('dosomething_campaign_enable_onboarding'),
   );
+  $form['campaign']['action_page']['dosomething_campaign_onboarding_context_slide'] = [
+    '#type' => 'checkbox',
+    '#title' => t('Display Context Slide'),
+    '#default_value' => variable_get('dosomething_campaign_onboarding_context_slide'),
+  ];
+  $form['campaign']['action_page']['dosomething_campaign_onboarding_instruction_slide'] = [
+    '#type' => 'checkbox',
+    '#title' => t('Display Instruction Slide'),
+    '#default_value' => variable_get('dosomething_campaign_onboarding_instruction_slide'),
+  ];
+  $form['campaign']['action_page']['dosomething_campaign_onboarding_reportback_item_kudos_slide'] = [
+    '#type' => 'checkbox',
+    '#title' => t('Display Reportback Item Kudos Slide'),
+    '#default_value' => variable_get('dosomething_campaign_onboarding_reportback_item_kudos_slide'),
+  ];
+
 
   // SMS Game variables.
   $form['sms_game'] = array(
