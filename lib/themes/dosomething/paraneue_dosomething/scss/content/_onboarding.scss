@@ -1,12 +1,21 @@
 .onboarding {
-  background-color: $purple;
-  color: $white;
-  position: relative;
-
   > .wrapper {
+    background-color: $purple;
+    color: $white;
+    margin: auto;
     max-width: 1440px;
-    margin: 0 auto;
     padding: $base-spacing 0 $section-spacing;
+    position: relative;
+  }
+
+  // @TODO: Seems like we want border radius on media moving forward
+  // so maybe we add the border-radius to all media-* classes?
+  // @TODO: Also, the aspect ratio for the video used on onboarding
+  // varies from the typical videos on the website so we need to modify
+  // the % padding value. Might be useful to turn into a mixin in the future.
+  & .media-video {
+    border-radius: 4px;
+    padding-bottom: 60.4%;
   }
 }
 
@@ -24,6 +33,7 @@
   top: 0;
 
   &:hover {
+    color: #ccc;
     cursor: pointer;
   }
 }
