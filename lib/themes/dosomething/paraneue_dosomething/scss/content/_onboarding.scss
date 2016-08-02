@@ -1,12 +1,11 @@
 .onboarding {
-  background-color: $purple;
-  color: $white;
-  position: relative;
-
   > .wrapper {
+    background-color: $purple;
+    color: $white;
+    margin: auto;
     max-width: 1440px;
-    margin: 0 auto;
     padding: $base-spacing 0 $section-spacing;
+    position: relative;
   }
 
   // @TODO: Seems like we want border radius on media moving forward
