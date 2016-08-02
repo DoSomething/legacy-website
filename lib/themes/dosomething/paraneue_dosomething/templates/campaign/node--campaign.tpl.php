@@ -174,9 +174,9 @@
                   <?php endif; ?>
 
                   <?php if (array_key_exists('enable_voter_registration', $campaign->variables) && $campaign->variables['enable_voter_registration']) : ?>
-                    <li><a href="https://register2.rockthevote.com/?partner=35164&source=embed-rtv234x60v1" class="floatbox" data-fb-options="width:618 height:max scrolling:yes"> Register to Vote </a></li>
-                    <script type="text/javascript" src="https://register2.rockthevote.com/widget_loader.js"></script>
+                    <li><a href="#" data-modal-href="#modal-voter-registration">Register to Vote</a></li>
                   <?php endif; ?>
+
                 </ul>
               <?php endif; ?>
               <?php  // End: Materials content section. ?>
@@ -388,6 +388,34 @@
         </div>
       </div>
 
+      <?php // Voter Registration Modal // ?>
+      <?php if (array_key_exists('enable_voter_registration', $campaign->variables) && $campaign->variables['enable_voter_registration']) : ?>
+      <?php // @TODO: if user is not registered and is eligible, pop this up ?>
+        <?php if ($can_vote) : ?>
+          <div data-modal id="modal-voter-registration" role="dialog">
+            <div class="floatbox" data-fb-options="width:618 height:max scrolling:yes">
+              <iframe src="https://register2.rockthevote.com/registrants/map/?source=iframe&partner=35164" width="100%" height="1200" marginheight="0" frameborder="0"></iframe>
+            </div>
+          </div>
+        <?php else : ?>
+          <?php // @TODO: fix the styling in hurr ?>
+          <div data-modal id="modal-voter-registration" role="dialog">
+            <div class="modal__block">
+              <br>
+              <h3>Bummer! Since you aren't 18 yet, you can't register to vote.</h3><br>
+              <h3>BUT YOU CAN STILL MAKE A DIFFERENCE.</h3><br>
+              <h3>Share this Campaign:</h3><br>
+              <p><?php print $social_share_bar ?></p>
+              <p>Copy and paste your share link:</p>
+              <code><?php print $custom_social_share_link ?></code>
+              <div class="form-item -padded submit-done-container">
+                <input type="submit" class="button js-close-modal" value="Done" />
+              </div>
+            </div>
+          </div>
+        <?php endif; ?>
+      <?php endif; ?>
+
       <?php // Organ Donation Modal // ?>
       <?php if (isset($register_organ_donor)): ?>
         <div data-modal id="modal-organ-donation" role="dialog">
@@ -437,7 +465,7 @@
                 </div>
                 <div class="modal__block">
                   <h3>Share with your friends!</h3>
-                  <p><?php print $organ_share_bar ?></p>
+                  <p><?php print $social_share_bar ?></p>
                   <p>Copy and paste your share link:</p>
                   <code><?php print $custom_organ_share_link ?></code>
                   <div class="form-item -padded submit-done-container">
