@@ -2,10 +2,10 @@
   background-color: $purple;
   color: $white;
   position: relative;
+  max-width: 1440px;
+  margin: auto;
 
   > .wrapper {
-    max-width: 1440px;
-    margin: 0 auto;
     padding: $base-spacing 0 $section-spacing;
   }
 
