@@ -88,9 +88,7 @@
 
 <?php // Missing Photo Modal // ?>
 <div data-modal id="modal-missing-photos" role="dialog">
-  <div class="modal__block">
-    <h2 class="heading -emphasized" style="margin: 0;">Is your photo not showing up?</h2>
-  </div>
+  <h2 class="heading -emphasized">Is your photo not showing up?</h2>
   <div class="modal__block with-lists">
     <p>The other day, we had some issues with our site, and a bug deleted a bunch of images (which may have included yours).</p>
     <p>Some good news:
