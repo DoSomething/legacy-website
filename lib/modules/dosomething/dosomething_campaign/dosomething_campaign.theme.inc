@@ -396,12 +396,21 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
   // Pass the signup id to the front end.
   if (module_exists('dosomething_signup')) {
     if ($sid = dosomething_signup_exists($vars['nid'])) {
+      // Get competition data
+      $signup = signup_load($sid);
+      $competition = ['joined' => $signup->competition];
+      if ($competition['joined']) {
+        $signup_form = dosomething_signup_get_signup_data_form_info($signup->nid);
+        $competition['confirm_msg'] = $signup_form['confirm_msg'];
+      }
+
       drupal_add_js(
-        array('dosomethingSignup' =>
-          array(
+        ['dosomethingSignup' =>
+          [
             'sid' => $sid,
-          ),
-        ),
+            'competition' => $competition
+          ],
+        ],
         'setting'
       );
     }
