@@ -513,15 +513,6 @@ function dosomething_signup_user_signup_data_form_submit($form, &$form_state) {
   }
   // Display the signup_data_form's confirm_msg field.
   drupal_set_message($config['confirm_msg']);
-  drupal_add_js(
-    ['dosomethingSignup' =>
-      [
-        'competition' => true,
-        'confirm_msg' => $config['confirm_msg']
-      ],
-    ],
-    'setting'
-  );
 }
 
 /**
