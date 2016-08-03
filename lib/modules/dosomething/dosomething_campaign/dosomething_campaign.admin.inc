@@ -75,17 +75,38 @@ function dosomething_campaign_admin_config_form($form, &$form_state) {
     '#collapsible' => TRUE,
     '#collapsed' => FALSE,
   );
+
   $form['campaign']['action_page']['dosomething_campaign_problem_share_prompt'] = array(
     '#type' => 'textfield',
     '#title' => t('Problem Fact Share Prompt'),
     '#required' => TRUE,
     '#default_value' => t(variable_get('dosomething_campaign_problem_share_prompt')),
   );
+
   $form['campaign']['action_page']['dosomething_campaign_enable_onboarding'] = array(
     '#type' => 'checkbox',
     '#title' => t('Enable onboarding'),
     '#default_value' => variable_get('dosomething_campaign_enable_onboarding'),
   );
+
+  $form['campaign']['action_page']['dosomething_campaign_onboarding_context_slide'] = [
+    '#type' => 'checkbox',
+    '#title' => t('Display Context Slide'),
+    '#default_value' => variable_get('dosomething_campaign_onboarding_context_slide'),
+  ];
+
+  $form['campaign']['action_page']['dosomething_campaign_onboarding_instruction_slide'] = [
+    '#type' => 'checkbox',
+    '#title' => t('Display Instruction Slide'),
+    '#default_value' => variable_get('dosomething_campaign_onboarding_instruction_slide'),
+  ];
+
+  $form['campaign']['action_page']['dosomething_campaign_onboarding_reportback_item_kudos_slide'] = [
+    '#type' => 'checkbox',
+    '#title' => t('Display Reportback Item Kudos Slide'),
+    '#default_value' => variable_get('dosomething_campaign_onboarding_reportback_item_kudos_slide'),
+  ];
+
 
   // SMS Game variables.
   $form['sms_game'] = array(

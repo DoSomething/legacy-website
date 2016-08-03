@@ -313,6 +313,24 @@ function dosomething_helpers_add_js_onboarding() {
       'every_page' => FALSE,
       'preprocess' => FALSE,
     ]);
-    drupal_add_js(['dsOnboarding' => ['enabled' => true]], 'setting');
+
+    $onboardingSettings = [
+        'enabled' => true,
+        'slides' => [],
+    ];
+
+    if (variable_get('dosomething_campaign_onboarding_context_slide', FALSE)) {
+      $onboardingSettings['slides'][] = 'ContextSlide';
+    }
+
+    if (variable_get('dosomething_campaign_onboarding_instruction_slide', FALSE)) {
+      $onboardingSettings['slides'][] = 'InstructionSlide';
+    }
+
+    if (variable_get('dosomething_campaign_onboarding_reportback_item_kudos_slide', FALSE)) {
+      $onboardingSettings['slides'][] = 'ReportbackItemKudosSlide';
+    }
+
+    drupal_add_js(['dsOnboarding' => $onboardingSettings], 'setting');
   }
 }
