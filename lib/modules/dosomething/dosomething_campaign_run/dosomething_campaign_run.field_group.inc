@@ -49,26 +49,26 @@ function dosomething_campaign_run_field_group_info() {
   $field_group->mode = 'form';
   $field_group->parent_name = '';
   $field_group->data = array(
-    'label' => 'goals',
-    'weight' => '12',
+    'label' => 'Goals',
+    'weight' => '2',
     'children' => array(
-      0 => 'field_external_signup_goal',
+      0 => 'field_external_impact_goal',
       1 => 'field_external_new_member_goal',
-      2 => 'field_external_impact_goal',
-      3 => 'field_internal_signup_goal',
+      2 => 'field_external_signup_goal',
+      3 => 'field_internal_impact_goal',
       4 => 'field_internal_new_member_goal',
-      5 => 'field_internal_impact_goal',
+      5 => 'field_internal_signup_goal',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
-      'label' => 'goals',
+      'label' => 'Goals',
       'instance_settings' => array(
         'required_fields' => 0,
         'id' => '',
         'classes' => 'group-goals field-group-fieldset',
-        'description' => '',
+        'description' => 'Internal and external goals (for internal use only... this is used to feed data dashboards)',
       ),
-      'formatter' => 'collapsible',
+      'formatter' => 'collapsed',
     ),
   );
   $field_groups['group_goals|node|campaign_run|form'] = $field_group;
@@ -84,7 +84,7 @@ function dosomething_campaign_run_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'The Buzz',
-    'weight' => '3',
+    'weight' => '4',
     'children' => array(
       0 => 'field_additional_text',
       1 => 'field_additional_text_title',
@@ -173,7 +173,7 @@ function dosomething_campaign_run_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'What You Did',
-    'weight' => '2',
+    'weight' => '3',
     'children' => array(
       0 => 'field_intro',
       1 => 'group_totals',
@@ -202,7 +202,7 @@ function dosomething_campaign_run_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Winners',
-    'weight' => '4',
+    'weight' => '5',
     'children' => array(
       0 => 'field_winners',
     ),
@@ -222,12 +222,12 @@ function dosomething_campaign_run_field_group_info() {
   // Translatables
   // Included for use with string extractors like potx.
   t('Basic Info');
+  t('Goals');
   t('The Buzz');
   t('Timing');
   t('Totals');
   t('What You Did');
   t('Winners');
-  t('goals');
 
   return $field_groups;
 }
