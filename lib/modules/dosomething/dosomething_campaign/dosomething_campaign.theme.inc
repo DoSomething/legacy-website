@@ -401,7 +401,7 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
       $competition = ['joined' => $signup->competition];
       if ($competition['joined']) {
         $signup_form = dosomething_signup_get_signup_data_form_info($signup->nid);
-        $competition['confirm_msg'] = $signup_form['confirm_msg'];
+        $competition['messages']['confirmation'] = $signup_form['confirm_msg'];
       }
 
       drupal_add_js(
