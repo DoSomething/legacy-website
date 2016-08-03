@@ -28,9 +28,14 @@
   display: block;
   font-size: 42px;
   line-height: 1;
+  padding: ($base-spacing/2);
   position: absolute;
-  right: $base-spacing;
+  right: 0;
   top: 0;
+
+  @include media($tablet) {
+    right: ($base-spacing/2);
+  }
 
   &:hover {
     color: #ccc;
