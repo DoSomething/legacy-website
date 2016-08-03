@@ -391,7 +391,7 @@ function dosomething_campaign_run_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => -5,
+      'weight' => -4,
     ),
   );
 
@@ -519,7 +519,7 @@ function dosomething_campaign_run_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => -4,
+      'weight' => -3,
     ),
   );
 
