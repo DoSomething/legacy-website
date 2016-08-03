@@ -33,7 +33,7 @@ function _dosomething_gladiator_build_http_client() {
     'base_url' => GLADIATOR_URL . '/' . GLADIATOR_VERSION,
     'headers' => ['Content-Type' => 'application/json', 'Accept' => 'application/json', 'X-DS-Gladiator-API-Key' => GLADIATOR_KEY],
   ];
-  
+
   return $client;
 }
 
