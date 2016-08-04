@@ -757,6 +757,32 @@ function dosomething_user_is_under_thirteen($user = NULL) {
 }
 
 /**
+ * Calculates the age of a user on a certain date
+ *
+ * @param $date
+ *
+ * @return bool
+ *  Returns the age in years of a user on a certain date
+ */
+function dosomething_user_age_on_date($date, $user = NULL) {
+  if ($user == NULL) {
+    global $user;
+  }
+
+  $birthdate = dosomething_user_get_field('field_birthdate', $user);
+  $birthday = new DateTime();
+  $birthday->setTimestamp($birthdate);
+
+  $date = strtotime($date);
+  $date = new DateTime();
+  $date->setTimestamp($date);
+
+  $age = $date->diff($birthday)->y;
+
+  return $age;
+}
+
+/**
  * Checks if user is an "old person", meaning age 26 or older.
  *
  * @return bool

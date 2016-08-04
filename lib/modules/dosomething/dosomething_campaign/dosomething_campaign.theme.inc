@@ -422,11 +422,11 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
   $organ_donation_share_image = $base_url . 'sites/default/files/images/problem-' . $campaign->nid . '-' . $country_prefix_for_organ_donation_share . '.png';
 
   // Add social share bar.
-  $organ_donation_share_types = array(
+  $social_share_types = array(
     'facebook' => array(
       'type' => 'feed_dialog',
       'parameters' => array(
-      'picture' => $organ_donation_share_image,
+      'picture' => $organ_donation_share_image, // @TODO: change this to be generic
     ),
   ),
     'twitter' => array(
@@ -434,15 +434,25 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
     ),
     'tumblr' => array(
       'posttype' => 'photo',
-      'content' => $organ_donation_share_image,
+      'content' => $organ_donation_share_image, // @TODO: change this to be generic
       'caption' => t("This is REAL, do something about this with me: "),
     ),
   );
 
-  $organ_donations_share_button_markup = dosomething_helpers_share_bar($custom_organ_share_link, $organ_donation_share_types, 'organ_donation_referral', 'social-menu');
+  $share_button_markup = dosomething_helpers_share_bar($custom_organ_share_link, $social_share_types, 'organ_donation_referral', 'social-menu');
 
   $vars['custom_organ_share_link'] = $custom_organ_share_link;
-  $vars['organ_share_bar'] = $organ_donations_share_button_markup;
+  $vars['organ_share_bar'] = $share_button_markup;
+  $vars['social_share_bar'] = $share_button_markup;
+  $vars['custom_social_share_link'] = $custom_social_share_link;
+
+  // If we are registering voters check to see if the user will be 18 by the election
+  // @TODO: we need a function to check if X feature is enabled
+  if (array_key_exists('enable_voter_registration', $campaign->variables) && $campaign->variables['enable_voter_registration']) {
+    // Calculate the user's age on election day
+    $election_day_age = dosomething_user_age_on_date('Nov 8 2016');
+    $vars['can_vote'] = (!($election_day_age < 18)) ? true : false;
+  }
 }
 
 /**
