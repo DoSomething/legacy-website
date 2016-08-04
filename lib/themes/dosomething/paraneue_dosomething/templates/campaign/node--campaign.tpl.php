@@ -434,7 +434,7 @@
       <p>Here are a few things you can do:
         <ul>
           <li>If you have any new photos to add to or any campaigns you’re signed up for go ahead and upload those now to start sharing your impact.</li>
-          <li>If you still have your old photo on your phone or computer, please re-upload it now to guarantee it’s showing up on the campaign you participated in and your profile. If the campaign is now closed, feel free to reach out to us at our <a href="https://help.dosomething.org/hc/en-us">help center</a> and we'll totally upload your photo for you.</li>
+          <li>If you still have your old photo on your phone or computer, please re-upload it now to guarantee it’s showing up on the campaign you participated in and your profile. If the campaign is now closed, feel free to reach out to us at our <a href="https://help.dosomething.org/hc/en-us/requests/new">help center</a> and we'll totally upload your photo for you.</li>
         </ul>
       </p>
       <p>
