@@ -757,26 +757,29 @@ function dosomething_user_is_under_thirteen($user = NULL) {
 }
 
 /**
- * Checks that user will be 18 by a certain date
+ * Calculates the age of a user on a certain date
  *
  * @param $date
  *
  * @return bool
- *  Returns true if user will be 18 by the given date, else false.
+ *  Returns the age in years of a user on a certain date
  */
-function dosomething_user_will_be_eightteen_by_date($date, $user = NULL) {
+function dosomething_user_age_on_date($date, $user = NULL) {
   if ($user == NULL) {
     global $user;
   }
-  $birthday = dosomething_user_get_field('field_birthdate', $user);
-  // Get the date 18 years before the given date.
-  $date_cutoff = strtotime($date . '-18 years');
-  if ($date_cutoff < $birthday) {
-    return FALSE;
-  }
-  else {
-    return TRUE;
-  }
+
+  $birthdate = dosomething_user_get_field('field_birthdate', $user);
+  $birthday = new DateTime();
+  $birthday->setTimestamp($birthdate);
+
+  $date = strtotime($date);
+  $date = new DateTime();
+  $date->setTimestamp($date);
+
+  $age = $date->diff($birthday)->y;
+
+  return $age;
 }
 
 /**

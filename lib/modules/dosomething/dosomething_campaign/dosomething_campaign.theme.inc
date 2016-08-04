@@ -438,8 +438,11 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
   $vars['custom_social_share_link'] = $custom_social_share_link;
 
   // If we are registering voters check to see if the user will be 18 by the election
+  // @TODO: we need a function to check if X feature is enabled
   if (array_key_exists('enable_voter_registration', $campaign->variables) && $campaign->variables['enable_voter_registration']) {
-    $vars['can_vote'] = dosomething_user_will_be_eightteen_by_date('Nov 8 2016', $person);
+    // Calculate the user's age on election day
+    $election_day_age = dosomething_user_age_on_date('Nov 8 2016');
+    $vars['can_vote'] = (!($election_day_age < 18)) ? true : false;
   }
 }
 
