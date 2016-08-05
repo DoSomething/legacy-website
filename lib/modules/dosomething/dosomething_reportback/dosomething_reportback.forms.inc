@@ -44,7 +44,7 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
       '#entity_type' => 'node',
       '#bundles' => array('campaign_run'),
       '#required' => TRUE,
-      '#default_value' => $entity->nid,
+      '#default_value' => $entity->run_nid,
     );
     if (!empty($entity->uid)) {
       $account = user_load($entity->uid);
@@ -86,7 +86,7 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
       'data-validate' => 'hasImage',
       'data-validate-required' => '',
     ),
-    '#prefix' => 'Reportback Image',    
+    '#prefix' => 'Reportback Image',
     '#suffix' => 'The image must be at least 480 by 480 pixels. The site will crop the image on its own, so if possible submit a square image with the subject in the center of the crop.',
 
   );
