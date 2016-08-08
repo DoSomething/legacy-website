@@ -103,6 +103,7 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
   else {
     // Output reportback images with date last updated.
     $form['reportback_submissions']['reportback_item']['#attributes']['is_supersized'] = FALSE;
+    $form['reportback_submissions']['reportback_item']['#attributes']['data-validate'] = '';
 
     $reportback_submissions_data = array();
     // Specify number of prior reportbacks to retrieve, including the latest one to show prominently.
