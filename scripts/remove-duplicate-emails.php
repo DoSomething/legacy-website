@@ -6,24 +6,47 @@
  * drush --script-path=../scripts/ php-script remove-duplicate-emails.php
  */
 
-$users = db_query('SELECT uid FROM users 
-  WHERE mail IN (SELECT mail FROM users GROUP BY mail HAVING COUNT(mail) > 1)
-  AND uid NOT IN (SELECT MIN(uid) FROM users GROUP BY mail HAVING COUNT(mail) > 1)');
+$dupes = array_keys(db_query('SELECT mail FROM users GROUP BY mail HAVING COUNT(mail) > 1')->fetchAllKeyed());
+$removed = 0;
 
-foreach ($users as $user) {
-  $user = user_load($user->uid);
 
-  if($user->access == 0) {
-    print 'Deleting ' . $user->uid . ' (' . $user->mail . ')' . PHP_EOL;
+// Watch out, because we're gonna make a database table. Yee-haw!
+db_query('
+  CREATE TABLE IF NOT EXISTS `dosomething_northstar_delete_queue` (
+    `uid` int(11) unsigned NOT NULL,
+    `northstar_id` varchar(32) DEFAULT NULL,
+    PRIMARY KEY (`uid`))
+');
 
-    $northstar_id = $user->field_northstar_id[LANGUAGE_NONE][0]['value'];
+foreach ($dupes as $mail) {
+  // Load all users with that duped email address, with the most recently accessed first.
+  $users = db_query('SELECT uid FROM users WHERE mail = :mail ORDER BY access DESC', [':mail' => $mail]);
+  $canonical_uid = 0;
 
-    if ($northstar_id !== 'NONE') {
-      print 'User ' . $user->uid . ' has a Northstar profile: ' . $northstar_id;
+  foreach ($users as $key => $user) {
+    $user = user_load($user->uid);
+
+    if ($key == 0) {
+      print 'Keeping ' . $user->uid . ' for ' . $user->mail . '.' . PHP_EOL;
+      $canonical_uid = $user->uid;
+      continue;
     }
 
-    user_delete($user->uid);
-  } else {
-    print 'Ignoring duplicate ' . $user->uid . ' (' . $user->mail . ')' . PHP_EOL;
+    // Set the new email for the deactivated user.
+    $new_email = 'duplicate-' . $canonical_uid . '-' . $key . '@dosomething.invalid';
+    print ' - Removing ' . $user->uid . ' (' . $user->mail . ' --> ' . $new_email . ')' . PHP_EOL;
+    user_save($user, ['mail' => $new_email, 'status' => 0]);
+    $removed++;
+
+    // Finally, make a note if that user has a Northstar profile, so we can clean that up.
+    $northstar_id = $user->field_northstar_id[LANGUAGE_NONE][0]['value'];
+    if ($northstar_id !== 'NONE') {
+      db_insert('dosomething_northstar_delete_queue')->fields(['uid' => $user->uid, 'northstar_id' => $northstar_id])->execute();
+      print '   ** User ' . $user->uid . ' has a Northstar profile: ' . $northstar_id . PHP_EOL;
+    }
   }
+
+  print PHP_EOL;
 }
+
+print '[✔] Renamed & deactivated ' . $removed . ' users.' . PHP_EOL;
