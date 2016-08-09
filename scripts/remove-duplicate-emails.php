@@ -9,6 +9,15 @@
 $dupes = array_keys(db_query('SELECT mail FROM users GROUP BY mail HAVING COUNT(mail) > 1')->fetchAllKeyed());
 $removed = 0;
 
+
+// Watch out, because we're gonna make a database table. Yee-haw!
+db_query('
+  CREATE TABLE IF NOT EXISTS `dosomething_northstar_delete_queue` (
+    `uid` int(11) unsigned NOT NULL,
+    `northstar_id` varchar(32) DEFAULT NULL,
+    PRIMARY KEY (`uid`))
+');
+
 foreach ($dupes as $mail) {
   // Load all users with that duped email address, with the most recently accessed first.
   $users = db_query('SELECT uid FROM users WHERE mail = :mail ORDER BY access DESC', [':mail' => $mail]);
@@ -32,7 +41,8 @@ foreach ($dupes as $mail) {
     // Finally, make a note if that user has a Northstar profile, so we can clean that up.
     $northstar_id = $user->field_northstar_id[LANGUAGE_NONE][0]['value'];
     if ($northstar_id !== 'NONE') {
-      print '   ** User ' . $user->uid . ' has a Northstar profile: ' . $northstar_id;
+      db_insert('dosomething_northstar_delete_queue')->fields(['uid' => $user->uid, 'northstar_id' => $northstar_id])->execute();
+      print '   ** User ' . $user->uid . ' has a Northstar profile: ' . $northstar_id . PHP_EOL;
     }
   }
 
