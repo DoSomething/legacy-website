@@ -1,14 +1,74 @@
 // @TODO: Should this become a real modifier?
-.button.-mini {
-  font-size: 13px !important;
-  padding-top: 6px !important;
-  padding-bottom: 4px !important;
-  background: $light-gray;
-  color: $dark-gray;
-  text-transform: none;
+.button {
+  border: 1px solid $blue;
+  position: relative;
 
-  &.is-active {
-    background-color: $purple;
-    color: #fff;
+  &.-tertiary {
+    &:focus {
+      box-shadow: none;
+    }
+  }
+
+  &.-mini {
+    font-size: 13px !important;
+    padding-top: 6px !important;
+    padding-bottom: 4px !important;
+    background: $light-gray;
+    color: $dark-gray;
+    text-transform: none;
+
+    &.is-active {
+      background-color: $purple;
+      color: #fff;
+    }
+  }
+
+  &.is-loading {
+    border-color: #eee;
+  }
+
+  &.-reactive {
+    &::after {
+      content: '\02713';
+      display: block;
+      font-size: $font-large;
+      left: 50%;
+      line-height: 1;
+      opacity: 0;
+      position: absolute;
+      text-align: center;
+      transform: translate(-50%, -50%);
+      top: 50%;
+      color: $white;
+    }
+
+    &.is-successful {
+      @extend %animated;
+      animation-name: isSuccesful;
+
+      &::after {
+        @extend %animated;
+        animation-delay: 0.5s;
+        animation-duration: 1s;
+        animation-name: showCheckmark;
+        animation-timing-function: ease-out;
+      }
+    }
+  }
+
+}
+
+@keyframes isSuccesful {
+  100% {
+    background-color: #7fd02e;
+    border: 1px solid #7fd02e;
+    box-shadow: 0 0 3px #7fd02e;
+    color: #7fd02e;
+  }
+}
+
+@keyframes showCheckmark {
+  100% {
+    opacity: 0.9;
   }
 }
