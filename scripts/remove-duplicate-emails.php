@@ -13,9 +13,10 @@ $removed = 0;
 // Watch out, because we're gonna make a database table. Yee-haw!
 db_query('
   CREATE TABLE IF NOT EXISTS `dosomething_northstar_delete_queue` (
+    `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
     `uid` int(11) unsigned NOT NULL,
     `northstar_id` varchar(32) DEFAULT NULL,
-    PRIMARY KEY (`uid`))
+    PRIMARY KEY (`id`));
 ');
 
 foreach ($dupes as $mail) {
