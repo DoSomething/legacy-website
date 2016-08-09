@@ -21,6 +21,10 @@
     }
   }
 
+  &.is-loading {
+    border-color: #eee;
+  }
+
   &.-reactive {
     &::after {
       content: '\02713';
