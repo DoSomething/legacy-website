@@ -13,9 +13,10 @@ $removed = 0;
 // Watch out, because we're gonna make a database table. Yee-haw!
 db_query('
   CREATE TABLE IF NOT EXISTS `dosomething_northstar_delete_queue` (
+    `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
     `uid` int(11) unsigned NOT NULL,
     `northstar_id` varchar(32) DEFAULT NULL,
-    PRIMARY KEY (`uid`))
+    PRIMARY KEY (`id`));
 ');
 
 foreach ($dupes as $mail) {
@@ -23,17 +24,17 @@ foreach ($dupes as $mail) {
   $users = db_query('SELECT uid FROM users WHERE mail = :mail ORDER BY access DESC', [':mail' => $mail]);
   $canonical_uid = 0;
 
-  foreach ($users as $key => $user) {
+  foreach ($users as $index => $user) {
     $user = user_load($user->uid);
 
-    if ($key == 0) {
+    if ($index == 0) {
       print 'Keeping ' . $user->uid . ' for ' . $user->mail . '.' . PHP_EOL;
       $canonical_uid = $user->uid;
       continue;
     }
 
     // Set the new email for the deactivated user.
-    $new_email = 'duplicate-' . $canonical_uid . '-' . $key . '@dosomething.invalid';
+    $new_email = 'duplicate-' . $canonical_uid . '-' . $index . '@dosomething.invalid';
     print ' - Removing ' . $user->uid . ' (' . $user->mail . ' --> ' . $new_email . ')' . PHP_EOL;
     user_save($user, ['mail' => $new_email, 'status' => 0]);
     $removed++;
