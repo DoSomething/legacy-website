@@ -1,7 +1,3 @@
-%animated {
-  animation-fill-mode: both;
-}
-
 // @TODO: Should this become a real modifier?
 .button {
   border: 1px solid $blue;
@@ -42,7 +38,6 @@
 
     &.is-successful {
       @extend %animated;
-      animation-duration: 0.5s;
       animation-name: isSuccesful;
 
       &::after {
