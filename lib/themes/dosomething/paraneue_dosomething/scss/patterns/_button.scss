@@ -3,6 +3,12 @@
   border: 1px solid $blue;
   position: relative;
 
+  &.-tertiary {
+    &:focus {
+      box-shadow: none;
+    }
+  }
+
   &.-mini {
     font-size: 13px !important;
     padding-top: 6px !important;
