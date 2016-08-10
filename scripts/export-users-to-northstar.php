@@ -43,9 +43,15 @@ foreach ($users as $user) {
   // Output progress to stdout & log request details for later review.
   dosomething_northstar_log_request('migrate', $user, $ns_user, $response);
   echo 'Migrated user ' . $user->uid . ' to Northstar [' . $response->code . ']' . PHP_EOL;
+  $response_data = json_decode($response->data);
+
+  // If a user cannot be migrated due to a Drupal ID index conflict, we should delete the conflicting Northstar record.
+  if ($response->code === 400 && !empty($response_data->error->context->id)) {
+    db_insert('dosomething_northstar_delete_queue')->fields(['uid' => $user->uid, 'northstar_id' => $response_data->error->context->id])->execute();
+  }
 
   // Store the returned Northstar ID on the user's Drupal profile.
-  dosomething_northstar_save_id_field($user->uid, json_decode($response->data));
+  dosomething_northstar_save_id_field($user->uid, $response_data);
 
   // If the script fails, we can use this to start the script from a previous person.
   variable_set('dosomething_northstar_last_user_migrated', $user->uid);
