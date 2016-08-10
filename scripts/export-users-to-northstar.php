@@ -46,7 +46,7 @@ foreach ($users as $user) {
   $response_data = json_decode($response->data);
 
   // If a user cannot be migrated due to a Drupal ID index conflict, we should delete the conflicting Northstar record.
-  if ($response->code === 400 && !empty($response_data->error->context->id)) {
+  if ($response->code == 400 && !empty($response_data->error->context->id)) {
     db_insert('dosomething_northstar_delete_queue')->fields(['uid' => $user->uid, 'northstar_id' => $response_data->error->context->id])->execute();
   }
 
