@@ -100,7 +100,7 @@ projects[flag][version] = "3.5"
 projects[flag][subdir] = "contrib"
 
 ; Google Analytics
-projects[google_analytics][version] = "2.1"
+projects[google_analytics][version] = "2.3"
 projects[google_analytics][subdir] = "contrib"
 
 ; Http Client
