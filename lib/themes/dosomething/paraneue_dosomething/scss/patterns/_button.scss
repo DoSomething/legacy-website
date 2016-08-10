@@ -45,6 +45,7 @@
     &.is-successful {
       @extend %animated;
       animation-name: isSuccesful;
+      color: transparent;
 
       &::after {
         @extend %animated;
@@ -63,7 +64,6 @@
     background-color: #7fd02e;
     border: 1px solid #7fd02e;
     box-shadow: 0 0 3px #7fd02e;
-    color: #7fd02e;
   }
 }
 
