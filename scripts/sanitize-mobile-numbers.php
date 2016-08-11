@@ -20,12 +20,12 @@ foreach($wild_typers as $wilder) {
       $user = user_load($wilder->uid);
       $edit = ['field_mobile' => [ LANGUAGE_NONE => [ 0 => [ 'value' => $fresh_and_clean_digits ] ] ] ];
       user_save($user, $edit);
-      print "Updated user " . $wilder->uid . "\n";
+      print 'Updated user ' . $wilder->uid . "\n";
     }
     else {
-      print "something terrible with " . $wilder->uid . "\n";
+      print 'something terrible with ' . $wilder->uid . "\n";
     }
   }
 }
 
-print "done";
+print 'done';
