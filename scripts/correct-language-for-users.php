@@ -20,11 +20,11 @@ $global_peeps = db_query("SELECT u.uid, s.field_user_registration_source_value a
 $possible_sources = ['niche', 'Nice', 'niche-import-service', 'letsdothis_ios', 'mobileapp_android'];
 
 foreach($global_peeps as $peep) {
-  if ($peep->country == 'US' || in_array($peep->field_address_country, $possible_sources)) {
+  if ($peep->country == 'US' || in_array($peep->source, $possible_sources)) {
     $user = user_load($peep->uid);
     $user->language = 'en';
-    print "Saving user " . $user->uid . "\n";
+    print 'Saving user ' . $user->uid . "\n";
     user_save($user);
   }
 }
-print "done";
+print 'done';
