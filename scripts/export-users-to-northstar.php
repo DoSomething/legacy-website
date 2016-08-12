@@ -40,10 +40,14 @@ foreach ($users as $user) {
     'data' => json_encode($ns_user),
   ]);
 
-  // Output progress to stdout & log request details for later review.
-  dosomething_northstar_log_request('migrate', $user, $ns_user, $response);
+  // Output progress to stdout so we can see our good work.
   echo 'Migrated user ' . $user->uid . ' to Northstar [' . $response->code . ']' . PHP_EOL;
   $response_data = json_decode($response->data);
+
+  // Save any failed requests to the request log for debugging.
+  if(! in_array($response->code, [200, 201])) {
+    dosomething_northstar_log_request('migrate', $user, $ns_user, $response);
+  }
 
   // If a user cannot be migrated due to a Drupal ID index conflict, we should delete the conflicting Northstar record.
   if ($response->code == 400 && !empty($response_data->error->context->id)) {
