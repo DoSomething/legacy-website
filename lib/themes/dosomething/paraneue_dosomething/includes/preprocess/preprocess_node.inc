@@ -207,14 +207,10 @@ function paraneue_dosomething_preprocess_node_campaign(&$vars) {
     }
   }
 
-  if (array_key_exists('enable_voter_registration', $campaign->variables) && $campaign->variables['enable_voter_registration']) {
+  if (dosomething_campaign_feature_on($campaign, 'enable_voter_registration')) {
     // Add JS to open the signup data form modal.
       $id = 'modal-voter-registration';
       $closeButton = 'skip';
-
-      // @TODO - New function?
-      $js = 'jQuery(document).ready(function() { DSModal.open( jQuery("#' . $id . '"), {animated: false, closeButton: "' . $closeButton . '"}); });';
-      drupal_add_js($js, 'inline');
   }
 
   // If this is not the pitch page:
