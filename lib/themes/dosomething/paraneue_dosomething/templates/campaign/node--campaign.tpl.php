@@ -173,7 +173,7 @@
                     <li><a href="#" data-modal-href="#modal-shipment-form"><?php print $shipment_form_link; ?></a></li>
                   <?php endif; ?>
 
-                  <?php if (array_key_exists('enable_voter_registration', $campaign->variables) && $campaign->variables['enable_voter_registration']) : ?>
+                  <?php if (dosomething_campaign_feature_on($campaign, 'enable_voter_registration')) : ?>
                     <?php if ($can_vote) : ?>
                       <li><a href="#" data-modal-href="#modal-voter-registration">Register to Vote</a></li>
                     <?php endif; ?>
