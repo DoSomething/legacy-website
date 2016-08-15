@@ -47,7 +47,36 @@
   //
 }
 
+.slideshow__carousel {
+  overflow: hidden;
+}
+
 .slideshow__slide {
+  display: inline-block;
+  position: relative;
+
+  &.slide-enter {
+    background-color: fuchsia;
+    transition: all 5s;
+    transform: translateX(100%);
+
+    &.slide-enter-active {
+      background-color: red;
+      transform: translateX(0);
+    }
+  }
+
+  &.slide-leave {
+    background-color: green;
+    transition: all 5s;
+    transform: translateX(0);
+
+    &.slide-leave-active {
+      background-color: olive;
+      transform: translateX(-100%);
+    }
+  }
+
   .heading {
     color: $white;
   }
@@ -85,6 +114,15 @@
     padding: 8px 20px;
     position: absolute;
     top: 0;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  // @TODO: use attribute selector to designate disabled styles
+  [disabled] {
+    opacity: 0.3;
   }
 
   .button--prev {
