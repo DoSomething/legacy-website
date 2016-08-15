@@ -97,9 +97,14 @@
   > ul {
     overflow: hidden;
 
-    > li {
+    > .slideshow__controller-indicator {
       float: left;
-      padding: 0 5px;
+      padding: 6px 5px;
+      color: $med-gray;
+
+      &.-active {
+        color: $white;
+      }
     }
   }
 
