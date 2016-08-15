@@ -21,7 +21,7 @@ db_query('
 
 foreach ($dupes as $mail) {
   // Load all users with that duped email address, with the most recently accessed first.
-  $users = db_query('SELECT uid FROM users WHERE mail = :mail ORDER BY access DESC', [':mail' => $mail]);
+  $users = db_query('SELECT uid FROM users WHERE mail = :mail AND uid != 0 ORDER BY access DESC', [':mail' => $mail]);
   $canonical_uid = 0;
 
   foreach ($users as $index => $user) {
