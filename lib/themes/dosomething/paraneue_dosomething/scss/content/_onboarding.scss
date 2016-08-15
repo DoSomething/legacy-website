@@ -43,17 +43,20 @@
   }
 }
 
-.slideshow {
-  //
-}
-
 .slideshow__slide {
+  position: relative;
+  display: none;
+
   .heading {
     color: $white;
   }
 
   p + .heading {
     margin-top: $section-spacing;
+  }
+
+  &.-active {
+    display: inline-block;
   }
 }
 
@@ -68,9 +71,14 @@
   > ul {
     overflow: hidden;
 
-    > li {
+    > .slideshow__controller-indicator {
       float: left;
-      padding: 0 5px;
+      padding: 6px 5px;
+      color: $med-gray;
+
+      &.-active {
+        color: $white;
+      }
     }
   }
 
@@ -85,6 +93,15 @@
     padding: 8px 20px;
     position: absolute;
     top: 0;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  // @TODO: use attribute selector to designate disabled styles
+  [disabled] {
+    opacity: 0.3;
   }
 
   .button--prev {
