@@ -231,7 +231,7 @@
           <?php if (isset($skip_signup_data_form)): ?>
             <div><?php print render($skip_signup_data_form); ?></div>
           <?php endif; ?>
-          <?php if (dosomething_campaign_feature_on($campaign, 'enable_voter_registration')) : ?>
+          <?php if (dosomething_campaign_feature_on($campaign, 'enable_voter_registration') && dosomething_campaign_feature_on($campaign, 'social_share_unique_link')) : ?>
             <div class="modal__block">
               <p>Copy and paste your share link:</p>
               <code><?php print $custom_social_share_link ?></code>
