@@ -166,7 +166,7 @@
                   <?php endif; ?>
 
                   <?php if (isset($signup_data_form_link)): ?>
-                    <li><a href="#" data-modal-href="#modal-signup-data-form" ><?php print $signup_data_form_link; ?></a></li>
+                    <li><a href="#" data-modal-href="#modal-signup-data-form"><?php print $signup_data_form_link; ?></a></li>
                   <?php endif; ?>
 
                   <?php if (isset($shipment_form_link)): ?>
