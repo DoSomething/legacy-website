@@ -405,6 +405,7 @@
 
 
         <?php // Voter Registration Modal // ?>
+        <?php if (dosomething_campaign_feature_on($campaign, 'enable_voter_registration')) : ?>
           <div data-modal id="modal-voter-registration" role="dialog">
             <iframe src="https://register2.rockthevote.com/registrants/map/?source=iframe&partner=35164" width="100%" height="1000" marginheight="0" frameborder="0"></iframe>
             <div class="modal__block">
@@ -412,7 +413,7 @@
               <code><?php print $custom_social_share_link ?></code>
             </div>
           </div>
-
+       <?php endif; ?>
 
 
       <?php // Custom Share Modal // ?>
