@@ -39,12 +39,8 @@ foreach ($dupes as $mail) {
     user_save($user, ['mail' => $new_email, 'status' => 0]);
     $removed++;
 
-    // Finally, make a note if that user has a Northstar profile, so we can clean that up.
-    $northstar_id = $user->field_northstar_id[LANGUAGE_NONE][0]['value'];
-    if ($northstar_id !== 'NONE') {
-      db_insert('dosomething_northstar_delete_queue')->fields(['uid' => $user->uid, 'northstar_id' => $northstar_id])->execute();
-      print '   ** User ' . $user->uid . ' has a Northstar profile: ' . $northstar_id . PHP_EOL;
-    }
+    // Finally, try to push the updated profile to this Drupal ID in Northstar
+    dosomething_northstar_update_user($user, ['drupal_id' => $user->uid, 'email' => $new_email]);
   }
 
   print PHP_EOL;

@@ -36,18 +36,12 @@ foreach ($dupes as $mobile) {
 
     // Remove the mobile field for that user.
     print ' - Removing mobile from ' . $user->uid . ' (' . $mobile . ')' . PHP_EOL;
-    $entity = entity_load_single('user', $user->uid);
-    $entity->field_mobile[LANGUAGE_NONE] = [];
-    entity_save('user', $entity);
+    user_save($user, ['field_mobile' => [ LANGUAGE_NONE => [] ] ]);
 
     $removed++;
 
-    // Finally, make a note if that user has a Northstar profile, so we can clean that up.
-    $northstar_id = $user->field_northstar_id[LANGUAGE_NONE][0]['value'];
-    if ($northstar_id !== 'NONE') {
-      db_insert('dosomething_northstar_delete_queue')->fields(['uid' => $user->uid, 'northstar_id' => $northstar_id])->execute();
-      print '   ** User ' . $user->uid . ' has a Northstar profile: ' . $northstar_id . PHP_EOL;
-    }
+    // Now, update the corresponding profile in Northstar by Drupal ID.
+    dosomething_northstar_update_user($user, ['mobile' => null, 'drupal_id' => $user->uid]);
   }
 
   print PHP_EOL;

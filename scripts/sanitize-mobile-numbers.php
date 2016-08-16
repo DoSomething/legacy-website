@@ -25,10 +25,15 @@ foreach($wild_typers as $wilder) {
     else {
       print 'Couldn\'t salvage ' . $wilder->uid . ' (' . $wilder->mobile . ')' . PHP_EOL;
       $edit = ['field_mobile' => [ LANGUAGE_NONE => [] ] ];
+      $fresh_and_clean_digits = null;
     }
 
+    // Update the `field_mobile` for that user (to either sanitize or remove it).
     $user = user_load($wilder->uid);
     user_save($user, $edit);
+
+    // Now, update (or create) the corresponding profile in Northstar by Drupal ID.
+    dosomething_northstar_update_user($user, ['mobile' => $fresh_and_clean_digits, 'drupal_id' => $user->uid]);
   }
 }
 
