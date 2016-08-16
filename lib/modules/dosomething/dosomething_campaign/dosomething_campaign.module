@@ -1202,9 +1202,9 @@ function dosomething_campaign_node_validate($node, $form, &$form_state) {
 
   /**
    * @param object $campaign
-   *   Loaded campaign node to check if given feature is on
+   *   Campaign variables
    * @param string $feature
-   *   Checking if this featuer is on
+   *   Checking if this feature is on
    */
   function dosomething_campaign_feature_on($campaign, $feature) {
     if (array_key_exists($feature, $campaign->variables) && $campaign->variables[$feature]) {

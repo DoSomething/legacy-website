@@ -213,7 +213,7 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
   // 1) Materials
 
   // Build the unique share link.
-  $share_path = 'user/' . $vars['user']->uuid;
+  $share_path = 'user/' . dosomething_user_get_field('field_northstar_id');
   $custom_social_share_link = dosomething_global_url(current_path(), array('absolute' => TRUE,'query' => array('source' => $share_path)));
 
   if (isset($campaign->items_needed)) {
@@ -435,11 +435,15 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
   $vars['social_share_bar'] = $share_button_markup;
   $vars['custom_social_share_link'] = $custom_social_share_link;
 
+  // Pass along whether or not voter registration is enabled
+  $vars['register_voters'] = dosomething_campaign_feature_on($campaign, 'enable_voter_registration') ? true : false;
+
   // If we are registering voters check to see if the user will be 18 by the election
-  if (dosomething_campaign_feature_on($campaign, 'enable_voter_registration')) {
+  if ($vars['register_voters']) {
     // Calculate the user's age on election day
     $election_day_age = dosomething_user_age_on_date('Nov 8 2016');
     $vars['can_vote'] = (!($election_day_age < 18)) ? true : false;
+    $vars['voter_reg_form'] = '<iframe src="https://register2.rockthevote.com/registrants/map/?source=iframe&partner=35164" width="100%" height="1000" marginheight="0" frameborder="0"></iframe>';
   }
 }
 

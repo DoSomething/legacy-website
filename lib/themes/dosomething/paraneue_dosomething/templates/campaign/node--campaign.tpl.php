@@ -173,10 +173,8 @@
                     <li><a href="#" data-modal-href="#modal-shipment-form"><?php print $shipment_form_link; ?></a></li>
                   <?php endif; ?>
 
-                  <?php if (dosomething_campaign_feature_on($campaign, 'enable_voter_registration')) : ?>
-                    <?php if ($can_vote) : ?>
-                      <li><a href="#" data-modal-href="#modal-voter-registration">Register to Vote</a></li>
-                    <?php endif; ?>
+                  <?php if ($register_voters && $can_vote) : ?>
+                    <li><a href="#" data-modal-href="#modal-voter-registration">Register to Vote</a></li>
                   <?php endif; ?>
 
                 </ul>
@@ -223,19 +221,19 @@
 
       <?php if (isset($signup_data_form)): ?>
         <div data-modal id="modal-signup-data-form" class="modal--signup-data" role="dialog" >
-          <?php if (dosomething_campaign_feature_on($campaign, 'enable_voter_registration') && $can_vote) : ?>
-            <iframe src="https://register2.rockthevote.com/registrants/map/?source=iframe&partner=35164" width="100%" height="1000" marginheight="0" frameborder="0"></iframe>
+          <?php if ($register_voters && $can_vote) : ?>
+            <?php print $voter_reg_form ?>
           <?php else: ?>
             <div><?php print render($signup_data_form); ?></div>
           <?php endif; ?>
-          <?php if (isset($skip_signup_data_form)): ?>
-            <div><?php print render($skip_signup_data_form); ?></div>
-          <?php endif; ?>
-          <?php if (dosomething_campaign_feature_on($campaign, 'enable_voter_registration') && dosomething_campaign_feature_on($campaign, 'social_share_unique_link')) : ?>
+          <?php if ($register_voters && dosomething_campaign_feature_on($campaign, 'social_share_unique_link')) : ?>
             <div class="modal__block">
               <p>Copy and paste your share link:</p>
               <code><?php print $custom_social_share_link ?></code>
             </div>
+          <?php endif; ?>
+          <?php if (isset($skip_signup_data_form)): ?>
+            <div><?php print render($skip_signup_data_form); ?></div>
           <?php endif; ?>
         </div>
       <?php endif; ?>
@@ -405,9 +403,9 @@
 
 
         <?php // Voter Registration Modal // ?>
-        <?php if (dosomething_campaign_feature_on($campaign, 'enable_voter_registration')) : ?>
+        <?php if ($register_voters) : ?>
           <div data-modal id="modal-voter-registration" role="dialog">
-            <iframe src="https://register2.rockthevote.com/registrants/map/?source=iframe&partner=35164" width="100%" height="1000" marginheight="0" frameborder="0"></iframe>
+            <?php print $voter_reg_form ?>
             <div class="modal__block">
               <p>Copy and paste your share link:</p>
               <code><?php print $custom_social_share_link ?></code>
