@@ -436,10 +436,10 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
   $vars['custom_social_share_link'] = $custom_social_share_link;
 
   // Pass along whether or not voter registration is enabled
-  $vars['register_voters'] = dosomething_campaign_feature_on($campaign, 'enable_voter_registration') ? true : false;
+  $vars['register_voters'] = (dosomething_campaign_feature_on($campaign, 'enable_voter_registration') && dosomething_global_get_current_prefix() == 'us') ? true : false;
 
   // If we are registering voters check to see if the user will be 18 by the election
-  if ($vars['register_voters'] && (dosomething_global_get_current_prefix() == 'us')) {
+  if ($vars['register_voters']) {
     // Calculate the user's age on election day
     $election_day_age = dosomething_user_age_on_date('Nov 8 2016');
     $vars['can_vote'] = (!($election_day_age < 18)) ? true : false;
