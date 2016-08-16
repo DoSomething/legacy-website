@@ -8,9 +8,9 @@
  *
  */
 
-$wild_typers = db_query("SELECT entity_id as uid, field_mobile_value as mobile
+$wild_typers = db_query('SELECT entity_id as uid, field_mobile_value as mobile
                         FROM field_data_field_mobile
-                        WHERE field_mobile_value NOT REGEXP '^[0-9]{10}$';");
+                        WHERE field_mobile_value NOT REGEXP :regex', [':regex' => '^[0-9]+$']);
 
 foreach($wild_typers as $wilder) {
   if ($wilder->mobile) {
