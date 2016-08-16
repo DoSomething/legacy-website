@@ -439,7 +439,7 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
   $vars['register_voters'] = dosomething_campaign_feature_on($campaign, 'enable_voter_registration') ? true : false;
 
   // If we are registering voters check to see if the user will be 18 by the election
-  if ($vars['register_voters']) {
+  if ($vars['register_voters'] && (dosomething_global_get_current_prefix() == 'us')) {
     // Calculate the user's age on election day
     $election_day_age = dosomething_user_age_on_date('Nov 8 2016');
     $vars['can_vote'] = (!($election_day_age < 18)) ? true : false;
