@@ -56,7 +56,7 @@ function drush_dosomething_global_ds_user_niche_reg_source_fix($filename) {
   $count_total = count($users);
   $count_current = 0;
   drush_log(
-    'Processing ' . $count_current . ' records.', 'status'
+    'Processing ' . $count_total . ' records.', 'status'
   );
 
   foreach ($users as $user) {
