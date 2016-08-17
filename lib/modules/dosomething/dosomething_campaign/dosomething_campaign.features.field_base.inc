@@ -71,6 +71,7 @@ function dosomething_campaign_field_default_field_bases() {
     'module' => 'list',
     'settings' => array(
       'allowed_values' => array(
+        '0.1' => 'instant',
         '0.5' => 0.5,
         1 => 1,
         2 => 2,
