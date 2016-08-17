@@ -3179,12 +3179,13 @@ function dosomething_campaign_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-campaign-title_field'
+  // Exported field_instance: 'node-campaign-title_field'.
   $field_instances['node-campaign-title_field'] = array(
     'bundle' => 'campaign',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => '',
+    'description' => ' i.e. "Protect your Pills", "Birthday Mail", or "Teens for Jeans" <b> Limit: 20 characters. </b> <br/>
+The title determines the URL of the page. This means that if you are changing the title on an already published page, the URL of the page will change too. If you need to update the title, you <b>must request a redirect </b> from the Product Team.',
     'display' => array(
       'default' => array(
         'label' => 'above',
@@ -3233,6 +3234,8 @@ function dosomething_campaign_field_default_field_instances() {
   t(' Any tips for what the user should do after the action is finished. "Thank everyone who helped you put on the drive with a handwritten note."
 <br/>
 <strong> Limit: 135 characters </strong>');
+  t(' i.e. "Protect your Pills", "Birthday Mail", or "Teens for Jeans" <b> Limit: 20 characters. </b> <br/>
+The title determines the URL of the page. This means that if you are changing the title on an already published page, the URL of the page will change too. If you need to update the title, you <b>must request a redirect </b> from the Product Team.');
   t('Action Guide');
   t('Action Type');
   t('Active Hours');
