@@ -213,17 +213,17 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
   // 1) Materials
 
   // Build the unique share link.
-  $share_path = 'user/' . $vars['user']->uid;
+  $share_path = 'user/' . dosomething_user_get_field('field_northstar_id');
   $custom_social_share_link = dosomething_global_url(current_path(), array('absolute' => TRUE,'query' => array('source' => $share_path)));
 
   if (isset($campaign->items_needed)) {
     $materials['category'] = 'materials';
     $materials['title'] = t('Stuff You Need');
     $materials['content'] = $campaign->items_needed;
-    // if organ donation campaign, add in the share link here
-    if (array_key_exists('social_share_unique_link', $campaign->variables) && $campaign->variables['social_share_unique_link']) {
+    // If the campaign is setup to create a custom social share link, get that all setup
+    if (dosomething_campaign_feature_on($campaign, 'social_share_unique_link')) {
       $copy = $campaign->variables['social_share_custom_text'] ?: t("Share your link!");
-      $materials['content'] .= '<ul><li> ' . $copy . '<code>' . $custom_social_share_link . '</code></li></ul>';
+      $materials['content'] .= '<ul><li><a href="#" data-modal-href="#modal-share"> ' . $copy . '</li></ul>';
       drupal_add_js(
         array('dosomethingUser' =>
           array('userInfo' =>
@@ -418,15 +418,15 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
 
   // Pass custom share links to the front end. Unique by UID.
   $base_url = url(base_path(), array('absolute'=> TRUE, 'language' => 'en-global'));
-  $country_prefix_for_organ_donation_share = (dosomething_global_get_current_prefix()) ? strtoupper(dosomething_global_get_current_prefix()) : 'global';
-  $organ_donation_share_image = $base_url . 'sites/default/files/images/problem-' . $campaign->nid . '-' . $country_prefix_for_organ_donation_share . '.png';
+  $country_prefix_for_share = (dosomething_global_get_current_prefix()) ? strtoupper(dosomething_global_get_current_prefix()) : 'global';
+  $share_image = $base_url . 'sites/default/files/images/problem-' . $campaign->nid . '-' . $country_prefix_for_share . '.png';
 
   // Add social share bar.
   $social_share_types = array(
     'facebook' => array(
       'type' => 'feed_dialog',
       'parameters' => array(
-      'picture' => $organ_donation_share_image, // @TODO: change this to be generic
+      'picture' => $share_image,
     ),
   ),
     'twitter' => array(
@@ -434,24 +434,25 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
     ),
     'tumblr' => array(
       'posttype' => 'photo',
-      'content' => $organ_donation_share_image, // @TODO: change this to be generic
+      'content' => $share_image,
       'caption' => t("This is REAL, do something about this with me: "),
     ),
   );
 
-  $share_button_markup = dosomething_helpers_share_bar($custom_organ_share_link, $social_share_types, 'organ_donation_referral', 'social-menu');
+  $share_button_markup = dosomething_helpers_share_bar($custom_social_share_link, $social_share_types, $campaign->nid . '_referral', 'social-menu');
 
-  $vars['custom_organ_share_link'] = $custom_organ_share_link;
-  $vars['organ_share_bar'] = $share_button_markup;
   $vars['social_share_bar'] = $share_button_markup;
   $vars['custom_social_share_link'] = $custom_social_share_link;
 
+  // Pass along whether or not voter registration is enabled
+  $vars['register_voters'] = dosomething_campaign_feature_on($campaign, 'enable_voter_registration', TRUE) ? true : false;
+
   // If we are registering voters check to see if the user will be 18 by the election
-  // @TODO: we need a function to check if X feature is enabled
-  if (array_key_exists('enable_voter_registration', $campaign->variables) && $campaign->variables['enable_voter_registration']) {
+  if ($vars['register_voters']) {
     // Calculate the user's age on election day
     $election_day_age = dosomething_user_age_on_date('Nov 8 2016');
     $vars['can_vote'] = (!($election_day_age < 18)) ? true : false;
+    $vars['voter_reg_form'] = '<iframe src="https://register2.rockthevote.com/registrants/map/?source=iframe&partner=35164" width="100%" height="1000" marginheight="0" frameborder="0"></iframe>';
   }
 }
 

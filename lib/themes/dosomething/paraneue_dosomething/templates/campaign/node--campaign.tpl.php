@@ -173,7 +173,7 @@
                     <li><a href="#" data-modal-href="#modal-shipment-form"><?php print $shipment_form_link; ?></a></li>
                   <?php endif; ?>
 
-                  <?php if (array_key_exists('enable_voter_registration', $campaign->variables) && $campaign->variables['enable_voter_registration']) : ?>
+                  <?php if ($register_voters && $can_vote) : ?>
                     <li><a href="#" data-modal-href="#modal-voter-registration">Register to Vote</a></li>
                   <?php endif; ?>
 
@@ -220,10 +220,20 @@
       <?php endif; ?>
 
       <?php if (isset($signup_data_form)): ?>
-        <div data-modal id="modal-signup-data-form" class="modal--signup-data" role="dialog">
-          <div><?php print render($signup_data_form); ?></div>
+        <div data-modal id="modal-signup-data-form" class="modal--signup-data" role="dialog" >
+          <?php if ($register_voters && $can_vote) : ?>
+            <?php print $voter_reg_form ?>
+          <?php else: ?>
+            <div><?php print render($signup_data_form); ?></div>
+          <?php endif; ?>
+          <?php if ($register_voters && dosomething_campaign_feature_on($campaign, 'social_share_unique_link')) : ?>
+            <div class="modal__block">
+              <p>Copy and paste your share link:</p>
+              <code><?php print $custom_social_share_link ?></code>
+            </div>
+          <?php endif; ?>
           <?php if (isset($skip_signup_data_form)): ?>
-          <div><?php print render($skip_signup_data_form); ?></div>
+            <div><?php print render($skip_signup_data_form); ?></div>
           <?php endif; ?>
         </div>
       <?php endif; ?>
@@ -391,33 +401,30 @@
         </div>
       </div>
 
-      <?php // Voter Registration Modal // ?>
-      <?php if (array_key_exists('enable_voter_registration', $campaign->variables) && $campaign->variables['enable_voter_registration']) : ?>
-      <?php // @TODO: if user is not registered and is eligible, pop this up ?>
-        <?php if ($can_vote) : ?>
+
+        <?php // Voter Registration Modal // ?>
+        <?php if ($register_voters) : ?>
           <div data-modal id="modal-voter-registration" role="dialog">
-            <div class="floatbox" data-fb-options="width:618 height:max scrolling:yes">
-              <iframe src="https://register2.rockthevote.com/registrants/map/?source=iframe&partner=35164" width="100%" height="1200" marginheight="0" frameborder="0"></iframe>
-            </div>
-          </div>
-        <?php else : ?>
-          <?php // @TODO: fix the styling in hurr ?>
-          <div data-modal id="modal-voter-registration" role="dialog">
+            <?php print $voter_reg_form ?>
             <div class="modal__block">
-              <br>
-              <h3>Bummer! Since you aren't 18 yet, you can't register to vote.</h3><br>
-              <h3>BUT YOU CAN STILL MAKE A DIFFERENCE.</h3><br>
-              <h3>Share this Campaign:</h3><br>
-              <p><?php print $social_share_bar ?></p>
               <p>Copy and paste your share link:</p>
               <code><?php print $custom_social_share_link ?></code>
-              <div class="form-item -padded submit-done-container">
-                <input type="submit" class="button js-close-modal" value="Done" />
-              </div>
             </div>
           </div>
-        <?php endif; ?>
-      <?php endif; ?>
+       <?php endif; ?>
+
+
+      <?php // Custom Share Modal // ?>
+      <?php if ($custom_social_share_link) : ?>
+        <div data-modal id="modal-share" role="dialog">
+          <div class="modal__block">
+            <h3>Share this Campaign</h3><br>
+            <p>Copy and paste your share link:</p>
+            <code><?php print $custom_social_share_link ?></code>
+          </div>
+        </div>
+       <?php endif; ?>
+
 
   <?php // Missing Photo Modal // ?>
   <div data-modal id="modal-missing-photos" role="dialog">
@@ -494,7 +501,7 @@
                   <h3>Share with your friends!</h3>
                   <p><?php print $social_share_bar ?></p>
                   <p>Copy and paste your share link:</p>
-                  <code><?php print $custom_organ_share_link ?></code>
+                  <code><?php print $custom_social_share_link ?></code>
                   <div class="form-item -padded submit-done-container">
                     <input type="submit" class="button js-close-modal" value="Done" />
                   </div>
