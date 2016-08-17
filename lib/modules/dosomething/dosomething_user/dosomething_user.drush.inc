@@ -11,6 +11,10 @@ function dosomething_user_drush_command() {
   return [
     'ds-user-niche-reg-source-fix' => [
       'description' => 'Corrects user registration source to niche based on csv.',
+      'arguments' => array(
+        'filename' => 'Name of the CSV file to read.',
+      ),
+      'required-arguments' => TRUE,
     ],
   ];
 }
@@ -20,12 +24,41 @@ function dosomething_user_drush_command() {
  *
  * See https://github.com/DoSomething/devops/issues/176.
  */
-function drush_dosomething_global_ds_user_niche_reg_source_fix() {
-  $ids = [2, 3, 4, 5, 6, 7, 8, 9, 10, 1700784, 7777777777];
+function drush_dosomething_global_ds_user_niche_reg_source_fix($filename) {
+  // Only local files.
+  $filename = 'file://' . $filename;
+  if (($handle = fopen($filename, "r")) === FALSE) {
+    drush_log(
+      'Can\'t  open file: ' . $filename . '.',
+      'status'
+    );
+    return;
+  }
+  drush_log('Parsing ' . $filename, 'status');
 
+  // Prepare a list of ids.
+  $row = 0;
+  $ids = [];
+  while(($data = fgetcsv($handle)) !== FALSE) {
+    $row++;
+    // Skip header.
+    if ($row === 1) {
+      continue;
+    }
+    if (empty($data[2])) {
+      continue;
+    }
+    array_push($ids, $data[2]);
+  }
+
+  // Processing users.
   $users = user_load_multiple($ids);
   $count_total = count($users);
   $count_current = 0;
+  drush_log(
+    'Processing ' . $count_current . ' records.', 'status'
+  );
+
   foreach ($users as $user) {
     $count_current++;
     $metauser = entity_metadata_wrapper('user', $user);
