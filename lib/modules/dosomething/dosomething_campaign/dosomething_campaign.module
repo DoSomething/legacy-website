@@ -1205,10 +1205,20 @@ function dosomething_campaign_node_validate($node, $form, &$form_state) {
    *   Campaign variables
    * @param string $feature
    *   Checking if this feature is on
+   * @param bool $us_only
+   *   If true, make sure the user is in the US
+   *
+   * @return bool
    */
-  function dosomething_campaign_feature_on($campaign, $feature) {
+  function dosomething_campaign_feature_on($campaign, $feature, $us_only = FALSE) {
     if (array_key_exists($feature, $campaign->variables) && $campaign->variables[$feature]) {
-      return TRUE;
+      if ($us_only && dosomething_global_get_current_prefix() == 'us') {
+        return TRUE;
+      }
+      elseif (!$us_only) {
+        return TRUE;
+      }
     }
+
     return FALSE;
   }

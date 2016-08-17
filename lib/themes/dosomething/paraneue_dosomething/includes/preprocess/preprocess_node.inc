@@ -207,12 +207,6 @@ function paraneue_dosomething_preprocess_node_campaign(&$vars) {
     }
   }
 
-  if (dosomething_campaign_feature_on($campaign, 'enable_voter_registration')) {
-    // Add JS to open the signup data form modal.
-      $id = 'modal-voter-registration';
-      $closeButton = 'skip';
-  }
-
   // If this is not the pitch page:
   if (!isset($vars['is_pitch_page'])) {
     $vars['reportbacks_gallery'] = paraneue_dosomething_preprocess_reportback_gallery($vars);
