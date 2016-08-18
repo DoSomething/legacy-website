@@ -100,7 +100,7 @@ function dosomething_helpers_get_tumblr_intent($path, $options) {
  * @return
  *   An array of paths, indexed by type.
  */
-function dosomething_helpers_utm_share_paths($share_types, $path, $utm_campaign) {
+function dosomething_helpers_utm_share_paths($share_types, $path, $utm_campaign, $custom_share_source = NULL) {
   foreach ($share_types as $type => $options) {
     $utm_params = dosomething_helpers_utm_parameters(NULL,
       array(
@@ -108,7 +108,13 @@ function dosomething_helpers_utm_share_paths($share_types, $path, $utm_campaign)
         'utm_campaign' => $utm_campaign,
       )
     );
+
     $share_paths[$type] = $path . $utm_params;
+
+    // Append the custom share source to the URL if we have one
+    if ($custom_share_source) {
+      $share_paths[$type] .= '&source=' . $custom_share_source;
+    }
   }
 
   return $share_paths;
@@ -124,11 +130,14 @@ function dosomething_helpers_utm_share_paths($share_types, $path, $utm_campaign)
  *     including the relevant parameters needed to create the custom intents.
  * @param string $share_description
  *   A custom value to use for 'utm_campaign'.
+ * @param string $custom_share_source
+ *   If included, the custom share source to be included in the url
  * @return string
  *   Share bar markup.
  */
-function dosomething_helpers_share_bar($path, $share_types, $share_description, $classes = NULL) {
-  $share_utm_paths = dosomething_helpers_utm_share_paths($share_types, $path, $share_description);
+function dosomething_helpers_share_bar($path, $share_types, $share_description, $classes = NULL, $custom_share_source = NULL) {
+  $share_utm_paths = dosomething_helpers_utm_share_paths($share_types, $path, $share_description, $custom_share_source);
+
   $share_bar = '<ul class="' . $classes . '">';
   $share_intents = [];
 
