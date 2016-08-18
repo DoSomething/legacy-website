@@ -89,6 +89,13 @@ function dosomething_campaign_admin_config_form($form, &$form_state) {
     '#default_value' => variable_get('dosomething_campaign_enable_onboarding'),
   );
 
+  $form['campaign']['action_page']['dosomething_campaign_onboarding_developer_mode'] = [
+    '#type' => 'checkbox',
+    '#title' => t('Onboarding developer mode'),
+    '#description' => t('Obviously don\'t enable this on prod'),
+    '#default_value' => variable_get('dosomething_campaign_onboarding_developer_mode'),
+  ];
+
   $form['campaign']['action_page']['dosomething_campaign_onboarding_context_slide'] = [
     '#type' => 'checkbox',
     '#title' => t('Display Context Slide'),
@@ -315,6 +322,10 @@ function dosomething_campaign_admin_custom_settings_page($node) {
   $form_id = 'dosomething_helpers_third_party_variable_form';
   $third_party_form = drupal_get_form($form_id, $node);
   $output .= render($third_party_form);
+
+  $form_id = 'dosomething_campaign_onboarding_config_form';
+  $onboarding_config_form = drupal_get_form($form_id, $node);
+  $output .= render($onboarding_config_form);
 
   if (module_exists('dosomething_signup')) {
     $signup_data_config_form = drupal_get_form('dosomething_signup_node_signup_data_form', $node);

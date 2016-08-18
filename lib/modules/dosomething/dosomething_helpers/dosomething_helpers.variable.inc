@@ -171,11 +171,12 @@ function dosomething_helpers_variable_form($form, &$form_state, $node) {
       'maxlength' => '140',
     ),
   ];
+
   $form['voter_registration'] = [
-  '#type' => 'fieldset',
-  '#title' => t('Rock the Vote Registration'),
-  '#collapsible' => TRUE,
-  '#collapsed' => TRUE,
+    '#type' => 'fieldset',
+    '#title' => t('Rock the Vote Registration'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
   ];
   $form['voter_registration']['enable_voter_registration'] = [
     '#type' => 'textfield',
@@ -183,6 +184,19 @@ function dosomething_helpers_variable_form($form, &$form_state, $node) {
     '#title' => t('Enable Voter Registration'),
     '#description' => t(''),
     '#default_value' => $vars['enable_voter_registration'],
+  ];
+
+  $form['onboarding'] = [
+    '#type' => 'fieldset',
+    '#title' => t('Onboarding'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  ];
+  $form['onboarding']['disable_onboarding'] = [
+    '#type' => 'checkbox',
+    '#title' => t('Disable onboarding'),
+    '#description' => t('Suggested for campaigns with irregular signup process like voter reg.'),
+    '#default_value' => $vars['disable_onboarding']
   ];
 
   $form['actions'] = array(
@@ -241,6 +255,7 @@ function dosomething_helpers_get_variable_names() {
     'count_flagged',
     'count_pending',
     'count_promoted',
+    'disable_onboarding',
     'enable_voter_registration',
     'magic_link_copy',
     'mobilecommons_opt_in_path',
