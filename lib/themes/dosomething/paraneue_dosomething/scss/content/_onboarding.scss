@@ -13,9 +13,15 @@
   // @TODO: Also, the aspect ratio for the video used on onboarding
   // varies from the typical videos on the website so we need to modify
   // the % padding value. Might be useful to turn into a mixin in the future.
-  & .media-video {
+  .media-video {
     border-radius: 4px;
     padding-bottom: 60.4%;
+  }
+
+  // @TODO: convert this to an extension of the card pattern.
+  .photo {
+    border-radius: 4px;
+    color: #444;
   }
 }
 
