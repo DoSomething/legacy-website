@@ -110,7 +110,6 @@ function dosomething_helpers_utm_share_paths($share_types, $path, $utm_campaign,
         'utm_campaign' => $utm_campaign,
       )
     );
-
     $share_paths[$type] = $path . $utm_params;
 
     // Append the custom share source to the URL if we have one
