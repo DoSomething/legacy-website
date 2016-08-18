@@ -305,12 +305,12 @@ function dosomething_helpers_add_js_campaign_and_user_data($vars) {
  * @return void
  */
 function dosomething_helpers_add_js_onboarding($nid) {
-  $globalEnable = variable_get('dosomething_campaign_enable_onboarding', FALSE);
-  $developerEnable = variable_get('dosomething_campaign_onboarding_developer_mode', FALSE);
-  $campaignEnable = !dosomething_helpers_get_variable('node', $nid, 'disable_onboarding');
+  $global_enable = variable_get('dosomething_campaign_enable_onboarding', FALSE);
+  $developer_enable = variable_get('dosomething_campaign_onboarding_developer_mode', FALSE);
+  $campaign_enable = !dosomething_helpers_get_variable('node', $nid, 'disable_onboarding');
 
   // @Temporary: add onboarding.js with Onboarding experiment.
-  if ($developerEnable || ($globalEnable && $campaignEnable)) {
+  if ($developer_enable || ($global_enable && $campaign_enable)) {
     drupal_add_js(PARANEUE_PATH . '/dist/onboarding.js', [
       'group'      => JS_THEME,
       'weight'     => 1000,
@@ -319,9 +319,9 @@ function dosomething_helpers_add_js_onboarding($nid) {
     ]);
 
     $onboardingSettings = [
-      'globalEnable' => $globalEnable,
-      'campaignEnable' => $campaignEnable,
-      'developerEnable' => $developerEnable,
+      'globalEnable' => $global_enable,
+      'campaignEnable' => $campaign_enable,
+      'developerEnable' => $developer_enable,
       'slides' => [],
     ];
 
