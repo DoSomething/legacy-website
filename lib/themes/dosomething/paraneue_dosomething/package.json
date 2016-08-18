@@ -34,7 +34,8 @@
     "react-addons-css-transition-group": "^15.3.0",
     "react-dom": "^15.3.0",
     "respond.js": "~1.4.2",
-    "unveil": "DFurnes/unveil.git#umd"
+    "unveil": "DFurnes/unveil.git#umd",
+    "whatwg-fetch": "^1.0.0"
   },
   "devDependencies": {
     "@dosomething/eslint-config": "^1.1.1",

@@ -101,10 +101,10 @@ function dosomething_campaign_admin_config_form($form, &$form_state) {
     '#default_value' => variable_get('dosomething_campaign_onboarding_instruction_slide'),
   ];
 
-  $form['campaign']['action_page']['dosomething_campaign_onboarding_reportback_item_kudos_slide'] = [
+  $form['campaign']['action_page']['dosomething_campaign_onboarding_reportback_items_slide'] = [
     '#type' => 'checkbox',
-    '#title' => t('Display Reportback Item Kudos Slide'),
-    '#default_value' => variable_get('dosomething_campaign_onboarding_reportback_item_kudos_slide'),
+    '#title' => t('Display Reportback Items Slide'),
+    '#default_value' => variable_get('dosomething_campaign_onboarding_reportback_items_slide'),
   ];
 
 

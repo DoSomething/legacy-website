@@ -327,8 +327,8 @@ function dosomething_helpers_add_js_onboarding() {
       $onboardingSettings['slides'][] = 'InstructionSlide';
     }
 
-    if (variable_get('dosomething_campaign_onboarding_reportback_item_kudos_slide', FALSE)) {
-      $onboardingSettings['slides'][] = 'ReportbackItemKudosSlide';
+    if (variable_get('dosomething_campaign_onboarding_reportback_items_slide', FALSE)) {
+      $onboardingSettings['slides'][] = 'ReportbackItemsSlide';
     }
 
     drupal_add_js(['dsOnboarding' => $onboardingSettings], 'setting');
