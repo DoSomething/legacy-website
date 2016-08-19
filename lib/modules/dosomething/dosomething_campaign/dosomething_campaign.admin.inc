@@ -323,10 +323,6 @@ function dosomething_campaign_admin_custom_settings_page($node) {
   $third_party_form = drupal_get_form($form_id, $node);
   $output .= render($third_party_form);
 
-  $form_id = 'dosomething_campaign_onboarding_config_form';
-  $onboarding_config_form = drupal_get_form($form_id, $node);
-  $output .= render($onboarding_config_form);
-
   if (module_exists('dosomething_signup')) {
     $signup_data_config_form = drupal_get_form('dosomething_signup_node_signup_data_form', $node);
     $output .= render($signup_data_config_form);
