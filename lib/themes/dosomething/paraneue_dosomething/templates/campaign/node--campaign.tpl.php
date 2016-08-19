@@ -421,6 +421,7 @@
             <h3>Share this Campaign</h3><br>
             <p>Copy and paste your share link:</p>
             <code><?php print $custom_social_share_link ?></code>
+            <?php print $social_share_bar ?>
           </div>
         </div>
        <?php endif; ?>

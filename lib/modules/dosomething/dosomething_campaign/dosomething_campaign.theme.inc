@@ -418,6 +418,7 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
 
   // Pass custom share links to the front end. Unique by UID.
   $base_url = url(base_path(), array('absolute'=> TRUE, 'language' => 'en-global'));
+  $campaign_path = url(current_path(), array('absolute' => TRUE));
   $country_prefix_for_share = (dosomething_global_get_current_prefix()) ? strtoupper(dosomething_global_get_current_prefix()) : 'global';
   $share_image = $base_url . 'sites/default/files/images/problem-' . $campaign->nid . '-' . $country_prefix_for_share . '.png';
 
@@ -439,7 +440,7 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
     ),
   );
 
-  $share_button_markup = dosomething_helpers_share_bar($custom_social_share_link, $social_share_types, $campaign->nid . '_referral', 'social-menu');
+  $share_button_markup = dosomething_helpers_share_bar($campaign_path, $social_share_types, $campaign->nid . '_referral', 'social-menu', $share_path);
 
   $vars['social_share_bar'] = $share_button_markup;
   $vars['custom_social_share_link'] = $custom_social_share_link;
