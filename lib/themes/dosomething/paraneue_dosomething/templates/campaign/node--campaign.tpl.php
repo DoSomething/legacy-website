@@ -405,11 +405,11 @@
         <?php // Voter Registration Modal // ?>
         <?php if ($register_voters) : ?>
           <div data-modal id="modal-voter-registration" role="dialog">
-            <?php print $voter_reg_form ?>
             <div class="modal__block">
-              <p>Copy and paste your share link:</p>
+              <?php print $voter_reg_form_copy ?>
               <code><?php print $custom_social_share_link ?></code>
             </div>
+            <?php print $voter_reg_form ?>
           </div>
        <?php endif; ?>
 

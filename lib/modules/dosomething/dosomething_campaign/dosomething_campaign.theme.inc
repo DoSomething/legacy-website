@@ -454,6 +454,7 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
     $election_day_age = dosomething_user_age_on_date('Nov 8 2016');
     $vars['can_vote'] = (!($election_day_age < 18)) ? true : false;
     $vars['voter_reg_form'] = '<iframe src="https://register2.rockthevote.com/registrants/map/?source=iframe&partner=35164" width="100%" height="1000" marginheight="0" frameborder="0"></iframe>';
+    $vars['voter_reg_form_copy'] = $campaign->variables['registration_form_copy'];
   }
 }
 

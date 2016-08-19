@@ -185,6 +185,12 @@ function dosomething_helpers_variable_form($form, &$form_state, $node) {
     '#description' => t(''),
     '#default_value' => $vars['enable_voter_registration'],
   ];
+  $form['voter_registration']['registration_form_copy'] = [
+    '#type' => 'textarea',
+    '#title' => t('Registration Form Copy'),
+    '#description' => t('The text that will appear above the voter registration form.'),
+    '#default_value' => $vars['registration_form_copy'],
+  ];
 
   $form['onboarding'] = [
     '#type' => 'fieldset',
@@ -261,6 +267,7 @@ function dosomething_helpers_get_variable_names() {
     'mobilecommons_opt_in_path',
     'mobilecommons_friends_opt_in_path',
     'progress',
+    'registration_form_copy',
     'shipment_form_confirm_msg',
     'shipment_form_copy',
     'shipment_form_header',
