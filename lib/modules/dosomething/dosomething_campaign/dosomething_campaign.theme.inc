@@ -72,7 +72,7 @@ function dosomething_campaign_preprocess_node(&$vars) {
   }
 
   // Include the JS for Onboarding.
-  dosomething_helpers_add_js_onboarding();
+  dosomething_helpers_add_js_onboarding($node->nid);
 
   // Preprocess the vars for the campaign action page.
   dosomething_campaign_preprocess_action_page($vars, $wrapper);

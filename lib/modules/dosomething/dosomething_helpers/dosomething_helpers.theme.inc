@@ -304,9 +304,13 @@ function dosomething_helpers_add_js_campaign_and_user_data($vars) {
  *
  * @return void
  */
-function dosomething_helpers_add_js_onboarding() {
+function dosomething_helpers_add_js_onboarding($nid) {
+  $onboarding_enabled = variable_get('dosomething_campaign_enable_onboarding', FALSE);
+  $developer_mode_enabled = variable_get('dosomething_campaign_onboarding_developer_mode', FALSE);
+  $campaign_enabled = !dosomething_helpers_get_variable('node', $nid, 'disable_onboarding');
+
   // @Temporary: add onboarding.js with Onboarding experiment.
-  if (variable_get('dosomething_campaign_enable_onboarding', FALSE)) {
+  if ($developer_mode_enabled || ($onboarding_enabled && $campaign_enabled)) {
     drupal_add_js(PARANEUE_PATH . '/dist/onboarding.js', [
       'group'      => JS_THEME,
       'weight'     => 1000,
@@ -315,8 +319,10 @@ function dosomething_helpers_add_js_onboarding() {
     ]);
 
     $onboardingSettings = [
-        'enabled' => true,
-        'slides' => [],
+      'onboardingEnabled' => $onboarding_enabled,
+      'campaignEnabled' => $campaign_enabled,
+      'developerModeEnabled' => $developer_mode_enabled,
+      'slides' => [],
     ];
 
     if (variable_get('dosomething_campaign_onboarding_context_slide', FALSE)) {

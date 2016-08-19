@@ -89,6 +89,13 @@ function dosomething_campaign_admin_config_form($form, &$form_state) {
     '#default_value' => variable_get('dosomething_campaign_enable_onboarding'),
   );
 
+  $form['campaign']['action_page']['dosomething_campaign_onboarding_developer_mode'] = [
+    '#type' => 'checkbox',
+    '#title' => t('Onboarding developer mode'),
+    '#description' => t('Obviously don\'t enable this on prod'),
+    '#default_value' => variable_get('dosomething_campaign_onboarding_developer_mode'),
+  ];
+
   $form['campaign']['action_page']['dosomething_campaign_onboarding_context_slide'] = [
     '#type' => 'checkbox',
     '#title' => t('Display Context Slide'),
