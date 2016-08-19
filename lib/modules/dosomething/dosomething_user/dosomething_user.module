@@ -774,10 +774,10 @@ function dosomething_user_age_on_date($date, $user = NULL) {
   $birthday->setTimestamp($birthdate);
 
   $date = strtotime($date);
-  $date = new DateTime();
-  $date->setTimestamp($date);
+  $day = new DateTime();
+  $day->setTimestamp($date);
 
-  $age = $date->diff($birthday)->y;
+  $age = $day->diff($birthday)->y;
 
   return $age;
 }
