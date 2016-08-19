@@ -62,7 +62,7 @@
   }
 
   &.-active {
-    display: inline-block;
+    display: block;
   }
 }
 
@@ -107,6 +107,7 @@
 
   // @TODO: use attribute selector to designate disabled styles
   [disabled] {
+    cursor: not-allowed;
     opacity: 0.3;
   }
 
