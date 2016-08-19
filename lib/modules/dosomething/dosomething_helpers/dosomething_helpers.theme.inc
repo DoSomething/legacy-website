@@ -319,9 +319,9 @@ function dosomething_helpers_add_js_onboarding($nid) {
     ]);
 
     $onboardingSettings = [
-      'globalEnabled' => $onboarding_enabled,
+      'onboardingEnabled' => $onboarding_enabled,
       'campaignEnabled' => $campaign_enabled,
-      'developerEnabled' => $developer_mode_enabled,
+      'developerModeEnabled' => $developer_mode_enabled,
       'slides' => [],
     ];
 
