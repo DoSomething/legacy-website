@@ -230,6 +230,7 @@
             <div class="modal__block">
               <p>Copy and paste your share link:</p>
               <code><?php print $custom_social_share_link ?></code>
+              <?php print $social_share_bar ?>
             </div>
           <?php endif; ?>
           <?php if (isset($skip_signup_data_form)): ?>
@@ -408,6 +409,7 @@
             <div class="modal__block">
               <?php print $voter_reg_form_copy ?>
               <code><?php print $custom_social_share_link ?></code>
+              <?php print $social_share_bar ?>
             </div>
             <?php print $voter_reg_form ?>
           </div>
