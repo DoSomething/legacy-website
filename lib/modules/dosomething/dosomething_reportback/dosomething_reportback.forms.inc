@@ -291,7 +291,7 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
     ),
   );
 
-  if (!user_access('edit any reportback')) {
+  if (!user_access('edit any reportback') || !path_is_admin(current_path())) {
     unset($form['reportback_submissions']['reportback_item']['#prefix']);
     unset($form['reportback_submissions']['reportback_item']['#suffix']);
     unset($form['reportback_inputs']['caption']['#description']);
