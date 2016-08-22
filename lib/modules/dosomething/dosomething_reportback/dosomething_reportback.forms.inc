@@ -206,7 +206,7 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
   }
 
   $form['reportback_inputs']['caption'] = array(
-    '#prefix' => '<h4 class="heading -beta">' . t('Your impact') . '</h4>',
+    '#prefix' => '<h4 class="heading -beta">' . t('Your Impact') . '</h4>',
     '#type' => 'textfield',
     '#required' => TRUE,
     '#attributes' => array(
