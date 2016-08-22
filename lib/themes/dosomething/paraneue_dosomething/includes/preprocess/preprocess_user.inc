@@ -31,7 +31,8 @@ function paraneue_dosomething_preprocess_user_profile(&$vars) {
     foreach ($reportbacks as $delta => $rbid) {
       $reportback = reportback_load((int) $rbid);
       $impact = $reportback->quantity . ' ' . $reportback->noun . ' ' . $reportback->verb;
-      $fid = $reportback->fids[0];
+      $fid_index = count($reportback->fids) - 1;
+      $fid = $reportback->fids[$fid_index];
       if (user_access('view any reportback')) {
         // Link to the full reportback entity view.
         $impact = l($impact, 'admin/reportback/' . $rbid);
