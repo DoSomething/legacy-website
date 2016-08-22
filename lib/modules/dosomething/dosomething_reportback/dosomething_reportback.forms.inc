@@ -206,7 +206,7 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
   }
 
   $form['reportback_inputs']['caption'] = array(
-    '#prefix' => '<h2>' . t('Your impact') . '</h2>',
+    '#prefix' => '<h4 class="heading -beta">' . t('Your impact') . '</h4>',
     '#type' => 'textfield',
     '#required' => TRUE,
     '#attributes' => array(
@@ -224,7 +224,7 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
     '#type' => 'textfield',
     '#required' => TRUE,
     '#attributes' => array(
-      'placeholder' => t("Enter # here -- like '300' or '5"),
+      'placeholder' => t("Enter # here -- like '300' or '5'"),
       'class' => array('js-validate'),
       'data-validate' => 'positiveInteger',
       'data-validate-required' => '',
