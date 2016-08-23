@@ -57,8 +57,8 @@ function paraneue_dosomething_js_alter(&$js) {
   ]);
 
   drupal_add_js(PARANEUE_PATH . '/dist/app.js', [
-    'group'      => JS_THEME,
-    'weight'     => 999,
+    'group'      => JS_LIBRARY,
+    'weight'     => 200,
     'every_page' => TRUE,
     'preprocess' => FALSE,
   ]);
