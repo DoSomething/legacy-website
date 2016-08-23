@@ -102,7 +102,7 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
   // Else, it's an update form.
   else {
     // Output reportback images with date last updated.
-    $form['reportback_submissions']['reportback_item']['#attributes']['is_supersized'] = FALSE;
+    $form['reportback_submissions']['reportback_item']['#attributes']['is_supersized'] = TRUE;
 
     // do not require a new image to be uploaded on update
     unset($form['reportback_submissions']['reportback_item']['#attributes']['data-validate']);
@@ -118,14 +118,6 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
 
     $reportback_prior_submissions = array_reverse($reportback_submissions_data);
     $reportback_prior_submissions = array_slice($reportback_prior_submissions, 0, $reportback__submissions_count);
-    $reportback_latest_submission = array_shift($reportback_prior_submissions);
-
-    $form['reportback_submissions']['reportback_latest_submission'] = array(
-      '#weight' => 0,
-      '#markup' => theme('reportback_latest_submission', array(
-        'reportback' => $reportback_latest_submission,
-      )),
-    );
 
     if ($reportback_prior_submissions) {
       $form['reportback_submissions']['reportback_prior_submissions'] = array(
