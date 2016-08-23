@@ -92,7 +92,7 @@ function dosomething_northstar_register_user($user, $payload) {
   // Add to request log if enabled.
   dosomething_northstar_log_request('register_user', $user, $payload, $response);
 
-  if (_dosomething_northstar_is_successful_response($response)) {
+  if (! _dosomething_northstar_is_successful_response($response)) {
     watchdog('dosomething_northstar', 'User not migrated : ' . $response->code, NULL, WATCHDOG_ERROR);
     return;
   }
@@ -276,7 +276,7 @@ function dosomething_northstar_build_ns_user($user, $form_state) {
 
 /**
  * Return whether the response has a "successful" status code or not.
- * 
+ *
  * @param $response
  * @return bool
  */
