@@ -240,10 +240,10 @@ function dosomething_northstar_transform_user($user) {
     }
   }
 
-  // If user has a "1234565555@mobile" placeholder email, don't send
-  // that to Northstar (since it will cause a validation error and Northstar
-  // doesn't require every account to have an email like Drupal does).
-  if(preg_match('/^[0-9]+@mobile$/', $northstar_user['email'])) {
+  // If user has a "1234565555@mobile" or "1234565555@mobile.import" placeholder
+  // email address, don't send that field to Northstar (since it's made-up and
+  // Northstar doesn't require every account to have an email like Drupal does).
+  if(preg_match('/^[0-9]+@mobile(\.import)?$/', $northstar_user['email'])) {
     unset($northstar_user['email']);
   }
 
