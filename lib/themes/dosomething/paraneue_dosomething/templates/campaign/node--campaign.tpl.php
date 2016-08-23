@@ -343,7 +343,7 @@
               <p class="copy inline-alt-text-color"><?php print $reportback_copy; ?></p>
             <?php endif; ?>
             <?php //@TODO @fenders look into adding a .-yelling class that all caps things ?>
-            <h3 class="inline-alt-text-color"><?php print t('JOIN OTHERS MAKING A DIFFERENCE'); ?></h3>
+            <h2 class="heading -emphasized"><?php print t('JOIN OTHERS MAKING A DIFFERENCE'); ?></h2>
             <?php if(dosomething_reportback_exists($campaign->nid)): ?>
               <a href="#" data-modal-href="#modal-missing-photos">Is your photo not showing up?</a>
             <?php endif; ?>
