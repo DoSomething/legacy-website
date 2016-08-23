@@ -223,7 +223,7 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
     // If the campaign is setup to create a custom social share link, get that all setup
     if (dosomething_campaign_feature_on($campaign, 'social_share_unique_link')) {
       $copy = $campaign->variables['social_share_custom_text'] ?: t("Share your link!");
-      $materials['content'] .= '<ul><li><a href="#" data-modal-href="#modal-share"> ' . $copy . '</li></ul>';
+      $materials['content'] .= '<ul><li><a href="#" data-modal-href="#modal-share"> ' . $copy . '</a></li></ul>';
       drupal_add_js(
         array('dosomethingUser' =>
           array('userInfo' =>
