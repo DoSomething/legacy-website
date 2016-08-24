@@ -274,10 +274,10 @@
     left: 50%;
     margin-left: -130px;
     position: absolute;
-    width: 240px;
+    width: 300px;
 
     @include media($medium) {
-      bottom: 25%;
+      bottom: 20%;
     }
   }
 
