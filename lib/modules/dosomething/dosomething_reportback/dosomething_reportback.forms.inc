@@ -88,22 +88,23 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
     ),
     '#prefix' => 'Reportback Image',
     '#suffix' => 'The image must be at least 480 by 480 pixels. The site will crop the image on its own, so if possible submit a square image with the subject in the center of the crop.',
+    '#children' => t("Add your photo here and we’ll check it out!"),
 
   );
+
+  $form['reportback_submissions']['reportback_item']['#attributes']['is_supersized'] = TRUE;
+
   // If rbid doesn't exist, this is a create form.
   if (!isset($entity->rbid)) {
     $entity->rbid = 0;
 
-    $form['reportback_submissions']['reportback_item']['#attributes']['is_supersized'] = TRUE;
-
     $submit_label = t("Submit your pic");
+
+
   }
 
   // Else, it's an update form.
   else {
-    // Output reportback images with date last updated.
-    $form['reportback_submissions']['reportback_item']['#attributes']['is_supersized'] = TRUE;
-
     // do not require a new image to be uploaded on update
     unset($form['reportback_submissions']['reportback_item']['#attributes']['data-validate']);
 
@@ -130,8 +131,8 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
     }
 
     $submit_label = t("Update submission");
+    $form['reportback_submissions']['reportback_item']['#children'] = t("Add another photo and we’ll check it out!");
   }
-
 
   $form['rbid'] = array(
     '#type' => 'hidden',
