@@ -8,6 +8,31 @@
     position: relative;
   }
 
+  .-fullscreen {
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow-y: scroll;
+
+    > .wrapper {
+      height: inherit;
+      max-width: none;
+    }
+
+    .slideshow {
+      position: relative;
+      top: 50%;
+      transform: translateY(-50%);
+
+      .slide {
+        display: block;
+      }
+    }
+  }
+
   // @TODO: Seems like we want border radius on media moving forward
   // so maybe we add the border-radius to all media-* classes?
   // @TODO: Also, the aspect ratio for the video used on onboarding
