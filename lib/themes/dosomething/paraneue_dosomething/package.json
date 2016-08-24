@@ -27,7 +27,7 @@
     "jquery": "~1.11.0",
     "jquery-once": "~2.0.0",
     "jquery.iecors": "DFurnes/jquery.iecors#umd",
-    "lodash": "^3.6.0",
+    "lodash": "^4.15.0",
     "mailcheck": "~1.1.1",
     "raf.js": "~0.0.4",
     "react": "^15.3.0",
