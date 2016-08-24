@@ -228,9 +228,11 @@
           <?php endif; ?>
           <?php if ($register_voters && dosomething_campaign_feature_on($campaign, 'social_share_unique_link')) : ?>
             <div class="modal__block">
-              <p>Copy and paste your share link:</p>
-              <code><?php print $custom_social_share_link ?></code>
               <?php print $social_share_bar ?>
+              <p>Copy and paste your share link:</p>
+              <div class="padded-gray-box">
+                <?php print $custom_social_share_link ?>
+              </div>
             </div>
           <?php endif; ?>
           <?php if (isset($skip_signup_data_form)): ?>
@@ -410,8 +412,10 @@
           <div data-modal id="modal-voter-registration" role="dialog">
             <div class="modal__block">
               <?php print $voter_reg_form_copy ?>
-              <code><?php print $custom_social_share_link ?></code>
               <?php print $social_share_bar ?>
+              <div class="padded-gray-box">
+                <?php print $custom_social_share_link ?>
+              </div>
             </div>
             <?php print $voter_reg_form ?>
           </div>
@@ -423,9 +427,11 @@
         <div data-modal id="modal-share" role="dialog">
           <div class="modal__block">
             <h3>Share this Campaign</h3><br>
-            <p>Copy and paste your share link:</p>
-            <code><?php print $custom_social_share_link ?></code>
             <?php print $social_share_bar ?>
+            <p>Copy and paste your share link:</p>
+            <div class="padded-gray-box">
+              <?php print $custom_social_share_link ?>
+            </div>
           </div>
         </div>
        <?php endif; ?>
@@ -506,7 +512,9 @@
                   <h3>Share with your friends!</h3>
                   <p><?php print $social_share_bar ?></p>
                   <p>Copy and paste your share link:</p>
-                  <code><?php print $custom_social_share_link ?></code>
+                  <div class="padded-gray-box">
+                    <?php print $custom_social_share_link ?>
+                  </div>
                   <div class="form-item -padded submit-done-container">
                     <input type="submit" class="button js-close-modal" value="Done" />
                   </div>

@@ -27,6 +27,7 @@ $asset-path: "";
 @import "patterns/card";
 @import "patterns/counter";
 @import "patterns/gallery";
+@import "patterns/padded-gray-box";
 @import "patterns/photo";
 @import "patterns/promotion";
 @import "patterns/statistic";
@@ -55,3 +56,6 @@ $asset-path: "";
 
 // One-off pages
 @import "content/campaign/hunt-mcc";
+
+// Variables
+$off-white: #f7f7f7;
