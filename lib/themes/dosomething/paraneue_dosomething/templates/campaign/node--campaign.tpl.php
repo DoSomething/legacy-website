@@ -225,7 +225,7 @@
             <div class="modal__block">
               <?php print $voter_reg_form_copy ?>
               <?php print $social_share_bar ?>
-              <p>Copy and paste your share link:</p>
+              <?php print t('Copy and paste your share link:') ?>
               <div class="padded-gray-box">
                 <?php print $custom_social_share_link ?>
               </div>
@@ -235,7 +235,7 @@
             <div><?php print render($signup_data_form); ?></div>
             <?php if ($register_voters && dosomething_campaign_feature_on($campaign, 'social_share_unique_link')) : ?>
               <div class="modal__block">
-                <p>Copy and paste your share link:</p>
+                <?php print t('Copy and paste your share link:') ?>
                 <div class="padded-gray-box">
                   <?php print $custom_social_share_link ?>
                 </div>
@@ -433,9 +433,9 @@
       <?php if ($custom_social_share_link) : ?>
         <div data-modal id="modal-share" role="dialog">
           <div class="modal__block">
-            <h3>Share this Campaign</h3><br>
+            <h3><?php print t('Share this Campaign') ?></h3><br>
             <?php print $social_share_bar ?>
-            <p>Copy and paste your share link:</p>
+            <?php print t('Copy and paste your share link:') ?>
             <div class="padded-gray-box">
               <?php print $custom_social_share_link ?>
             </div>
