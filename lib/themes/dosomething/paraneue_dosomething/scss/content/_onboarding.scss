@@ -8,18 +8,32 @@
     position: relative;
   }
 
-  .-fullscreen {
+  &.-fullscreen {
     position: fixed;
     z-index: 1000;
     top: 0;
     left: 0;
     width: 100vw;
-    height: 100vh;
-    overflow-y: scroll;
+    height: 100%;
+
+    &:before {
+      content: "";
+      display: block;
+      background: url('../logo.png');
+      background-size: 72px 60px;
+      width: 72px;
+      height: 60px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      margin: 12px;
+    }
 
     > .wrapper {
       height: inherit;
       max-width: none;
+      padding-top: 64px;
     }
 
     .slideshow {
