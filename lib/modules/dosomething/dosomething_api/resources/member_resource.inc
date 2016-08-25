@@ -371,9 +371,10 @@ function _member_resource_magic_login_url($uid) {
   if (! $account) {
     return services_error('That user does not exist', 404);
   }
+ $prefix = dosomething_global_get_prefix_for_language($account->language);
 
   // Create a one-time login URL using the same methods as built-in Drupal password reset.
-  $magic_url = url('user/magic/' . $uid . '/' . $timestamp . '/' . user_pass_rehash($account->pass, $timestamp, $account->login, $account->uid), ['absolute' => TRUE]);
+  $magic_url = url($prefix . '/user/magic/' . $uid . '/' . $timestamp . '/' . user_pass_rehash($account->pass, $timestamp, $account->login, $account->uid), ['absolute' => TRUE]);
 
   return [
     'url' => $magic_url,
