@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "@dosomething/forge": "~6.7.5",
-    "dosomething-modal": "~0.3.2",
+    "dosomething-modal": "0.3.3",
     "dosomething-validation": "~0.2.4",
     "es5-shim": "^4.1.1",
     "fixed-sticky": "DFurnes/fixed-sticky#umd",
