@@ -228,7 +228,7 @@ POST /api/v1/users/{uid}/magic_login_url
 // 200 Okay
 
 {
-  "url": "http://dev.dosomething.org:8888/user/magic/1700226/1425495228/P-f-5d6kHLrOXl0VrQfXavgmMjiNz042uihpxJW4jBc",
+  "url": "http://dev.dosomething.org:8888/us/user/magic/1700226/1425495228/P-f-5d6kHLrOXl0VrQfXavgmMjiNz042uihpxJW4jBc",
   "expires": "2016-06-08T15:12:52+00:00"
 }
 ```
