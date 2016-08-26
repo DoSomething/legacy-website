@@ -76,10 +76,21 @@ function dosomething_northstar_save_id_field($uid, $northstar_response) {
  * Send user registration events to northstar.
  *
  * @param $user - Drupal user object
- * @param $payload - Array of data to be sent to Northstar
+ * @param $password - Un-hashed password provided during registration.
  */
-function dosomething_northstar_register_user($user, $payload) {
+function dosomething_northstar_register_user($user, $password = null) {
   $client = _dosomething_northstar_build_http_client();
+  $payload = dosomething_northstar_transform_user($user);
+
+  if (! is_null($password)) {
+    // If un-hashed password is provided (e.g. from register/profile form), send that.
+    $payload['password'] = $password;
+  } else {
+    // Otherwise we're sending an existing user, so we'll attach their hashed
+    // password (which Northstar can use thanks to its DrupalPasswordHash class).
+    $payload['drupal_password'] = $user->pass;
+  }
+
   $response = drupal_http_request($client['base_url'] . '/users', array(
     'headers' => $client['headers'],
     'method' => 'POST',
@@ -130,17 +141,22 @@ function _dosomething_northstar_build_http_client() {
  * their Drupal ID.
  *
  * @param $user - Drupal user object
- * @param $payload - Array of data to be sent to Northstar
+ * @param $form_state - The form state, for unmodified fields
  */
-function dosomething_northstar_update_user($user, $payload) {
+function dosomething_northstar_update_user($user, $form_state) {
   $client = _dosomething_northstar_build_http_client();
+  $payload = dosomething_northstar_transform_user($user);
 
-  $id = $user->uid;
-  $response = drupal_http_request($client['base_url'] . '/users/drupal_id/' . $id, array(
+  // Don't send blank passwords from the user update screen.
+  if (! empty($form_state['values']['pass'])) {
+    $payload['password'] = $form_state['values']['pass'];
+  }
+
+  $response = drupal_http_request($client['base_url'] . '/users/drupal_id/' . $user->uid, [
     'headers' => $client['headers'],
     'method' => 'PUT',
     'data' => json_encode($payload),
-  ));
+  ]);
 
   // Add to request log if enabled.
   dosomething_northstar_log_request('update_user', $user, $payload, $response);
@@ -152,7 +168,8 @@ function dosomething_northstar_update_user($user, $payload) {
   }
   elseif ($response->code === '404') {
     // If the given Drupal ID 404s, try to register them.
-    dosomething_northstar_register_user($user, $payload);
+    $password_or_null = ! empty($form_state['values']['pass']) ? $form_state['values']['pass'] : null;
+    dosomething_northstar_register_user($user, $password_or_null);
   }
   else {
     watchdog('dosomething_northstar', 'User not updated : ' . $response->code, NULL, WATCHDOG_ERROR);
@@ -221,6 +238,7 @@ function dosomething_northstar_transform_user($user) {
     'email'         => $user->mail,
     'drupal_id'     => $user->uid,
     'language'      => $user->language,
+    'created_at'    => $user->created,
   ];
 
   // Set values in ns_user if they are set.
@@ -266,10 +284,6 @@ function dosomething_northstar_transform_user($user) {
 function dosomething_northstar_build_ns_user($user, $form_state) {
   $northstar_user = dosomething_northstar_transform_user($user);
 
-  // Don't send blank passwords from the user update screen.
-  if (!empty($form_state['values']['pass'])) {
-    $northstar_user['password'] = $form_state['values']['pass'];
-  }
 
   return $northstar_user;
 }

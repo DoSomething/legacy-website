@@ -25,7 +25,7 @@ else {
 foreach ($users as $user) {
   // Create json object
   $user = user_load($user->uid);
-  $ns_user = build_northstar_user($user);
+  $northstar_user = dosomething_northstar_transform_user($user);
 
   // Don't "forward" the anonymous user.
   if($user->uid == 0) {
@@ -37,7 +37,7 @@ foreach ($users as $user) {
   $response = drupal_http_request($client['base_url'] . '/users', [
     'headers' => $client['headers'],
     'method' => 'POST',
-    'data' => json_encode($ns_user),
+    'data' => json_encode($northstar_user),
   ]);
 
   // Output progress to stdout so we can see our good work.
@@ -46,7 +46,7 @@ foreach ($users as $user) {
 
   // Save any failed requests to the request log for debugging.
   if(! in_array($response->code, [200, 201])) {
-    dosomething_northstar_log_request('migrate', $user, $ns_user, $response);
+    dosomething_northstar_log_request('migrate', $user, $northstar_user, $response);
   }
 
   // If a user cannot be migrated due to a Drupal ID index conflict, we should delete the conflicting Northstar record.
@@ -59,19 +59,4 @@ foreach ($users as $user) {
 
   // If the script fails, we can use this to start the script from a previous person.
   variable_set('dosomething_northstar_last_user_migrated', $user->uid);
-}
-
-/**
- * Build a Northstar request from the $user global variable.
- */
-function build_northstar_user($user) {
-  $northstar_user = dosomething_northstar_transform_user($user);
-
-  // Since we're sending an existing user, we'll also attach their hashed password
-  // (which Northstar can understand thanks to it's DrupalPasswordHash class), and
-  // the created_at timestamp on the original account.
-  $northstar_user['drupal_password'] = $user->pass;
-  $northstar_user['created_at'] = $user->created;
-
-  return $northstar_user;
 }
