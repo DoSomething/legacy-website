@@ -213,8 +213,17 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
   // 1) Materials
 
   // Build the unique share link.
-  $share_path = 'user/' . dosomething_user_get_field('field_northstar_id');
-  $custom_social_share_link = dosomething_global_url(current_path(), array('absolute' => TRUE,'query' => array('source' => $share_path)));
+  $utm_source = 'influencer';
+  $utm_medium = 'referral_web';
+  $utm_campaign = 'members';
+
+  if (dosomething_user_get_field('field_northstar_id') !== 'NONE') {
+    $share_path = 'user/' . dosomething_user_get_field('field_northstar_id');
+  }
+  else {
+    $share_path = 'user/' . dosomething_user_get_field('uid');
+  }
+  $custom_social_share_link = dosomething_global_url(current_path(), array('absolute' => TRUE,'query' => array('source' => $share_path, 'utm_source' => $utm_source, 'utm_medium' => $utm_medium, 'utm_campaign' => $utm_campaign)));
 
   if (isset($campaign->items_needed)) {
     $materials['category'] = 'materials';
