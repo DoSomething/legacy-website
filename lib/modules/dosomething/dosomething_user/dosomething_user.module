@@ -577,7 +577,10 @@ function dosomething_user_update_user($form, &$form_state) {
   // Forward user updates into Northstar.
   $user = $form_state['user'];
 
-  dosomething_northstar_update_user($user, $form_state);
+  // Don't send blank passwords from the user update screen.
+  $password = ! empty($form_state['values']['pass']) ? $form_state['values']['pass'] : null;
+
+  dosomething_northstar_update_user($user, $password);
 }
 
 /**

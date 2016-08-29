@@ -76,26 +76,17 @@ function dosomething_northstar_save_id_field($uid, $northstar_response) {
  * Send user registration events to northstar.
  *
  * @param $user - Drupal user object
- * @param $password - Un-hashed password provided during registration.
+ * @param $password - Unhashed password provided during registration.
  */
 function dosomething_northstar_register_user($user, $password = null) {
   $client = _dosomething_northstar_build_http_client();
-  $payload = dosomething_northstar_transform_user($user);
+  $payload = dosomething_northstar_transform_user($user, $password);
 
-  if (! is_null($password)) {
-    // If un-hashed password is provided (e.g. from register/profile form), send that.
-    $payload['password'] = $password;
-  } else {
-    // Otherwise we're sending an existing user, so we'll attach their hashed
-    // password (which Northstar can use thanks to its DrupalPasswordHash class).
-    $payload['drupal_password'] = $user->pass;
-  }
-
-  $response = drupal_http_request($client['base_url'] . '/users', array(
+  $response = drupal_http_request($client['base_url'] . '/users', [
     'headers' => $client['headers'],
     'method' => 'POST',
     'data' => json_encode($payload),
-  ));
+  ]);
 
   // Save the newly registered user's ID to their local profile field.
   dosomething_northstar_save_id_field($user->uid, json_decode($response->data));
@@ -141,16 +132,11 @@ function _dosomething_northstar_build_http_client() {
  * their Drupal ID.
  *
  * @param $user - Drupal user object
- * @param $form_state - The form state, for unmodified fields
+ * @param $password - Unhashed password provided during registration.
  */
-function dosomething_northstar_update_user($user, $form_state) {
+function dosomething_northstar_update_user($user, $password = null) {
   $client = _dosomething_northstar_build_http_client();
-  $payload = dosomething_northstar_transform_user($user);
-
-  // Don't send blank passwords from the user update screen.
-  if (! empty($form_state['values']['pass'])) {
-    $payload['password'] = $form_state['values']['pass'];
-  }
+  $payload = dosomething_northstar_transform_user($user, $password);
 
   $response = drupal_http_request($client['base_url'] . '/users/drupal_id/' . $user->uid, [
     'headers' => $client['headers'],
@@ -213,9 +199,10 @@ function dosomething_northstar_get_northstar_user($drupal_id) {
  * Transform Drupal user fields into the appropriate schema for Northstar.
  *
  * @param $user - Drupal user object
+ * @param $password - Unhashed password provided during registration.
  * @return array
  */
-function dosomething_northstar_transform_user($user) {
+function dosomething_northstar_transform_user($user, $password = null) {
   // Optional fields
   $optional = [
     'mobile' => 'field_mobile',
@@ -258,6 +245,15 @@ function dosomething_northstar_transform_user($user) {
     }
   }
 
+  // Provide either the hashed or unhashed password, depending on which is given.
+  // If we only have hashed password, we can send that in the 'drupal_password'
+  // field and Northstar can then verify via its DrupalPasswordHash class.
+  if (! is_null($password)) {
+    $payload['password'] = $password;
+  } else {
+    $payload['drupal_password'] = $user->pass;
+  }
+
   // If user has a "1234565555@mobile" or "1234565555@mobile.import" placeholder
   // email address, don't send that field to Northstar (since it's made-up and
   // Northstar doesn't require every account to have an email like Drupal does).
@@ -270,20 +266,6 @@ function dosomething_northstar_transform_user($user) {
   if(empty($northstar_user['source'])) {
     $northstar_user['source'] = 'phoenix';
   }
-
-  return $northstar_user;
-}
-
-/**
- * Build a Northstar user from a Drupal form submission.
- *
- * @param $user - Drupal user object
- * @param $form_state - Form fields from registration/profile form.
- * @return array
- */
-function dosomething_northstar_build_ns_user($user, $form_state) {
-  $northstar_user = dosomething_northstar_transform_user($user);
-
 
   return $northstar_user;
 }
