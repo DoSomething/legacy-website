@@ -43,6 +43,10 @@ foreach ($dupes as $mail) {
     dosomething_northstar_update_user($user);
   }
 
+  // And push the canonical profile once we've fixed all the dupes.
+  $canonical_user = user_load($canonical_uid);
+  dosomething_northstar_update_user($canonical_user);
+
   print PHP_EOL;
 }
 
