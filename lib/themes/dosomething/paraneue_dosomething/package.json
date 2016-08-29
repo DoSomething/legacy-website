@@ -26,6 +26,7 @@
     "html5shiv": "~3.7.3",
     "jquery": "~1.11.0",
     "jquery-once": "~2.0.0",
+    "layzr.js": "^2.2.1",
     "lodash": "^4.15.0",
     "mailcheck": "~1.1.1",
     "raf.js": "~0.0.4",
@@ -33,7 +34,6 @@
     "react-addons-css-transition-group": "^15.3.0",
     "react-dom": "^15.3.0",
     "respond.js": "~1.4.2",
-    "unveil": "DFurnes/unveil.git#umd",
     "whatwg-fetch": "^1.0.0"
   },
   "devDependencies": {
