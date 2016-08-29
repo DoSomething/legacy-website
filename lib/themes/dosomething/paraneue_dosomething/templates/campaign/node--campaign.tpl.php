@@ -356,7 +356,9 @@
 
             <h3 class="inline-alt-text-color"><?php print t('Helpful Tips'); ?></h3>
             <?php if (isset($helpful_tips)): ?>
+              <div class="with-lists">
                 <p class="copy inline-alt-text-color"><?php print $helpful_tips; ?></p>
+              </div>
             <?php endif; ?>
 
             <h2 class="heading -emphasized"><?php print t('Join others making a difference'); ?></h2>
