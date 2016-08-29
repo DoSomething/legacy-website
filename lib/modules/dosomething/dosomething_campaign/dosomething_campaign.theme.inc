@@ -375,6 +375,12 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
   // Prove.
   $vars['reportback_copy'] = $wrapper->field_reportback_copy->value();
 
+  $helpful_tips = $wrapper->field_helpful_tips->value();
+  if (!empty($helpful_tips)) {
+    $vars['helpful_tips'] = $helpful_tips['safe_value'];
+  }
+
+
   $reportback_placeholder = drupal_get_path('theme', 'paraneue_dosomething') . '/images/this-could-be-you.jpg';
   $vars['reportback_placeholder'] = theme('image', array(
       'path' => $reportback_placeholder,
