@@ -421,6 +421,9 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
   $campaign_path = url(current_path(), array('absolute' => TRUE));
   $country_prefix_for_share = (dosomething_global_get_current_prefix()) ? strtoupper(dosomething_global_get_current_prefix()) : 'global';
   $share_image = $base_url . 'sites/default/files/images/problem-' . $campaign->nid . '-' . $country_prefix_for_share . '.png';
+  if (dosomething_campaign_feature_on($campaign, 'enable_voter_registration', TRUE)) {
+    $share_image = $base_url . 'sites/default/files/images/' . 'v-card' . '.png';
+  }
 
   // Add social share bar.
   $social_share_types = array(
