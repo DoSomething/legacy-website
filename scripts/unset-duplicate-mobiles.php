@@ -36,12 +36,12 @@ foreach ($dupes as $mobile) {
 
     // Remove the mobile field for that user.
     print ' - Removing mobile from ' . $user->uid . ' (' . $mobile . ')' . PHP_EOL;
-    user_save($user, ['field_mobile' => [ LANGUAGE_NONE => [] ] ]);
+    $user = user_save($user, ['field_mobile' => [ LANGUAGE_NONE => [] ] ]);
 
     $removed++;
 
     // Now, update the corresponding profile in Northstar by Drupal ID.
-    dosomething_northstar_update_user($user, ['mobile' => null, 'drupal_id' => $user->uid]);
+    dosomething_northstar_update_user($user);
   }
 
   print PHP_EOL;

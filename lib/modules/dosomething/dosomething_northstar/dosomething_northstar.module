@@ -18,16 +18,16 @@ define('NORTHSTAR_APP_KEY', variable_get('dosomething_northstar_app_key', 'abc43
  * Implements hook_menu().
  */
 function dosomething_northstar_menu() {
-  $items = array();
-  $items['admin/config/services/northstar'] = array(
-    'title' => 'Northstar',
-    'description' => 'Manage Northstar connection settings.',
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('dosomething_northstar_config_form'),
-    'access arguments' => array('administer modules'),
-    'file' => 'dosomething_northstar.admin.inc',
-  );
-  return $items;
+  return [
+    'admin/config/services/northstar' => [
+      'title' => 'Northstar',
+      'description' => 'Manage Northstar connection settings.',
+      'page callback' => 'drupal_get_form',
+      'page arguments' => ['dosomething_northstar_config_form'],
+      'access arguments' => ['administer modules'],
+      'file' => 'dosomething_northstar.admin.inc',
+    ]
+  ];
 }
 
 /**
@@ -58,33 +58,20 @@ function dosomething_northstar_verify_user($credentials) {
 }
 
 /**
- * Save the user's Northstar ID to their local profile.
- *
- * @param $uid - Drupal user ID
- * @param $northstar_response - Northstar user JSON response
- */
-function dosomething_northstar_save_id_field($uid, $northstar_response) {
-  $northstar_id = !empty($northstar_response->data->id) ? $northstar_response->data->id : 'NONE';
-  $user = user_load($uid);
-
-  $edit = [];
-  dosomething_user_set_fields($edit, ['northstar_id' => $northstar_id]);
-  user_save($user, $edit);
-}
-
-/**
  * Send user registration events to northstar.
  *
  * @param $user - Drupal user object
- * @param $payload - Array of data to be sent to Northstar
+ * @param $password - Unhashed password provided during registration.
  */
-function dosomething_northstar_register_user($user, $payload) {
+function dosomething_northstar_create_user($user, $password = null) {
   $client = _dosomething_northstar_build_http_client();
-  $response = drupal_http_request($client['base_url'] . '/users', array(
+  $payload = dosomething_northstar_transform_user($user, $password);
+
+  $response = drupal_http_request($client['base_url'] . '/users', [
     'headers' => $client['headers'],
     'method' => 'POST',
     'data' => json_encode($payload),
-  ));
+  ]);
 
   // Save the newly registered user's ID to their local profile field.
   dosomething_northstar_save_id_field($user->uid, json_decode($response->data));
@@ -103,44 +90,21 @@ function dosomething_northstar_register_user($user, $payload) {
 }
 
 /**
- * Build the drupal_http_request object for Northstar calls.
- * @returns array
- */
-function _dosomething_northstar_build_http_client() {
-  $base_url = NORTHSTAR_URL;
-  if (getenv('DS_ENVIRONMENT') === 'local') {
-      $base_url .=  ":" . NORTHSTAR_PORT;
-    }
-  $base_url .= '/' . NORTHSTAR_VERSION;
-
-  $client = array(
-    'base_url' => $base_url,
-    'headers' => array(
-      'X-DS-REST-API-Key' => NORTHSTAR_APP_KEY,
-      'Content-Type' => 'application/json',
-      'Accept' => 'application/json',
-      ),
-    );
-
-  return $client;
-}
-
-/**
  * Update a user's existing Northstar profile based on
  * their Drupal ID.
  *
  * @param $user - Drupal user object
- * @param $payload - Array of data to be sent to Northstar
+ * @param $password - Unhashed password provided during registration.
  */
-function dosomething_northstar_update_user($user, $payload) {
+function dosomething_northstar_update_user($user, $password = null) {
   $client = _dosomething_northstar_build_http_client();
+  $payload = dosomething_northstar_transform_user($user, $password);
 
-  $id = $user->uid;
-  $response = drupal_http_request($client['base_url'] . '/users/drupal_id/' . $id, array(
+  $response = drupal_http_request($client['base_url'] . '/users/drupal_id/' . $user->uid, [
     'headers' => $client['headers'],
     'method' => 'PUT',
     'data' => json_encode($payload),
-  ));
+  ]);
 
   // Add to request log if enabled.
   dosomething_northstar_log_request('update_user', $user, $payload, $response);
@@ -152,7 +116,8 @@ function dosomething_northstar_update_user($user, $payload) {
   }
   elseif ($response->code === '404') {
     // If the given Drupal ID 404s, try to register them.
-    dosomething_northstar_register_user($user, $payload);
+    $password_or_null = ! empty($form_state['values']['pass']) ? $form_state['values']['pass'] : null;
+    dosomething_northstar_create_user($user, $password_or_null);
   }
   else {
     watchdog('dosomething_northstar', 'User not updated : ' . $response->code, NULL, WATCHDOG_ERROR);
@@ -196,9 +161,10 @@ function dosomething_northstar_get_northstar_user($drupal_id) {
  * Transform Drupal user fields into the appropriate schema for Northstar.
  *
  * @param $user - Drupal user object
+ * @param $password - Unhashed password provided during registration.
  * @return array
  */
-function dosomething_northstar_transform_user($user) {
+function dosomething_northstar_transform_user($user, $password = null) {
   // Optional fields
   $optional = [
     'mobile' => 'field_mobile',
@@ -221,6 +187,7 @@ function dosomething_northstar_transform_user($user) {
     'email'         => $user->mail,
     'drupal_id'     => $user->uid,
     'language'      => $user->language,
+    'created_at'    => $user->created,
   ];
 
   // Set values in ns_user if they are set.
@@ -240,6 +207,15 @@ function dosomething_northstar_transform_user($user) {
     }
   }
 
+  // Provide either the hashed or unhashed password, depending on which is given.
+  // If we only have hashed password, we can send that in the 'drupal_password'
+  // field and Northstar can then verify via its DrupalPasswordHash class.
+  if (! is_null($password)) {
+    $northstar_user['password'] = $password;
+  } else {
+    $northstar_user['drupal_password'] = $user->pass;
+  }
+
   // If user has a "1234565555@mobile" or "1234565555@mobile.import" placeholder
   // email address, don't send that field to Northstar (since it's made-up and
   // Northstar doesn't require every account to have an email like Drupal does).
@@ -257,33 +233,18 @@ function dosomething_northstar_transform_user($user) {
 }
 
 /**
- * Build a Northstar user from a Drupal form submission.
+ * Save the user's Northstar ID to their local profile.
  *
- * @param $user - Drupal user object
- * @param $form_state - Form fields from registration/profile form.
- * @return array
+ * @param $uid - Drupal user ID
+ * @param $northstar_response - Northstar user JSON response
  */
-function dosomething_northstar_build_ns_user($user, $form_state) {
-  $northstar_user = dosomething_northstar_transform_user($user);
+function dosomething_northstar_save_id_field($uid, $northstar_response) {
+  $northstar_id = !empty($northstar_response->data->id) ? $northstar_response->data->id : 'NONE';
+  $user = user_load($uid);
 
-  // Don't send blank passwords from the user update screen.
-  if (!empty($form_state['values']['pass'])) {
-    $northstar_user['password'] = $form_state['values']['pass'];
-  }
-
-  return $northstar_user;
-}
-
-/**
- * Return whether the response has a "successful" status code or not.
- *
- * @param $response
- * @return bool
- */
-function _dosomething_northstar_is_successful_response($response) {
-  $code = (int) $response->code;
-
-  return $code >= 200 && $code <= 299;
+  $edit = [];
+  dosomething_user_set_fields($edit, ['northstar_id' => $northstar_id]);
+  user_save($user, $edit);
 }
 
 /**
@@ -316,3 +277,37 @@ function dosomething_northstar_log_request($op, $user, $request_body, $response)
     ->execute();
 }
 
+/**
+ * Return whether the response has a "successful" status code or not.
+ *
+ * @param $response
+ * @return bool
+ */
+function _dosomething_northstar_is_successful_response($response) {
+  $code = (int) $response->code;
+
+  return $code >= 200 && $code <= 299;
+}
+
+/**
+ * Build the drupal_http_request object for Northstar calls.
+ * @returns array
+ */
+function _dosomething_northstar_build_http_client() {
+  $base_url = NORTHSTAR_URL;
+  if (getenv('DS_ENVIRONMENT') === 'local') {
+    $base_url .=  ":" . NORTHSTAR_PORT;
+  }
+  $base_url .= '/' . NORTHSTAR_VERSION;
+
+  $client = [
+    'base_url' => $base_url,
+    'headers' => [
+      'X-DS-REST-API-Key' => NORTHSTAR_APP_KEY,
+      'Content-Type' => 'application/json',
+      'Accept' => 'application/json',
+    ],
+  ];
+
+  return $client;
+}

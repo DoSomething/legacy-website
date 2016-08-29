@@ -576,8 +576,11 @@ function dosomething_user_update_user($form, &$form_state) {
 
   // Forward user updates into Northstar.
   $user = $form_state['user'];
-  $northstar_user = dosomething_northstar_build_ns_user($user, $form_state);
-  dosomething_northstar_update_user($user, $northstar_user);
+
+  // Don't send blank passwords from the user update screen.
+  $password = ! empty($form_state['values']['pass']) ? $form_state['values']['pass'] : null;
+
+  dosomething_northstar_update_user($user, $password);
 }
 
 /**
@@ -599,10 +602,7 @@ function dosomething_user_new_user($form, &$form_state)
   _dosomething_user_send_to_message_broker();
 
   if (module_exists('dosomething_northstar')) {
-    $northstar_user = dosomething_northstar_build_ns_user($user, $form_state);
-
-    // Send the prepared user to Northstar.
-    dosomething_northstar_register_user($user, $northstar_user);
+    dosomething_northstar_create_user($user, $form_state['values']['pass']);
   };
 }
 
@@ -672,13 +672,12 @@ function _dosomething_user_send_to_message_broker() {
 }
 
 function dosomething_user_new_user_attributes($form, &$form_state) {
+  global $user;
+
   dosomething_user_set_global_attributes();
 
   if (module_exists('dosomething_northstar')){
-    $user = $form_state['user'];
-    $northstar_user = dosomething_northstar_build_ns_user($user, $form_state);
-
-    dosomething_northstar_update_user($user, $northstar_user);
+    dosomething_northstar_create_user($user, $form_state['values']['pass']);
   }
 }
 
@@ -1808,7 +1807,7 @@ function dosomething_user_mail($key, &$message, $params) {
  */
 function dosomething_user_magic_session($uid, $timestamp, $login_token) {
   global $user;
-  
+
   $query = drupal_get_query_parameters();
   $redirect = ! empty($query['redirect']) ? $query['redirect'] : '/';
 
@@ -1839,7 +1838,7 @@ function dosomething_user_magic_session($uid, $timestamp, $login_token) {
 /**
  * Check that a magic login link is valid: it hasn't expired, the referred account exists and
  * hasn't logged in since generating the link, and the hash of those parameters is correct.
- * 
+ *
  * @param $account
  * @param $timestamp
  * @param $login_token
@@ -1849,13 +1848,13 @@ function dosomething_user_check_magic_login_validity($account, $timestamp, $logi
   if(! $account) {
     return false;
   }
-  
+
   $timeout = variable_get('user_password_reset_timeout', 86400);
   $has_expired = REQUEST_TIME - $timestamp > $timeout;
-  
+
   $valid_parameters = $account->uid && $timestamp >= $account->login && $timestamp <= REQUEST_TIME;
   $valid_hash = $login_token == user_pass_rehash($account->pass, $timestamp, $account->login, $account->uid);
-  
+
   return ! $has_expired && $valid_parameters && $valid_hash;
 }
 

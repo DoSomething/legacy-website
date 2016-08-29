@@ -30,10 +30,10 @@ foreach($wild_typers as $wilder) {
 
     // Update the `field_mobile` for that user (to either sanitize or remove it).
     $user = user_load($wilder->uid);
-    user_save($user, $edit);
+    $user = user_save($user, $edit);
 
     // Now, update (or create) the corresponding profile in Northstar by Drupal ID.
-    dosomething_northstar_update_user($user, ['mobile' => $fresh_and_clean_digits, 'drupal_id' => $user->uid]);
+    dosomething_northstar_update_user($user);
   }
 }
 

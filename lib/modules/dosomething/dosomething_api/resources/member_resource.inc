@@ -224,10 +224,7 @@ function _member_resource_create($request) {
     // Forward users to Northstar, unless `?forward=false` is explicitly set.
     $should_forward = isset($query['forward']) ? filter_var($query['forward'], FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE) : true;
     if ($should_forward && module_exists('dosomething_northstar')) {
-      $payload = dosomething_northstar_transform_user($user);
-      $payload['password'] = $edit['pass'];
-
-      dosomething_northstar_register_user($user, $payload);
+      dosomething_northstar_create_user($user, $edit['pass']);
     }
 
     // Don't return the hashed password in the response!

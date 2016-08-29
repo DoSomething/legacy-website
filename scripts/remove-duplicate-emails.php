@@ -36,12 +36,16 @@ foreach ($dupes as $mail) {
     // Set the new email for the deactivated user.
     $new_email = 'duplicate-' . $canonical_uid . '-' . $index . '@dosomething.invalid';
     print ' - Removing ' . $user->uid . ' (' . $user->mail . ' --> ' . $new_email . ')' . PHP_EOL;
-    user_save($user, ['mail' => $new_email, 'status' => 0]);
+    $user = user_save($user, ['mail' => $new_email, 'status' => 0]);
     $removed++;
 
     // Finally, try to push the updated profile to this Drupal ID in Northstar
-    dosomething_northstar_update_user($user, ['drupal_id' => $user->uid, 'email' => $new_email]);
+    dosomething_northstar_update_user($user);
   }
+
+  // And push the canonical profile once we've fixed all the dupes.
+  $canonical_user = user_load($canonical_uid);
+  dosomething_northstar_update_user($canonical_user);
 
   print PHP_EOL;
 }
