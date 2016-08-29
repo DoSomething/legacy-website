@@ -478,7 +478,7 @@ function dosomething_campaign_get_property_names_plain_text() {
  * Returns array of campaign property names which contain filtered text.
  */
 function dosomething_campaign_get_property_names_filtered_text() {
-  return array(
+  return [
     'items_needed',
     'promoting_tips',
     'solution_copy',
@@ -492,8 +492,9 @@ function dosomething_campaign_get_property_names_filtered_text() {
     'photo_step',
     'post_step_copy',
     'reportback_copy',
+    'helpful_tips',
     'reportback_confirm_msg',
-  );
+  ];
 }
 
 /**
