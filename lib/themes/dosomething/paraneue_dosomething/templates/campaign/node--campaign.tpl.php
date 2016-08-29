@@ -346,12 +346,19 @@
           <h2 class="heading -emphasized -inverse"><span><?php print t('Step 4: Prove It'); ?></span></h2>
         </div>
       </div>
+
       <div class="container__row">
           <div class="container__block">
             <h3 class="inline-alt-text-color"><?php print t('Pics or It Didn&rsquo;t Happen'); ?></h3>
             <?php if (isset($reportback_copy)): ?>
               <p class="copy inline-alt-text-color"><?php print $reportback_copy; ?></p>
             <?php endif; ?>
+
+            <h3 class="inline-alt-text-color"><?php print t('Helpful Tips'); ?></h3>
+            <?php if (isset($helpful_tips)): ?>
+                <p class="copy inline-alt-text-color"><?php print $helpful_tips; ?></p>
+            <?php endif; ?>
+
             <h2 class="heading -emphasized"><?php print t('Join others making a difference'); ?></h2>
             <?php if(dosomething_reportback_exists($campaign->nid)): ?>
               <a href="#" data-modal-href="#modal-missing-photos">Is your photo not showing up?</a>
