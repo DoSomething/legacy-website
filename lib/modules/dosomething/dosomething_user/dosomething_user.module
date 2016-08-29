@@ -602,7 +602,7 @@ function dosomething_user_new_user($form, &$form_state)
   _dosomething_user_send_to_message_broker();
 
   if (module_exists('dosomething_northstar')) {
-    dosomething_northstar_register_user($user, $form_state['values']['pass']);
+    dosomething_northstar_create_user($user, $form_state['values']['pass']);
   };
 }
 
@@ -677,7 +677,7 @@ function dosomething_user_new_user_attributes($form, &$form_state) {
   dosomething_user_set_global_attributes();
 
   if (module_exists('dosomething_northstar')){
-    dosomething_northstar_register_user($user, $form_state['values']['pass']);
+    dosomething_northstar_create_user($user, $form_state['values']['pass']);
   }
 }
 
