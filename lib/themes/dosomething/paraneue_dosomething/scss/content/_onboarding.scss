@@ -53,7 +53,7 @@
     background: rgba(0,0,0,.5);
 
     > .wrapper {
-      height: 70%;
+      min-height: 60%;
       max-width: 50%;
       padding-top: 64px;
       position: relative;
@@ -77,19 +77,11 @@
 
       .beta-card {
         margin-top: -32px;
+        box-shadow: $box-shadow;
+      }
 
-        .beta-card__row {
-          padding: 0;
-        }
-
-        .beta-card__block {
-          padding: 0;
-          text-align: left;
-        }
-
-        .form-actions {
-          padding: 0;
-        }
+      .photo.-framed {
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
       }
     }
 
