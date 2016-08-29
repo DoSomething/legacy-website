@@ -498,6 +498,27 @@ function dosomething_campaign_field_default_field_bases() {
     'type' => 'field_collection',
   );
 
+  // Exported field_base: 'field_helpful_tips'.
+  $field_bases['field_helpful_tips'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_helpful_tips',
+    'indexes' => array(
+      'format' => array(
+        0 => 'format',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'text',
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+    ),
+    'translatable' => 1,
+    'type' => 'text_long',
+  );
+
   // Exported field_base: 'field_high_season'.
   $field_bases['field_high_season'] = array(
     'active' => 1,

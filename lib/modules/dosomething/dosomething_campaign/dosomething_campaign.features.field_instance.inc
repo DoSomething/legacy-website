@@ -1139,6 +1139,55 @@ function dosomething_campaign_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-campaign-field_helpful_tips'.
+  $field_instances['node-campaign-field_helpful_tips'] = array(
+    'bundle' => 'campaign',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '- Upload your photos as you go. As soon as you have one or more, take a photo and upload it!" <br/>
+- Upload one photo at a time. <br/>
+If this campaign has a scholarship, be sure to add a helpful tip about how to qualify for the scholarship -- this should be the first item in the list. Be explicit and stress the simplicity of the process.',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 78,
+      ),
+      'search_index' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_helpful_tips',
+    'label' => 'Helpful tips',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'text_processing' => 1,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'rows' => 5,
+      ),
+      'type' => 'text_textarea',
+      'weight' => 10,
+    ),
+  );
+
   // Exported field_instance: 'node-campaign-field_high_season'.
   $field_instances['node-campaign-field_high_season'] = array(
     'bundle' => 'campaign',
@@ -2316,7 +2365,7 @@ function dosomething_campaign_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 10,
+      'weight' => 9,
     ),
   );
 
@@ -3243,6 +3292,9 @@ The title determines the URL of the page. This means that if you are changing th
 <strong> Limit: 135 characters </strong>');
   t(' i.e. "Protect your Pills", "Birthday Mail", or "Teens for Jeans" <b> Limit: 20 characters. </b> <br/>
 The title determines the URL of the page. This means that if you are changing the title on an already published page, the URL of the page will change too. If you need to update the title, you <b>must request a redirect </b> from the Product Team.');
+  t('- Upload your photos as you go. As soon as you have one or more, take a photo and upload it!" <br/>
+- Upload one photo at a time. <br/>
+If this campaign has a scholarship, be sure to add a helpful tip about how to qualify for the scholarship -- this should be the first item in the list. Be explicit and stress the simplicity of the process.');
   t('Action Guide');
   t('Action Type');
   t('Active Hours');
@@ -3270,6 +3322,7 @@ The title determines the URL of the page. This means that if you are changing th
   t('FAQ');
   t('Facts');
   t('Header');
+  t('Helpful tips');
   t('High Season');
   t('Hype');
   t('If there is a prize to be won, you must include a PDF of the official rules.');
