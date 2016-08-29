@@ -165,6 +165,7 @@ function paraneue_dosomething_select($variables) {
 function paraneue_dosomething_file($variables) {
   $element = $variables['element'];
   $id = NULL;
+  $label = $element['#children'];
 
   if (isset($element['#id'])) {
     $id = $element['#id'];
@@ -174,14 +175,10 @@ function paraneue_dosomething_file($variables) {
   $element['#attributes']['aria-label'] = 'file browser';
   element_set_attributes($element, array('id', 'name', 'size'));
   _form_set_class($element, array('form-file'));
-
   // Need to include the <input> within <label> to universalize style for file input.
   if ($element['#attributes']['is_supersized']) {
-    $message = '<div class="message-callout -below"><div class="message-callout__copy"><p>' . t("Add your photo here!") . '</p></div></div>';
+    $message = '<div class="message-callout -below"><div class="message-callout__copy"><p>' . $label . '</p></div></div>';
     return '<label class="gigantor" id="' . $id . '">' . $message . '<input' . drupal_attributes($element['#attributes']) . ' /></label>';
-  }
-  else {
-    return '<label class="button button--file -tertiary"><span>' . t('Add another photo') . '</span><input' . drupal_attributes($element['#attributes']) . ' /></label>';
   }
 }
 

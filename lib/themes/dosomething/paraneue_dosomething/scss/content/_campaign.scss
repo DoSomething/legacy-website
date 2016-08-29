@@ -13,6 +13,9 @@
 .campaign--action .container--prove {
   .message-callout__copy {
     left: 12px;
+    &:before {
+      left: 250px;
+    }
   }
 }
 
