@@ -54,7 +54,8 @@
 
     > .wrapper {
       min-height: 60%;
-      max-width: 50%;
+      width: 50%;
+      min-width: 900px;
       padding-top: 64px;
       position: relative;
       top: 50%;
