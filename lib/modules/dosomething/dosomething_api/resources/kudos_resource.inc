@@ -77,15 +77,6 @@ function _kudos_resource_definition() {
             ],
           ],
           [
-            'name' => 'user_id',
-            'description' => 'The ID of the user executing a kudos.',
-            'optional' => FALSE,
-            'type' => 'string',
-            'source' => [
-              'data' => 'user_id',
-            ],
-          ],
-          [
             'name' => 'term_ids',
             'description' => 'An array of kudos term IDs.',
             'optional' => FALSE,
@@ -189,10 +180,9 @@ function _kudos_resource_index($reportbackitems, $count) {
  * @param $user_id
  * @param $term_ids
  */
-function _kudos_resource_create($reportback_item_id, $user_id, $term_ids) {
+function _kudos_resource_create($reportback_item_id, $term_ids) {
   $parameters = [
     'fid' => $reportback_item_id,
-    'uid' => $user_id,
     'tids' => $term_ids,
   ];
 
