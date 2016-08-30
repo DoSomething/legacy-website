@@ -71,9 +71,11 @@ class KudosTransformer extends Transformer {
    * @return array
    */
   public function create($parameters) {
+    global $user;
+
     $values = [
       'fid' => $parameters['fid'],
-      'uid' => $parameters['uid'],
+      'uid' => $user->uid,
       'created' => time(),
     ];
 

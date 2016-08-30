@@ -77,15 +77,6 @@ function _kudos_resource_definition() {
             ],
           ],
           [
-            'name' => 'user_id',
-            'description' => 'The ID of the user executing a kudos.',
-            'optional' => FALSE,
-            'type' => 'string',
-            'source' => [
-              'data' => 'user_id',
-            ],
-          ],
-          [
             'name' => 'term_ids',
             'description' => 'An array of kudos term IDs.',
             'optional' => FALSE,
@@ -95,7 +86,6 @@ function _kudos_resource_definition() {
             ],
           ],
         ],
-        'access arguments append' => TRUE,
         'access callback' => '_kudos_resource_access',
         'access arguments' => ['create'],
       ],
@@ -149,16 +139,9 @@ function _kudos_resource_access($op, $args = []) {
 
   if ($op === 'create' || $op === 'delete') {
     // Only auth'd users should be giving Kudos
-    if (user_is_anonymous()) {
-      return FALSE;
+    if (!user_is_anonymous()) {
+      return TRUE;
     }
-
-    // We need to make sure people are only creating Kudos for themselves
-    if ($op === 'create' && $user->uid !== $args[1]) {
-      return FALSE;
-    }
-
-    return TRUE;
   }
 
   return FALSE;
@@ -200,10 +183,9 @@ function _kudos_resource_index($reportbackitems, $count) {
  * @param $user_id
  * @param $term_ids
  */
-function _kudos_resource_create($reportback_item_id, $user_id, $term_ids) {
+function _kudos_resource_create($reportback_item_id, $term_ids) {
   $parameters = [
     'fid' => $reportback_item_id,
-    'uid' => $user_id,
     'tids' => $term_ids,
   ];
 
