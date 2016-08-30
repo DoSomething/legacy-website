@@ -150,16 +150,6 @@
       @include span(3 of 12);
     }
   }
-
-  .photo.-framed {
-    opacity: 0;
-    transition: opacity 0.5s ease-in;
-
-    &.is-unveiled {
-      opacity: 1;
-    }
-  }
-
 }
 
 
