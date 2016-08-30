@@ -174,7 +174,7 @@
                   <?php endif; ?>
 
                   <?php if ($register_voters && $can_vote) : ?>
-                    <li><a href="#" data-modal-href="#modal-voter-registration">Register to Vote</a></li>
+                    <li><a href="#" data-modal-href="#modal-voter-registration"><?php print t('This online registration form (if you’re not registered already)') ?></a></li>
                   <?php endif; ?>
 
                 </ul>
@@ -235,7 +235,7 @@
             <div><?php print render($signup_data_form); ?></div>
             <?php if ($register_voters && dosomething_campaign_feature_on($campaign, 'social_share_unique_link')) : ?>
               <div class="modal__block">
-                <?php print t('Copy and paste your share link:') ?>
+                <?php print t('Use your unique registration link below for this competition. You must share this link to qualify for this competition.') ?>
                 <div class="padded-gray-box">
                   <?php print $custom_social_share_link ?>
                 </div>
@@ -430,12 +430,18 @@
 
 
       <?php // Custom Share Modal // ?>
-      <?php if ($custom_social_share_link) : ?>
+      <?php if ($custom_social_share_link && $register_voters) : ?>
         <div data-modal id="modal-share" role="dialog">
           <div class="modal__block">
-            <h3><?php print t('Share this Campaign') ?></h3><br>
+            <h3><?php print t('Share This Now!') ?></h3><br>
+            <p><?php print t('Share a V-Card like the one below and tag friends to remind them to register to vote.') ?></p>
+            <?php if ($share_image) : ?>
+              <img src="<?php $share_image ?>">
+            <?php endif; ?>
             <?php print $social_share_bar ?>
-            <?php print t('Copy and paste your share link:') ?>
+            <?php print t('Want to use a different V-Card? Download a V-Card from our') ?>
+            <a href="https://www.dropbox.com/sh/1x5r1mf396gm1gh/AAAb5bHwDspL0c3U3MaFQ5Yea?dl=0"><?php print t('gallery,')?></a>
+            <?php print t(' then share it on social with your unique registration link below. (You must share this unique link to qualify for the $5000 scholarship!)') ?>
             <div class="padded-gray-box">
               <?php print $custom_social_share_link ?>
             </div>
