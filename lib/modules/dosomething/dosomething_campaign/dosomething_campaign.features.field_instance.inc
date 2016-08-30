@@ -1144,9 +1144,12 @@ function dosomething_campaign_field_default_field_instances() {
     'bundle' => 'campaign',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => '- Upload your photos as you go. As soon as you have one or more, take a photo and upload it!" <br/>
-- Upload one photo at a time. <br/>
-If this campaign has a scholarship, be sure to add a helpful tip about how to qualify for the scholarship -- this should be the first item in the list. Be explicit and stress the simplicity of the process.',
+    'description' => 'Please use this section to outline some Helpful Tips for the member. Be explicit and stress the simplicity of the process. <br/>
+Here are some commonly used Helpful Tips -- copy and paste and edit ones that are relevant to your campaign into the text field: <br/>
+* Upload your photos as you go. As soon as you have one or more <em> noun verb </em>, take a photo and upload it! <br/>
+* Upload one photo at a time.
+<br/>
+Note: If this scholarship has a campaign, you should list any helpful tips about qualifying for the scholarship first.',
     'display' => array(
       'default' => array(
         'label' => 'above',
@@ -3292,9 +3295,6 @@ The title determines the URL of the page. This means that if you are changing th
 <strong> Limit: 135 characters </strong>');
   t(' i.e. "Protect your Pills", "Birthday Mail", or "Teens for Jeans" <b> Limit: 20 characters. </b> <br/>
 The title determines the URL of the page. This means that if you are changing the title on an already published page, the URL of the page will change too. If you need to update the title, you <b>must request a redirect </b> from the Product Team.');
-  t('- Upload your photos as you go. As soon as you have one or more, take a photo and upload it!" <br/>
-- Upload one photo at a time. <br/>
-If this campaign has a scholarship, be sure to add a helpful tip about how to qualify for the scholarship -- this should be the first item in the list. Be explicit and stress the simplicity of the process.');
   t('Action Guide');
   t('Action Type');
   t('Active Hours');
@@ -3362,6 +3362,12 @@ If this campaign has a scholarship, be sure to add a helpful tip about how to qu
 <br/>
 <strong> Limit 25 characters. </strong>');
   t('Official Rules');
+  t('Please use this section to outline some Helpful Tips for the member. Be explicit and stress the simplicity of the process. <br/>
+Here are some commonly used Helpful Tips -- copy and paste and edit ones that are relevant to your campaign into the text field: <br/>
+* Upload your photos as you go. As soon as you have one or more <em> noun verb </em>, take a photo and upload it! <br/>
+* Upload one photo at a time.
+<br/>
+Note: If this scholarship has a campaign, you should list any helpful tips about qualifying for the scholarship first.');
   t('Primary Action Type');
   t('Primary Cause');
   t('Problem Fact');
