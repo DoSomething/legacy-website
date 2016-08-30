@@ -430,18 +430,22 @@
 
 
       <?php // Custom Share Modal // ?>
-      <?php if ($custom_social_share_link && $register_voters) : ?>
+      <?php if ($custom_social_share_link) : ?>
         <div data-modal id="modal-share" role="dialog">
           <div class="modal__block">
-            <h3><?php print t('Share This Now!') ?></h3><br>
-            <p><?php print t('Share a V-Card like the one below and tag friends to remind them to register to vote.') ?></p>
+            <?php if ($register_voters) : ?>
+              <h3><?php print $voter_reg_share_modal_heading ?></h3><br>
+              <p><?php print $voter_reg_share_modal_text_1 ?></p>
+            <?php else : ?>
+              <h3><?php print t('Share This Campaign') ?></h3><br>
+            <?php endif; ?>
             <?php if ($share_image) : ?>
               <img src="<?php $share_image ?>">
             <?php endif; ?>
             <?php print $social_share_bar ?>
-            <?php print t('Want to use a different V-Card? Download a V-Card from our') ?>
-            <a href="https://www.dropbox.com/sh/1x5r1mf396gm1gh/AAAb5bHwDspL0c3U3MaFQ5Yea?dl=0"><?php print t('gallery,')?></a>
-            <?php print t(' then share it on social with your unique registration link below. (You must share this unique link to qualify for the $5000 scholarship!)') ?>
+            <?php if ($register_voters) : ?>
+              <p><?php print $voter_reg_share_modal_text_2 ?></p>
+            <?php endif; ?>
             <div class="padded-gray-box">
               <?php print $custom_social_share_link ?>
             </div>
