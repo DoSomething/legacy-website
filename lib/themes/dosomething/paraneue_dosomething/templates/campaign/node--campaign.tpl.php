@@ -356,17 +356,23 @@
 
             <h3 class="inline-alt-text-color"><?php print t('Helpful Tips'); ?></h3>
             <?php if (isset($helpful_tips)): ?>
-              <div class="with-lists">
-                <p class="copy inline-alt-text-color"><?php print $helpful_tips; ?></p>
+              <div class="with-lists copy inline-alt-text-color">
+                <?php print $helpful_tips; ?>
               </div>
             <?php endif; ?>
 
-            <h2 class="heading -emphasized"><?php print t('Join others making a difference'); ?></h2>
+            <div class="container__row">
+              <div class="container__block">
+                <h2 class="heading -emphasized"><?php print t('Join others making a difference'); ?></h2>
+              </div>
+            </div>
+
             <?php if(dosomething_reportback_exists($campaign->nid)): ?>
               <a href="#" data-modal-href="#modal-missing-photos">Is your photo not showing up?</a>
             <?php endif; ?>
           </div>
       </div>
+
 
       <div id="reportback" class="reportback" data-nid="<?php print $campaign->nid; ?>" data-ids="<?php print implode(',', $reportbacks_gallery['item_ids']); ?>" data-remaining="<?php print $reportbacks_gallery['remaining']; ?>" data-admin="<?php print $reportbacks_gallery['admin_access']; ?>">
         <div class="wrapper">
