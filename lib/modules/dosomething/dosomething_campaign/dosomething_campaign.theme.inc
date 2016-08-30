@@ -420,9 +420,11 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
   $base_url = url(base_path(), array('absolute'=> TRUE, 'language' => 'en-global'));
   $campaign_path = url(current_path(), array('absolute' => TRUE));
   $country_prefix_for_share = (dosomething_global_get_current_prefix()) ? strtoupper(dosomething_global_get_current_prefix()) : 'global';
-  $share_image = $base_url . 'sites/default/files/images/problem-' . $campaign->nid . '-' . $country_prefix_for_share . '.png';
   if (dosomething_campaign_feature_on($campaign, 'enable_voter_registration', TRUE)) {
-    $share_image = $base_url . 'sites/default/files/' . 'social-v-card' . '.png';
+      $vars['share_image'] = dosomething_image_get_themed_image_url($campaign->variables['share_image_nid'], 'landscape');
+  }
+  else {
+    $vars['share_image'] = $base_url . 'sites/default/files/images/problem-' . $campaign->nid . '-' . $country_prefix_for_share . '.png';
   }
 
   // Add social share bar.
@@ -430,7 +432,7 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
     'facebook' => array(
       'type' => 'feed_dialog',
       'parameters' => array(
-      'picture' => $share_image,
+      'picture' => $vars['share_image'],
     ),
   ),
     'twitter' => array(
@@ -438,7 +440,7 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
     ),
     'tumblr' => array(
       'posttype' => 'photo',
-      'content' => $share_image,
+      'content' => $vars['share_image'],
       'caption' => t("This is REAL, do something about this with me: "),
     ),
   );
