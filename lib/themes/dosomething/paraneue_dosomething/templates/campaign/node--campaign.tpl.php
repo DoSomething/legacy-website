@@ -440,7 +440,7 @@
               <h3><?php print t('Share This Campaign') ?></h3><br>
             <?php endif; ?>
             <?php if ($share_image) : ?>
-              <img src="<?php $share_image ?>">
+              <img src="<?php echo $share_image ?>">
             <?php endif; ?>
             <?php print $social_share_bar ?>
             <?php if ($register_voters) : ?>
