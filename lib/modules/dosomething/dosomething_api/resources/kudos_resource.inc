@@ -126,9 +126,7 @@ function _kudos_resource_definition() {
  *
  * @return bool
  */
-function _kudos_resource_access($op, $args = []) {
-  global $user;
-
+function _kudos_resource_access($op) {
   if ($op === 'view') {
     return TRUE;
   }
