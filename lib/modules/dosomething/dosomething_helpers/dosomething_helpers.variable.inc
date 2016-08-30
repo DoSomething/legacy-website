@@ -32,6 +32,15 @@ function dosomething_helpers_variable_form($form, &$form_state, $node) {
       'maxlength' => '140',
     ),
   ];
+  $form['custom_social_sharing']['share_image_nid'] = [
+    '#type' => 'textfield',
+    '#title' => t('Photo nid'),
+    '#description' => t("The nid of the photo to be shared on social media. After you upload a photo, you will be redirected to a url like dosomething.org/image/2480. The final number is the nid (2480 in this example)."),
+    '#default_value' => $vars['share_image_nid'],
+    '#attributes' => array(
+      'maxlength' => '140',
+    ),
+  ];
   $form['styles'] = array(
     '#type' => 'fieldset',
     '#title' => t('Styles'),
@@ -268,6 +277,7 @@ function dosomething_helpers_get_variable_names() {
     'mobilecommons_friends_opt_in_path',
     'progress',
     'registration_form_copy',
+    'share_image_nid',
     'shipment_form_confirm_msg',
     'shipment_form_copy',
     'shipment_form_header',
