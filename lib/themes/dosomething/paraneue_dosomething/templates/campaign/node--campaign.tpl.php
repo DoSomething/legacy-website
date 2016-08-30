@@ -174,7 +174,7 @@
                   <?php endif; ?>
 
                   <?php if ($register_voters && $can_vote) : ?>
-                    <li><a href="#" data-modal-href="#modal-voter-registration">Register to Vote</a></li>
+                    <li><a href="#" data-modal-href="#modal-voter-registration"><?php print t('This online registration form (if you’re not registered already)') ?></a></li>
                   <?php endif; ?>
 
                 </ul>
@@ -235,7 +235,7 @@
             <div><?php print render($signup_data_form); ?></div>
             <?php if ($register_voters && dosomething_campaign_feature_on($campaign, 'social_share_unique_link')) : ?>
               <div class="modal__block">
-                <?php print t('Copy and paste your share link:') ?>
+                <?php print t('Use your unique registration link below for this competition. You must share this link to qualify for this competition.') ?>
                 <div class="padded-gray-box">
                   <?php print $custom_social_share_link ?>
                 </div>
@@ -448,9 +448,19 @@
       <?php if ($custom_social_share_link) : ?>
         <div data-modal id="modal-share" role="dialog">
           <div class="modal__block">
-            <h3><?php print t('Share this Campaign') ?></h3><br>
+            <?php if ($register_voters) : ?>
+              <h3><?php print $voter_reg_share_modal_heading ?></h3><br>
+              <p><?php print $voter_reg_share_modal_text_1 ?></p>
+            <?php else : ?>
+              <h3><?php print t('Share This Campaign') ?></h3><br>
+            <?php endif; ?>
+            <?php if ($share_image) : ?>
+              <img src="<?php $share_image ?>">
+            <?php endif; ?>
             <?php print $social_share_bar ?>
-            <?php print t('Copy and paste your share link:') ?>
+            <?php if ($register_voters) : ?>
+              <p><?php print $voter_reg_share_modal_text_2 ?></p>
+            <?php endif; ?>
             <div class="padded-gray-box">
               <?php print $custom_social_share_link ?>
             </div>
