@@ -363,6 +363,7 @@ function dosomething_campaign_field_group_info() {
       0 => 'field_reportback_copy',
       1 => 'field_reportback_noun',
       2 => 'field_reportback_verb',
+      3 => 'field_helpful_tips',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
