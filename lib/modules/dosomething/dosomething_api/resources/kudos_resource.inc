@@ -138,7 +138,6 @@ function _kudos_resource_access($op, $args = []) {
   }
 
   if ($op === 'create' || $op === 'delete') {
-    // Only auth'd users should be giving Kudos
     if (!user_is_anonymous()) {
       return TRUE;
     }
