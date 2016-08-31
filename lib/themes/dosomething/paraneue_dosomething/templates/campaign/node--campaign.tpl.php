@@ -354,8 +354,8 @@
               <p class="copy inline-alt-text-color"><?php print $reportback_copy; ?></p>
             <?php endif; ?>
 
-            <h3 class="inline-alt-text-color"><?php print t('Helpful Tips'); ?></h3>
             <?php if (isset($helpful_tips)): ?>
+              <h3 class="inline-alt-text-color"><?php print t('Helpful Tips'); ?></h3>
               <div class="with-lists copy inline-alt-text-color">
                 <?php print $helpful_tips; ?>
               </div>
