@@ -137,10 +137,10 @@ function dosomething_user_admin_config_form($form, &$form_state) {
   );
 
   // Profile subtitle.
-  $var_name = 'dosomething_user_social_auth_enabled';
+  $var_name = 'dosomething_user_facebook_auth_enabled';
   $form['social'][$var_name] = array(
     '#type' => 'checkbox',
-    '#title' => t('Enable social auth'),
+    '#title' => t('Enable Facebook auth'),
     '#default_value' => variable_get($var_name, FALSE),
   );
 
