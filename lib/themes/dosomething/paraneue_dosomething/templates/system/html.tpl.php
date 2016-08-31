@@ -39,6 +39,18 @@
 </head>
 
 <body class="<?php print $classes; if ($variables['is_affiliate']) print ' -affiliate'; ?>" <?php print $attributes;?>>
+  <?php if ($variables['enable_facebook_login']): ?>
+    <script>
+      (function(d, s, id){
+         var js, fjs = d.getElementsByTagName(s)[0];
+         if (d.getElementById(id)) {return;}
+         js = d.createElement(s); js.id = id;
+         js.src = "//connect.facebook.net/en_US/sdk.js";
+         fjs.parentNode.insertBefore(js, fjs);
+       }(document, 'script', 'facebook-jssdk'));
+    </script>
+  <?php endif; ?>
+
   <div class="chrome">
     <?php print $page_top; ?>
     <?php print $page; ?>

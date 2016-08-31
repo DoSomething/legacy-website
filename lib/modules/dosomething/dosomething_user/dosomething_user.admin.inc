@@ -129,6 +129,22 @@ function dosomething_user_admin_config_form($form, &$form_state) {
   );
 
   // Profile settings.
+  $form['social'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Social Auth'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
+
+  // Profile subtitle.
+  $var_name = 'dosomething_user_facebook_auth_enabled';
+  $form['social'][$var_name] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Enable Facebook auth'),
+    '#default_value' => variable_get($var_name, FALSE),
+  );
+
+  // Profile settings.
   $form['profile'] = array(
     '#type' => 'fieldset',
     '#title' => t('Profile'),
