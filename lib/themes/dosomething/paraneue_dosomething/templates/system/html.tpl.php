@@ -41,14 +41,6 @@
 <body class="<?php print $classes; if ($variables['is_affiliate']) print ' -affiliate'; ?>" <?php print $attributes;?>>
   <?php if ($variables['enable_facebook_login']): ?>
     <script>
-      window.fbAsyncInit = function() {
-        FB.init({
-          appId      : '105775762330',
-          xfbml      : true,
-          version    : 'v2.7'
-        });
-      };
-
       (function(d, s, id){
          var js, fjs = d.getElementsByTagName(s)[0];
          if (d.getElementById(id)) {return;}

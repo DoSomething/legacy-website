@@ -28,7 +28,7 @@ function paraneue_dosomething_preprocess_html(&$vars) {
   $enable_facebook_login = variable_get('dosomething_user_social_auth_enabled', FALSE);
   $vars['enable_facebook_login'] = $enable_facebook_login;
   if ($enable_facebook_login) {
-    drupal_add_js(PARANEUE_PATH . '/dist/socialAuth.js', [
+    drupal_add_js(PARANEUE_PATH . '/dist/social-auth.js', [
       'group'      => JS_THEME,
       'weight'     => 1000,
       'every_page' => FALSE,
