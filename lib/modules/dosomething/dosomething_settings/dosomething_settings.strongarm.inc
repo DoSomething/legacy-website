@@ -49,8 +49,8 @@ function dosomething_settings_strongarm() {
   $strongarm->name = 'seckit_xss';
   $strongarm->value = array(
     'csp' => array(
-      'checkbox' => 1,
-      'report-only' => 1,
+      'checkbox' => 0,
+      'report-only' => 0,
       'default-src' => '\'self\' *.dosomething.org',
       'script-src' => '\'self\' \'unsafe-inline\' \'unsafe-eval\' *.dosomething.org *.google-analytics.com *.optimizely.com bam.nr-data.net js-agent.newrelic.com *.youtube.com *.akamaihd.net *.googleapis.com',
       'object-src' => '\'self\' *.dosomething.org *.akamaihd.net',
