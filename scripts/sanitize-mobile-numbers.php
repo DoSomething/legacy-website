@@ -16,20 +16,25 @@ $wild_typers = db_query('SELECT entity_id as uid, field_mobile_value as mobile
 
 foreach($wild_typers as $wilder) {
   if ($wilder->mobile) {
-    $mobile = $wilder->mobile;
-    $fresh_and_clean_digits = dosomething_user_clean_mobile_number(preg_replace('[^0-9]', '', $mobile));
+    $user = user_load($wilder->uid);
+    $original_mobile = $wilder->mobile;
+    $fresh_and_clean_digits = dosomething_user_clean_mobile_number(preg_replace('[^0-9]', '', $original_mobile));
+
     if ($fresh_and_clean_digits) {
-      print 'Updated user ' . $wilder->uid . '(' . $wilder->mobile . ' --> ' . $fresh_and_clean_digits . ')' . PHP_EOL;
+      print 'Updated user ' . $user->uid . '(' . $original_mobile . ' --> ' . $fresh_and_clean_digits . ')' . PHP_EOL;
       $edit = ['field_mobile' => [ LANGUAGE_NONE => [ 0 => [ 'value' => $fresh_and_clean_digits ] ] ] ];
     }
     else {
-      print 'Couldn\'t salvage ' . $wilder->uid . ' (' . $wilder->mobile . ')' . PHP_EOL;
+      print 'Could not salvage ' . $wilder->uid . ' (' . $wilder->mobile . ')' . PHP_EOL;
       $edit = ['field_mobile' => [ LANGUAGE_NONE => [] ] ];
-      $fresh_and_clean_digits = null;
+
+      // If the user doesn't have a real email, set them a "invalid" placeholder.
+      if (preg_match('/^[0-9]+@mobile(\.import)?$/', $user->mail)) {
+        $edit['mail'] = 'bad-mobile-' . $user->uid . '@dosomething.invalid';
+      }
     }
 
     // Update the `field_mobile` for that user (to either sanitize or remove it).
-    $user = user_load($wilder->uid);
     $user = user_save($user, $edit);
 
     // Now, update (or create) the corresponding profile in Northstar by Drupal ID.
