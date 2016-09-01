@@ -167,7 +167,6 @@ function dosomething_northstar_get_northstar_user($drupal_id) {
 function dosomething_northstar_transform_user($user, $password = null) {
   // Optional fields
   $optional = [
-    'mobile' => 'field_mobile',
     'birthdate' => 'field_birthdate',
     'first_name' => 'field_first_name',
     'last_name' => 'field_last_name',
@@ -185,6 +184,7 @@ function dosomething_northstar_transform_user($user, $password = null) {
 
   $northstar_user = [
     'email'         => $user->mail,
+    'mobile'        => dosomething_user_get_field('field_mobile', $user),
     'drupal_id'     => $user->uid,
     'language'      => $user->language,
     'created_at'    => $user->created,
