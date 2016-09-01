@@ -29,7 +29,7 @@ foreach($wild_typers as $wilder) {
       $edit = ['field_mobile' => [ LANGUAGE_NONE => [] ] ];
 
       // If the user doesn't have a real email, set them a "invalid" placeholder.
-      if (preg_match('/^[0-9]+@mobile(\.import)?$/', $user->mail)) {
+      if (preg_match('/@mobile(\.import)?$/', $user->mail)) {
         $edit['mail'] = 'bad-mobile-' . $user->uid . '@dosomething.invalid';
       }
     }
