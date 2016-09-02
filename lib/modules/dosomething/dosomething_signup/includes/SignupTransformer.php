@@ -66,6 +66,27 @@ class SignupTransformer extends Transformer {
   }
 
   /**
+   * Create the specified resource.
+   *
+   * @param  array $parameters
+   * @return array
+   */
+  public function create($parameters) {
+    // $user = user_load($parameters['user']);
+
+    // @TODO: if "key" present, do stuff to check against the key and see if valid
+
+    // Can't use the following function in dosomething_signup.module because it compares
+    // user passed to the current global user and thus always fails.
+    // return dosomething_signup_create($parameters['campaign'], $parameters['user']);
+
+
+    return (new SignupController)->creeate($parameters);
+
+    // return $user;
+  }
+
+  /**
    * Transform data and build out response.
    *
    * @param object $signup Single object of retrieved data.
