@@ -18,8 +18,9 @@ include_once 'includes/dosomething_signup.cron.inc';
 include_once 'dosomething_signup.query.inc';
 
 include_once 'includes/Signup.php';
-include_once 'includes/SignupController.php';
+include_once 'includes/SignupsController.php';
 include_once 'includes/SignupTransformer.php';
+
 /**
  * Implements hook_menu().
  */
@@ -78,21 +79,25 @@ function dosomething_signup_libraries_info() {
 
 /**
  * Implements hook_entity_info().
+ *
+ * @return  array
  */
 function dosomething_signup_entity_info() {
-  $info = array();
-  $info['signup'] = array(
+  $info = [];
+
+  $info['signup'] = [
     'label' => t('Signup'),
     'base table' => 'dosomething_signup',
-    'entity keys' => array(
+    'entity keys' => [
       'id' => 'sid',
       'label' => 'sid',
-    ),
-    'entity class' => 'SignupEntity',
+    ],
+    'entity class' => 'Signup',
     'uri callback' => 'entity_class_uri',
-    'controller class' => 'SignupEntityController',
+    'controller class' => 'SignupsController',
     'module' => 'dosomething_signup',
-  );
+  ];
+
   return $info;
 }
 

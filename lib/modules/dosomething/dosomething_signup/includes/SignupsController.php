@@ -1,27 +1,13 @@
 <?php
 
-/**
- * @file
- * Provides classes for the Signup Entity.
- */
+class SignupsController extends EntityAPIController {
 
-/**
- * Our Signup entity class.
- */
-class SignupEntity extends Entity {
-
-  /**
-   * Override this in order to implement a custom default URI.
-   */
-  protected function defaultUri() {
-    return array('path' => 'signup/' . $this->identifier());
+  // @TODO: dosomething_signup.inc didn't have this call to the parent construct
+  // and not sure if it's an issue if added.
+  public function __construct() {
+    parent::__construct('signup');
   }
-}
 
-/**
- * Our custom controller for the dosomething_signup type.
- */
-class SignupEntityController extends EntityAPIController {
   /**
    * Overrides buildContent() method.
    *
@@ -79,6 +65,7 @@ class SignupEntityController extends EntityAPIController {
    */
   public function save($entity, DatabaseTransaction $transaction = NULL) {
     global $user;
+
     if (isset($entity->is_new)) {
       if (!isset($entity->timestamp)) {
         $entity->timestamp = REQUEST_TIME;
@@ -88,10 +75,12 @@ class SignupEntityController extends EntityAPIController {
         $entity->uid = $user->uid;
       }
     }
+
     // Make sure a uid exists.
     if (!isset($entity->uid)) {
       return FALSE;
     }
+
     // If the entity uid doesnt belong to current user:
     if ($entity->uid != $user->uid) {
       // And current user can't edit any reportback:
@@ -104,9 +93,12 @@ class SignupEntityController extends EntityAPIController {
         return FALSE;
       }
     }
+
     parent::save($entity, $transaction);
+
     if (DOSOMETHING_SIGNUP_LOG_SIGNUPS) {
       watchdog('dosomething_signup', json_encode($entity));
     }
   }
+
 }
