@@ -13,47 +13,47 @@ class SignupsController extends EntityAPIController {
    *
    * Adds Signup properties into Signup entity's render.
    */
-  public function buildContent($entity, $view_mode = 'full', $langcode = NULL, $content = array()) {
+  public function buildContent($entity, $view_mode = 'full', $langcode = NULL, $content = []) {
     // Load user to get username.
     $account = user_load($entity->uid);
     $build = parent::buildContent($entity, $view_mode, $langcode, $content);
-    $build['nid'] = array(
+    $build['nid'] = [
       '#type' => 'markup',
       '#markup' => '<p>Nid: ' . l($entity->nid, 'node/' . $entity->nid . '/signups') . '</p>',
-    );
-    $build['username'] = array(
+    ];
+    $build['username'] = [
       '#type' => 'markup',
       '#markup' => '<p>User: ' . l($account->name, 'user/' . $account->uid) . '</p>',
-    );
-    $build['timestamp'] = array(
+    ];
+    $build['timestamp'] = [
       '#type' => 'markup',
       '#markup' => '<p>Signed up: ' . format_date($entity->timestamp, 'short') . '</p>',
-    );
+    ];
     if ($entity->signup_data_form_timestamp) {
-      $build['signup_data_form_submitted'] = array(
+      $build['signup_data_form_submitted'] = [
         '#type' => 'markup',
         '#markup' => '<p>Signup Data Form Submitted: ' . format_date($entity->signup_data_form_timestamp, 'short') . '</p>',
-      );
+      ];
       if ($entity->signup_data_form_response != NULL) {
-        $build['signup_data_form_response'] = array(
+        $build['signup_data_form_response'] = [
           '#type' => 'markup',
           '#markup' => '<p>Signup Data Form Response: ' . $entity->signup_data_form_response . '</p>',
-        );
+        ];
       }
       $reset_form = drupal_get_form('dosomething_signup_reset_signup_data_form', $entity->sid);
       $build['reset_form'] = $reset_form;
     }
     if ($entity->why_signedup) {
-      $build['why_signedup'] = array(
+      $build['why_signedup'] = [
         '#type' => 'markup',
         '#markup' => '<p>Signup Reason: ' . check_plain($entity->why_signedup) . '</p>',
-      );
+      ];
     }
     if ($entity->source) {
-      $build['source'] = array(
+      $build['source'] = [
         '#type' => 'markup',
         '#markup' => '<p>Source: ' . check_plain($entity->source) . '</p>',
-      );
+      ];
     }
     return $build;
   }
@@ -86,10 +86,10 @@ class SignupsController extends EntityAPIController {
       // And current user can't edit any reportback:
       if (!user_access('edit any signup') && !drupal_is_cli()) {
         watchdog('dosomething_signup', "Attempted uid override for @entity by User @uid",
-          array(
+          [
             '@entity' => json_encode($entity),
             '@uid' => $user->uid,
-          ), WATCHDOG_WARNING);
+          ], WATCHDOG_WARNING);
         return FALSE;
       }
     }
