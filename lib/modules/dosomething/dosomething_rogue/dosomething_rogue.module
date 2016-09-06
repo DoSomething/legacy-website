@@ -4,7 +4,7 @@
  * Code for the dosomething_rogue feature.
  */
 
-define('ROGUE_API_URL', variable_get('dosomething_rogue_url', 'https://qa-rogue.dosomething.org'));
+define('ROGUE_API_URL', variable_get('dosomething_rogue_url', 'http://rogue.app/'));
 define('ROGUE_API_VERSION', variable_get('dosomething_rogue_api_version', 'v1'));
 define('ROGUE_API_KEY', variable_get('dosomething_rogue_api_key', ''));
 

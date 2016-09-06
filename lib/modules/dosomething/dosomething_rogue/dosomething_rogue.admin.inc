@@ -20,7 +20,7 @@ function dosomething_rogue_config_form($form, &$form_state) {
     '#type' => 'textfield',
     '#title' => t('Rogue URL'),
     '#required' => TRUE,
-    '#default_value' => variable_get('dosomething_rogue_url', 'https://qa-rogue.dosomething.org'),
+    '#default_value' => variable_get('dosomething_rogue_url', 'http://rogue.app/'),
   ];
 
   $form['rogue']['dosomething_rogue_api_version'] = [
