@@ -654,7 +654,7 @@ function _dosomething_user_send_to_message_broker() {
   // $country_code = dosomething_global_convert_language_to_country($user_language);
   // if (empty($country_code)) {
   //   $country_code = 'global';
-  }
+  // }
   // ----- End uncooment code instruction ----
 
   // Only US is supported.
