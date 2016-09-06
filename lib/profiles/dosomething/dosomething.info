@@ -97,6 +97,7 @@ dependencies[] = dosomething_organ_donation
 dependencies[] = dosomething_helpers
 dependencies[] = dosomething_home
 dependencies[] = dosomething_reportback
+dependencies[] = dosomething_rogue
 dependencies[] = dosomething_search
 dependencies[] = dosomething_settings
 dependencies[] = dosomething_signup
