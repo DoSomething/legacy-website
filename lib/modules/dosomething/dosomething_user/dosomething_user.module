@@ -646,9 +646,10 @@ function _dosomething_user_send_to_message_broker() {
   // Note: only US messaging is supported now.
   // Uncomment this code when more contries are supported.
   // See https://github.com/DoSomething/phoenix/blob/dev/lib/modules/dosomething/dosomething_signup/dosomething_signup.admin.inc#L43
-
   /*
-  $user_language = $user->language;
+  // Based on dosomething_signup_get_mailchimp_list_id().
+  // See https://github.com/DoSomething/phoenix/pull/5143.
+  $user_language = $account->language;
   $country_code = dosomething_global_convert_language_to_country($user_language);
   if (empty($country_code)) {
     $country_code = 'global';
