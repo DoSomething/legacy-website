@@ -112,6 +112,7 @@ function dosomething_mbp_get_transactional_payload($origin, $params = NULL) {
     'user_language',
     'campaign_language',
     'campaign_country',
+    'northstar_id',
   ];
   foreach ($optional_params as $op) {
     if (isset($params[$op])) {

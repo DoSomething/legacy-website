@@ -598,12 +598,14 @@ function dosomething_user_new_user($form, &$form_state)
   // since registered users are subsequently logged in to their new accounts.
   dosomething_helpers_add_analytics_event('Authentication', 'Register');
 
-  // Sign the user up for transactional messaging
-  _dosomething_user_send_to_message_broker();
-
   if (module_exists('dosomething_northstar')) {
     dosomething_northstar_create_user($user, $form_state['values']['pass']);
   };
+
+  // Sign the user up for transactional messaging.
+  // Must be after dosomething_northstar_create_user()
+  // because it needs to access Northstar ID.
+  _dosomething_user_send_to_message_broker();
 }
 
 /**
@@ -638,6 +640,19 @@ function _dosomething_user_send_to_message_broker() {
     'user_language'     => isset($user_language) ? $user_language : 'en',
     'user_country'      => isset($user_country_code) ? $user_country_code : 'US',
   );
+
+  // Northstar id.
+  if (module_exists('dosomething_northstar')) {
+    try {
+      $northstar_id = dosomething_user_get_field('field_northstar_id', $account);
+      if (!empty($northstar_id)) {
+        $params['northstar_id'] = $northstar_id;
+      }
+    } catch (EntityMetadataWrapperException $e) {
+      // Don't fall into error 500 when the field is not accessible.
+      watchdog('dosomething_user', 'Northsar user doesn\'t exist for: ' . $account->mail, NULL, WATCHDOG_ERROR);
+    }
+  }
 
   // Subscribe new members to Do Something Master Campaign.
   $mobile = dosomething_user_get_field('field_mobile', $account);
