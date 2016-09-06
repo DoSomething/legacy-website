@@ -648,7 +648,6 @@ function _dosomething_user_send_to_message_broker() {
   // See https://github.com/DoSomething/phoenix/blob/dev/lib/modules/dosomething/dosomething_signup/dosomething_signup.admin.inc#L43
 
   /*
-  global $user;
   $user_language = $user->language;
   $country_code = dosomething_global_convert_language_to_country($user_language);
   if (empty($country_code)) {
