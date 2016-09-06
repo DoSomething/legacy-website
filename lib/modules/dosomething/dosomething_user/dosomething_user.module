@@ -639,9 +639,28 @@ function _dosomething_user_send_to_message_broker() {
     'user_country'      => isset($user_country_code) ? $user_country_code : 'US',
   );
 
-  // 26+ Club: Override Mobile Commons.
+  // Subscribe new members to Do Something Master Campaign.
   $mobile = dosomething_user_get_field('field_mobile', $account);
-  $opt_in = variable_get('dosomething_signup_mobilecommons_opt_in_path_user_register');
+
+  // Load opt-in path for user country.
+  // Note: only US messaging is supported now.
+  // See https://github.com/DoSomething/phoenix/blob/dev/lib/modules/dosomething/dosomething_signup/dosomething_signup.admin.inc#L43
+
+
+  // ----- Uncomment this code when more contries are supported and remove $country_code override below ----
+  // // Based on dosomething_signup_get_mailchimp_list_id().
+  // // See https://github.com/DoSomething/phoenix/pull/5143.
+  // $user_language = $account->language;
+  // $country_code = dosomething_global_convert_language_to_country($user_language);
+  // if (empty($country_code)) {
+  //   $country_code = 'global';
+  }
+  // ----- End uncooment code instruction ----
+
+  // Only US is supported.
+  $country_code = 'US';
+  $field_name = "dosomething_signup_" . strtolower($country_code) . '_mobile_opt_in_path_user_register';
+  $opt_in = variable_get($field_name);
   if (!empty($opt_in) && !empty($mobile)) {
     // Ignore 26+ Club is enabled and user is older than 26.
     if (!dosomething_signup_is_26plusclub_member($account)) {
