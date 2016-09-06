@@ -133,6 +133,12 @@ projects[dosomething_reward][download][type] = local
 projects[dosomething_reward][download][source] = './lib/modules/dosomething/dosomething_reward'
 projects[dosomething_reward][subdir] = "dosomething"
 
+; Dosomething Rogue
+projects[dosomething_rogue][type] = "module"
+projects[dosomething_rogue][download][type] = local
+projects[dosomething_rogue][download][source] = './lib/modules/dosomething/dosomething_rogue'
+projects[dosomething_rogue][subdir] = "dosomething"
+
 ; Dosomething Search
 projects[dosomething_search][type] = "module"
 projects[dosomething_search][download][type] = local

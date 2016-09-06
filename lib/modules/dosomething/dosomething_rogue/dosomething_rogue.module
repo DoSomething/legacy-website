@@ -1,0 +1,29 @@
+<?php
+/**
+ * @file
+ * Code for the dosomething_rogue feature.
+ */
+
+define('ROGUE_API_URL', variable_get('dosomething_rogue_url', 'https://qa-rogue.dosomething.org'));
+define('ROGUE_API_VERSION', variable_get('dosomething_rogue_api_version', 'v1'));
+define('ROGUE_API_KEY', variable_get('dosomething_rogue_api_key', ''));
+
+/*
+ * Implements hook_menu()
+ *
+ */
+function dosomething_rogue_menu() {
+  $items = [];
+
+  $items['admin/config/services/rogue'] = [
+    'title' => 'Rogue API Settings',
+    'description' => 'Manage Rogue connection settings.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('dosomething_rogue_config_form'),
+    'access arguments' => array('administer modules'),
+    'file' => 'dosomething_rogue.admin.inc',
+  ];
+
+  // Return the $items array to register the path
+  return $items;
+}

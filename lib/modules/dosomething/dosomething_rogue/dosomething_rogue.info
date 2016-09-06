@@ -1,0 +1,6 @@
+name = DoSomething Rogue
+description = Provides connection to our reportback service
+core = 7.x
+package = DoSomething
+version = 7.x-0.3
+project = dosomething_rogue
