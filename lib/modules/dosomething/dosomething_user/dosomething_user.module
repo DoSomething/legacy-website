@@ -644,17 +644,18 @@ function _dosomething_user_send_to_message_broker() {
 
   // Load opt-in path for user country.
   // Note: only US messaging is supported now.
-  // Uncomment this code when more contries are supported.
   // See https://github.com/DoSomething/phoenix/blob/dev/lib/modules/dosomething/dosomething_signup/dosomething_signup.admin.inc#L43
-  /*
-  // Based on dosomething_signup_get_mailchimp_list_id().
-  // See https://github.com/DoSomething/phoenix/pull/5143.
-  $user_language = $account->language;
-  $country_code = dosomething_global_convert_language_to_country($user_language);
-  if (empty($country_code)) {
-    $country_code = 'global';
+
+
+  // ----- Uncomment this code when more contries are supported and remove $country_code override below ----
+  // // Based on dosomething_signup_get_mailchimp_list_id().
+  // // See https://github.com/DoSomething/phoenix/pull/5143.
+  // $user_language = $account->language;
+  // $country_code = dosomething_global_convert_language_to_country($user_language);
+  // if (empty($country_code)) {
+  //   $country_code = 'global';
   }
-  */
+  // ----- End uncooment code instruction ----
 
   // Only US is supported.
   $country_code = 'US';
@@ -1826,7 +1827,7 @@ function dosomething_user_mail($key, &$message, $params) {
  */
 function dosomething_user_magic_session($uid, $timestamp, $login_token) {
   global $user;
-  
+
   $query = drupal_get_query_parameters();
   $redirect = ! empty($query['redirect']) ? $query['redirect'] : '/';
 
@@ -1857,7 +1858,7 @@ function dosomething_user_magic_session($uid, $timestamp, $login_token) {
 /**
  * Check that a magic login link is valid: it hasn't expired, the referred account exists and
  * hasn't logged in since generating the link, and the hash of those parameters is correct.
- * 
+ *
  * @param $account
  * @param $timestamp
  * @param $login_token
@@ -1867,13 +1868,13 @@ function dosomething_user_check_magic_login_validity($account, $timestamp, $logi
   if(! $account) {
     return false;
   }
-  
+
   $timeout = variable_get('user_password_reset_timeout', 86400);
   $has_expired = REQUEST_TIME - $timestamp > $timeout;
-  
+
   $valid_parameters = $account->uid && $timestamp >= $account->login && $timestamp <= REQUEST_TIME;
   $valid_hash = $login_token == user_pass_rehash($account->pass, $timestamp, $account->login, $account->uid);
-  
+
   return ! $has_expired && $valid_parameters && $valid_hash;
 }
 
