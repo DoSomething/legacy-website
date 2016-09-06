@@ -230,7 +230,7 @@
             <div><?php print render($signup_data_form); ?></div>
             <?php if ($register_voters && dosomething_campaign_feature_on($campaign, 'social_share_unique_link')) : ?>
               <div class="modal__block">
-                <?php print t('Use your unique registration link below for this competition. You must share this link to qualify for this competition.') ?>
+                <?php print t('Below is your unique registration link to share for this competition. If you click on one of the social media icons below, this will automatically share your unique registration link! Tag friends so they sign up to register to vote and move you up the competition leaderboard!') ?>
                 <div class="padded-gray-box">
                   <?php print $custom_social_share_link ?>
                 </div>
