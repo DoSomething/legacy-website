@@ -16,4 +16,3 @@ features[user_permission][] = administer third party communication
 features[user_permission][] = edit any signup
 features[user_permission][] = view any signup
 features[views_view][] = node_signups
-files[] = includes/dosomething_signup.inc
