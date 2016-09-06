@@ -224,11 +224,6 @@
           <?php if ($register_voters && $can_vote) : ?>
             <div class="modal__block">
               <?php print $voter_reg_form_copy ?>
-              <?php print $social_share_bar ?>
-              <?php print t('Copy and paste your share link:') ?>
-              <div class="padded-gray-box">
-                <?php print $custom_social_share_link ?>
-              </div>
             </div>
             <?php print $voter_reg_form ?>
           <?php else: ?>
@@ -434,10 +429,6 @@
           <div data-modal id="modal-voter-registration" role="dialog">
             <div class="modal__block">
               <?php print $voter_reg_form_copy ?>
-              <?php print $social_share_bar ?>
-              <div class="padded-gray-box">
-                <?php print $custom_social_share_link ?>
-              </div>
             </div>
             <?php print $voter_reg_form ?>
           </div>
