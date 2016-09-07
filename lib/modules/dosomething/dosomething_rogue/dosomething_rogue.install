@@ -1,0 +1,46 @@
+<?php
+/**
+ * @file
+ * Installation and schema hooks for dosomething_rogue.module
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function dosomething_rogue_schema() {
+  $schema = array();
+
+  $schema['dosomething_rogue_reportbacks'] = array(
+    'description' => 'Table for tracking phoenix rbid and fids and their corresponding rogue reportback and item ids',
+    'fields' => array(
+      'rbid' => array(
+        'description' => 'The rbid as it is stored in phoenix.',
+        'type' => 'int',
+        'not null' => TRUE,
+      ),
+      'rogue_reportback_id' => array(
+        'description' => 'The id of the same reportback in rogue.',
+        'type' => 'int',
+        'not null' => TRUE,
+      ),
+      'fid' => array(
+        'description' => 'The fid of the reportback item as it is stored in phoenix.',
+        'type' => 'int',
+        'not null' => TRUE,
+      ),
+      'rogue_item_id' => array(
+        'description' => 'The fid of the reportback item as it is stored in phoenix.',
+        'type' => 'int',
+        'not null' => TRUE,
+      ),
+      'created_at' => array(
+        'description' => 'The Unix timestamp of when the reportback item was stored',
+        'type' => 'int',
+        'not null' => FALSE,
+      ),
+    ),
+    'primary key' => array('rbid'),
+  );
+
+  return $schema;
+}
