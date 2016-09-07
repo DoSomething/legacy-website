@@ -110,7 +110,7 @@ function _magick_resource_index($action, $campaign, $campaign_run, $user, $key, 
     return magick_signup(compact('campaign', 'campaign_run', 'user', 'key', 'source'));
   }
 
-  return services_error('This endpoint is specifically for calling custom actions (spells). Please refer to the documentation.', 401);
+  return services_error('This endpoint is specifically for calling custom actions (spells). Please refer to the documentation.', 400);
 }
 
 /**
