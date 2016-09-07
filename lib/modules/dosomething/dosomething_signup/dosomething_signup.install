@@ -74,11 +74,12 @@ function dosomething_signup_schema() {
     'unique keys' => array(
       'uid-nid-run_nid' => array('uid', 'nid', 'run_nid'),
     ),
-    'indexes' => array(
-      'uid' => array('uid'),
-      'nid' => array('nid'),
-      'run_nid' => array('run_nid'),
-    ),
+    'indexes' => [
+      'uid' => ['uid'],
+      'nid' => ['nid'],
+      'run_nid' => ['run_nid'],
+      'source' => ['source'],
+    ],
   );
   $schema['dosomething_signup_data_form'] = array(
     'description' => 'Table of signup data forms.',
@@ -708,5 +709,17 @@ function dosomething_signup_update_7024() {
   if (!db_field_exists($tbl_name, $field_name)) {
     // Add it per the schema field definition.
     db_add_field($tbl_name, $field_name, $schema[$tbl_name]['fields'][$field_name]);
+  }
+}
+
+
+/**
+ * Add index to source on dosomething_signup table.
+ */
+function dosomething_signup_update_7025() {
+  $table = 'dosomething_signup';
+  $column = 'source';
+  if (!db_index_exists($table, $column)) {
+    db_add_index($table, $column, array($column));
   }
 }
