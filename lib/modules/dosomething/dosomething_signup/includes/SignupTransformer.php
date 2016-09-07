@@ -72,18 +72,37 @@ class SignupTransformer extends Transformer {
    * @return array
    */
   public function create($parameters) {
-    // $user = user_load($parameters['user']);
-
     // @TODO: if "key" present, do stuff to check against the key and see if valid
+    $values = [
+      'uid' => $parameters['user'],
+      'nid' => $parameters['campaign'],
+      'run_nid' => $parameters['campaign_run'],
+      'source' => $parameters['source'],
+      'timestamp' => time(),
+      'transactionals' => NULL,
+    ];
 
-    // Can't use the following function in dosomething_signup.module because it compares
-    // user passed to the current global user and thus always fails.
-    // return dosomething_signup_create($parameters['campaign'], $parameters['user']);
+    try {
+      $record = (new SignupsController)->magick_create($values);
 
+      http_response_code('201');
 
-    return (new SignupController)->creeate($parameters);
+      $response = [
+        'success' => [
+          'message' => 'Signup successfully created! (But actually return the record created)',
+        ],
+      ];
+    } catch (Exception $error) {
+      http_response_code('409');
 
-    // return $user;
+      $response = [
+        'error' => [
+          'message' => $error->getMessage(),
+        ],
+      ];
+    }
+
+    return $response;
   }
 
   /**

@@ -35,6 +35,16 @@ function _magick_resource_definition() {
             'default value' => NULL,
           ],
           [
+            'name' => 'campaign_run',
+            'description' => 'The id of the specified campaign run.',
+            'type' => 'string',
+            'optional' => TRUE,
+            'source' => [
+              'param' => 'campaign_run',
+            ],
+            'default value' => NULL,
+          ],
+          [
             'name' => 'user',
             'description' => 'The id of the specified user.',
             'type' => 'string',
@@ -93,14 +103,14 @@ function _magick_resource_access($method) {
  * @param  string $action
  * @param  string $campaign
  * @param  string $user
- * @return Response??
+ * @return array|ServicesException
  */
-function _magick_resource_index($action, $campaign, $user, $key, $source) {
+function _magick_resource_index($action, $campaign, $campaign_run, $user, $key, $source) {
   if ($action === 'signup') {
-    return magick_signup(compact('campaign', 'user', 'key', 'source'));
+    return magick_signup(compact('campaign', 'campaign_run', 'user', 'key', 'source'));
   }
 
-  return services_error('This endpoint is specifically for calling custom actions.', 401);
+  return services_error('This endpoint is specifically for calling custom actions (spells). Please refer to the documentation.', 401);
 }
 
 /**
@@ -108,7 +118,7 @@ function _magick_resource_index($action, $campaign, $user, $key, $source) {
  * the SignupTransformer class.
  *
  * @param  array $parameters
- * @return Response??
+ * @return array|Exception
  */
 function magick_signup($parameters) {
   if (! $parameters['key']) {
@@ -117,6 +127,17 @@ function magick_signup($parameters) {
 
   if (! $parameters['user']) {
     return services_error('The request is missing the \'user\' parameter.', 401);
+  }
+
+  if (! $parameters['campaign']) {
+    return services_error('The request is missing the \'campaign\' parameter.', 401);
+  }
+
+  // @TODO: forcing requirement for including the campaign_run, but can likely remove this
+  // with a bit of code to figure it out. We've done it in the dosomething_signup_create()
+  // but didn't inlcude it for now in the SignupTransformer->create() method.
+  if (! $parameters['campaign_run']) {
+    return services_error('The request is missing the \'campaign_run\' parameter.', 401);
   }
 
   return (new SignupTransformer)->create($parameters);
