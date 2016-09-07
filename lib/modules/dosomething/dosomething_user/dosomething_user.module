@@ -114,7 +114,17 @@ function dosomething_user_menu() {
     'page arguments' => array(2, 3, 4),
     'access callback' => TRUE,
   );
+  $items['user/social/facebook'] = [
+    'title' => 'Facebook Login',
+    'page callback' => 'dosomething_user_facebook_login',
+    'access callback' => 'dosomething_user_facebook_login_enabled',
+    'file' => 'dosomething_user_social_auth.inc',
+  ];
   return $items;
+}
+
+function dosomething_user_facebook_login_enabled() {
+  return variable_get('dosomething_user_social_auth_enabled', FALSE) && module_exists('dosomething_northstar');
 }
 
 function dosomething_user_get_view($id) {
@@ -1345,7 +1355,6 @@ function dosomething_user_set_fields(&$edit, $fields) {
     }
 
     switch ($key) {
-      case 'country':
       case 'postal_code':
         $edit['field_address'][LANGUAGE_NONE][0][$key] = $value;
         break;

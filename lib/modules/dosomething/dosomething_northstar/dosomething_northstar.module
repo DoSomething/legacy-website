@@ -157,6 +157,15 @@ function dosomething_northstar_get_northstar_user($drupal_id) {
   return $northstar_user_info;
 }
 
+function dosomething_northstar_get_user_by_term($term, $id) {
+  $client = _dosomething_northstar_build_http_client();
+  $response = drupal_http_request($client['base_url'] . '\/users/' . $term . '/' . $id, [
+    'headers' => $client['headers'],
+    'method' => 'GET',
+  ]);
+  return $response->code !== "404";
+}
+
 /**
  * Transform Drupal user fields into the appropriate schema for Northstar.
  *
