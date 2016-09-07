@@ -6,7 +6,7 @@
 
 include_once('dosomething_rogue.admin.inc');
 
-define('ROGUE_API_URL', variable_get('dosomething_rogue_url', 'http://rogue.app/'));
+define('ROGUE_API_URL', variable_get('dosomething_rogue_url', 'http://rogue.app/api'));
 define('ROGUE_API_VERSION', variable_get('dosomething_rogue_api_version', 'v1'));
 define('ROGUE_API_KEY', variable_get('dosomething_rogue_api_key', ''));
 
@@ -28,4 +28,75 @@ function dosomething_rogue_menu() {
 
   // Return the $items array to register the path
   return $items;
+}
+
+/**
+ * Build the Guzzle HTTP Client to make requests to Rogue.
+ *
+ * https://github.com/DoSomething/rogue
+ */
+function _dosomething_rogue_build_http_client() {
+  $client = [
+    'base_url' =>  ROGUE_API_URL . '/' . GLADIATOR_VERSION,
+    'headers' => [
+      'Content-Type' => 'application/json',
+      'Accept' => 'application/json',
+    ],
+  ];
+
+  return $client;
+}
+
+/**
+ * Sends a reportback to Rogue.
+ *
+ * @param object $reportback
+ *   The reportback and reportback item to send.
+ * @todo - Do we need to pass in user here? Do we need to pass in the item separately?
+ */
+function dosomething_rogue_send_reportback_to_rogue($reportback) {
+  $client = _dosomething_rogue_build_http_client();
+
+  $options = [
+  'method' => 'POST',
+  'headers' => $client['headers'],
+  'data' =>
+      json_encode([
+        'drupal_id' => $user->id, // ?
+        'campaign_id' => ,//$values['nid'],
+        'campaign_run_id' => ,//$values['run_nid'],
+        'quantity' =>,
+        'why_participated' =>,
+        'file' =>,
+        'caption' => ,
+        // review status stuff.
+      ]),
+  ];
+
+  $response = drupal_http_request($client['base_url'] . '/reportbacks', $options);
+
+  // if ($response->code == 200 && module_exists('stathat')) {
+  //   stathat_send_ez_count('drupal - Gladiator - user sent - count', 1);
+  // }
+  // else {
+  //   // Log as a watchdog error, and stathat value.
+  //   if (module_exists('stathat')) {
+  //    stathat_send_ez_count('drupal - Gladiator - user failed - count', 1);
+  //   }
+  //   // Save fail to a db log so we can easily export.
+  //   db_insert('dosomething_gladiator_failed_task_log')
+  //     ->fields(array(
+  //       'uid' => $user->uid,
+  //       'mail' => $user->mail,
+  //       'nid' => $values['nid'],
+  //       'run_nid' => $values['run_nid'],
+  //       'timestamp' => REQUEST_TIME,
+  //       'response_code' => $response->code,
+  //       'response_values' => json_encode($response),
+  //       ))
+  //     ->execute();
+
+  //   watchdog('dosomething_gladiator','user not migrated', array('user' => $user->mail), WATCHDOG_ERROR);
+  // }
+
 }
