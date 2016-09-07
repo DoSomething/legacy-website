@@ -643,17 +643,7 @@ function _dosomething_user_send_to_message_broker() {
 
   // Northstar id.
   if (module_exists('dosomething_northstar')) {
-    try {
-      $northstar_id = dosomething_user_get_field('field_northstar_id', $account);
-      // NONE is a special value representing that Northstar id is not present.
-      // @see dosomething_northstar_save_id_field();
-      if (!empty($northstar_id) && $northstar_id !== 'NONE') {
-        $params['northstar_id'] = $northstar_id;
-      }
-    } catch (EntityMetadataWrapperException $e) {
-      // Don't fall into error 500 when the field is not accessible.
-      watchdog('dosomething_user', 'Northsar user doesn\'t exist for: ' . $account->mail, NULL, WATCHDOG_ERROR);
-    }
+    $params['northstar_id'] = dosomething_northstar_get_id($account);
   }
 
   // Subscribe new members to Do Something Master Campaign.
