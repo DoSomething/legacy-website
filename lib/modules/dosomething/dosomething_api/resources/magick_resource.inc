@@ -121,23 +121,10 @@ function _magick_resource_index($action, $campaign, $campaign_run, $user, $key, 
  * @return array|Exception
  */
 function magick_signup($parameters) {
-  if (! $parameters['key']) {
-    return services_error('The request is missing the \'key\' token parameter.', 401);
-  }
-
-  if (! $parameters['user']) {
-    return services_error('The request is missing the \'user\' parameter.', 401);
-  }
-
-  if (! $parameters['campaign']) {
-    return services_error('The request is missing the \'campaign\' parameter.', 401);
-  }
-
-  // @TODO: forcing requirement for including the campaign_run, but can likely remove this
-  // with a bit of code to figure it out. We've done it in the dosomething_signup_create()
-  // but didn't inlcude it for now in the SignupTransformer->create() method.
-  if (! $parameters['campaign_run']) {
-    return services_error('The request is missing the \'campaign_run\' parameter.', 401);
+  foreach (['key', 'user', 'campaign', 'campaign_run'] as $name) {
+    if (! $parameters[$name]) {
+      return services_error('The request is missing the \'' . $name . '\' token parameter.', 422);
+    }
   }
 
   return (new SignupTransformer)->create($parameters);
