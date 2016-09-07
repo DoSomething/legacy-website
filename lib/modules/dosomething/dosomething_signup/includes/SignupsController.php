@@ -115,6 +115,7 @@ class SignupsController extends EntityAPIController {
     }
 
     // @TODO: We should probably clean this up a bit...
+    // @see https://github.com/DoSomething/phoenix/issues/7024
     if (!$this->ignore_global_user) {
       // If the entity uid doesnt belong to current user:
       if ($entity->uid != $user->uid) {
