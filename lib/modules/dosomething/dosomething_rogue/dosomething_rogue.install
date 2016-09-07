@@ -49,3 +49,12 @@ function dosomething_rogue_schema() {
 
   return $schema;
 }
+
+/**
+ * Create rogue reportback table.
+ */
+function dosomething_rogue_update_7001(&$sandbox) {
+  $table_name = 'dosomething_rogue_reportbacks';
+  $schema = dosomething_rogue_schema();
+  db_create_table($table_name, $schema[$table_name]);
+}
