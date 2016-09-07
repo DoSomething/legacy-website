@@ -51,7 +51,7 @@ function dosomething_rogue_schema() {
 }
 
 /**
- * Create failed task log table.
+ * Create rogue reportback table.
  */
 function dosomething_rogue_update_7001(&$sandbox) {
   $table_name = 'dosomething_rogue_reportbacks';
