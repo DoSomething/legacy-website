@@ -268,8 +268,6 @@ function dosomething_signup_create($nid, $uid = NULL, $source = NULL, $timestamp
     'transactionals' => $transactionals,
   );
 
-  // return $values;
-
   try {
     // Create a signup entity.
     $entity = entity_create('signup', $values);
