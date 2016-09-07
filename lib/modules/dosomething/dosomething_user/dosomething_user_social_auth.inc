@@ -9,12 +9,10 @@ function dosomething_user_make_facebook_user($account_details) {
     'created' => REQUEST_TIME,
   ];
 
-  $account_details['user_registration_source'] = 'facebook_auth';
   dosomething_user_set_fields($edit, $account_details);
 
   $user = user_save(null, $edit);
   user_save($user, ['name' => $user->uid]);
-  $account_details['drupal_id'] = $user->uid;
 
   return $user;
 }
@@ -36,6 +34,7 @@ function dosomething_user_facebook_login() {
     'first_name' => data_get($_POST, 'first_name'),
     'last_name' => data_get($_POST, 'last_name'),
     'facebook_id' => $facebook_id,
+    'user_registration_source' => 'facebook_auth',
   ];
 
   if (dosomething_northstar_get_user_by_term('facebook_id', $facebook_id)) {
@@ -47,6 +46,7 @@ function dosomething_user_facebook_login() {
     $create_new_account = TRUE;
     $client = _dosomething_northstar_build_http_client();
 
+    // Checks if there is an existing account for the given email
     if (isset($account_details['email'])) {
       $email = $account_details['email'];
       $create_new_account = !dosomething_northstar_get_user_by_term('email', $email);
@@ -56,6 +56,7 @@ function dosomething_user_facebook_login() {
       // Create the Drupal user.
       // Unfortunately there doesn't seem to be anyway around this because of how Drupal is architected.
       $user = dosomething_user_make_facebook_user($account_details);
+      $account_details['drupal_id'] = $user->uid;
 
       // Create Northstar user w/ Facebook ID
       $response = drupal_http_request($client['base_url'] . '/users', [
