@@ -336,6 +336,10 @@ function dosomething_campaign_admin_custom_settings_page($node) {
     $reportback_field_form = drupal_get_form($form_id, $node);
     $output .= render($reportback_field_form);
   }
+  if (module_exists('dosomething_rogue')) {
+    $rogue_config_form = drupal_get_form('dosomething_rogue_campaign_config_form', $node);
+    $output .= render($rogue_config_form);
+  }
 
   return $output;
 }
