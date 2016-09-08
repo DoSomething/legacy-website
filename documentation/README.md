@@ -75,3 +75,10 @@ Endpoint                                       | Functionality
 `POST /api/v1/get_member_count/`               | [Get Member Count](endpoints/users.md#get-member-count)
 `GET /api/v1/users/current/activity?nid={nid}` | [Get User Activity](endpoints/users.md#get-user-activity)
 `POST /api/v1/users/{uid}/password_reset_url`  | [Create Password Reset URL](endpoints/users.md#create-password-reset-url)
+
+
+#### Magicks
+Endpoint                                       | Functionality                                           
+---------------------------------------------- | --------------------------------------------------------
+`GET /api/v1/magicks?action=action_name`       | [Cast Magick Action](endpoints/magicks.md#cast-magick-action)
+
