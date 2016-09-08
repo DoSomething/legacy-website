@@ -16,7 +16,7 @@ function dosomething_user_make_facebook_user($account_details) {
 
   dosomething_user_set_fields($edit, $account_details);
 
-  $user = user_save(null, $edit);
+  $user = user_save('', $edit);
   user_save($user, ['name' => $user->uid]);
 
   return $user;
