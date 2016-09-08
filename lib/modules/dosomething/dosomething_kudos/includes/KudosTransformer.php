@@ -71,6 +71,7 @@ class KudosTransformer extends Transformer {
    * @return array
    */
   public function create($parameters) {
+    // @TODO: may want to rethink using global $user here...
     global $user;
 
     $values = [

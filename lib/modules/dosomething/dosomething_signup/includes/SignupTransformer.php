@@ -66,6 +66,52 @@ class SignupTransformer extends Transformer {
   }
 
   /**
+   * Create the specified resource.
+   *
+   * @param  array $parameters
+   * @return array
+   */
+  public function create($parameters) {
+    // @TODO: if "key" present, do stuff to check against the key and see if valid
+    $values = [
+      'uid' => $parameters['user'],
+      'nid' => $parameters['campaign'],
+      'run_nid' => $parameters['campaign_run'],
+      'source' => $parameters['source'],
+      'timestamp' => time(),
+      'transactionals' => NULL,
+    ];
+
+    try {
+      $record = (new SignupsController)->magick_create($values);
+
+      http_response_code('201');
+
+      $response = [
+        'success' => [
+          'message' => 'Signup successfully created! (But actually return the record created)',
+        ],
+      ];
+    } catch (UniqueSignupException $error) {
+      http_response_code($error->getCode());
+
+      $response = [
+        'error' => [
+          'code' => $error->getCode(),
+          'message' => $error->getMessage(),
+        ],
+      ];
+
+      // @TODO: if debugging is turned on (local dev), lets append
+      // debug info to the response. Need to figure out proper approach
+      // for indicating debug mode?
+      // $response['debug'] = $error->getDebug();
+    }
+
+    return $response;
+  }
+
+  /**
    * Transform data and build out response.
    *
    * @param object $signup Single object of retrieved data.

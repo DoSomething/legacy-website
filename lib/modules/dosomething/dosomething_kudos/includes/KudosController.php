@@ -21,7 +21,7 @@ class KudosController extends EntityAPIController {
     $duplicate = $this->get($values);
 
     // Only save the record if it is unique on fid, uid, and tid
-    if(empty($duplicate)) {
+    if (empty($duplicate)) {
       $kudos = parent::create($values);
 
       $record = $this->save($kudos);

@@ -241,8 +241,7 @@ function dosomething_signup_get_query_source() {
  * @return mixed
  *   The sid of the newly inserted signup, or FALSE if error.
  */
-function dosomething_signup_create($nid, $uid = NULL, $source = NULL, $timestamp = NULL, $transactionals = TRUE
-) {
+function dosomething_signup_create($nid, $uid = NULL, $source = NULL, $timestamp = NULL, $transactionals = TRUE) {
   global $user;
 
   if (!isset($uid)) {
