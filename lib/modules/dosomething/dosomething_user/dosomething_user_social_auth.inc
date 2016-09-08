@@ -3,7 +3,7 @@
 /**
  * Constructs a new Drupal user for the given account details to represent a Facebook user.
  * @param  array $account_details  All of the properties to instantiate
- * @return $user
+ * @return user
  */
 function dosomething_user_make_facebook_user($account_details) {
   $edit = [
@@ -25,7 +25,7 @@ function dosomething_user_make_facebook_user($account_details) {
 /**
  * Registers a new user with Northstar (or upserts with existing) & returns a Drupal account
  * @param  array $account_details Account details for the user to register
- * @return $user
+ * @return user
  */
 function dosomething_user_register_facebook_user($account_details) {
   $user = null;
@@ -62,7 +62,7 @@ function dosomething_user_verify_facebook_user($facebook_id, $access_token) {
 
 /**
  * Creates a Drupal session for a given Facebook user
- * @param  $user User to create session for
+ * @param $user User to create session for
  */
 function dosomething_user_create_facebook_session($user) {
   $form_state['uid'] = $user->uid;
