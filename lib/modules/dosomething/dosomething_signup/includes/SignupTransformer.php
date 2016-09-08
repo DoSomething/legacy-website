@@ -92,14 +92,20 @@ class SignupTransformer extends Transformer {
           'message' => 'Signup successfully created! (But actually return the record created)',
         ],
       ];
-    } catch (Exception $error) {
-      http_response_code('422');
+    } catch (UniqueSignupException $error) {
+      http_response_code($error->getCode());
 
       $response = [
         'error' => [
+          'code' => $error->getCode(),
           'message' => $error->getMessage(),
         ],
       ];
+
+      // @TODO: if debugging is turned on (local dev), lets append
+      // debug info to the response. Need to figure out proper approach
+      // for indicating debug mode?
+      // $response['debug'] = $error->getDebug();
     }
 
     return $response;

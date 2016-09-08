@@ -1,5 +1,7 @@
 <?php
 
+require_once dirname(__DIR__) . '/Exceptions/UniqueSignupException.php';
+
 class SignupsController extends EntityAPIController {
 
   protected $ignore_global_user = FALSE;
@@ -86,8 +88,10 @@ class SignupsController extends EntityAPIController {
 
       // @TODO: eventually return the actual signup record. S'okay for now.
       return TRUE;
+    } catch (UniqueSignupException $error) {
+      throw new UniqueSignupException;
     } catch (Exception $error) {
-      throw new Exception('There is already an existing signup for this user on this campaign/campaign run combination.');
+      throw new Exception('There was an error attempting to create the new signup record.');
     }
   }
 
@@ -140,6 +144,10 @@ class SignupsController extends EntityAPIController {
 
       return $signup_record;
     } catch (Exception $error) {
+      if ($error->getCode() === '23000') {
+        throw new UniqueSignupException;
+      }
+
       throw $error;
     }
   }
