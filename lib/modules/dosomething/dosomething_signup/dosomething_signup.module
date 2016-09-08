@@ -694,6 +694,9 @@ function dosomething_signup_get_mbp_params($account, $node, $opt_in, $options = 
     'campaign_country' => $campaign_country_code,
   ];
 
+  // Northstar id.
+  $params['northstar_id'] = dosomething_user_get_field('field_northstar_id', $account);
+
   if (isset($options['transactionals'])) {
     $params['transactionals'] = $options['transactionals'];
   }
