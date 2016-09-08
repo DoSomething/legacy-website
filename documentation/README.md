@@ -2,6 +2,8 @@
 
 This is the **Phoenix API** for working with the [DoSomething.org](https://dosomething.org) platform.
 
+Refer to this [document](https://github.com/DoSomething/phoenix/wiki/Creating-And-Updating-Phoenix-Endpoints) for creating or updating endpoints in the **Phoenix API**.
+
 ## Authentication
 The Services API endpoints use Drupal sessions to authenticate and authorize requests.
 
