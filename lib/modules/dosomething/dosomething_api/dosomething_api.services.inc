@@ -105,6 +105,13 @@ function dosomething_api_default_services_endpoint() {
         ),
       ),
     ),
+    'magicks' => array(
+      'operations' => array(
+        'index' => array(
+          'enabled' => '1',
+        ),
+      ),
+    ),
     'reportback-items' => array(
       'operations' => array(
         'retrieve' => array(
