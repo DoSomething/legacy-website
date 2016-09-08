@@ -157,9 +157,15 @@ function dosomething_northstar_get_northstar_user($drupal_id) {
   return $northstar_user_info;
 }
 
-function dosomething_northstar_get_user_by_term($term, $id) {
+/**
+ * Checks if a Northstar user exists for a given index & type.
+ * @param  string $index_type The type of index to query for (Email, Facebook, Mobile, _id)
+ * @param  string $index The index to query for
+ * @return bool Whether the user exists
+ */
+function dosomething_northstar_user_exists_by_index($index_type, $index) {
   $client = _dosomething_northstar_build_http_client();
-  $response = drupal_http_request($client['base_url'] . '\/users/' . $term . '/' . $id, [
+  $response = drupal_http_request($client['base_url'] . '\/users/' . $index_type . '/' . $index, [
     'headers' => $client['headers'],
     'method' => 'GET',
   ]);
@@ -179,6 +185,7 @@ function dosomething_northstar_transform_user($user, $password = null) {
     'birthdate' => 'field_birthdate',
     'first_name' => 'field_first_name',
     'last_name' => 'field_last_name',
+    'facebook_id' => 'field_facebook_id',
   ];
 
   // Address fields
@@ -237,7 +244,7 @@ function dosomething_northstar_transform_user($user, $password = null) {
   if(empty($northstar_user['source'])) {
     $northstar_user['source'] = 'phoenix';
   }
-
+  print_r($northstar_user);die();
   return $northstar_user;
 }
 
