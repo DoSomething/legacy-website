@@ -19,10 +19,6 @@ function dosomething_user_make_facebook_user($account_details) {
   $user = user_save(null, $edit);
   user_save($user, ['name' => $user->uid]);
 
-  // For simplicity we don't need to attach this before the save / save it to a table,
-  // it just needs to be here for object transformations
-  $user->facebook_id = $account_details['facebook_id'];
-  
   return $user;
 }
 
@@ -38,25 +34,18 @@ function dosomething_user_register_facebook_user($account_details) {
   // Checks if there is an existing account for the given email
   if (isset($account_details['email'])) {
     $email = $account_details['email'];
-    $create_new_account = !dosomething_northstar_user_exists_by_index('email', $email);
+    $northstar_account = dosomething_northstar_user_exists_by_index('email', $email);
   }
 
-  if ($create_new_account) {
-    // Create the Drupal user.
-    // Unfortunately there doesn't seem to be anyway around this because of how Drupal is architected.
-    $user = dosomething_user_make_facebook_user($account_details);
-    dosomething_northstar_create_user($user);
+  if (isset($northstar_account)) {
+    $user = $user_load($northstar_account->data->drupal_id);
   }
   else {
-    // Update existing Northstar user to link Facebook ID
-    $user->facebook_id = $account_details['facebook_id'];
-    $response = drupal_http_request($client['base_url'] . '/users/email/' . $email, [
-      'headers' => $client['headers'],
-      'method' => 'PUT',
-      'data' => json_encode(['facebook_id' => $facebook_id]),
-    ]);
-    $user = user_load(json_decode($response->body)->data->drupal_id);
+    $user = dosomething_user_make_facebook_user($account_details);
   }
+
+  $user->facebook_id = $account_details['facebook_id'];
+  dosomething_northstar_create_user($user);
 }
 
 /**

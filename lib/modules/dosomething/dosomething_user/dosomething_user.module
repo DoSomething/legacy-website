@@ -123,6 +123,10 @@ function dosomething_user_menu() {
   return $items;
 }
 
+/**
+ * Is the Facebook login functionality enabled
+ * @return bool
+ */
 function dosomething_user_facebook_login_enabled() {
   return variable_get('dosomething_user_social_auth_enabled', FALSE) && module_exists('dosomething_northstar');
 }
@@ -1355,6 +1359,7 @@ function dosomething_user_set_fields(&$edit, $fields) {
     }
 
     switch ($key) {
+      case 'country':
       case 'postal_code':
         $edit['field_address'][LANGUAGE_NONE][0][$key] = $value;
         break;

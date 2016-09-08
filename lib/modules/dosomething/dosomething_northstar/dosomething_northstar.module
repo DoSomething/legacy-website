@@ -161,7 +161,7 @@ function dosomething_northstar_get_northstar_user($drupal_id) {
  * Checks if a Northstar user exists for a given index & type.
  * @param  string $index_type The type of index to query for (Email, Facebook, Mobile, _id)
  * @param  string $index The index to query for
- * @return bool Whether the user exists
+ * @return bool|object
  */
 function dosomething_northstar_user_exists_by_index($index_type, $index) {
   $client = _dosomething_northstar_build_http_client();
@@ -169,7 +169,12 @@ function dosomething_northstar_user_exists_by_index($index_type, $index) {
     'headers' => $client['headers'],
     'method' => 'GET',
   ]);
-  return $response->code !== "404";
+
+  if ($response->code === "200") {
+    return json_decode($response->body);
+  }
+
+  return FALSE;
 }
 
 /**
