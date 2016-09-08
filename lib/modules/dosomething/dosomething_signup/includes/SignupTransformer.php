@@ -93,7 +93,7 @@ class SignupTransformer extends Transformer {
         ],
       ];
     } catch (Exception $error) {
-      http_response_code('409');
+      http_response_code('422');
 
       $response = [
         'error' => [
