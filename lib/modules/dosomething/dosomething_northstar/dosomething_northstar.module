@@ -174,7 +174,7 @@ function dosomething_northstar_get_user_by_custom_index($index_type, $index) {
     return json_decode($response->data);
   }
 
-  return null;
+  return NULL;
 }
 
 /**
