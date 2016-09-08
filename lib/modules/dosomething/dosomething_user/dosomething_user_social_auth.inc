@@ -28,8 +28,7 @@ function dosomething_user_make_facebook_user($account_details) {
  * @return $user Created (or retrieved) Drupal user
  */
 function dosomething_user_register_facebook_user($account_details) {
-  // Otherwise check if we need to make a new account or upsert with an existing.
-  $create_new_account = TRUE;
+  $user = null;
 
   // Checks if there is an existing account for the given email
   if (isset($account_details['email'])) {
@@ -37,15 +36,17 @@ function dosomething_user_register_facebook_user($account_details) {
     $northstar_account = dosomething_northstar_user_exists_by_index('email', $email);
   }
 
-  if (isset($northstar_account)) {
-    $user = $user_load($northstar_account->data->drupal_id);
+  if ($northstar_account === FALSE) {
+    $user = dosomething_user_make_facebook_user($account_details);
   }
   else {
-    $user = dosomething_user_make_facebook_user($account_details);
+    $user = user_load($northstar_account->data->drupal_id);
   }
 
   $user->facebook_id = $account_details['facebook_id'];
   dosomething_northstar_create_user($user);
+
+  return $user;
 }
 
 /**
@@ -93,12 +94,14 @@ function dosomething_user_facebook_login() {
     'user_registration_source' => 'facebook_auth',
   ];
 
-  if (dosomething_northstar_user_exists_by_index('facebook_id', $facebook_id)) {
+  $northstar_account = dosomething_northstar_user_exists_by_index('facebook_id', $facebook_id);
+
+  if ($northstar_account != FALSE) {
     // If the user is already registered with us, start to load them into Drupal
-    $user = user_load(json_decode($response->data)->data->drupal_id);
+    $user = user_load($northstar_account->data->drupal_id);
   }
   else {
-    $user = dosomething_user_make_facebook_user($account_details);
+    $user = dosomething_user_register_facebook_user($account_details);
     // No need to run a verify on the initial signup.
     $verify_token = FALSE;
     $token_verified = TRUE;
