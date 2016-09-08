@@ -158,12 +158,12 @@ function dosomething_northstar_get_northstar_user($drupal_id) {
 }
 
 /**
- * Checks if a Northstar user exists for a given index & type.
+ * Get a Northstar user for a given index & type. Useful for non Drupal ID lookups.
  * @param  string $index_type The type of index to query for (Email, Facebook, Mobile, _id)
  * @param  string $index The index to query for
- * @return bool|object
+ * @return object|null
  */
-function dosomething_northstar_user_exists_by_index($index_type, $index) {
+function dosomething_northstar_get_user_by_custom_index($index_type, $index) {
   $client = _dosomething_northstar_build_http_client();
   $response = drupal_http_request($client['base_url'] . '/users/' . $index_type . '/' . $index, [
     'headers' => $client['headers'],
@@ -174,7 +174,7 @@ function dosomething_northstar_user_exists_by_index($index_type, $index) {
     return json_decode($response->data);
   }
 
-  return FALSE;
+  return null;
 }
 
 /**

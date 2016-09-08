@@ -25,7 +25,7 @@ function dosomething_user_make_facebook_user($account_details) {
 /**
  * Registers a new user with Northstar (or upserts with existing) & returns a Drupal account
  * @param  array $account_details Account details for the user to register
- * @return $user Created (or retrieved) Drupal user
+ * @return $user
  */
 function dosomething_user_register_facebook_user($account_details) {
   $user = null;
