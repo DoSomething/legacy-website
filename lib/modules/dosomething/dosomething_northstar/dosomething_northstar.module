@@ -216,9 +216,8 @@ function dosomething_northstar_transform_user($user, $password = null) {
       continue;
     }
 
-    $field = $user->$drupal_key;
-    if (isset($field[LANGUAGE_NONE][0]['value'])) {
-      $northstar_user[$ns_key] = $field[LANGUAGE_NONE][0]['value'];
+    if (isset($user->$drupal_key[LANGUAGE_NONE][0]['value'])) {
+      $northstar_user[$ns_key] = $user->$drupal_key[LANGUAGE_NONE][0]['value'];
     }
   }
   foreach ($address as $ns_key => $drupal_key) {
