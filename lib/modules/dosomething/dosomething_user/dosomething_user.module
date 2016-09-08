@@ -642,9 +642,7 @@ function _dosomething_user_send_to_message_broker() {
   );
 
   // Northstar id.
-  if (module_exists('dosomething_northstar')) {
-    $params['northstar_id'] = dosomething_northstar_get_id($account);
-  }
+  $params['northstar_id'] = dosomething_user_get_field('field_northstar_id', $account);
 
   // Subscribe new members to Do Something Master Campaign.
   $mobile = dosomething_user_get_field('field_mobile', $account);
@@ -1248,7 +1246,18 @@ function dosomething_user_get_field($field_name, $account = NULL, $format = NULL
   }
 
   $wrapper = entity_metadata_wrapper('user', $account);
-  $field_value =  $wrapper->{$field_name}->value();
+  try {
+    $field_value =  $wrapper->{$field_name}->value();
+  } catch (EntityMetadataWrapperException $e) {
+    // Don't fall into error 500 when the field is not accessible.
+    watchdog(
+      'dosomething_user',
+      'Can\'t load field `!field_name` for user `!email`.',
+      ['!field_name' => $field_name, '!email' => $account->mail],
+      WATCHDOG_NOTICE
+    );
+    return NULL;
+  }
 
   // Check if there is a specifc function handler for that field, use that first.
   $handler = 'dosomething_user_get_' . $field_name;
@@ -1289,6 +1298,30 @@ function dosomething_user_get_field_first_name($field_value, $format = 'ucwords'
  */
 function dosomething_user_get_field_last_name($field_value, $format = 'ucwords') {
   return dosomething_user_format_string($field_value, $format);
+}
+
+/**
+ * Returns user's Northstar ID.
+ *
+ * @param object $field_value
+ *   Clean field value loaded using metadata wrapper.
+ *
+ * @return string|null
+ *   Returns NULL if not set, otherwise string Northstar ID.
+ */
+function dosomething_user_get_field_northstar_id($field_value) {
+  // Return NULL if the module is not enavbled.
+  if (!module_exists('dosomething_northstar')) {
+    return NULL;
+  }
+
+  // NONE is a special value representing that Northstar id is not present.
+  // @see dosomething_northstar_save_id_field();
+  if (empty($field_value) || $field_value === 'NONE') {
+    return NULL;
+  }
+
+  return $field_value;
 }
 
 

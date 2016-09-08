@@ -695,9 +695,7 @@ function dosomething_signup_get_mbp_params($account, $node, $opt_in, $options = 
   ];
 
   // Northstar id.
-  if (module_exists('dosomething_northstar')) {
-    $params['northstar_id'] = dosomething_northstar_get_id($account);
-  }
+  $params['northstar_id'] = dosomething_user_get_field('field_northstar_id', $account);
 
   if (isset($options['transactionals'])) {
     $params['transactionals'] = $options['transactionals'];
