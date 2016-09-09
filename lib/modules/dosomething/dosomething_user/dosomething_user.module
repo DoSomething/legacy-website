@@ -598,6 +598,23 @@ function dosomething_user_update_user($form, &$form_state) {
 }
 
 /**
+ * Takes care of misc. tasks required for a new user.
+ *
+ * @param user $user The new user to perform tasks on
+ */
+function dosomething_user_new_user_tasks($user) {
+  // Trigger an analytics event on registration
+  // @NOTE: The 'Authentication - Login' event will *also* be triggered here,
+  // since registered users are subsequently logged in to their new accounts.
+  dosomething_helpers_add_analytics_event('Authentication', 'Register');
+
+  // Sign the user up for transactional messaging.
+  // Must be after dosomething_northstar_create_user()
+  // because it needs to access Northstar ID.
+  _dosomething_user_send_to_message_broker();
+}
+
+/**
  * Custom new user login submission handler.
  *
  * Does actions after a new user has registered via the web.
@@ -606,19 +623,11 @@ function dosomething_user_update_user($form, &$form_state) {
 function dosomething_user_new_user($form, &$form_state) {
   global $user;
 
-  // Trigger an analytics event on registration
-  // @NOTE: The 'Authentication - Login' event will *also* be triggered here,
-  // since registered users are subsequently logged in to their new accounts.
-  dosomething_helpers_add_analytics_event('Authentication', 'Register');
-
   if (module_exists('dosomething_northstar')) {
     dosomething_northstar_create_user($user, $form_state['values']['pass']);
-  };
+  }
 
-  // Sign the user up for transactional messaging.
-  // Must be after dosomething_northstar_create_user()
-  // because it needs to access Northstar ID.
-  _dosomething_user_send_to_message_broker();
+  dosomething_user_new_user_tasks($user);
 }
 
 /**

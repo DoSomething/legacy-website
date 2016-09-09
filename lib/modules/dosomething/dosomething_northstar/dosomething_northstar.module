@@ -205,11 +205,7 @@ function dosomething_northstar_transform_user($user, $password = null) {
 
   // Set values in ns_user if they are set.
   foreach ($optional as $ns_key => $drupal_key) {
-    if (! isset($user->$drupal_key)) {
-      continue;
-    }
-
-    if (isset($user->$drupal_key[LANGUAGE_NONE][0]['value'])) {
+    if (isset($user->{$drupal_key}[LANGUAGE_NONE][0]['value'])) {
       $northstar_user[$ns_key] = $user->$drupal_key[LANGUAGE_NONE][0]['value'];
     }
   }

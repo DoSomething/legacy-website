@@ -19,6 +19,8 @@ function dosomething_user_make_facebook_user($account_details) {
   $user = user_save('', $edit);
   user_save($user, ['name' => $user->uid]);
 
+  dosomething_user_new_user_tasks($user);
+
   return $user;
 }
 
@@ -36,14 +38,25 @@ function dosomething_user_register_facebook_user($account_details) {
     $northstar_account = dosomething_northstar_get_user_by_custom_index('email', $email);
   }
 
+  // If we can't find a NS account...
   if ($northstar_account === NULL) {
-    $user = dosomething_user_make_facebook_user($account_details);
+    // First make sure we don't duplicate a Drupal account by checking email
+    $user = dosomething_user_get_user_by_email($email);
+
+    // If we can't find the account by email, make a new one
+    if ($user === FALSE) {
+      $user = dosomething_user_make_facebook_user($account_details);
+    }
   }
+  // Otherwise load the existing Drupal account
   else {
     $user = user_load($northstar_account->data->drupal_id);
   }
 
+  // Attack Facebook ID & update Northstar
   $user->facebook_id = $account_details['facebook_id'];
+  dosomething_northstar_create_user($user);
+
   return $user;
 }
 
@@ -62,13 +75,8 @@ function dosomething_user_verify_facebook_user($facebook_id, $access_token) {
  * Creates a Drupal session for a given Facebook user
  * @param $user User to create session for
  */
-function dosomething_user_create_facebook_session($user, $new_user) {
+function dosomething_user_create_facebook_session($user) {
   $form_state['uid'] = $user->uid;
-
-  if ($new_user) {
-    dosomething_user_new_user(NULL, $form_state);
-  }
-
   user_login_submit([], $form_state);
   user_login_finalize($form_state);
 }
@@ -88,7 +96,6 @@ function dosomething_user_facebook_login() {
   $access_token = $_POST['access_token'];
   $verify_token = TRUE;
   $token_verified = FALSE;
-  $new_user = FALSE;
 
   $account_details = [
     'email' => data_get($_POST, 'email'),
@@ -105,9 +112,7 @@ function dosomething_user_facebook_login() {
     $user = user_load($northstar_account->data->drupal_id);
   }
   else {
-    $new_user = TRUE;
     $user = dosomething_user_register_facebook_user($account_details);
-
     // No need to run a verify on the initial signup.
     $verify_token = FALSE;
     $token_verified = TRUE;
@@ -120,7 +125,7 @@ function dosomething_user_facebook_login() {
 
   // If they passed the login verification, create a session
   if ($token_verified) {
-    dosomething_user_create_facebook_session($user, $new_user);
+    dosomething_user_create_facebook_session($user);
   }
 
   // Always return them to the previous page
