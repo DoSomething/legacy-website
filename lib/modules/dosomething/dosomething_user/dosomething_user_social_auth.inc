@@ -33,7 +33,7 @@ function dosomething_user_register_facebook_user($account_details) {
   // Checks if there is an existing account for the given email
   if (isset($account_details['email'])) {
     $email = $account_details['email'];
-    $northstar_account = dosomething_northstar_get_user_by_custom_index('email', $email);
+    $northstar_account = json_decode(dosomething_northstar_get_user_by_custom_index('email', $email));
   }
 
   // If we can't find a NS account...
@@ -106,7 +106,7 @@ function dosomething_user_facebook_login() {
     'user_registration_source' => 'facebook_auth',
   ];
 
-  $northstar_account = dosomething_northstar_get_user_by_custom_index('facebook_id', $facebook_id);
+  $northstar_account = json_decode(dosomething_northstar_get_user_by_custom_index('facebook_id', $facebook_id));
 
   if ($northstar_account != NULL) {
     // If the user is already registered with us, start to load them into Drupal
