@@ -125,33 +125,36 @@ function dosomething_northstar_update_user($user, $password = null) {
 }
 
 /**
- * Get user profile data from Northstar for the given Drupal ID.
+ * Get user profile data from Northstar for the given ID.
  *
- * @param int $drupal_id Drupal user id.
+ * @param int $id Drupal user id.
+ * @param string $type The index type of the ID
  * @return object
  */
-function dosomething_northstar_get_northstar_user($drupal_id) {
-  $northstar_user_info = cache_get('northstar_user_info_' . $drupal_id, 'cache_dosomething_northstar');
+function dosomething_northstar_get_northstar_user($id, $type = 'drupal_id') {
+  $northstar_user_info = NULL;
+
+  if ($type === 'drupal_id') {
+    $northstar_user_info = cache_get('northstar_user_info_' . $id, 'cache_dosomething_northstar');
+  }
 
   if ($northstar_user_info) {
     $northstar_user_info = $northstar_user_info->data;
   }
   else {
     $client = _dosomething_northstar_build_http_client();
-
-    $northstar_user_info = drupal_http_request($client['base_url'] . '/users/drupal_id/' . $drupal_id, array(
+    $response = drupal_http_request($client['base_url'] . '/users/' . $type . '/' . $id, [
       'headers' => $client['headers'],
       'method' => 'GET',
-      ));
+    ]);
+    $northstar_user_info = $response->data;
 
-      $northstar_user_info = $northstar_user_info->data;
-
-      if (!empty($northstar_user_info->error)) {
-        $error = sprintf("Error fetching Northstar user data, uid=%d: '%s'", $drupal_id, $northstar_user_info->error);
-        watchdog_exception('northstar', new Exception($error));
-      } else {
-        cache_set('northstar_user_info_' . $drupal_id, $northstar_user_info, 'cache_dosomething_northstar', REQUEST_TIME + 60*60*24);
-      }
+    if (!empty($northstar_user_info->error)) {
+      $error = sprintf("Error fetching Northstar user data, uid=%d: '%s'", $id, $northstar_user_info->error);
+      watchdog_exception('northstar', new Exception($error));
+    } else {
+      cache_set('northstar_user_info_' . json_decode($northstar_user_info)->data->drupal_id, $northstar_user_info, 'cache_dosomething_northstar', REQUEST_TIME + 60*60*24);
+    }
   }
 
   return $northstar_user_info;
@@ -192,9 +195,8 @@ function dosomething_northstar_transform_user($user, $password = null) {
 
   // Set values in ns_user if they are set.
   foreach ($optional as $ns_key => $drupal_key) {
-    $field = $user->$drupal_key;
-    if (isset($field[LANGUAGE_NONE][0]['value'])) {
-      $northstar_user[$ns_key] = $field[LANGUAGE_NONE][0]['value'];
+    if (isset($user->{$drupal_key}[LANGUAGE_NONE][0]['value'])) {
+      $northstar_user[$ns_key] = $user->{$drupal_key}[LANGUAGE_NONE][0]['value'];
     }
   }
   foreach ($address as $ns_key => $drupal_key) {
@@ -227,6 +229,11 @@ function dosomething_northstar_transform_user($user, $password = null) {
   // programmatically created through the API.
   if(empty($northstar_user['source'])) {
     $northstar_user['source'] = 'phoenix';
+  }
+
+  // Facebook ID is not in the field_ format
+  if (isset($user->facebook_id)) {
+    $northstar_user['facebook_id'] = $user->facebook_id;
   }
 
   return $northstar_user;
