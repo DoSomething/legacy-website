@@ -603,8 +603,7 @@ function dosomething_user_update_user($form, &$form_state) {
  * Does actions after a new user has registered via the web.
  * Sign user up for emails/texts.
  */
-function dosomething_user_new_user($form, &$form_state)
-{
+function dosomething_user_new_user($form, &$form_state) {
   global $user;
 
   // Trigger an analytics event on registration

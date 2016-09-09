@@ -137,21 +137,14 @@ function dosomething_northstar_get_northstar_user($drupal_id) {
     $northstar_user_info = $northstar_user_info->data;
   }
   else {
-    $client = _dosomething_northstar_build_http_client();
+    $northstar_user_info = dosomething_northstar_get_user_by_custom_index('drupal_id', $drupal_id);
 
-    $northstar_user_info = drupal_http_request($client['base_url'] . '/users/drupal_id/' . $drupal_id, array(
-      'headers' => $client['headers'],
-      'method' => 'GET',
-      ));
-
-      $northstar_user_info = $northstar_user_info->data;
-
-      if (!empty($northstar_user_info->error)) {
-        $error = sprintf("Error fetching Northstar user data, uid=%d: '%s'", $drupal_id, $northstar_user_info->error);
-        watchdog_exception('northstar', new Exception($error));
-      } else {
-        cache_set('northstar_user_info_' . $drupal_id, $northstar_user_info, 'cache_dosomething_northstar', REQUEST_TIME + 60*60*24);
-      }
+    if (!empty($northstar_user_info->error)) {
+      $error = sprintf("Error fetching Northstar user data, uid=%d: '%s'", $drupal_id, $northstar_user_info->error);
+      watchdog_exception('northstar', new Exception($error));
+    } else {
+      cache_set('northstar_user_info_' . $drupal_id, $northstar_user_info, 'cache_dosomething_northstar', REQUEST_TIME + 60*60*24);
+    }
   }
 
   return $northstar_user_info;

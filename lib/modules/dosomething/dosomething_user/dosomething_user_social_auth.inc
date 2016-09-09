@@ -44,8 +44,6 @@ function dosomething_user_register_facebook_user($account_details) {
   }
 
   $user->facebook_id = $account_details['facebook_id'];
-  dosomething_northstar_create_user($user);
-
   return $user;
 }
 
@@ -64,8 +62,13 @@ function dosomething_user_verify_facebook_user($facebook_id, $access_token) {
  * Creates a Drupal session for a given Facebook user
  * @param $user User to create session for
  */
-function dosomething_user_create_facebook_session($user) {
+function dosomething_user_create_facebook_session($user, $new_user) {
   $form_state['uid'] = $user->uid;
+
+  if ($new_user) {
+    dosomething_user_new_user(NULL, $form_state);
+  }
+
   user_login_submit([], $form_state);
   user_login_finalize($form_state);
 }
@@ -85,6 +88,7 @@ function dosomething_user_facebook_login() {
   $access_token = $_POST['access_token'];
   $verify_token = TRUE;
   $token_verified = FALSE;
+  $new_user = FALSE;
 
   $account_details = [
     'email' => data_get($_POST, 'email'),
@@ -101,7 +105,9 @@ function dosomething_user_facebook_login() {
     $user = user_load($northstar_account->data->drupal_id);
   }
   else {
+    $new_user = TRUE;
     $user = dosomething_user_register_facebook_user($account_details);
+
     // No need to run a verify on the initial signup.
     $verify_token = FALSE;
     $token_verified = TRUE;
@@ -114,7 +120,7 @@ function dosomething_user_facebook_login() {
 
   // If they passed the login verification, create a session
   if ($token_verified) {
-    dosomething_user_create_facebook_session($user);
+    dosomething_user_create_facebook_session($user, $new_user);
   }
 
   // Always return them to the previous page
