@@ -19,8 +19,6 @@ function dosomething_user_make_facebook_user($account_details) {
   $user = user_save('', $edit);
   user_save($user, ['name' => $user->uid]);
 
-  dosomething_user_new_user_tasks($user);
-
   return $user;
 }
 
@@ -56,6 +54,9 @@ function dosomething_user_register_facebook_user($account_details) {
   // Attack Facebook ID & update Northstar
   $user->facebook_id = $account_details['facebook_id'];
   dosomething_northstar_create_user($user);
+
+  // Tasks must be run after Northstar creation
+  dosomething_user_new_user_tasks($user);
 
   return $user;
 }
