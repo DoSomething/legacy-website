@@ -125,49 +125,39 @@ function dosomething_northstar_update_user($user, $password = null) {
 }
 
 /**
- * Get user profile data from Northstar for the given Drupal ID.
+ * Get user profile data from Northstar for the given ID.
  *
- * @param int $drupal_id Drupal user id.
+ * @param int $id Drupal user id.
+ * @param string $type The index type of the ID
  * @return object
  */
-function dosomething_northstar_get_northstar_user($drupal_id) {
-  $northstar_user_info = cache_get('northstar_user_info_' . $drupal_id, 'cache_dosomething_northstar');
+function dosomething_northstar_get_northstar_user($id, $type = 'drupal_id') {
+  $northstar_user_info = NULL;
+
+  if ($type === 'drupal_id') {
+    $northstar_user_info = cache_get('northstar_user_info_' . $id, 'cache_dosomething_northstar');
+  }
 
   if ($northstar_user_info) {
     $northstar_user_info = $northstar_user_info->data;
   }
   else {
-    $northstar_user_info = dosomething_northstar_get_user_by_custom_index('drupal_id', $drupal_id);
+    $client = _dosomething_northstar_build_http_client();
+    $response = drupal_http_request($client['base_url'] . '/users/' . $type . '/' . $id, [
+      'headers' => $client['headers'],
+      'method' => 'GET',
+    ]);
+    $northstar_user_info = $response->data;
 
     if (!empty($northstar_user_info->error)) {
-      $error = sprintf("Error fetching Northstar user data, uid=%d: '%s'", $drupal_id, $northstar_user_info->error);
+      $error = sprintf("Error fetching Northstar user data, uid=%d: '%s'", $id, $northstar_user_info->error);
       watchdog_exception('northstar', new Exception($error));
     } else {
-      cache_set('northstar_user_info_' . $drupal_id, $northstar_user_info, 'cache_dosomething_northstar', REQUEST_TIME + 60*60*24);
+      cache_set('northstar_user_info_' . json_decode($northstar_user_info)->data->drupal_id, $northstar_user_info, 'cache_dosomething_northstar', REQUEST_TIME + 60*60*24);
     }
   }
 
   return $northstar_user_info;
-}
-
-/**
- * Get a Northstar user for a given index & type. Useful for non Drupal ID lookups.
- * @param  string $index_type The type of index to query for (Email, Facebook, Mobile, _id)
- * @param  string $index The index to query for
- * @return object|null
- */
-function dosomething_northstar_get_user_by_custom_index($index_type, $index) {
-  $client = _dosomething_northstar_build_http_client();
-  $response = drupal_http_request($client['base_url'] . '/users/' . $index_type . '/' . $index, [
-    'headers' => $client['headers'],
-    'method' => 'GET',
-  ]);
-
-  if ($response->code === "200") {
-    return $response->data;
-  }
-
-  return NULL;
 }
 
 /**
