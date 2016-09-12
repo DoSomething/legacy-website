@@ -361,17 +361,11 @@
       <div class="container__row">
         <div class="container__block">
           <h2 class="heading -emphasized"><?php print t('Join others making a difference'); ?></h2>
+          <?php if(dosomething_reportback_exists($campaign->nid)): ?>
+            <a href="#" data-modal-href="#modal-missing-photos">Is your photo not showing up?</a>
+          <?php endif; ?>
         </div>
       </div>
-
-      <?php if(dosomething_reportback_exists($campaign->nid)): ?>
-        <div class="container__row">
-          <div class="container__block">
-            <a href="#" data-modal-href="#modal-missing-photos">Is your photo not showing up?</a>
-          </div>
-        </div>
-      <?php endif; ?>
-
 
 
       <div id="reportback" class="reportback" data-nid="<?php print $campaign->nid; ?>" data-ids="<?php print implode(',', $reportbacks_gallery['item_ids']); ?>" data-remaining="<?php print $reportbacks_gallery['remaining']; ?>" data-admin="<?php print $reportbacks_gallery['admin_access']; ?>">
