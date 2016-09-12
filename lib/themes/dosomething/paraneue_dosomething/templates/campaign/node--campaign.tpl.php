@@ -343,7 +343,7 @@
       </div>
 
       <div class="container__row">
-        <div class="container__block">
+        <div class="container__block -narrow">
           <h3 class="inline-alt-text-color"><?php print t('Pics or It Didn&rsquo;t Happen'); ?></h3>
           <?php if (isset($reportback_copy)): ?>
             <p class="copy inline-alt-text-color"><?php print $reportback_copy; ?></p>
