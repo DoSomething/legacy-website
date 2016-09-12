@@ -343,29 +343,28 @@
       </div>
 
       <div class="container__row">
-          <div class="container__block -narrow">
-            <h3 class="inline-alt-text-color"><?php print t('Pics or It Didn&rsquo;t Happen'); ?></h3>
-            <?php if (isset($reportback_copy)): ?>
-              <p class="copy inline-alt-text-color"><?php print $reportback_copy; ?></p>
-            <?php endif; ?>
+        <div class="container__block -narrow">
+          <h3 class="inline-alt-text-color"><?php print t('Pics or It Didn&rsquo;t Happen'); ?></h3>
+          <?php if (isset($reportback_copy)): ?>
+            <p class="copy inline-alt-text-color"><?php print $reportback_copy; ?></p>
+          <?php endif; ?>
 
-            <?php if (isset($helpful_tips)): ?>
-              <h3 class="inline-alt-text-color"><?php print t('Helpful Tips'); ?></h3>
-              <div class="with-lists copy inline-alt-text-color">
-                <?php print $helpful_tips; ?>
-              </div>
-            <?php endif; ?>
-
-            <div class="container__row">
-              <div class="container__block">
-                <h2 class="heading -emphasized"><?php print t('Join others making a difference'); ?></h2>
-              </div>
+          <?php if (isset($helpful_tips)): ?>
+            <h3 class="inline-alt-text-color"><?php print t('Helpful Tips'); ?></h3>
+            <div class="with-lists copy inline-alt-text-color">
+              <?php print $helpful_tips; ?>
             </div>
+          <?php endif; ?>
+        </div>
+      </div>
 
-            <?php if(dosomething_reportback_exists($campaign->nid)): ?>
-              <a href="#" data-modal-href="#modal-missing-photos">Is your photo not showing up?</a>
-            <?php endif; ?>
-          </div>
+      <div class="container__row">
+        <div class="container__block">
+          <h2 class="heading -emphasized"><?php print t('Join others making a difference'); ?></h2>
+          <?php if(dosomething_reportback_exists($campaign->nid)): ?>
+            <a href="#" data-modal-href="#modal-missing-photos">Is your photo not showing up?</a>
+          <?php endif; ?>
+        </div>
       </div>
 
 
