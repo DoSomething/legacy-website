@@ -357,9 +357,7 @@
             <?php endif; ?>
 
             <div class="container__row">
-              <div class="container__block">
-                <h2 class="heading -emphasized"><?php print t('Join others making a difference'); ?></h2>
-              </div>
+              <h2 class="heading -emphasized"><?php print t('Join others making a difference'); ?></h2>
             </div>
 
             <?php if(dosomething_reportback_exists($campaign->nid)): ?>
