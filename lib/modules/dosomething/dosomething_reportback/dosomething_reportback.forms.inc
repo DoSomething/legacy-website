@@ -349,7 +349,7 @@ function dosomething_reportback_form_submit($form, &$form_state) {
   // If username field is set, this is an admin form.
   $is_admin_form = isset($form_state['values']['username']);
 
-  // Load uid by selected username.
+  // Load uid by selected userngit came.
   if ($is_admin_form) {
     $user = user_load_by_name($form_state['values']['username']);
     $values['uid'] = $user->uid;
@@ -371,24 +371,46 @@ function dosomething_reportback_form_submit($form, &$form_state) {
     $values['uid'] = $user->uid;
   }
 
-  // Save uploaded file.
-  if ($file = dosomething_reportback_form_save_file($form_state)) {
-    // Store new file's fid into values.
-    $values['fid'] = $file->fid;
+  if (module_exists('dosomething_rogue')) {
+    $file = $form_state['storage']['file'];
+
+    $image = image_load($file->uri);
+
+    $imageUrl = file_create_url($image->source);
+
+    $imagePath = drupal_realpath($image->source);
+
+    // Read image path, convert to base64 encoding
+    $imageData = base64_encode(file_get_contents($imagePath));
+
+    // Format the image SRC:  data:{mime};base64,{data};
+    $src = 'data: '.mime_content_type($imagePath).';base64,'.$imageData;
+
+    $values['file'] = $src;
+
+    $reportback = dosomething_rogue_send_reportback_to_rogue($values);
+
+    $form_state['redirect'] = 'node/' . $values['nid'];
   }
 
-  // Save values into reportback.
-  $rid = dosomething_reportback_save($values, $user);
+  // // Save uploaded file.
+  // if ($file = dosomething_reportback_form_save_file($form_state)) {
+  //   // Store new file's fid into values.
+  //   $values['fid'] = $file->fid;
+  // }
 
-  // Redirect to permalink page.
-  $form_state['redirect'] = array(
-    'reportback/' . $rid,
-    array(
-      'query' => array(
-        'fid' => $values['fid'],
-      ),
-    ),
-  );
+  // // Save values into reportback.
+  // $rid = dosomething_reportback_save($values, $user);
+
+  // // Redirect to permalink page.
+  // $form_state['redirect'] = array(
+  //   'reportback/' . $rid,
+  //   array(
+  //     'query' => array(
+  //       'fid' => $values['fid'],
+  //     ),
+  //   ),
+  // );
 }
 
 /**
