@@ -92,7 +92,7 @@ function dosomething_campaign_admin_config_form($form, &$form_state) {
   $form['campaign']['action_page']['dosomething_campaign_onboarding_developer_mode'] = [
     '#type' => 'checkbox',
     '#title' => t('Onboarding developer mode'),
-    '#description' => t('Make sure you turn it off when you\'re done & obviously don\'t enable this on prod.'),
+    '#description' => t('"YOU BETTER TURN THIS OFF" -Jen. And obviously don\'t enable this on prod.'),
     '#default_value' => variable_get('dosomething_campaign_onboarding_developer_mode'),
   ];
 
