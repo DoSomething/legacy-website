@@ -129,12 +129,21 @@ function magick_signup($parameters) {
 
   $response = (new SignupTransformer)->create($parameters);
 
+  $data = magick_get_data($parameters['user'], $parameters['campaign']);
+
+  $campaign_uri = $data['language_prefix'] . '/node/' . $parameters['campaign'];
+
   if (array_key_exists('error', $response)) {
-    return magick_redirect('node/' . $parameters['campaign'], [], 'modal--login');
+    return magick_redirect($campaign_uri, [], 'modal--login');
   }
 
-  // @TODO: would ideally like to redirect to the action page...
-  return magick_redirect('node/' . $parameters['campaign']);
+  $query = [
+    'magicks' => TRUE,
+    'user_id' => $parameters['user'],
+    'campaign_id' => $parameters['campaign'],
+  ];
+
+  return magick_redirect($campaign_uri, $query);
 }
 
 /**
@@ -152,4 +161,27 @@ function magick_redirect($path, array $query = [], $fragment = '') {
   ];
 
   drupal_goto($path, $url_options);
+}
+
+/**
+ * Get a bunch of useful ingredients we need to conjure
+ * magick spells.
+ *
+ * @param  string $user_id
+ * @param  string $campaign_id
+ * @return array
+ */
+function magick_get_data($user_id, $campaign_id) {
+  $user = user_load($user_id);
+  $campaign = node_load($campaign_id);
+
+  $language_code = dosomething_global_get_language($user, $campaign, TRUE);
+  $language_prefix = dosomething_global_get_prefix_for_language($language_code);
+
+  return [
+    'user' => $user,
+    'campaign' => $campaign,
+    'language_code' => $language_code,
+    'language_prefix' => $language_prefix,
+  ];
 }
