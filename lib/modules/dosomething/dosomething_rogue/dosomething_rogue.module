@@ -59,7 +59,6 @@ function dosomething_rogue_send_reportback_to_rogue($values, $user = NULL) {
     global $user;
   }
 
-  $campaign = node_load($values['nid']);
   $run = dosomething_helpers_get_current_campaign_run_for_user($values['nid']);
 
   $client = _dosomething_rogue_build_http_client();
@@ -76,11 +75,13 @@ function dosomething_rogue_send_reportback_to_rogue($values, $user = NULL) {
           'why_participated' => $values['why_participated'],
           'file' => $values['file'],
           'caption' => $values['caption'],
-          // @TODO - review status stuff can be passed here also
+          //@TODO - review status stuff can be passed here also
         ]),
   ];
 
   $response = drupal_http_request($client['base_url'] . '/reportbacks', $options);
+
+  //@TODO - Add error handling.
 
   return $response;
 }
