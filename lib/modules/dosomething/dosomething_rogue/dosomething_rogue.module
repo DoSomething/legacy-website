@@ -6,7 +6,7 @@
 
 include_once('dosomething_rogue.admin.inc');
 
-define('ROGUE_API_URL', variable_get('dosomething_rogue_url', 'http://rogue.app/'));
+define('ROGUE_API_URL', variable_get('dosomething_rogue_url', 'http://rogue.app/api'));
 define('ROGUE_API_VERSION', variable_get('dosomething_rogue_api_version', 'v1'));
 define('ROGUE_API_KEY', variable_get('dosomething_rogue_api_key', ''));
 
@@ -28,4 +28,60 @@ function dosomething_rogue_menu() {
 
   // Return the $items array to register the path
   return $items;
+}
+
+/**
+ * Build the Guzzle HTTP Client to make requests to Rogue.
+ *
+ * https://github.com/DoSomething/rogue
+ */
+function _dosomething_rogue_build_http_client() {
+  $client = [
+    'base_url' =>  ROGUE_API_URL . '/' . ROGUE_API_VERSION,
+    'headers' => [
+      'Content-Type' => 'application/json',
+      'Accept' => 'application/json',
+    ],
+  ];
+
+  return $client;
+}
+
+/**
+ * Sends a reportback to Rogue.
+ *
+ * @param array $values
+ *   Values to send to Rogue.
+ * @todo - Do we need to pass in user here? Do we need to pass in the item separately?
+ */
+function dosomething_rogue_send_reportback_to_rogue($values, $user = NULL) {
+  if (!isset($user)) {
+    global $user;
+  }
+
+  $run = dosomething_helpers_get_current_campaign_run_for_user($values['nid']);
+
+  $client = _dosomething_rogue_build_http_client();
+
+  $options = [
+    'method' => 'POST',
+    'headers' => $client['headers'],
+    'data' =>
+        json_encode([
+          'drupal_id' => $user->uid,
+          'campaign_id' => $values['nid'],
+          'campaign_run_id' => $run->nid,
+          'quantity' => $values['quantity'],
+          'why_participated' => $values['why_participated'],
+          'file' => $values['file'],
+          'caption' => $values['caption'],
+          //@TODO - review status stuff can be passed here also
+        ]),
+  ];
+
+  $response = drupal_http_request($client['base_url'] . '/reportbacks', $options);
+
+  //@TODO - Add error handling.
+
+  return $response;
 }
