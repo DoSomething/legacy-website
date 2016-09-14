@@ -50,53 +50,37 @@ function _dosomething_rogue_build_http_client() {
 /**
  * Sends a reportback to Rogue.
  *
- * @param object $reportback
- *   The reportback and reportback item to send.
+ * @param array $values
+ *   Values to send to Rogue.
  * @todo - Do we need to pass in user here? Do we need to pass in the item separately?
  */
-function dosomething_rogue_send_reportback_to_rogue($reportback) {
+function dosomething_rogue_send_reportback_to_rogue($values, $user = NULL) {
+  if (!isset($user)) {
+    global $user;
+  }
+
+  $campaign = node_load($values['nid']);
+  $run = dosomething_helpers_get_current_campaign_run_for_user($values['nid']);
+
   $client = _dosomething_rogue_build_http_client();
 
   $options = [
-  'method' => 'POST',
-  'headers' => $client['headers'],
-  'data' =>
-      json_encode([
-        'drupal_id' => $user->id, // ?
-        'campaign_id' => ,//$values['nid'],
-        'campaign_run_id' => ,//$values['run_nid'],
-        'quantity' =>,
-        'why_participated' =>,
-        'file' =>,
-        'caption' => ,
-        // review status stuff.
-      ]),
+    'method' => 'POST',
+    'headers' => $client['headers'],
+    'data' =>
+        json_encode([
+          'drupal_id' => $user->uid,
+          'campaign_id' => $values['nid'],
+          'campaign_run_id' => $run->nid,
+          'quantity' => $values['quantity'],
+          'why_participated' => $values['why_participated'],
+          'file' => $values['file'],
+          'caption' => $values['caption'],
+          // @TODO - review status stuff can be passed here also
+        ]),
   ];
 
   $response = drupal_http_request($client['base_url'] . '/reportbacks', $options);
 
-  // if ($response->code == 200 && module_exists('stathat')) {
-  //   stathat_send_ez_count('drupal - Gladiator - user sent - count', 1);
-  // }
-  // else {
-  //   // Log as a watchdog error, and stathat value.
-  //   if (module_exists('stathat')) {
-  //    stathat_send_ez_count('drupal - Gladiator - user failed - count', 1);
-  //   }
-  //   // Save fail to a db log so we can easily export.
-  //   db_insert('dosomething_gladiator_failed_task_log')
-  //     ->fields(array(
-  //       'uid' => $user->uid,
-  //       'mail' => $user->mail,
-  //       'nid' => $values['nid'],
-  //       'run_nid' => $values['run_nid'],
-  //       'timestamp' => REQUEST_TIME,
-  //       'response_code' => $response->code,
-  //       'response_values' => json_encode($response),
-  //       ))
-  //     ->execute();
-
-  //   watchdog('dosomething_gladiator','user not migrated', array('user' => $user->mail), WATCHDOG_ERROR);
-  // }
-
+  return $response;
 }
