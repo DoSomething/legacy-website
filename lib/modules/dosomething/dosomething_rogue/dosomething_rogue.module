@@ -37,7 +37,7 @@ function dosomething_rogue_menu() {
  */
 function _dosomething_rogue_build_http_client() {
   $client = [
-    'base_url' =>  ROGUE_API_URL . '/' . GLADIATOR_VERSION,
+    'base_url' =>  ROGUE_API_URL . '/' . ROGUE_API_VERSION,
     'headers' => [
       'Content-Type' => 'application/json',
       'Accept' => 'application/json',
