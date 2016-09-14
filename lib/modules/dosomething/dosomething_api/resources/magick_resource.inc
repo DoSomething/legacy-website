@@ -127,5 +127,29 @@ function magick_signup($parameters) {
     }
   }
 
-  return (new SignupTransformer)->create($parameters);
+  $response = (new SignupTransformer)->create($parameters);
+
+  if (array_key_exists('error', $response)) {
+    return magick_redirect('node/' . $parameters['campaign'], [], 'modal--login');
+  }
+
+  // @TODO: would ideally like to redirect to the action page...
+  return magick_redirect('node/' . $parameters['campaign']);
+}
+
+/**
+ * Redirect to a specified page.
+ *
+ * @param  string $path
+ * @param  array  $query
+ * @param  string $fragment
+ * @return void
+ */
+function magick_redirect($path, array $query = [], $fragment = '') {
+  $url_options = [
+    'query' => $query,
+    'fragment' => $fragment,
+  ];
+
+  drupal_goto($path, $url_options);
 }
