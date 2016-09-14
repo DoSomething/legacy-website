@@ -2,6 +2,7 @@ name = DoSomething API
 core = 7.x
 package = DoSomething
 dependencies[] = ctools
+dependencies[] = dosomething_global
 dependencies[] = dosomething_image
 dependencies[] = services
 dependencies[] = taxonomy
