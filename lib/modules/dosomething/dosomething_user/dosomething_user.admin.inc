@@ -61,32 +61,40 @@ function dosomething_user_admin_config_form($form, &$form_state) {
 
   // Login form copy.
   $var_name = 'dosomething_user_login_form_copy';
-  $form['login'][$var_name] = array(
+  $form['login'][$var_name] = [
     '#type' => 'textarea',
     '#rows' => 2,
     '#title' => t('Login Form copy'),
     '#description' => t("Copy displayed below the Login Form header. Optional."),
     '#default_value' => t("@value", ['@value' => variable_get($var_name)]),
-  );
+  ];
 
   // Display Forgot Password.
   $var_name = 'dosomething_user_login_form_display_password_link';
-  $form['login'][$var_name] = array(
+  $form['login'][$var_name] = [
     '#type' => 'checkbox',
     '#title' => t('Display "Forgot Password" link'),
     '#default_value' => variable_get($var_name, FALSE),
     '#description' => t("If unchecked, the link will not be displayed. Helpful for single sign-on implementations that do not yet support password reset."),
-  );
+  ];
 
   // Login form copy.
   $var_name = 'dosomething_user_reset_password_copy';
-  $form['login'][$var_name] = array(
+  $form['login'][$var_name] = [
     '#type' => 'textarea',
     '#rows' => 2,
     '#title' => t('Forgot Password copy'),
     '#description' => t('Password reset neutral copy displayed both on fail and success.'),
     '#default_value' => t(variable_get($var_name)),
-  );
+  ];
+
+  $var_name = 'dosomething_user_openid_oauth_login_enabled';
+  $form['login'][$var_name] = [
+    '#type' => 'checkbox',
+    '#title' => t('Enable Login with OpenID & OAuth'),
+    '#description' => t('Allow members to login using OpenID & OAuth via Northstar.'),
+    '#default_value' => variable_get($var_name, FALSE),
+  ];
 
   // Registration form settings.
   $form['reg'] = array(
