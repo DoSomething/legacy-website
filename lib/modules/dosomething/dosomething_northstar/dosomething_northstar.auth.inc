@@ -26,3 +26,18 @@ function dosomething_northstar_openid_connect_claims_alter(&$claims) {
     $claim['scope'] = 'profile';
   }
 }
+
+/**
+ * Post-authorize hook for OpenID Connect authentication. We use this to persist
+ * the user's access and refresh tokens so they can be used in future requests.
+ *
+ * Implements hook_openid_connect_post_authorize().
+ *
+ * @param array $tokens - Array with id_token/access_token, refresh_token, access token expiration
+ * @param stdClass $account - The Drupal user account
+ * @param array $userinfo - Response from Northstar's user info endpoint
+ * @param string $provider - The provider used to authenticate
+ */
+function dosomething_northstar_openid_connect_post_authorize($tokens, $account, $userinfo, $provider) {
+  // @TODO: Persist these in the database.
+}
