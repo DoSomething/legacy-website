@@ -6,7 +6,7 @@
  */
 
 include_once('dosomething_northstar.admin.inc');
-include_once('plugins/openid_connect_client/northstar/OpenIDConnectClientNorthstar.class.php');
+include_once('dosomething_northstar.auth.inc');
 
 // Config vars, if not set.
 define('NORTHSTAR_URL', variable_get('dosomething_northstar_url', 'http://northstar.dev'));
@@ -35,25 +35,6 @@ function dosomething_northstar_menu() {
       'type' => MENU_CALLBACK,
     ],
   ];
-}
-
-/**
- * Implements hook_ctools_plugin_directory().
- */
-function dosomething_northstar_ctools_plugin_directory($module, $plugin) {
-  if ($module == 'openid_connect') {
-    return 'plugins/' . $plugin;
-  }
-}
-
-/**
- * Adjust scopes requested for OpenID Connect authentication.
- * @param $claims
- */
-function dosomething_northstar_openid_connect_claims_alter(&$claims) {
-  foreach ($claims as &$claim) {
-    $claim['scope'] = 'profile';
-  }
 }
 
 /**
