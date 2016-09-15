@@ -7,11 +7,16 @@
  */
 function paraneue_dosomething_page_alter_login(&$page) {
   if (!user_is_logged_in()){
-    $page['page_bottom']['login'] = array(
-      '#prefix' => '<div data-modal id="modal--login" role="dialog" hidden><div class="modal__block">',
-      '#suffix' => '</div></div>',
-      'login' => drupal_get_form('user_login_block')
-    );
+    if (variable_get('dosomething_user_openid_oauth_login_enabled')) {
+      // @TODO: use alternative OpenID login form.
+    }
+    else {
+      $page['page_bottom']['login'] = array(
+        '#prefix' => '<div data-modal id="modal--login" role="dialog" hidden><div class="modal__block">',
+        '#suffix' => '</div></div>',
+        'login' => drupal_get_form('user_login_block')
+      );
+    }
   }
 }
 
