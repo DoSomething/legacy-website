@@ -28,7 +28,7 @@ class OpenIDConnectClientNorthstar extends OpenIDConnectClientBase {
     return [
       'authorization' => $url . '/authorize',
       'token' => $url . '/v2/auth/token',
-      'userinfo' => $url . '/v1/profile',
+      'userinfo' => $url . '/v2/auth/info',
     ];
   }
 
