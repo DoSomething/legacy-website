@@ -8,7 +8,7 @@ include_once('plugins/openid_connect_client/northstar/OpenIDConnectClientNorthst
  * Implements hook_ctools_plugin_directory().
  */
 function dosomething_northstar_ctools_plugin_directory($module, $plugin) {
-  if ($module == 'openid_connect') {
+  if ($module === 'openid_connect') {
     return 'plugins/' . $plugin;
   }
 }
