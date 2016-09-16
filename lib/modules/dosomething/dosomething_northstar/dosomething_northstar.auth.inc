@@ -1,5 +1,8 @@
 <?php
 
+module_load_include('php', 'openid_connect', 'includes/OpenIDConnectClientInterface.class');
+module_load_include('php', 'openid_connect', 'includes/OpenIDConnectClientBase.class');
+
 include_once('plugins/openid_connect_client/northstar/OpenIDConnectClientNorthstar.class.php');
 
 /**
