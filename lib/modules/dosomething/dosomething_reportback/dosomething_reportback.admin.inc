@@ -232,12 +232,15 @@ function dosomething_reportback_files_form($form, &$form_state, $status = NULL, 
  * Form submit callback for dosomething_reportback_files_form_submit.
  */
 function dosomething_reportback_files_form_submit($form, &$form_state) {
+  $node = menu_get_object();
   $user = dosomething_helpers_get_current_user();
 
   $rb_files = $form_state['values']['rb_files'];
   if (empty($rb_files) || !is_array($rb_files)) {
     return;
   }
+
+  $updates_to_send_to_rogue = [];
 
   foreach ($rb_files as $fid => $values) {
     $kudos = [
@@ -282,7 +285,20 @@ function dosomething_reportback_files_form_submit($form, &$form_state) {
       // Flush the image style cache for this image so they update with the new image.
       image_path_flush($image->source);
     }
+
+    // If Rogue feature flag is enabled, push into array to send update to Rogue.
+    if (module_exists('dosomething_rogue')) {
+      $data = [
+        'nid' => $node->nid,
+        'status' => $values['status'],
+      ];
+
+      array_push(updates_to_send_to_rogue, $data);
+    }
   }
+
+  // Send updates to Rogue.
+  dosomething_rogue_send_reportback_to_rogue($updates_to_send_to_rogue);
 
   drupal_set_message(t("Updated."));
 }

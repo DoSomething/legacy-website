@@ -75,6 +75,7 @@ function dosomething_rogue_send_reportback_to_rogue($values, $user = NULL) {
           'why_participated' => $values['why_participated'],
           'file' => $values['file'],
           'caption' => $values['caption'],
+          'status' => $values['status'],
           //@TODO - review status stuff can be passed here also
         ]),
   ];
