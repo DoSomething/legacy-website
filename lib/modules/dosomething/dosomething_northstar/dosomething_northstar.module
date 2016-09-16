@@ -5,6 +5,7 @@
  * Code for the dosomething_northstar module.
  */
 
+include_once 'dosomething_northstar.features.inc';
 include_once('dosomething_northstar.admin.inc');
 include_once('dosomething_northstar.auth.inc');
 
