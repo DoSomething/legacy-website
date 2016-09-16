@@ -48,6 +48,7 @@ dependencies[] = metatag
 dependencies[] = metatag_views
 dependencies[] = module_filter
 dependencies[] = new_relic_rpm
+dependencies[] = openid_connect
 dependencies[] = pathauto
 dependencies[] = pathauto_i18n
 dependencies[] = pathauto_i18n_node
