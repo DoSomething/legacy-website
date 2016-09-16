@@ -288,15 +288,16 @@ function dosomething_reportback_files_form_submit($form, &$form_state) {
 
     // If Rogue feature flag is enabled, push into array to send update to Rogue.
     if (module_exists('dosomething_rogue')) {
+      //TODO: find the rogue reportback item id that is associated with this rb item.
+      //TODO: update the below sending rogue reportback item id.
       $data = [
         'nid' => $node->nid,
         'status' => $values['status'],
       ];
 
-      array_push(updates_to_send_to_rogue, $data);
+      array_push($updates_to_send_to_rogue, $data);
     }
   }
-
   // Send updates to Rogue.
   dosomething_rogue_send_reportback_to_rogue($updates_to_send_to_rogue);
 
