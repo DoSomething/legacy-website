@@ -283,8 +283,12 @@ function dosomething_northstar_log_request($op, $user, $request_body, $response)
     ->execute();
 }
 
+/**
+ * Generate templated view for openid login at /user/openid.
+ *
+ * @return array
+ */
 function dosomething_northstar_openid_login_view() {
-  // return ['#markup' => 'Poopie doopie doo!'];
   return theme('openid_login');
 }
 
@@ -292,7 +296,6 @@ function dosomething_northstar_openid_login_view() {
  * Implements hook_theme().
  */
 function dosomething_northstar_theme() {
-  //
   return [
     'openid_login' => [
       'template' => 'openid-login',
