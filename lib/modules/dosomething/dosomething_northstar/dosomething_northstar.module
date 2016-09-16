@@ -26,7 +26,13 @@ function dosomething_northstar_menu() {
       'page arguments' => ['dosomething_northstar_config_form'],
       'access arguments' => ['administer modules'],
       'file' => 'dosomething_northstar.admin.inc',
-    ]
+    ],
+    'user/openid' => [
+      'title' => 'OpenID Login',
+      'page callback' => 'dosomething_northstar_openid_login_view',
+      'access arguments' => ['access content'],
+      'type' => MENU_CALLBACK,
+    ],
   ];
 }
 
@@ -275,6 +281,27 @@ function dosomething_northstar_log_request($op, $user, $request_body, $response)
       'response_values' => $response->data,
     ])
     ->execute();
+}
+
+/**
+ * Generate templated view for openid login at /user/openid.
+ *
+ * @return array
+ */
+function dosomething_northstar_openid_login_view() {
+  return theme('openid_login');
+}
+
+/**
+ * Implements hook_theme().
+ */
+function dosomething_northstar_theme() {
+  return [
+    'openid_login' => [
+      'template' => 'openid-login',
+      'path' => drupal_get_path('module', 'dosomething_northstar') . '/theme',
+    ]
+  ];
 }
 
 /**
