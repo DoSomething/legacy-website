@@ -5,7 +5,9 @@
  * Code for the dosomething_northstar module.
  */
 
+include_once 'dosomething_northstar.features.inc';
 include_once('dosomething_northstar.admin.inc');
+include_once('dosomething_northstar.auth.inc');
 
 // Config vars, if not set.
 define('NORTHSTAR_URL', variable_get('dosomething_northstar_url', 'http://northstar.dev'));
@@ -296,10 +298,13 @@ function dosomething_northstar_openid_login_view() {
  * Implements hook_theme().
  */
 function dosomething_northstar_theme() {
+  $form = module_invoke('openid_connect', 'block_view', 'openid_connect_login');
+
   return [
     'openid_login' => [
       'template' => 'openid-login',
       'path' => drupal_get_path('module', 'dosomething_northstar') . '/theme',
+      'variables' => ['form' => $form],
     ]
   ];
 }

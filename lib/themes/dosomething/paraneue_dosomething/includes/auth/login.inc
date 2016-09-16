@@ -8,7 +8,13 @@
 function paraneue_dosomething_page_alter_login(&$page) {
   if (!user_is_logged_in()){
     if (variable_get('dosomething_user_openid_oauth_login_enabled')) {
-      // @TODO: use alternative OpenID login form.
+      $block = module_invoke('openid_connect', 'block_view', 'openid_connect_login');
+      $page['page_bottom']['login'] = [
+        '#type' => 'item',
+        '#prefix' => '<div data-modal id="modal--login" role="dialog" hidden><div class="modal__block">',
+        '#suffix' => '</div></div>',
+        '#markup' => render($block),
+      ];
     }
     else {
       $page['page_bottom']['login'] = array(
@@ -75,7 +81,9 @@ function paraneue_dosomething_form_alter_login(&$form, &$form_state, $form_id) {
     $form['#after_build'][] = 'paraneue_dosomething_pass_reset_after_build';
     $form['#submit'][] = 'paraneue_dosomething_pass_submit';
     $form['#validate'][] = 'paraneue_dosomething_pass_validate';
-   }
+  }
+
+  return $form;
 }
 
 /**

@@ -149,6 +149,10 @@ projects[oauth][subdir] = "contrib"
 ; See https://www.drupal.org/node/2328685
 projects[oauth][patch][] = "https://www.drupal.org/files/issues/oauth-OAuth-PHP-library-Authorization-Header-parameters-separator-2328685-1.patch"
 
+; OpenID Connect
+projects[openid_connect][version] = "1.0-beta6"
+projects[openid_connect][subdir] = "contrib"
+
 ; Optimizely
 projects[optimizely][version] = "2.18"
 projects[optimizely][subdir] = "contrib"
