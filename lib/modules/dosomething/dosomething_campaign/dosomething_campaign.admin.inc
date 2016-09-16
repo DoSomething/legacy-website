@@ -102,6 +102,12 @@ function dosomething_campaign_admin_config_form($form, &$form_state) {
     '#default_value' => variable_get('dosomething_campaign_onboarding_context_slide'),
   ];
 
+  $form['campaign']['action_page']['dosomething_campaign_onboarding_campaign_slide'] = [
+    '#type' => 'checkbox',
+    '#title' => t('Display Campaign Slide'),
+    '#default_value' => variable_get('dosomething_campaign_onboarding_campaign_slide'),
+  ];
+
   $form['campaign']['action_page']['dosomething_campaign_onboarding_instruction_slide'] = [
     '#type' => 'checkbox',
     '#title' => t('Display Instruction Slide'),

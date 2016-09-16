@@ -337,6 +337,10 @@ function dosomething_helpers_add_js_onboarding($nid) {
       $onboardingSettings['slides'][] = 'ReportbackItemsSlide';
     }
 
+    if (variable_get('dosomething_campaign_onboarding_campaign_slide', FALSE)) {
+      $onboardingSettings['slides'][] = 'CampaignSlide';
+    }
+
     drupal_add_js(['dsOnboarding' => $onboardingSettings], 'setting');
   }
 }
