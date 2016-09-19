@@ -241,7 +241,7 @@ function dosomething_northstar_transform_user($user, $password = null) {
 }
 
 /**
- * Save the user's Northstar ID to their local profile.
+ * Save the user's Northstar ID to their local profile field and the authmap.
  *
  * @param $uid - Drupal user ID
  * @param $northstar_response - Northstar user JSON response
@@ -250,6 +250,15 @@ function dosomething_northstar_save_id_field($uid, $northstar_response) {
   $northstar_id = !empty($northstar_response->data->id) ? $northstar_response->data->id : null;
   $user = user_load($uid);
 
+  // Save a record to the `authmap` table if Northstar user exists:
+  if (! is_null($northstar_id)) {
+    db_merge('authmap')
+      ->key(['uid' => $user->uid])
+      ->fields(['authname' => $northstar_id, 'module' => 'openid_connect_northstar'])
+      ->execute();
+  }
+
+  // Save the `field_northstar_id`:
   $edit = [];
   dosomething_user_set_fields($edit, ['northstar_id' => $northstar_id]);
   user_save($user, $edit);
