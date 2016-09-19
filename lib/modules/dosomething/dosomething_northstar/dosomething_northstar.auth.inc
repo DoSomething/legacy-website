@@ -42,5 +42,12 @@ function dosomething_northstar_openid_connect_claims_alter(&$claims) {
  * @param string $provider - The provider used to authenticate
  */
 function dosomething_northstar_openid_connect_post_authorize($tokens, $account, $userinfo, $provider) {
-  // @TODO: Persist these in the database.
+  $edit = [];
+  dosomething_user_set_fields($edit, [
+    'access_token' => $tokens['access_token'],
+    'refresh_token' => $tokens['access_token'],
+    'access_token_expiration' => $tokens['expire'],
+  ]);
+
+  user_save($account, $edit);
 }
