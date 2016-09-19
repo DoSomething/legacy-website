@@ -251,12 +251,7 @@ function dosomething_northstar_save_id_field($uid, $northstar_response) {
   $user = user_load($uid);
 
   // Save a record to the `authmap` table if Northstar user exists:
-  if (! is_null($northstar_id)) {
-    db_merge('authmap')
-      ->key(['uid' => $user->uid])
-      ->fields(['authname' => $northstar_id, 'module' => 'openid_connect_northstar'])
-      ->execute();
-  }
+  user_set_authmaps($user, ['authname_openid_connect_northstar' => $northstar_id]);
 
   // Save the `field_northstar_id`:
   $edit = [];
