@@ -66,6 +66,14 @@ function dosomething_user_update_7008() {
 }
 
 /**
+ * Add a unique constraint to the `field_mobile_value` field for the
+ * mobile field (since fields don't support unique database constraints).
+ */
+function dosomething_user_update_7009() {
+  db_add_unique_key('field_data_field_mobile', 'field_mobile_value', ['field_mobile_value']);
+}
+
+/**
  * Implements hook_uninstall().
  */
 function dosomething_user_uninstall() {
