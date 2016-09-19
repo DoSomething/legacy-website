@@ -74,17 +74,17 @@ function dosomething_rogue_send_reportback_to_rogue($values, $user = NULL) {
           'quantity' => $values['quantity'],
           'why_participated' => $values['why_participated'],
           'file' => $values['file'],
+          'file_id' => '', // @TODO - currently require by rogue, should not be.
           'caption' => $values['caption'],
           'status' => $values['status'],
-          //@TODO - review status stuff can be passed here also
         ]),
   ];
 
   $response = drupal_http_request($client['base_url'] . '/reportbacks', $options);
 
-  //@TODO - Add error handling.
+  // @TODO - handle failures.
 
-  return $response;
+  return drupal_json_decode($response->data);
 }
 
 /**
