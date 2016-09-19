@@ -1105,7 +1105,10 @@ function dosomething_user_register_validate($form, &$form_state) {
       form_set_error('dosomething_user_already_registered', t('The phone number '. $mobile . ' is already registered. Have you ' . l('forgotten your password?', 'user/password')));
     }
     else {
-      // Store only the numbers.
+      // If `dosomething_user_clean_mobile_number` returned false, discard this field.
+      if ($mobile_clean === FALSE) {
+        $mobile_clean = NULL;
+      }
       form_set_value($form['field_mobile'], array(LANGUAGE_NONE => array(0 => array('value' => $mobile_clean))), $form_state);
     }
   }
