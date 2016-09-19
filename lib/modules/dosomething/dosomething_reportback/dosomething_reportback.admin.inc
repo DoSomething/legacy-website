@@ -286,20 +286,26 @@ function dosomething_reportback_files_form_submit($form, &$form_state) {
       image_path_flush($image->source);
     }
 
-    // If Rogue feature flag is enabled, push into array to send update to Rogue.
+    // Check to see if Rogue feature flag is enabled.
     if (module_exists('dosomething_rogue')) {
-      //TODO: find the rogue reportback item id that is associated with this rb item.
-      //TODO: update the below sending rogue reportback item id.
-      $data = [
-        'nid' => $node->nid,
-        'status' => $values['status'],
-      ];
+      $rogue_item_id = db_query('SELECT rogue_rbs.rogue_item_id FROM {dosomething_rogue_reportbacks} rogue_rbs WHERE rogue_rbs.fid = :fid', array(':fid' => $fid));
 
-      array_push($updates_to_send_to_rogue, $data);
+      $rogue_item_id = $rogue_item_id->fetchAll();
+
+      // If there is a rogue_item_id in the dosomething_rogue_reportbacks table, send update to Rogue.
+      if (!is_null($rogue_item_id[0]->rogue_item_id)) {
+        $data = [
+          'rogue_reportback_item_id' => $rogue_item_id[0]->rogue_item_id,
+          'status' => $values['status'],
+        ];
+
+        array_push($updates_to_send_to_rogue, $data);
+      }
     }
   }
+
   // Send updates to Rogue.
-  dosomething_rogue_send_reportback_to_rogue($updates_to_send_to_rogue);
+  dosomething_rogue_update_rogue_reportback_items($updates_to_send_to_rogue);
 
   drupal_set_message(t("Updated."));
 }

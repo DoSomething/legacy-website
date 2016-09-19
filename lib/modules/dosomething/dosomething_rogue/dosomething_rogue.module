@@ -86,3 +86,26 @@ function dosomething_rogue_send_reportback_to_rogue($values, $user = NULL) {
 
   return $response;
 }
+
+/**
+ * Sends updated reportback item(s) to Rogue.
+ *
+ * @param array $data
+ * Values to send to Rogue.
+ *
+ */
+function dosomething_rogue_update_rogue_reportback_items($data)
+{
+  $client = _dosomething_rogue_build_http_client();
+
+  $options = [
+    'method' => 'PUT',
+    'headers' => $client['headers'],
+    'data' =>
+      json_encode($data),
+  ];
+
+  $response = drupal_http_request($client['base_url'] . '/items', $options);
+
+  return $response;
+}
