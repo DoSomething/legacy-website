@@ -58,6 +58,14 @@ function dosomething_user_update_7006() {
 }
 
 /**
+ * Add a unique constraint to the `mail` field on the users table.
+ */
+function dosomething_user_update_7008() {
+  db_drop_index('users', 'mail');
+  db_add_unique_key('users', 'mail', ['mail']);
+}
+
+/**
  * Implements hook_uninstall().
  */
 function dosomething_user_uninstall() {
