@@ -42,6 +42,7 @@
 }
 
 
+// Soon to be deprecated in favor of signup-card.
 // @TODO: currently using this temporary class
 // but will be aiming to consolidate all "card"
 // styles together, so that card becomes more of
@@ -66,6 +67,17 @@
   .form-actions {
     padding-top: gutter();
   }
+
+  &.-signup {
+    width: 30%;
+    min-width: 256px;
+    margin: 1.5%;
+    display: inline-block;
+
+    .beta-card__row:first-of-type {
+      margin-top: 0;
+    }
+  }
 }
 
 .beta-card__row {
@@ -86,4 +98,8 @@
   &.-flushed {
     padding: 0;
   }
+}
+
+.container__cards {
+  text-align: center;
 }
