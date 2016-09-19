@@ -13,7 +13,12 @@ function dosomething_northstar_schema() {
 
   $schema['dosomething_northstar_request_log'] = [
     'description' => 'Log of requests made to Northstar for debugging.',
+    'primary key' => ['id'],
     'fields' => [
+      'id' => [
+        'description' => 'The transaction ID',
+        'type' => 'serial',
+      ],
       'uid' => [
         'description' => 'The user\'s Drupal UID',
         'type' => 'int',
@@ -88,4 +93,20 @@ function dosomething_northstar_update_7002() {
     $schema = dosomething_northstar_schema();
     db_create_table($table_name, $schema[$table_name]);
   }
+}
+
+/**
+ * Add a primary key to the Northstar request log table.
+ */
+function dosomething_northstar_update_7003() {
+  db_add_field( 'dosomething_northstar_request_log', 'id', [
+    'type' => 'int',
+  ]);
+
+  db_change_field('dosomething_northstar_request_log', 'id', 'id', [
+    'type' => 'serial',
+    'not null' => 'true',
+  ], [
+    'primary key' => ['id'],
+  ]);
 }
