@@ -220,7 +220,7 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
   ];
   $utm_params = dosomething_helpers_utm_parameters(null, $utm_params);
 
-  if (dosomething_user_get_field('field_northstar_id') !== 'NONE') {
+  if (dosomething_user_get_field('field_northstar_id')) {
     $share_path = 'user/' . dosomething_user_get_field('field_northstar_id');
   }
   else {
