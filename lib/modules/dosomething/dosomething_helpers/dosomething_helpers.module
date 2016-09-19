@@ -909,3 +909,13 @@ function dosomething_helpers_get_current_campaign_run_for_user($nid, $user = NUL
   // @TODO: may want to investigate how it loads the proper translation...
   return node_load($run['id']);
 }
+
+function dosomething_helpers_get_data_uri_from_image($image) {
+  $imagePath = drupal_realpath($image->source);
+
+  // Read image path, convert to base64 encoding
+  $imageData = base64_encode(file_get_contents($imagePath));
+
+  // Return the formated data uri: data:{mime};base64,{data};
+  return 'data: ' . mime_content_type($imagePath) . ';base64,' . $imageData;
+}
