@@ -372,45 +372,36 @@ function dosomething_reportback_form_submit($form, &$form_state) {
   }
 
   if (module_exists('dosomething_rogue')) {
+    // Store the base64 encoded data uri of the file in the values array to send to rogue.
     $file = $form_state['storage']['file'];
-
     $image = image_load($file->uri);
-
-    $imageUrl = file_create_url($image->source);
-
-    $imagePath = drupal_realpath($image->source);
-
-    // Read image path, convert to base64 encoding
-    $imageData = base64_encode(file_get_contents($imagePath));
-
-    // Format the image SRC:  data:{mime};base64,{data};
-    $src = 'data: '.mime_content_type($imagePath).';base64,'.$imageData;
-
-    $values['file'] = $src;
+    $values['file'] = dosomething_helpers_get_data_uri_from_image($image);
 
     $reportback = dosomething_rogue_send_reportback_to_rogue($values);
 
+    // @TODO - store reference to rogue ids.
+
     $form_state['redirect'] = 'node/' . $values['nid'];
+  } else {
+    // Save uploaded file.
+    if ($file = dosomething_reportback_form_save_file($form_state)) {
+      // Store new file's fid into values.
+      $values['fid'] = $file->fid;
+    }
+
+    // Save values into reportback.
+    $rid = dosomething_reportback_save($values, $user);
+
+    // Redirect to permalink page.
+    $form_state['redirect'] = array(
+      'reportback/' . $rid,
+      array(
+        'query' => array(
+          'fid' => $values['fid'],
+        ),
+      ),
+    );
   }
-
-  // // Save uploaded file.
-  // if ($file = dosomething_reportback_form_save_file($form_state)) {
-  //   // Store new file's fid into values.
-  //   $values['fid'] = $file->fid;
-  // }
-
-  // // Save values into reportback.
-  // $rid = dosomething_reportback_save($values, $user);
-
-  // // Redirect to permalink page.
-  // $form_state['redirect'] = array(
-  //   'reportback/' . $rid,
-  //   array(
-  //     'query' => array(
-  //       'fid' => $values['fid'],
-  //     ),
-  //   ),
-  // );
 }
 
 /**
