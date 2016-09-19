@@ -247,7 +247,7 @@ function dosomething_northstar_transform_user($user, $password = null) {
  * @param $northstar_response - Northstar user JSON response
  */
 function dosomething_northstar_save_id_field($uid, $northstar_response) {
-  $northstar_id = !empty($northstar_response->data->id) ? $northstar_response->data->id : 'NONE';
+  $northstar_id = !empty($northstar_response->data->id) ? $northstar_response->data->id : null;
   $user = user_load($uid);
 
   $edit = [];
