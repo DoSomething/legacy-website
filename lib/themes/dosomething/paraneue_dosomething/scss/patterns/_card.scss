@@ -67,12 +67,7 @@
     padding-top: gutter();
   }
 
-  &.-signup {
-    width: 30%;
-    min-width: 256px;
-    margin: 1.5%;
-    display: inline-block;
-
+  &.-headerless {
     .beta-card__row:first-of-type {
       margin-top: 0;
     }
