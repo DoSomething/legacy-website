@@ -348,6 +348,17 @@ function dosomething_helpers_ip_address() {
 }
 
 /**
+ * Utility function to check if current request is an api request.
+ *
+ * @return boolean
+ */
+function dosomething_helpers_is_api_request() {
+  $path = explode('/', request_path());
+
+  return $path[0] === 'api';
+}
+
+/**
  * Implements hook_form_alter().
  */
 function dosomething_helpers_form_alter(&$form, &$form_state, $form_id) {
