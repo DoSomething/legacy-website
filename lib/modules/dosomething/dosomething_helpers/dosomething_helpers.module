@@ -355,7 +355,7 @@ function dosomething_helpers_ip_address() {
 function dosomething_helpers_is_api_request() {
   $path = explode('/', request_path());
 
-  return in_array('api', $path);
+  return $path[0] === 'api';
 }
 
 /**
