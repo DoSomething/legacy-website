@@ -66,6 +66,12 @@
   .form-actions {
     padding-top: gutter();
   }
+
+  &.-headerless {
+    .beta-card__row:first-of-type {
+      margin-top: 0;
+    }
+  }
 }
 
 .beta-card__row {
@@ -86,4 +92,8 @@
   &.-flushed {
     padding: 0;
   }
+}
+
+.container__cards {
+  text-align: center;
 }
