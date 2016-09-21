@@ -291,6 +291,10 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
         unset($form['field_school_id']);
         unset($form['field_user_registration_source']);
         unset($form['field_northstar_id']);
+        unset($form['field_access_token']);
+        unset($form['field_access_token_expiration']);
+        unset($form['field_refresh_token']);
+        unset($form['field_northstar_id']);
         unset($form['picture']);
         unset($form['field_under_thirteen']);
         unset($form['field_job_title']);
@@ -299,9 +303,12 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
       }
       // else if staff:
       else {
-        // Registration Source should always be read-only.
+        // Set read-only for fields that should not be editable.
         $form['field_user_registration_source']['#disabled'] = TRUE;
         $form['field_northstar_id']['#disabled'] = TRUE;
+        $form['field_access_token']['#disabled'] = TRUE;
+        $form['field_access_token_expiration']['#disabled'] = TRUE;
+        $form['field_refresh_token']['#disabled'] = TRUE;
         $form['field_under_thirteen']['#disabled'] = TRUE;
       }
 

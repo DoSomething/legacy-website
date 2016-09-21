@@ -10,6 +10,89 @@
 function dosomething_user_field_default_field_instances() {
   $field_instances = array();
 
+  // Exported field_instance: 'user-user-field_access_token'.
+  $field_instances['user-user-field_access_token'] = array(
+    'bundle' => 'user',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'This is the user\'s access token, issued by Northstar.',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 13,
+      ),
+    ),
+    'entity_type' => 'user',
+    'field_name' => 'field_access_token',
+    'label' => 'Access Token',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'text_processing' => 0,
+      'user_register_form' => 0,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 20,
+    ),
+  );
+
+  // Exported field_instance: 'user-user-field_access_token_expiration'.
+  $field_instances['user-user-field_access_token_expiration'] = array(
+    'bundle' => 'user',
+    'deleted' => 0,
+    'description' => 'The expiration timestamp for the user\'s access token.',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'date',
+        'settings' => array(
+          'format_type' => 'long',
+          'fromto' => 'both',
+          'multiple_from' => '',
+          'multiple_number' => '',
+          'multiple_to' => '',
+        ),
+        'type' => 'date_default',
+        'weight' => 14,
+      ),
+    ),
+    'entity_type' => 'user',
+    'field_name' => 'field_access_token_expiration',
+    'label' => 'Access Token Expiration',
+    'required' => 0,
+    'settings' => array(
+      'default_value' => 'blank',
+      'default_value2' => 'same',
+      'default_value_code' => '',
+      'default_value_code2' => '',
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => 0,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'date',
+      'settings' => array(
+        'increment' => 15,
+        'input_format' => 'm/d/Y - H:i:s',
+        'input_format_custom' => '',
+        'label_position' => 'above',
+        'text_parts' => array(),
+        'year_range' => '-3:+3',
+      ),
+      'type' => 'date_select',
+      'weight' => 21,
+    ),
+  );
+
   // Exported field_instance: 'user-user-field_address'.
   $field_instances['user-user-field_address'] = array(
     'bundle' => 'user',
@@ -406,6 +489,41 @@ function dosomething_user_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'user-user-field_refresh_token'.
+  $field_instances['user-user-field_refresh_token'] = array(
+    'bundle' => 'user',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => 'This is the user\'s refresh token, issued by Northstar. It is used to request a new access token once the current one expires.',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 15,
+      ),
+    ),
+    'entity_type' => 'user',
+    'field_name' => 'field_refresh_token',
+    'label' => 'Refresh Token',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'text_processing' => 0,
+      'user_register_form' => 0,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 22,
+    ),
+  );
+
   // Exported field_instance: 'user-user-field_school_id'.
   $field_instances['user-user-field_school_id'] = array(
     'bundle' => 'user',
@@ -516,6 +634,8 @@ function dosomething_user_field_default_field_instances() {
 
   // Translatables
   // Included for use with string extractors like potx.
+  t('Access Token');
+  t('Access Token Expiration');
   t('Address');
   t('Birthday');
   t('Cell #');
@@ -524,11 +644,15 @@ function dosomething_user_field_default_field_instances() {
   t('Last Name');
   t('Northstar ID');
   t('Partner / Sponsor');
+  t('Refresh Token');
   t('School ID');
   t('Subscribe to SMS updates');
   t('Subscribe to our email newsletter');
   t('The corresponding user ID in Northstar, our user API.');
+  t('The expiration timestamp for the user\'s access token.');
   t('This field may be set if a User has been programatically created.');
+  t('This is the user\'s access token, issued by Northstar.');
+  t('This is the user\'s refresh token, issued by Northstar. It is used to request a new access token once the current one expires.');
   t('Under Thirteen');
   t('User Registration Source');
 
