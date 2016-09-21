@@ -305,12 +305,9 @@ function dosomething_helpers_add_js_campaign_and_user_data($vars) {
  * @return void
  */
 function dosomething_helpers_add_js_onboarding($nid) {
-  $onboarding_enabled = variable_get('dosomething_campaign_enable_onboarding', FALSE);
-  $developer_mode_enabled = variable_get('dosomething_campaign_onboarding_developer_mode', FALSE);
-  $campaign_enabled = !dosomething_helpers_get_variable('node', $nid, 'disable_onboarding');
+  $onboarding_api = variable_get('dosomething_campaign_onboarding_api_host', FALSE);
 
-  // @Temporary: add onboarding.js with Onboarding experiment.
-  if ($developer_mode_enabled || ($onboarding_enabled && $campaign_enabled)) {
+  if ($onboarding_api) {
     drupal_add_js(PARANEUE_PATH . '/dist/onboarding.js', [
       'group'      => JS_THEME,
       'weight'     => 1000,
@@ -319,27 +316,12 @@ function dosomething_helpers_add_js_onboarding($nid) {
     ]);
 
     $onboardingSettings = [
-      'onboardingEnabled' => $onboarding_enabled,
-      'campaignEnabled' => $campaign_enabled,
-      'developerModeEnabled' => $developer_mode_enabled,
-      'slides' => [],
+      'api' => [
+        'host' => $onboarding_api,
+        'version' => variable_get('dosomething_campaign_onboarding_api_version', FALSE),
+        'port' => variable_get('dosomething_campaign_onboarding_api_port', FALSE),  
+      ]
     ];
-
-    if (variable_get('dosomething_campaign_onboarding_context_slide', FALSE)) {
-      $onboardingSettings['slides'][] = 'ContextSlide';
-    }
-
-    if (variable_get('dosomething_campaign_onboarding_instruction_slide', FALSE)) {
-      $onboardingSettings['slides'][] = 'InstructionSlide';
-    }
-
-    if (variable_get('dosomething_campaign_onboarding_reportback_items_slide', FALSE)) {
-      $onboardingSettings['slides'][] = 'ReportbackItemsSlide';
-    }
-
-    if (variable_get('dosomething_campaign_onboarding_campaign_slide', FALSE)) {
-      $onboardingSettings['slides'][] = 'CampaignSlide';
-    }
 
     drupal_add_js(['dsOnboarding' => $onboardingSettings], 'setting');
   }

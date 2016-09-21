@@ -83,41 +83,22 @@ function dosomething_campaign_admin_config_form($form, &$form_state) {
     '#default_value' => t(variable_get('dosomething_campaign_problem_share_prompt')),
   );
 
-  $form['campaign']['action_page']['dosomething_campaign_enable_onboarding'] = array(
-    '#type' => 'checkbox',
-    '#title' => t('Enable onboarding'),
-    '#default_value' => variable_get('dosomething_campaign_enable_onboarding'),
-  );
-
-  $form['campaign']['action_page']['dosomething_campaign_onboarding_developer_mode'] = [
-    '#type' => 'checkbox',
-    '#title' => t('Onboarding developer mode'),
-    '#description' => t('"YOU BETTER TURN THIS OFF" -Jen. And obviously don\'t enable this on prod.'),
-    '#default_value' => variable_get('dosomething_campaign_onboarding_developer_mode'),
+  $form['campaign']['action_page']['dosomething_campaign_onboarding_api_host'] = [
+    '#type' => 'textfield',
+    '#title' => t('Host for Onboarding service. Leave this blank to disable.'),
+    '#default_value' => variable_get('dosomething_campaign_onboarding_api_host'),
   ];
 
-  $form['campaign']['action_page']['dosomething_campaign_onboarding_context_slide'] = [
-    '#type' => 'checkbox',
-    '#title' => t('Display Context Slide'),
-    '#default_value' => variable_get('dosomething_campaign_onboarding_context_slide'),
+  $form['campaign']['action_page']['dosomething_campaign_onboarding_api_port'] = [
+    '#type' => 'textfield',
+    '#title' => t('Onboarding service port (optional)'),
+    '#default_value' => variable_get('dosomething_campaign_onboarding_api_port'),
   ];
 
-  $form['campaign']['action_page']['dosomething_campaign_onboarding_campaign_slide'] = [
-    '#type' => 'checkbox',
-    '#title' => t('Display Campaign Slide'),
-    '#default_value' => variable_get('dosomething_campaign_onboarding_campaign_slide'),
-  ];
-
-  $form['campaign']['action_page']['dosomething_campaign_onboarding_instruction_slide'] = [
-    '#type' => 'checkbox',
-    '#title' => t('Display Instruction Slide'),
-    '#default_value' => variable_get('dosomething_campaign_onboarding_instruction_slide'),
-  ];
-
-  $form['campaign']['action_page']['dosomething_campaign_onboarding_reportback_items_slide'] = [
-    '#type' => 'checkbox',
-    '#title' => t('Display Reportback Items Slide'),
-    '#default_value' => variable_get('dosomething_campaign_onboarding_reportback_items_slide'),
+  $form['campaign']['action_page']['dosomething_campaign_onboarding_api_version'] = [
+    '#type' => 'textfield',
+    '#title' => t('Onboarding service version.'),
+    '#default_value' => variable_get('dosomething_campaign_onboarding_api_version'),
   ];
 
 
