@@ -4,7 +4,7 @@
     color: $white;
     margin: auto;
     max-width: 1440px;
-    padding: $base-spacing 0 $section-spacing;
+    padding: $base-spacing 0 12px;
     position: relative;
   }
 
@@ -162,7 +162,7 @@
 
 .slideshow__controller {
   display: table;
-  margin: 0 auto;
+  margin: $base-spacing auto;
   min-height: 41px;
   padding: 0 ($base-spacing / 2);
   position: relative;

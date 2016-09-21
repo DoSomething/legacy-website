@@ -60,11 +60,16 @@
   }
 
   .tagline {
+    width: 75%;
+    margin: auto;
     font-size: $font-small;
+    color: $dark-gray;
+    font-style: italic;
   }
 
   .form-actions {
     padding-top: gutter();
+    margin-bottom: 24px;
   }
 
   &.-headerless {
