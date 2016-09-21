@@ -4,7 +4,7 @@
     color: $white;
     margin: auto;
     max-width: 1440px;
-    padding: $base-spacing 0 12px;
+    padding: $base-spacing 0 $base-spacing;
     position: relative;
   }
 
@@ -162,9 +162,9 @@
 
 .slideshow__controller {
   display: table;
-  margin: $base-spacing auto;
+  margin: 0 auto;
   min-height: 41px;
-  padding: 0 ($base-spacing / 2);
+  padding: $base-spacing ($base-spacing / 2);
   position: relative;
 
   // @TODO: use classnames to help decouple from DOM hierarchy.
@@ -192,7 +192,7 @@
     font-size: $font-regular;
     padding: 8px 20px;
     position: absolute;
-    top: 0;
+    top: 25%;
 
     &:focus {
       outline: none;
