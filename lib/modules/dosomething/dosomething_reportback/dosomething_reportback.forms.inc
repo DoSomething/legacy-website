@@ -349,7 +349,7 @@ function dosomething_reportback_form_submit($form, &$form_state) {
   // If username field is set, this is an admin form.
   $is_admin_form = isset($form_state['values']['username']);
 
-  // Load uid by selected username.
+  // Load uid by selected userngit came.
   if ($is_admin_form) {
     $user = user_load_by_name($form_state['values']['username']);
     $values['uid'] = $user->uid;
@@ -371,24 +371,37 @@ function dosomething_reportback_form_submit($form, &$form_state) {
     $values['uid'] = $user->uid;
   }
 
-  // Save uploaded file.
-  if ($file = dosomething_reportback_form_save_file($form_state)) {
-    // Store new file's fid into values.
-    $values['fid'] = $file->fid;
-  }
+  if (module_exists('dosomething_rogue')) {
+    // Store the base64 encoded data uri of the file in the values array to send to rogue.
+    $file = $form_state['storage']['file'];
+    $image = image_load($file->uri);
+    $values['file'] = dosomething_helpers_get_data_uri_from_image($image);
 
-  // Save values into reportback.
-  $rid = dosomething_reportback_save($values, $user);
+    $reportback = dosomething_rogue_send_reportback_to_rogue($values);
 
-  // Redirect to permalink page.
-  $form_state['redirect'] = array(
-    'reportback/' . $rid,
-    array(
-      'query' => array(
-        'fid' => $values['fid'],
+    // @TODO - store reference to rogue ids.
+
+    $form_state['redirect'] = 'node/' . $values['nid'];
+  } else {
+    // Save uploaded file.
+    if ($file = dosomething_reportback_form_save_file($form_state)) {
+      // Store new file's fid into values.
+      $values['fid'] = $file->fid;
+    }
+
+    // Save values into reportback.
+    $rid = dosomething_reportback_save($values, $user);
+
+    // Redirect to permalink page.
+    $form_state['redirect'] = array(
+      'reportback/' . $rid,
+      array(
+        'query' => array(
+          'fid' => $values['fid'],
+        ),
       ),
-    ),
-  );
+    );
+  }
 }
 
 /**
