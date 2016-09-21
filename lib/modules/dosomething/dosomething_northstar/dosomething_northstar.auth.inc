@@ -51,3 +51,22 @@ function dosomething_northstar_openid_connect_post_authorize($tokens, $account, 
 
   user_save($account, $edit);
 }
+
+/**
+ * Redirect to destroy a Northstar single-sign-on session if one exists.
+ *
+ * Implements hook_user_logout().
+ *
+ * @param $account
+ */
+function dosomething_northstar_user_logout($account) {
+  // @TODO: Conditionally apply this only for OpenID Connect logins...?
+  $logout_url = url(NORTHSTAR_URL . '/logout', [
+    'query' => ['redirect' => url('/', ['absolute' => TRUE])],
+  ]);
+
+  // Destroy the current session, and reset $user to the anonymous user.
+  session_destroy();
+
+  drupal_goto($logout_url);
+}
