@@ -69,7 +69,7 @@
 
   .form-actions {
     padding-top: gutter();
-    margin-bottom: 24px;
+    margin-bottom: $base-spacing;
   }
 
   &.-headerless {
