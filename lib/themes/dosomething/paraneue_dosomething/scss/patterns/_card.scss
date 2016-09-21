@@ -60,8 +60,6 @@
   }
 
   .tagline {
-    width: 75%;
-    margin: auto;
     font-size: $font-small;
     color: $dark-gray;
     font-style: italic;
@@ -92,6 +90,8 @@
 
   &.-centered {
     text-align: center;
+    width: 75%;
+    margin: 0 auto;
   }
 
   &.-flushed {
