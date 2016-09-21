@@ -90,7 +90,8 @@
 
   &.-centered {
     text-align: center;
-    padding: 0 12.5%;
+    max-width: 75%;
+    margin: 0 auto;
   }
 
   &.-flushed {
