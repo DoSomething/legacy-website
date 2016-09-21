@@ -49,6 +49,9 @@ function dosomething_northstar_openid_connect_post_authorize($tokens, $account, 
     'access_token_expiration' => $tokens['expire'],
   ]);
 
+  // Let's remember that this is a OpenID Connect session.
+  $_SESSION['DOSOMETHING_NORTHSTAR_OPENID_CONNECT'] = true;
+
   user_save($account, $edit);
 }
 
@@ -60,13 +63,13 @@ function dosomething_northstar_openid_connect_post_authorize($tokens, $account, 
  * @param $account
  */
 function dosomething_northstar_user_logout($account) {
-  // @TODO: Conditionally apply this only for OpenID Connect logins...?
-  $logout_url = url(NORTHSTAR_URL . '/logout', [
+  $is_openid_login = ! empty($_SESSION['DOSOMETHING_NORTHSTAR_OPENID_CONNECT']);
+  $northstar_logout_url = url(NORTHSTAR_URL . '/logout', [
     'query' => ['redirect' => url('/', ['absolute' => TRUE])],
   ]);
 
   // Destroy the current session, and reset $user to the anonymous user.
   session_destroy();
 
-  drupal_goto($logout_url);
+  drupal_goto($is_openid_login ? $northstar_logout_url : '/');
 }
