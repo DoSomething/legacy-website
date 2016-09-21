@@ -295,20 +295,19 @@ function dosomething_northstar_log_request($op, $user, $request_body, $response)
  * @return array
  */
 function dosomething_northstar_openid_login_view() {
-  return theme('openid_login');
+  $form = module_invoke('openid_connect', 'block_view', 'openid_connect_login');
+
+  return theme('openid_login', ['form' => $form]);
 }
 
 /**
  * Implements hook_theme().
  */
 function dosomething_northstar_theme() {
-  $form = module_invoke('openid_connect', 'block_view', 'openid_connect_login');
-
   return [
     'openid_login' => [
       'template' => 'openid-login',
       'path' => drupal_get_path('module', 'dosomething_northstar') . '/theme',
-      'variables' => ['form' => $form],
     ]
   ];
 }
