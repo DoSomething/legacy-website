@@ -288,9 +288,7 @@ function dosomething_reportback_files_form_submit($form, &$form_state) {
 
     // Check to see if Rogue feature flag is enabled.
     if (module_exists('dosomething_rogue')) {
-      $rogue_item_id = db_query('SELECT rogue_rbs.rogue_item_id FROM {dosomething_rogue_reportbacks} rogue_rbs WHERE rogue_rbs.fid = :fid', array(':fid' => $fid));
-
-      $rogue_item_id = $rogue_item_id->fetchAll();
+      $rogue_item_id = db_query("SELECT rogue_rbs.rogue_item_id FROM {dosomething_rogue_reportbacks} rogue_rbs WHERE fid = :fid", array(':fid' => $fid))->fetchAll();
 
       // If there is a rogue_item_id in the dosomething_rogue_reportbacks table, send update to Rogue.
       if (!is_null($rogue_item_id[0]->rogue_item_id)) {
@@ -305,9 +303,13 @@ function dosomething_reportback_files_form_submit($form, &$form_state) {
   }
 
   // Send updates to Rogue.
-  dosomething_rogue_update_rogue_reportback_items($updates_to_send_to_rogue);
+  $response = dosomething_rogue_update_rogue_reportback_items($updates_to_send_to_rogue);
 
-  drupal_set_message(t("Updated."));
+  if ($response->code != 201) {
+    drupal_set_message($reponse->error, 'warning');
+  } else {
+    drupal_set_message(t("Updated."));
+  }
 }
 
 /**
