@@ -22,8 +22,7 @@ class OpenIDConnectClientNorthstar extends OpenIDConnectClientBase {
    * Overrides OpenIDConnectClientBase::getEndpoints().
    */
   public function getEndpoints() {
-    // @TODO: Build these from Northstar module settings.
-    $url = 'http://northstar.dev:8000';
+    $url = NORTHSTAR_URL;
 
     return [
       'authorization' => $url . '/authorize',
