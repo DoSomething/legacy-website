@@ -111,3 +111,15 @@ function dosomething_rogue_update_rogue_reportback_items($data)
 
   return $response;
 }
+
+/**
+ * Query to find Rogue reportbak item id by Phoenix fid.
+ *
+ * @param string $fid
+ * Phoenix fid of reportback item.
+ *
+ */
+function dosomething_rogue_get_by_file_id($fid)
+{
+  return db_query("SELECT rogue_rbs.rogue_item_id FROM {dosomething_rogue_reportbacks} rogue_rbs WHERE fid = :fid", array(':fid' => $fid))->fetchAll();
+}
