@@ -32,6 +32,44 @@ class OpenIDConnectClientNorthstar extends OpenIDConnectClientBase {
   }
 
   /**
+   * Get the URL for the authorization page.
+   *
+   * @param string $scope
+   * @return string
+   */
+  public function getAuthorizeUrl($scope = 'openid email')
+  {
+    $redirect_uri = OPENID_CONNECT_REDIRECT_PATH_BASE . '/' . $this->name;
+    $url_options = [
+      'query' => [
+        'response_type' => 'code',
+        'client_id' => $this->getSetting('client_id'),
+        'redirect_uri' => url($redirect_uri, ['absolute' => TRUE]),
+        'scope' => $scope,
+        'state' => openid_connect_create_state_token(),
+      ],
+    ];
+    $endpoints = $this->getEndpoints();
+
+    return url($endpoints['authorization'], $url_options);
+  }
+
+  /**
+   * Redirect to the authorization page.
+   * Overrides OpenIDConnectClientBase::authorize().
+   *
+   * @param string $scope
+   */
+  public function authorize($scope = 'openid email') {
+    $authorize_url = $this->getAuthorizeUrl($scope);
+
+    // Clear $_GET['destination'] because we need to override it.
+    unset($_GET['destination']);
+
+    drupal_goto($authorize_url);
+  }
+
+  /**
    * Overrides OpenIDConnectClientBase::retrieveIDToken().
    */
   public function retrieveTokens($authorization_code) {
