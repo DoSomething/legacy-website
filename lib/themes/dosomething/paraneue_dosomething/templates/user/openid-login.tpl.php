@@ -1,9 +1,6 @@
-<h3>Welcome to the OpenID Login brought to you by Northstar™.</h3>
+<h3>Log in using Northstar (beta)</h3>
+<p>Click the button below to log in using Northstar, the DoSomething.org user & identity API. Be warned, this is still an
+  experimental feature and could have bugs!</p>
 
-<?php print render($form); ?>
+<p><a href="<?php print $url; ?>" class="button">Log In</a></p>
 
-<div class="message-callout -below">
-  <div class="message-callout__copy">
-    <p>Click the button!</p>
-  </div>
-</div>

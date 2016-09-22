@@ -7,13 +7,12 @@
  */
 function paraneue_dosomething_page_alter_login(&$page) {
   if (!user_is_logged_in()){
-    if (variable_get('dosomething_user_openid_oauth_login_enabled')) {
-      $block = module_invoke('openid_connect', 'block_view', 'openid_connect_login');
+    if (module_exists('dosomething_northstar') && variable_get('dosomething_user_openid_oauth_login_enabled')) {
       $page['page_bottom']['login'] = [
         '#type' => 'item',
         '#prefix' => '<div data-modal id="modal--login" role="dialog" hidden><div class="modal__block">',
         '#suffix' => '</div></div>',
-        '#markup' => render($block),
+        '#markup' => dosomething_northstar_openid_login_view(),
       ];
     }
     else {
