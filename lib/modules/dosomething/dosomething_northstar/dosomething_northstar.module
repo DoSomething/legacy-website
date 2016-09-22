@@ -295,9 +295,6 @@ function dosomething_northstar_log_request($op, $user, $request_body, $response)
  * @return array
  */
 function dosomething_northstar_openid_login_view() {
-  // Save our intended destination so we'll be redirected afterwards.
-  openid_connect_save_destination();
-
   /** @var $client OpenIDConnectClientNorthstar */
   $client = openid_connect_get_client('northstar');
   $scopes = openid_connect_get_scopes();
