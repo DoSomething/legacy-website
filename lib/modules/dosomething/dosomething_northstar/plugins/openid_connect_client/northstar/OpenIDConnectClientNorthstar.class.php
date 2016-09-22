@@ -32,6 +32,21 @@ class OpenIDConnectClientNorthstar extends OpenIDConnectClientBase {
   }
 
   /**
+   * Creates a state token and stores it in the session for later validation.
+   *
+   * @return string
+   *   A state token that later can be validated to prevent request forgery.
+   */
+  public function createStateToken() {
+    // If we already have a state token, don't overwrite it.
+    if (empty($_SESSION['openid_connect_state'])) {
+      $_SESSION['openid_connect_state'] = openid_connect_create_state_token();
+    }
+
+    return $_SESSION['openid_connect_state'];
+  }
+
+  /**
    * Get the URL for the authorization page.
    *
    * @param string $scope
@@ -46,7 +61,7 @@ class OpenIDConnectClientNorthstar extends OpenIDConnectClientBase {
         'client_id' => $this->getSetting('client_id'),
         'redirect_uri' => url($redirect_uri, ['absolute' => TRUE]),
         'scope' => $scope,
-        'state' => openid_connect_create_state_token(),
+        'state' => $this->createStateToken(),
       ],
     ];
     $endpoints = $this->getEndpoints();
