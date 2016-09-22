@@ -232,7 +232,6 @@ function dosomething_reportback_files_form($form, &$form_state, $status = NULL, 
  * Form submit callback for dosomething_reportback_files_form_submit.
  */
 function dosomething_reportback_files_form_submit($form, &$form_state) {
-  $node = menu_get_object();
   $user = dosomething_helpers_get_current_user();
 
   $rb_files = $form_state['values']['rb_files'];
