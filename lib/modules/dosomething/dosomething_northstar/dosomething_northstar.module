@@ -10,8 +10,7 @@ include_once('dosomething_northstar.admin.inc');
 include_once('dosomething_northstar.auth.inc');
 
 // Config vars, if not set.
-define('NORTHSTAR_URL', variable_get('dosomething_northstar_url', 'http://northstar.dev'));
-define('NORTHSTAR_PORT', variable_get('dosomething_northstar_port', '8000'));
+define('NORTHSTAR_URL', variable_get('dosomething_northstar_url', 'http://northstar.dev:8000'));
 define('NORTHSTAR_VERSION', variable_get('dosomething_northstar_version', 'v1'));
 define('NORTHSTAR_APP_ID', variable_get('dosomething_northstar_app_id', '456'));
 define('NORTHSTAR_APP_KEY', variable_get('dosomething_northstar_app_key', 'abc4324'));
@@ -330,9 +329,6 @@ function _dosomething_northstar_is_successful_response($response) {
  */
 function _dosomething_northstar_build_http_client() {
   $base_url = NORTHSTAR_URL;
-  if (getenv('DS_ENVIRONMENT') === 'local') {
-    $base_url .=  ":" . NORTHSTAR_PORT;
-  }
   $base_url .= '/' . NORTHSTAR_VERSION;
 
   $client = [
