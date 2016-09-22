@@ -2,11 +2,8 @@ Vagrant.configure("2") do |config|
 
   ## Choose your base box
   config.vm.box = "dosomething/phoenix"
-  if ENV['DS_VAGRANT_BETA']
-    config.vm.box_version = "2.0.0.beta1"
-  else
-    config.vm.box_version = "1.0.8"
-  end
+
+  config.vm.box_version = "2.0.0.beta1"
 
   config.vm.provider "virtualbox" do |v|
     v.customize ["modifyvm", :id, "--memory", 3072]
