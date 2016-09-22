@@ -109,7 +109,7 @@ class ReportbackItem extends Entity {
     ];
     $this->campaign = Campaign::get($data->nid);
 
-    if ($full) {
+    if ($full && module_exists('dosomething_northstar')) {
       $northstar_response = dosomething_northstar_get_northstar_user($data->uid);
       $northstar_response = json_decode($northstar_response);
 
