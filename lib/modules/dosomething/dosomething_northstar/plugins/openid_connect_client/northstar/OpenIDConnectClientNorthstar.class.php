@@ -32,6 +32,59 @@ class OpenIDConnectClientNorthstar extends OpenIDConnectClientBase {
   }
 
   /**
+   * Creates a state token and stores it in the session for later validation.
+   *
+   * @return string
+   *   A state token that later can be validated to prevent request forgery.
+   */
+  public function createStateToken() {
+    // If we already have a state token, don't overwrite it.
+    if (empty($_SESSION['openid_connect_state'])) {
+      $_SESSION['openid_connect_state'] = openid_connect_create_state_token();
+    }
+
+    return $_SESSION['openid_connect_state'];
+  }
+
+  /**
+   * Get the URL for the authorization page.
+   *
+   * @param string $scope
+   * @return string
+   */
+  public function getAuthorizeUrl($scope = 'openid email')
+  {
+    $redirect_uri = OPENID_CONNECT_REDIRECT_PATH_BASE . '/' . $this->name;
+    $url_options = [
+      'query' => [
+        'response_type' => 'code',
+        'client_id' => $this->getSetting('client_id'),
+        'redirect_uri' => url($redirect_uri, ['absolute' => TRUE]),
+        'scope' => $scope,
+        'state' => $this->createStateToken(),
+      ],
+    ];
+    $endpoints = $this->getEndpoints();
+
+    return url($endpoints['authorization'], $url_options);
+  }
+
+  /**
+   * Redirect to the authorization page.
+   * Overrides OpenIDConnectClientBase::authorize().
+   *
+   * @param string $scope
+   */
+  public function authorize($scope = 'openid email') {
+    $authorize_url = $this->getAuthorizeUrl($scope);
+
+    // Clear $_GET['destination'] because we need to override it.
+    unset($_GET['destination']);
+
+    drupal_goto($authorize_url);
+  }
+
+  /**
    * Overrides OpenIDConnectClientBase::retrieveIDToken().
    */
   public function retrieveTokens($authorization_code) {
