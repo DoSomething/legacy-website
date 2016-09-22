@@ -61,10 +61,13 @@
 
   .tagline {
     font-size: $font-small;
+    color: $dark-gray;
+    font-style: italic;
   }
 
   .form-actions {
     padding-top: gutter();
+    margin-bottom: $base-spacing;
   }
 
   &.-headerless {
@@ -87,6 +90,8 @@
 
   &.-centered {
     text-align: center;
+    max-width: 75%;
+    margin: 0 auto;
   }
 
   &.-flushed {

@@ -162,7 +162,7 @@
 
 .slideshow__controller {
   display: table;
-  margin: 0 auto;
+  margin: $base-spacing auto 0;
   min-height: 41px;
   padding: 0 ($base-spacing / 2);
   position: relative;
