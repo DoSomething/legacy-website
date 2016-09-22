@@ -303,9 +303,8 @@ function dosomething_reportback_files_form_submit($form, &$form_state) {
 
   // Send updates to Rogue.
   $response = dosomething_rogue_update_rogue_reportback_items($updates_to_send_to_rogue);
-  $response->code = 404;
   if ($response->code != 201) {
-    drupal_set_message($reponse->error, 'warning');
+    drupal_set_message(print_r($response->code, TRUE) . ' ' . print_r($response->status_message, TRUE), 'warning');
   } else {
     drupal_set_message(t("Updated."));
   }
