@@ -19,14 +19,7 @@ function dosomething_northstar_config_form($form, &$form_state) {
     '#type' => 'textfield',
     '#title' => t('Northstar URL'),
     '#required' => TRUE,
-    '#default_value' => variable_get('dosomething_northstar_url', 'http://northstar.dev'),
-  ];
-  $form['northstar']['dosomething_northstar_port'] = [
-    '#type' => 'textfield',
-    '#title' => t('Northstar port'),
-    '#description' => t('This is most likely only needed on dev sites'),
-    '#required' => FALSE,
-    '#default_value' => variable_get('dosomething_northstar_port', '8000'),
+    '#default_value' => variable_get('dosomething_northstar_url', 'http://northstar.dev:8000'),
   ];
   $form['northstar']['dosomething_northstar_version'] = [
     '#type' => 'textfield',
