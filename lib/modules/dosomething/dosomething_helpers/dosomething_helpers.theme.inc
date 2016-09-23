@@ -325,20 +325,20 @@ function dosomething_helpers_add_js_onboarding($nid) {
       'slides' => [],
     ];
 
-    if (variable_get('dosomething_campaign_onboarding_context_slide', FALSE)) {
-      $onboardingSettings['slides'][] = 'ContextSlide';
+    if (variable_get('dosomething_campaign_onboarding_reportback_items_slide', FALSE)) {
+      $onboardingSettings['slides'][] = 'ReportbackItemsSlide';
     }
 
     if (variable_get('dosomething_campaign_onboarding_instruction_slide', FALSE)) {
       $onboardingSettings['slides'][] = 'InstructionSlide';
     }
 
-    if (variable_get('dosomething_campaign_onboarding_reportback_items_slide', FALSE)) {
-      $onboardingSettings['slides'][] = 'ReportbackItemsSlide';
-    }
-
     if (variable_get('dosomething_campaign_onboarding_campaign_slide', FALSE)) {
       $onboardingSettings['slides'][] = 'CampaignSlide';
+    }
+
+    if (variable_get('dosomething_campaign_onboarding_context_slide', FALSE)) {
+      $onboardingSettings['slides'][] = 'ContextSlide';
     }
 
     drupal_add_js(['dsOnboarding' => $onboardingSettings], 'setting');
