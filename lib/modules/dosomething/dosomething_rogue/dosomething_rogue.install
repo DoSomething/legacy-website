@@ -113,7 +113,7 @@ function dosomething_rogue_schema() {
         'length' => '500000',
         'not null' => FALSE,
       ],
-    ]
+    ],
     'primary key' => ['id'],
   ];
 
