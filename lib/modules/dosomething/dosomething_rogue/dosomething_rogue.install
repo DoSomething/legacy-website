@@ -88,6 +88,9 @@ function dosomething_rogue_schema() {
         'not null' => FALSE,
       ],
       'file' => [
+        'description' => 'The file string to save of the reportback image.',
+        'type' => 'text',
+        'not null' => TRUE,
       ],
       'caption' => [
         'description' => 'File caption.',
