@@ -89,7 +89,32 @@ function dosomething_rogue_send_reportback_to_rogue($values, $user = NULL) {
 
   $response = drupal_http_request($client['base_url'] . '/reportbacks', $options);
 
-  // @TODO - handle failures.
+  if ($response->code == 200 && module_exists('stathat')) {
+    stathat_send_ez_count('drupal - Rogue - reportback sent - count', 1);
+  }
+  else {
+    // Log as watchdog error, and stathat value.
+    if (module_exists('stathat')) {
+      stathat_send_ez_count('drupal - Rogue - reportback failed - count', 1);
+    }
+    // Save fail to a db log so we can easily export.
+    db_insert('dosomething_rogue_failed_task_log')
+      ->fields([
+        'drupal_id' => $user->uid,
+        'campaign_id' => $values['nid'],
+        'campaign_run_id' => $run->nid,
+        'quantity' => $values['quantity'],
+        'why_participated' => $values['why_participated'],
+        'file' => $values['file'],
+        'caption' => $values['caption'],
+        'timestamp' => REQUEST_TIME,
+        'response_code' => $response->code,
+        'response_values' => json_encode($response),
+      ])
+      ->execute();
+
+      watchdog('dosomething_rogue', 'reportback not migrated to Rogue', ['user' => $user->uid, 'campaign_id' => $values['nid'], 'campaign_run_id' => $run->nid], WATCHDOG_ERROR);
+  }
 
   return drupal_json_decode($response->data);
 }
