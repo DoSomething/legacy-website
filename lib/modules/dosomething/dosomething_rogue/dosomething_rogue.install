@@ -130,3 +130,14 @@ function dosomething_rogue_update_7001(&$sandbox) {
     db_create_table($table_name, $schema[$table_name]);
   }
 }
+
+/**
+ * Create dosomething_rogue_failed_task_log table.
+ */
+function dosomething_rogue_update_7002(&$sandbox) {
+  $table_name = 'dosomething_rogue_failed_task_log';
+  if (!db_table_exists($table_name)) {
+    $schema = dosomething_rogue_schema();
+    db_create_table($table_name, $schema[$table_name]);
+  }
+}
