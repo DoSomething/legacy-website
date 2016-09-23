@@ -22,29 +22,6 @@ function dosomething_northstar_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'openid_connect_client_generic';
-  $strongarm->value = array(
-    'client_id' => 'trusted-test-client',
-    'client_secret' => 'secret1',
-    'authorization_endpoint' => 'http://northstar.dev:8000/authorize',
-    'token_endpoint' => 'http://northstar.dev:8000/v2/auth/token',
-    'userinfo_endpoint' => 'http://northstar.dev:8000/v1/profile',
-  );
-  $export['openid_connect_client_generic'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'openid_connect_client_northstar';
-  $strongarm->value = array(
-    'client_id' => 'trusted-test-client',
-    'client_secret' => 'secret1',
-  );
-  $export['openid_connect_client_northstar'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
   $strongarm->name = 'openid_connect_userinfo_mapping_claims';
   $strongarm->value = array(
     0 => 'birthdate',
