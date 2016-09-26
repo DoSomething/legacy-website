@@ -57,16 +57,16 @@
         },
         {
             "name": "tightenco/collect",
-            "version": "v5.2.38",
+            "version": "v5.3.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tightenco/collect.git",
-                "reference": "fded841989fcbad4532173d32e7dfaceed99f98c"
+                "reference": "321ff9a1de1466aa8546928c223cdee5b7f762cf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tightenco/collect/zipball/fded841989fcbad4532173d32e7dfaceed99f98c",
-                "reference": "fded841989fcbad4532173d32e7dfaceed99f98c",
+                "url": "https://api.github.com/repos/tightenco/collect/zipball/321ff9a1de1466aa8546928c223cdee5b7f762cf",
+                "reference": "321ff9a1de1466aa8546928c223cdee5b7f762cf",
                 "shasum": ""
             },
             "require": {
@@ -100,7 +100,7 @@
                 "collection",
                 "laravel"
             ],
-            "time": "2016-06-09 21:53:44"
+            "time": "2016-09-12 17:54:06"
         },
         {
             "name": "zendesk/zendesk_api_client_php",
@@ -199,16 +199,16 @@
         },
         {
             "name": "symfony/var-dumper",
-            "version": "v3.1.2",
+            "version": "v3.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/var-dumper.git",
-                "reference": "39492b8b8fe514163e677bf154fd80f6cc995759"
+                "reference": "62ee73706c421654a4c840028954510277f7dfc8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/39492b8b8fe514163e677bf154fd80f6cc995759",
-                "reference": "39492b8b8fe514163e677bf154fd80f6cc995759",
+                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/62ee73706c421654a4c840028954510277f7dfc8",
+                "reference": "62ee73706c421654a4c840028954510277f7dfc8",
                 "shasum": ""
             },
             "require": {
@@ -258,7 +258,7 @@
                 "debug",
                 "dump"
             ],
-            "time": "2016-06-29 05:41:56"
+            "time": "2016-08-31 09:05:42"
         }
     ],
     "aliases": [],

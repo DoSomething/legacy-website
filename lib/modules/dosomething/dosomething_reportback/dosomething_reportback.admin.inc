@@ -239,6 +239,8 @@ function dosomething_reportback_files_form_submit($form, &$form_state) {
     return;
   }
 
+  $updates_to_send_to_rogue = [];
+
   foreach ($rb_files as $fid => $values) {
     $kudos = [
       'fid' => $fid,
@@ -282,9 +284,30 @@ function dosomething_reportback_files_form_submit($form, &$form_state) {
       // Flush the image style cache for this image so they update with the new image.
       image_path_flush($image->source);
     }
+
+    // Check to see if Rogue feature flag is enabled.
+    if (module_exists('dosomething_rogue')) {
+      $rogue_item_id = dosomething_rogue_get_by_file_id($fid);
+
+      // If there is a rogue_item_id in the dosomething_rogue_reportbacks table, send update to Rogue.
+      if (!is_null($rogue_item_id[0]->rogue_item_id)) {
+        $data = [
+          'rogue_reportback_item_id' => $rogue_item_id[0]->rogue_item_id,
+          'status' => $values['status'],
+        ];
+
+        array_push($updates_to_send_to_rogue, $data);
+      }
+    }
   }
 
-  drupal_set_message(t("Updated."));
+  // Send updates to Rogue.
+  $response = dosomething_rogue_update_rogue_reportback_items($updates_to_send_to_rogue);
+  if ($response->code != 201) {
+    drupal_set_message(print_r($response->code, TRUE) . ' ' . print_r($response->status_message, TRUE), 'warning');
+  } else {
+    drupal_set_message(t("Updated."));
+  }
 }
 
 /**

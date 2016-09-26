@@ -75,6 +75,7 @@ function dosomething_rogue_send_reportback_to_rogue($values, $user = NULL) {
           'why_participated' => $values['why_participated'],
           'file' => $values['file'],
           'caption' => $values['caption'],
+          'status' => $values['status'],
           //@TODO - review status stuff can be passed here also
         ]),
   ];
@@ -84,4 +85,41 @@ function dosomething_rogue_send_reportback_to_rogue($values, $user = NULL) {
   //@TODO - Add error handling.
 
   return $response;
+}
+
+/**
+ * Sends updated reportback item(s) to Rogue.
+ *
+ * @param array $data
+ * Values to send to Rogue.
+ *
+ */
+function dosomething_rogue_update_rogue_reportback_items($data)
+{
+  $client = _dosomething_rogue_build_http_client();
+
+  $options = [
+    'method' => 'PUT',
+    'headers' => $client['headers'],
+    'data' =>
+      json_encode($data),
+  ];
+
+  $response = drupal_http_request($client['base_url'] . '/items', $options);
+
+  //@TODO - Add error handling.
+
+  return $response;
+}
+
+/**
+ * Query to find Rogue reportbak item id by Phoenix fid.
+ *
+ * @param string $fid
+ * Phoenix fid of reportback item.
+ *
+ */
+function dosomething_rogue_get_by_file_id($fid)
+{
+  return db_query("SELECT rogue_rbs.rogue_item_id FROM {dosomething_rogue_reportbacks} rogue_rbs WHERE fid = :fid", array(':fid' => $fid))->fetchAll();
 }
