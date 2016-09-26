@@ -4,6 +4,9 @@
   "license": "MIT",
   "type": "project",
   "autoload": {
+    "files": [
+      "lib/app/helpers.php"
+    ],
     "psr-4": {
       "Phoenix\\": "lib/app/"
     }
