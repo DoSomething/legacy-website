@@ -36,6 +36,14 @@
   <?php print $head; ?>
 
   <script type="text/javascript" src="<?php print '/' . PARANEUE_PATH . '/dist/modernizr.js' ?>"></script>
+
+  <script type="text/javascript">
+    function resizeIframe(obj){
+
+      obj.style.height = 0;
+      obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
+    }
+  </script>
 </head>
 
 <body class="<?php print $classes; if ($variables['is_affiliate']) print ' -affiliate'; ?>" <?php print $attributes;?>>
