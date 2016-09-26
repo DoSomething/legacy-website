@@ -3,7 +3,6 @@
 namespace Phoenix\Auth;
 
 use DoSomething\Northstar\Contracts\OAuthRepositoryContract;
-
 use League\OAuth2\Client\Token\AccessToken;
 
 class PhoenixOAuthRepository implements OAuthRepositoryContract {
