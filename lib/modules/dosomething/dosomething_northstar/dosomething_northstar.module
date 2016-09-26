@@ -1,5 +1,7 @@
 <?php
 
+use DoSomething\Northstar\Northstar;
+
 /**
  * @file
  * Code for the dosomething_northstar module.
@@ -14,6 +16,16 @@ define('NORTHSTAR_URL', variable_get('dosomething_northstar_url', 'http://norths
 define('NORTHSTAR_VERSION', variable_get('dosomething_northstar_version', 'v1'));
 define('NORTHSTAR_APP_ID', variable_get('dosomething_northstar_app_id', 'trusted-test-client'));
 define('NORTHSTAR_APP_KEY', variable_get('dosomething_northstar_app_key', 'secret1'));
+
+/**
+ * Add the Northstar service to the app services array container.
+ * Implements hook_init().
+ *
+ * @return void
+ */
+function dosomething_northstar_init() {
+  $GLOBALS['app']['northstar'] = new Northstar();
+}
 
 /**
  * Implements hook_menu().
@@ -43,6 +55,8 @@ function dosomething_northstar_menu() {
  *
  * @param array $credentials
  * @return mixed|null
+ *
+ * @todo Needs to be deprecated.
  */
 function dosomething_northstar_verify_user($credentials) {
   global $user;
