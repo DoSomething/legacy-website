@@ -15,7 +15,7 @@
     "stripe/stripe-php": "^1.18.0",
     "zendesk/zendesk_api_client_php": "^1.2.0",
     "tightenco/collect": "^5.2",
-    "dosomething/northstar": "^0.4.0"
+    "dosomething/northstar": "^1.0.0-rc8"
   },
   "require-dev": {
     "symfony/var-dumper": "^3.1"
