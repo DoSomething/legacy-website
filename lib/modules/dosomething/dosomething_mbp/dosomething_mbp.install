@@ -136,6 +136,14 @@ function dosomething_mbp_update_7007() {
 }
 
 /**
+ * Updates mbp productions to include transactionalDigestQueue.
+ */
+function dosomething_mbp_update_7008() {
+  db_drop_table('message_broker_producer_productions');
+  dosomething_mbp_install_productions();
+}
+
+/**
  * Common function for install and update of related DoSomething specific
  * message_broker_producer produciton settings.
  */
@@ -177,6 +185,7 @@ function dosomething_mbp_install_productions() {
   $productions[2]['machine_name'] = 'transactional_campaign_signup';
   $productions[2]['exchange'] = 'transactionalExchange';
   $productions[2]['queues'][] = 'transactionalQueue';
+  $productions[2]['queues'][] = 'transactionalDigestQueue';
   $productions[2]['queues'][] = 'loggingQueue';
   $productions[2]['queues'][] = 'activityStatsQueue';
   $productions[2]['queues'][] = 'mailchimpCampaignSignupQueue';
@@ -189,6 +198,7 @@ function dosomething_mbp_install_productions() {
   $productions[3]['machine_name'] = 'transactional_campaign_group_signup';
   $productions[3]['exchange'] = 'transactionalExchange';
   $productions[3]['queues'][] = 'transactionalQueue';
+  $productions[3]['queues'][] = 'transactionalDigestQueue';
   $productions[3]['queues'][] = 'loggingQueue';
   $productions[3]['queues'][] = 'activityStatsQueue';
   $productions[3]['queues'][] = 'mailchimpCampaignSignupQueue';
