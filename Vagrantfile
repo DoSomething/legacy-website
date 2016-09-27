@@ -42,7 +42,9 @@ Vagrant.configure("2") do |config|
   config.vm.network :forwarded_port, guest: 6081, host: 9999
 
   # Rabbit
-  config.vm.network :forwarded_port, guest: 15672, host: 15672
+  if ENV['DS_VAGRANT_RABBITMQ_MANAGEMENT']
+    config.vm.network :forwarded_port, guest: 15672, host: 15672
+  end
 
   # Solr.
   config.vm.network :forwarded_port, guest: 8983, host: 8983
