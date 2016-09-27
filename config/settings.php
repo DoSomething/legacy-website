@@ -132,7 +132,3 @@ $conf['dosomething_search_finder_url'] = (getenv('DS_FINDER_URL') ?: '//search.d
 
 $conf['dosomething_search_finder_collection'] = $solr_path;
 
-/**
- * Setup the global application services access.
- */
-require_once __DIR__ . '/../lib/app.php';
