@@ -16,11 +16,11 @@ function paraneue_dosomething_page_alter_login(&$page) {
       ];
     }
     else {
-      $page['page_bottom']['login'] = array(
+      $page['page_bottom']['login'] = [
         '#prefix' => '<div data-modal id="modal--login" role="dialog" hidden><div class="modal__block">',
         '#suffix' => '</div></div>',
         'login' => drupal_get_form('user_login_block')
-      );
+      ];
     }
   }
 }

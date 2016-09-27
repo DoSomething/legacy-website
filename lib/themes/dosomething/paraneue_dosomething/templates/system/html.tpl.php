@@ -38,11 +38,16 @@
   <script type="text/javascript" src="<?php print '/' . PARANEUE_PATH . '/dist/modernizr.js' ?>"></script>
 
   <script type="text/javascript">
-    function resizeIframe(obj){
+    handleSizingResponse = function(e) {
+      var action = e.data.split(':')[0];
 
-      obj.style.height = 0;
-      obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
-    }
+      if (action == 'sizing') {
+        var height = e.data.split(':')[1];
+        document.getElementById('login-iframe').style.height = height + 'px';
+      }
+    };
+
+    window.addEventListener('message', handleSizingResponse, false);
   </script>
 </head>
 
