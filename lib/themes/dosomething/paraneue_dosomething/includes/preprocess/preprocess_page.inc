@@ -42,11 +42,19 @@ function paraneue_dosomething_preprocess_page(&$vars) {
     $vars['logo'] = '/' . PARANEUE_PATH . '/images/logo-dev.png';
   }
 
+  // If the OpenID Connect feature flag is enabled, link to login page rather than showing classic modal.
+  if (module_exists('dosomething_northstar') && variable_get('dosomething_user_openid_oauth_login_enabled')) {
+    $vars['log_in_link'] = l(t('Log In'), dosomething_northstar_openid_authorize_url(), ['absolute' => TRUE, 'attributes' => ['class' => ['secondary-nav-item'], 'id' => 'link--login']]);
+  } else {
+    $vars['log_in_link'] = l(t('Log In'), 'user/login', ['attributes' => ['class' => ['secondary-nav-item'], 'data-modal-href' => '#modal--login', 'id' => 'link--login']]);
+  }
+
   $navigation_vars = [
     'base_path'        => $vars['base_path'],
     'modifier_classes' => $modifier_classes,
     'logo'             => $vars['logo'],
     'front_page'       => $vars['front_page'],
+    'log_in_link'      => $vars['log_in_link'],
     'logged_in'        => $vars['logged_in'],
     'search_box'       => $vars['search_box'],
     'user_identifier'  => $vars['user_identifier'],

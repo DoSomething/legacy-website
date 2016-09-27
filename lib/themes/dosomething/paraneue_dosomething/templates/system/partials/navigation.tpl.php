@@ -39,7 +39,7 @@
           </ul>
         </li>
       <?php else: ?>
-        <li class="login"><?php print l(t('Log In'), 'user/login', ['attributes' => ['class' => ['secondary-nav-item'], 'data-modal-href' => '#modal--login', 'id' => 'link--login']]) ?></li>
+        <li class="login"><?php print $log_in_link ?></li>
       <?php endif; ?>
     </ul>
   </div>

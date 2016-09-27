@@ -8,12 +8,8 @@
 function paraneue_dosomething_page_alter_login(&$page) {
   if (!user_is_logged_in()){
     if (module_exists('dosomething_northstar') && variable_get('dosomething_user_openid_oauth_login_enabled')) {
-      $page['page_bottom']['login'] = [
-        '#type' => 'item',
-        '#prefix' => '<div data-modal id="modal--login" role="dialog" hidden><div class="modal__block">',
-        '#suffix' => '</div></div>',
-        '#markup' => dosomething_northstar_openid_login_view(),
-      ];
+      // See preprocess_page.inc.
+      // @TODO: Remove old login modal once OpenID Connect is fully shipped.
     }
     else {
       $page['page_bottom']['login'] = array(
