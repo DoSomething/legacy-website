@@ -22,7 +22,6 @@ class PhoenixOAuthRepository implements OAuthRepositoryContract {
    * @return \League\OAuth2\Client\Token\AccessToken|null
    */
   public function getClientToken() {
-    $clientId = variable_get('dosomething_northstar_oauth_client_token_clientid', NULL);
     $accessToken = variable_get('dosomething_northstar_oauth_client_token_access_token', NULL);
     $expiration = variable_get('dosomething_northstar_oauth_client_token_expiration', NULL);
 
@@ -61,7 +60,6 @@ class PhoenixOAuthRepository implements OAuthRepositoryContract {
    * @return void
    */
   public function persistClientToken($clientId, $accessToken, $expiration, $role) {
-    variable_set('dosomething_northstar_oauth_client_token_clientid', $clientId);
     variable_set('dosomething_northstar_oauth_client_token_access_token', $accessToken);
     variable_set('dosomething_northstar_oauth_client_token_expiration', $expiration);
   }
