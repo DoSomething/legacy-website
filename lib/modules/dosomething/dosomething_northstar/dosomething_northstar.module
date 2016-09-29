@@ -24,10 +24,7 @@ define('NORTHSTAR_APP_KEY', variable_get('dosomething_northstar_app_key', 'secre
  * @return DoSomething\Northstar\Northstar
  */
 function dosomething_northstar_client() {
-  // If record is set in the cache, grab it...
-
-  // If record not in cache, retrieve it from Northstar...
-  $client = new Northstar([
+  return new Northstar([
     'grant' => 'client_credentials',
     'url' => NORTHSTAR_URL,
     'repository' => PhoenixOAuthRepository::class,
@@ -37,14 +34,6 @@ function dosomething_northstar_client() {
       'scope' => ['admin'],
     ],
   ]);
-
-  // print_r($client);
-  // die();
-
-  // Set the record into cache for future requests...
-
-
-  return $client;
 }
 
 /**
