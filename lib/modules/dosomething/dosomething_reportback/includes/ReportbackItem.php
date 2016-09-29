@@ -110,22 +110,16 @@ class ReportbackItem extends Entity {
     $this->campaign = Campaign::get($data->nid);
 
     if ($full && module_exists('dosomething_northstar')) {
-      $northstar_response = dosomething_northstar_get_northstar_user($data->uid);
-      $northstar_response = json_decode($northstar_response);
-
-      if (!empty($northstar_response->data) && !isset($northstar_response->error)) {
-        $northstar_user = $northstar_response->data;
-      }
-
+      $northstar_user = dosomething_northstar_get_user($data->uid);
     }
 
     $this->user = [
-      'drupal_id' => $data->uid,
-      'id' => dosomething_helpers_isset($northstar_user, 'id'),
-      'first_name' => dosomething_helpers_isset($northstar_user, 'first_name'),
-      'last_initial' => dosomething_helpers_isset($northstar_user, 'last_initial'),
-      'photo' => dosomething_helpers_isset($northstar_user, 'photo'),
-      'country' => dosomething_helpers_isset($northstar_user, 'country'),
+      'drupal_id' => data_get($northstar_user, 'drupal_id'),
+      'id' => data_get($northstar_user, 'id'),
+      'first_name' => data_get($northstar_user, 'first_name'),
+      'last_initial' => data_get($northstar_user, 'last_initial'),
+      'photo' => data_get($northstar_user, 'photo'),
+      'country' => data_get($northstar_user, 'country'),
     ];
   }
 
