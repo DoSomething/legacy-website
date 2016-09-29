@@ -4,21 +4,21 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "0393c9a87230de6871ddbd9aa1cbfe1d",
-    "content-hash": "ae35cdf30e65c178a1df56106ac7534a",
+    "hash": "12ed4f04b348d50a96cb6da107904a32",
+    "content-hash": "38743bc2c2185f4246abdc580386ee6f",
     "packages": [
         {
             "name": "dosomething/northstar",
-            "version": "v1.0.0-rc8",
+            "version": "v1.0.0-rc9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/DoSomething/northstar-php.git",
-                "reference": "0686560c407f3de0d6e85dc31bdcfebbc16a7c95"
+                "reference": "156ae49c71a3f57d03381f07d90343b170202d29"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/DoSomething/northstar-php/zipball/0686560c407f3de0d6e85dc31bdcfebbc16a7c95",
-                "reference": "0686560c407f3de0d6e85dc31bdcfebbc16a7c95",
+                "url": "https://api.github.com/repos/DoSomething/northstar-php/zipball/156ae49c71a3f57d03381f07d90343b170202d29",
+                "reference": "156ae49c71a3f57d03381f07d90343b170202d29",
                 "shasum": ""
             },
             "require": {
@@ -45,7 +45,7 @@
                 }
             ],
             "description": "PHP API client for Northstar, the DoSomething.org identity API.",
-            "time": "2016-09-01 20:20:55"
+            "time": "2016-09-28 18:46:34"
         },
         {
             "name": "giggsey/libphonenumber-for-php",

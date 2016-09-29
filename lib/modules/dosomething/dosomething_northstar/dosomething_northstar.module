@@ -27,10 +27,12 @@ function dosomething_northstar_client() {
   return new Northstar([
     'grant' => 'client_credentials',
     'url' => NORTHSTAR_URL,
-    'client_id' => NORTHSTAR_APP_ID,
-    'client_secret' => NORTHSTAR_APP_KEY,
-    'scope' => ['admin'],
     'repository' => PhoenixOAuthRepository::class,
+    'client_credentials' => [
+      'client_id' => NORTHSTAR_APP_ID,
+      'client_secret' => NORTHSTAR_APP_KEY,
+      'scope' => ['admin'],
+    ],
   ]);
 }
 
@@ -153,36 +155,35 @@ function dosomething_northstar_update_user($user, $password = null) {
 }
 
 /**
- * Get user profile data from Northstar for the given Drupal ID.
+ * Get user profile data from Northstar by the specified ID.
  *
- * @param int $drupal_id Drupal user id.
- * @return object
+ * @param  string $id
+ * @param  string $type
+ * @return DoSomething\Northstar\Resources\NorthstarUser|null
  */
-function dosomething_northstar_get_northstar_user($drupal_id) {
-  $northstar_user_info = cache_get('northstar_user_info_' . $drupal_id, 'cache_dosomething_northstar');
+function dosomething_northstar_get_user($id, $type = 'drupal_id') {
+  $cache_bin = 'cache_dosomething_northstar';
+  $cache_key = 'northstar_user_'.$type.'='.$id;
 
-  if ($northstar_user_info) {
-    $northstar_user_info = $northstar_user_info->data;
-  }
-  else {
-    $client = _dosomething_northstar_build_http_client();
+  $northstar_user = cache_get($cache_key, $cache_bin);
 
-    $northstar_user_info = drupal_http_request($client['base_url'] . '/users/drupal_id/' . $drupal_id, array(
-      'headers' => $client['headers'],
-      'method' => 'GET',
-      ));
-
-      $northstar_user_info = $northstar_user_info->data;
-
-      if (!empty($northstar_user_info->error)) {
-        $error = sprintf("Error fetching Northstar user data, uid=%d: '%s'", $drupal_id, $northstar_user_info->error);
-        watchdog_exception('northstar', new Exception($error));
-      } else {
-        cache_set('northstar_user_info_' . $drupal_id, $northstar_user_info, 'cache_dosomething_northstar', REQUEST_TIME + 60*60*24);
-      }
+  if ($northstar_user) {
+    return $northstar_user->data;
   }
 
-  return $northstar_user_info;
+  $northstar_user = dosomething_northstar_client()->getUser($type, $id);
+
+  if ($northstar_user) {
+    cache_set($cache_key, $northstar_user, $cache_bin, REQUEST_TIME + 60*60*24);
+
+    return $northstar_user;
+  }
+
+  // Northstar user not found.
+  $error = sprintf("Error fetching Northstar user data, id=%d: '%s'", $id, $northstar_user_info->error);
+  watchdog_exception('northstar', new Exception($error));
+
+  return NULL;
 }
 
 /**

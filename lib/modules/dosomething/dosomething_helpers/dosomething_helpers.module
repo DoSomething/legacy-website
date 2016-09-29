@@ -746,31 +746,28 @@ function dosomething_helpers_get_user_info($drupal_id) {
     return NULL;
   }
 
-  $northstar_response = dosomething_northstar_get_northstar_user($drupal_id);
-  $northstar_response = json_decode($northstar_response);
+  $northstar_user = dosomething_northstar_get_user($drupal_id);
 
-  if ($northstar_response && isset($northstar_response->error)) {
-    return NULL;
+  if ($northstar_user) {
+    return [
+      'id' => data_get($northstar_user, 'id'),
+      'email' => data_get($northstar_user, 'email'),
+      'first_name' => data_get($northstar_user, 'first_name'),
+      'last_name' => data_get($northstar_user, 'last_name'),
+      'last_initial' => data_get($northstar_user, 'last_initial'),
+      'photo' => data_get($northstar_user, 'photo'),
+      'birthdate' => data_get($northstar_user, 'birthdate'),
+      'addr_street1' => data_get($northstar_user, 'addr_street1'),
+      'addr_street2' => data_get($northstar_user, 'addr_street2'),
+      'addr_city' => data_get($northstar_user, 'addr_city'),
+      'addr_state' => data_get($northstar_user, 'addr_state'),
+      'addr_zip' => data_get($northstar_user, 'addr_zip'),
+      'country' => data_get($northstar_user, 'country'),
+      'drupal_id' => data_get($northstar_user, 'drupal_id'),
+    ];
   }
 
-  $northstar_user = $northstar_response->data;
-
-  return [
-    'id' => data_get($northstar_user, 'id'),
-    'email' => data_get($northstar_user, 'email'),
-    'first_name' => data_get($northstar_user, 'first_name'),
-    'last_name' => data_get($northstar_user, 'last_name'),
-    'last_initial' => data_get($northstar_user, 'last_initial'),
-    'photo' => data_get($northstar_user, 'photo'),
-    'birthdate' => data_get($northstar_user, 'birthdate'),
-    'addr_street1' => data_get($northstar_user, 'addr_street1'),
-    'addr_street2' => data_get($northstar_user, 'addr_street2'),
-    'addr_city' => data_get($northstar_user, 'addr_city'),
-    'addr_state' => data_get($northstar_user, 'addr_state'),
-    'addr_zip' => data_get($northstar_user, 'addr_zip'),
-    'country' => data_get($northstar_user, 'country'),
-    'drupal_id' => $drupal_id,
-  ];
+  return NULL;
 }
 
 /**
