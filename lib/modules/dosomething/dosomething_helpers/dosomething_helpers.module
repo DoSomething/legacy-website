@@ -699,7 +699,7 @@ function dosomething_helpers_get_current_language_content_code() {
 /**
  * Get the current, logged in user as a NorthstarUser object or array.
  *
- * @param  null|object $user
+ * @param  object|null $user
  * @param  bool $asArray
  * @return DoSomething\Northstar\Resources\NorthstarUser|array|null
  */
@@ -712,11 +712,13 @@ function dosomething_helpers_get_current_user($user = NULL, $asArray = FALSE) {
     global $user;
   }
 
+  // Anonymous User
   if (!$user->uid) {
     return NULL;
   }
 
-  $northstar_user = dosomething_northstar_get_user($drupal_id);
+  // Authenticated User
+  $northstar_user = dosomething_northstar_get_user($user->uid);
 
   if ($northstar_user && $asArray) {
     return dosomething_helpers_get_user_as_array($northstar_user);
