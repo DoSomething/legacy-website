@@ -9,22 +9,13 @@
   }
 
   .header__title {
-    @include visually-hidden();
     text-align: center;
-
-    @include media($tablet) {
-      @include visually-restored();
-    }
   }
 
   .header__subtitle {
     font-size: $font-medium;
     font-weight: $weight-normal;
     text-align: center;
-
-    @include media($tablet) {
-      @include visually-hidden();
-    }
   }
 }
 
