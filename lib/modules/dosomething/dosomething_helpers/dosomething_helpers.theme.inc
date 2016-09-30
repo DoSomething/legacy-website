@@ -284,7 +284,7 @@ function dosomething_helpers_add_js_campaign_and_user_data($vars) {
     $current_campaign = NULL;
   }
 
-  $current_user = dosomething_helpers_get_current_user($vars['user']);
+  $current_user = dosomething_helpers_get_current_user($vars['user'], TRUE);
 
   // Add useful user & campaign data to campaign pages.
   drupal_add_js(

@@ -194,7 +194,7 @@ function dosomething_kudos_resolve_current_user_activity($current_user, $data, $
       $data[$index]['current_user'] = $activity[$item['term']['id']];
     } else {
       $data[$index]['current_user'] = [
-        'drupal_id' => $current_user['drupal_id'],
+        'drupal_id' => $current_user->drupal_id,
         'reacted' => false,
         'kudos_id' => null,
       ];
@@ -214,14 +214,14 @@ function dosomething_kudos_resolve_current_user_activity($current_user, $data, $
 function dosomething_kudos_compare_current_user_activity($data, $current_user) {
   $reaction_user = $data->user;
 
-  $reacted = $reaction_user['drupal_id'] === $current_user['drupal_id'] ? true : false;
+  $reacted = $reaction_user['drupal_id'] === $current_user->drupal_id ? true : false;
 
   if (! $reacted) {
     return false;
   }
 
   return [
-    'drupal_id' => $current_user['drupal_id'],
+    'drupal_id' => $current_user->drupal_id,
     'reacted' => $reacted,
     'kudos_id' => $reacted ? $data->id : null,
   ];

@@ -697,21 +697,34 @@ function dosomething_helpers_get_current_language_content_code() {
 }
 
 /**
- * Get the current, logged in user.
+ * Get the current, logged in user as a NorthstarUser object or array.
  *
- * @param  null|object $user
- * @return null|array
+ * @param  object|null $user
+ * @param  bool $asArray
+ * @return DoSomething\Northstar\Resources\NorthstarUser|array|null
  */
-function dosomething_helpers_get_current_user($user = NULL) {
+function dosomething_helpers_get_current_user($user = NULL, $asArray = FALSE) {
+  if (! module_exists('dosomething_northstar')) {
+    return NULL;
+  }
+
   if (!$user) {
     global $user;
   }
 
+  // Anonymous User
   if (!$user->uid) {
     return NULL;
   }
 
-  return dosomething_helpers_get_user_info($user->uid);
+  // Authenticated User
+  $northstar_user = dosomething_northstar_get_user($user->uid);
+
+  if ($northstar_user && $asArray) {
+    return dosomething_helpers_get_user_as_array($northstar_user);
+  }
+
+  return $northstar_user;
 }
 
 /**
@@ -738,16 +751,10 @@ function dosomething_helpers_get_current_user_activity($user = NULL) {
 /**
  * Get the user information for a specified user from Northstar.
  *
- * @param  string $drupal_id
+ * @param  DoSomething\Northstar\Resources\NorthstarUser $northstar_user
  * @return null|array
  */
-function dosomething_helpers_get_user_info($drupal_id) {
-  if (! module_exists('dosomething_northstar')) {
-    return NULL;
-  }
-
-  $northstar_user = dosomething_northstar_get_user($drupal_id);
-
+function dosomething_helpers_get_user_as_array($northstar_user) {
   if ($northstar_user) {
     return [
       'id' => data_get($northstar_user, 'id'),
