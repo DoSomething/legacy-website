@@ -160,6 +160,7 @@
   }
 
   @include media($mobile) {
+    // Hides last two cards on mobile
     .gallery.-quartet > li:nth-last-of-type(-n+2) {
       display: none;
     }
