@@ -384,7 +384,7 @@ function dosomething_reportback_form_submit($form, &$form_state) {
     $rbid = dosomething_reportback_exists($rogue_reportback['data']['campaign_id'], $rogue_reportback['data']['campaign_run_id'], $rogue_reportback['data']['drupal_id']);
 
     if ($rbid) {
-      $reportback = reportback_load($rbid);
+      $reportback = entity_load_unchanged('reportback', [$rbid]);
       $fid = array_pop($reportback->fids);
 
       // Store references to rogue IDs.
