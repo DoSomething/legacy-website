@@ -76,7 +76,7 @@ function dosomething_rogue_send_reportback_to_rogue($values, $user = NULL) {
           'file' => $values['file'],
           'file_id' => '', // @TODO - currently require by rogue, should not be.
           'caption' => $values['caption'],
-          'status' => $values['status'],
+          'status' => isset($values['status']) ? $values['status'] : 'pending',
         ]),
   ];
 
@@ -122,4 +122,18 @@ function dosomething_rogue_update_rogue_reportback_items($data)
 function dosomething_rogue_get_by_file_id($fid)
 {
   return db_query("SELECT rogue_rbs.rogue_item_id FROM {dosomething_rogue_reportbacks} rogue_rbs WHERE fid = :fid", array(':fid' => $fid))->fetchAll();
+}
+
+function dosomething_rogue_store_rogue_references($rbid, $fid, $rogue_reportback)
+{
+  // Store references to rogue IDs.
+  return db_insert('dosomething_rogue_reportbacks')
+    ->fields(array(
+      'fid' => $fid,
+      'rogue_item_id' => $rogue_reportback['data']['reportback_items']['data'][0]['id'],
+      'rbid' => $rbid,
+      'rogue_reportback_id' => $rogue_reportback['data']['id'],
+      'created_at' => REQUEST_TIME,
+      ))
+    ->execute();
 }
