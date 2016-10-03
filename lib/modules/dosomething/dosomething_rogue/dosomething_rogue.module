@@ -129,6 +129,16 @@ function dosomething_rogue_get_by_file_id($fid)
   return db_query("SELECT rogue_rbs.rogue_item_id FROM {dosomething_rogue_reportbacks} rogue_rbs WHERE fid = :fid", array(':fid' => $fid))->fetchAll();
 }
 
+/**
+ * Insert record that stores reference to the most recent uploaded reportback item in
+ * phoenix and it's corresponding id's in Rogue
+ *
+ * @param string $rbid
+ * @param string $fid
+ * @param object $rogue_reportback
+ *
+ * @return InsertQuery object
+ */
 function dosomething_rogue_store_rogue_references($rbid, $fid, $rogue_reportback)
 {
   $most_recent_rogue_item = array_pop($rogue_reportback['data']['reportback_items']['data']);

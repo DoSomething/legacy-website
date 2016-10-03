@@ -925,6 +925,12 @@ function dosomething_helpers_get_current_campaign_run_for_user($nid, $user = NUL
   return node_load($run['id']);
 }
 
+/**
+ * Returns a base64 encoded data uri for an Image object
+ *
+ * @param  Image object $image
+ * @return string
+*/
 function dosomething_helpers_get_data_uri_from_image($image) {
   $imagePath = drupal_realpath($image->source);
 
