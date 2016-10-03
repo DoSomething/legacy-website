@@ -77,6 +77,11 @@ function dosomething_rogue_send_reportback_to_rogue($values, $user = NULL) {
           'file_id' => '', // @TODO - currently require by rogue, should not be.
           'caption' => $values['caption'],
           'status' => isset($values['status']) ? $values['status'] : 'pending',
+          'crop_x' => $values['crop_x'],
+          'crop_y' => $values['crop_y'],
+          'crop_width' => $values['crop_width'],
+          'crop_height' => $values['crop_height'],
+          'crop_rotate' => $values['crop_rotate'],
         ]),
   ];
 
