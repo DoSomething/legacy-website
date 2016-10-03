@@ -349,7 +349,7 @@ function dosomething_reportback_form_submit($form, &$form_state) {
   // If username field is set, this is an admin form.
   $is_admin_form = isset($form_state['values']['username']);
 
-  // Load uid by selected userngit came.
+  // Load uid by selected username.
   if ($is_admin_form) {
     $user = user_load_by_name($form_state['values']['username']);
     $values['uid'] = $user->uid;
