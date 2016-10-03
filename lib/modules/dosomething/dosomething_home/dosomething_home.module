@@ -88,7 +88,7 @@ function dosomething_home_preprocess_node(&$vars) {
       $tiles['image'] = '<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=" data-src="' . $tiles['image_url'] . '">';
 
       $link_language = dosomething_global_get_language($user, $node, FALSE);
-      $tiles['link'] = dosomething_global_node_url($nid, $link_language);
+      $tiles['link'] = dosomething_global_node_url($nid, $link_language) . '?source=homepage_campaign_tile';
       $thumbnails[$nid] = paraneue_dosomething_get_gallery_item($tiles, 'tile');
     }
   }
