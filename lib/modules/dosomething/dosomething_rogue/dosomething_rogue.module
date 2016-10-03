@@ -126,11 +126,13 @@ function dosomething_rogue_get_by_file_id($fid)
 
 function dosomething_rogue_store_rogue_references($rbid, $fid, $rogue_reportback)
 {
+  $most_recent_rogue_item = array_pop($rogue_reportback['data']['reportback_items']['data']);
+
   // Store references to rogue IDs.
   return db_insert('dosomething_rogue_reportbacks')
     ->fields(array(
       'fid' => $fid,
-      'rogue_item_id' => $rogue_reportback['data']['reportback_items']['data'][0]['id'],
+      'rogue_item_id' => $most_recent_rogue_item['id'],
       'rbid' => $rbid,
       'rogue_reportback_id' => $rogue_reportback['data']['id'],
       'created_at' => REQUEST_TIME,
