@@ -932,11 +932,11 @@ function dosomething_helpers_get_current_campaign_run_for_user($nid, $user = NUL
  * @return string
 */
 function dosomething_helpers_get_data_uri_from_image($image) {
-  $imagePath = drupal_realpath($image->source);
+  $image_path = drupal_realpath($image->source);
 
   // Read image path, convert to base64 encoding
-  $imageData = base64_encode(file_get_contents($imagePath));
+  $image_data = base64_encode(file_get_contents($image_path));
 
   // Return the formated data uri: data:{mime};base64,{data};
-  return 'data: ' . mime_content_type($imagePath) . ';base64,' . $imageData;
+  return 'data: ' . mime_content_type($image_path) . ';base64,' . $image_data;
 }
