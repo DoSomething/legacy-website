@@ -371,7 +371,8 @@ function dosomething_reportback_form_submit($form, &$form_state) {
     $values['uid'] = $user->uid;
   }
 
-  if (module_exists('dosomething_rogue')) {
+  // Collect reportbacks in Rogue if rogue collection is turned on for this campaign.
+  if (module_exists('dosomething_rogue') && dosomething_helpers_get_variable('node', $values['nid'], 'rogue_collection')) {
     // Store the base64 encoded data uri of the file in the values array to send to rogue.
     $file = $form_state['storage']['file'];
     $image = image_load($file->uri);
@@ -384,10 +385,9 @@ function dosomething_reportback_form_submit($form, &$form_state) {
     $rbid = dosomething_reportback_exists($rogue_reportback['data']['campaign_id'], $rogue_reportback['data']['campaign_run_id'], $rogue_reportback['data']['drupal_id']);
 
     if ($rbid) {
+      // Store references to rogue IDs for the most recent uploaded reportback item.
       $reportback = entity_load_unchanged('reportback', [$rbid]);
       $fid = array_pop($reportback->fids);
-
-      // Store references to rogue IDs.
       dosomething_rogue_store_rogue_references($rbid, $fid, $rogue_reportback);
 
       // Redirect to permalink page.
