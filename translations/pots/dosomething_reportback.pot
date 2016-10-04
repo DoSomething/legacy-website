@@ -31,8 +31,20 @@ msgstr ""
 msgid "Submit your pic"
 msgstr ""
 
+#: dosomething_reportback.forms.inc
+msgid "Add your photo here and we'll check it out!"
+msgstr ""
+
+#: dosomething_reportback.forms.inc
+msgid "Add your photo here for a scholarship entry!"
+msgstr ""
+
 #: dosomething_reportback.forms.inc:124
 msgid "Update submission"
+msgstr ""
+
+#: dosomething_reportback.forms.inc
+msgid "Add another photo and we'll check it out!"
 msgstr ""
 
 #: dosomething_reportback.forms.inc:189 includes/ReportbackItem.php:97
@@ -47,8 +59,16 @@ msgstr ""
 msgid "Caption"
 msgstr ""
 
-#: dosomething_reportback.forms.inc:209;236
+#: dosomething_reportback.forms.inc
+msgid "Your Impact"
+msgstr ""
+
+#: dosomething_reportback.forms.inc
 msgid "Enter # here"
+msgstr ""
+
+#: dosomething_reportback.forms.inc
+msgid "Enter # here -- like '300' or '5'"
 msgstr ""
 
 #: dosomething_reportback.forms.inc:215
@@ -65,6 +85,10 @@ msgstr ""
 
 #: dosomething_reportback.forms.inc:256
 msgid "Why is this campaign important to you?"
+msgstr ""
+
+#: dosomething_reportback.forms.inc
+msgid "No need to write an essay, but we'd love to see why this matters to you!"
 msgstr ""
 
 #: dosomething_reportback.forms.inc:285

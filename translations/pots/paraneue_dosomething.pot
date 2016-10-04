@@ -751,6 +751,10 @@ msgstr ""
 msgid "Pics or It Didn&rsquo;t Happen"
 msgstr ""
 
+#: templates/campaign/node--campaign.tpl.php
+msgid "Join others making a difference"
+msgstr ""
+
 #: templates/campaign/reportback-confirmation.tpl.php:42
 msgid "Keep it up! Find your next campaign."
 msgstr ""
@@ -1161,6 +1165,10 @@ msgstr ""
 
 #: templates/campaign/node--campaign.tpl.php:351
 msgid "rotate photo"
+msgstr ""
+
+#: templates/campaign/node--campaign.tpl.php
+msgid "Helpful Tips"
 msgstr ""
 
 #: templates/campaign/node--campaign.tpl.php:354

@@ -88,7 +88,7 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
     ),
     '#prefix' => 'Reportback Image',
     '#suffix' => 'The image must be at least 480 by 480 pixels. The site will crop the image on its own, so if possible submit a square image with the subject in the center of the crop.',
-    '#children' => t("Add your photo here and we’ll check it out!"),
+    '#children' => t("Add your photo here and we'll check it out!"),
 
   );
 
@@ -131,7 +131,7 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
     }
 
     $submit_label = t("Update submission");
-    $form['reportback_submissions']['reportback_item']['#children'] = t("Add another photo and we’ll check it out!");
+    $form['reportback_submissions']['reportback_item']['#children'] = t("Add another photo and we'll check it out!");
   }
 
   $form['rbid'] = array(
