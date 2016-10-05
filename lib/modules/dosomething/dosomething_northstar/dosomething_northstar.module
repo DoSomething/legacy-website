@@ -1,7 +1,7 @@
 <?php
 
-use DoSomething\Northstar\Northstar;
-use Phoenix\Auth\PhoenixOAuthRepository;
+use DoSomething\Gateway\Northstar;
+use Phoenix\Auth\PhoenixOAuthBridge;
 
 /**
  * @file
@@ -27,7 +27,7 @@ function dosomething_northstar_client() {
   return new Northstar([
     'grant' => 'client_credentials',
     'url' => NORTHSTAR_URL,
-    'repository' => PhoenixOAuthRepository::class,
+    'bridge' => PhoenixOAuthBridge::class,
     'client_credentials' => [
       'client_id' => NORTHSTAR_APP_ID,
       'client_secret' => NORTHSTAR_APP_KEY,
