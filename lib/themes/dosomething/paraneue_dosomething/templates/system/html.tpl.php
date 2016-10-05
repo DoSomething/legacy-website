@@ -36,6 +36,19 @@
   <?php print $head; ?>
 
   <script type="text/javascript" src="<?php print '/' . PARANEUE_PATH . '/dist/modernizr.js' ?>"></script>
+
+  <script type="text/javascript">
+    handleSizingResponse = function(e) {
+      var action = e.data.split(':')[0];
+
+      if (action == 'sizing') {
+        var height = e.data.split(':')[1];
+        document.getElementById('login-iframe').style.height = height + 'px';
+      }
+    };
+
+    window.addEventListener('message', handleSizingResponse, false);
+  </script>
 </head>
 
 <body class="<?php print $classes; if ($variables['is_affiliate']) print ' -affiliate'; ?>" <?php print $attributes;?>>

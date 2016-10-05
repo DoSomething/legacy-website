@@ -10,17 +10,17 @@ function paraneue_dosomething_page_alter_login(&$page) {
     if (module_exists('dosomething_northstar') && variable_get('dosomething_user_openid_oauth_login_enabled')) {
       $page['page_bottom']['login'] = [
         '#type' => 'item',
-        '#prefix' => '<div data-modal id="modal--login" role="dialog" hidden><div class="modal__block">',
-        '#suffix' => '</div></div>',
+        '#prefix' => '<div data-modal id="modal--login" role="dialog" hidden>',
+        '#suffix' => '</div>',
         '#markup' => dosomething_northstar_openid_login_view(),
       ];
     }
     else {
-      $page['page_bottom']['login'] = array(
+      $page['page_bottom']['login'] = [
         '#prefix' => '<div data-modal id="modal--login" role="dialog" hidden><div class="modal__block">',
         '#suffix' => '</div></div>',
         'login' => drupal_get_form('user_login_block')
-      );
+      ];
     }
   }
 }
