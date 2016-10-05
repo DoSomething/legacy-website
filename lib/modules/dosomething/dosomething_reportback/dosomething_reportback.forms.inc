@@ -372,7 +372,7 @@ function dosomething_reportback_form_submit($form, &$form_state) {
   }
 
   // Collect reportbacks in Rogue if rogue collection is turned on for this campaign.
-  if (module_exists('dosomething_rogue') && dosomething_helpers_get_variable('node', $values['nid'], 'rogue_collection')) {
+  if (variable_get('rogue_collection', FALSE)) {
     // Store the base64 encoded data uri of the file in the values array to send to rogue.
     $file = $form_state['storage']['file'];
     $image = image_load($file->uri);
