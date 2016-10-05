@@ -105,6 +105,10 @@ msgstr ""
 msgid "F that, spread the word"
 msgstr ""
 
+#: dosomething_campaign_problem_share_prompt
+msgid "Share this stat with friends"
+msgstr ""
+
 #: dosomething_campaign_run_no_total_copy
 msgid "We’re still tallying the [label]. The bigger the number, the longer it takes...so stay tuned!"
 msgstr ""
@@ -207,6 +211,10 @@ msgstr ""
 
 #: dosomething_settings_copy_about_ds
 msgid "DoSomething.org makes the world suck less. One of the largest orgs for young people and social change, our millions of members tackle campaigns that impact every cause, from poverty to violence to the environment to literally everything else. Any cause, anytime, anywhere. *mic drop*"
+msgstr ""
+
+#: dosomething_settings_copy_about_ds
+msgid "DoSomething.org makes the world suck less. One of the largest orgs for young people and social change, our millions of members tackle campaigns that impact every cause, from poverty to violence to the environment to literally everything else. Any cause, anytime, anywhere."
 msgstr ""
 
 #: dosomething_settings_copy_campaign_value_proposition
