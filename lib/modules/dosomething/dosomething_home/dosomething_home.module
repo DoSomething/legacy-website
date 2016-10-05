@@ -19,6 +19,8 @@ function dosomething_home_preprocess_node(&$vars) {
   // Adds $subtitle variable.
   $vars['subtitle'] = $vars['field_subtitle'][0]['safe_value'];
 
+  $source = '?source=node/' . $vars['nid'];
+
   // Prepare campaign thumbnails for homepage
   $campaigns = array();
   if(isset($vars['field_campaigns'])) {
@@ -88,7 +90,7 @@ function dosomething_home_preprocess_node(&$vars) {
       $tiles['image'] = '<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=" data-src="' . $tiles['image_url'] . '">';
 
       $link_language = dosomething_global_get_language($user, $node, FALSE);
-      $tiles['link'] = dosomething_global_node_url($nid, $link_language) . '?source=node/1141';
+      $tiles['link'] = dosomething_global_node_url($nid, $link_language) . $source;
       $thumbnails[$nid] = paraneue_dosomething_get_gallery_item($tiles, 'tile');
     }
   }
