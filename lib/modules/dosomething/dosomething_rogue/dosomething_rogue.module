@@ -74,17 +74,22 @@ function dosomething_rogue_send_reportback_to_rogue($values, $user = NULL) {
           'quantity' => $values['quantity'],
           'why_participated' => $values['why_participated'],
           'file' => $values['file'],
+          'file_id' => '', // @TODO - currently require by rogue, should not be.
           'caption' => $values['caption'],
-          'status' => $values['status'],
-          //@TODO - review status stuff can be passed here also
+          'status' => isset($values['status']) ? $values['status'] : 'pending',
+          'crop_x' => $values['crop_x'],
+          'crop_y' => $values['crop_y'],
+          'crop_width' => $values['crop_width'],
+          'crop_height' => $values['crop_height'],
+          'crop_rotate' => $values['crop_rotate'],
         ]),
   ];
 
   $response = drupal_http_request($client['base_url'] . '/reportbacks', $options);
 
-  //@TODO - Add error handling.
+  // @TODO - handle failures.
 
-  return $response;
+  return drupal_json_decode($response->data);
 }
 
 /**
@@ -122,4 +127,30 @@ function dosomething_rogue_update_rogue_reportback_items($data)
 function dosomething_rogue_get_by_file_id($fid)
 {
   return db_query("SELECT rogue_rbs.rogue_item_id FROM {dosomething_rogue_reportbacks} rogue_rbs WHERE fid = :fid", array(':fid' => $fid))->fetchAll();
+}
+
+/**
+ * Insert record that stores reference to the most recent uploaded reportback item in
+ * phoenix and it's corresponding id's in Rogue
+ *
+ * @param string $rbid
+ * @param string $fid
+ * @param object $rogue_reportback
+ *
+ * @return InsertQuery object
+ */
+function dosomething_rogue_store_rogue_references($rbid, $fid, $rogue_reportback)
+{
+  $most_recent_rogue_item = array_pop($rogue_reportback['data']['reportback_items']['data']);
+
+  // Store references to rogue IDs.
+  return db_insert('dosomething_rogue_reportbacks')
+    ->fields(array(
+      'fid' => $fid,
+      'rogue_item_id' => $most_recent_rogue_item['id'],
+      'rbid' => $rbid,
+      'rogue_reportback_id' => $rogue_reportback['data']['id'],
+      'created_at' => REQUEST_TIME,
+      ))
+    ->execute();
 }

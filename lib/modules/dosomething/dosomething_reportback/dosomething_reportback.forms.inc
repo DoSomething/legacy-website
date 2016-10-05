@@ -371,24 +371,59 @@ function dosomething_reportback_form_submit($form, &$form_state) {
     $values['uid'] = $user->uid;
   }
 
-  // Save uploaded file.
-  if ($file = dosomething_reportback_form_save_file($form_state)) {
-    // Store new file's fid into values.
-    $values['fid'] = $file->fid;
-  }
+  // Collect reportbacks in Rogue if rogue collection is turned on for this campaign.
+  if (module_exists('dosomething_rogue') && dosomething_helpers_get_variable('node', $values['nid'], 'rogue_collection')) {
+    // Store the base64 encoded data uri of the file in the values array to send to rogue.
+    $file = $form_state['storage']['file'];
+    $image = image_load($file->uri);
+    $values['file'] = dosomething_helpers_get_data_uri_from_image($image);
 
-  // Save values into reportback.
-  $rid = dosomething_reportback_save($values, $user);
+    // Send the reportback to rogue.
+    $rogue_reportback = dosomething_rogue_send_reportback_to_rogue($values);
 
-  // Redirect to permalink page.
-  $form_state['redirect'] = array(
-    'reportback/' . $rid,
-    array(
-      'query' => array(
-        'fid' => $values['fid'],
+    // Get the reportback stored in phoenix, store reference to the rb in rogue, redirect user to permalink page.
+    $rbid = dosomething_reportback_exists($rogue_reportback['data']['campaign_id'], $rogue_reportback['data']['campaign_run_id'], $rogue_reportback['data']['drupal_id']);
+
+    if ($rbid) {
+      // Store references to rogue IDs for the most recent uploaded reportback item.
+      $reportback = entity_load_unchanged('reportback', [$rbid]);
+      $fid = array_pop($reportback->fids);
+      dosomething_rogue_store_rogue_references($rbid, $fid, $rogue_reportback);
+
+      // Redirect to permalink page.
+      $form_state['redirect'] = array(
+        'reportback/' . $rbid,
+        array(
+          'query' => array(
+            'fid' => $fid,
+          ),
+        ),
+      );
+    } else {
+      // @TODO - if the reportback doesn't successfully get sent back to phoenix, how should
+      // this be handled for the user?
+      $form_state['redirect'] = 'node/' . $values['nid'];
+    }
+  } else {
+    // Save uploaded file.
+    if ($file = dosomething_reportback_form_save_file($form_state)) {
+      // Store new file's fid into values.
+      $values['fid'] = $file->fid;
+    }
+
+    // Save values into reportback.
+    $rid = dosomething_reportback_save($values, $user);
+
+    // Redirect to permalink page.
+    $form_state['redirect'] = array(
+      'reportback/' . $rid,
+      array(
+        'query' => array(
+          'fid' => $values['fid'],
+        ),
       ),
-    ),
-  );
+    );
+  }
 }
 
 /**

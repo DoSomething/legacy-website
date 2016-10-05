@@ -924,3 +924,19 @@ function dosomething_helpers_get_current_campaign_run_for_user($nid, $user = NUL
   // @TODO: may want to investigate how it loads the proper translation...
   return node_load($run['id']);
 }
+
+/**
+ * Returns a base64 encoded data uri for an Image object
+ *
+ * @param  Image object $image
+ * @return string
+*/
+function dosomething_helpers_get_data_uri_from_image($image) {
+  $image_path = drupal_realpath($image->source);
+
+  // Read image path, convert to base64 encoding
+  $image_data = base64_encode(file_get_contents($image_path));
+
+  // Return the formated data uri: data:{mime};base64,{data};
+  return 'data: ' . mime_content_type($image_path) . ';base64,' . $image_data;
+}
