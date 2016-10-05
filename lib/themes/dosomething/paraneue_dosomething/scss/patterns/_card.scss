@@ -63,6 +63,7 @@
     font-size: $font-small;
     color: $dark-gray;
     font-style: italic;
+    height: 60px; // Keeps cards at the same height
   }
 
   .form-actions {
@@ -82,7 +83,11 @@
 }
 
 .beta-card__block {
-  padding: 0 $base-spacing;
+  padding: 0 $base-spacing / 2;
+
+  @include media($large) {
+    padding: 0 $base-spacing;
+  }
 
   .beta-card__header & {
     padding: gutter() gutter() 0;
@@ -90,8 +95,11 @@
 
   &.-centered {
     text-align: center;
-    max-width: 75%;
     margin: 0 auto;
+
+    @include media($large) {
+      max-width: 75%;
+    }
   }
 
   &.-flushed {
