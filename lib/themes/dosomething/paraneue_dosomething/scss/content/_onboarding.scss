@@ -24,7 +24,7 @@
     color: #444;
   }
 
-  .wrapper.-compact {
+  .container.-compact > .wrapper {
     margin: 0 $base-spacing / 2;
     width: initial;
 
