@@ -25,11 +25,11 @@
   }
 
   .slideshow__slide .container > .wrapper {
-    margin: 12px;
+    margin: 0 $base-spacing / 2;
     width: initial;
 
     @include media($medium) {
-      margin: 0 33px;
+      margin: 0 $base-spacing;
     }
 
     @include media($large) {
