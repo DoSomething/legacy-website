@@ -2,6 +2,7 @@
 
 namespace Phoenix\Auth;
 
+use DoSomething\Gateway\Contracts\NorthstarUserContract;
 use DoSomething\Gateway\Contracts\OAuthBridgeContract;
 use League\OAuth2\Client\Token\AccessToken;
 
