@@ -52,12 +52,13 @@ function _dosomething_rogue_build_http_client() {
  *
  * @param array $values
  *   Values to send to Rogue.
- * @todo - Do we need to pass in user here? Do we need to pass in the item separately?
  */
 function dosomething_rogue_send_reportback_to_rogue($values, $user = NULL) {
   if (!isset($user)) {
     global $user;
   }
+
+  $northstar_id = dosomething_user_get_field('field_northstar_id', $user);
 
   $run = dosomething_helpers_get_current_campaign_run_for_user($values['nid']);
 
@@ -68,6 +69,7 @@ function dosomething_rogue_send_reportback_to_rogue($values, $user = NULL) {
     'headers' => $client['headers'],
     'data' =>
         json_encode([
+          'northstar_id' => $northstar_id ? $northstar_id : NULL,
           'drupal_id' => $user->uid,
           'campaign_id' => $values['nid'],
           'campaign_run_id' => $run->nid,
