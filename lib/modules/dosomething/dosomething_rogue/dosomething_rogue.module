@@ -1,4 +1,8 @@
 <?php
+
+use DoSomething\Gateway\Contracts\TransactionBridgeContract;
+use DoSomething\Gateway\Common\RestApiClient;
+
 /**
  * @file
  * Code for the dosomething_rogue feature.
@@ -86,9 +90,7 @@ function dosomething_rogue_send_reportback_to_rogue($values, $user = NULL) {
           'crop_rotate' => $values['crop_rotate'],
         ]),
   ];
-
-  $response = drupal_http_request($client['base_url'] . '/reportbacks', $options);
-
+  $response = post($client['base_url'] . '/reportbacks', $options);
   // @TODO - handle failures.
 
   return drupal_json_decode($response->data);
