@@ -247,8 +247,9 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
       array_unshift($form['#validate'], 'dosomething_user_login_validate');
       // Helper text & additional data.
       _dosomething_user_add_signup_data($form);
+      // @test
       $form['#submit'][] = 'dosomething_user_login_submit';
-      $form['#submit'][] = 'dosomething_user_authentication_submit';
+      // $form['#submit'][] = 'dosomething_user_authentication_submit';
     break;
 
     case 'user_profile_form':
@@ -837,6 +838,7 @@ function dosomething_user_login_submit($form, &$form_state) {
   dosomething_helpers_add_analytics_event('Authentication', 'Login');
 
   // Attempt to verify the given credentials with Northstar.
+  // @test
   _dosomething_user_verify_northstar_login($form_state);
 }
 
@@ -852,6 +854,7 @@ function _dosomething_user_verify_northstar_login($form_state) {
   // Short-circuit if Northstar is not enabled.
   if (!module_exists('dosomething_northstar')) return;
 
+  // @test
   $northstar_user = dosomething_northstar_verify_user([
     'username' => $form_state['input']['name'],
     'password' => $form_state['input']['pass'],

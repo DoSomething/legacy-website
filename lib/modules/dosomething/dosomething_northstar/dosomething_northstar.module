@@ -31,7 +31,7 @@ function dosomething_northstar_client() {
     'client_credentials' => [
       'client_id' => NORTHSTAR_APP_ID,
       'client_secret' => NORTHSTAR_APP_KEY,
-      'scope' => ['admin'],
+      'scope' => ['admin', 'user'],
     ],
   ]);
 }
@@ -61,30 +61,26 @@ function dosomething_northstar_menu() {
 /**
  * Verify the given credentials against Northstar, returning the authorized
  * user account if one exists.
- *
- * @param array $credentials
- * @return mixed|null
- *
  * @todo Needs to be deprecated.
+ *
+ * @param  array $credentials
+ * @return array|null
  */
 function dosomething_northstar_verify_user($credentials) {
   global $user;
+
   $client = _dosomething_northstar_build_http_client();
 
-  $response = drupal_http_request($client['base_url'] . '/auth/verify', [
-    'headers' => $client['headers'],
-    'method' => 'POST',
-    'data' => json_encode($credentials),
-  ]);
+  try {
+    $response = dosomething_northstar_client()->post('v1/auth/verify', $credentials);
 
-  // Add to request log if enabled.
-  dosomething_northstar_log_request('verify_user', $user, $credentials, $response);
+    dosomething_northstar_log_request('verify_user', $user, $credentials, $response);
 
-  if (!_dosomething_northstar_is_successful_response($response)) {
-    return null;
+    return $response;
   }
-
-  return json_decode($response->data);
+  catch (Exception $error) {
+    return NULL;
+  }
 }
 
 /**
@@ -264,11 +260,11 @@ function dosomething_northstar_transform_user($user, $password = null) {
 /**
  * Save the user's Northstar ID to their local profile field and the authmap.
  *
- * @param $uid - Drupal user ID
- * @param $northstar_response - Northstar user JSON response
+ * @param string $uid - Drupal user ID
+ * @param object $northstar_response - Northstar user JSON response
  */
 function dosomething_northstar_save_id_field($uid, $northstar_response) {
-  $northstar_id = !empty($northstar_response->data->id) ? $northstar_response->data->id : null;
+  $northstar_id = !empty($northstar_response['data']['id']) ? $northstar_response['data']['id'] : null;
   $user = user_load($uid);
 
   // Save a record to the `authmap` table if Northstar user exists:
@@ -286,7 +282,7 @@ function dosomething_northstar_save_id_field($uid, $northstar_response) {
  * @param string $op - label for the operation being performed
  * @param object $user - the Drupal user
  * @param array $request_body - the body of the request
- * @param $response - response JSON
+ * @param array $response - response JSON
  */
 function dosomething_northstar_log_request($op, $user, $request_body, $response) {
   if (!variable_get('dosomething_northstar_log')) return;
@@ -304,8 +300,8 @@ function dosomething_northstar_log_request($op, $user, $request_body, $response)
       'user_country' => $user->field_address[LANGUAGE_NONE][0]['country'],
       'fastly_country' => dosomething_settings_get_geo_country_code(),
       'request_values' => json_encode($request_body),
-      'response_code' => $response->code,
-      'response_values' => $response->data,
+      'response_code' => (isset($response['code']) ? $response['code'] : '200'),
+      'response_values' => $response['data'],
     ])
     ->execute();
 }
