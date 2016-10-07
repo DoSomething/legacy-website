@@ -261,7 +261,7 @@ function dosomething_northstar_transform_user($user, $password = null) {
  * Save the user's Northstar ID to their local profile field and the authmap.
  *
  * @param string $uid - Drupal user ID
- * @param object $northstar_response - Northstar user JSON response
+ * @param array $northstar_response - Northstar user JSON response
  */
 function dosomething_northstar_save_id_field($uid, $northstar_response) {
   $northstar_id = !empty($northstar_response['data']['id']) ? $northstar_response['data']['id'] : null;
