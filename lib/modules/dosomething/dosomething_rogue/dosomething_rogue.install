@@ -61,11 +61,6 @@ function dosomething_rogue_schema() {
         'type' => 'int',
         'not null' => TRUE,
       ],
-      'northstar_id' => [
-        'description' => 'The northstar_id of the user.',
-        'type' => 'int',
-        'not null' => TRUE,
-      ],
       'campaign_id' => [
         'description' => 'Campaign nid for the reportback.',
         'type' => 'int',
@@ -90,6 +85,7 @@ function dosomething_rogue_schema() {
       'file' => [
         'description' => 'The file string to save of the reportback image.',
         'type' => 'text',
+        'length' => '500000',
         'not null' => TRUE,
       ],
       'caption' => [
