@@ -80,13 +80,13 @@ function dosomething_rogue_schema() {
         'description' => 'Why the user participated in the campaign.',
         'type' => 'text',
         'length' => '2048',
-        'not null' => FALSE,
+        'not null' => TRUE,
       ],
       'file' => [
         'description' => 'The file string to save of the reportback image.',
         'type' => 'text',
         'length' => '500000',
-        'not null' => TRUE,
+        'not null' => FALSE,
       ],
       'caption' => [
         'description' => 'File caption.',
