@@ -22,4 +22,3 @@ function paraneue_dosomething_preprocess_taxonomy_term(&$vars) {
   }
   paraneue_dosomething_add_info_bar($vars);
 }
-
