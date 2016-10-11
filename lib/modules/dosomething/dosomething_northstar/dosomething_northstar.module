@@ -116,38 +116,31 @@ function dosomething_northstar_create_user($user, $password = null) {
 }
 
 /**
- * Update a user's existing Northstar profile based on
- * their Drupal ID.
+ * Update a user's existing Northstar profile based on their Drupal ID.
  *
  * @param $user - Drupal user object
  * @param $password - Unhashed password provided during registration.
  */
 function dosomething_northstar_update_user($user, $password = null) {
-  $client = _dosomething_northstar_build_http_client();
   $payload = dosomething_northstar_transform_user($user, $password);
 
-  $response = drupal_http_request($client['base_url'] . '/users/drupal_id/' . $user->uid, [
-    'headers' => $client['headers'],
-    'method' => 'PUT',
-    'data' => json_encode($payload),
-  ]);
+  try {
+    $response = dosomething_northstar_client()->put('v1/users/drupal_id/' . $user->uid, $payload);
+  }
+  catch (Exception $error) {
+    watchdog('dosomething_northstar', 'User NOT updated on Northstar: ' . $error->getMessage(), NULL, WATCHDOG_ERROR);
+
+    return NULL;
+  }
 
   // Add to request log if enabled.
   dosomething_northstar_log_request('update_user', $user, $payload, $response);
 
-  if (_dosomething_northstar_is_successful_response($response)) {
-    if (module_exists('stathat')) {
-      stathat_send_ez_count('drupal - Northstar - user updated - count', 1);
-    }
+  if (module_exists('stathat')) {
+    stathat_send_ez_count('drupal - Northstar - user updated - count', 1);
   }
-  elseif ($response->code === '404') {
-    // If the given Drupal ID 404s, try to register them.
-    $password_or_null = ! empty($form_state['values']['pass']) ? $form_state['values']['pass'] : null;
-    dosomething_northstar_create_user($user, $password_or_null);
-  }
-  else {
-    watchdog('dosomething_northstar', 'User not updated : ' . $response->code, NULL, WATCHDOG_ERROR);
-  }
+
+  return $response;
 }
 
 /**
