@@ -110,6 +110,7 @@ function dosomething_taxonomy_preprocess_taxonomy_term(&$vars) {
 
 /**
  * Returns array of node nid's with the given Term $tid.
+ * @deprecated Use taxonomy_select_nodes instead.
  *
  * @param int $tid
  *   A taxonomy term tid.
