@@ -126,22 +126,40 @@ function dosomething_northstar_update_user($user, $password = null) {
   $payload = dosomething_northstar_transform_user($user, $password);
 
   try {
-    $response = dosomething_northstar_client()->put('v1/users/drupal_id/' . $user->uid, $payload);
+    $response = dosomething_northstar_client()->post('v1/users/drupal_id/' . $user->uid, $payload);
+    $code = 200;
   }
   catch (Exception $error) {
     watchdog('dosomething_northstar', 'User NOT updated on Northstar: ' . $error->getMessage(), NULL, WATCHDOG_ERROR);
 
-    return NULL;
+    $response = NULL;
+    $code = dosomething_northstar_get_error_code($error->getMessage());
   }
 
-  // Add to request log if enabled.
-  dosomething_northstar_log_request('update_user', $user, $payload, $response);
+  dosomething_northstar_log_request('update_user', $user, $payload, $response, $code);
 
   if (module_exists('stathat')) {
     stathat_send_ez_count('drupal - Northstar - user updated - count', 1);
   }
 
   return $response;
+}
+
+/**
+ * Return error code from error message.
+ * @todo  This is temporary until an update is made Gateway response.
+ *
+ * @param  string $errorMessage
+ * @return integer|null
+ */
+function dosomething_northstar_get_error_code($errorMessage) {
+  preg_match('/(\[\d{3}\])/', $errorMessage, $matches);
+
+  if ($matches) {
+    return (int) substr($matches[0], 1, 3);
+  }
+
+  return NULL;
 }
 
 /**
@@ -277,8 +295,9 @@ function dosomething_northstar_save_id_field($uid, $northstar_response) {
  * @param object $user - the Drupal user
  * @param array $request_body - the body of the request
  * @param array $response - response JSON
+ * @param integer|null $code
  */
-function dosomething_northstar_log_request($op, $user, $request_body, $response) {
+function dosomething_northstar_log_request($op, $user, $request_body, $response, $code = NULL) {
   if (!variable_get('dosomething_northstar_log')) return;
 
   // Don't log plaintext passwords.
@@ -294,7 +313,7 @@ function dosomething_northstar_log_request($op, $user, $request_body, $response)
       'user_country' => $user->field_address[LANGUAGE_NONE][0]['country'],
       'fastly_country' => dosomething_settings_get_geo_country_code(),
       'request_values' => json_encode($request_body),
-      'response_code' => (isset($response['code']) ? $response['code'] : '200'),
+      'response_code' => $code,
       'response_values' => json_encode($response['data']),
     ])
     ->execute();
