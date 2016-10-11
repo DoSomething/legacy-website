@@ -70,15 +70,17 @@ function dosomething_northstar_verify_user($credentials) {
 
   try {
     $response = dosomething_northstar_client()->post('v1/auth/verify', $credentials);
+    $code = 200;
   }
   catch (Exception $error) {
     watchdog('dosomething_northstar', 'User NOT verified by Northstar: ' . $error->getMessage(), NULL, WATCHDOG_ERROR);
 
-    return NULL;
+    $response = NULL;
+    $code = dosomething_northstar_get_error_code($error->getMessage());
   }
 
   // Add to request log if enabled.
-  dosomething_northstar_log_request('verify_user', $user, $credentials, $response);
+  dosomething_northstar_log_request('verify_user', $user, $credentials, $response, $code);
 
   return $response;
 }
@@ -95,18 +97,20 @@ function dosomething_northstar_create_user($user, $password = null) {
 
   try {
     $response = dosomething_northstar_client()->post('v1/users', $payload);
+    $code = 201;
   }
   catch (Exception $error) {
     watchdog('dosomething_northstar', 'User NOT migrated to Northstar: ' . $error->getMessage(), NULL, WATCHDOG_ERROR);
 
-    return NULL;
+    $response = NULL;
+    $code = dosomething_northstar_get_error_code($error->getMessage());
   }
 
   // Save the newly registered user's ID to their local profile field.
   dosomething_northstar_save_id_field($user->uid, $response);
 
   // Add to request log if enabled.
-  dosomething_northstar_log_request('register_user', $user, $payload, $response);
+  dosomething_northstar_log_request('register_user', $user, $payload, $response, $code);
 
   if (module_exists('stathat')) {
     stathat_send_ez_count('drupal - Northstar - user migrated - count', 1);
@@ -126,7 +130,7 @@ function dosomething_northstar_update_user($user, $password = null) {
   $payload = dosomething_northstar_transform_user($user, $password);
 
   try {
-    $response = dosomething_northstar_client()->post('v1/users/drupal_id/' . $user->uid, $payload);
+    $response = dosomething_northstar_client()->put('v1/users/drupal_id/' . $user->uid, $payload);
     $code = 200;
   }
   catch (Exception $error) {
@@ -136,6 +140,7 @@ function dosomething_northstar_update_user($user, $password = null) {
     $code = dosomething_northstar_get_error_code($error->getMessage());
   }
 
+  // Add to request log if enabled.
   dosomething_northstar_log_request('update_user', $user, $payload, $response, $code);
 
   if (module_exists('stathat')) {
@@ -147,7 +152,7 @@ function dosomething_northstar_update_user($user, $password = null) {
 
 /**
  * Return error code from error message.
- * @todo  This is temporary until an update is made Gateway response.
+ * @todo  This is temporary until an update is made to the Gateway response.
  *
  * @param  string $errorMessage
  * @return integer|null
@@ -314,7 +319,7 @@ function dosomething_northstar_log_request($op, $user, $request_body, $response,
       'fastly_country' => dosomething_settings_get_geo_country_code(),
       'request_values' => json_encode($request_body),
       'response_code' => $code,
-      'response_values' => json_encode($response['data']),
+      'response_values' => json_encode($response),
     ])
     ->execute();
 }
