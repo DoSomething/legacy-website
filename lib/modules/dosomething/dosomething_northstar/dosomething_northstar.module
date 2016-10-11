@@ -117,8 +117,8 @@ function dosomething_northstar_create_user($user, $password = null) {
 /**
  * Update a user's existing Northstar profile based on their Drupal ID.
  *
- * @param $user - Drupal user object
- * @param $password - Unhashed password provided during registration.
+ * @param object $user - Drupal user object
+ * @param string $password - Unhashed password provided during registration.
  */
 function dosomething_northstar_update_user($user, $password = null) {
   $payload = dosomething_northstar_transform_user($user, $password);
