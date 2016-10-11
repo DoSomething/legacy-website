@@ -47,6 +47,72 @@ function dosomething_rogue_schema() {
     ],
   ];
 
+  $schema['dosomething_rogue_failed_task_log'] = [
+    'description' => 'Table of failed requests sending reportbacks from Phoenix to Rogue',
+    'fields' => [
+      'id' => [
+        'description' => 'Primary key of log table.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ],
+      'drupal_id' => [
+        'description' => 'The drupal_id of the user.',
+        'type' => 'int',
+        'not null' => TRUE,
+      ],
+      'campaign_id' => [
+        'description' => 'Campaign nid for the reportback.',
+        'type' => 'int',
+        'not null' => TRUE,
+      ],
+      'campaign_run_id' => [
+        'description' => 'Campaign run nid for the reportback.',
+        'type' => 'int',
+        'not null' => TRUE,
+      ],
+      'quantity' => [
+        'description' => 'The quantity of reportback_nouns reportback_verbed.',
+        'type' => 'int',
+        'not null' => TRUE,
+      ],
+      'why_participated' => [
+        'description' => 'Why the user participated in the campaign.',
+        'type' => 'text',
+        'length' => '2048',
+        'not null' => TRUE,
+      ],
+      'file' => [
+        'description' => 'The file string to save of the reportback image.',
+        'type' => 'text',
+        'length' => '500000',
+        'not null' => FALSE,
+      ],
+      'caption' => [
+        'description' => 'File caption.',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => FALSE,
+      ],
+      'timestamp' => [
+        'description' => 'The Unix timestamp of the request.',
+        'type' => 'int',
+        'not null' => TRUE,
+      ],
+      'response_code' => [
+        'description' => 'The HTTP response code from Rogue.',
+        'type' => 'int',
+      ],
+      'response_values' => [
+        'description' => 'The JSON response from Rogue.',
+        'type' => 'text',
+        'length' => '500000',
+        'not null' => FALSE,
+      ],
+    ],
+    'primary key' => ['id'],
+  ];
+
   return $schema;
 }
 
@@ -55,6 +121,17 @@ function dosomething_rogue_schema() {
  */
 function dosomething_rogue_update_7001(&$sandbox) {
   $table_name = 'dosomething_rogue_reportbacks';
+  if (!db_table_exists($table_name)) {
+    $schema = dosomething_rogue_schema();
+    db_create_table($table_name, $schema[$table_name]);
+  }
+}
+
+/**
+ * Create dosomething_rogue_failed_task_log table.
+ */
+function dosomething_rogue_update_7002(&$sandbox) {
+  $table_name = 'dosomething_rogue_failed_task_log';
   if (!db_table_exists($table_name)) {
     $schema = dosomething_rogue_schema();
     db_create_table($table_name, $schema[$table_name]);
