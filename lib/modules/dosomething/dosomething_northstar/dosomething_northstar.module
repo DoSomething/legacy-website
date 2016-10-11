@@ -61,7 +61,6 @@ function dosomething_northstar_menu() {
 /**
  * Verify the given credentials against Northstar, returning the authorized
  * user account if one exists.
- * @todo Needs to be deprecated.
  *
  * @param  array $credentials
  * @return array|null
