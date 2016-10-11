@@ -4,21 +4,21 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "03854d361fc8d4d26f3d20af648afc64",
-    "content-hash": "1c449f02e541b69ff3008088c0aee495",
+    "hash": "950dee19f2cd86c9d11ce407a07efe84",
+    "content-hash": "5caf0890d5c68f86a5f721c42b9bbace",
     "packages": [
         {
             "name": "dosomething/gateway",
-            "version": "v1.0.0-rc12",
+            "version": "v1.0.0-rc14",
             "source": {
                 "type": "git",
                 "url": "https://github.com/DoSomething/gateway.git",
-                "reference": "fdac8a325a36414f7d3ff982d0c326222b0d9f8e"
+                "reference": "2de6ade1b724fc93353545996426ecee49b7cd7e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/DoSomething/gateway/zipball/fdac8a325a36414f7d3ff982d0c326222b0d9f8e",
-                "reference": "fdac8a325a36414f7d3ff982d0c326222b0d9f8e",
+                "url": "https://api.github.com/repos/DoSomething/gateway/zipball/2de6ade1b724fc93353545996426ecee49b7cd7e",
+                "reference": "2de6ade1b724fc93353545996426ecee49b7cd7e",
                 "shasum": ""
             },
             "require": {
@@ -29,6 +29,10 @@
                 "nesbot/carbon": "~1.14",
                 "symfony/psr-http-message-bridge": "^1.0",
                 "zendframework/zend-diactoros": "^1.3"
+            },
+            "require-dev": {
+                "illuminate/database": "^5.2",
+                "phpunit/phpunit": "^4.8"
             },
             "type": "library",
             "autoload": {
@@ -50,20 +54,20 @@
                 }
             ],
             "description": "Standard PHP API client for DoSomething.org services.",
-            "time": "2016-10-04 18:21:58"
+            "time": "2016-10-06 20:04:26"
         },
         {
             "name": "giggsey/libphonenumber-for-php",
-            "version": "7.7.1",
+            "version": "7.7.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/giggsey/libphonenumber-for-php.git",
-                "reference": "da9a24a60169fedca9a0a4e07baf7e94f9c75fc4"
+                "reference": "245324b87d59fe122945f5cf4521c75af2bd472a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/giggsey/libphonenumber-for-php/zipball/da9a24a60169fedca9a0a4e07baf7e94f9c75fc4",
-                "reference": "da9a24a60169fedca9a0a4e07baf7e94f9c75fc4",
+                "url": "https://api.github.com/repos/giggsey/libphonenumber-for-php/zipball/245324b87d59fe122945f5cf4521c75af2bd472a",
+                "reference": "245324b87d59fe122945f5cf4521c75af2bd472a",
                 "shasum": ""
             },
             "require": {
@@ -112,21 +116,24 @@
                 "phonenumber",
                 "validation"
             ],
-            "time": "2016-10-01 21:48:02"
+            "time": "2016-10-06 13:02:39"
         },
         {
             "name": "giggsey/locale",
-            "version": "1.0",
+            "version": "1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/giggsey/Locale.git",
-                "reference": "9087acaf8493472fcd129118017fd7e06be3d8fa"
+                "reference": "d936229da2187025f693f25724c5af2a090f5e7c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/giggsey/Locale/zipball/9087acaf8493472fcd129118017fd7e06be3d8fa",
-                "reference": "9087acaf8493472fcd129118017fd7e06be3d8fa",
+                "url": "https://api.github.com/repos/giggsey/Locale/zipball/d936229da2187025f693f25724c5af2a090f5e7c",
+                "reference": "d936229da2187025f693f25724c5af2a090f5e7c",
                 "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2"
             },
             "require-dev": {
                 "pear/pear-core-minimal": "^1.9",
@@ -158,7 +165,7 @@
                 }
             ],
             "description": "Locale functions required by libphonenumber-for-php",
-            "time": "2016-08-04 23:02:29"
+            "time": "2016-10-05 20:26:22"
         },
         {
             "name": "guzzlehttp/guzzle",

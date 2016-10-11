@@ -31,7 +31,7 @@ function dosomething_northstar_client() {
     'client_credentials' => [
       'client_id' => NORTHSTAR_APP_ID,
       'client_secret' => NORTHSTAR_APP_KEY,
-      'scope' => ['admin'],
+      'scope' => ['admin', 'user'],
     ],
   ]);
 }
@@ -62,96 +62,109 @@ function dosomething_northstar_menu() {
  * Verify the given credentials against Northstar, returning the authorized
  * user account if one exists.
  *
- * @param array $credentials
- * @return mixed|null
- *
- * @todo Needs to be deprecated.
+ * @param  array $credentials
+ * @return array|null
  */
 function dosomething_northstar_verify_user($credentials) {
   global $user;
-  $client = _dosomething_northstar_build_http_client();
 
-  $response = drupal_http_request($client['base_url'] . '/auth/verify', [
-    'headers' => $client['headers'],
-    'method' => 'POST',
-    'data' => json_encode($credentials),
-  ]);
+  try {
+    $response = dosomething_northstar_client()->post('v1/auth/verify', $credentials);
+    $code = 200;
+  }
+  catch (Exception $error) {
+    watchdog('dosomething_northstar', 'User NOT verified by Northstar: ' . $error->getMessage(), NULL, WATCHDOG_ERROR);
 
-  // Add to request log if enabled.
-  dosomething_northstar_log_request('verify_user', $user, $credentials, $response);
-
-  if (!_dosomething_northstar_is_successful_response($response)) {
-    return null;
+    $response = NULL;
+    $code = dosomething_northstar_get_error_code($error->getMessage());
   }
 
-  return json_decode($response->data);
+  // Add to request log if enabled.
+  dosomething_northstar_log_request('verify_user', $user, $credentials, $response, $code);
+
+  return $response;
 }
 
 /**
  * Send user registration events to northstar.
  *
- * @param $user - Drupal user object
- * @param $password - Unhashed password provided during registration.
+ * @param  object $user - Drupal user object
+ * @param  string $password - Unhashed password provided during registration.
+ * @return array|null
  */
 function dosomething_northstar_create_user($user, $password = null) {
-  $client = _dosomething_northstar_build_http_client();
   $payload = dosomething_northstar_transform_user($user, $password);
 
-  $response = drupal_http_request($client['base_url'] . '/users', [
-    'headers' => $client['headers'],
-    'method' => 'POST',
-    'data' => json_encode($payload),
-  ]);
+  try {
+    $response = dosomething_northstar_client()->post('v1/users', $payload);
+    $code = 201;
+  }
+  catch (Exception $error) {
+    watchdog('dosomething_northstar', 'User NOT migrated to Northstar: ' . $error->getMessage(), NULL, WATCHDOG_ERROR);
+
+    $response = NULL;
+    $code = dosomething_northstar_get_error_code($error->getMessage());
+  }
 
   // Save the newly registered user's ID to their local profile field.
-  dosomething_northstar_save_id_field($user->uid, json_decode($response->data));
+  dosomething_northstar_save_id_field($user->uid, $response);
 
   // Add to request log if enabled.
-  dosomething_northstar_log_request('register_user', $user, $payload, $response);
-
-  if (! _dosomething_northstar_is_successful_response($response)) {
-    watchdog('dosomething_northstar', 'User not migrated : ' . $response->code, NULL, WATCHDOG_ERROR);
-    return;
-  }
+  dosomething_northstar_log_request('register_user', $user, $payload, $response, $code);
 
   if (module_exists('stathat')) {
     stathat_send_ez_count('drupal - Northstar - user migrated - count', 1);
   }
+
+  return $response;
 }
 
 /**
- * Update a user's existing Northstar profile based on
- * their Drupal ID.
+ * Update a user's existing Northstar profile based on their Drupal ID.
  *
- * @param $user - Drupal user object
- * @param $password - Unhashed password provided during registration.
+ * @param  object $user - Drupal user object
+ * @param  string $password - Unhashed password provided during registration.
+ * @return array|null
  */
 function dosomething_northstar_update_user($user, $password = null) {
-  $client = _dosomething_northstar_build_http_client();
   $payload = dosomething_northstar_transform_user($user, $password);
 
-  $response = drupal_http_request($client['base_url'] . '/users/drupal_id/' . $user->uid, [
-    'headers' => $client['headers'],
-    'method' => 'PUT',
-    'data' => json_encode($payload),
-  ]);
+  try {
+    $response = dosomething_northstar_client()->put('v1/users/drupal_id/' . $user->uid, $payload);
+    $code = 200;
+  }
+  catch (Exception $error) {
+    watchdog('dosomething_northstar', 'User NOT updated on Northstar: ' . $error->getMessage(), NULL, WATCHDOG_ERROR);
+
+    $response = NULL;
+    $code = dosomething_northstar_get_error_code($error->getMessage());
+  }
 
   // Add to request log if enabled.
-  dosomething_northstar_log_request('update_user', $user, $payload, $response);
+  dosomething_northstar_log_request('update_user', $user, $payload, $response, $code);
 
-  if (_dosomething_northstar_is_successful_response($response)) {
-    if (module_exists('stathat')) {
-      stathat_send_ez_count('drupal - Northstar - user updated - count', 1);
-    }
+  if (module_exists('stathat')) {
+    stathat_send_ez_count('drupal - Northstar - user updated - count', 1);
   }
-  elseif ($response->code === '404') {
-    // If the given Drupal ID 404s, try to register them.
-    $password_or_null = ! empty($form_state['values']['pass']) ? $form_state['values']['pass'] : null;
-    dosomething_northstar_create_user($user, $password_or_null);
+
+  return $response;
+}
+
+/**
+ * Return error code from error message.
+ * @todo  This is temporary until an update is made to the Gateway response.
+ *
+ * @param  string $errorMessage
+ * @return integer|null
+ */
+function dosomething_northstar_get_error_code($errorMessage) {
+  preg_match('/(\[\d{3}\])/', $errorMessage, $matches);
+
+  if ($matches) {
+    return (int) substr($matches[0], 1, 3);
   }
-  else {
-    watchdog('dosomething_northstar', 'User not updated : ' . $response->code, NULL, WATCHDOG_ERROR);
-  }
+
+  return NULL;
 }
 
 /**
@@ -264,11 +277,11 @@ function dosomething_northstar_transform_user($user, $password = null) {
 /**
  * Save the user's Northstar ID to their local profile field and the authmap.
  *
- * @param $uid - Drupal user ID
- * @param $northstar_response - Northstar user JSON response
+ * @param string $uid - Drupal user ID
+ * @param array $northstar_response - Northstar user JSON response
  */
 function dosomething_northstar_save_id_field($uid, $northstar_response) {
-  $northstar_id = !empty($northstar_response->data->id) ? $northstar_response->data->id : null;
+  $northstar_id = !empty($northstar_response['data']['id']) ? $northstar_response['data']['id'] : null;
   $user = user_load($uid);
 
   // Save a record to the `authmap` table if Northstar user exists:
@@ -286,9 +299,10 @@ function dosomething_northstar_save_id_field($uid, $northstar_response) {
  * @param string $op - label for the operation being performed
  * @param object $user - the Drupal user
  * @param array $request_body - the body of the request
- * @param $response - response JSON
+ * @param array $response - response JSON
+ * @param integer|null $code
  */
-function dosomething_northstar_log_request($op, $user, $request_body, $response) {
+function dosomething_northstar_log_request($op, $user, $request_body, $response, $code = NULL) {
   if (!variable_get('dosomething_northstar_log')) return;
 
   // Don't log plaintext passwords.
@@ -304,8 +318,8 @@ function dosomething_northstar_log_request($op, $user, $request_body, $response)
       'user_country' => $user->field_address[LANGUAGE_NONE][0]['country'],
       'fastly_country' => dosomething_settings_get_geo_country_code(),
       'request_values' => json_encode($request_body),
-      'response_code' => $response->code,
-      'response_values' => $response->data,
+      'response_code' => $code,
+      'response_values' => json_encode($response),
     ])
     ->execute();
 }
