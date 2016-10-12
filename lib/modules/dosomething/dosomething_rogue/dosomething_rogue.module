@@ -1,4 +1,7 @@
 <?php
+
+use DoSomething\Gateway\Common\RestApiClient;
+
 /**
  * @file
  * Code for the dosomething_rogue feature.
@@ -36,16 +39,9 @@ function dosomething_rogue_menu() {
  *
  * https://github.com/DoSomething/rogue
  */
-function _dosomething_rogue_build_http_client() {
-  $client = [
-    'base_url' =>  ROGUE_API_URL . '/' . ROGUE_API_VERSION,
-    'headers' => [
-      'Content-Type' => 'application/json',
-      'Accept' => 'application/json',
-    ],
-  ];
+function dosomething_rogue_client() {
 
-  return $client;
+  return new RestApiClient(ROGUE_API_URL . '/' . ROGUE_API_VERSION);
 }
 
 /**
@@ -63,32 +59,27 @@ function dosomething_rogue_send_reportback_to_rogue($values, $user = NULL) {
 
   $run = dosomething_helpers_get_current_campaign_run_for_user($values['nid']);
 
-  $client = _dosomething_rogue_build_http_client();
+  $client = dosomething_rogue_client();
 
-  $options = [
-    'method' => 'POST',
-    'headers' => $client['headers'],
-    'data' =>
-        json_encode([
-          'northstar_id' => $northstar_id ? $northstar_id : NULL,
-          'drupal_id' => $user->uid,
-          'campaign_id' => $values['nid'],
-          'campaign_run_id' => isset($values['campaign_run_id']) ? $values['campaign_run_id'] : $run->nid,
-          'quantity' => $values['quantity'],
-          'why_participated' => $values['why_participated'],
-          'file' => $values['file'],
-          'file_id' => '', // @TODO - currently require by rogue, should not be.
-          'caption' => $values['caption'],
-          'status' => isset($values['status']) ? $values['status'] : 'pending',
-          'crop_x' => isset($values['crop_x']) ? $values['crop_x'] : NULL,
-          'crop_y' => isset($values['crop_y']) ? $values['crop_y'] : NULL,
-          'crop_width' => isset($values['crop_width']) ? $values['crop_width'] : NULL,
-          'crop_height' => isset($values['crop_height']) ? $values['crop_height'] : NULL,
-          'crop_rotate' => isset($values['crop_rotate']) ? $values['crop_rotate'] : NULL,
-        ]),
+  $data = [
+        'northstar_id' => $northstar_id ? $northstar_id : NULL,
+        'drupal_id' => $user->uid,
+        'campaign_id' => $values['nid'],
+        'campaign_run_id' => $run->nid,
+        'quantity' => $values['quantity'],
+        'why_participated' => $values['why_participated'],
+        'file' => $values['file'],
+        'file_id' => '', // @TODO - currently require by rogue, should not be.
+        'caption' => $values['caption'],
+        'status' => isset($values['status']) ? $values['status'] : 'pending',
+        'crop_x' => $values['crop_x'],
+        'crop_y' => $values['crop_y'],
+        'crop_width' => $values['crop_width'],
+        'crop_height' => $values['crop_height'],
+        'crop_rotate' => $values['crop_rotate'],
   ];
 
-  $response = drupal_http_request($client['base_url'] . '/reportbacks', $options);
+  $response = $client->post($client->getBaseUri() . '/reportbacks', $data);
 
   if (in_array($response->code, [200, 201]) && module_exists('stathat')) {
     stathat_send_ez_count('drupal - Rogue - reportback sent - count', 1);
