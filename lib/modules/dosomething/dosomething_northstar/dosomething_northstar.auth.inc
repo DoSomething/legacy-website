@@ -6,6 +6,30 @@ module_load_include('php', 'openid_connect', 'includes/OpenIDConnectClientBase.c
 include_once('plugins/openid_connect_client/northstar/OpenIDConnectClientNorthstar.class.php');
 
 /**
+ * Create an OpenID Connect authorization URL.
+ *
+ * @return array
+ */
+function dosomething_northstar_openid_authorize_url() {
+  /** @var $client OpenIDConnectClientNorthstar */
+  $client = openid_connect_get_client('northstar');
+  $scopes = openid_connect_get_scopes();
+
+  return $client->getAuthorizeUrl($scopes);
+}
+
+/**
+ * Render the view for OpenID Connect login. Displayed standalone
+ * at `/user/openid` and (with feature flag enabled) in the modal.
+ *
+ * @return array
+ */
+function dosomething_northstar_openid_login_view() {
+  $authorize_url = dosomething_northstar_openid_authorize_url();
+
+  return theme('openid_login', ['url' => $authorize_url]);
+}
+/**
  * Register our custom OpenID Connect provider.
  *
  * Implements hook_ctools_plugin_directory().
