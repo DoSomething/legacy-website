@@ -117,13 +117,9 @@ function dosomething_taxonomy_preprocess_taxonomy_term(&$vars) {
  * @return array
  */
 function dosomething_taxonomy_get_campaigns($tid) {
-  $nodes = node_load_multiple(taxonomy_select_nodes($tid, FALSE));
-  $campaigns = [];
-  foreach ($nodes as $node) {
-    if ($node->type === 'campaign') {
-      $campaigns[] = $node->nid;
-    }
-  }
+  $nodes = node_load_multiple(taxonomy_select_nodes($tid, FALSE), ['type' => 'campaign']);
+  $campaigns = array_map(function($node) { return $node->nid; }, $nodes);
+
   return $campaigns;
 }
 
