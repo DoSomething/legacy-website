@@ -1,6 +1,5 @@
 <?php
 
-use DoSomething\Gateway\Contracts\TransactionBridgeContract;
 use DoSomething\Gateway\Common\RestApiClient;
 
 /**
