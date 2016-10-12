@@ -8,6 +8,7 @@ use DoSomething\Gateway\Common\RestApiClient;
  */
 
 include_once('dosomething_rogue.admin.inc');
+include_once('dosomething_rogue.cron.inc');
 
 define('ROGUE_API_URL', variable_get('dosomething_rogue_url', 'http://rogue.app/api'));
 define('ROGUE_API_VERSION', variable_get('dosomething_rogue_api_version', 'v1'));
@@ -79,7 +80,34 @@ function dosomething_rogue_send_reportback_to_rogue($values, $user = NULL) {
   ];
 
   $response = $client->post($client->getBaseUri() . '/reportbacks', $data);
-  // @TODO - handle failures.
+
+  if (in_array($response->code, [200, 201]) && module_exists('stathat')) {
+    stathat_send_ez_count('drupal - Rogue - reportback sent - count', 1);
+  }
+  else {
+    // Log as watchdog error, and stathat value.
+    if (module_exists('stathat')) {
+      stathat_send_ez_count('drupal - Rogue - reportback failed - count', 1);
+    }
+    // Save fail to a db log so we can easily export.
+    db_insert('dosomething_rogue_failed_task_log')
+      ->fields([
+        'drupal_id' => $user->uid,
+        'campaign_id' => $values['nid'],
+        'campaign_run_id' => $run->nid,
+        'quantity' => $values['quantity'],
+        'why_participated' => $values['why_participated'],
+        'file' => $values['file'],
+        'caption' => $values['caption'],
+        'timestamp' => REQUEST_TIME,
+        'response_code' => $response->code,
+        'response_values' => json_encode($response),
+      ])
+      ->execute();
+
+      watchdog('dosomething_rogue', 'reportback not migrated to Rogue', ['user' => $user->uid, 'campaign_id' => $values['nid'], 'campaign_run_id' => $run->nid], WATCHDOG_ERROR);
+  }
+
   return drupal_json_decode($response->data);
 }
 

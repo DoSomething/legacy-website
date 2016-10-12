@@ -727,6 +727,9 @@ function dosomething_reportback_save($values, $user = NULL) {
     global $user;
   }
 
+  $values['why_participated'] = dosomething_helpers_remove_emoji_from_string($values['why_participated']);
+  $values['caption'] = dosomething_helpers_remove_emoji_from_string($values['caption']);
+
   $campaign = Campaign::get($values['nid']);
   $run = dosomething_helpers_get_current_campaign_run_for_user($values['nid'], $user, $campaign);
 
