@@ -110,7 +110,6 @@ function dosomething_taxonomy_preprocess_taxonomy_term(&$vars) {
 
 /**
  * Returns array of node nid's with the given Term $tid.
- * @deprecated Use taxonomy_select_nodes instead.
  *
  * @param int $tid
  *   A taxonomy term tid.
@@ -118,7 +117,14 @@ function dosomething_taxonomy_preprocess_taxonomy_term(&$vars) {
  * @return array
  */
 function dosomething_taxonomy_get_campaigns($tid) {
-  return taxonomy_select_nodes($tid, FALSE);
+  $nids = taxonomy_select_nodes($tid, FALSE);
+  $campaigns = [];
+  foreach ($nids as $delta => $nid) {
+    if (node_load($nid)->type === 'campaign') {
+      $campaigns[] = $nid;
+    }
+  }
+  return $campaigns;
 }
 
 /**
