@@ -119,7 +119,7 @@ function dosomething_taxonomy_preprocess_taxonomy_term(&$vars) {
 function dosomething_taxonomy_get_campaigns($tid) {
   $nids = taxonomy_select_nodes($tid, FALSE);
   $campaigns = [];
-  foreach ($nids as $delta => $nid) {
+  foreach ($nids as $nid) {
     if (node_load($nid)->type === 'campaign') {
       $campaigns[] = $nid;
     }
