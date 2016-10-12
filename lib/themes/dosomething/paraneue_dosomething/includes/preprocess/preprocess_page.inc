@@ -44,7 +44,7 @@ function paraneue_dosomething_preprocess_page(&$vars) {
 
   // If the OpenID Connect feature flag is enabled, link to login page rather than showing classic modal.
   if (module_exists('dosomething_northstar') && variable_get('dosomething_user_openid_oauth_login_enabled')) {
-    $vars['log_in_link'] = l(t('Log In'), dosomething_northstar_openid_authorize_url(), ['absolute' => TRUE, 'attributes' => ['class' => ['secondary-nav-item'], 'id' => 'link--login']]);
+    $vars['log_in_link'] = l(t('Log In'), url('user/authorize'), ['absolute' => TRUE, 'attributes' => ['class' => ['secondary-nav-item'], 'id' => 'link--login']]);
   } else {
     $vars['log_in_link'] = l(t('Log In'), 'user/login', ['attributes' => ['class' => ['secondary-nav-item'], 'data-modal-href' => '#modal--login', 'id' => 'link--login']]);
   }

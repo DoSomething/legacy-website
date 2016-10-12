@@ -55,6 +55,12 @@ function dosomething_northstar_menu() {
       'access arguments' => ['access content'],
       'type' => MENU_CALLBACK,
     ],
+    'user/authorize' => [
+      'title' => 'openid connect authorize',
+      'page callback' => 'dosomething_northstar_openid_authorize',
+      'access arguments' => ['access content'],
+      'type' => MENU_CALLBACK,
+    ],
   ];
 }
 

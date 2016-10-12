@@ -29,6 +29,19 @@ function dosomething_northstar_openid_login_view() {
 
   return theme('openid_login', ['url' => $authorize_url]);
 }
+
+/**
+ * Create an authorization link and redirect to it. (This way we don't
+ * have to make a state token every time we have a page with a login link).
+ *
+ * @return void
+ */
+function dosomething_northstar_openid_authorize() {
+  $authorize_url = dosomething_northstar_openid_authorize_url();
+
+  drupal_goto($authorize_url, ['absolute' => TRUE]);
+}
+
 /**
  * Register our custom OpenID Connect provider.
  *
