@@ -7,28 +7,31 @@ class Rogue extends RestApiClient {
   use ForwardsTransactionIds;
 
   /**
-   * Get the CSRF token for the authenitcated API session.
    * The class name of the transaction framework bridge.
    *
-   * @return string - token
    * @var string
    */
-  private function getAuthenticationToken()
-  {
-    return $this->authenticate()['token'];
+  protected $transactionBridge = Phoenix\Auth\PhoenixTransactionBridge::class;
+
+  /**
+   * Create a new Rogue API client.
+   */
+  public function __construct() {
+    $url = ROGUE_API_URL . '/' . ROGUE_API_VERSION . '/';
+
+    parent::__construct($url);
   }
 
-  protected $transactionBridge = Phoenix\Auth\PhoenixTransactionBridge::class;
 
   /**
    * Send a POST request of the reportback to be saved in Rogue.
    *
-   * @param string $url
+   * @param string $baseurl
    * @param array $data
    * @return object|false
    */
-  public function postReportback($url, $data) {
-    $respons = $this->post($url, $data);
+  public function postReportback($baseurl, $data) {
+    $response = $this->post($baseurl, $data);
 
     return is_null($response) ? null : $response;
   }
@@ -36,12 +39,12 @@ class Rogue extends RestApiClient {
   /**
    * Send a PUT request of the updated reportback to be saved in Rogue.
    *
-   * @param string $url
+   * @param string $baseurl
    * @param array $data
    * @return object|false
    */
-  public function updateReportback($url, $data) {
-    $response = $this->put($url, $data);
+  public function updateReportback($baseurl, $data) {
+    $response = $this->put($url . $baseurl, $data);
 
     return is_null($response) ? null : $response;
   }

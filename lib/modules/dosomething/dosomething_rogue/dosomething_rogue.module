@@ -40,7 +40,7 @@ function dosomething_rogue_menu() {
  */
 function dosomething_rogue_client() {
 
-  return new Rogue(ROGUE_API_URL . '/' . ROGUE_API_VERSION);
+  return new Rogue();
 }
 
 /**
@@ -78,7 +78,7 @@ function dosomething_rogue_send_reportback_to_rogue($values, $user = NULL) {
         'crop_rotate' => $values['crop_rotate'],
   ];
 
-  $response = $client->postReportback($client->getBaseUri() . '/reportbacks', $data);
+  $response = $client->postReportback('reportbacks', $data);
 
   if (in_array($response->code, [200, 201]) && module_exists('stathat')) {
     stathat_send_ez_count('drupal - Rogue - reportback sent - count', 1);
@@ -128,7 +128,7 @@ function dosomething_rogue_update_rogue_reportback_items($data)
       json_encode($data),
   ];
 
-  $response = $client->updateReportback($client['base_url'] . '/items', $options);
+  $response = $client->updateReportback('items', $options);
 
   //@TODO - Add error handling.
 
