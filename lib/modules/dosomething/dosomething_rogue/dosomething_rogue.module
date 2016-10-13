@@ -128,7 +128,7 @@ function dosomething_rogue_update_rogue_reportback_items($data)
       json_encode($data),
   ];
 
-  $response = drupal_http_request($client['base_url'] . '/items', $options);
+  $response = $client->updateReportback($client['base_url'] . '/items', $options);
 
   //@TODO - Add error handling.
 
