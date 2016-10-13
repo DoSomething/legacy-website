@@ -1,8 +1,7 @@
 <?php
 
+use DoSomething\Gateway\ForwardsTransactionIds;
 use DoSomething\Gateway\Common\RestApiClient;
-// use DoSomething\Gateway\ForwardsTransactionIds;
-use DoSomething\Gateway\src\ForwardsTransactionIds;
 
 /**
  * @file

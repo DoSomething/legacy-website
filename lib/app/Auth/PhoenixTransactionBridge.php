@@ -22,6 +22,8 @@ class PhoenixTransactionBridge implements TransactionBridgeContract {
    * @return void
    */
   public function log($message, array $details) {
-      watchdog('Transaction', $details, [], WATCHDOG_INFO);
+      // Example:
+      // watchdog('dosomething_rogue', 'reportback not migrated to Rogue', ['user' => $user->uid, 'campaign_id' => $values['nid'], 'campaign_run_id' => $run->nid], WATCHDOG_ERROR);
+      watchdog('PhoenixTransactionBridge', 'Request made.', $details, WATCHDOG_INFO);
   }
 }
