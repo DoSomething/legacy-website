@@ -40,7 +40,7 @@ function dosomething_rogue_menu() {
  */
 function dosomething_rogue_client() {
 
-  return new Rogue();
+  return new Rogue(ROGUE_API_URL . '/' . ROGUE_API_VERSION);
 }
 
 /**
@@ -119,16 +119,16 @@ function dosomething_rogue_send_reportback_to_rogue($values, $user = NULL) {
  */
 function dosomething_rogue_update_rogue_reportback_items($data)
 {
-  $client = _dosomething_rogue_build_http_client();
+  $client = dosomething_rogue_client();
 
-  $options = [
-    'method' => 'PUT',
-    'headers' => $client['headers'],
-    'data' =>
-      json_encode($data),
-  ];
+  // $options = [
+  //   'method' => 'PUT',
+  //   'headers' => $client['headers'],
+  //   'data' =>
+  //     json_encode($data),
+  // ];
 
-  $response = $client->updateReportback('items', $options);
+  $response = $client->updateReportback('items', $data);
 
   //@TODO - Add error handling.
 

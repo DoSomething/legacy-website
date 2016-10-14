@@ -16,11 +16,11 @@ class Rogue extends RestApiClient {
   /**
    * Create a new Rogue API client.
    */
-  public function __construct() {
-    $url = ROGUE_API_URL . '/' . ROGUE_API_VERSION . '/';
+  // public function __construct() {
+  //   $url = ROGUE_API_URL . '/' . ROGUE_API_VERSION . '/';
 
-    parent::__construct($url);
-  }
+  //   parent::__construct($url);
+  // }
 
 
   /**
@@ -31,7 +31,8 @@ class Rogue extends RestApiClient {
    * @return object|false
    */
   public function postReportback($baseurl, $data) {
-    $response = $this->post($baseurl, $data);
+    // die(ROGUE_API_URL . '/' . ROGUE_API_VERSION . '/' . $baseurl);
+    $response = $this->post(ROGUE_API_URL . '/' . ROGUE_API_VERSION . '/' . $baseurl, $data);
 
     return is_null($response) ? null : $response;
   }
