@@ -348,3 +348,65 @@ function dosomething_metatag_add_facebook_tags($data) {
     drupal_add_html_head($element, 'og:image:height');
   }
 }
+
+/*
+ * Add twitter meta tags to the page.
+ *
+ * @param array $data
+ *   Array of the content to use for each property.
+ */
+function dosomething_metatag_add_twitter_tags($data) {
+  $card = [
+    '#tag' => 'meta',
+    '#attributes' => [
+      'property' => 'twitter:card',
+      'content' => 'summary_large_image',
+    ],
+  ];
+  drupal_add_html_head($card, 'twitter:card');
+
+  $site = [
+    '#tag' => 'meta',
+    '#attributes' => [
+      'property' => 'twitter:site',
+      'content' => '@dosomething',
+    ],
+  ];
+  drupal_add_html_head($site, 'twitter:site');
+
+  $creator = [
+    '#tag' => 'meta',
+    '#attributes' => [
+      'property' => 'twitter:creator',
+      'content' => '@dosomething',
+    ],
+  ];
+  drupal_add_html_head($creator, 'twitter:creator');
+
+  $title = [
+    '#tag' => 'meta',
+    '#attributes' => [
+      'property' => 'twitter:title',
+      'content' => $data['title'],
+    ],
+  ];
+  drupal_add_html_head($title, 'twitter:title');
+
+  $description = [
+    '#tag' => 'meta',
+    '#attributes' => [
+      'property' => 'twitter:description',
+      'content' => $data['description'],
+    ],
+  ];
+  drupal_add_html_head($description, 'twitter:description');
+
+  $description = [
+    '#tag' => 'meta',
+    '#attributes' => [
+      'property' => 'twitter:image',
+      'content' => $data['image'],
+    ],
+  ];
+  drupal_add_html_head($image, 'twitter:image');
+}
