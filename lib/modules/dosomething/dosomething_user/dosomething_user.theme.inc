@@ -5,15 +5,24 @@
  */
 
 /**
- * Returns markup for link to open the login/register modal with given $label.
+ * Returns markup for link to sign up for a campaign.
  *
  * @param string $label
  *   The text to display on the button.
- * @param string $class
- *   A class to apply to the button.
+ * @return string
  */
-function dosomething_user_get_login_modal_link_markup($label, $class = '') {
-  return '<a id="link--campaign-signup-login" href="#" data-modal-href="#modal--login" class="button ' . $class . '">' . $label . '</a>';
+function dosomething_user_get_sign_up_link_markup($label, $nid) {
+  // If the OpenID Connect feature flag is enabled, link to login page rather than showing classic modal.
+  if (module_exists('dosomething_northstar') && variable_get('dosomething_user_openid_oauth_login_enabled')) {
+    return l(t($label), 'user/authorize', [
+      'query' => ['action' => 'signup', 'node' => $nid],
+      'attributes' => [
+        'class' => ['button'],
+        'id' => 'link--campaign-signup-login'
+      ]]);
+  }
+
+  return '<a id="link--campaign-signup-login" href="#" data-modal-href="#modal--login" class="button">' . $label . '</a>';
 }
 
 /**
