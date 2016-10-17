@@ -14,16 +14,6 @@ class Rogue extends RestApiClient {
   protected $transactionBridge = Phoenix\Auth\PhoenixTransactionBridge::class;
 
   /**
-   * Create a new Rogue API client.
-   */
-  // public function __construct() {
-  //   $url = ROGUE_API_URL . '/' . ROGUE_API_VERSION . '/';
-
-  //   parent::__construct($url);
-  // }
-
-
-  /**
    * Send a POST request of the reportback to be saved in Rogue.
    *
    * @param string $baseurl
@@ -44,7 +34,7 @@ class Rogue extends RestApiClient {
    * @return object|false
    */
   public function updateReportback($baseurl, $data) {
-    $response = $this->put($url . $baseurl, $data);
+    $response = $this->put(ROGUE_API_URL . '/' . ROGUE_API_VERSION . '/' . $baseurl, $data);
 
     return is_null($response) ? null : $response;
   }
