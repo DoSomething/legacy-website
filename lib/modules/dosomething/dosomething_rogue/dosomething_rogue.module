@@ -121,13 +121,6 @@ function dosomething_rogue_update_rogue_reportback_items($data)
 {
   $client = dosomething_rogue_client();
 
-  // $options = [
-  //   'method' => 'PUT',
-  //   'headers' => $client['headers'],
-  //   'data' =>
-  //     json_encode($data),
-  // ];
-
   $response = $client->updateReportback('items', $data);
 
   //@TODO - Add error handling.
