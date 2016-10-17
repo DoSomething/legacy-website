@@ -23,7 +23,7 @@ class Rogue extends RestApiClient {
   public function postReportback($baseurl, $data) {
     $response = $this->post(ROGUE_API_URL . '/' . ROGUE_API_VERSION . '/' . $baseurl, $data);
 
-    return is_null($response) ? null : $response;
+    return $response;
   }
 
   /**
@@ -36,6 +36,6 @@ class Rogue extends RestApiClient {
   public function updateReportback($baseurl, $data) {
     $response = $this->put(ROGUE_API_URL . '/' . ROGUE_API_VERSION . '/' . $baseurl, $data);
 
-    return is_null($response) ? null : $response;
+    return $response;
   }
 }
