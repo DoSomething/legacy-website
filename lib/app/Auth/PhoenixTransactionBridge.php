@@ -13,7 +13,7 @@ class PhoenixTransactionBridge implements TransactionBridgeContract {
    * @return string
    */
   public function getHeader($name) {
-      return drupal_get_http_header($name);
+    return drupal_get_http_header($name);
   }
 
   /**
@@ -22,6 +22,6 @@ class PhoenixTransactionBridge implements TransactionBridgeContract {
    * @return void
    */
   public function log($message, array $details) {
-      watchdog('PhoenixTransactionBridge', $message, $details, WATCHDOG_INFO);
+    watchdog('PhoenixTransactionBridge', $message, $details, WATCHDOG_INFO);
   }
 }
