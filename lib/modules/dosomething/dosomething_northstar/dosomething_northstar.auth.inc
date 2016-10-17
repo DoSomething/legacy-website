@@ -39,6 +39,10 @@ function dosomething_northstar_openid_login_view() {
 function dosomething_northstar_openid_authorize() {
   $authorize_url = dosomething_northstar_openid_authorize_url();
 
+  if(isset($_GET['action']) && isset($_GET['node'])) {
+    dosomething_northstar_set_authorization_action($_GET['action'], $_GET['node']);
+  }
+
   drupal_goto($authorize_url, ['absolute' => TRUE]);
 }
 
@@ -86,10 +90,49 @@ function dosomething_northstar_openid_connect_post_authorize($tokens, $account, 
     'access_token_expiration' => $tokens['expire'],
   ]);
 
+  // If we saved a "post-authorization" action, do it now.
+  dosomething_northstar_perform_authorization_actions();
+
   // Let's remember that this is a OpenID Connect session.
   $_SESSION['DOSOMETHING_NORTHSTAR_OPENID_CONNECT'] = true;
 
   user_save($account, $edit);
+}
+
+/**
+ * Save a post-authorization destination in the session (e.g. for signing
+ * up for a campaign).
+ *
+ * @param $node
+ * @return void
+ */
+function dosomething_northstar_set_authorization_action($action, $nid) {
+  if ($action !== 'signup') {
+    return;
+  }
+
+  $_SESSION['openid_connect_action'] = ['signup' => $nid];
+}
+
+/**
+ * Perform any post-authorization actions (e.g. signups) queued in the session.
+ *
+ * @return void
+ */
+function dosomething_northstar_perform_authorization_actions() {
+  global $user;
+
+  if (! isset($_SESSION['openid_connect_action'])) {
+    return;
+  }
+
+  $actions = $_SESSION['openid_connect_action'];
+  foreach ($actions as $action => $target) {
+    if($action === 'signup') {
+      dosomething_signup_user_signup((int) $target, $user, 'lolol'); // @TODO lololol
+      drupal_goto('node/' . $target);
+    }
+  }
 }
 
 /**
