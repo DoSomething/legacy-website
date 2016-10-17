@@ -62,12 +62,12 @@ function dosomething_metatag_preprocess_page(&$vars) {
   // Add explicit facebook og meta tags to campaign pages.
   if (isset($node) && $node->type == 'campaign') {
     $langauge_code = dosomething_global_get_language($user, $node);
-
     $social_data = array(
       'type' => 'dosomething_facebook:campaign',
       'url' => url(current_path(), array('absolute'=> TRUE)),
       'title' => $node->title,
       'description' => "Volunteer and take action! " . $node->field_call_to_action[$langauge_code][0]['value'],
+      'image' => dosomething_image_get_themed_image_url($node->nid, 'landscape', '1440x810'),
     );
     dosomething_metatag_add_facebook_tags($social_data);
     dosomething_metatag_add_twitter_tags($social_data);
@@ -403,12 +403,14 @@ function dosomething_metatag_add_twitter_tags($data) {
   ];
   drupal_add_html_head($description, 'twitter:description');
 
-  $description = [
-    '#tag' => 'meta',
-    '#attributes' => [
-      'property' => 'twitter:image',
-      'content' => $data['image'],
-    ],
-  ];
-  drupal_add_html_head($image, 'twitter:image');
+  if (array_key_exists('image', $data)) {
+    $description = [
+      '#tag' => 'meta',
+      '#attributes' => [
+        'property' => 'twitter:image',
+        'content' => $data['image'],
+      ],
+    ];
+    drupal_add_html_head($image, 'twitter:image');
+  }
 }
