@@ -31,7 +31,6 @@ class Rogue extends RestApiClient {
    * @return object|false
    */
   public function postReportback($baseurl, $data) {
-    // die(ROGUE_API_URL . '/' . ROGUE_API_VERSION . '/' . $baseurl);
     $response = $this->post(ROGUE_API_URL . '/' . ROGUE_API_VERSION . '/' . $baseurl, $data);
 
     return is_null($response) ? null : $response;
