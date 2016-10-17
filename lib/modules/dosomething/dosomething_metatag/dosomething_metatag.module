@@ -63,13 +63,14 @@ function dosomething_metatag_preprocess_page(&$vars) {
   if (isset($node) && $node->type == 'campaign') {
     $langauge_code = dosomething_global_get_language($user, $node);
 
-    $facebook_data = array(
+    $social_data = array(
       'type' => 'dosomething_facebook:campaign',
       'url' => url(current_path(), array('absolute'=> TRUE)),
       'title' => $node->title,
       'description' => "Volunteer and take action! " . $node->field_call_to_action[$langauge_code][0]['value'],
     );
-    dosomething_metatag_add_facebook_tags($facebook_data);
+    dosomething_metatag_add_facebook_tags($social_data);
+    dosomething_metatag_add_twitter_tags($social_data);
   }
 
   // Add special share info to the permalink page.
@@ -235,7 +236,7 @@ function dosomething_metatag_get_permalink_vars() {
   drupal_add_html_head($element, 'twitter:url');
 
   // Facebook.
-  $facebook_data = array(
+  $social_data = array(
     'type' => 'dosomething_facebook:campaign',
     'url' => $share_url,
     'title' => $node->title,
@@ -246,7 +247,8 @@ function dosomething_metatag_get_permalink_vars() {
     'height' => 480,
   );
 
-  dosomething_metatag_add_facebook_tags($facebook_data);
+  dosomething_metatag_add_facebook_tags($social_data);
+  dosomething_metatag_add_twitter_tags($social_data);
 }
 
 /*
