@@ -213,6 +213,12 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
     '#description' => t("This is public facing. Do not enter private user information."),
   );
 
+  // Do not require a caption by default on an update to a reportback. If they do include an image, it is still required.
+  if (isset($entity->rbid)) {
+    unset($form['reportback_inputs']['caption']['#attributes']['data-validate']);
+    unset($form['reportback_inputs']['caption']['#required']);
+  }
+
   $form['reportback_inputs']['quantity'] = array(
     '#type' => 'textfield',
     '#required' => TRUE,
