@@ -38,14 +38,15 @@ foreach ($records as $record) {
     'data' => json_encode($ns_user),
   ]);
 
+  $response_data = json_decode($response->data, TRUE);
+
   // Output progress to stdout & log request details for later review.
-  dosomething_northstar_log_request('migrate', $user, $ns_user, $response);
   echo 'Migrated user ' . $user->uid . ' to Northstar [' . $response->code . ']' . PHP_EOL;
-  $response_data = json_decode($response->data);
+  dosomething_northstar_log_request('migrate', $user, $ns_user, $response_data);
 
   // If a user cannot be re-migrated due to a Drupal ID index conflict, we should add an entry for that Northstar ID.
-  if ($response->code == 400 && !empty($response_data->error->context->id)) {
-    db_insert('dosomething_northstar_delete_queue')->fields(['uid' => $user->uid, 'northstar_id' => $response_data->error->context->id])->execute();
+  if ($response->code == 400 && !empty($response_data['error']['context']['id'])) {
+    db_insert('dosomething_northstar_delete_queue')->fields(['uid' => $user->uid, 'northstar_id' => $response_data['error']['context']['id']])->execute();
   }
 
   // Store the returned Northstar ID on the user's Drupal profile.
