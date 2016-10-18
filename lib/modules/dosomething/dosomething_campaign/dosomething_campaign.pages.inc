@@ -33,7 +33,7 @@ function dosomething_campaign_reportback_confirmation_page($node) {
   $image_size = '740x480';
 
 
-  // If SMS player is anonymous, he button should open the login/register form.
+  // If SMS player is anonymous, the button should open the login/register form.
   if (user_is_anonymous()) {
     $button_text = t(variable_get('dosomething_campaign_confirmation_page_anon_button_text'));
     $vars['call_to_action'] = t(variable_get('dosomething_campaign_confirmation_page_anon_cta_text'));
