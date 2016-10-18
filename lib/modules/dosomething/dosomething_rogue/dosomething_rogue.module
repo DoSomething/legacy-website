@@ -1,7 +1,5 @@
 <?php
 
-use DoSomething\Gateway\Common\RestApiClient;
-
 /**
  * @file
  * Code for the dosomething_rogue feature.
@@ -9,6 +7,7 @@ use DoSomething\Gateway\Common\RestApiClient;
 
 include_once('dosomething_rogue.admin.inc');
 include_once('dosomething_rogue.cron.inc');
+include_once('includes/Rogue.php');
 
 define('ROGUE_API_URL', variable_get('dosomething_rogue_url', 'http://rogue.app/api'));
 define('ROGUE_API_VERSION', variable_get('dosomething_rogue_api_version', 'v1'));
@@ -41,7 +40,7 @@ function dosomething_rogue_menu() {
  */
 function dosomething_rogue_client() {
 
-  return new RestApiClient(ROGUE_API_URL . '/' . ROGUE_API_VERSION);
+  return new Rogue(ROGUE_API_URL . '/' . ROGUE_API_VERSION . '/');
 }
 
 /**
@@ -78,7 +77,7 @@ function dosomething_rogue_send_reportback_to_rogue($values, $user = NULL) {
         'crop_rotate' => $values['crop_rotate'],
   ];
 
-  $response = $client->post($client->getBaseUri() . '/reportbacks', $data);
+  $response = $client->postReportback($data);
 
   if (in_array($response->code, [200, 201]) && module_exists('stathat')) {
     stathat_send_ez_count('drupal - Rogue - reportback sent - count', 1);
@@ -119,16 +118,9 @@ function dosomething_rogue_send_reportback_to_rogue($values, $user = NULL) {
  */
 function dosomething_rogue_update_rogue_reportback_items($data)
 {
-  $client = _dosomething_rogue_build_http_client();
+  $client = dosomething_rogue_client();
 
-  $options = [
-    'method' => 'PUT',
-    'headers' => $client['headers'],
-    'data' =>
-      json_encode($data),
-  ];
-
-  $response = drupal_http_request($client['base_url'] . '/items', $options);
+  $response = $client->updateReportback($data);
 
   //@TODO - Add error handling.
 

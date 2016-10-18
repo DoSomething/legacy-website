@@ -21,7 +21,7 @@ define('NORTHSTAR_APP_KEY', variable_get('dosomething_northstar_app_key', 'secre
 /**
  * Get a configured instance of the Northstar client.
  *
- * @return DoSomething\Northstar\Northstar
+ * @return DoSomething\Gateway\Northstar
  */
 function dosomething_northstar_client() {
   return new Northstar([
@@ -52,6 +52,12 @@ function dosomething_northstar_menu() {
     'user/openid' => [
       'title' => 'OpenID Connect',
       'page callback' => 'dosomething_northstar_openid_login_view',
+      'access arguments' => ['access content'],
+      'type' => MENU_CALLBACK,
+    ],
+    'user/authorize' => [
+      'title' => 'openid connect authorize',
+      'page callback' => 'dosomething_northstar_openid_authorize',
       'access arguments' => ['access content'],
       'type' => MENU_CALLBACK,
     ],
@@ -172,7 +178,7 @@ function dosomething_northstar_get_error_code($errorMessage) {
  *
  * @param  string $id
  * @param  string $type
- * @return DoSomething\Northstar\Resources\NorthstarUser|null
+ * @return DoSomething\Gateway\Resources\NorthstarUser|null
  */
 function dosomething_northstar_get_user($id, $type = 'drupal_id') {
   $cache_bin = 'cache_dosomething_northstar';
@@ -322,31 +328,6 @@ function dosomething_northstar_log_request($op, $user, $request_body, $response,
       'response_values' => json_encode($response),
     ])
     ->execute();
-}
-
-/**
- * Create an OpenID Connect authorization URL.
- *
- * @return array
- */
-function dosomething_northstar_openid_authorize_url() {
-  /** @var $client OpenIDConnectClientNorthstar */
-  $client = openid_connect_get_client('northstar');
-  $scopes = openid_connect_get_scopes();
-
-  return $client->getAuthorizeUrl($scopes);
-}
-
-/**
- * Render the view for OpenID Connect login. Displayed standalone
- * at `/user/openid` and (with feature flag enabled) in the modal.
- *
- * @return array
- */
-function dosomething_northstar_openid_login_view() {
-  $authorize_url = dosomething_northstar_openid_authorize_url();
-
-  return theme('openid_login', ['url' => $authorize_url]);
 }
 
 /**
