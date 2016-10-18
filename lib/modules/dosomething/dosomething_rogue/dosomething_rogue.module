@@ -78,7 +78,7 @@ function dosomething_rogue_send_reportback_to_rogue($values, $user = NULL) {
         'crop_rotate' => $values['crop_rotate'],
   ];
 
-  $response = $client->postReportback('reportbacks', $data);
+  $response = $client->postReportback($data);
 
   if (in_array($response->code, [200, 201]) && module_exists('stathat')) {
     stathat_send_ez_count('drupal - Rogue - reportback sent - count', 1);
@@ -121,7 +121,7 @@ function dosomething_rogue_update_rogue_reportback_items($data)
 {
   $client = dosomething_rogue_client();
 
-  $response = $client->updateReportback('items', $data);
+  $response = $client->updateReportback($data);
 
   //@TODO - Add error handling.
 
