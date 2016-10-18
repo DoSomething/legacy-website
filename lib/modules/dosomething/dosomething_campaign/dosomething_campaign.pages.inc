@@ -32,15 +32,29 @@ function dosomething_campaign_reportback_confirmation_page($node) {
   // Image size to pass to campaign block.
   $image_size = '740x480';
 
-  // Set button to link to /campaigns.
-  $button_text = t(variable_get('dosomething_campaign_confirmation_page_button_text'));
-  $vars['more_campaigns_link'] = l(t($button_text), 'campaigns', [
-    'attributes' => [
-      'class' => [
-        'button'
+
+  // If SMS player is anonymous, he button should open the login/register form.
+  if (user_is_anonymous()) {
+    $button_text = t(variable_get('dosomething_campaign_confirmation_page_anon_button_text'));
+    $vars['call_to_action'] = t(variable_get('dosomething_campaign_confirmation_page_anon_cta_text'));
+
+    $vars['more_campaigns_link'] = l(t($button_text), '#', [
+      'attributes' => [
+        'class' => ['button'],
+        'data-modal-href' => '#modal--register'
       ]
-    ]
-  ]);
+    ]);
+  } else {
+    // Otherwise, set button to link to /campaigns.
+    $button_text = t(variable_get('dosomething_campaign_confirmation_page_button_text'));
+    $vars['more_campaigns_link'] = l(t($button_text), 'campaigns', [
+      'attributes' => [
+        'class' => [
+          'button'
+        ]
+      ]
+    ]);
+  }
 
   // Set variables for authenticated user:
   if (module_exists('dosomething_reward')) {
