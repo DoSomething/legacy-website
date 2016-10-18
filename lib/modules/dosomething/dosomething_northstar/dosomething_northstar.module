@@ -21,7 +21,7 @@ define('NORTHSTAR_APP_KEY', variable_get('dosomething_northstar_app_key', 'secre
 /**
  * Get a configured instance of the Northstar client.
  *
- * @return DoSomething\Northstar\Northstar
+ * @return DoSomething\Gateway\Northstar
  */
 function dosomething_northstar_client() {
   return new Northstar([
@@ -178,7 +178,7 @@ function dosomething_northstar_get_error_code($errorMessage) {
  *
  * @param  string $id
  * @param  string $type
- * @return DoSomething\Northstar\Resources\NorthstarUser|null
+ * @return DoSomething\Gateway\Resources\NorthstarUser|null
  */
 function dosomething_northstar_get_user($id, $type = 'drupal_id') {
   $cache_bin = 'cache_dosomething_northstar';
