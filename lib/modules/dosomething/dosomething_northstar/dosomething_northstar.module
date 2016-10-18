@@ -55,6 +55,12 @@ function dosomething_northstar_menu() {
       'access arguments' => ['access content'],
       'type' => MENU_CALLBACK,
     ],
+    'user/authorize' => [
+      'title' => 'openid connect authorize',
+      'page callback' => 'dosomething_northstar_openid_authorize',
+      'access arguments' => ['access content'],
+      'type' => MENU_CALLBACK,
+    ],
   ];
 }
 
@@ -322,31 +328,6 @@ function dosomething_northstar_log_request($op, $user, $request_body, $response,
       'response_values' => json_encode($response),
     ])
     ->execute();
-}
-
-/**
- * Create an OpenID Connect authorization URL.
- *
- * @return array
- */
-function dosomething_northstar_openid_authorize_url() {
-  /** @var $client OpenIDConnectClientNorthstar */
-  $client = openid_connect_get_client('northstar');
-  $scopes = openid_connect_get_scopes();
-
-  return $client->getAuthorizeUrl($scopes);
-}
-
-/**
- * Render the view for OpenID Connect login. Displayed standalone
- * at `/user/openid` and (with feature flag enabled) in the modal.
- *
- * @return array
- */
-function dosomething_northstar_openid_login_view() {
-  $authorize_url = dosomething_northstar_openid_authorize_url();
-
-  return theme('openid_login', ['url' => $authorize_url]);
 }
 
 /**

@@ -61,6 +61,6 @@ function dosomething_signup_get_signup_button($label, $nid, $form_id) {
   }
   // Otherwise, for anonymous user, return a #markup array to be rendered.
   return array(
-    '#markup' => dosomething_user_get_login_modal_link_markup($label),
+    '#markup' => dosomething_user_get_sign_up_link_markup($label, $nid),
   );
 }
