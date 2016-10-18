@@ -129,7 +129,9 @@ function dosomething_northstar_perform_authorization_actions() {
   $actions = $_SESSION['openid_connect_action'];
   foreach ($actions as $action => $target) {
     if($action === 'signup') {
-      dosomething_signup_user_signup((int) $target, $user, 'lolol'); // @TODO lololol
+      $source = dosomething_signup_get_query_source();
+      dosomething_signup_user_signup((int) $target, $user, $source);
+
       drupal_goto('node/' . $target);
     }
   }
