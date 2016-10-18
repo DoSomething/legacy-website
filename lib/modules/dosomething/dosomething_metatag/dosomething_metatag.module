@@ -67,8 +67,9 @@ function dosomething_metatag_preprocess_page(&$vars) {
       'url' => url(current_path(), array('absolute'=> TRUE)),
       'title' => $node->title,
       'description' => "Volunteer and take action! " . $node->field_call_to_action[$langauge_code][0]['value'],
-      'image' => dosomething_image_get_themed_image_url($node->nid, 'landscape', '1440x810'),
+      'image' => dosomething_image_get_themed_image_url($node->field_image_campaign_cover[$langauge_code][0]['entity']->nid, 'landscape', '1440x810'),
     );
+
     dosomething_metatag_add_facebook_tags($social_data);
     dosomething_metatag_add_twitter_tags($social_data);
   }
@@ -188,52 +189,6 @@ function dosomething_metatag_get_permalink_vars() {
   $node = dosomething_campaign_load(node_load($rb_entity->nid));
   $share_copy = $node->call_to_action;
   $share_url = url(current_path(), array('absolute' => TRUE, 'query' => array('fid' => $fid)));
-
-  // Twitter.
-  $element = array(
-    '#tag' => 'meta',
-    '#attributes' => array(
-      "property" => "twitter:card",
-      "content" => 'photo',
-    ),
-  );
-  drupal_add_html_head($element, 'twitter:card');
-
-  $element = array(
-    '#tag' => 'meta',
-    '#attributes' => array(
-      "property" => "twitter:site",
-      "content" => '@dosomething',
-    ),
-  );
-  drupal_add_html_head($element, 'twitter:site');
-
-  $element = array(
-    '#tag' => 'meta',
-    '#attributes' => array(
-      "property" => "twitter:image:src",
-      "content" => $image,
-    ),
-  );
-  drupal_add_html_head($element, 'twitter:image:src');
-
-  $element = array(
-    '#tag' => 'meta',
-    '#attributes' => array(
-      "property" => "twitter:title",
-      "content" => $node->title,
-    ),
-  );
-  drupal_add_html_head($element, 'twitter:title');
-
-  $element = array(
-    '#tag' => 'meta',
-    '#attributes' => array(
-      "property" => "twitter:url",
-      "content" => $share_url,
-    ),
-  );
-  drupal_add_html_head($element, 'twitter:url');
 
   // Facebook.
   $social_data = array(
@@ -404,7 +359,7 @@ function dosomething_metatag_add_twitter_tags($data) {
   drupal_add_html_head($description, 'twitter:description');
 
   if (array_key_exists('image', $data)) {
-    $description = [
+    $image = [
       '#tag' => 'meta',
       '#attributes' => [
         'property' => 'twitter:image',
