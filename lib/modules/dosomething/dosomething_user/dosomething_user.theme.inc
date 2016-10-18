@@ -60,7 +60,6 @@ function dosomething_user_get_register_link($label, $class = '') {
  * Implements template_preprocess_user_profile().
  */
 function dosomething_user_preprocess_user_profile(&$variables) {
-
   // Collect User Account data.
   $uid = $variables['elements']['#account']->uid;
   $user = user_load($uid);
