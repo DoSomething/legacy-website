@@ -21,7 +21,7 @@ class Rogue extends RestApiClient {
    * @return object|false
    */
   public function postReportback($data) {
-    $response = $this->post(ROGUE_API_URL . '/' . ROGUE_API_VERSION . '/' . 'reportbacks', $data);
+    $response = $this->post('reportbacks', $data);
 
     return $response;
   }
@@ -34,7 +34,7 @@ class Rogue extends RestApiClient {
    * @return object|false
    */
   public function updateReportback($data) {
-    $response = $this->put(ROGUE_API_URL . '/' . ROGUE_API_VERSION . '/' . 'items', $data);
+    $response = $this->put('items', $data);
 
     return $response;
   }

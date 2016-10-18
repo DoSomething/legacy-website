@@ -40,7 +40,7 @@ function dosomething_rogue_menu() {
  */
 function dosomething_rogue_client() {
 
-  return new Rogue(ROGUE_API_URL . '/' . ROGUE_API_VERSION);
+  return new Rogue(ROGUE_API_URL . '/' . ROGUE_API_VERSION . '/');
 }
 
 /**
@@ -61,21 +61,21 @@ function dosomething_rogue_send_reportback_to_rogue($values, $user = NULL) {
   $client = dosomething_rogue_client();
 
   $data = [
-        'northstar_id' => $northstar_id ? $northstar_id : NULL,
-        'drupal_id' => $user->uid,
-        'campaign_id' => $values['nid'],
-        'campaign_run_id' => $run->nid,
-        'quantity' => $values['quantity'],
-        'why_participated' => $values['why_participated'],
-        'file' => $values['file'],
-        'file_id' => '', // @TODO - currently require by rogue, should not be.
-        'caption' => $values['caption'],
-        'status' => isset($values['status']) ? $values['status'] : 'pending',
-        'crop_x' => $values['crop_x'],
-        'crop_y' => $values['crop_y'],
-        'crop_width' => $values['crop_width'],
-        'crop_height' => $values['crop_height'],
-        'crop_rotate' => $values['crop_rotate'],
+    'northstar_id' => $northstar_id ? $northstar_id : NULL,
+    'drupal_id' => $user->uid,
+    'campaign_id' => $values['nid'],
+    'campaign_run_id' => $run->nid,
+    'quantity' => $values['quantity'],
+    'why_participated' => $values['why_participated'],
+    'file' => $values['file'],
+    'file_id' => '', // @TODO - currently require by rogue, should not be.
+    'caption' => $values['caption'],
+    'status' => isset($values['status']) ? $values['status'] : 'pending',
+    'crop_x' => $values['crop_x'],
+    'crop_y' => $values['crop_y'],
+    'crop_width' => $values['crop_width'],
+    'crop_height' => $values['crop_height'],
+    'crop_rotate' => $values['crop_rotate'],
   ];
 
   $response = $client->postReportback($data);
