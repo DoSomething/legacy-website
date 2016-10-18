@@ -26,6 +26,37 @@ function dosomething_user_get_sign_up_link_markup($label, $nid) {
 }
 
 /**
+ * Returns markup for a link to login.
+ *
+ * @param $label
+ * @param $class
+ * @return string
+ */
+function dosomething_user_get_login_link($label, $class) {
+  if (module_exists('dosomething_northstar') && variable_get('dosomething_user_openid_oauth_login_enabled')) {
+    return l(t($label), 'user/authorize', ['attributes' => ['class' => $class]]);
+  }
+
+  return l(t($label), 'user/login', ['attributes' => ['data-modal-href' => '#modal--login', 'class' => $class]]);
+}
+
+/**
+ * Returns markup for a link to register.
+ *
+ * @param $label
+ * @param $class
+ * @return string
+ */
+function dosomething_user_get_register_link($label, $class = '') {
+  if (module_exists('dosomething_northstar') && variable_get('dosomething_user_openid_oauth_login_enabled')) {
+    // @TODO: We need to implement this `?register` query string in authorize route here, and on Northstar.
+    return l(t($label), 'user/authorize?register', ['attributes' => ['class' => $class]]);
+  }
+
+  return l(t($label), 'user/register', ['attributes' => ['data-modal-href' => '#modal--register', 'class' => $class]]);
+}
+
+/**
  * Implements template_preprocess_user_profile().
  */
 function dosomething_user_preprocess_user_profile(&$variables) {
