@@ -199,7 +199,7 @@ function dosomething_northstar_get_user($id, $type = 'drupal_id') {
   }
 
   // Northstar user not found.
-  $error = sprintf("Error fetching Northstar user data, id=%d: '%s'", $id, $northstar_user_info->error);
+  $error = sprintf("Error fetching Northstar user data for user with drupal_id = %d.", $id);
   watchdog_exception('northstar', new Exception($error));
 
   return NULL;

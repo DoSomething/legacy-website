@@ -110,3 +110,14 @@ function dosomething_northstar_update_7003() {
     'primary key' => ['id'],
   ]);
 }
+
+/**
+ * Adds an index to the uid field to help with lookups.
+ */
+function dosomething_northstar_update_7004() {
+  if (db_table_exists('authmap')) {
+    if (db_field_exists('authmap', 'uid')) {
+      db_add_index('authmap', 'uid', ['uid']);
+    }
+  }
+}
