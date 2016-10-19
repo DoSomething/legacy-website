@@ -37,7 +37,7 @@ function dosomething_user_get_login_link($label, $class) {
     return l(t($label), 'user/authorize', ['attributes' => ['class' => $class]]);
   }
 
-  return l(t($label), 'user/login', ['attributes' => ['data-modal-href' => '#modal--login', 'class' => $class]]);
+  return l(t($label), 'user/login', ['attributes' => ['data-modal-href' => '#modal--login', 'class' => $class, 'id' => 'link--login']]);
 }
 
 /**
