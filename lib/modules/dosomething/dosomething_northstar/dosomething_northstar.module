@@ -180,12 +180,23 @@ function dosomething_northstar_get_error_code($errorMessage) {
  * @param  string $type
  * @return DoSomething\Gateway\Resources\NorthstarUser|null
  */
-function dosomething_northstar_get_user($id, $type = 'drupal_id') {
+function dosomething_northstar_get_user($id, $type = 'id') {
+  // Prefer using user's Northstar ID.
+  if ($type === 'drupal_id') {
+    $northstar_id = dosomething_user_get_northstar_id($id);
+
+    if ($northstar_id) {
+      $type = 'id';
+      $id = $northstar_id;
+    }
+  }
+
   $cache_bin = 'cache_dosomething_northstar';
   $cache_key = 'northstar_user_'.$type.'='.$id;
 
   $northstar_user = cache_get($cache_key, $cache_bin);
 
+  // Return cached northstar user data.
   if ($northstar_user) {
     return $northstar_user->data;
   }
