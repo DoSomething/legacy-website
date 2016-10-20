@@ -69,7 +69,6 @@ function dosomething_rogue_send_reportback_to_rogue($values, $user = NULL) {
         'quantity' => $values['quantity'],
         'why_participated' => $values['why_participated'],
         'file' => $values['file'],
-        'file_id' => '', // @TODO - currently require by rogue, should not be.
         'caption' => $values['caption'],
         'status' => isset($values['status']) ? $values['status'] : 'pending',
         'crop_x' => $values['crop_x'],
@@ -79,36 +78,28 @@ function dosomething_rogue_send_reportback_to_rogue($values, $user = NULL) {
         'crop_rotate' => $values['crop_rotate'],
   ];
 
-  $response = $client->post($client->getBaseUri() . '/reportbacks', $data);
+  try {
+    $response = $client->post($client->getBaseUri() . '/reportback', $data);
 
-  if (in_array($response->code, [200, 201]) && module_exists('stathat')) {
-    stathat_send_ez_count('drupal - Rogue - reportback sent - count', 1);
-  }
-  else {
-    // Log as watchdog error, and stathat value.
     if (module_exists('stathat')) {
-      stathat_send_ez_count('drupal - Rogue - reportback failed - count', 1);
+      stathat_send_ez_count('drupal - Rogue - reportback sent - count', 1);
     }
-    // Save fail to a db log so we can easily export.
-    db_insert('dosomething_rogue_failed_task_log')
-      ->fields([
-        'drupal_id' => $user->uid,
-        'campaign_id' => $values['nid'],
-        'campaign_run_id' => $run->nid,
-        'quantity' => $values['quantity'],
-        'why_participated' => $values['why_participated'],
-        'file' => $values['file'],
-        'caption' => $values['caption'],
-        'timestamp' => REQUEST_TIME,
-        'response_code' => $response->code,
-        'response_values' => json_encode($response),
-      ])
-      ->execute();
+    if (!$response) {
+      // This is a 404
+      dosomething_rogue_handle_failure($user, $values, $run, $response, $e);
+    }
+  }
+  catch (GuzzleHttp\Exception\ServerException $e) {
+    // These aren't yet caught by Gateway
+    dosomething_rogue_handle_failure($user, $values, $run, $response, $e);
+  }
+  catch (Exception $e) {
 
-      watchdog('dosomething_rogue', 'reportback not migrated to Rogue', ['user' => $user->uid, 'campaign_id' => $values['nid'], 'campaign_run_id' => $run->nid], WATCHDOG_ERROR);
+    dosomething_rogue_handle_failure($user, $values, $run, $response, $e);
   }
 
-  return drupal_json_decode($response->data);
+
+  return $response;
 }
 
 /**
@@ -172,4 +163,40 @@ function dosomething_rogue_store_rogue_references($rbid, $fid, $rogue_reportback
       'created_at' => REQUEST_TIME,
       ))
     ->execute();
+}
+
+/**
+ * Insert record that stores reference to the most recent uploaded reportback item in
+ * phoenix and it's corresponding id's in Rogue
+ *
+ * @param object $user
+ * @param array  $values
+ * @param int    $run
+ * @param array  $response
+ * @param object $e
+ *
+ */
+function dosomething_rogue_handle_failure($user, $values, $run, $response = NULL, $e = NULL)
+{
+   if (module_exists('stathat')) {
+      stathat_send_ez_count('drupal - Rogue - reportback failed - count', 1);
+    }
+
+    // Save fail to a db log so we can easily export.
+    db_insert('dosomething_rogue_failed_task_log')
+      ->fields([
+        'drupal_id' => $user->uid,
+        'campaign_id' => $values['nid'],
+        'campaign_run_id' => $run->nid,
+        'quantity' => $values['quantity'],
+        'why_participated' => $values['why_participated'],
+        'file' => $values['file'],
+        'caption' => $values['caption'],
+        'timestamp' => REQUEST_TIME,
+        'response_code' => $response->code, // @TODO: this is currently null until there a better way to get it from Gateway
+        'response_values' => (isset($e)) ? $e->getMessage() : NULL,
+      ])
+      ->execute();
+
+      watchdog('dosomething_rogue', 'reportback not migrated to Rogue', ['user' => $user->uid, 'campaign_id' => $values['nid'], 'campaign_run_id' => $run->nid], WATCHDOG_ERROR);
 }
