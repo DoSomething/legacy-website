@@ -6,6 +6,47 @@ module_load_include('php', 'openid_connect', 'includes/OpenIDConnectClientBase.c
 include_once('plugins/openid_connect_client/northstar/OpenIDConnectClientNorthstar.class.php');
 
 /**
+ * Create an OpenID Connect authorization URL.
+ *
+ * @return array
+ */
+function dosomething_northstar_openid_authorize_url() {
+  /** @var $client OpenIDConnectClientNorthstar */
+  $client = openid_connect_get_client('northstar');
+  $scopes = openid_connect_get_scopes();
+
+  return $client->getAuthorizeUrl($scopes);
+}
+
+/**
+ * Render the view for OpenID Connect login. Displayed standalone
+ * at `/user/openid` and (with feature flag enabled) in the modal.
+ *
+ * @return array
+ */
+function dosomething_northstar_openid_login_view() {
+  $authorize_url = dosomething_northstar_openid_authorize_url();
+
+  return theme('openid_login', ['url' => $authorize_url]);
+}
+
+/**
+ * Create an authorization link and redirect to it. (This way we don't
+ * have to make a state token every time we have a page with a login link).
+ *
+ * @return void
+ */
+function dosomething_northstar_openid_authorize() {
+  $authorize_url = dosomething_northstar_openid_authorize_url();
+
+  if(isset($_GET['action']) && isset($_GET['node'])) {
+    dosomething_northstar_set_authorization_action($_GET['action'], $_GET['node']);
+  }
+
+  drupal_goto($authorize_url, ['absolute' => TRUE]);
+}
+
+/**
  * Register our custom OpenID Connect provider.
  *
  * Implements hook_ctools_plugin_directory().
@@ -49,10 +90,51 @@ function dosomething_northstar_openid_connect_post_authorize($tokens, $account, 
     'access_token_expiration' => $tokens['expire'],
   ]);
 
+  // If we saved a "post-authorization" action, do it now.
+  dosomething_northstar_perform_authorization_actions();
+
   // Let's remember that this is a OpenID Connect session.
   $_SESSION['DOSOMETHING_NORTHSTAR_OPENID_CONNECT'] = true;
 
   user_save($account, $edit);
+}
+
+/**
+ * Save a post-authorization destination in the session (e.g. for signing
+ * up for a campaign).
+ *
+ * @param $node
+ * @return void
+ */
+function dosomething_northstar_set_authorization_action($action, $nid) {
+  if ($action !== 'signup') {
+    return;
+  }
+
+  $_SESSION['openid_connect_action'] = ['signup' => $nid];
+}
+
+/**
+ * Perform any post-authorization actions (e.g. signups) queued in the session.
+ *
+ * @return void
+ */
+function dosomething_northstar_perform_authorization_actions() {
+  global $user;
+
+  if (! isset($_SESSION['openid_connect_action'])) {
+    return;
+  }
+
+  $actions = $_SESSION['openid_connect_action'];
+  foreach ($actions as $action => $target) {
+    if($action === 'signup') {
+      $source = dosomething_signup_get_query_source();
+      dosomething_signup_user_signup((int) $target, $user, $source);
+
+      drupal_goto('node/' . $target);
+    }
+  }
 }
 
 /**

@@ -62,14 +62,16 @@ function dosomething_metatag_preprocess_page(&$vars) {
   // Add explicit facebook og meta tags to campaign pages.
   if (isset($node) && $node->type == 'campaign') {
     $langauge_code = dosomething_global_get_language($user, $node);
-
-    $facebook_data = array(
+    $social_data = array(
       'type' => 'dosomething_facebook:campaign',
       'url' => url(current_path(), array('absolute'=> TRUE)),
       'title' => $node->title,
       'description' => "Volunteer and take action! " . $node->field_call_to_action[$langauge_code][0]['value'],
+      'image' => dosomething_image_get_themed_image_url($node->field_image_campaign_cover[$langauge_code][0]['entity']->nid, 'landscape', '1440x810'),
     );
-    dosomething_metatag_add_facebook_tags($facebook_data);
+
+    dosomething_metatag_add_facebook_tags($social_data);
+    dosomething_metatag_add_twitter_tags($social_data);
   }
 
   // Add special share info to the permalink page.
@@ -188,54 +190,8 @@ function dosomething_metatag_get_permalink_vars() {
   $share_copy = $node->call_to_action;
   $share_url = url(current_path(), array('absolute' => TRUE, 'query' => array('fid' => $fid)));
 
-  // Twitter.
-  $element = array(
-    '#tag' => 'meta',
-    '#attributes' => array(
-      "property" => "twitter:card",
-      "content" => 'photo',
-    ),
-  );
-  drupal_add_html_head($element, 'twitter:card');
-
-  $element = array(
-    '#tag' => 'meta',
-    '#attributes' => array(
-      "property" => "twitter:site",
-      "content" => '@dosomething',
-    ),
-  );
-  drupal_add_html_head($element, 'twitter:site');
-
-  $element = array(
-    '#tag' => 'meta',
-    '#attributes' => array(
-      "property" => "twitter:image:src",
-      "content" => $image,
-    ),
-  );
-  drupal_add_html_head($element, 'twitter:image:src');
-
-  $element = array(
-    '#tag' => 'meta',
-    '#attributes' => array(
-      "property" => "twitter:title",
-      "content" => $node->title,
-    ),
-  );
-  drupal_add_html_head($element, 'twitter:title');
-
-  $element = array(
-    '#tag' => 'meta',
-    '#attributes' => array(
-      "property" => "twitter:url",
-      "content" => $share_url,
-    ),
-  );
-  drupal_add_html_head($element, 'twitter:url');
-
   // Facebook.
-  $facebook_data = array(
+  $social_data = array(
     'type' => 'dosomething_facebook:campaign',
     'url' => $share_url,
     'title' => $node->title,
@@ -246,7 +202,8 @@ function dosomething_metatag_get_permalink_vars() {
     'height' => 480,
   );
 
-  dosomething_metatag_add_facebook_tags($facebook_data);
+  dosomething_metatag_add_facebook_tags($social_data);
+  dosomething_metatag_add_twitter_tags($social_data);
 }
 
 /*
@@ -346,5 +303,69 @@ function dosomething_metatag_add_facebook_tags($data) {
       ),
     );
     drupal_add_html_head($element, 'og:image:height');
+  }
+}
+
+/*
+ * Add twitter meta tags to the page.
+ *
+ * @param array $data
+ *   Array of the content to use for each property.
+ */
+function dosomething_metatag_add_twitter_tags($data) {
+  $card = [
+    '#tag' => 'meta',
+    '#attributes' => [
+      'property' => 'twitter:card',
+      'content' => 'summary_large_image',
+    ],
+  ];
+  drupal_add_html_head($card, 'twitter:card');
+
+  $site = [
+    '#tag' => 'meta',
+    '#attributes' => [
+      'property' => 'twitter:site',
+      'content' => '@dosomething',
+    ],
+  ];
+  drupal_add_html_head($site, 'twitter:site');
+
+  $creator = [
+    '#tag' => 'meta',
+    '#attributes' => [
+      'property' => 'twitter:creator',
+      'content' => '@dosomething',
+    ],
+  ];
+  drupal_add_html_head($creator, 'twitter:creator');
+
+  $title = [
+    '#tag' => 'meta',
+    '#attributes' => [
+      'property' => 'twitter:title',
+      'content' => $data['title'],
+    ],
+  ];
+  drupal_add_html_head($title, 'twitter:title');
+
+  $description = [
+    '#tag' => 'meta',
+    '#attributes' => [
+      'property' => 'twitter:description',
+      'content' => $data['description'],
+    ],
+  ];
+  drupal_add_html_head($description, 'twitter:description');
+
+  if (array_key_exists('image', $data)) {
+    $image = [
+      '#tag' => 'meta',
+      '#attributes' => [
+        'property' => 'twitter:image',
+        'content' => $data['image'],
+      ],
+    ];
+    drupal_add_html_head($image, 'twitter:image');
   }
 }
