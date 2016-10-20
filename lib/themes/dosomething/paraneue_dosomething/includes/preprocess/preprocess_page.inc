@@ -47,7 +47,7 @@ function paraneue_dosomething_preprocess_page(&$vars) {
     'modifier_classes' => $modifier_classes,
     'logo'             => $vars['logo'],
     'front_page'       => $vars['front_page'],
-    'log_in_link'      => dosomething_user_get_login_link('Log In', 'secondary-nav-item'),
+    'log_in_link'      => dosomething_user_get_login_link('Log In', ['secondary-nav-item']),
     'logged_in'        => $vars['logged_in'],
     'search_box'       => $vars['search_box'],
     'user_identifier'  => $vars['user_identifier'],
