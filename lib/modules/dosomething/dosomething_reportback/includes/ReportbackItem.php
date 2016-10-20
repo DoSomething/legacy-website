@@ -110,7 +110,7 @@ class ReportbackItem extends Entity {
     $this->campaign = Campaign::get($data->nid);
 
     if ($full && module_exists('dosomething_northstar')) {
-      $northstar_user = dosomething_northstar_get_user($data->uid);
+      $northstar_user = dosomething_northstar_get_user($data->uid, 'drupal_id');
     }
 
     $this->user = [
