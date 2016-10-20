@@ -107,11 +107,16 @@ function dosomething_northstar_openid_connect_post_authorize($tokens, $account, 
   // Let's remember that this is a OpenID Connect session.
   $_SESSION['DOSOMETHING_NORTHSTAR_OPENID_CONNECT'] = true;
 
-  // Determine the user's language code if possible.
-  $language_code = dosomething_settings_get_geo_country_code();
+  if (empty($account->language)) {
+    // Determine the user's language code if possible.
+    $language_code = dosomething_settings_get_geo_country_code();
 
-  $edit['language'] = $language_code ? $language_code : 'en-global';
-  $edit['timezone'] = 'UTC';
+    $edit['language'] = $language_code ? $language_code : 'en-global';
+  }
+
+  if (empty($account->timezone)) {
+    $edit['timezone'] = 'UTC';
+  }
 
   user_save($account, $edit);
 }
