@@ -1323,7 +1323,7 @@ function dosomething_user_get_field_last_name($field_value, $format = 'ucwords')
  *   Returns NULL if not set, otherwise string Northstar ID.
  */
 function dosomething_user_get_field_northstar_id($field_value) {
-  // Return NULL if the module is not enavbled.
+  // Return NULL if the module is not enabled.
   if (!module_exists('dosomething_northstar')) {
     return NULL;
   }
@@ -1337,13 +1337,28 @@ function dosomething_user_get_field_northstar_id($field_value) {
   return $field_value;
 }
 
+/**
+ * Return the specified Drupal user/global user's Northstar ID.
+ *
+ * @param  string $drupal_id
+ * @return mixed
+ */
+function dosomething_user_get_northstar_id($drupal_id = NULL) {
+  $user = NULL;
+
+  if ($drupal_id) {
+    $user = user_load($drupal_id);
+  }
+
+  return dosomething_user_get_field('field_northstar_id', $user);
+}
 
 /**
  * Helper function to prepare an array of user fields.
  *
  * Extends existing array of user form values with Entity API's fields.
  * The fields will be added to &$edit array prefixed with `field_`.
- * All from this flow exceprions will be processed so &$edit is ready for
+ * All from this flow exceptions will be processed so &$edit is ready for
  * user_save() execution.
  *
  * @param  array $edit
