@@ -24,6 +24,6 @@ class PhoenixTransactionBridge implements TransactionBridgeContract {
   public function log($message, array $details) {
     $details = json_encode($details);
 
-    watchdog('PhoenixTransactionBridge', $message . ' !details', array('!details' => $details), WATCHDOG_INFO);
+    watchdog('PhoenixTransactionBridge', $message . ' !details', ['!details' => $details], WATCHDOG_INFO);
   }
 }
