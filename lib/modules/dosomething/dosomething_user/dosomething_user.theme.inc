@@ -29,10 +29,10 @@ function dosomething_user_get_sign_up_link_markup($label, $nid) {
  * Returns markup for a link to login.
  *
  * @param $label
- * @param $class
+ * @param array $class
  * @return string
  */
-function dosomething_user_get_login_link($label, $class) {
+function dosomething_user_get_login_link($label, array $class) {
   if (module_exists('dosomething_northstar') && variable_get('dosomething_user_openid_oauth_login_enabled')) {
     return l(t($label), 'user/authorize', ['attributes' => ['class' => $class]]);
   }
