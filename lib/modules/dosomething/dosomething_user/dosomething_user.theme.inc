@@ -28,7 +28,7 @@ function dosomething_user_get_sign_up_link_markup($label, $nid) {
 /**
  * Returns markup for a link to login.
  *
- * @param $label
+ * @param string $label
  * @param array $class
  * @return string
  */
