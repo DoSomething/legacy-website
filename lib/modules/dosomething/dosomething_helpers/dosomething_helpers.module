@@ -718,7 +718,7 @@ function dosomething_helpers_get_current_user($user = NULL, $asArray = FALSE) {
   }
 
   // Authenticated User
-  $northstar_user = dosomething_northstar_get_user($user->uid);
+  $northstar_user = dosomething_northstar_get_user($user->uid, 'drupal_id');
 
   if ($northstar_user && $asArray) {
     return dosomething_helpers_get_user_as_array($northstar_user);

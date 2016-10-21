@@ -115,7 +115,7 @@ class Kudos extends Entity {
     $this->term = $this->getTaxonomyTerm($data->tid);
 
     if ($full && module_exists('dosomething_northstar')) {
-      $northstar_user = dosomething_northstar_get_user($data->uid);
+      $northstar_user = dosomething_northstar_get_user($data->uid, 'drupal_id');
     }
 
     $this->user = [

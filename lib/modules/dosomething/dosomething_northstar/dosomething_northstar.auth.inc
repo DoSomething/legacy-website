@@ -84,6 +84,7 @@ function dosomething_northstar_openid_connect_claims_alter(&$claims) {
  */
 function dosomething_northstar_openid_connect_post_authorize($tokens, $account, $userinfo, $provider) {
   $edit = [];
+
   dosomething_user_set_fields($edit, [
     'access_token' => $tokens['access_token'],
     'refresh_token' => $tokens['access_token'],
@@ -95,11 +96,27 @@ function dosomething_northstar_openid_connect_post_authorize($tokens, $account, 
     _dosomething_user_send_to_message_broker();
   }
 
+  // Make sure the user's Northstar ID is set in the field_data_field_northstar_id table.
+  if (!dosomething_user_get_northstar_id($account->uid)) {
+    dosomething_northstar_save_id_field($account->uid, ['data' => $userinfo]);
+  }
+
   // If we saved a "post-authorization" action, do it now.
   dosomething_northstar_perform_authorization_actions();
 
   // Let's remember that this is a OpenID Connect session.
   $_SESSION['DOSOMETHING_NORTHSTAR_OPENID_CONNECT'] = true;
+
+  if (empty($account->language)) {
+    // Determine the user's language code if possible.
+    $language_code = dosomething_global_get_language($account);
+
+    $edit['language'] = $language_code ? $language_code : 'en-global';
+  }
+
+  if (empty($account->timezone)) {
+    $edit['timezone'] = 'UTC';
+  }
 
   user_save($account, $edit);
 }
