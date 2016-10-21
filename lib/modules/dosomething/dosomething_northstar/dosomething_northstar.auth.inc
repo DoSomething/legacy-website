@@ -109,7 +109,7 @@ function dosomething_northstar_openid_connect_post_authorize($tokens, $account, 
 
   if (empty($account->language)) {
     // Determine the user's language code if possible.
-    $language_code = dosomething_settings_get_geo_country_code();
+    $language_code = dosomething_global_get_language($account);
 
     $edit['language'] = $language_code ? $language_code : 'en-global';
   }
