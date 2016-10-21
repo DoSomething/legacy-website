@@ -89,7 +89,7 @@ function dosomething_home_preprocess_node(&$vars) {
       $tiles['status'] = TRUE;
       $tiles['image'] = '<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=" data-src="' . $tiles['image_url'] . '">';
 
-      $link_language = dosomething_global_get_language($user, $node, FALSE);
+      $link_language = dosomething_global_get_language_by_language_code(dosomething_global_get_language($user, $node, FALSE));
       $tiles['link'] = dosomething_global_url('node/' . $nid, ['language' => $link_language, 'query' => ['source' => $source]]);
       $thumbnails[$nid] = paraneue_dosomething_get_gallery_item($tiles, 'tile');
     }
