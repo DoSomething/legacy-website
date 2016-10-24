@@ -92,7 +92,7 @@ function dosomething_rogue_send_reportback_to_rogue($values, $user = NULL) {
     // These aren't yet caught by Gateway
     dosomething_rogue_handle_failure($user, $values, $response, $e);
   }
-  catch (Exception $e) {
+  catch (DoSomething\Gateway\Exceptions\ApiException $e) {
 
     dosomething_rogue_handle_failure($user, $values, $response, $e);
   }
