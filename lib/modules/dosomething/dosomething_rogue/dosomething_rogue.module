@@ -78,24 +78,23 @@ function dosomething_rogue_send_reportback_to_rogue($values, $user = NULL) {
   ];
 
   try {
-    $response = $client->post($client->getBaseUri() . '/reportback', $data);
+    $response = $client->postReportback($data);
 
     if (module_exists('stathat')) {
       stathat_send_ez_count('drupal - Rogue - reportback sent - count', 1);
     }
     if (!$response) {
       // This is a 404
-      dosomething_rogue_handle_failure($user, $values, $run, $response, $e);
+      dosomething_rogue_handle_failure($user, $values, $response, $e);
     }
   }
   catch (GuzzleHttp\Exception\ServerException $e) {
     // These aren't yet caught by Gateway
-    dosomething_rogue_handle_failure($user, $values, $run, $response, $e);
+    dosomething_rogue_handle_failure($user, $values, $response, $e);
   }
   catch (Exception $e) {
 
-
-    dosomething_rogue_handle_failure($user, $values, $run, $response, $e);
+    dosomething_rogue_handle_failure($user, $values, $response, $e);
   }
 
 
@@ -164,16 +163,17 @@ function dosomething_rogue_store_rogue_references($rbid, $fid, $rogue_reportback
  *
  * @param object $user
  * @param array  $values
- * @param int    $run
  * @param array  $response
  * @param object $e
  *
  */
-function dosomething_rogue_handle_failure($user, $values, $run, $response = NULL, $e = NULL)
+function dosomething_rogue_handle_failure($user, $values, $response = NULL, $e = NULL)
 {
    if (module_exists('stathat')) {
       stathat_send_ez_count('drupal - Rogue - reportback failed - count', 1);
     }
+
+    $run = dosomething_helpers_get_current_campaign_run_for_user($values['nid']);
 
     // Save fail to a db log so we can easily export.
     db_insert('dosomething_rogue_failed_task_log')
