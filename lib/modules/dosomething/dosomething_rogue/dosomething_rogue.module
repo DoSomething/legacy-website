@@ -60,6 +60,20 @@ function dosomething_rogue_send_reportback_to_rogue($values, $user = NULL) {
 
   $client = dosomething_rogue_client();
 
+  // If there is no file, check to see if the user has already reported back for this campaign in Phoenix.
+  if (! isset($values['file'])) {
+    // $rbid = '2351';
+    $rbid = dosomething_reportback_exists($values['nid'], $run->nid, $user->uid);
+    // If there is a RB in Phoenix, check the dosomething_rogue_reportback table to see if the RB already exists in Rogue.
+    if ($rbid) {
+      $exists_in_rogue = db_query("SELECT * FROM {dosomething_rogue_reportbacks} rogue_rbs WHERE rbid = :rbid", array(':rbid' => $rbid))->fetchAll();
+      // If the RB does not yet exist in Rogue, send along the most recently created reportback_item so the RB can be created in Rogue.
+      if (! $exists_in_rogue) {
+        //
+      }
+    }
+  }
+
   $data = [
         'northstar_id' => $northstar_id ? $northstar_id : NULL,
         'drupal_id' => $user->uid,
@@ -120,7 +134,7 @@ function dosomething_rogue_update_rogue_reportback_items($data)
 }
 
 /**
- * Query to find Rogue reportbak item id by Phoenix fid.
+ * Query to find Rogue reportback item id by Phoenix fid.
  *
  * @param string $fid
  * Phoenix fid of reportback item.
