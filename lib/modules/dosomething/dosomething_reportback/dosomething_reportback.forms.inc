@@ -410,7 +410,7 @@ function dosomething_reportback_form_submit($form, &$form_state) {
     } else {
       // @TODO - if the reportback doesn't successfully get sent back to phoenix, how should
       // this be handled for the user?
-      $form_state['redirect'] = 'node/' . $values['nid'];
+      $form_state['redirect'] = 'reportback/failure/' . $values['nid'];
     }
   } else {
     // Save uploaded file.
