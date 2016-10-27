@@ -922,7 +922,6 @@ function dosomething_helpers_get_current_campaign_run_for_user($nid, $user = NUL
   // Load the run and return it.
   // For some reason this also loads the proper translation, for both anonymous users and authed. I can't explain it.
   // @TODO: may want to investigate how it loads the proper translation...
-
   return node_load($run['id']);
 }
 

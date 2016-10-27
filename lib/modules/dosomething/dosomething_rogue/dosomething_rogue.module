@@ -71,7 +71,8 @@ function dosomething_rogue_send_reportback_to_rogue($values, $user = NULL) {
         $reportback = reportback_load($rbid);
         $most_recent_rb_item_id = array_pop($reportback->fids);
         $reportback_file = entity_load('reportback_item', array($most_recent_rb_item_id));
-        $values['file'] = $reportback_file[$most_recent_rb_item_id]->image;
+        $image = file_load($most_recent_rb_item_id);
+        $values['file'] = 'data: ' . mime_content_type($image->filemime) . ';base64,' . base64_encode(file_get_contents($image->uri));
         $values['caption'] = $reportback_file[$most_recent_rb_item_id]->caption;
       }
     }
