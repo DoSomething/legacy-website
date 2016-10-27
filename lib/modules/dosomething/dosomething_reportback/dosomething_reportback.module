@@ -245,8 +245,6 @@ function dosomething_reportback_menu() {
   $items['reportback/failure'] = array(
     'title' => 'Reportback',
     'page callback' => 'dosomething_reportback_view_failure',
-    // 'page arguments' => array(1),
-    //'access callback' => 'dosomething_reportback_access',
     'access arguments' => array('access content'),
   );
   $items['reportback/%reportback'] = array(
