@@ -629,8 +629,7 @@ function dosomething_reportback_view_entity($entity) {
 function dosomething_reportback_view_failure() {
   // Get the user in all the forms that we need
   global $user;
-  $rb_simple_user = dosomething_user_get_simple_user($rb_user = user_load($user));
-
+  $rb_simple_user = dosomething_user_get_simple_user($user);
 
   // Load the campaign node so we can find out its name, if there's a scholarship, etc.
   $nid = $_GET['nid'];
