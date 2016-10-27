@@ -65,7 +65,7 @@ function dosomething_rogue_send_reportback_to_rogue($values, $user = NULL) {
     $rbid = dosomething_reportback_exists($values['nid'], $run->nid, $user->uid);
     // If there is a RB in Phoenix, check the dosomething_rogue_reportback table to see if the RB already exists in Rogue.
     if ($rbid) {
-      $exists_in_rogue = db_query("SELECT * FROM {dosomething_rogue_reportbacks} rogue_rbs WHERE rbid = :rbid", array(':rbid' => $rbid))->fetchAll();
+      $exists_in_rogue = dosomething_rogue_rb_exists_in_rogue($rbid);
       // If the RB does not yet exist in Rogue, send along the most recently created reportback_item so the RB can be created in Rogue.
       if (! $exists_in_rogue) {
         $reportback = reportback_load($rbid);
@@ -209,4 +209,9 @@ function dosomething_rogue_handle_failure($user, $values, $response = NULL, $e =
       ->execute();
 
       watchdog('dosomething_rogue', 'reportback not migrated to Rogue', ['user' => $user->uid, 'campaign_id' => $values['nid'], 'campaign_run_id' => $run->nid], WATCHDOG_ERROR);
+}
+
+function dosomething_rogue_rb_exists_in_rogue($rbid)
+{
+  return db_query("SELECT * FROM {dosomething_rogue_reportbacks} rogue_rbs WHERE rbid = :rbid", array(':rbid' => $rbid))->fetchAll();
 }
