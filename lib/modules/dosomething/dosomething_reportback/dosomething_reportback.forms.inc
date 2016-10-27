@@ -409,14 +409,7 @@ function dosomething_reportback_form_submit($form, &$form_state) {
       );
     } else {
       // Send user to the failed permalink page
-      $form_state['redirect'] = [
-        'reportback/failure',
-        [
-          'query' => [
-            'nid' => $values['nid'],
-          ],
-        ],
-      ];
+      $form_state['redirect'] = 'reportback/failure/' . $values['nid'];
     }
   } else {
     // Save uploaded file.

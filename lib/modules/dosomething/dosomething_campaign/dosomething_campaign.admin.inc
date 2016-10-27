@@ -271,12 +271,12 @@ function dosomething_campaign_admin_config_form($form, &$form_state) {
     '#required' => TRUE,
     '#default_value' => t(variable_get('dosomething_campaign_permalink_failure_copy')),
   );
-  $form['permalink']['owners']['failure']['dosomething_campaign_permalink_failure_image_fid'] = array(
+  $form['permalink']['owners']['failure']['dosomething_campaign_permalink_failure_image_nid'] = array(
     '#type' => 'textfield',
     '#title' => t('Permalink failure page image'),
-    '#description' => t('FID of the image that appears on the failure page in place of the reportback image.'),
+    '#description' => t('NID of the image that appears on the failure page in place of the reportback image.'),
     '#required' => TRUE,
-    '#default_value' => t(variable_get('dosomething_campaign_permalink_failure_image_fid')),
+    '#default_value' => t(variable_get('dosomething_campaign_permalink_failure_image_nid')),
   );
   $form['permalink']['owners']['dosomething_campaign_permalink_owners_page_title'] = array(
     '#type' => 'textfield',
