@@ -29,17 +29,14 @@
     <div class="wrapper">
       <div class="card">
         <div class="card__column">
-          <img src="http://lorempizza.com/480/480">
+          <?php print $fail_image; ?>
         </div>
         <div class="card__column">
           <div class="wrapper">
           <!--Show user the reportback confirmation page -->
             <div class="card__copy">
               <h1><?php print $node->title; ?></h1>
-
-              <p>Well, this is embarrassing. We got your photo, but it's taking longer for our servers to process than we thought.</p>
-              <p>Don't worry, your photo is safe andyou're still entered into any scholarship drawings you qualified for. Check back on <a href="<?php print $profile; ?>">your profile</a> in about an hour to see your completed campaign!</p>
-
+              <?php print $failure_copy; ?>
             </div>
           </div>
         </div>

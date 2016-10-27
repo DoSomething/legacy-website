@@ -623,27 +623,38 @@ function dosomething_reportback_view_entity($entity) {
   return theme('reportback_permalink', $permalink_vars);
 }
 
+/**
+ * Callback for /reportback/failure page.
+ *
+ * We hit this when a reportback sent to Rogue fails to send back to Phoenix
+ */
 function dosomething_reportback_view_failure() {
+  // Get the user in all the forms that we need
   global $user;
-  // @TODO: use $rb_simple_user->uid to build link to user profile (or find function that builds the link)
   $rb_simple_user = dosomething_user_get_simple_user($rb_user = user_load($user));
 
-  $copy_vars = _dosomething_reportback_get_permalink_copy_vars($rb_user);
 
+  // Load the campaign node so we can find out its name, if there's a scholarship, etc.
   $nid = $_GET['nid'];
   $node = dosomething_campaign_load(node_load($nid));
 
-  $profile_path = $base_url . '/user/' . $user->uid;
+  // Get all the copy and allow admins to build a link to the user's profile
+  $copy_vars = _dosomething_reportback_get_permalink_copy_vars($rb_user);
+  $failure_copy = token_replace(t(variable_get('dosomething_campaign_permalink_failure_copy', '')), ['user' => $user]);
+  $incentive = ($node->scholarship) ? $copy_vars['owners_rb_scholarship'] : "";
+
+  // Get the image
+  $file = reportback_file_load(variable_get('dosomething_campaign_permalink_failure_image_fid'));
+  $fail_image = $file->getImage('480x480');
 
   $permalink_fail_vars = [
-    'rb' => $rb,
-    'node' => $node,
     'user' => $rb_simple_user,
     'copy_vars' => $copy_vars,
     'title' => $copy_vars['owners_title'],
     'subtitle' => $copy_vars['owners_rb_subtitle'] . " " . $incentive,
     'node' => $node,
-    'profile' => $profile_path,
+    'failure_copy' => $failure_copy,
+    'fail_image' => $fail_image,
   ];
 
   return theme('reportback_rogue_fail_permalink', $permalink_fail_vars);
