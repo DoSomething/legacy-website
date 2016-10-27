@@ -636,7 +636,7 @@ function dosomething_reportback_view_failure() {
   $node = dosomething_campaign_load(node_load($nid));
 
   // Get all the copy and allow admins to build a link to the user's profile
-  $copy_vars = _dosomething_reportback_get_permalink_copy_vars($rb_user);
+  $copy_vars = _dosomething_reportback_get_permalink_copy_vars($user);
   $failure_copy = token_replace(t(variable_get('dosomething_campaign_permalink_failure_copy', '')), ['user' => $user]);
   $incentive = ($node->scholarship) ? $copy_vars['owners_rb_scholarship'] : "";
 
