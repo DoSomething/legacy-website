@@ -604,8 +604,6 @@ function dosomething_user_new_user($form, &$form_state)
   global $user;
 
   // Trigger an analytics event on registration
-  // @NOTE: The 'Authentication - Login' event will *also* be triggered here,
-  // since registered users are subsequently logged in to their new accounts.
   dosomething_helpers_add_analytics_event('Authentication', 'Register');
 
   if (module_exists('dosomething_northstar')) {
