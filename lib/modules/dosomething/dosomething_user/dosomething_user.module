@@ -1089,6 +1089,11 @@ function dosomething_user_login_validate($form, &$form_state) {
       }
     }
   }
+
+  // If Northstar is enabled & account is externally created, try to auth with Northstar.
+  if (module_exists('dosomething_northstar') && ! empty($account->field_created_by_openid_connect[LANGUAGE_NONE][0]['value'])) {
+    dosomething_northstar_fallback_classic_login($form, $form_state);
+  }
 }
 
 /**
