@@ -223,6 +223,11 @@ function dosomething_mbp_get_common_campaign_payload(&$payload, $params) {
   $payload['subscribed'] = 1;
   $payload['event_id']   = $params['event_id'];
 
+  // Signup Id.
+  if (!empty($params['signup_id'])) {
+    $payload['signup_id'] = $params['signup_id'];
+  }
+
   if (isset($params['campaign_language'])) {
     $payload['campaign_language'] = $params['campaign_language'];
     $payload['campaign_country'] = $params['campaign_country'];
