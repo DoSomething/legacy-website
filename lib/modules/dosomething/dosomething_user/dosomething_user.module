@@ -290,11 +290,11 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
         unset($form['field_partner']);
         unset($form['field_school_id']);
         unset($form['field_user_registration_source']);
+        unset($form['field_created_by_openid_connect']);
         unset($form['field_northstar_id']);
         unset($form['field_access_token']);
         unset($form['field_access_token_expiration']);
         unset($form['field_refresh_token']);
-        unset($form['field_northstar_id']);
         unset($form['picture']);
         unset($form['field_under_thirteen']);
         unset($form['field_job_title']);
@@ -305,6 +305,7 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
       else {
         // Set read-only for fields that should not be editable.
         $form['field_user_registration_source']['#disabled'] = TRUE;
+        $form['field_created_by_openid_connect']['#disabled'] = TRUE;
         $form['field_northstar_id']['#disabled'] = TRUE;
         $form['field_access_token']['#disabled'] = TRUE;
         $form['field_access_token_expiration']['#disabled'] = TRUE;
@@ -836,9 +837,6 @@ function dosomething_user_is_old_person($user = NULL) {
 function dosomething_user_login_submit($form, &$form_state) {
   // Trigger an analytics event on login
   dosomething_helpers_add_analytics_event('Authentication', 'Login');
-
-  // Attempt to verify the given credentials with Northstar.
-  _dosomething_user_verify_northstar_login($form_state);
 }
 
 /**
@@ -1088,6 +1086,11 @@ function dosomething_user_login_validate($form, &$form_state) {
         form_set_value($form['name'], $account->name, $form_state);
       }
     }
+  }
+
+  // If Northstar is enabled & account is externally created, try to auth with Northstar.
+  if (module_exists('dosomething_northstar') && ! empty($account->field_created_by_openid_connect[LANGUAGE_NONE][0]['value'])) {
+    dosomething_northstar_fallback_classic_login($form, $form_state);
   }
 }
 

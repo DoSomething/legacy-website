@@ -91,7 +91,13 @@ function dosomething_northstar_openid_connect_post_authorize($tokens, $account, 
     'access_token_expiration' => $tokens['expire'],
   ]);
 
-  // HACK: Is this account newly created (last 15s)? If so, send email.
+  // HACK: Did this local account exist already? If not, mark as "remote"
+  // so that we know we can't use it's local password for login/profile.
+  if ($account->created > time() - 15) {
+    dosomething_user_set_fields($edit, ['created_by_openid_connect' => 1]);
+  }
+
+  // HACK: Was this account registered just now (last 15s)? If so, send email.
   if ($userinfo['created_at'] > time() - 15) {
     _dosomething_user_send_to_message_broker();
   }
@@ -176,4 +182,34 @@ function dosomething_northstar_user_logout($account) {
   session_destroy();
 
   drupal_goto($is_openid_login ? $northstar_logout_url : '/');
+}
+
+/**
+ * Submit handler for handling "classic" logins of accounts that do not have
+ * local passwords, using Northstar's `v1/auth/verify` endpoint.
+ *
+ * @param $form
+ * @param $form_state
+ */
+function dosomething_northstar_fallback_classic_login(&$form, &$form_state) {
+  // If the account does not have a local password, verify using Northstar
+  $northstar_user = dosomething_northstar_verify_user([
+    'username' => $form_state['input']['name'],
+    'password' => $form_state['input']['pass'],
+  ]);
+
+  // If successful response & ID field is given, the credentials worked.
+  if (! empty($northstar_user['data']['id'])) {
+    $sub = $northstar_user['data']['id'];
+    $account = openid_connect_user_load_by_sub($sub, 'northstar');
+
+    if (! $account) {
+      return FALSE;
+    }
+
+    // Since we've validated these credentials in Northstar, force login this user.
+    $form_state['uid'] = $account->uid;
+    unset($form_state['values']['name']);
+    unset($form_state['values']['pass']);
+  }
 }

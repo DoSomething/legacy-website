@@ -223,6 +223,15 @@ function paraneue_dosomething_form_user_profile_form_alter(&$form, &$form_state,
   // Add our process function to the array:
   $process[] = 'paraneue_dosomething_process_password_confirm';
   $form['account']['pass']['#process'] = $process;
+
+  // Remove the password fields if user has OpenID Connect profile.
+  // @TODO: Once Northstar profile page is shipped, send these users there.
+  if (dosomething_user_get_field('field_created_by_openid_connect')) {
+    $account_form = &$form['account'];
+    $account_form['current_pass']['#access'] = FALSE;
+    $account_form['current_pass_required_values']['#value'] = array();
+    $account_form['pass']['#access'] = FALSE;
+  }
 }
 
 function paraneue_dosomething_form_user_profile_after_build($form, &$form_state) {
