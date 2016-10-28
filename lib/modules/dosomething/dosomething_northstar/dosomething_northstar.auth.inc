@@ -90,6 +90,11 @@ function dosomething_northstar_openid_connect_post_authorize($tokens, $account, 
     'access_token_expiration' => $tokens['expire'],
   ]);
 
+  // HACK: Did this local account exist already? If not, mark as "remote"
+  // so that we know we can't use it's local password for login/profile.
+  if ($account->created > time() - 15) {
+    dosomething_user_set_fields($edit, ['created_by_openid_connect' => 1]);
+  }
 
   // HACK: Was this account registered just now (last 15s)? If so, send email.
   if ($userinfo['created_at'] > time() - 15) {
