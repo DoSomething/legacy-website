@@ -75,7 +75,7 @@ function dosomething_metatag_preprocess_page(&$vars) {
   }
 
   // Add special share info to the permalink page.
-  if (in_array('page__reportback', $vars['theme_hook_suggestions'])) {
+  if (in_array('page__reportback', $vars['theme_hook_suggestions']) && !in_array('page__reportback__failure', $vars['theme_hook_suggestions'])) {
     dosomething_metatag_get_permalink_vars();
   }
 }

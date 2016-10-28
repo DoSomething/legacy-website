@@ -242,6 +242,12 @@ function dosomething_reportback_menu() {
       'file' => 'dosomething_reportback.admin.inc',
     );
   }
+  $items['reportback/failure/%nid'] = array(
+    'title' => 'Reportback',
+    'page callback' => 'dosomething_reportback_view_failure',
+    'page arguments' => array(2),
+    'access arguments' => array('access content'),
+  );
   $items['reportback/%reportback'] = array(
     'title' => 'Reportback',
     'page callback' => 'dosomething_reportback_view_entity',
@@ -616,6 +622,39 @@ function dosomething_reportback_view_entity($entity) {
   return theme('reportback_permalink', $permalink_vars);
 }
 
+/**
+ * Callback for /reportback/failure page.
+ *
+ * We hit this when a reportback sent to Rogue fails to send back to Phoenix
+ */
+function dosomething_reportback_view_failure($nid) {
+  // Get the user in all the forms that we need
+  global $user;
+  $rb_simple_user = dosomething_user_get_simple_user($user);
+
+  // Load the campaign node so we can find out its name, if there's a scholarship, etc.
+  $node = dosomething_campaign_load(node_load($nid));
+
+  // Get all the copy and allow admins to build a link to the user's profile
+  $copy_vars = _dosomething_reportback_get_permalink_copy_vars($user);
+  $failure_copy = token_replace(t(variable_get('dosomething_campaign_permalink_failure_copy', '')), ['user' => $user]);
+  $incentive = ($node->scholarship) ? $copy_vars['owners_rb_scholarship'] : "";
+
+  // Get the image
+  $fail_image = dosomething_image_get_themed_image(variable_get('dosomething_campaign_permalink_failure_image_nid'), 'square', '480x480');
+
+  $permalink_fail_vars = [
+    'user' => $rb_simple_user,
+    'copy_vars' => $copy_vars,
+    'title' => $copy_vars['owners_title'],
+    'subtitle' => $copy_vars['owners_rb_subtitle'] . " " . $incentive,
+    'node' => $node,
+    'failure_copy' => $failure_copy,
+    'fail_image' => $fail_image,
+  ];
+
+  return theme('reportback_rogue_fail_permalink', $permalink_fail_vars);
+}
 
 /**
  * Custom submit handler for signup form.

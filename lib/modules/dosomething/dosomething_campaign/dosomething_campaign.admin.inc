@@ -258,6 +258,26 @@ function dosomething_campaign_admin_config_form($form, &$form_state) {
     '#required' => TRUE,
     '#default_value' => t(variable_get('dosomething_campaign_permalink_confirmation_owners_social_network_copy')),
   );
+  $form['permalink']['owners']['failure'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Owners Permalink Failure Page'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
+  $form['permalink']['owners']['failure']['dosomething_campaign_permalink_failure_copy'] = array(
+    '#type' => 'textarea',
+    '#title' => t('Permalink failure page text'),
+    '#description' => t('Appears on the failure page to the right side of the image.'),
+    '#required' => TRUE,
+    '#default_value' => t(variable_get('dosomething_campaign_permalink_failure_copy')),
+  );
+  $form['permalink']['owners']['failure']['dosomething_campaign_permalink_failure_image_nid'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Permalink failure page image'),
+    '#description' => t('NID of the image that appears on the failure page in place of the reportback image.'),
+    '#required' => TRUE,
+    '#default_value' => t(variable_get('dosomething_campaign_permalink_failure_image_nid')),
+  );
   $form['permalink']['owners']['dosomething_campaign_permalink_owners_page_title'] = array(
     '#type' => 'textfield',
     '#title' => t('Permalink owners title'),
