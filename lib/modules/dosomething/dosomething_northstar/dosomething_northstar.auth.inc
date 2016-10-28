@@ -90,7 +90,8 @@ function dosomething_northstar_openid_connect_post_authorize($tokens, $account, 
     'access_token_expiration' => $tokens['expire'],
   ]);
 
-  // HACK: Is this account newly created (last 15s)? If so, send email.
+
+  // HACK: Was this account registered just now (last 15s)? If so, send email.
   if ($userinfo['created_at'] > time() - 15) {
     _dosomething_user_send_to_message_broker();
   }
