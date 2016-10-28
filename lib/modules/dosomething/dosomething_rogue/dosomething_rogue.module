@@ -193,6 +193,13 @@ function dosomething_rogue_handle_failure($user, $values, $response = NULL, $e =
       watchdog('dosomething_rogue', 'reportback not migrated to Rogue', ['user' => $user->uid, 'campaign_id' => $values['nid'], 'campaign_run_id' => $run->nid], WATCHDOG_ERROR);
 }
 
+/**
+ * Query to see if a reportback exists in Rogue by Phoenix $rbid.
+ *
+ * @param string $rbid
+ * Phoenix $rbid of reportback.
+ *
+ */
 function dosomething_rogue_rb_exists_in_rogue($rbid)
 {
   return db_query("SELECT * FROM {dosomething_rogue_reportbacks} rogue_rbs WHERE rbid = :rbid", array(':rbid' => $rbid))->fetchAll();
