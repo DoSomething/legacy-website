@@ -525,6 +525,7 @@ function dosomething_signup_entity_insert($entity, $type) {
   $account = user_load($entity->uid);
   $options['transactionals'] = $entity->transactionals;
   $options['source'] = $entity->source;
+  $options['signup_id'] = $entity->sid;
 
   // Send relevant third-party subscribe requests.
   dosomething_signup_third_party_subscribe($account, $node, $options);
@@ -701,6 +702,9 @@ function dosomething_signup_get_mbp_params($account, $node, $opt_in, $options = 
   }
   if (isset($options['source'])) {
     $params['source'] = $options['source'];
+  }
+  if (isset($options['signup_id'])) {
+    $params['signup_id'] = $options['signup_id'];
   }
 
   // Don't subscribe 26+ yo users for Mobile Commons.
