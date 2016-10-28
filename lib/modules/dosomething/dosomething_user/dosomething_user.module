@@ -294,7 +294,6 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
         unset($form['field_access_token']);
         unset($form['field_access_token_expiration']);
         unset($form['field_refresh_token']);
-        unset($form['field_northstar_id']);
         unset($form['picture']);
         unset($form['field_under_thirteen']);
         unset($form['field_job_title']);
