@@ -379,23 +379,38 @@ function dosomething_reportback_form_submit($form, &$form_state) {
 
   // Collect reportbacks in Rogue if rogue collection is turned on for this campaign.
   if (variable_get('rogue_collection', FALSE)) {
+    $rbid = dosomething_reportback_exists($form_state['build_info']['args'][0]->nid, $form_state['build_info']['args'][0]->run_nid, $form_state['build_info']['args'][0]->uid);
+    $reportback = reportback_load($rbid);
+    $fid = array_pop($reportback->fids);
+
     // Store the base64 encoded data uri of the file in the values array to send to rogue.
     if (array_key_exists('storage', $form_state)) {
       $file = $form_state['storage']['file'];
       $image = image_load($file->uri);
 
       $values['file'] = dosomething_helpers_get_data_uri_from_image($image);
+    } else {
+      // If there is no file and there is a RB in Phoenix, check the dosomething_rogue_reportback table to see if the RB already exists in Rogue.
+      if ($rbid) {
+        $exists_in_rogue = dosomething_rogue_rb_exists_in_rogue($rbid);
+
+        // If the RB does not yet exist in Rogue, send along the most recently created reportback_item so the RB can be created in Rogue.
+        if (! $exists_in_rogue) {
+          // $reportback = reportback_load($rbid);
+          // $most_recent_rb_item_id = array_pop($reportback->fids);
+          $reportback_file = entity_load('reportback_item', array($fid));
+          $image = file_load($fid);
+          $values['file'] = 'data: ' . mime_content_type($image->filemime) . ';base64,' . base64_encode(file_get_contents($image->uri));
+          $values['caption'] = $reportback_file[$fid]->caption;
+        }
+      }
     }
+
     // Send the reportback to rogue.
     $rogue_reportback = dosomething_rogue_send_reportback_to_rogue($values);
 
-    // Get the reportback stored in phoenix, store reference to the rb in rogue, redirect user to permalink page.
-    $rbid = dosomething_reportback_exists($rogue_reportback['data']['campaign_id'], $rogue_reportback['data']['campaign_run_id'], $rogue_reportback['data']['drupal_id']);
-
+    // Store reference to the rb in rogue, redirect user to permalink page.
     if ($rbid) {
-      // Store references to rogue IDs for the most recent uploaded reportback item.
-      $reportback = entity_load_unchanged('reportback', [$rbid]);
-      $fid = array_pop($reportback->fids);
       dosomething_rogue_store_rogue_references($rbid, $fid, $rogue_reportback);
 
       // Redirect to permalink page.
