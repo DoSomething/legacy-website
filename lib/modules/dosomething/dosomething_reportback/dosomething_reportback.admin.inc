@@ -291,14 +291,14 @@ function dosomething_reportback_files_form_submit($form, &$form_state) {
       // If there is a rogue_item_id in the dosomething_rogue_reportbacks table, send update to Rogue.
       if ($rogue_item_id[0]->rogue_item_id) {
         if ($values['status'] === 'promoted' || $values['status'] === 'approved' || $values['status'] === 'excluded') {
-          $values['status'] = 'accepted';
+          $rogue_status = 'accepted';
         } else {
-          $values['status'] = 'rejected';
+          $rogue_status = 'rejected';
         }
 
         $data = [
           'rogue_reportback_item_id' => $rogue_item_id[0]->rogue_item_id,
-          'status' => $values['status'],
+          'status' => $rogue_status,
         ];
 
         $updates_to_send_to_rogue[] = $data;
