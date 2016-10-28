@@ -173,15 +173,20 @@ function dosomething_northstar_perform_authorization_actions() {
  * @param $account
  */
 function dosomething_northstar_user_logout($account) {
-  $is_openid_login = ! empty($_SESSION['DOSOMETHING_NORTHSTAR_OPENID_CONNECT']);
-  $northstar_logout_url = url(NORTHSTAR_URL . '/logout', [
-    'query' => ['redirect' => url('/', ['absolute' => TRUE])],
-  ]);
+  $is_openid_login = ! empty($account->field_refresh_token[LANGUAGE_NONE][0]['value']);
 
   // Destroy the current session, and reset $user to the anonymous user.
   session_destroy();
 
-  drupal_goto($is_openid_login ? $northstar_logout_url : '/');
+  if ($is_openid_login) {
+    $northstar_logout_url = url(NORTHSTAR_URL . '/logout', [
+      'query' => ['redirect' => url('/', ['absolute' => TRUE])],
+    ]);
+
+    drupal_goto($northstar_logout_url);
+  }
+
+  drupal_goto('/');
 }
 
 /**
@@ -190,6 +195,7 @@ function dosomething_northstar_user_logout($account) {
  *
  * @param $form
  * @param $form_state
+ * @return bool
  */
 function dosomething_northstar_fallback_classic_login(&$form, &$form_state) {
   // If the account does not have a local password, verify using Northstar
@@ -199,17 +205,21 @@ function dosomething_northstar_fallback_classic_login(&$form, &$form_state) {
   ]);
 
   // If successful response & ID field is given, the credentials worked.
-  if (! empty($northstar_user['data']['id'])) {
-    $sub = $northstar_user['data']['id'];
-    $account = openid_connect_user_load_by_sub($sub, 'northstar');
-
-    if (! $account) {
-      return FALSE;
-    }
-
-    // Since we've validated these credentials in Northstar, force login this user.
-    $form_state['uid'] = $account->uid;
-    unset($form_state['values']['name']);
-    unset($form_state['values']['pass']);
+  if (empty($northstar_user['data']['id'])) {
+    return FALSE;
   }
+
+  $sub = $northstar_user['data']['id'];
+  $account = openid_connect_user_load_by_sub($sub, 'northstar');
+
+  if (! $account) {
+    return FALSE;
+  }
+
+  // Since we've validated these credentials in Northstar, force login this user.
+  $form_state['uid'] = $account->uid;
+  unset($form_state['values']['name']);
+  unset($form_state['values']['pass']);
+
+  return TRUE;
 }
