@@ -242,7 +242,7 @@ function dosomething_reportback_menu() {
       'file' => 'dosomething_reportback.admin.inc',
     );
   }
-  $items['reportback/failure/%nid'] = array(
+  $items['reportback/failure/%'] = array(
     'title' => 'Reportback',
     'page callback' => 'dosomething_reportback_view_failure',
     'page arguments' => array(2),
