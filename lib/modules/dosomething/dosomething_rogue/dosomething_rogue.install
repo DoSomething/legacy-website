@@ -19,7 +19,7 @@ function dosomething_rogue_schema() {
         'not null' => TRUE,
       ],
       'rogue_item_id' => [
-        'description' => 'The fid of the reportback item as it is stored in phoenix.',
+        'description' => 'The fid of the reportback item as it is stored in rogue.',
         'type' => 'int',
         'not null' => TRUE,
       ],
@@ -137,3 +137,47 @@ function dosomething_rogue_update_7002(&$sandbox) {
     db_create_table($table_name, $schema[$table_name]);
   }
 }
+
+/**
+ * Add rogue_reportback_item_id column to dosomething_rogue_failed_task_log table.
+ */
+function dosomething_rogue_update_7003(&$sandbox) {
+  $table_name = 'dosomething_rogue_failed_task_log';
+  if (db_table_exists($table_name)) {
+    $spec = [
+      'type' => int,
+      'description' => 'The fid of the reportback item as it is stored in phoenix.',
+    ];
+  db_add_field($table_name, 'rogue_item_id', $spec);
+  }
+}
+
+/**
+ * Add the status column to dosomething_rogue_failed_task_log table.
+ */
+
+function dosomething_rogue_update_7004(&$sandbox) {
+  $table_name = 'dosomething_rogue_failed_task_log';
+  if (db_table_exists($table_name)) {
+    $spec = [
+      'type' => int,
+      'description' => 'The updated status of the reportback item',
+    ];
+  db_add_field($table_name, 'status', $spec);
+  }
+}
+
+/**
+ * Add the type column to dosomething_rogue_failed_task_log table.
+ */
+function dosomething_rogue_update_7005(&$sandbox) {
+  $table_name = 'dosomething_rogue_failed_task_log';
+  if (db_table_exists($table_name)) {
+    $spec = [
+      'type' => int,
+      'description' => 'Either a POST to the /reportbacks Rogue endpoint or a PUT to the /items Rogue endpoint',
+    ];
+  db_add_field($table_name, 'type', $spec);
+  }
+}
+
