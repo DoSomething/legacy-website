@@ -290,6 +290,7 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
         unset($form['field_partner']);
         unset($form['field_school_id']);
         unset($form['field_user_registration_source']);
+        unset($form['field_created_by_openid_connect']);
         unset($form['field_northstar_id']);
         unset($form['field_access_token']);
         unset($form['field_access_token_expiration']);
@@ -304,6 +305,7 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
       else {
         // Set read-only for fields that should not be editable.
         $form['field_user_registration_source']['#disabled'] = TRUE;
+        $form['field_created_by_openid_connect']['#disabled'] = TRUE;
         $form['field_northstar_id']['#disabled'] = TRUE;
         $form['field_access_token']['#disabled'] = TRUE;
         $form['field_access_token_expiration']['#disabled'] = TRUE;
