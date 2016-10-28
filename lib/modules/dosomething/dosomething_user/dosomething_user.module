@@ -837,9 +837,6 @@ function dosomething_user_is_old_person($user = NULL) {
 function dosomething_user_login_submit($form, &$form_state) {
   // Trigger an analytics event on login
   dosomething_helpers_add_analytics_event('Authentication', 'Login');
-
-  // Attempt to verify the given credentials with Northstar.
-  _dosomething_user_verify_northstar_login($form_state);
 }
 
 /**
