@@ -85,15 +85,17 @@ function dosomething_rogue_send_reportback_to_rogue($values, $user = NULL) {
     }
     if (!$response) {
       // This is a 404
+      $values['type'] = 'reportback';
       dosomething_rogue_handle_failure($user, $values, $response, $e);
     }
   }
   catch (GuzzleHttp\Exception\ServerException $e) {
     // These aren't yet caught by Gateway
+    $values['type'] = 'reportback';
     dosomething_rogue_handle_failure($user, $values, $response, $e);
   }
   catch (DoSomething\Gateway\Exceptions\ApiException $e) {
-
+    $values['type'] = 'reportback';
     dosomething_rogue_handle_failure($user, $values, $response, $e);
   }
 
@@ -109,11 +111,36 @@ function dosomething_rogue_send_reportback_to_rogue($values, $user = NULL) {
  */
 function dosomething_rogue_update_rogue_reportback_items($data)
 {
+
   $client = dosomething_rogue_client();
+  try {
+    // $response = $client->updateReportback($data);
+    $response = NULL;
 
-  $response = $client->updateReportback($data);
-
-  //@TODO - Add error handling.
+    if (module_exists('stathat')) {
+      stathat_send_ez_count('drupal - Rogue - reportback items(s) updated status sent - count', count($data));
+    }
+    // if (!$response) {
+    if (is_null($response)) {
+      foreach ($data as $values) {
+        $values['type'] = 'reportback item';
+        dosomething_rogue_handle_failure(NULL, $values, $response, NULL);
+      }
+    }
+  }
+  catch (GuzzleHttp\Exception\ServerException $e) {
+    // These aren't yet caught by Gateway
+    foreach ($data as $values) {
+      $values['type'] = 'reportback item';
+      dosomething_rogue_handle_failure(NULL, $values, $response, $e);
+    }
+  }
+  catch (DoSomething\Gateway\Exceptions\ApiException $e) {
+    foreach ($data as $values) {
+      $values['type'] = 'reportback item';
+      dosomething_rogue_handle_failure(NULL, $values, $response, $e);
+    }
+  }
 
   return $response;
 }
@@ -166,15 +193,24 @@ function dosomething_rogue_store_rogue_references($rbid, $fid, $rogue_reportback
  * @param object $e
  *
  */
-function dosomething_rogue_handle_failure($user, $values, $response = NULL, $e = NULL)
+function dosomething_rogue_handle_failure($user = NULL, $values, $response = NULL, $e = NULL)
 {
-   if (module_exists('stathat')) {
-      stathat_send_ez_count('drupal - Rogue - reportback failed - count', 1);
-    }
+  if (module_exists('stathat')) {
+      if ($values['type'] === 'reportback') {
+        stathat_send_ez_count('drupal - Rogue - reportback failed - count', 1);
+      } else {
+        stathat_send_ez_count('drupal - Rogue - reportback item status failed - count', 1);
+      }
+  }
 
+  if ($values['nid']) {
     $run = dosomething_helpers_get_current_campaign_run_for_user($values['nid']);
+  } else {
+    $values['nid'] = NULL;
+  }
 
-    // Save fail to a db log so we can easily export.
+  // Save fail to a db log so we can easily export.
+  if ($values['type'] === 'reportback') {
     db_insert('dosomething_rogue_failed_task_log')
       ->fields([
         'drupal_id' => $user->uid,
@@ -184,13 +220,28 @@ function dosomething_rogue_handle_failure($user, $values, $response = NULL, $e =
         'why_participated' => $values['why_participated'],
         'file' => $values['file'],
         'caption' => $values['caption'],
+        'type' => $values['type'],
+        'timestamp' => REQUEST_TIME,
+        'response_code' => $response->code, // @TODO: this is currently null until there a better way to get it from Gateway
+        'response_values' => (isset($e)) ? $e->getMessage() : NULL,
+      ])
+      ->execute();
+      watchdog('dosomething_rogue', 'reportback not migrated to Rogue', ['user' => $user->uid, 'campaign_id' => $values['nid'], 'campaign_run_id' => $run->nid], WATCHDOG_ERROR);
+
+  } else {
+    db_insert('dosomething_rogue_failed_task_log')
+      ->fields([
+        'rogue_item_id' => $values['rogue_reportback_item_id'],
+        'status' => $values['status'],
+        'type' => $values['type'],
         'timestamp' => REQUEST_TIME,
         'response_code' => $response->code, // @TODO: this is currently null until there a better way to get it from Gateway
         'response_values' => (isset($e)) ? $e->getMessage() : NULL,
       ])
       ->execute();
 
-      watchdog('dosomething_rogue', 'reportback not migrated to Rogue', ['user' => $user->uid, 'campaign_id' => $values['nid'], 'campaign_run_id' => $run->nid], WATCHDOG_ERROR);
+      watchdog('dosomething_rogue', 'reportback item status not migrated to Rogue. (Rogue item id: !rogue_item_id status: !status', ['!rogue_item_id' => $values['rogue_item_id'], '!status' => $values['status']], WATCHDOG_ERROR);
+  }
 }
 
 /**

@@ -267,7 +267,7 @@ function dosomething_reportback_files_form_submit($form, &$form_state) {
 
     // Save kudos reaction from admin on RB item.
     if ($values['status'] === 'promoted' || $values['status'] === 'approved' || $values['status'] === 'excluded') {
-      $record = (new KudosController)->create($kudos);
+      // $record = (new KudosController)->create($kudos);
     }
 
     // Rotate the original image, if a rotation option was selected.
