@@ -203,14 +203,9 @@ function dosomething_rogue_handle_failure($user = NULL, $values, $response = NUL
       }
   }
 
-  if ($values['nid']) {
-    $run = dosomething_helpers_get_current_campaign_run_for_user($values['nid']);
-  } else {
-    $values['nid'] = NULL;
-  }
-
   // Save fail to a db log so we can easily export.
   if ($values['type'] === 'reportback') {
+    $run = dosomething_helpers_get_current_campaign_run_for_user($values['nid']);
     db_insert('dosomething_rogue_failed_task_log')
       ->fields([
         'drupal_id' => $user->uid,
@@ -227,7 +222,6 @@ function dosomething_rogue_handle_failure($user = NULL, $values, $response = NUL
       ])
       ->execute();
       watchdog('dosomething_rogue', 'reportback not migrated to Rogue', ['user' => $user->uid, 'campaign_id' => $values['nid'], 'campaign_run_id' => $run->nid], WATCHDOG_ERROR);
-
   } else {
     db_insert('dosomething_rogue_failed_task_log')
       ->fields([
