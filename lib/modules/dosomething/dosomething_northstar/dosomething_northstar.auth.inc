@@ -40,6 +40,11 @@ function dosomething_northstar_openid_login_view() {
  * @return void
  */
 function dosomething_northstar_openid_authorize() {
+  // If a Drupal session already exists, reset it from Northstar.
+  if (user_is_logged_in()) {
+    session_destroy();
+  }
+
   $authorize_url = dosomething_northstar_openid_authorize_url();
 
   if(isset($_GET['action']) && isset($_GET['node'])) {
