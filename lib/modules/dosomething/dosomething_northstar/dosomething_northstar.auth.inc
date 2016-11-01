@@ -173,11 +173,12 @@ function dosomething_northstar_perform_authorization_actions() {
  * @param $account
  */
 function dosomething_northstar_user_logout($account) {
-  $is_openid_login = ! empty($account->field_refresh_token[LANGUAGE_NONE][0]['value']);
+  $user = user_load($account->uid);
 
   // Destroy the current session, and reset $user to the anonymous user.
   session_destroy();
 
+  $is_openid_login = ! empty($user->field_refresh_token[LANGUAGE_NONE][0]['value']);
   if ($is_openid_login) {
     $northstar_logout_url = url(NORTHSTAR_URL . '/logout', [
       'query' => ['redirect' => url('/', ['absolute' => TRUE])],
