@@ -180,10 +180,6 @@ function dosomething_northstar_user_logout($account) {
 
   $is_openid_login = ! empty($user->field_refresh_token[LANGUAGE_NONE][0]['value']);
   if ($is_openid_login) {
-    $northstar_logout_url = url(NORTHSTAR_URL . '/logout', [
-      'query' => ['redirect' => url('/', ['absolute' => TRUE])],
-    ]);
-
     // Clear out token information to track that SSO session will be revoked.
     // @TODO: Actually revoke the refresh token in Northstar on logout.
     $edit = [];
@@ -192,9 +188,13 @@ function dosomething_northstar_user_logout($account) {
       'access_token_expiration' => NULL,
       'refresh_token' => NULL,
     ]);
-
     user_save($user, $edit);
 
+    // And redirect to SSO logout to prevent users from automatically
+    // logging in to the same account again.
+    $northstar_logout_url = url(NORTHSTAR_URL . '/logout', [
+      'query' => ['redirect' => url('/', ['absolute' => TRUE])],
+    ]);
     drupal_goto($northstar_logout_url);
   }
 
