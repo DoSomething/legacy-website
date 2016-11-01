@@ -400,7 +400,7 @@ function dosomething_reportback_form_submit($form, &$form_state) {
           // $most_recent_rb_item_id = array_pop($reportback->fids);
           $reportback_file = entity_load('reportback_item', array($fid));
           $image = file_load($fid);
-          $values['file'] = 'data: ' . mime_content_type($image->filemime) . ';base64,' . base64_encode(file_get_contents($image->uri));
+          $values['file'] = dosomething_helpers_get_data_uri_from_image($image);
           $values['caption'] = $reportback_file[$fid]->caption;
         }
       }
