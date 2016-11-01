@@ -19,8 +19,9 @@ function dosomething_northstar_openid_authorize_url() {
 }
 
 /**
- * Render the view for OpenID Connect login. Displayed standalone
- * at `/user/openid` and (with feature flag enabled) in the modal.
+ * Render the super-secret page for testing OpenID Connect login.
+ *
+ * GET /user/openid
  *
  * @return array
  */
@@ -31,8 +32,10 @@ function dosomething_northstar_openid_login_view() {
 }
 
 /**
- * Create an authorization link and redirect to it. (This way we don't
+ * Create an Northstar authorization link and redirect to it. (This way we don't
  * have to make a state token every time we have a page with a login link).
+ *
+ * GET /user/authorize
  *
  * @return void
  */
