@@ -184,6 +184,17 @@ function dosomething_northstar_user_logout($account) {
       'query' => ['redirect' => url('/', ['absolute' => TRUE])],
     ]);
 
+    // Clear out token information to track that SSO session will be revoked.
+    // @TODO: Actually revoke the refresh token in Northstar on logout.
+    $edit = [];
+    dosomething_user_set_fields($edit, [
+      'access_token' => NULL,
+      'access_token_expiration' => NULL,
+      'refresh_token' => NULL,
+    ]);
+
+    user_save($user, $edit);
+
     drupal_goto($northstar_logout_url);
   }
 
