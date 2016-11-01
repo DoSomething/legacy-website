@@ -25,16 +25,7 @@ function paraneue_dosomething_preprocess_html(&$vars) {
   $member_count = dosomething_user_get_member_count(TRUE);
   $vars['head_title'] = token_replace($vars['head_title'], ['member-count-readable' => $member_count]);
 
-  $enable_facebook_login = variable_get('dosomething_user_social_auth_enabled', FALSE);
-  $vars['enable_facebook_login'] = $enable_facebook_login;
-  if ($enable_facebook_login) {
-    drupal_add_js(PARANEUE_PATH . '/dist/social-auth.js', [
-      'group'      => JS_THEME,
-      'weight'     => 1000,
-      'every_page' => FALSE,
-      'preprocess' => FALSE,
-    ]);
-  }
+  $vars['enable_ad_tracking'] = variable_get('dosomething_setting_ad_tracking_enabled', FALSE);
 
   $update_url = variable_get('dosomething_settings_realtimefeed_update_url');
   drupal_add_js(
