@@ -928,17 +928,20 @@ function dosomething_helpers_get_current_campaign_run_for_user($nid, $user = NUL
 /**
  * Returns a base64 encoded data uri for an Image object
  *
- * @param  Image object $image
+ * @param  Image|File object $image
  * @return string
 */
 function dosomething_helpers_get_data_uri_from_image($image) {
-  $image_path = drupal_realpath($image->source);
-
-  // Read image path, convert to base64 encoding
-  $image_data = base64_encode(file_get_contents($image_path));
+  if (isset($image->filemime)) {
+    $mime = $image->filemime;
+    $data = base64_encode(file_get_contents($image->uri));
+  } else {
+    $mime = drupal_realpath($image->source);
+    $data = base64_encode(file_get_contents($mime));
+  }
 
   // Return the formated data uri: data:{mime};base64,{data};
-  return 'data: ' . mime_content_type($image_path) . ';base64,' . $image_data;
+  return 'data:' . mime_content_type($mime) . ';base64,' . $data;
 }
 
 /**
