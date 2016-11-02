@@ -48,6 +48,20 @@ function dosomething_settings_admin_config_form($form, &$form_state) {
     '#default_value' => variable_get($var_name),
   );
 
+  $form['ads'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Ad tracking'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
+
+  $var_name = 'dosomething_setting_ad_tracking_enabled';
+  $form['ads'][$var_name] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Enable ad tracking'),
+    '#default_value' => variable_get($var_name, FALSE),
+  );
+
   $form['fun'] = array(
     '#type' => 'fieldset',
     '#title' => t('FUN!'),
