@@ -181,3 +181,107 @@ function dosomething_rogue_update_7005(&$sandbox) {
   }
 }
 
+/**
+ * Change schema so drupal_id is not required.
+ */
+function dosomething_rogue_update_7006(&$sandbox) {
+  $table_name = 'dosomething_rogue_failed_task_log';
+  if (db_table_exists($table_name)) {
+    $spec = [
+      'description' => 'The drupal_id of the user.',
+      'type' => 'int',
+      'not null' => FALSE,
+    ];
+    db_change_field($table_name, 'drupal_id', 'drupal_id', $spec);
+  }
+}
+
+/**
+ * Change schema so campaign_id is not required.
+ */
+function dosomething_rogue_update_7007(&$sandbox) {
+  $table_name = 'dosomething_rogue_failed_task_log';
+  if (db_table_exists($table_name)) {
+    $spec = [
+      'description' => 'Campaign nid for the reportback.',
+      'type' => 'int',
+      'not null' => FALSE,
+    ];
+    db_change_field($table_name, 'campaign_id', 'campaign_id', $spec);
+  }
+}
+
+/**
+ * Change schema so campaign_run_id is not required.
+ */
+function dosomething_rogue_update_7008(&$sandbox) {
+  $table_name = 'dosomething_rogue_failed_task_log';
+  if (db_table_exists($table_name)) {
+    $spec = [
+      'description' => 'Campaign run nid for the reportback.',
+      'type' => 'int',
+      'not null' => FALSE,
+    ];
+    db_change_field($table_name, 'campaign_run_id', 'campaign_run_id', $spec);
+  }
+}
+
+/**
+ * Change schema so quantity is not required.
+ */
+function dosomething_rogue_update_7009(&$sandbox) {
+  $table_name = 'dosomething_rogue_failed_task_log';
+  if (db_table_exists($table_name)) {
+    $spec = [
+      'description' => 'The quantity of reportback_nouns reportback_verbed.',
+      'type' => 'int',
+      'not null' => FALSE,
+    ];
+    db_change_field($table_name, 'quantity', 'quantity', $spec);
+  }
+}
+
+/**
+ * Change schema so why_participated is not required.
+ */
+function dosomething_rogue_update_7010(&$sandbox) {
+  $table_name = 'dosomething_rogue_failed_task_log';
+  if (db_table_exists($table_name)) {
+    $spec = [
+      'description' => 'Why the user participated in the campaign.',
+      'type' => 'text',
+      'length' => '2048',
+      'not null' => FALSE,
+    ];
+    db_change_field($table_name, 'why_participated', 'why_participated', $spec);
+  }
+}
+
+/**
+ * Changes the type to be text in the status column.
+ */
+function dosomething_rogue_update_7011(&$sandbox) {
+  $table_name = 'dosomething_rogue_failed_task_log';
+  if (db_table_exists($table_name)) {
+    $spec = [
+      'type' => 'text',
+      'description' => 'The updated status of the reportback item',
+    ];
+    db_change_field($table_name, 'status', 'status', $spec);
+  }
+}
+
+/**
+ * Changes the type to be text in the type column.
+ */
+function dosomething_rogue_update_7012(&$sandbox) {
+  $table_name = 'dosomething_rogue_failed_task_log';
+  if (db_table_exists($table_name)) {
+    $spec = [
+      'type' => 'text',
+      'description' => 'Either a POST to the /reportbacks Rogue endpoint or a PUT to the /items Rogue endpoint',
+    ];
+    db_change_field($table_name, 'type', 'type', $spec);
+  }
+}
+

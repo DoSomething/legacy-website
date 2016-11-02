@@ -79,23 +79,21 @@ function dosomething_rogue_send_reportback_to_rogue($values, $user = NULL) {
 
   try {
     $response = $client->postReportback($data);
+    $values['type'] = 'reportback';
 
     if (module_exists('stathat')) {
       stathat_send_ez_count('drupal - Rogue - reportback sent - count', 1);
     }
     if (!$response) {
       // This is a 404
-      $values['type'] = 'reportback';
       dosomething_rogue_handle_failure($values, $response, $e, $user);
     }
   }
   catch (GuzzleHttp\Exception\ServerException $e) {
     // These aren't yet caught by Gateway
-    $values['type'] = 'reportback';
     dosomething_rogue_handle_failure($values, $response, $e, $user);
   }
   catch (DoSomething\Gateway\Exceptions\ApiException $e) {
-    $values['type'] = 'reportback';
     dosomething_rogue_handle_failure($values, $response, $e, $user);
   }
 
@@ -114,14 +112,12 @@ function dosomething_rogue_update_rogue_reportback_items($data)
 
   $client = dosomething_rogue_client();
   try {
-    // $response = $client->updateReportback($data);
-    $response = NULL;
+    $response = $client->updateReportback($data);
 
     if (module_exists('stathat')) {
       stathat_send_ez_count('drupal - Rogue - reportback items(s) updated status sent - count', count($data));
     }
-    // if (!$response) {
-    if (is_null($response)) {
+    if (!$response) {
       foreach ($data as $values) {
         $values['type'] = 'reportback item';
         dosomething_rogue_handle_failure($values, $response);
