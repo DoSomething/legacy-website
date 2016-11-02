@@ -109,7 +109,6 @@ function dosomething_rogue_send_reportback_to_rogue($values, $user = NULL) {
  */
 function dosomething_rogue_update_rogue_reportback_items($data)
 {
-
   $client = dosomething_rogue_client();
   try {
     $response = $client->updateReportback($data);
