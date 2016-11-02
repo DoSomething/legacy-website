@@ -86,17 +86,17 @@ function dosomething_rogue_send_reportback_to_rogue($values, $user = NULL) {
     if (!$response) {
       // This is a 404
       $values['type'] = 'reportback';
-      dosomething_rogue_handle_failure($user, $values, $response, $e);
+      dosomething_rogue_handle_failure($values, $response, $e, $user);
     }
   }
   catch (GuzzleHttp\Exception\ServerException $e) {
     // These aren't yet caught by Gateway
     $values['type'] = 'reportback';
-    dosomething_rogue_handle_failure($user, $values, $response, $e);
+    dosomething_rogue_handle_failure($values, $response, $e, $user);
   }
   catch (DoSomething\Gateway\Exceptions\ApiException $e) {
     $values['type'] = 'reportback';
-    dosomething_rogue_handle_failure($user, $values, $response, $e);
+    dosomething_rogue_handle_failure($values, $response, $e, $user);
   }
 
   return $response;
@@ -124,7 +124,7 @@ function dosomething_rogue_update_rogue_reportback_items($data)
     if (is_null($response)) {
       foreach ($data as $values) {
         $values['type'] = 'reportback item';
-        dosomething_rogue_handle_failure(NULL, $values, $response, NULL);
+        dosomething_rogue_handle_failure($values, $response);
       }
     }
   }
@@ -132,13 +132,13 @@ function dosomething_rogue_update_rogue_reportback_items($data)
     // These aren't yet caught by Gateway
     foreach ($data as $values) {
       $values['type'] = 'reportback item';
-      dosomething_rogue_handle_failure(NULL, $values, $response, $e);
+      dosomething_rogue_handle_failure($values, $response, $e);
     }
   }
   catch (DoSomething\Gateway\Exceptions\ApiException $e) {
     foreach ($data as $values) {
       $values['type'] = 'reportback item';
-      dosomething_rogue_handle_failure(NULL, $values, $response, $e);
+      dosomething_rogue_handle_failure($values, $response, $e);
     }
   }
 
@@ -193,7 +193,7 @@ function dosomething_rogue_store_rogue_references($rbid, $fid, $rogue_reportback
  * @param object $e
  *
  */
-function dosomething_rogue_handle_failure($user = NULL, $values, $response = NULL, $e = NULL)
+function dosomething_rogue_handle_failure($values, $response = NULL, $e = NULL, $user = NULL)
 {
   if (module_exists('stathat')) {
       if ($values['type'] === 'reportback') {
