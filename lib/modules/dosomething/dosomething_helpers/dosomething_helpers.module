@@ -561,23 +561,15 @@ function dosomething_helpers_floor_decimal($value, $decimals = 1) {
 
 
 /**
- * Adds custom GA event to page
+ * Adds custom analytics (Google Analytics & Optimizely) event to page.
+ * @see preprocess_html.inc
  *
- * @param String category The category of the event
- * @param String action The action being performed
- * @param (optional) String label The event label
- * @param (optional) String value The value to be sent
+ * @param string $category - The category of the event.
+ * @param string $action - The action being performed.
+ * @param string $label - (Optional) The event label.
  */
-function dosomething_helpers_add_analytics_event($category, $action, $label = NULL, $value = NULL) {
-  $event_string = '"' . $category . '"' . ', ' . '"' . $action . '"';
-  if ($label) {
-    $event_string = $event_string . ', ' . $label;
-  }
-  if ($value) {
-    $event_string = $event_string  . ',' . $value;
-  }
-  $google_analytics_js = 'if(typeof(ga) !== "undefined" && ga !== null) { ga("send", "event", ' . $event_string . '); }';
-  drupal_add_js($google_analytics_js, 'inline');
+function dosomething_helpers_add_analytics_event($category, $action, $label = NULL) {
+  $_SESSION['dosomething_analytics_events'][] = [$category, $action, $label];
 }
 
 /**
@@ -585,6 +577,7 @@ function dosomething_helpers_add_analytics_event($category, $action, $label = NU
  * that can be added to any url.
  * @param  $nid
  * @param  array $options - custom utm values to use.
+ * @return string
  */
 function dosomething_helpers_utm_parameters($nid, $options = NULL) {
   // Use the node id for 'utm_campaign', if it is given, otherwise use the custom value in $options

@@ -35,28 +35,29 @@ function dosomething_signup_forms($form_id, $args) {
  *   The label to display on the form submit button.
  */
 function dosomething_signup_form($form, &$form_state, $nid, $label = "Sign Up") {
-  $form['nid'] = array(
+  $form['nid'] = [
     '#type' => 'hidden',
     '#value' => $nid,
     '#access' => FALSE,
-  );
+  ];
   // Check query string for signup source value.
   if ($source = dosomething_signup_get_query_source()) {
-    $form['source'] = array(
+    $form['source'] = [
       '#type' => 'hidden',
       '#value' => $source,
       '#access' => FALSE,
-    );
+    ];
   }
-  $form['submit'] = array(
+  $form['submit'] = [
     '#type' => 'submit',
     '#value' => t($label),
-    '#attributes' => array(
-      'class' => array(
-        'button',
-      ),
-    ),
-  );
+    '#attributes' => [
+      'class' => ['button'],
+      'data-track-category' => 'Link',
+      'data-track-action' => 'Click',
+      'data-track-label' => 'Signup (Authenticated)',
+    ],
+  ];
   return $form;
 }
 

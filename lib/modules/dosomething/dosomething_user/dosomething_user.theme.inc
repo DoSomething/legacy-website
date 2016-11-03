@@ -18,11 +18,23 @@ function dosomething_user_get_sign_up_link_markup($label, $nid) {
       'query' => ['action' => 'signup', 'node' => $nid],
       'attributes' => [
         'class' => ['button'],
+        'data-track-category' => 'Link',
+        'data-track-action' => 'Click',
+        'data-track-label' => 'Signup (Unauthenticated)',
         'id' => 'link--campaign-signup-login'
       ]]);
   }
 
-  return '<a id="link--campaign-signup-login" href="#" data-modal-href="#modal--login" class="button">' . $label . '</a>';
+  return l(t($label), '#', [
+     'attributes' => [
+       'id' => 'link--campaign-signup-login',
+       'data-modal-href' => 'modal--login',
+       'data-track-category' => 'Link',
+       'data-track-action' => 'Click',
+       'data-track-label' => 'Signup (Unauthenticated)',
+       'class' => ['button'],
+     ]
+  ]);
 }
 
 /**
@@ -34,10 +46,26 @@ function dosomething_user_get_sign_up_link_markup($label, $nid) {
  */
 function dosomething_user_get_login_link($label, array $class = []) {
   if (module_exists('dosomething_northstar') && variable_get('dosomething_user_openid_oauth_login_enabled')) {
-    return l(t($label), 'user/authorize', ['attributes' => ['class' => $class]]);
+    return l(t($label), 'user/authorize', [
+      'attributes' => [
+        'data-track-category' => 'Link',
+        'data-track-action' => 'Click',
+        'data-track-label' => 'Login',
+        'class' => $class
+      ]
+    ]);
   }
 
-  return l(t($label), 'user/login', ['attributes' => ['data-modal-href' => '#modal--login', 'class' => $class, 'id' => 'link--login']]);
+  return l(t($label), 'user/login', [
+    'attributes' => [
+      'data-modal-href' => '#modal--login',
+      'data-track-category' => 'Link',
+      'data-track-action' => 'Click',
+      'data-track-label' => 'Login',
+      'class' => $class,
+      'id' => 'link--login'
+    ]
+  ]);
 }
 
 /**
@@ -50,10 +78,25 @@ function dosomething_user_get_login_link($label, array $class = []) {
 function dosomething_user_get_register_link($label, array $class = []) {
   if (module_exists('dosomething_northstar') && variable_get('dosomething_user_openid_oauth_login_enabled')) {
     // @TODO: We need to implement this `?register` query string in authorize route here, and on Northstar.
-    return l(t($label), 'user/authorize?register', ['attributes' => ['class' => $class]]);
+    return l(t($label), 'user/authorize?register', [
+      'attributes' => [
+        'data-track-category' => 'Link',
+        'data-track-action' => 'Click',
+        'data-track-label' => 'Register',
+        'class' => $class
+      ]
+    ]);
   }
 
-  return l(t($label), 'user/register', ['attributes' => ['data-modal-href' => '#modal--register', 'class' => $class]]);
+  return l(t($label), 'user/register', [
+    'attributes' => [
+      'data-modal-href' => '#modal--register',
+      'data-track-category' => 'Link',
+      'data-track-action' => 'Click',
+      'data-track-label' => 'Register',
+      'class' => $class
+    ]
+  ]);
 }
 
 /**
