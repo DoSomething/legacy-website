@@ -46,10 +46,26 @@ function dosomething_user_get_sign_up_link_markup($label, $nid) {
  */
 function dosomething_user_get_login_link($label, array $class = []) {
   if (module_exists('dosomething_northstar') && variable_get('dosomething_user_openid_oauth_login_enabled')) {
-    return l(t($label), 'user/authorize', ['attributes' => ['class' => $class]]);
+    return l(t($label), 'user/authorize', [
+      'attributes' => [
+        'data-track-category' => 'Link',
+        'data-track-action' => 'Click',
+        'data-track-label' => 'Login',
+        'class' => $class
+      ]
+    ]);
   }
 
-  return l(t($label), 'user/login', ['attributes' => ['data-modal-href' => '#modal--login', 'class' => $class, 'id' => 'link--login']]);
+  return l(t($label), 'user/login', [
+    'attributes' => [
+      'data-modal-href' => '#modal--login',
+      'data-track-category' => 'Link',
+      'data-track-action' => 'Click',
+      'data-track-label' => 'Login',
+      'class' => $class,
+      'id' => 'link--login'
+    ]
+  ]);
 }
 
 /**
