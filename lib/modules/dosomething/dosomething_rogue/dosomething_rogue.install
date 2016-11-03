@@ -19,7 +19,7 @@ function dosomething_rogue_schema() {
         'not null' => TRUE,
       ],
       'rogue_item_id' => [
-        'description' => 'The fid of the reportback item as it is stored in phoenix.',
+        'description' => 'The fid of the reportback item as it is stored in rogue.',
         'type' => 'int',
         'not null' => TRUE,
       ],
@@ -135,5 +135,61 @@ function dosomething_rogue_update_7002(&$sandbox) {
   if (!db_table_exists($table_name)) {
     $schema = dosomething_rogue_schema();
     db_create_table($table_name, $schema[$table_name]);
+  }
+}
+
+/**
+ * Adds rogue_item_id, status, and type columns to dosomething_rogue_failed_task_log table.
+ * Changes schema so drupal_id, campaign_id, campaign_run_id, quantity, why_participated are not required.
+ */
+function dosomething_rogue_update_7003(&$sandbox) {
+  $table_name = 'dosomething_rogue_failed_task_log';
+  if (db_table_exists($table_name)) {
+    $rogue_item_id_spec = [
+      'type' => 'int',
+      'description' => 'The fid of the reportback item as it is stored in phoenix.',
+    ];
+
+    db_add_field($table_name, 'rogue_item_id', $rogue_item_id_spec);
+
+    $new_text_fields = [
+      'status' => 'The updated status of the reportback item.',
+      'type' => 'Either reportback if POST to the /reportbacks Rogue endpoint or reportback item a PUT to the /items Rogue endpoint.'
+    ];
+
+    foreach ($new_text_fields as $field => $description) {
+      $text_spec = [
+        'type' => 'text',
+        'description' => $description,
+      ];
+
+      db_add_field($table_name, $field, $text_spec);
+    }
+
+    $not_required_int_columns = [
+      'drupal_id' => 'The drupal_id of the user.',
+      'campaign_id' => 'Campaign nid for the reportback.',
+      'campaign_run_id' => 'Campaign run nid for the reportback.',
+      'quantity' => 'The quantity of reportback_nouns reportback_verbed.'
+    ];
+
+    foreach ($not_required_int_columns as $field => $description) {
+      $not_required_spec = [
+        'type' => 'int',
+        'description' => $description,
+        'not null' => FALSE
+      ];
+
+      db_change_field($table_name, $field, $field, $not_required_spec);
+    }
+
+    $why_participated_spec = [
+      'type' => 'text',
+      'description' => 'Why the user participated in the campaign.',
+      'length' => '2048',
+      'not null' => FALSE,
+    ];
+
+    db_change_field($table_name, 'why_participated', 'why_participated', $why_participated_spec);
   }
 }
