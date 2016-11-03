@@ -562,6 +562,7 @@ function dosomething_helpers_floor_decimal($value, $decimals = 1) {
 
 /**
  * Adds custom analytics (Google Analytics & Optimizely) event to page.
+ * @see preprocess_html.inc
  *
  * @param string $category - The category of the event.
  * @param string $action - The action being performed.
