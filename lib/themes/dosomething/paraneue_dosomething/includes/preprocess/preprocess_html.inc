@@ -8,7 +8,7 @@ function paraneue_dosomething_preprocess_html(&$vars) {
 
   // Output any queued analytics events:
   foreach ($_SESSION['dosomething_analytics_events'] as $index => $event) {
-    $analytics_js = 'analyze("' . implode('", "', $event) . '");';
+    $analytics_js = 'analyze("' . implode('", "', array_filter($event)) . '");';
     drupal_add_js($analytics_js, 'inline');
 
     unset($_SESSION['dosomething_analytics_events'][$index]);
