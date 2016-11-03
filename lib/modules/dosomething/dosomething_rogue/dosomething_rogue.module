@@ -77,9 +77,10 @@ function dosomething_rogue_send_reportback_to_rogue($values, $user = NULL) {
     'crop_rotate' => $values['crop_rotate'],
   ];
 
+  $values['type'] = 'reportback';
+
   try {
     $response = $client->postReportback($data);
-    $values['type'] = 'reportback';
 
     if (module_exists('stathat')) {
       stathat_send_ez_count('drupal - Rogue - reportback sent - count', 1);
