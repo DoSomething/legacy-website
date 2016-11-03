@@ -158,7 +158,7 @@ function dosomething_helpers_share_bar($path, $share_types, $share_description, 
     }
 
     if ($share_intents[$type]) {
-      $share_bar .= '<li><a class="social-icon -' . $type . ' js-share-link ga-click" href="' . $share_intents[$type] . '" data-ga-category="Share" data-ga-label="' . $type .'" data-ga-action="' . $share_description .'"><span>'. $type . '</span></a></li>';
+      $share_bar .= '<li><a class="social-icon -' . $type . ' js-share-link ga-click" href="' . $share_intents[$type] . '" data-track-category="Share" data-track-label="' . $type .'" data-track-action="' . $share_description .'"><span>'. $type . '</span></a></li>';
     }
   }
 
