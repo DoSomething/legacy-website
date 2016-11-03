@@ -212,7 +212,7 @@ function dosomething_rogue_handle_failure($values, $response = NULL, $e = NULL, 
         'caption' => $values['caption'],
         'type' => $values['type'],
         'timestamp' => REQUEST_TIME,
-        'response_code' => $response->code, // @TODO: this is currently null until there a better way to get it from Gateway
+        'response_code' => (isset($response->code)) ? $response->code : NULL, // @TODO: this is currently null until there a better way to get it from Gateway
         'response_values' => (isset($e)) ? $e->getMessage() : NULL,
       ])
       ->execute();
