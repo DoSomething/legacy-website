@@ -6,6 +6,14 @@
 function paraneue_dosomething_preprocess_html(&$vars) {
   global $user;
 
+  // Output any queued analytics events:
+  foreach ($_SESSION['dosomething_analytics_events'] as $index => $event) {
+    $analytics_js = 'analyze("' . implode('", "', $event) . '");';
+    drupal_add_js($analytics_js, 'inline');
+
+    unset($_SESSION['dosomething_analytics_events'][$index]);
+  }
+
   // Add theme stylesheet
   drupal_add_css(PARANEUE_PATH . '/dist/app.css', [
     'group' => CSS_THEME,
