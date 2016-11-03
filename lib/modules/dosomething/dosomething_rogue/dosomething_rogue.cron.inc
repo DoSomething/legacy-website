@@ -13,9 +13,9 @@
       ->execute()
       ->fetchAll();
     db_truncate('dosomething_rogue_failed_task_log')->execute();
+
     foreach ($task_log as $task) {
       if ($task->type === 'reportback') {
-
         $values = [
           'nid' => $task->campaign_id,
           'campaign_run_id' => $task->campaign_run_id,
@@ -30,7 +30,6 @@
 
         dosomething_rogue_send_reportback_to_rogue($values, $user);
       } else {
-
         $values = [
           [
             'rogue_reportback_item_id' => $task->rogue_item_id,
