@@ -28,7 +28,7 @@ function dosomething_user_get_sign_up_link_markup($label, $nid) {
   return l(t($label), '#', [
      'attributes' => [
        'id' => 'link--campaign-signup-login',
-       'data-modal-href' => 'modal--login',
+       'data-modal-href' => '#modal--login',
        'data-track-category' => 'Link',
        'data-track-action' => 'Click',
        'data-track-label' => 'Signup (Unauthenticated)',
