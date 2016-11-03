@@ -110,9 +110,6 @@ function dosomething_northstar_openid_connect_post_authorize($tokens, $account, 
   // If we saved a "post-authorization" action, do it now.
   dosomething_northstar_perform_authorization_actions();
 
-  // Let's remember that this is a OpenID Connect session.
-  $_SESSION['DOSOMETHING_NORTHSTAR_OPENID_CONNECT'] = true;
-
   if (empty($account->language)) {
     // Determine the user's language code if possible.
     $language_code = dosomething_global_get_language($account);
