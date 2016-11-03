@@ -215,6 +215,11 @@ function dosomething_rogue_handle_failure($values, $response = NULL, $e = NULL, 
         'timestamp' => REQUEST_TIME,
         'response_code' => (isset($response->code)) ? $response->code : NULL, // @TODO: this is currently null until there a better way to get it from Gateway
         'response_values' => (isset($e)) ? $e->getMessage() : NULL,
+        'crop_x' => $values['crop_x'],
+        'crop_y' => $values['crop_y'],
+        'crop_width' => $values['crop_width'],
+        'crop_height' => $values['crop_height'],
+        'crop_rotate' => $values['crop_rotate'],
       ])
       ->execute();
 

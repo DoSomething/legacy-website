@@ -24,6 +24,11 @@
           'file' => $task->file,
           'caption' => $task->caption,
           'type' => $task->type,
+          'crop_x' => $task->crop_x,
+          'crop_y' => $task->crop_y,
+          'crop_width' => $task->crop_width,
+          'crop_height' => $task->crop_height,
+          'crop_rotate' => $task->crop_rotate,
         ];
 
         $user = user_load($task->drupal_id);
