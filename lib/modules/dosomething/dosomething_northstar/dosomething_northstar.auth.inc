@@ -97,9 +97,13 @@ function dosomething_northstar_openid_connect_post_authorize($tokens, $account, 
     dosomething_user_set_fields($edit, ['created_by_openid_connect' => 1]);
   }
 
-  // HACK: Was this account registered just now (last 15s)? If so, send email.
+  // HACK: Was this account registered just now (last 15s)? If so, send transactional
+  // and fire a Registration analytics event. Otherwise, fire Login event.
   if ($userinfo['created_at'] > time() - 15) {
+    dosomething_helpers_add_analytics_event('Authentication', 'Register');
     _dosomething_user_send_to_message_broker();
+  } else {
+    dosomething_helpers_add_analytics_event('Authentication', 'Login');
   }
 
   // Make sure the user's Northstar ID is set in the field_data_field_northstar_id table.
