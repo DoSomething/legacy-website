@@ -53,6 +53,9 @@ function dosomething_signup_form($form, &$form_state, $nid, $label = "Sign Up") 
     '#value' => t($label),
     '#attributes' => [
       'class' => ['button'],
+      'data-track-category' => 'Link',
+      'data-track-action' => 'Click',
+      'data-track-label' => 'Signup (Authenticated)',
     ],
   ];
   return $form;
