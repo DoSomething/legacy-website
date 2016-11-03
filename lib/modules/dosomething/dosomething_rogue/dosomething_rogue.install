@@ -193,3 +193,26 @@ function dosomething_rogue_update_7003(&$sandbox) {
     db_change_field($table_name, 'why_participated', 'why_participated', $why_participated_spec);
   }
 }
+
+/**
+ * Adds cropping columns to dosomething_rogue_failed_task_log table.
+ */
+function dosomething_rogue_update_7004(&$sandbox) {
+  $table_name = 'dosomething_rogue_failed_task_log';
+   $new_fields = [
+    'crop_x' => 'X coordinates of cropped rb item image.',
+    'crox_y' => 'Y coordinates of cropped rb item image.',
+    'crop_width' => 'Crop width of cropped rb item image.',
+    'crop_height' => 'Crop height of cropped rb item image.',
+    'crop_rotate' => 'Rotate info of cropped rb item image.'
+  ];
+
+  foreach ($new_fields as $field => $description) {
+    $spec = [
+      'type' => 'int',
+      'description' => $description,
+    ];
+
+    db_add_field($table_name, $field, $spec);
+  }
+}
