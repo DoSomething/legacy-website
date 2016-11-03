@@ -562,7 +562,7 @@ function dosomething_helpers_floor_decimal($value, $decimals = 1) {
 
 /**
  * Adds custom analytics (Google Analytics & Optimizely) event to page.
- * @see preprocess_html.inc
+ * @see dosomething_helpers_attach_analytics_events()
  *
  * @param string $category - The category of the event.
  * @param string $action - The action being performed.
@@ -570,6 +570,26 @@ function dosomething_helpers_floor_decimal($value, $decimals = 1) {
  */
 function dosomething_helpers_add_analytics_event($category, $action, $label = NULL) {
   $_SESSION['dosomething_analytics_events'][] = [$category, $action, $label];
+}
+
+/**
+ * Output analytics events to the page, if any are stored in the session.
+ * @see preprocess_html.inc
+ *
+ * @return void
+ */
+function dosomething_helpers_attach_analytics_events()
+{
+  if (! isset($_SESSION['dosomething_analytics_events'])) {
+    return;
+  }
+
+  foreach ($_SESSION['dosomething_analytics_events'] as $index => $event) {
+    $analytics_js = 'analyze("' . implode('", "', array_filter($event)) . '");';
+    drupal_add_js($analytics_js, 'inline');
+
+    unset($_SESSION['dosomething_analytics_events'][$index]);
+  }
 }
 
 /**
