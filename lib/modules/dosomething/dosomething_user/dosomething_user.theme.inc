@@ -18,11 +18,23 @@ function dosomething_user_get_sign_up_link_markup($label, $nid) {
       'query' => ['action' => 'signup', 'node' => $nid],
       'attributes' => [
         'class' => ['button'],
+        'data-track-category' => 'Link',
+        'data-track-action' => 'Click',
+        'data-track-label' => 'Signup (Unauthenticated)',
         'id' => 'link--campaign-signup-login'
       ]]);
   }
 
-  return '<a id="link--campaign-signup-login" href="#" data-modal-href="#modal--login" class="button">' . $label . '</a>';
+  return l(t($label), '#', [
+     'attributes' => [
+       'id' => 'link--campaign-signup-login',
+       'data-modal-href' => 'modal--login',
+       'data-track-category' => 'Link',
+       'data-track-action' => 'Click',
+       'data-track-label' => 'Signup (Unauthenticated)',
+       'class' => ['button'],
+     ]
+  ]);
 }
 
 /**
