@@ -20,7 +20,7 @@ function dosomething_rogue_config_form($form, &$form_state) {
     '#type' => 'textfield',
     '#title' => t('Rogue URL'),
     '#required' => TRUE,
-    '#default_value' => variable_get('dosomething_rogue_url', 'http://rogue.app/api'),
+    '#default_value' => variable_get('dosomething_rogue_url', 'https://rogue.dosomething.org/api'),
   ];
 
   $form['rogue']['dosomething_rogue_api_version'] = [
@@ -41,7 +41,7 @@ function dosomething_rogue_config_form($form, &$form_state) {
     '#type' => 'checkbox',
     '#title' => t('Send reportbacks to rogue'),
     '#description' => t('If set, when a user submits a reportback it will be sent to our reportback service.'),
-    '#default_value' => variable_get('rogue_collection', FALSE),
+    '#default_value' => variable_get('rogue_collection', TRUE),
     '#size' => 20,
   ];
 
