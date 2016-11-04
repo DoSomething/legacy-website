@@ -7,15 +7,16 @@
 /**
  * Returns markup for link to sign up for a campaign.
  *
- * @param string $label
- *   The text to display on the button.
+ * @param string $label - The text to display on the button.
+ * @param string $nid - The campaign node ID
+ * @param string $title - The campaign title
  * @return string
  */
-function dosomething_user_get_sign_up_link_markup($label, $nid) {
+function dosomething_user_get_sign_up_link_markup($label, $nid, $title) {
   // If the OpenID Connect feature flag is enabled, link to login page rather than showing classic modal.
   if (module_exists('dosomething_northstar') && variable_get('dosomething_user_openid_oauth_login_enabled')) {
     return l(t($label), 'user/authorize', [
-      'query' => ['action' => 'signup', 'node' => $nid],
+      'query' => ['action' => 'signup', 'node' => $nid, 'title' => $title],
       'attributes' => [
         'class' => ['button'],
         'data-track-category' => 'Link',
