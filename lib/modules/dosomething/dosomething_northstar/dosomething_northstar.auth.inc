@@ -46,12 +46,15 @@ function dosomething_northstar_openid_authorize() {
   }
 
   $authorize_url = dosomething_northstar_openid_authorize_url();
+  $url_options = ['absolute' => TRUE];
 
   if(isset($_GET['action']) && isset($_GET['node'])) {
     dosomething_northstar_set_authorization_action($_GET['action'], $_GET['node']);
+    // @TODO: Rename parameter on the Northstar side to 'title'.
+    $url_options['query'] = ['destination' => $_GET['title']];
   }
 
-  drupal_goto($authorize_url, ['absolute' => TRUE]);
+  drupal_goto($authorize_url, $url_options);
 }
 
 /**
@@ -140,8 +143,8 @@ function dosomething_northstar_openid_connect_post_authorize($tokens, $account, 
  * Save a post-authorization destination in the session (e.g. for signing
  * up for a campaign).
  *
- * @param $node
- * @return void
+ * @param $action
+ * @param $nid
  */
 function dosomething_northstar_set_authorization_action($action, $nid) {
   if ($action !== 'signup') {
