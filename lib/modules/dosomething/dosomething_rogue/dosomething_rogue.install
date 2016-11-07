@@ -216,3 +216,19 @@ function dosomething_rogue_update_7004(&$sandbox) {
     db_add_field($table_name, $field, $spec);
   }
 }
+
+/**
+ * Renames drupal_id column to northstar_id in dosomething_rogue_failed_task_log.
+ */
+function dosomething_rogue_update_7005(&$sandbox) {
+  $table_name = 'dosomething_rogue_failed_task_log';
+  if (db_table_exists($table_name)) {
+    $spec = [
+      'description' => 'The northstar_id of the user.',
+      'type' => 'int',
+      'not null' => FALSE,
+    ];
+
+    db_change_field($table_name, 'drupal_id', 'northstar_id', $spec);
+  }
+}
