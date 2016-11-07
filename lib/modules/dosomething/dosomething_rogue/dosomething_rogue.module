@@ -78,6 +78,7 @@ function dosomething_rogue_send_reportback_to_rogue($values, $user = NULL) {
   ];
 
   $values['type'] = 'reportback';
+  $values['northstar_id'] = $northstar_id;
 
   try {
     $response = $client->postReportback($data);
@@ -183,10 +184,10 @@ function dosomething_rogue_store_rogue_references($rbid, $fid, $rogue_reportback
  * Insert record that stores reference to the most recent uploaded reportback item in
  * phoenix and it's corresponding id's in Rogue
  *
- * @param object $user
  * @param array  $values
  * @param array  $response
  * @param object $e
+ * @param object $user
  *
  */
 function dosomething_rogue_handle_failure($values, $response = NULL, $e = NULL, $user = NULL)
@@ -204,7 +205,8 @@ function dosomething_rogue_handle_failure($values, $response = NULL, $e = NULL, 
     $run = dosomething_helpers_get_current_campaign_run_for_user($values['nid']);
     db_insert('dosomething_rogue_failed_task_log')
       ->fields([
-        'drupal_id' => $user->uid,
+        'drupal_id' => $user->id,
+        'northstar_id' => $values['northstar_id'],
         'campaign_id' => $values['nid'],
         'campaign_run_id' => $run->nid,
         'quantity' => $values['quantity'],
@@ -223,7 +225,7 @@ function dosomething_rogue_handle_failure($values, $response = NULL, $e = NULL, 
       ])
       ->execute();
 
-    watchdog('dosomething_rogue', 'Reportback not migrated to Rogue: user: !user, campaign_id: !campaign_id, campaign run_nid: !campaign_run_id.', ['!user' => $user->uid, '!campaign_id' => $values['nid'], '!campaign_run_id' => $run->nid], WATCHDOG_ERROR);
+    watchdog('dosomething_rogue', 'Reportback not migrated to Rogue: northstar_id: !northstar_id, campaign_id: !campaign_id, campaign run_nid: !campaign_run_id.', ['!northstar_id' => $values['northstar_id'], '!campaign_id' => $values['nid'], '!campaign_run_id' => $run->nid], WATCHDOG_ERROR);
   } else {
     db_insert('dosomething_rogue_failed_task_log')
       ->fields([

@@ -218,7 +218,7 @@ function dosomething_rogue_update_7004(&$sandbox) {
 }
 
 /**
- * Renames drupal_id column to northstar_id in dosomething_rogue_failed_task_log.
+ * Adds northstar_id in dosomething_rogue_failed_task_log.
  */
 function dosomething_rogue_update_7005(&$sandbox) {
   $table_name = 'dosomething_rogue_failed_task_log';
@@ -229,6 +229,6 @@ function dosomething_rogue_update_7005(&$sandbox) {
       'not null' => FALSE,
     ];
 
-    db_change_field($table_name, 'drupal_id', 'northstar_id', $spec);
+    db_add_field($table_name, 'northstar_id', $spec);
   }
 }
