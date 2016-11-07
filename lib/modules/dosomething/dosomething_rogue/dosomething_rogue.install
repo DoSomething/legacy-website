@@ -225,7 +225,8 @@ function dosomething_rogue_update_7005(&$sandbox) {
   if (db_table_exists($table_name)) {
     $spec = [
       'description' => 'The northstar_id of the user.',
-      'type' => 'int',
+      'type' => 'varchar',
+      'length' => '255',
       'not null' => FALSE,
     ];
 

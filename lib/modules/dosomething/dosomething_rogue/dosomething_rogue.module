@@ -205,8 +205,7 @@ function dosomething_rogue_handle_failure($values, $response = NULL, $e = NULL, 
     $run = dosomething_helpers_get_current_campaign_run_for_user($values['nid']);
     db_insert('dosomething_rogue_failed_task_log')
       ->fields([
-        'drupal_id' => $user->id,
-        'northstar_id' => $values['northstar_id'],
+        'drupal_id' => $user->uid,
         'campaign_id' => $values['nid'],
         'campaign_run_id' => $run->nid,
         'quantity' => $values['quantity'],
@@ -222,6 +221,7 @@ function dosomething_rogue_handle_failure($values, $response = NULL, $e = NULL, 
         'crop_width' => $values['crop_width'],
         'crop_height' => $values['crop_height'],
         'crop_rotate' => $values['crop_rotate'],
+        'northstar_id' => $values['northstar_id'],
       ])
       ->execute();
 
