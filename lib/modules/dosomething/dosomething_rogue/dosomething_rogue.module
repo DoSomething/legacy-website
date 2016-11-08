@@ -92,6 +92,8 @@ function dosomething_rogue_send_reportback_to_rogue($values, $user = NULL) {
 
   try {
     $response = $client->postReportback($data);
+    print_r($response);
+    die();
 
     if (module_exists('stathat')) {
       stathat_send_ez_count('drupal - Rogue - reportback sent - count', 1);
@@ -102,10 +104,14 @@ function dosomething_rogue_send_reportback_to_rogue($values, $user = NULL) {
     }
   }
   catch (GuzzleHttp\Exception\ServerException $e) {
+  print_r('hello');
+  die();
     // These aren't yet caught by Gateway
     dosomething_rogue_handle_failure($values, $response, $e, $user);
   }
   catch (DoSomething\Gateway\Exceptions\ApiException $e) {
+  print_r('bye');
+  die();
     dosomething_rogue_handle_failure($values, $response, $e, $user);
   }
 
