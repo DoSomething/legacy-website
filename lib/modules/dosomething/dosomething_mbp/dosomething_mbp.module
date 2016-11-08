@@ -191,6 +191,9 @@ function dosomething_mbp_get_transactional_payload($origin, $params = NULL) {
 
     case 'campaign_reportback':
       $payload['event_id'] = $params['event_id'];
+      if (!empty($params['mobile'])) {
+        $payload['mobile'] = $params['mobile'];
+      }
       $payload['merge_vars']['FNAME'] = $params['first_name'];
       $payload['merge_vars']['CAMPAIGN_TITLE'] = $params['campaign_title'];
       $payload['merge_vars']['IMPACT_VERB'] = $params['impact_verb'];

@@ -1007,6 +1007,7 @@ function dosomething_reportback_mbp_request($entity) {
       'email' => $account->mail,
       'uid' => $account->uid,
       'first_name' => dosomething_user_get_field('field_first_name', $account),
+      'mobile' => dosomething_user_get_field('field_mobile', $account),
       'campaign_title' => $title,
       'event_id' => $entity->nid,
       'impact_verb' => $entity->verb,
