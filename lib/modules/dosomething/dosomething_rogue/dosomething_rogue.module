@@ -79,11 +79,11 @@ function dosomething_rogue_send_reportback_to_rogue($values, $user = NULL) {
     'file' => isset($values['file']) ? $values['file'] : NULL,
     'caption' => isset($values['caption']) ? $values['caption'] : NULL,
     'status' => isset($values['status']) ? $values['status'] : 'pending',
-    'crop_x' => $values['crop_x'],
-    'crop_y' => $values['crop_y'],
-    'crop_width' => $values['crop_width'],
-    'crop_height' => $values['crop_height'],
-    'crop_rotate' => $values['crop_rotate'],
+    'crop_x' => isset($values['crop_x']) ? $values['crop_x'] : NULL,
+    'crop_y' => isset($values['crop_y']) ? $values['crop_y'] : NULL,
+    'crop_width' => isset($values['crop_width']) ? $values['crop_width'] : NULL,
+    'crop_height' => isset($values['crop_height']) ? $values['crop_height'] : NULL,
+    'crop_rotate' => isset($values['crop_rotate']) ? $values['crop_rotate'] : NULL,
     'source' => isset($values['source']) ? $values['source'] : NULL,
   ];
 
