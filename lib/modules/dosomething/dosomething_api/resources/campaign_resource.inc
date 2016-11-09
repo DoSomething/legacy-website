@@ -353,11 +353,9 @@ function _campaign_resource_reportback($nid, $values) {
     $rbid = 0;
   }
 
-  $values['rbid'] = $rbid;
-
-  if (DOSOMETHING_REPORTBACK_LOG) {
-    watchdog('dosomething_api', '_campaign_resource_reportback:' . json_encode($values));
-  }
+  // if (DOSOMETHING_REPORTBACK_LOG) {
+  //   watchdog('dosomething_api', '_campaign_resource_reportback:' . json_encode($values));
+  // }
   return dosomething_rogue_send_reportback_to_rogue($values, $user);
   // return dosomething_reportback_save($values, $user);
 }
