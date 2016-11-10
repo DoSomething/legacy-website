@@ -54,7 +54,6 @@ function dosomething_rogue_send_reportback_to_rogue($values, $user = NULL) {
   if (!isset($user)) {
     global $user;
   }
-
   $northstar_id = dosomething_user_get_field('field_northstar_id', $user);
 
   // Band-aid fix for an issue we are seeing with phoenix not being
@@ -102,8 +101,6 @@ function dosomething_rogue_send_reportback_to_rogue($values, $user = NULL) {
     }
   }
   catch (GuzzleHttp\Exception\ServerException $e) {
-    print_r('hello');
-    die();
     // These aren't yet caught by Gateway
     dosomething_rogue_handle_failure($values, $response, $e, $user);
   }
