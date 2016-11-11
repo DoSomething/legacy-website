@@ -405,6 +405,7 @@ function dosomething_reportback_form_submit($form, &$form_state) {
           $image = file_load($fid);
           $values['file'] = dosomething_helpers_get_data_uri_from_image($image);
           $values['caption'] = $reportback_file[$fid]->caption;
+          $values['source'] = $reportback_file[$fid]->source;
         }
       }
     }
