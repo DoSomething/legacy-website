@@ -949,8 +949,9 @@ function dosomething_helpers_get_data_uri_from_image($image) {
     $mime = $image->filemime;
     $data = base64_encode(file_get_contents($image->uri));
   } else {
-    $mime = mime_content_type(drupal_realpath($image->source));
-    $data = base64_encode(file_get_contents($mime));
+    $path = drupal_realpath($image->source);
+    $mime = mime_content_type($path);
+    $data = base64_encode(file_get_contents($path));
   }
 
   // Return the formated data uri: data:{mime};base64,{data};
