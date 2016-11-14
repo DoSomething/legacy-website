@@ -37,12 +37,15 @@
           'file' => $task->file,
           'caption' => $task->caption,
           'type' => $task->type,
-          'crop_x' => $task->crop_x,
-          'crop_y' => $task->crop_y,
-          'crop_width' => $task->crop_width,
-          'crop_height' => $task->crop_height,
-          'crop_rotate' => $task->crop_rotate,
         ];
+
+        if ($task->crop_x) {
+          $values['crop_x'] = $task->crop_x;
+          $values['crop_y'] = $task->crop_y;
+          $values['crop_width'] = $task->crop_width;
+          $values['crop_height'] = $task->crop_height;
+          $values['crop_rotate'] = $task->crop_rotate;
+        }
 
         $user = user_load($task->drupal_id);
 
