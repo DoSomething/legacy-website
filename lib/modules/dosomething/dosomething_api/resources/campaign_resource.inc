@@ -344,19 +344,28 @@ function _campaign_resource_reportback($nid, $values) {
     }
   }
 
+  $values['fid'] = $file->fid;
+  $values['file'] = dosomething_helpers_get_data_uri_from_image(image_load($file->uri));
+
   // @todo: Move this logic into dosomething_reportback_save().
-  if ($file) {
-    $values['fid'] = $file->fid;
-  }
+  $rbid = dosomething_reportback_exists($nid, NULL, $uid);
 
   if (!$rbid) {
     $rbid = 0;
   }
 
-  // if (DOSOMETHING_REPORTBACK_LOG) {
-  //   watchdog('dosomething_api', '_campaign_resource_reportback:' . json_encode($values));
-  // }
-  return dosomething_rogue_send_reportback_to_rogue($values, $user);
+  $values['rbid'] = $rbid;
+
+  if (DOSOMETHING_REPORTBACK_LOG) {
+    watchdog('dosomething_api', '_campaign_resource_reportback:' . json_encode($values));
+  }
+
+  $transaction_id = drupal_get_http_header('X-Request-ID');
+  print_r($transaction_id);
+  die();
+  // if the flag is less than 2, send to rogue
+  // dosomething_rogue_send_reportback_to_rogue($values, $user);
+  return $rbid;
   // return dosomething_reportback_save($values, $user);
 }
 
