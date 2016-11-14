@@ -392,6 +392,7 @@ function dosomething_reportback_form_submit($form, &$form_state) {
       $image = image_load($file->uri);
 
       $values['file'] = dosomething_helpers_get_data_uri_from_image($image);
+      $values['source'] = 'phoenix-web';
     } else {
       // If there is no file and there is a RB in Phoenix, check the dosomething_rogue_reportback table to see if the RB already exists in Rogue.
       if ($rbid) {
@@ -405,7 +406,7 @@ function dosomething_reportback_form_submit($form, &$form_state) {
           $image = file_load($fid);
           $values['file'] = dosomething_helpers_get_data_uri_from_image($image);
           $values['caption'] = $reportback_file[$fid]->caption;
-          $values['source'] = $reportback_file[$fid]->source;
+          $values['source'] = isset($reportback_file[$fid]->source) ? $reportback_file[$fid]->source : 'phoenix-web';
         }
       }
     }
