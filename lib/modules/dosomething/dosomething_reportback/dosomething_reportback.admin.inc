@@ -299,6 +299,7 @@ function dosomething_reportback_files_form_submit($form, &$form_state) {
         $data = [
           'rogue_reportback_item_id' => $rogue_item_id[0]->rogue_item_id,
           'status' => $rogue_status,
+          'reviewer' => dosomething_user_get_field('field_northstar_id'),
         ];
 
         $updates_to_send_to_rogue[] = $data;
