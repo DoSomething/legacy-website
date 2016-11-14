@@ -11,7 +11,7 @@ include_once('includes/Rogue.php');
 
 define('ROGUE_API_URL', variable_get('dosomething_rogue_url', 'http://rogue.app/api'));
 define('ROGUE_API_VERSION', variable_get('dosomething_rogue_api_version', 'v1'));
-define('ROGUE_API_KEY', variable_get('dosomething_rogue_api_key', ''));
+define('ROGUE_API_KEY', variable_get('dosomething_rogue_api_key', 'abc123'));
 
 /*
  * Implements hook_menu()
@@ -39,8 +39,9 @@ function dosomething_rogue_menu() {
  * https://github.com/DoSomething/rogue
  */
 function dosomething_rogue_client() {
-
-  return new Rogue(ROGUE_API_URL . '/' . ROGUE_API_VERSION . '/');
+  return new Rogue(ROGUE_API_URL . '/' . ROGUE_API_VERSION . '/',
+    ['headers' => ['X-DS-Rogue-API-Key' => ROGUE_API_KEY]]
+  );
 }
 
 /**
