@@ -22,6 +22,7 @@ class Rogue extends RestApiClient {
    */
   public function postReportback($data) {
     $response = $this->post('reportbacks', $data);
+
     return $response;
   }
 
