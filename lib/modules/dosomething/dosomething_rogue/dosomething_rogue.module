@@ -75,6 +75,7 @@ function dosomething_rogue_send_reportback_to_rogue($values, $user = NULL) {
     'crop_width' => $values['crop_width'],
     'crop_height' => $values['crop_height'],
     'crop_rotate' => $values['crop_rotate'],
+    'source' => isset($values['source']) ? $values['source'] : NULL,
   ];
 
   $values['type'] = 'reportback';
