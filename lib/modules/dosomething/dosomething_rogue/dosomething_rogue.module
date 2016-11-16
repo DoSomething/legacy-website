@@ -255,3 +255,58 @@ function dosomething_rogue_rb_exists_in_rogue($rbid)
 {
   return db_query("SELECT * FROM {dosomething_rogue_reportbacks} rogue_rbs WHERE rbid = :rbid", array(':rbid' => $rbid))->fetchAll();
 }
+
+/**
+ * Sends a reaction to Rogue.
+ *
+ * @param array $values
+ *   Values to send to Rogue. (just the FID)
+ */
+function dosomething_rogue_send_reaction_to_rogue($fid, $user = NULL) 
+{
+  // Get rogue item id by fid
+  $rogue_item_id = dosomething_rogue_get_by_file_id($fid)[0]->rogue_item_id;
+  
+  // Only try to send to Rogue if 
+  if (!is_null($rogue_item_id))
+  {
+    // Get the user who left the reaction
+    if (!isset($user)) {
+      global $user;
+    }
+
+    $northstar_id = dosomething_user_get_field('field_northstar_id', $user);
+
+    $client = dosomething_rogue_client();
+
+    $data = [
+      'northstar_id' => $northstar_id ? $northstar_id : NULL,
+      'reportback_item_id' => $rogue_item_id,
+    ];
+    // Send to Rogue
+    try {
+      $response = $client->postReaction($data);
+
+      if (module_exists('stathat')) {
+        stathat_send_ez_count('drupal - Rogue - reaction sent - count', 1);
+      }
+      if (!$response) {
+        // This is a 404
+        if (module_exists('stathat')) {
+          stathat_send_ez_count('drupal - Rogue - reaction failed - count', 1);
+        }
+      }
+    }
+    catch (GuzzleHttp\Exception\ServerException $e) {
+      // These aren't yet caught by Gateway
+      if (module_exists('stathat')) {
+          stathat_send_ez_count('drupal - Rogue - reaction failed - count', 1);
+        }
+    }
+    catch (DoSomething\Gateway\Exceptions\ApiException $e) {
+      if (module_exists('stathat')) {
+          stathat_send_ez_count('drupal - Rogue - reaction failed - count', 1);
+      }
+    }
+  }
+}

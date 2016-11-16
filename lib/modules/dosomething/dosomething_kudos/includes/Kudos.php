@@ -149,4 +149,16 @@ class Kudos extends Entity {
     return $data;
   }
 
+  /**
+   * Query to find Kudo fid by Kudo id.
+   *
+   * @param string $kid
+   * Phoenix fid of reportback item.
+   *
+   */
+  function dosomething_kudos_get_fid($kid)
+  {
+    return db_query("SELECT kudos.fid FROM {dosomething_kudos} kudos WHERE kid = :kid", array(':kid' => $kid))->fetch();
+  }
+
 }

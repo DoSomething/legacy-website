@@ -38,4 +38,16 @@ class Rogue extends RestApiClient {
 
     return $response;
   }
+
+  /**
+   * Send a POST request of the reaction to be saved or deleted in Rogue.
+   *
+   * @param array $data
+   * @return object|false
+   */
+  public function postReaction($data) {
+    $response = $this->post('reactions', $data);
+
+    return $response;
+  }
 }
