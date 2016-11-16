@@ -360,7 +360,11 @@ function _campaign_resource_reportback($nid, $values) {
     watchdog('dosomething_api', '_campaign_resource_reportback:' . json_encode($values));
   }
 
-  dosomething_rogue_send_reportback_to_rogue($values, $user);
+  $transaction_id = drupal_get_http_header('X-Request-ID');
+  print_r($transaction_id);
+  die();
+  // if the flag is less than 2, send to rogue
+  // dosomething_rogue_send_reportback_to_rogue($values, $user);
   return $rbid;
   // return dosomething_reportback_save($values, $user);
 }
