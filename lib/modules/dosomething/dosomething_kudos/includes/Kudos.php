@@ -148,4 +148,5 @@ class Kudos extends Entity {
     $data['name'] = strtolower($taxonomy->name);
     return $data;
   }
+
 }
