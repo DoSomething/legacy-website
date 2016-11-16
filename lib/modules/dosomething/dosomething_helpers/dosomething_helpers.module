@@ -941,10 +941,11 @@ function dosomething_helpers_get_current_campaign_run_for_user($nid, $user = NUL
 /**
  * Returns a base64 encoded data uri for an Image object
  *
- * @param  Image|File object $image
+ * @param  int $fid
  * @return string
 */
-function dosomething_helpers_get_data_uri_from_image($image) {
+function dosomething_helpers_get_data_uri_from_fid($fid) {
+  $image = file_load($fid);
   if (isset($image->filemime)) {
     $mime = $image->filemime;
     $data = base64_encode(file_get_contents($image->uri));
