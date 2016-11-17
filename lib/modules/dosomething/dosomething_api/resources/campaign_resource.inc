@@ -303,7 +303,6 @@ function _campaign_resource_signup($nid, $values) {
  */
 function _campaign_resource_reportback($nid, $values) {
   // @todo: Return error if signup doesn't exist.
-
   $values['nid'] = $nid;
 
   if (!isset($values['uid'])) {
@@ -345,7 +344,7 @@ function _campaign_resource_reportback($nid, $values) {
   }
 
   $values['fid'] = $file->fid;
-  $values['file'] = dosomething_helpers_get_data_uri_from_image(image_load($file->uri));
+  $values['file'] = dosomething_helpers_get_data_uri_from_fid($file->fid);
 
   // @todo: Move this logic into dosomething_reportback_save().
   $rbid = dosomething_reportback_exists($nid, NULL, $uid);
@@ -360,12 +359,23 @@ function _campaign_resource_reportback($nid, $values) {
     watchdog('dosomething_api', '_campaign_resource_reportback:' . json_encode($values));
   }
 
-  $transaction_id = drupal_get_http_header('X-Request-ID');
-  print_r($transaction_id);
-  die();
-  // if the flag is less than 2, send to rogue
-  // dosomething_rogue_send_reportback_to_rogue($values, $user);
+  $transaction_id = $_SERVER['HTTP_X_REQUEST_ID'];
+
+  if (! $transaction_id) {
+    $rogue_reportback = dosomething_rogue_send_reportback_to_rogue($values, $user);
+
+    // Make sure the reportback exists (meaning it got back from Rogue).
+    $rbid = dosomething_reportback_exists($rogue_reportback['data']['campaign_id'], $rogue_reportback['data']['campaign_run_id'], $rogue_reportback['data']['drupal_id']);
+
+    // Store reference to the rb in rogue.
+    if ($rbid) {
+      dosomething_rogue_store_rogue_references($rbid, $rogue_reportback);
+    }
+  }
+  else {
+    dosomething_reportback_save($values, $user);
+  }
+
   return $rbid;
-  // return dosomething_reportback_save($values, $user);
 }
 
