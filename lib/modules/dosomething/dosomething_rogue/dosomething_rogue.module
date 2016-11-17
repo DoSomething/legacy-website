@@ -265,11 +265,13 @@ function dosomething_rogue_rb_exists_in_rogue($rbid)
 function dosomething_rogue_send_reaction_to_rogue($fid, $user = NULL) 
 {
   // Get rogue item id by fid
-  $rogue_item_id = dosomething_rogue_get_by_file_id($fid)[0]->rogue_item_id;
-  
-  // Only try to send to Rogue if 
-  if (!is_null($rogue_item_id))
-  {
+  $rogue_item_id = dosomething_rogue_get_by_file_id($fid);
+
+  // Only try to send to Rogue if the item exists there
+  if (isset($rogue_item_id[0])) {
+    // Get the actual rogue_item_id from the query result
+    $rogue_item_id = $rogue_item_id[0]->rogue_item_id;
+
     // Get the user who left the reaction
     if (!isset($user)) {
       global $user;
