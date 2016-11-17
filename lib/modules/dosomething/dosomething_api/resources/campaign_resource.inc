@@ -380,7 +380,17 @@ function _campaign_resource_reportback($nid, $values) {
   $transaction_id = $_SERVER['HTTP_X_REQUEST_ID'];
 
   if (! $transaction_id) {
-    dosomething_rogue_send_reportback_to_rogue($values, $user);
+    $rogue_reportback = dosomething_rogue_send_reportback_to_rogue($values, $user);
+
+    // Make sure the reportback exists (meaning it got back from Rogue).
+    $rbid = dosomething_reportback_exists($rogue_reportback['data']['campaign_id'], $rogue_reportback['data']['campaign_run_id'], $rogue_reportback['data']['drupal_id']);
+
+    // Store reference to the rb in rogue, redirect user to permalink page.
+    if ($rbid) {
+      $reportback = entity_load_unchanged('reportback', [$rbid]);
+      $fid = array_pop($reportback->fids);
+      dosomething_rogue_store_rogue_references($rbid, $fid, $rogue_reportback);
+    }
   }
   else {
     dosomething_reportback_save($values, $user);
