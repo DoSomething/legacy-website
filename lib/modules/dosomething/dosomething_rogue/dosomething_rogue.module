@@ -57,12 +57,20 @@ function dosomething_rogue_send_reportback_to_rogue($values, $user = NULL) {
 
   $northstar_id = dosomething_user_get_field('field_northstar_id', $user);
 
+  // Band-aid fix for an issue we are seeing with phoenix not being
+  // aware of a user's northstar id. If it doesn't find one, we just grab it
+  // from northstar directly.
+  if (!$northstar_id) {
+    $northstar_user = dosomething_northstar_get_user($user->uid);
+    $northstar_id = $northstar_user->id;
+  }
+
   $run = dosomething_helpers_get_current_campaign_run_for_user($values['nid']);
 
   $client = dosomething_rogue_client();
 
   $data = [
-    'northstar_id' => $northstar_id ? $northstar_id : NULL,
+    'northstar_id' => $northstar_id,
     'drupal_id' => $user->uid,
     'campaign_id' => $values['nid'],
     'campaign_run_id' => $run->nid,
