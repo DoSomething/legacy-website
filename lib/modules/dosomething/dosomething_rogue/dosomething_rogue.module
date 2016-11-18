@@ -61,7 +61,7 @@ function dosomething_rogue_send_reportback_to_rogue($values, $user = NULL) {
   // aware of a user's northstar id. If it doesn't find one, we just grab it
   // from northstar directly.
   if (!$northstar_id) {
-    $northstar_user = dosomething_northstar_get_user($user->uid);
+    $northstar_user = dosomething_northstar_get_user($user->uid, 'drupal_id');
     $northstar_id = $northstar_user->id;
   }
 
