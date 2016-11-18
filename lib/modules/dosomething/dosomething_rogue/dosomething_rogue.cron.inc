@@ -29,7 +29,8 @@
           $mime_split = explode(':', $task->file);
           $task->file = $mime_split[0] . ':' . $mimetype . $mime_split[1];
         }
-        $values = [
+
+        $data = [
           'nid' => $task->campaign_id,
           'campaign_run_id' => $task->campaign_run_id,
           'quantity' => $task->quantity,
@@ -40,25 +41,25 @@
         ];
 
         if ($task->crop_x) {
-          $values['crop_x'] = $task->crop_x;
-          $values['crop_y'] = $task->crop_y;
-          $values['crop_width'] = $task->crop_width;
-          $values['crop_height'] = $task->crop_height;
-          $values['crop_rotate'] = $task->crop_rotate;
+          $cropped_values = dosomething_rogue_send_crop_values($task);
+
+          foreach ($cropped_values as $key => $value) {
+            $data[$key] = $value;
+          }
         }
 
         $user = user_load($task->drupal_id);
 
-        dosomething_rogue_send_reportback_to_rogue($values, $user);
+        dosomething_rogue_send_reportback_to_rogue($data, $user);
       } else {
-        $values = [
+        $data = [
           [
             'rogue_reportback_item_id' => $task->rogue_item_id,
             'status' => $task->status,
           ]
         ];
 
-        dosomething_rogue_update_rogue_reportback_items($values);
+        dosomething_rogue_update_rogue_reportback_items($data);
       }
    }
  }

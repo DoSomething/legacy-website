@@ -387,7 +387,7 @@ function _campaign_resource_reportback($nid, $values) {
     // Make sure the reportback exists (meaning it got back from Rogue).
     $rbid = dosomething_reportback_exists($rogue_reportback['data']['campaign_id'], $rogue_reportback['data']['campaign_run_id'], $rogue_reportback['data']['drupal_id']);
 
-    // Store reference to the rb in rogue, redirect user to permalink page.
+    // Store reference to the rb in rogue.
     if ($rbid) {
       $reportback = entity_load_unchanged('reportback', [$rbid]);
       $fid = array_pop($reportback->fids);

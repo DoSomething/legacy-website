@@ -87,11 +87,11 @@ function dosomething_rogue_send_reportback_to_rogue($values, $user = NULL) {
   ];
 
   if ($values['crop_x']) {
-    $data['crop_x'] = $values['crop_x'];
-    $data['crop_y'] = $values['crop_y'];
-    $data['crop_width'] = $values['crop_width'];
-    $data['crop_height'] = $values['crop_height'];
-    $data['crop_rotate'] = $values['crop_rotate'];
+    $cropped_values = dosomething_rogue_send_crop_values($values);
+
+    foreach ($cropped_values as $key => $value) {
+      $data[$key] = $value;
+    }
   }
 
   $values['type'] = 'reportback';
@@ -269,4 +269,25 @@ function dosomething_rogue_handle_failure($values, $response = NULL, $e = NULL, 
 function dosomething_rogue_rb_exists_in_rogue($rbid)
 {
   return db_query("SELECT * FROM {dosomething_rogue_reportbacks} rogue_rbs WHERE rbid = :rbid", array(':rbid' => $rbid))->fetchAll();
+}
+
+/**
+ * Format cropped values to send to Rogue.
+ * @param array $values
+ *
+ */
+function dosomething_rogue_send_crop_values($values)
+{
+  if (is_array($values)) {
+    $values = (object)$values;
+  }
+
+  $cropped_values = [];
+  $cropped_values['crop_x'] = $values->crop_x;
+  $cropped_values['crop_y'] = $values->crop_y;
+  $cropped_values['crop_width'] = $values->crop_width;
+  $cropped_values['crop_height'] = $values->crop_height;
+  $cropped_values['crop_rotate'] = $values->crop_rotate;
+
+  return $cropped_values;
 }
