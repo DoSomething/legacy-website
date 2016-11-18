@@ -16,6 +16,19 @@
 
     foreach ($task_log as $task) {
       if ($task->type === 'reportback') {
+        // Check to see if the MIME type is missing
+        if (strpos($task->file, 'data:;') !== false) {
+          // Split file string to access the data
+          $data = explode(',', $task->file)[1];
+
+          // Decode and use getimagesizefromstring() to access the MIME type
+          $image_size_info = getimagesizefromstring(base64_decode($data));
+          $mimetype = $image_size_info['mime'];
+
+          // Split the file string where the MIME type will go and rebuild to include MIME type
+          $mime_split = explode(':', $task->file);
+          $task->file = $mime_split[0] . ':' . $mimetype . $mime_split[1];
+        }
         $values = [
           'nid' => $task->campaign_id,
           'campaign_run_id' => $task->campaign_run_id,
