@@ -60,6 +60,7 @@ class OpenIDConnectClientNorthstar extends OpenIDConnectClientBase {
         'response_type' => 'code',
         'client_id' => $this->getSetting('client_id'),
         'redirect_uri' => url($redirect_uri, ['absolute' => TRUE]),
+        'referrer_uri' => $_SERVER['HTTP_REFERER'],
         'scope' => $scope,
         'state' => $this->createStateToken(),
       ],
