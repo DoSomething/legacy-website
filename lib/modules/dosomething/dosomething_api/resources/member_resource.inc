@@ -164,10 +164,12 @@ function _member_resource_access($op) {
  *   Object of the newly created user if successful. String if errors.
  */
 function _member_resource_create($request) {
-  $query = drupal_get_query_parameters();
-
   if (!isset($request['email'])) {
     return services_error("Email is required.");
+  }
+
+  if (!isset($request['_id'])) {
+    return services_error("New Drupal accounts must be registered via Northstar.");
   }
 
   // Check if email is formatted correctly and not already in use.
@@ -221,11 +223,6 @@ function _member_resource_create($request) {
     // @see: dosomething_user_user_insert
     user_save($user, ['name' => $user->uid]);
 
-    // Forward users to Northstar, unless `?forward=false` is explicitly set.
-    $should_forward = isset($query['forward']) ? filter_var($query['forward'], FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE) : true;
-    if ($should_forward && module_exists('dosomething_northstar')) {
-      dosomething_northstar_create_user($user, $edit['pass']);
-    }
 
     // Don't return the hashed password in the response!
     unset($user->pass);
