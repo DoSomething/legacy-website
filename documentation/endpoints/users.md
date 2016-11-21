@@ -2,11 +2,10 @@
 
 ## Create a user
 
-Create a new Phoenix user with the given profile information. Consider using Northstar's [Create User](https://github.com/DoSomething/northstar/blob/dev/documentation/endpoints/users.md#create-a-user)
-or [Register](https://github.com/DoSomething/northstar/blob/dev/documentation/endpoints/auth.md#register-user) endpoints
-instead, as this endpoint will likely be removed in the future. 
+Create a new Phoenix user with the given profile information.
 
-This endpoint is currently available to anonymous users.
+:warning: __To create new DoSomething.org users, use Northstar's [Create User](https://github.com/DoSomething/northstar/blob/dev/documentation/endpoints/users.md#create-a-user)
+endpoint.__
 
 ```
 POST https://www.dosomething.org/api/v1/users
@@ -18,6 +17,7 @@ POST https://www.dosomething.org/api/v1/users
 // Content-Type: application/json
 
 {
+  _id: String // required.
   email: String // required.
   mobile: String
   password: String // This is the raw password that the user will use to login.
@@ -29,15 +29,11 @@ POST https://www.dosomething.org/api/v1/users
 }
 ```
 
-**Additional Query Parameters:**
-
- - `forward`: Whether to forward this user to Northstar. This option defaults to `true`.
-
 **Example request:**
 
 ```sh
 curl -X POST -H "Content-Type: application/json" -H "Accept: application/json" \
-  -d '{"email":"aschachter+nyc@dosomething.org", "password":"password", "birthdate":"1995-12-31", \
+  -d '{"_id": "58333fbc9a892003da782d0d", "email":"aschachter+nyc@dosomething.org", "password":"password", "birthdate":"1995-12-31", \
        "first_name":"Aaroni","last_name":"Schachterelli","user_registration_source":"services"}' \
   http://dev.dosomething.org:8888/api/v1/users
 ```
