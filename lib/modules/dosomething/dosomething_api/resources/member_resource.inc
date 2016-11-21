@@ -139,7 +139,7 @@ function _member_resource_definition() {
  * Access callback for User resources.
  */
 function _member_resource_access($op) {
-  if ($op == 'create' || $op == 'get_member_count') {
+  if ($op == 'get_member_count') {
     return TRUE;
   }
   global $user;
@@ -164,10 +164,12 @@ function _member_resource_access($op) {
  *   Object of the newly created user if successful. String if errors.
  */
 function _member_resource_create($request) {
-  $query = drupal_get_query_parameters();
-
   if (!isset($request['email'])) {
     return services_error("Email is required.");
+  }
+
+  if (!isset($request['_id'])) {
+    return services_error("New Drupal accounts must be registered via Northstar.");
   }
 
   // Check if email is formatted correctly and not already in use.
@@ -204,6 +206,7 @@ function _member_resource_create($request) {
     'last_name' => !empty($request['last_name']) ? $request['last_name'] : NULL,
     'mobile' => !empty($request['mobile']) ? dosomething_user_clean_mobile_number($request['mobile']) : NULL,
     'user_registration_source' => !empty($request['user_registration_source']) ? $request['user_registration_source'] : NULL,
+    'northstar_id' => $request['_id'],
   ];
 
   dosomething_user_set_fields($edit, $fields);
@@ -217,15 +220,10 @@ function _member_resource_create($request) {
   try {
     $user = user_save('', $edit);
 
-    // Ensure user has UID set for name, since insert hooks don't fire on API.
-    // @see: dosomething_user_user_insert
+    // Ensure user has UID for name & an authmap record. We need to do this because insert hooks
+    // don't fire on API. (See `dosomething_user_user_insert` & `dosomething_northstar_create_user`.)
     user_save($user, ['name' => $user->uid]);
-
-    // Forward users to Northstar, unless `?forward=false` is explicitly set.
-    $should_forward = isset($query['forward']) ? filter_var($query['forward'], FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE) : true;
-    if ($should_forward && module_exists('dosomething_northstar')) {
-      dosomething_northstar_create_user($user, $edit['pass']);
-    }
+    user_set_authmaps($user, ['authname_openid_connect_northstar' => $request['_id']]);
 
     // Don't return the hashed password in the response!
     unset($user->pass);
