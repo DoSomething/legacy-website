@@ -111,6 +111,11 @@ function dosomething_rogue_schema() {
       ],
     ],
     'primary key' => ['id'],
+    'indexes' => [
+      'drupal_id' => ['drupal_id'],
+      'campaign_id' => ['campaign_id'],
+      'campaign_run_id' => ['campaign_run_id'],
+    ],
   ];
 
   return $schema;
@@ -231,5 +236,18 @@ function dosomething_rogue_update_7005(&$sandbox) {
     ];
 
     db_add_field($table_name, 'northstar_id', $spec);
+  }
+}
+
+/**
+ * Add indexes to failed log table.
+ */
+function dosomething_rogue_update_7006(&$sandbox) {
+  $table = 'dosomething_rogue_failed_task_log';
+  $columns = ['drupal_id', 'campaign_id', 'campaign_run_id'];
+  foreach ($columns as $column) {
+    if (!db_index_exists($table, $column)) {
+      db_add_index($table, $column, [$column]);
+    }
   }
 }
