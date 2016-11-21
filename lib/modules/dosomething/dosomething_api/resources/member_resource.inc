@@ -139,7 +139,7 @@ function _member_resource_definition() {
  * Access callback for User resources.
  */
 function _member_resource_access($op) {
-  if ($op == 'create' || $op == 'get_member_count') {
+  if ($op == 'get_member_count') {
     return TRUE;
   }
   global $user;
