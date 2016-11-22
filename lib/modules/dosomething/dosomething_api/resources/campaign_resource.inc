@@ -303,6 +303,7 @@ function _campaign_resource_signup($nid, $values) {
  */
 function _campaign_resource_reportback($nid, $values) {
   // @todo: Return error if signup doesn't exist.
+
   $values['nid'] = $nid;
 
   if (!isset($values['uid'])) {
