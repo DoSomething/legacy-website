@@ -79,7 +79,8 @@ function dosomething_user_get_login_link($label, array $class = []) {
 function dosomething_user_get_register_link($label, array $class = []) {
   if (module_exists('dosomething_northstar') && variable_get('dosomething_user_openid_oauth_login_enabled')) {
     // @TODO: We need to implement this `?register` query string in authorize route here, and on Northstar.
-    return l(t($label), 'user/authorize?register', [
+    return l(t($label), 'user/authorize', [
+      'query' => ['mode' => 'register'],
       'attributes' => [
         'data-track-category' => 'Link',
         'data-track-action' => 'Click',

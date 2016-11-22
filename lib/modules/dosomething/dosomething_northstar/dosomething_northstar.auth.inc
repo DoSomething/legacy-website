@@ -48,6 +48,11 @@ function dosomething_northstar_openid_authorize() {
   $authorize_url = dosomething_northstar_openid_authorize_url();
   $url_options = ['absolute' => TRUE];
 
+  // If we specify a mode, append that to the authorization URL.
+  if (isset($_GET['mode'])) {
+    $url_options['query'] = ['mode' => $_GET['mode']];
+  }
+
   if(isset($_GET['action']) && isset($_GET['node'])) {
     dosomething_northstar_set_authorization_action($_GET['action'], $_GET['node']);
     // @TODO: Rename parameter on the Northstar side to 'title'.
