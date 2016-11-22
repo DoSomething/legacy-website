@@ -13,20 +13,21 @@
  * @return string
  */
 function dosomething_user_get_sign_up_link_markup($label, $nid, $title) {
-  // If the OpenID Connect feature flag is enabled, link to login page rather than showing classic modal.
-  if (module_exists('dosomething_northstar') && variable_get('dosomething_user_openid_oauth_login_enabled')) {
-    return l(t($label), 'user/authorize', [
-      'query' => ['action' => 'signup', 'node' => $nid, 'title' => $title],
-      'attributes' => [
-        'class' => ['button'],
-        'data-track-category' => 'Link',
-        'data-track-action' => 'Click',
-        'data-track-label' => 'Signup (Unauthenticated)',
-        'id' => 'link--campaign-signup-login'
-      ]]);
-  }
+  $openid_connect_enabled = variable_get('dosomething_user_openid_oauth_login_enabled');
+  $openid_connect_link_style = $openid_connect_enabled ? '' : 'display: none';
 
-  return l(t($label), '#', [
+  $openid_connect_link = l(t($label), 'user/authorize', [
+    'query' => ['action' => 'signup', 'node' => $nid, 'title' => $title],
+    'attributes' => [
+      'id' => 'link--openid-connect-campaign-signup-login',
+      'class' => ['button'],
+      'data-track-category' => 'Link',
+      'data-track-action' => 'Click',
+      'data-track-label' => 'Signup (Unauthenticated)',
+      'style' => $openid_connect_link_style,
+    ]]);
+
+  $legacy_link = l(t($label), '#', [
      'attributes' => [
        'id' => 'link--campaign-signup-login',
        'data-modal-href' => '#modal--login',
@@ -36,6 +37,12 @@ function dosomething_user_get_sign_up_link_markup($label, $nid, $title) {
        'class' => ['button'],
      ]
   ]);
+
+  if (module_exists('dosomething_northstar') && $openid_connect_enabled) {
+    return $openid_connect_link;
+  }
+
+  return $legacy_link . ' ' . $openid_connect_link;
 }
 
 /**
@@ -46,27 +53,36 @@ function dosomething_user_get_sign_up_link_markup($label, $nid, $title) {
  * @return string
  */
 function dosomething_user_get_login_link($label, array $class = []) {
-  if (module_exists('dosomething_northstar') && variable_get('dosomething_user_openid_oauth_login_enabled')) {
-    return l(t($label), 'user/authorize', [
-      'attributes' => [
-        'data-track-category' => 'Link',
-        'data-track-action' => 'Click',
-        'data-track-label' => 'Login',
-        'class' => $class
-      ]
-    ]);
-  }
+  $openid_connect_enabled = variable_get('dosomething_user_openid_oauth_login_enabled');
+  $openid_connect_link_style = $openid_connect_enabled ? '' : 'display: none';
 
-  return l(t($label), 'user/login', [
+  $openid_connect_link = l(t($label), 'user/authorize', [
     'attributes' => [
+      'id' => 'link--openid-connect-login',
+      'data-track-category' => 'Link',
+      'data-track-action' => 'Click',
+      'data-track-label' => 'Login',
+      'class' => $class,
+      'style' => $openid_connect_link_style,
+    ]
+  ]);
+
+  $legacy_link = l(t($label), 'user/login', [
+    'attributes' => [
+      'id' => 'link--login',
       'data-modal-href' => '#modal--login',
       'data-track-category' => 'Link',
       'data-track-action' => 'Click',
       'data-track-label' => 'Login',
       'class' => $class,
-      'id' => 'link--login'
     ]
   ]);
+
+  if (module_exists('dosomething_northstar') && $openid_connect_enabled) {
+    return $openid_connect_link;
+  }
+
+  return $legacy_link . ' ' . $openid_connect_link;
 }
 
 /**
@@ -77,21 +93,24 @@ function dosomething_user_get_login_link($label, array $class = []) {
  * @return string
  */
 function dosomething_user_get_register_link($label, array $class = []) {
-  if (module_exists('dosomething_northstar') && variable_get('dosomething_user_openid_oauth_login_enabled')) {
-    // @TODO: We need to implement this `?register` query string in authorize route here, and on Northstar.
-    return l(t($label), 'user/authorize', [
-      'query' => ['mode' => 'register'],
-      'attributes' => [
-        'data-track-category' => 'Link',
-        'data-track-action' => 'Click',
-        'data-track-label' => 'Register',
-        'class' => $class
-      ]
-    ]);
-  }
+  $openid_connect_enabled = variable_get('dosomething_user_openid_oauth_login_enabled');
+  $openid_connect_link_style = $openid_connect_enabled ? '' : 'display: none';
 
-  return l(t($label), 'user/register', [
+  $openid_connect_link = l(t($label), 'user/authorize', [
+    'query' => ['mode' => 'register'],
     'attributes' => [
+      'id' => 'link--openid-connect-register',
+      'data-track-category' => 'Link',
+      'data-track-action' => 'Click',
+      'data-track-label' => 'Register',
+      'class' => $class,
+      'style' => $openid_connect_link_style,
+    ]
+  ]);
+
+  $legacy_link = l(t($label), 'user/register', [
+    'attributes' => [
+      'id' => 'link--register',
       'data-modal-href' => '#modal--register',
       'data-track-category' => 'Link',
       'data-track-action' => 'Click',
@@ -99,6 +118,12 @@ function dosomething_user_get_register_link($label, array $class = []) {
       'class' => $class
     ]
   ]);
+
+  if (module_exists('dosomething_northstar') && $openid_connect_enabled) {
+    return $openid_connect_link;
+  }
+
+  return $legacy_link . ' ' . $openid_connect_link;
 }
 
 /**
