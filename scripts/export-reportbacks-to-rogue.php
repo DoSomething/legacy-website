@@ -12,27 +12,29 @@ include_once('../lib/modules/dosomething/dosomething_northstar/dosomething_north
 
 $last_saved = variable_get('dosomething_rogue_last_rbi_migrated', NULL);
 if ($last_saved) {
-  $rbis = db_query("SELECT *
+  $rbis = db_query("SELECT rb.uid
             FROM dosomething_reportback_file rbf
-            LEFT JOIN dosomething_reportback rb on rbf.rbid = rb.rbid
+            INNER JOIN dosomething_reportback rb on rbf.rbid = rb.rbid
             WHERE rbf.fid > $last_saved
-            ORDER BY rbf.fid");
+            ORDER BY rbf.fid
+            LIMIT 1");
 }
 else {
-  // Get all the users!
+  // Get all the things!
   $rbis = db_query('SELECT *
                    FROM dosomething_reportback_file rbf
-                   LEFT JOIN dosomething_reportback rb on rbf.rbid = rb.rbid
-                   ORDER BY rbf.fid');
+                   INNER JOIN dosomething_reportback rb on rbf.rbid = rb.rbid
+                   ORDER BY rbf.fid
+                   LIMIT 15');
 }
 
 $client = dosomething_rogue_client();
 
 
-foreach ($rbis as $rbi) {
+foreach ($rbis as $rb) {
 
   $data = [
-    'northstar_id' => dosomething_northstar_get_user($rb->uid, 'drupal_id'),
+    'northstar_id' => dosomething_northstar_get_user($rb->uid, 'drupal_id')->id,
     'campaign_id' => $rb->nid,
     'campaign_run_id' => $rb->run_nid,
     'quantity' => $rb->quantity,
@@ -41,8 +43,7 @@ foreach ($rbis as $rbi) {
     'caption' => $rb->caption,
     'source' => $rb->source,
     'remote_addr' => $rb->remote_addr,
-    // do this but first need to transform what they mean.
-    // 'status' => isset($values['status']) ? $values['status'] : 'pending',
+    'status' => dosomething_rogue_transform_status($rb->status),
   ];
 
 

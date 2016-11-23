@@ -189,6 +189,22 @@ function dosomething_rogue_store_rogue_references($rbid, $fid, $rogue_reportback
       ))
     ->execute();
 }
+/**
+ * Given a phoenix status, transform that into the corresponding rogue status
+ * @param  string $status phoenix item status
+ * @return string
+ */
+function dosomething_rogue_transform_status($status) {
+  if ($status === 'promoted' || $status === 'approved' || $status === 'excluded') {
+    return 'accepted';
+  }
+  else if ($status === 'pending') {
+    return 'pending';
+  }
+  else {
+    return 'rejected';
+  }
+}
 
 /**
  * Insert record that stores reference to the most recent uploaded reportback item in
