@@ -234,8 +234,9 @@ function dosomething_rogue_update_7005(&$sandbox) {
       'length' => '255',
       'not null' => FALSE,
     ];
-
-    db_add_field($table_name, 'northstar_id', $spec);
+    if (! db_field_exists($table_name, 'northstar_id') {
+      db_add_field($table_name, 'northstar_id', $spec);
+    }
   }
 }
 
