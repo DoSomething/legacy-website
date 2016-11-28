@@ -41,7 +41,7 @@
         ];
 
         if ($task->crop_x) {
-          $cropped_values = dosomething_rogue_send_crop_values($task);
+          $cropped_values = dosomething_rogue_format_crop_values($task);
 
           foreach ($cropped_values as $key => $value) {
             $data[$key] = $value;

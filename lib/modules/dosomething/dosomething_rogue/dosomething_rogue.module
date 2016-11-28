@@ -68,31 +68,7 @@ function dosomething_rogue_send_reportback_to_rogue($values, $user = NULL) {
 
   $client = dosomething_rogue_client();
 
-  $data = [
-    'northstar_id' => $northstar_id,
-    'drupal_id' => $user->uid,
-    'campaign_id' => $values['nid'],
-    'campaign_run_id' => $run->nid,
-    'quantity' => $values['quantity'],
-    'why_participated' => $values['why_participated'],
-    'file' => isset($values['file']) ? $values['file'] : NULL,
-    'caption' => isset($values['caption']) ? $values['caption'] : NULL,
-    'status' => isset($values['status']) ? $values['status'] : 'pending',
-    'crop_x' => isset($values['crop_x']) ? $values['crop_x'] : NULL,
-    'crop_y' => isset($values['crop_y']) ? $values['crop_y'] : NULL,
-    'crop_width' => isset($values['crop_width']) ? $values['crop_width'] : NULL,
-    'crop_height' => isset($values['crop_height']) ? $values['crop_height'] : NULL,
-    'crop_rotate' => isset($values['crop_rotate']) ? $values['crop_rotate'] : NULL,
-    'source' => isset($values['source']) ? $values['source'] : NULL,
-  ];
-
-  if ($values['crop_x']) {
-    $cropped_values = dosomething_rogue_send_crop_values($values);
-
-    foreach ($cropped_values as $key => $value) {
-      $data[$key] = $value;
-    }
-  }
+  $data = dosomething_rogue_transform_reportback($northstar_id, $user, $values, $run);
 
   $values['type'] = 'reportback';
   $values['northstar_id'] = $northstar_id;
@@ -272,11 +248,46 @@ function dosomething_rogue_rb_exists_in_rogue($rbid)
 }
 
 /**
+ * Transform reportback into the appropriate scheme to send to Rogue.
+ *
+ * @param $northstar_id - User's Northstar user id.
+ * @param $user - Drupal user object.
+ * @param $values - Reportback values to send to Rogue.
+ * @param $run - Campaign run id.
+ * @return array
+ */
+function dosomething_rogue_transform_reportback($northstar_id, $user, $values, $run)
+{
+  $data = [
+    'northstar_id' => $northstar_id,
+    'drupal_id' => $user->uid,
+    'campaign_id' => $values['nid'],
+    'campaign_run_id' => $run->nid,
+    'quantity' => $values['quantity'],
+    'why_participated' => $values['why_participated'],
+    'file' => isset($values['file']) ? $values['file'] : NULL,
+    'caption' => isset($values['caption']) ? $values['caption'] : NULL,
+    'status' => isset($values['status']) ? $values['status'] : 'pending',
+    'source' => isset($values['source']) ? $values['source'] : NULL,
+  ];
+
+  if ($values['crop_x']) {
+    $cropped_values = dosomething_rogue_format_crop_values($values);
+
+    foreach ($cropped_values as $key => $value) {
+      $data[$key] = $value;
+    }
+  }
+
+  return $data;
+}
+
+/**
  * Format cropped values to send to Rogue.
  * @param array $values
  *
  */
-function dosomething_rogue_send_crop_values($values)
+function dosomething_rogue_format_crop_values($values)
 {
   if (is_array($values)) {
     $values = (object)$values;

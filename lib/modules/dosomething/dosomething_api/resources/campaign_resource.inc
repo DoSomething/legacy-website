@@ -364,7 +364,7 @@ function _campaign_resource_reportback($nid, $values) {
   $values['fid'] = $file->fid;
   $values['file'] = dosomething_helpers_get_data_uri_from_fid($file->fid);
 
-  // // @todo: Move this logic into dosomething_reportback_save().
+  // @todo: Move this logic into dosomething_reportback_save().
   $rbid = dosomething_reportback_exists($nid, NULL, $uid);
 
   if (!$rbid) {
