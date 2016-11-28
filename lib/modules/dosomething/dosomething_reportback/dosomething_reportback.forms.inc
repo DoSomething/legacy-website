@@ -387,21 +387,24 @@ function dosomething_reportback_form_submit($form, &$form_state) {
     }
 
     // Store the base64 encoded data uri of the file in the values array to send to rogue.
-    if (array_key_exists('storage', $form_state)) {
-      $file = $form_state['storage']['file'];
-      $values['file'] = dosomething_helpers_get_data_uri_from_fid($file->fid);
-      $values['source'] = 'phoenix-web';
-    } else {
-      // If there is no file and there is a RB in Phoenix, check the dosomething_rogue_reportback table to see if the RB already exists in Rogue.
-      if ($rbid) {
-        $exists_in_rogue = dosomething_rogue_rb_exists_in_rogue($rbid);
+    // @TODO: This is still set if it is a duplicate so don't bother with this
+    if ($form_state['values']['caption']) {
+      if (array_key_exists('storage', $form_state)) {
+        $file = $form_state['storage']['file'];
+        $values['file'] = dosomething_helpers_get_data_uri_from_fid($file->fid);
+        $values['source'] = 'phoenix-web';
+      } else {
+        // If there is no file and there is a RB in Phoenix, check the dosomething_rogue_reportback table to see if the RB already exists in Rogue.
+        if ($rbid) {
+          $exists_in_rogue = dosomething_rogue_rb_exists_in_rogue($rbid);
 
-        // If the RB does not yet exist in Rogue, send along the most recently created reportback_item so the RB can be created in Rogue.
-        if (! $exists_in_rogue) {
-          $reportback_file = entity_load('reportback_item', array($fid));
-          $values['file'] = dosomething_helpers_get_data_uri_from_fid($fid);
-          $values['caption'] = $reportback_file[$fid]->caption;
-          $values['source'] = isset($reportback_file[$fid]->source) ? $reportback_file[$fid]->source : 'phoenix-web';
+          // If the RB does not yet exist in Rogue, send along the most recently created reportback_item so the RB can be created in Rogue.
+          if (! $exists_in_rogue) {
+            $reportback_file = entity_load('reportback_item', array($fid));
+            $values['file'] = dosomething_helpers_get_data_uri_from_fid($fid);
+            $values['caption'] = $reportback_file[$fid]->caption;
+            $values['source'] = isset($reportback_file[$fid]->source) ? $reportback_file[$fid]->source : 'phoenix-web';
+          }
         }
       }
     }
@@ -410,13 +413,17 @@ function dosomething_reportback_form_submit($form, &$form_state) {
     $rogue_reportback = dosomething_rogue_send_reportback_to_rogue($values, $user);
 
     // Make sure the reportback exists (meaning it got back from Rogue)
+    // @TODO: If an update fails, this will still come back true I think
     $rbid = dosomething_reportback_exists($rogue_reportback['data']['campaign_id'], $rogue_reportback['data']['campaign_run_id'], $rogue_reportback['data']['drupal_id']);
 
     // Store reference to the rb in rogue, redirect user to permalink page.
     if ($rbid) {
       $reportback = entity_load_unchanged('reportback', [$rbid]);
-      $fid = array_pop($reportback->fids);
-      dosomething_rogue_store_rogue_references($rbid, $fid, $rogue_reportback);
+      // If a file was added, store references to the relevant Rogue data
+      if (isset($file)) {
+        $fid = array_pop($reportback->fids);
+        dosomething_rogue_store_rogue_references($rbid, $fid, $rogue_reportback);
+      }
 
       // Redirect to permalink page.
       $form_state['redirect'] = array(
