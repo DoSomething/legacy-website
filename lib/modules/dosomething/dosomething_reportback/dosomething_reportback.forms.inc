@@ -387,6 +387,7 @@ function dosomething_reportback_form_submit($form, &$form_state) {
     }
 
     // Store the base64 encoded data uri of the file in the values array to send to rogue.
+    // @TODO: This is still set if it is a duplicate so don't bother with this
     if (array_key_exists('storage', $form_state)) {
       $file = $form_state['storage']['file'];
       $values['file'] = dosomething_helpers_get_data_uri_from_fid($file->fid);
