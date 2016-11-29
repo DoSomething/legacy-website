@@ -335,7 +335,7 @@ function _campaign_resource_reportback($nid, $values) {
     if (!array_key_exists('file_url', $values) && !$rbid) {
       return services_error(t("Reportback file_url not found."), 500);
     }
-    // Create a file from the $file_url.
+    // Create a file from the $file_url if there is one.
     if (!empty($values['file_url'])) {
       $file = dosomething_reportback_save_file_from_url($nid, $uid, $values['file_url']);
       if (!$file) {
