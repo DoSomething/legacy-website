@@ -361,24 +361,6 @@ function _campaign_resource_reportback($nid, $values) {
 
   $transaction_id = $_SERVER['HTTP_X_REQUEST_ID'];
 
-  $values['fid'] = $file->fid;
-  $values['file'] = dosomething_helpers_get_data_uri_from_fid($file->fid);
-
-  // @todo: Move this logic into dosomething_reportback_save().
-  $rbid = dosomething_reportback_exists($nid, NULL, $uid);
-
-  if (!$rbid) {
-    $rbid = 0;
-  }
-
-  $values['rbid'] = $rbid;
-
-  if (DOSOMETHING_REPORTBACK_LOG) {
-    watchdog('dosomething_api', '_campaign_resource_reportback:' . json_encode($values));
-  }
-
-  $transaction_id = $_SERVER['HTTP_X_REQUEST_ID'];
-
   // If there is no transaction id, the request is coming from the mobile app or SMS reportbacks.
   // Only send to Rogue if there is no transaction id to avoid infinite loop.
   if (! $transaction_id) {

@@ -54,6 +54,7 @@ function dosomething_rogue_send_reportback_to_rogue($values, $user = NULL) {
   if (!isset($user)) {
     global $user;
   }
+
   $northstar_id = dosomething_user_get_field('field_northstar_id', $user);
 
   // Band-aid fix for an issue we are seeing with phoenix not being
@@ -66,10 +67,8 @@ function dosomething_rogue_send_reportback_to_rogue($values, $user = NULL) {
 
   $client = dosomething_rogue_client();
 
-  $data = dosomething_rogue_transform_reportback($northstar_id, $user, $values);
-
-  $values['type'] = 'reportback';
-  $values['northstar_id'] = $northstar_id;
+  $data = dosomething_rogue_transform_reportback($values, $northstar_id);
+  $data['type'] = 'reportback';
 
   try {
     $response = $client->postReportback($data);
@@ -79,15 +78,15 @@ function dosomething_rogue_send_reportback_to_rogue($values, $user = NULL) {
     }
     if (!$response) {
       // This is a 404
-      dosomething_rogue_handle_failure($values, $response, $e, $user);
+      dosomething_rogue_handle_failure($data, $response, $e, $user);
     }
   }
   catch (GuzzleHttp\Exception\ServerException $e) {
     // These aren't yet caught by Gateway
-    dosomething_rogue_handle_failure($values, $response, $e, $user);
+    dosomething_rogue_handle_failure($data, $response, $e, $user);
   }
   catch (DoSomething\Gateway\Exceptions\ApiException $e) {
-    dosomething_rogue_handle_failure($values, $response, $e, $user);
+    dosomething_rogue_handle_failure($data, $response, $e, $user);
   }
 
   return $response;
@@ -193,12 +192,11 @@ function dosomething_rogue_handle_failure($values, $response = NULL, $e = NULL, 
 
   // Save fail to a db log so we can easily export.
   if ($values['type'] === 'reportback') {
-    $run = dosomething_helpers_get_current_campaign_run_for_user($values['nid']);
     db_insert('dosomething_rogue_failed_task_log')
       ->fields([
         'drupal_id' => $user->uid,
-        'campaign_id' => $values['nid'],
-        'campaign_run_id' => $run->nid,
+        'campaign_id' => $values['campaign_id'],
+        'campaign_run_id' => $values['campaign_run_id'],
         'quantity' => $values['quantity'],
         'why_participated' => $values['why_participated'],
         'file' => $values['file'],
@@ -216,7 +214,7 @@ function dosomething_rogue_handle_failure($values, $response = NULL, $e = NULL, 
       ])
       ->execute();
 
-    watchdog('dosomething_rogue', 'Reportback not migrated to Rogue: northstar_id: !northstar_id, campaign_id: !campaign_id, campaign run_nid: !campaign_run_id.', ['!northstar_id' => $values['northstar_id'], '!campaign_id' => $values['nid'], '!campaign_run_id' => $run->nid], WATCHDOG_ERROR);
+    watchdog('dosomething_rogue', 'Reportback not migrated to Rogue: northstar_id: !northstar_id, campaign_id: !campaign_id, campaign run_nid: !campaign_run_id.', ['!northstar_id' => $values['northstar_id'], '!campaign_id' => $values['campaign_id'], '!campaign_run_id' => $values['campaign_run_id']], WATCHDOG_ERROR);
   } else {
     db_insert('dosomething_rogue_failed_task_log')
       ->fields([
@@ -248,18 +246,23 @@ function dosomething_rogue_rb_exists_in_rogue($rbid)
 /**
  * Transform reportback into the appropriate scheme to send to Rogue.
  *
- * @param $northstar_id - User's Northstar user id.
- * @param $user - Drupal user object.
  * @param $values - Reportback values to send to Rogue.
+ * @param $northstar_id - User's Northstar user id.
  * @return array
  */
-function dosomething_rogue_transform_reportback($northstar_id, $user, $values) {
-  $run = dosomething_helpers_get_current_campaign_run_for_user($values['nid']);
+function dosomething_rogue_transform_reportback($values, $northstar_id) {
+  if ($values['nid']) {
+    $campaign_id = $values['nid'];
+  }
+  elseif ($values['campaign_id']) {
+    $campaign_id = $values['campaign_id'];
+  }
+
+  $run = dosomething_helpers_get_current_campaign_run_for_user($campaign_id);
 
   $data = [
     'northstar_id' => $northstar_id,
-    'drupal_id' => $user->uid,
-    'campaign_id' => $values['nid'],
+    'campaign_id' => $campaign_id,
     'campaign_run_id' => $run->nid,
     'quantity' => $values['quantity'],
     'why_participated' => $values['why_participated'],
@@ -267,6 +270,7 @@ function dosomething_rogue_transform_reportback($northstar_id, $user, $values) {
     'caption' => isset($values['caption']) ? $values['caption'] : NULL,
     'status' => isset($values['status']) ? $values['status'] : 'pending',
     'source' => isset($values['source']) ? $values['source'] : NULL,
+    'type' => isset($values['type']) ? $values['type'] : NULL,
   ];
 
   if ($values['crop_x']) {
@@ -282,14 +286,10 @@ function dosomething_rogue_transform_reportback($northstar_id, $user, $values) {
 
 /**
  * Format cropped values to send to Rogue.
- * @param array $values
+ * @param object $values
  *
  */
 function dosomething_rogue_format_crop_values($values) {
-  if (is_array($values)) {
-    $values = (object)$values;
-  }
-
   $cropped_values = [];
   $cropped_values['crop_x'] = $values->crop_x;
   $cropped_values['crop_y'] = $values->crop_y;
