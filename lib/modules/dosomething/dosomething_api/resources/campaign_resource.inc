@@ -332,7 +332,7 @@ function _campaign_resource_reportback($nid, $values) {
 
   if (!$file) {
     // If this is to create a new reportback, there must be an image
-    if (empty($values['file_url']) && !$rbid) {
+    if (!array_key_exists('file_url', $values) && !$rbid) {
       return services_error(t("Reportback file_url not found."), 500);
     }
     // Create a file from the $file_url.

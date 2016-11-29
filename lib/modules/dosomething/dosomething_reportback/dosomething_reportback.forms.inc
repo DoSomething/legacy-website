@@ -388,23 +388,21 @@ function dosomething_reportback_form_submit($form, &$form_state) {
 
     // Store the base64 encoded data uri of the file in the values array to send to rogue.
     // @TODO: This is still set if it is a duplicate so don't bother with this
-    if ($form_state['values']['caption']) {
-      if (array_key_exists('storage', $form_state)) {
-        $file = $form_state['storage']['file'];
-        $values['file'] = dosomething_helpers_get_data_uri_from_fid($file->fid);
-        $values['source'] = 'phoenix-web';
-      } else {
-        // If there is no file and there is a RB in Phoenix, check the dosomething_rogue_reportback table to see if the RB already exists in Rogue.
-        if ($rbid) {
-          $exists_in_rogue = dosomething_rogue_rb_exists_in_rogue($rbid);
+    if (array_key_exists('storage', $form_state)) {
+      $file = $form_state['storage']['file'];
+      $values['file'] = dosomething_helpers_get_data_uri_from_fid($file->fid);
+      $values['source'] = 'phoenix-web';
+    } else {
+      // If there is no file and there is a RB in Phoenix, check the dosomething_rogue_reportback table to see if the RB already exists in Rogue.
+      if ($rbid) {
+        $exists_in_rogue = dosomething_rogue_rb_exists_in_rogue($rbid);
 
-          // If the RB does not yet exist in Rogue, send along the most recently created reportback_item so the RB can be created in Rogue.
-          if (! $exists_in_rogue) {
-            $reportback_file = entity_load('reportback_item', array($fid));
-            $values['file'] = dosomething_helpers_get_data_uri_from_fid($fid);
-            $values['caption'] = $reportback_file[$fid]->caption;
-            $values['source'] = isset($reportback_file[$fid]->source) ? $reportback_file[$fid]->source : 'phoenix-web';
-          }
+        // If the RB does not yet exist in Rogue, send along the most recently created reportback_item so the RB can be created in Rogue.
+        if (! $exists_in_rogue) {
+          $reportback_file = entity_load('reportback_item', array($fid));
+          $values['file'] = dosomething_helpers_get_data_uri_from_fid($fid);
+          $values['caption'] = $reportback_file[$fid]->caption;
+          $values['source'] = isset($reportback_file[$fid]->source) ? $reportback_file[$fid]->source : 'phoenix-web';
         }
       }
     }
