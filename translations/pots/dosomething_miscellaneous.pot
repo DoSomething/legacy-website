@@ -95,3 +95,7 @@ msgstr ""
 #: Login error message
 msgid "Password field is required."
 msgstr ""
+
+#: Brand Slogan
+msgid "Let's do this!"
+mgstr ""
