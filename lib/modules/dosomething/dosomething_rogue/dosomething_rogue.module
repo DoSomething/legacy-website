@@ -64,11 +64,9 @@ function dosomething_rogue_send_reportback_to_rogue($values, $user = NULL) {
     $northstar_id = $northstar_user->id;
   }
 
-  $run = dosomething_helpers_get_current_campaign_run_for_user($values['nid']);
-
   $client = dosomething_rogue_client();
 
-  $data = dosomething_rogue_transform_reportback($northstar_id, $user, $values, $run);
+  $data = dosomething_rogue_transform_reportback($northstar_id, $user, $values);
 
   $values['type'] = 'reportback';
   $values['northstar_id'] = $northstar_id;
@@ -253,11 +251,11 @@ function dosomething_rogue_rb_exists_in_rogue($rbid)
  * @param $northstar_id - User's Northstar user id.
  * @param $user - Drupal user object.
  * @param $values - Reportback values to send to Rogue.
- * @param $run - Campaign run id.
  * @return array
  */
-function dosomething_rogue_transform_reportback($northstar_id, $user, $values, $run)
-{
+function dosomething_rogue_transform_reportback($northstar_id, $user, $values) {
+  $run = dosomething_helpers_get_current_campaign_run_for_user($values['nid']);
+
   $data = [
     'northstar_id' => $northstar_id,
     'drupal_id' => $user->uid,
@@ -287,8 +285,7 @@ function dosomething_rogue_transform_reportback($northstar_id, $user, $values, $
  * @param array $values
  *
  */
-function dosomething_rogue_format_crop_values($values)
-{
+function dosomething_rogue_format_crop_values($values) {
   if (is_array($values)) {
     $values = (object)$values;
   }

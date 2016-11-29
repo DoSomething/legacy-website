@@ -379,7 +379,7 @@ function _campaign_resource_reportback($nid, $values) {
 
   $transaction_id = $_SERVER['HTTP_X_REQUEST_ID'];
 
-  // If there is no transaction id, the request is coming from an app other than Rogue.
+  // If there is no transaction id, the request is coming from the mobile app or SMS reportbacks.
   // Only send to Rogue if there is no transaction id to avoid infinite loop.
   if (! $transaction_id) {
     $rogue_reportback = dosomething_rogue_send_reportback_to_rogue($values, $user);
