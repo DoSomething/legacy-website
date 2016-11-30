@@ -98,4 +98,20 @@ msgstr ""
 
 #: Brand Slogan
 msgid "Let's do this!"
-mgstr ""
+msgstr ""
+
+#: Brand Slogan
+msgid "Join others making a difference."
+msgstr ""
+
+#: Brand Slogan
+msgid "A global movement for good."
+msgstr ""
+
+#: Brand Slogan
+msgid "Find ways to take action both online and off."
+msgstr ""
+
+#: Brand Slogan
+msgid "Choose a campaign and take action with 5.3 million young people."
+msgstr ""
