@@ -32,9 +32,11 @@ $client = dosomething_rogue_client();
 
 
 foreach ($rbis as $rb) {
+  //@todo? Set a variable or header to disable the send back to phoenix for these.
 
   $data = [
     'northstar_id' => dosomething_northstar_get_user($rb->uid, 'drupal_id')->id,
+    'drupal_id' => $rb->uid,
     'campaign_id' => $rb->nid,
     'campaign_run_id' => $rb->run_nid,
     'quantity' => $rb->quantity,
@@ -46,23 +48,14 @@ foreach ($rbis as $rb) {
     'status' => dosomething_rogue_transform_status($rb->status),
   ];
 
+  $response = $client->postReportback($data);
 
-  // Transform Reviewer to NS id
-  // Transform user to NS id
-  // Transform status to the rogue status
+  // Output progress to see what's going on.
+  echo 'Migrated reportback ' . $rb->fid . ' to Rogue [' . $rb->caption . ']' . PHP_EOL;
 
-  print_r($data) . "\n";
+  // Store the reference in dosomething_rogue_reportbacks.
+  dosomething_rogue_store_rogue_references($rb->rbid, $rb->fid, $response);
 
-  // $response = $client->postReportback($data);
-
-  // Output progress to stdout so we can see our good work.
-
-
-  // Save any failed requests to the request log for debugging.
-
-
-  // Store the info in dosomething_rogue_reportbacks.
-
-  // If the script fails, we can use this to start the script from a previous person.
-  // variable_set('dosomething_rogue_last_rbi_migrated', $user->uid);
+  // If the script fails, we can use this to start the script from the last reportback migrated.
+  variable_set('dosomething_rogue_last_rbi_migrated', $rb->fid);
 }
