@@ -410,13 +410,17 @@ function dosomething_reportback_form_submit($form, &$form_state) {
     $rogue_reportback = dosomething_rogue_send_reportback_to_rogue($values, $user);
 
     // Make sure the reportback exists (meaning it got back from Rogue)
+    // @TODO: If an update fails, this will still come back true I think
     $rbid = dosomething_reportback_exists($rogue_reportback['data']['campaign_id'], $rogue_reportback['data']['campaign_run_id'], $rogue_reportback['data']['drupal_id']);
 
     // Store reference to the rb in rogue, redirect user to permalink page.
     if ($rbid) {
       $reportback = entity_load_unchanged('reportback', [$rbid]);
-      $fid = array_pop($reportback->fids);
-      dosomething_rogue_store_rogue_references($rbid, $fid, $rogue_reportback);
+      // If a file was added, store references to the relevant Rogue data
+      if (isset($file)) {
+        $fid = array_pop($reportback->fids);
+        dosomething_rogue_store_rogue_references($rbid, $fid, $rogue_reportback);
+      }
 
       // Redirect to permalink page.
       $form_state['redirect'] = array(

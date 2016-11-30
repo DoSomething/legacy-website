@@ -312,9 +312,9 @@ Must be authenticated to post.
     The number of reportback nouns verbed.
   - **why_participated**: (string) required.
     The reason why the user participated.
-  - **file_url**: (string) required if `file` is not provided.
+  - **file_url**: (string) required if `file` is not provided and a new reportback is being created.
     An image URL for the reportback.
-  - **file**: (string) required if `file_url` is not provided.
+  - **file**: (string) required if `file_url` is not provided and a new reportback is being created.
     Base64 encoded file string to save.
   - **filename**: (string) required if `file` is provided.
     Necessary for Drupal File API save (see `dosomething_reportback_get_file_dest`).
