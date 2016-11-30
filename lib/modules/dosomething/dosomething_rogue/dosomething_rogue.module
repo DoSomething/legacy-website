@@ -149,13 +149,15 @@ function dosomething_rogue_get_by_file_id($fid)
  * phoenix and it's corresponding id's in Rogue
  *
  * @param string $rbid
- * @param string $fid
  * @param object $rogue_reportback
  *
  * @return InsertQuery object
  */
-function dosomething_rogue_store_rogue_references($rbid, $fid, $rogue_reportback)
+function dosomething_rogue_store_rogue_references($rbid, $rogue_reportback)
 {
+  $reportback = entity_load_unchanged('reportback', [$rbid]);
+  $fid = array_pop($reportback->fids);
+
   $most_recent_rogue_item = array_pop($rogue_reportback['data']['reportback_items']['data']);
 
   // Store references to rogue IDs.
