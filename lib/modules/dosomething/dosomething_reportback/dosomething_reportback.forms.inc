@@ -409,21 +409,16 @@ function dosomething_reportback_form_submit($form, &$form_state) {
     // Send the reportback to rogue.
     $rogue_reportback = dosomething_rogue_send_reportback_to_rogue($values, $user);
 
-    // Make sure the reportback exists (meaning it got back from Rogue)
-    $rbid = dosomething_reportback_exists($rogue_reportback['data']['campaign_id'], $rogue_reportback['data']['campaign_run_id'], $rogue_reportback['data']['drupal_id']);
+    // Make sure reportback made it back to Phoenix and store reference to the Rogue item
+    $rb_info = dosomething_rogue_check_rbid_and_store_ref($rogue_reportback);
 
-    // Store reference to the rb in rogue, redirect user to permalink page.
-    if ($rbid) {
-      $reportback = entity_load_unchanged('reportback', [$rbid]);
-      $fid = array_pop($reportback->fids);
-      dosomething_rogue_store_rogue_references($rbid, $fid, $rogue_reportback);
-
+    if ($rb_info) {
       // Redirect to permalink page.
       $form_state['redirect'] = array(
-        'reportback/' . $rbid,
+        'reportback/' . $rb_info['rbid'],
         array(
           'query' => array(
-            'fid' => $fid,
+            'fid' => $rb_info['fid'],
           ),
         ),
       );

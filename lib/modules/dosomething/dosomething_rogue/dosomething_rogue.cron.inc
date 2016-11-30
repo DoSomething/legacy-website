@@ -46,7 +46,9 @@
 
         $user = user_load($task->drupal_id);
 
-        dosomething_rogue_send_reportback_to_rogue($values, $user);
+        $rogue_reportback = dosomething_rogue_send_reportback_to_rogue($values, $user);
+
+        dosomething_rogue_check_rbid_and_store_ref($rogue_reportback);
       } else {
         $values = [
           [
