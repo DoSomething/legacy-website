@@ -278,9 +278,12 @@ function dosomething_rogue_check_rbid_and_store_ref($rogue_reportback)
   // Make sure the reportback exists (meaning it got back from Rogue)
   if ($rbid) {
     // Store reference to the rb in rogue
-    $reportback = entity_load_unchanged('reportback', [$rbid]);
-    $fid = array_pop($reportback->fids);
-    dosomething_rogue_store_rogue_references($rbid, $fid, $rogue_reportback);
+   $reportback = entity_load_unchanged('reportback', [$rbid]);
+    // If a file was added, store references to the relevant Rogue data
+    if (isset($file)) {
+      $fid = array_pop($reportback->fids);
+      dosomething_rogue_store_rogue_references($rbid, $fid, $rogue_reportback);
+    }
 
     $data = [
       'rbid' => $rbid,

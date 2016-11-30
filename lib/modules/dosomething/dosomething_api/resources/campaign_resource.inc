@@ -318,6 +318,10 @@ function _campaign_resource_reportback($nid, $values) {
 
   $file = NULL;
 
+  // @todo: Move this logic into dosomething_reportback_save().
+  $rbid = dosomething_reportback_exists($nid, NULL, $uid);
+
+  // If this is creating a new reportback, there must be a file
   if (!empty($values['file']) && !empty($values['filename'])) {
     $values['filepath'] = dosomething_reportback_get_file_dest($values['filename'], $nid, $uid);
     // Use Services module's File Create resource to save the file.
@@ -327,20 +331,23 @@ function _campaign_resource_reportback($nid, $values) {
   }
 
   if (!$file) {
-    if (empty($values['file_url'])) {
+    // If this is to create a new reportback, there must be an image
+    if (!array_key_exists('file_url', $values) && !$rbid) {
       return services_error(t("Reportback file_url not found."), 500);
     }
-    // Create a file from the $file_url.
-    $file = dosomething_reportback_save_file_from_url($nid, $uid, $values['file_url']);
-    if (!$file) {
-      return services_error(t("Could not write file to destination"), 500);
+    // Create a file from the $file_url if there is one.
+    if (!empty($values['file_url'])) {
+      $file = dosomething_reportback_save_file_from_url($nid, $uid, $values['file_url']);
+      if (!$file) {
+        return services_error(t("Could not write file to destination"), 500);
+      }
     }
   }
 
-  $values['fid'] = $file->fid;
-
   // @todo: Move this logic into dosomething_reportback_save().
-  $rbid = dosomething_reportback_exists($nid, NULL, $uid);
+  if ($file) {
+    $values['fid'] = $file->fid;
+  }
 
   if (!$rbid) {
     $rbid = 0;
