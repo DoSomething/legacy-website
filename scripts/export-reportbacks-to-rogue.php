@@ -16,6 +16,7 @@ if ($last_saved) {
             FROM dosomething_reportback_file rbf
             INNER JOIN dosomething_reportback rb on rbf.rbid = rb.rbid
             WHERE rbf.fid > $last_saved
+            AND rbf.fid NOT IN (SELECT fid FROM dosomething_rogue_reportbacks)
             ORDER BY rbf.fid");
 }
 else {
@@ -23,11 +24,11 @@ else {
   $rbis = db_query('SELECT *
                    FROM dosomething_reportback_file rbf
                    INNER JOIN dosomething_reportback rb on rbf.rbid = rb.rbid
+                   WHERE rbf.fid NOT IN (SELECT fid FROM dosomething_rogue_reportbacks)
                    ORDER BY rbf.fid');
 }
 
 $client = dosomething_rogue_client();
-
 
 foreach ($rbis as $rb) {
   //@todo? Set a variable or header to disable the send back to phoenix for these.
