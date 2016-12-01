@@ -193,8 +193,6 @@ function dosomething_rogue_handle_failure($values, $response = NULL, $e = NULL, 
 
   // Save fail to a db log so we can easily export.
   if ($values['type'] === 'reportback') {
-
-
     db_insert('dosomething_rogue_failed_task_log')
       ->fields([
         'drupal_id' => $user->uid,
@@ -248,7 +246,7 @@ function dosomething_rogue_rb_exists_in_rogue($rbid)
 }
 
 /**
- * Transform reportback into the appropriate scheme to send to Rogue.
+ * Transform reportback into the appropriate schema to send to Rogue.
  *
  * @param $values - Reportback values to send to Rogue.
  * @param $northstar_id - User's Northstar user id.
