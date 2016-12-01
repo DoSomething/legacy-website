@@ -70,8 +70,6 @@ function dosomething_rogue_send_reportback_to_rogue($values, $user = NULL) {
   $data['type'] = 'reportback';
 
   try {
-    print_r($data);
-    die();
     $response = $client->postReportback($data);
 
     if (module_exists('stathat')) {
