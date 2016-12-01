@@ -276,28 +276,9 @@ function dosomething_rogue_rb_exists_in_rogue($rbid)
    ];
 
    if ($values['crop_x']) {
-     $cropped_values = dosomething_rogue_format_crop_values($values);
-
-     foreach ($cropped_values as $key => $value) {
-       $data[$key] = $value;
-     }
+    $cropped_values = dosomething_helpers_extract_values_by_keys($values, ['crop_x', 'crop_y', 'crop_width', 'crop_height', 'crop_rotate']);
+    $data = array_merge($data, $cropped_values);
    }
 
    return $data;
  }
-
- /**
-  * Format cropped values to send to Rogue.
-  * @param object $values
-  *
-   */
-  function dosomething_rogue_format_crop_values($values) {
-    $cropped_values = [];
-    $cropped_values['crop_x'] = $values['crop_x'];
-    $cropped_values['crop_y'] = $values['crop_y'];
-    $cropped_values['crop_width'] = $values['crop_width'];
-    $cropped_values['crop_height'] = $values['crop_height'];
-    $cropped_values['crop_rotate'] = $values['crop_rotate'];
-
-    return $cropped_values;
-  }
