@@ -410,7 +410,9 @@ function dosomething_reportback_form_submit($form, &$form_state) {
     $rogue_reportback = dosomething_rogue_send_reportback_to_rogue($values, $user);
 
     // Make sure reportback made it back to Phoenix and store reference to the Rogue item
-    $rb_info = dosomething_rogue_check_rbid_and_store_ref($rogue_reportback);
+    if (array_key_exists('file', $values)) {
+      $rb_info = dosomething_rogue_check_rbid_and_store_ref($rogue_reportback);
+    }
 
     if ($rb_info) {
       // Redirect to permalink page.
