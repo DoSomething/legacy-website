@@ -16,16 +16,14 @@ if ($last_saved) {
             FROM dosomething_reportback_file rbf
             INNER JOIN dosomething_reportback rb on rbf.rbid = rb.rbid
             WHERE rbf.fid > $last_saved
-            ORDER BY rbf.fid
-            LIMIT 1");
+            ORDER BY rbf.fid");
 }
 else {
   // Get all the things!
   $rbis = db_query('SELECT *
                    FROM dosomething_reportback_file rbf
                    INNER JOIN dosomething_reportback rb on rbf.rbid = rb.rbid
-                   ORDER BY rbf.fid
-                   LIMIT 15');
+                   ORDER BY rbf.fid');
 }
 
 $client = dosomething_rogue_client();
@@ -50,12 +48,15 @@ foreach ($rbis as $rb) {
 
   $response = $client->postReportback($data);
 
-  // Output progress to see what's going on.
-  echo 'Migrated reportback ' . $rb->fid . ' to Rogue [' . $rb->caption . ']' . PHP_EOL;
+  if ($response) {
+    // Output progress to see what's going on.
+    echo 'Migrated reportback ' . $rb->fid . ' to Rogue [' . $rb->caption . ']' . PHP_EOL;
 
-  // Store the reference in dosomething_rogue_reportbacks.
-  dosomething_rogue_store_rogue_references($rb->rbid, $rb->fid, $response);
+    // Store the reference in dosomething_rogue_reportbacks.
+    dosomething_rogue_store_rogue_references($rb->rbid, $rb->fid, $response);
 
-  // If the script fails, we can use this to start the script from the last reportback migrated.
-  variable_set('dosomething_rogue_last_rbi_migrated', $rb->fid);
+    // If the script fails, we can use this to start the script from the last reportback migrated.
+    variable_set('dosomething_rogue_last_rbi_migrated', $rb->fid);
+  }
+  // @todo handle failed migrations.
 }
