@@ -343,8 +343,10 @@ function _campaign_resource_reportback($nid, $values) {
     }
   }
 
-  $values['fid'] = $file->fid;
-  $values['file'] = dosomething_helpers_get_data_uri_from_fid($file->fid);
+  if ($file) {
+    $values['fid'] = $file->fid;
+    $values['file'] = dosomething_helpers_get_data_uri_from_fid($file->fid);
+  }
 
   // @todo: Move this logic into dosomething_reportback_save().
   $rbid = dosomething_reportback_exists($nid, NULL, $uid);
@@ -368,7 +370,7 @@ function _campaign_resource_reportback($nid, $values) {
     $rbid = dosomething_reportback_exists($rogue_reportback['data']['campaign_id'], $rogue_reportback['data']['campaign_run_id'], $rogue_reportback['data']['drupal_id']);
 
     // Store reference to the rb in rogue.
-    if ($rbid) {
+    if ($rbid && $file) {
       dosomething_rogue_store_rogue_references($rbid, $rogue_reportback);
     }
   }
