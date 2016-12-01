@@ -54,7 +54,6 @@ function dosomething_rogue_send_reportback_to_rogue($values, $user = NULL) {
   if (!isset($user)) {
     global $user;
   }
-
   $northstar_id = dosomething_user_get_field('field_northstar_id', $user);
 
   // Band-aid fix for an issue we are seeing with phoenix not being
@@ -71,6 +70,8 @@ function dosomething_rogue_send_reportback_to_rogue($values, $user = NULL) {
   $data['type'] = 'reportback';
 
   try {
+    print_r($data);
+    die();
     $response = $client->postReportback($data);
 
     if (module_exists('stathat')) {
@@ -293,11 +294,11 @@ function dosomething_rogue_transform_reportback($values, $northstar_id) {
  */
 function dosomething_rogue_format_crop_values($values) {
   $cropped_values = [];
-  $cropped_values['crop_x'] = $values->crop_x;
-  $cropped_values['crop_y'] = $values->crop_y;
-  $cropped_values['crop_width'] = $values->crop_width;
-  $cropped_values['crop_height'] = $values->crop_height;
-  $cropped_values['crop_rotate'] = $values->crop_rotate;
+  $cropped_values['crop_x'] = $values['crop_x'];
+  $cropped_values['crop_y'] = $values['crop_y'];
+  $cropped_values['crop_width'] = $values['crop_width'];
+  $cropped_values['crop_height'] = $values['crop_height'];
+  $cropped_values['crop_rotate'] = $values['crop_rotate'];
 
   return $cropped_values;
 }
