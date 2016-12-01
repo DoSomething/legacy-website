@@ -303,7 +303,6 @@ function _campaign_resource_signup($nid, $values) {
  */
 function _campaign_resource_reportback($nid, $values) {
   // @todo: Return error if signup doesn't exist.
-
   $values['nid'] = $nid;
 
   if (!isset($values['uid'])) {
@@ -317,7 +316,6 @@ function _campaign_resource_reportback($nid, $values) {
   $uid = $values['uid'];
 
   $file = NULL;
-
   // @todo: Move this logic into dosomething_reportback_save().
   $rbid = dosomething_reportback_exists($nid, NULL, $uid);
 
@@ -344,10 +342,7 @@ function _campaign_resource_reportback($nid, $values) {
     }
   }
 
-  // @todo: Move this logic into dosomething_reportback_save().
-  if ($file) {
-    $values['fid'] = $file->fid;
-  }
+  $values['file'] = dosomething_helpers_get_data_uri_from_fid($file->fid);
 
   if (!$rbid) {
     $rbid = 0;
@@ -359,6 +354,25 @@ function _campaign_resource_reportback($nid, $values) {
     watchdog('dosomething_api', '_campaign_resource_reportback:' . json_encode($values));
   }
 
-  return dosomething_reportback_save($values, $user);
+  $transaction_id = $_SERVER['HTTP_X_REQUEST_ID'];
+
+  // If there is no transaction id, the request is coming from the mobile app or SMS reportbacks.
+  // Only send to Rogue if there is no transaction id to avoid infinite loop.
+  if (! $transaction_id) {
+    $rogue_reportback = dosomething_rogue_send_reportback_to_rogue($values, $user);
+
+    // Make sure the reportback exists (meaning it got back from Rogue).
+    $rbid = dosomething_reportback_exists($rogue_reportback['data']['campaign_id'], $rogue_reportback['data']['campaign_run_id'], $rogue_reportback['data']['drupal_id']);
+
+    // Store reference to the rb in rogue.
+    if ($rbid) {
+      dosomething_rogue_store_rogue_references($rbid, $rogue_reportback);
+    }
+  }
+  else {
+    dosomething_reportback_save($values, $user);
+  }
+
+  return $rbid;
 }
 
