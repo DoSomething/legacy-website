@@ -415,10 +415,11 @@ function dosomething_reportback_form_submit($form, &$form_state) {
 
     // Store reference to the rb in rogue, redirect user to permalink page.
     if ($rbid) {
-      $reportback = entity_load_unchanged('reportback', [$rbid]);
       // If a file was added, store references to the relevant Rogue data
       if (isset($file)) {
-        dosomething_rogue_store_rogue_references($rbid, $rogue_reportback);
+        $reportback = entity_load_unchanged('reportback', [$rbid]);
+        $fid = array_pop($reportback->fids);
+        dosomething_rogue_store_rogue_references($rbid, $fid, $rogue_reportback);
       }
 
       // Redirect to permalink page.

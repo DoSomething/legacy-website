@@ -371,7 +371,9 @@ function _campaign_resource_reportback($nid, $values) {
 
     // Store reference to the rb in rogue.
     if ($rbid && $file) {
-      dosomething_rogue_store_rogue_references($rbid, $rogue_reportback);
+      $reportback = entity_load_unchanged('reportback', [$rbid]);
+      $fid = array_pop($reportback->fids);
+      dosomething_rogue_store_rogue_references($rbid, $fid, $rogue_reportback);
     }
   }
   else {
