@@ -172,23 +172,26 @@ function dosomething_rogue_get_by_file_id($fid)
  * @param string $fid
  * @param object $rogue_reportback
  *
- * @return InsertQuery object
+ * @return
  */
 function dosomething_rogue_store_rogue_references($rbid, $fid, $rogue_reportback)
 {
   $most_recent_rogue_item = array_pop($rogue_reportback['data']['reportback_items']['data']);
 
-  // Store references to rogue IDs.
-  return db_insert('dosomething_rogue_reportbacks')
-    ->fields(array(
+  if (! dosomething_rogue_get_by_file_id($fid)) {
+    // Store references to rogue IDs.
+    db_insert('dosomething_rogue_reportbacks')
+    ->fields([
       'fid' => $fid,
       'rogue_item_id' => $most_recent_rogue_item['id'],
       'rbid' => $rbid,
       'rogue_reportback_id' => $rogue_reportback['data']['id'],
       'created_at' => REQUEST_TIME,
-      ))
+      ])
     ->execute();
+  }
 }
+
 /**
  * Given a phoenix status, transform that into the corresponding rogue status
  * @param  string $status phoenix item status

@@ -12,7 +12,7 @@ include_once('../lib/modules/dosomething/dosomething_northstar/dosomething_north
 
 $last_saved = variable_get('dosomething_rogue_last_rbi_migrated', NULL);
 if ($last_saved) {
-  $rbis = db_query("SELECT rb.uid
+  $rbis = db_query("SELECT *
             FROM dosomething_reportback_file rbf
             INNER JOIN dosomething_reportback rb on rbf.rbid = rb.rbid
             WHERE rbf.fid > $last_saved
@@ -46,9 +46,9 @@ foreach ($rbis as $rb) {
     'status' => dosomething_rogue_transform_status($rb->status),
   ];
 
-  $response = $client->postReportback($data);
+  try {
+    $response = $client->postReportback($data);
 
-  if ($response) {
     // Output progress to see what's going on.
     echo 'Migrated reportback ' . $rb->fid . ' to Rogue [' . $rb->caption . ']' . PHP_EOL;
 
@@ -57,6 +57,9 @@ foreach ($rbis as $rb) {
 
     // If the script fails, we can use this to start the script from the last reportback migrated.
     variable_set('dosomething_rogue_last_rbi_migrated', $rb->fid);
+  } catch (GuzzleHttp\Exception\ServerException $e) {
+    // @todo handle failed migrations.
+
+    echo 'Something terrible '  . $rb->fid  . PHP_EOL;
   }
-  // @todo handle failed migrations.
 }
