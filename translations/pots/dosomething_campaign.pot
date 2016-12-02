@@ -123,3 +123,11 @@ msgstr ""
 msgid "Snap a Pic"
 msgstr ""
 
+#: dosomething_campaign.theme
+msgid "Enter # here -- like '300' or '5'"
+msgstr ""
+
+#: dosomething_campaign.theme
+msgid "Helpful Tips"
+msgstr ""
+
