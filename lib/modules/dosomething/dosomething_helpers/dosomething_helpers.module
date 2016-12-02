@@ -975,12 +975,12 @@ function dosomething_helpers_remove_emoji_from_string($text) {
  * keys given.
  *
  * @param  associative array  $data
- * @param  array $desiredKeys
+ * @param  array $desired_keys
  *
  * @return array
  */
-function dosomething_helpers_extract_values_by_keys($array, $desiredKeys)
+function dosomething_helpers_extract_values_by_keys($array, $desired_keys)
 {
-    $desiredValues = array_intersect_key($array, array_flip($desiredKeys));
-    return (count($array) > 0) ? $desiredValues : null;
+    $desired_values = array_intersect_key($array, array_flip($desired_keys));
+    return (count($array) > 0) ? $desired_values : null;
 }
