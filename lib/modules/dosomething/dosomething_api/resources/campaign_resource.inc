@@ -366,15 +366,8 @@ function _campaign_resource_reportback($nid, $values) {
   if (! $transaction_id) {
     $rogue_reportback = dosomething_rogue_send_reportback_to_rogue($values, $user);
 
-    // Make sure the reportback exists (meaning it got back from Rogue).
-    $rbid = dosomething_reportback_exists($rogue_reportback['data']['campaign_id'], $rogue_reportback['data']['campaign_run_id'], $rogue_reportback['data']['drupal_id']);
-
-    // Store reference to the rb in rogue.
-    if ($rbid && $file) {
-      $reportback = entity_load_unchanged('reportback', [$rbid]);
-      $fid = array_pop($reportback->fids);
-      dosomething_rogue_store_rogue_references($rbid, $fid, $rogue_reportback);
-    }
+    // Make sure reportback made it back to Phoenix and store reference to the Rogue item if one was added
+    $rb_info = dosomething_rogue_check_rbid_and_store_ref($rogue_reportback);
   }
   else {
     dosomething_reportback_save($values, $user);
