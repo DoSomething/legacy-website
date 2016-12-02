@@ -29,33 +29,28 @@
           $mime_split = explode(':', $task->file);
           $task->file = $mime_split[0] . ':' . $mimetype . $mime_split[1];
         }
-        $values = [
-          'nid' => $task->campaign_id,
-          'campaign_run_id' => $task->campaign_run_id,
-          'quantity' => $task->quantity,
-          'why_participated' => $task->why_participated,
-          'file' => $task->file,
-          'caption' => $task->caption,
-          'type' => $task->type,
-          'crop_x' => $task->crop_x,
-          'crop_y' => $task->crop_y,
-          'crop_width' => $task->crop_width,
-          'crop_height' => $task->crop_height,
-          'crop_rotate' => $task->crop_rotate,
-        ];
 
         $user = user_load($task->drupal_id);
+        $data = (array)$task;
 
-        dosomething_rogue_send_reportback_to_rogue($values, $user);
+        $rogue_reportback = dosomething_rogue_send_reportback_to_rogue($data, $user);
+        $rbid = dosomething_reportback_exists($rogue_reportback['data']['campaign_id'], $rogue_reportback['data']['campaign_run_id'], $rogue_reportback['data']['drupal_id']);
+
+        // Store reference to the rb in rogue.
+        if ($rbid) {
+          $reportback = entity_load_unchanged('reportback', [$rbid]);
+          $fid = array_pop($reportback->fids);
+          dosomething_rogue_store_rogue_references($rbid, $fid, $rogue_reportback);
+        }
       } else {
-        $values = [
+        $data = [
           [
             'rogue_reportback_item_id' => $task->rogue_item_id,
             'status' => $task->status,
           ]
         ];
 
-        dosomething_rogue_update_rogue_reportback_items($values);
+        dosomething_rogue_update_rogue_reportback_items($data);
       }
    }
  }
