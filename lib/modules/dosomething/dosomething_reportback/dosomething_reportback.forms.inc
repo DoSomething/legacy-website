@@ -349,7 +349,7 @@ function dosomething_reportback_form_validate($form, &$form_state) {
 function dosomething_reportback_form_submit($form, &$form_state) {
   $values = $form_state['values'];
   $campaign = node_load($values['nid']);
-  $language_code = $language_code = $campaign->language;
+  $language_code = $campaign->language;
   $values['run_nid'] = $campaign->field_current_run[$language_code][0]['target_id'];
 
   // If username field is set, this is an admin form.

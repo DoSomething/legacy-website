@@ -370,6 +370,8 @@ function _campaign_resource_reportback($nid, $values) {
     $rb_info = dosomething_rogue_check_rbid_and_store_ref($rogue_reportback);
   }
   else {
+    print_r($values);
+    die();
     dosomething_reportback_save($values, $user);
   }
 
