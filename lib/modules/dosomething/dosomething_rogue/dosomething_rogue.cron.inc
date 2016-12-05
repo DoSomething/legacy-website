@@ -34,9 +34,6 @@
         $data = (array)$task;
 
         $rogue_reportback = dosomething_rogue_send_reportback_to_rogue($data, $user);
-        $rbid = dosomething_reportback_exists($rogue_reportback['data']['campaign_id'], $rogue_reportback['data']['campaign_run_id'], $rogue_reportback['data']['drupal_id']);
-
-        $rogue_reportback = dosomething_rogue_send_reportback_to_rogue($values, $user);
 
         dosomething_rogue_check_rbid_and_store_ref($rogue_reportback);
       } else {
