@@ -280,6 +280,7 @@ function dosomething_rogue_check_rbid_and_store_ref($rogue_reportback) {
   * Transform reportback into the appropriate scheme to send to Rogue.
   *
   * @param $values - Reportback values to send to Rogue.
+  * @param  $user - Loaded drupal user
   * @param $northstar_id - User's Northstar user id.
   * @return array
   */
