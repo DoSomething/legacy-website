@@ -9,7 +9,6 @@
 $dupes = array_keys(db_query('SELECT mail FROM users GROUP BY mail HAVING COUNT(mail) > 1')->fetchAllKeyed());
 $removed = 0;
 
-
 // Watch out, because we're gonna make a database table. Yee-haw!
 db_query('
   CREATE TABLE IF NOT EXISTS `dosomething_northstar_delete_queue` (
