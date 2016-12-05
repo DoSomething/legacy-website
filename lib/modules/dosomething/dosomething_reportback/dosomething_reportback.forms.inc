@@ -380,7 +380,8 @@ function dosomething_reportback_form_submit($form, &$form_state) {
   // Collect reportbacks in Rogue if rogue collection is turned on for this campaign.
   if (variable_get('rogue_collection', FALSE)) {
     // If this is a reportback update, grab the file most recent file in case we need it later
-    $rbid = dosomething_reportback_exists($form_state['build_info']['args'][0]->nid, $form_state['build_info']['args'][0]->run_nid, $form_state['build_info']['args'][0]->uid);
+    $rbid = dosomething_reportback_exists($values['nid'], $values['run_nid'], $values['uid']);
+
     if ($rbid) {
       $reportback = reportback_load($rbid);
       $fid = array_pop($reportback->fids);
