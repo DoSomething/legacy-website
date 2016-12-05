@@ -9,13 +9,11 @@
  *
  */
 
-
 $global_peeps = db_query("SELECT u.uid, s.field_user_registration_source_value as source, a.field_address_country as country
                           FROM users u
                           LEFT JOIN field_data_field_user_registration_source s on s.entity_id = u.uid
                           LEFT JOIN field_data_field_address a on a.entity_id = u.uid
                           WHERE u.language = 'en-global' or u.language = '';");
-
 
 $possible_sources = ['niche', 'Nice', 'niche-import-service', 'letsdothis_ios', 'mobileapp_android'];
 
