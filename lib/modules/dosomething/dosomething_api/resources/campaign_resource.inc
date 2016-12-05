@@ -362,16 +362,15 @@ function _campaign_resource_reportback($nid, $values) {
   $transaction_id = $_SERVER['HTTP_X_REQUEST_ID'];
 
   if (! $transaction_id) {
-
     $rogue_reportback = dosomething_rogue_send_reportback_to_rogue($values, $user);
 
     // Make sure reportback made it back to Phoenix and store reference to the Rogue item if one was added
     $rb_info = dosomething_rogue_check_rbid_and_store_ref($rogue_reportback);
+
+    return $rb_info['rbid'];
   }
   else {
-    dosomething_reportback_save($values, $user);
+    return dosomething_reportback_save($values, $user);
   }
-
-  return $rbid;
 }
 
