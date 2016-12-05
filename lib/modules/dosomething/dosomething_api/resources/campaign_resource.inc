@@ -303,6 +303,7 @@ function _campaign_resource_signup($nid, $values) {
  */
 function _campaign_resource_reportback($nid, $values) {
   // @todo: Return error if signup doesn't exist.
+
   $values['nid'] = $nid;
 
   if (!isset($values['uid'])) {
@@ -348,9 +349,6 @@ function _campaign_resource_reportback($nid, $values) {
     $values['file'] = dosomething_helpers_get_data_uri_from_fid($file->fid);
   }
 
-  // @todo: Move this logic into dosomething_reportback_save().
-  $rbid = dosomething_reportback_exists($nid, NULL, $uid);
-
   if (!$rbid) {
     $rbid = 0;
   }
@@ -364,14 +362,13 @@ function _campaign_resource_reportback($nid, $values) {
   $transaction_id = $_SERVER['HTTP_X_REQUEST_ID'];
 
   if (! $transaction_id) {
+
     $rogue_reportback = dosomething_rogue_send_reportback_to_rogue($values, $user);
 
     // Make sure reportback made it back to Phoenix and store reference to the Rogue item if one was added
     $rb_info = dosomething_rogue_check_rbid_and_store_ref($rogue_reportback);
   }
   else {
-    print_r($values);
-    die();
     dosomething_reportback_save($values, $user);
   }
 

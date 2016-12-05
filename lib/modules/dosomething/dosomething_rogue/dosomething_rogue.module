@@ -65,10 +65,10 @@ function dosomething_rogue_send_reportback_to_rogue($values, $user = NULL) {
   }
 
   $run = dosomething_helpers_get_current_campaign_run_for_user($values['nid']);
-
   $client = dosomething_rogue_client();
 
   $data = dosomething_rogue_transform_reportback($values, $user, $northstar_id);
+
   $data['type'] = 'reportback';
 
   try {
