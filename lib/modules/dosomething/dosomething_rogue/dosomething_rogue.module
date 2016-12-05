@@ -68,7 +68,7 @@ function dosomething_rogue_send_reportback_to_rogue($values, $user = NULL) {
 
   $client = dosomething_rogue_client();
 
-  $data = dosomething_rogue_transform_reportback($values, $northstar_id);
+  $data = dosomething_rogue_transform_reportback($values, $user, $northstar_id);
   $data['type'] = 'reportback';
 
   try {
@@ -283,7 +283,7 @@ function dosomething_rogue_check_rbid_and_store_ref($rogue_reportback) {
   * @param $northstar_id - User's Northstar user id.
   * @return array
   */
- function dosomething_rogue_transform_reportback($values, $northstar_id) {
+ function dosomething_rogue_transform_reportback($values, $user, $northstar_id) {
    if ($values['nid']) {
      $campaign_id = $values['nid'];
    }
@@ -295,6 +295,7 @@ function dosomething_rogue_check_rbid_and_store_ref($rogue_reportback) {
 
    $data = [
      'northstar_id' => $northstar_id,
+     'drupal_id' => $user->uid,
      'campaign_id' => $campaign_id,
      'campaign_run_id' => $run->nid,
      'quantity' => $values['quantity'],
