@@ -103,7 +103,7 @@ function dosomething_northstar_openid_connect_post_authorize($tokens, $account, 
 
   dosomething_user_set_fields($edit, [
     'access_token' => $tokens['access_token'],
-    'refresh_token' => $tokens['access_token'],
+    'refresh_token' => $tokens['refresh_token'],
     'access_token_expiration' => $tokens['expire'],
   ]);
 
