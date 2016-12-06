@@ -349,7 +349,7 @@ function dosomething_reportback_form_validate($form, &$form_state) {
 function dosomething_reportback_form_submit($form, &$form_state) {
   $values = $form_state['values'];
   $campaign = node_load($values['nid']);
-  $language_code = $language_code = $campaign->language;
+  $language_code = $campaign->language;
   $values['run_nid'] = $campaign->field_current_run[$language_code][0]['target_id'];
 
   // If username field is set, this is an admin form.
@@ -380,7 +380,8 @@ function dosomething_reportback_form_submit($form, &$form_state) {
   // Collect reportbacks in Rogue if rogue collection is turned on for this campaign.
   if (variable_get('rogue_collection', FALSE)) {
     // If this is a reportback update, grab the file most recent file in case we need it later
-    $rbid = dosomething_reportback_exists($form_state['build_info']['args'][0]->nid, $form_state['build_info']['args'][0]->run_nid, $form_state['build_info']['args'][0]->uid);
+    $rbid = dosomething_reportback_exists($values['nid'], $values['run_nid'], $values['uid']);
+
     if ($rbid) {
       $reportback = reportback_load($rbid);
       $fid = array_pop($reportback->fids);
