@@ -370,7 +370,14 @@ function _campaign_resource_reportback($nid, $values) {
     return $rb_info['rbid'];
   }
   else {
+    // Increment transaction id and log that the request has been received with new transaction id.
+    $transaction_id_parts = explode('-', $headers['X-Request-Id']);
+    $transaction_id_base = $transaction_id_parts[0];
+    $incremented_step = $transaction_id_parts[1] + 1;
+    $incremented_transaction_id = $transaction_id_base . '-' . $incremented_step;
+
+    watchdog('PhoenixTransactionBridge', 'Request received. Transaction ID: !incremented_transaction_id', ['!incremented_transaction_id' => $incremented_transaction_id], WATCHDOG_INFO);
+
     return dosomething_reportback_save($values, $user);
   }
 }
-
