@@ -599,7 +599,7 @@ function dosomething_reportback_view_entity($entity) {
       'subtitle' => $subtitle,
       'share_bar' => $share_bar,
       'share_enabled' => $share_enabled,
-      'why_participated_short' => $why_participated_short,
+      'why_participated_short' => isset($why_participated_short) ? $why_participated_short : $participated_copy,
       'kudos' => $kudos,
     );
 
