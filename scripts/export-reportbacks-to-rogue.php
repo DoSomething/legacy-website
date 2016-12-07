@@ -9,7 +9,6 @@
 include_once('../lib/modules/dosomething/dosomething_rogue/dosomething_rogue.module');
 include_once('../lib/modules/dosomething/dosomething_northstar/dosomething_northstar.module');
 
-
 $last_saved = variable_get('dosomething_rogue_last_rbi_migrated', NULL);
 if ($last_saved) {
   $rbis = db_query("SELECT *
