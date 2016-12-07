@@ -600,7 +600,6 @@ function dosomething_reportback_view_entity($entity) {
       'share_bar' => $share_bar,
       'share_enabled' => $share_enabled,
       'why_participated_short' => isset($why_participated_short) ? $why_participated_short : $participated_copy,
-      'kudos' => $kudos,
     );
 
     cache_set('ds_permalink_' . $entity->rbid . '_' . $fid . '_' . $is_owner, $permalink_vars, 'cache_dosomething_reportback');
