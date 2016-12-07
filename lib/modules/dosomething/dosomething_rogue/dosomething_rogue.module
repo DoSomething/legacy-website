@@ -327,7 +327,7 @@ function dosomething_rogue_check_rbid_and_store_ref($rogue_reportback) {
      'type' => isset($values['type']) ? $values['type'] : NULL,
    ];
 
-   if ($values['crop_x']) {
+   if (isset($values['crop_x'])) {
     $cropped_values = dosomething_helpers_extract_values_by_keys($values, ['crop_x', 'crop_y', 'crop_width', 'crop_height', 'crop_rotate']);
     $data = array_merge($data, $cropped_values);
    }
