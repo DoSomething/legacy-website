@@ -306,7 +306,7 @@ function dosomething_rogue_check_rbid_and_store_ref($rogue_reportback) {
      'status' => isset($values['status']) ? $values['status'] : 'pending',
      'source' => isset($values['source']) ? $values['source'] : NULL,
      'type' => isset($values['type']) ? $values['type'] : NULL,
-     'remote_addr' => 'do I get overwritten yo?',
+     'remote_addr' => dosomething_helpers_ip_address(),
    ];
 
    if ($values['crop_x']) {
