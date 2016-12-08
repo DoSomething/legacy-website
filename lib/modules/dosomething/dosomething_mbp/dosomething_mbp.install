@@ -152,6 +152,14 @@ function dosomething_mbp_update_7009() {
 }
 
 /**
+ * Updates mbp productions to include dispatchDelayedTextsQueue.
+ */
+function dosomething_mbp_update_7010() {
+  db_drop_table('message_broker_producer_productions');
+  dosomething_mbp_install_productions();
+}
+
+/**
  * Common function for install and update of related DoSomething specific
  * message_broker_producer produciton settings.
  */
@@ -201,6 +209,7 @@ function dosomething_mbp_install_productions() {
   $productions[2]['queues'][] = 'userAPICampaignActivityQueue';
   $productions[2]['queues'][] = 'mobileCommonsQueue';
   $productions[2]['queues'][] = 'messagingGroupsQueue';
+  $productions[2]['queues'][] = 'dispatchDelayedTextsQueue';
   $productions[2]['routing_key'] = 'campaign.signup.transactional';
   $productions[2]['status'] = 1;
 
@@ -215,6 +224,7 @@ function dosomething_mbp_install_productions() {
   $productions[3]['queues'][] = 'userAPICampaignActivityQueue';
   $productions[3]['queues'][] = 'mobileCommonsQueue';
   $productions[3]['queues'][] = 'messagingGroupsQueue';
+  $productions[3]['queues'][] = 'dispatchDelayedTextsQueue';
   $productions[3]['routing_key'] = 'campaign.signup.transactional';
   $productions[3]['status'] = 1;
 
@@ -226,6 +236,7 @@ function dosomething_mbp_install_productions() {
   $productions[4]['queues'][] = 'userAPICampaignActivityQueue';
   $productions[4]['queues'][] = 'imageProcessingQueue';
   $productions[4]['queues'][] = 'messagingGroupsQueue';
+  $productions[4]['queues'][] = 'dispatchDelayedTextsQueue';
   $productions[4]['routing_key'] = 'campaign.report_back.transactional';
   $productions[4]['status'] = 1;
 
