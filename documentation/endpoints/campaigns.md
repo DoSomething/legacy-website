@@ -322,6 +322,8 @@ Must be authenticated to post.
     Corresponding caption for the reportback image.
   - **source**: (string).
     Where the reportback file was submitted from.
+  - **remote_addr**: (string). optional
+    Remote address the reportback file was submitted from.
 
 Response: The reportback rbid if success, `FALSE` if not.
 

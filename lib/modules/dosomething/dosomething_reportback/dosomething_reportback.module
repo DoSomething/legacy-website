@@ -862,6 +862,10 @@ function dosomething_reportback_set_files(&$entity, $values) {
     if (!empty($values['source'])) {
       $entity->source = filter_xss($values['source'], array());
     }
+
+    if (!empty($values['remote_addr'])) {
+      $entity->remote_addr = filter_xss($values['remote_addr'], array());
+    }
   }
 }
 

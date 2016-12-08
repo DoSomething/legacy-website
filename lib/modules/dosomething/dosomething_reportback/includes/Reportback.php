@@ -256,7 +256,7 @@ class Reportback extends Entity {
       'rbid' => $this->rbid,
       'fid' => $values->fid,
       'caption' => $values->caption,
-      'remote_addr' => dosomething_helpers_ip_address(),
+      'remote_addr' => isset($values->remote_addr) ? $values->remote_addr : dosomething_helpers_ip_address(),
       'status' => $status,
       'source' => $values->source,
     ]);

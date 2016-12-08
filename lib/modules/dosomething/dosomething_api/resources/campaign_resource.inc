@@ -300,6 +300,7 @@ function _campaign_resource_signup($nid, $values) {
  *   - quantity (int).
  *   - why_participated (string).
  *   - num_participants (int).
+ *   - remote_addr (string).
  */
 function _campaign_resource_reportback($nid, $values) {
   // @todo: Return error if signup doesn't exist.
