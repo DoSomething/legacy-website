@@ -252,3 +252,28 @@ function dosomething_rogue_update_7006(&$sandbox) {
     }
   }
 }
+
+/**
+ * Adds text
+ */
+function dosomething_rogue_update_7007(&$sandbox) {
+  $table = 'dosomething_rogue_failed_task_log';
+
+  db_add_field($table, 'source', ['type' => 'text', 'description' => 'Where the user reported back from.']);
+
+  db_add_field($table, 'remote_addr', ['type' => 'varchar', 'description' => 'The IP address of the user that submitted the file.']);
+
+  $new_fields = [
+    'failed_at' => 'The Unix timestamp at which the reportback first fails to send to Rogue.',
+    'tries' => 'The number of attempts the reportback is sent to Rogue.',
+  ];
+
+  foreach ($new_fields as $field => $description) {
+    $spec = [
+      'type' => 'int',
+      'description' => $description,
+    ];
+
+    db_add_field($table, $field, $spec);
+  }
+}
