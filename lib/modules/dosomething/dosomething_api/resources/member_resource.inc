@@ -218,6 +218,9 @@ function _member_resource_create($request) {
   // Infer the user's language from their country code field.
   $edit['language'] = dosomething_global_convert_country_to_language($fields['country']);
 
+  // Strip all emoji from the first name.
+  $edit['first_name'] = dosomething_helpers_remove_emoji_from_string($fields['first_name']);
+
   try {
     $user = user_save('', $edit);
 
