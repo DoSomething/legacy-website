@@ -254,26 +254,38 @@ function dosomething_rogue_update_7006(&$sandbox) {
 }
 
 /**
- * Adds text
+ * Adds source, remote_addr, failed_at, and tries columns to dosomething_rogue_failed_task_log.
  */
 function dosomething_rogue_update_7007(&$sandbox) {
   $table = 'dosomething_rogue_failed_task_log';
-
-  db_add_field($table, 'source', ['type' => 'text', 'description' => 'Where the user reported back from.']);
-
-  db_add_field($table, 'remote_addr', ['type' => 'varchar', 'description' => 'The IP address of the user that submitted the file.']);
-
-  $new_fields = [
-    'failed_at' => 'The Unix timestamp at which the reportback first fails to send to Rogue.',
-    'tries' => 'The number of attempts the reportback is sent to Rogue.',
-  ];
-
-  foreach ($new_fields as $field => $description) {
-    $spec = [
-      'type' => 'int',
-      'description' => $description,
+  if (db_table_exists($table)) {
+    $source_spec = [
+      'type' => 'text',
+      'description' => 'Where the user reported back from.',
     ];
 
-    db_add_field($table, $field, $spec);
+    db_add_field($table, 'source', $source_spec);
+
+    $remote_addr_spec = [
+      'type' => 'varchar',
+      'length' => '45',
+      'description' => 'The IP address of the user that submitted the file.',
+    ];
+
+    db_add_field($table, 'remote_addr', $remote_addr_spec);
+
+    $new_fields = [
+      'failed_at' => 'The Unix timestamp at which the reportback first fails to send to Rogue.',
+      'tries' => 'The number of attempts the reportback is sent to Rogue.',
+    ];
+
+    foreach ($new_fields as $field => $description) {
+      $spec = [
+        'type' => 'int',
+        'description' => $description,
+      ];
+
+      db_add_field($table, $field, $spec);
+    }
   }
 }
