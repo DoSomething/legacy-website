@@ -209,7 +209,7 @@ function dosomething_rogue_handle_failure($values, $response = NULL, $e = NULL, 
   // Save fail to a db log so we can easily export.
   if ($values['type'] === 'reportback') {
     // Check to see if the reportback item is in the dosomething_rogue_failed_task_log (by same user, campaign run, caption, and file).
-    $previously_failed = dosomething_rogue_rb_previously_failed($values['northstar_id'], $values['campaign_run_id'], $values['caption'], $values['file']);
+    $previously_failed = dosomething_rogue_rb_previously_failed($values);
 
     // If the reportback has previously failed, do not enter a new record.
     // Instead, increment the number of tries and update the time of most recent attempt to send to Rogue.
@@ -380,14 +380,11 @@ function dosomething_rogue_check_rbid_and_store_ref($rogue_reportback) {
 /**
  * Query to check if a reportback item exists in the dosomething_rogue_failed_task_log table.
  *
- * @param string $northstar_id
- * @param int $campaign_run_id
- * @param string $caption
- * @param string $file
+ * @param array $values
  *
  */
-function dosomething_rogue_rb_previously_failed($northstar_id, $campaign_run_id, $caption, $file) {
-  return db_query("SELECT * FROM {dosomething_rogue_failed_task_log} failed_rbs WHERE northstar_id = :northstar_id AND campaign_run_id = :campaign_run_id AND caption = :caption AND file = :file", array(':northstar_id' => $northstar_id, ':campaign_run_id' => $campaign_run_id, ':caption' => $caption, ':file' => $file))->fetchAll();
+function dosomething_rogue_rb_previously_failed($values) {
+  return db_query("SELECT * FROM {dosomething_rogue_failed_task_log} failed_rbs WHERE northstar_id = :northstar_id AND campaign_run_id = :campaign_run_id AND caption = :caption AND file = :file", array(':northstar_id' => $values['northstar_id'], ':campaign_run_id' => $values['campaign_run_id'], ':caption' => $values['caption'], ':file' => $values['file']))->fetchAll();
 }
 
 /**
