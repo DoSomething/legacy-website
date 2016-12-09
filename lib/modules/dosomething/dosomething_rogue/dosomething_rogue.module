@@ -208,16 +208,23 @@ function dosomething_rogue_handle_failure($values, $response = NULL, $e = NULL, 
 
   // Save fail to a db log so we can easily export.
   if ($values['type'] === 'reportback') {
-    // If the user previously tried to reportback for the same campaign run using the same file and caption and is already in the failed task log,
-    // do not enter a new record and instead, increment the number of tries.
-    $previously_failed = dosomething_rogue_previously_failed($values['northstar_id'], $values['campaign_run_id'], $values['caption'], $values['file']);
+    // Check to see if the reportback item is in the dosomething_rogue_failed_task_log (by same user, campaign run, caption, and file).
+    $previously_failed = dosomething_rogue_rb_previously_failed($values['northstar_id'], $values['campaign_run_id'], $values['caption'], $values['file']);
+
+    // If the reportback has previously failed, do not enter a new record.
+    // Instead, increment the number of tries and update the time of most recent attempt to send to Rogue.
     if ($previously_failed) {
       // Increment the number of tries the cron job attempted to send failed record to Rogue.
       $incremented_tries = $previously_failed[0]->tries + 1;
       db_update('dosomething_rogue_failed_task_log')
         ->fields([
           'tries' => $incremented_tries,
+          'timestamp' => REQUEST_TIME,
         ])
+        ->condition ('northstar_id', $values['northstar_id'])
+        ->condition ('campaign_run_id', $values['campaign_run_id'])
+        ->condition ('caption', $values['caption'])
+        ->condition ('file', $values['file'])
         ->execute();
     } else {
       db_insert('dosomething_rogue_failed_task_log')
@@ -249,16 +256,34 @@ function dosomething_rogue_handle_failure($values, $response = NULL, $e = NULL, 
     watchdog('dosomething_rogue', 'Reportback not migrated to Rogue: northstar_id: !northstar_id, campaign_id: !campaign_id, campaign run_nid: !campaign_run_id.', ['!northstar_id' => $values['northstar_id'], '!campaign_id' => $values['campaign_id'], '!campaign_run_id' => $values['campaign_run_id']], WATCHDOG_ERROR);
 
   } else {
-    db_insert('dosomething_rogue_failed_task_log')
-      ->fields([
-        'rogue_item_id' => $values['rogue_reportback_item_id'],
-        'status' => $values['status'],
-        'type' => $values['type'],
-        'timestamp' => REQUEST_TIME,
-        'response_code' => (isset($response->code)) ? $response->code : NULL, // @TODO: this is currently null until there a better way to get it from Gateway
-        'response_values' => (isset($e)) ? $e->getMessage() : NULL,
-      ])
-      ->execute();
+    // Check to see if the reportback item is in the dosomething_rogue_failed_task_log.
+    $previously_failed = dosomething_rogue_rb_item_previously_failed($values['rogue_reportback_item_id']);
+
+    // // If the reportback has previously failed, do not enter a new record.
+    // // Instead, increment the number of tries and update the time of most recent attempt to send to Rogue.
+    if ($previously_failed) {
+      // Increment the number of tries the cron job attempted to send failed record to Rogue.
+      $incremented_tries = $previously_failed[0]->tries + 1;
+      db_update('dosomething_rogue_failed_task_log')
+        ->fields([
+          'tries' => $incremented_tries,
+          'timestamp' => REQUEST_TIME,
+        ])
+        ->condition ('rogue_item_id', $values['rogue_reportback_item_id'])
+        ->execute();
+    } else {
+      db_insert('dosomething_rogue_failed_task_log')
+        ->fields([
+          'rogue_item_id' => $values['rogue_reportback_item_id'],
+          'status' => $values['status'],
+          'type' => $values['type'],
+          'timestamp' => REQUEST_TIME,
+          'response_code' => (isset($response->code)) ? $response->code : NULL, // @TODO: this is currently null until there a better way to get it from Gateway
+          'response_values' => (isset($e)) ? $e->getMessage() : NULL,
+          'failed_at' => REQUEST_TIME,
+        ])
+        ->execute();
+    }
 
     watchdog('dosomething_rogue', 'Reportback item status not migrated to Rogue: Rogue item id: !rogue_item_id, status: !status.', ['!rogue_item_id' => $values['rogue_reportback_item_id'], '!status' => $values['status']], WATCHDOG_ERROR);
   }
@@ -361,6 +386,16 @@ function dosomething_rogue_check_rbid_and_store_ref($rogue_reportback) {
  * @param string $file
  *
  */
-function dosomething_rogue_previously_failed($northstar_id, $campaign_run_id, $caption, $file) {
+function dosomething_rogue_rb_previously_failed($northstar_id, $campaign_run_id, $caption, $file) {
   return db_query("SELECT * FROM {dosomething_rogue_failed_task_log} failed_rbs WHERE northstar_id = :northstar_id AND campaign_run_id = :campaign_run_id AND caption = :caption AND file = :file", array(':northstar_id' => $northstar_id, ':campaign_run_id' => $campaign_run_id, ':caption' => $caption, ':file' => $file))->fetchAll();
+}
+
+/**
+ * Query to check if a reportback item failed updated status exists in the dosomething_rogue_failed_task_log table.
+ *
+ * @param int $rogue_item_id
+ *
+ */
+function dosomething_rogue_rb_item_previously_failed($rogue_item_id) {
+  return db_query("SELECT * FROM {dosomething_rogue_failed_task_log} failed_rbs WHERE rogue_item_id = :rogue_item_id", array(':rogue_item_id' => $rogue_item_id))->fetchAll();
 }
