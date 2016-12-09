@@ -208,27 +208,43 @@ function dosomething_rogue_handle_failure($values, $response = NULL, $e = NULL, 
 
   // Save fail to a db log so we can easily export.
   if ($values['type'] === 'reportback') {
-    db_insert('dosomething_rogue_failed_task_log')
-      ->fields([
-        'drupal_id' => $user->uid,
-        'campaign_id' => $values['campaign_id'],
-        'campaign_run_id' => $values['campaign_run_id'],
-        'quantity' => $values['quantity'],
-        'why_participated' => $values['why_participated'],
-        'file' => $values['file'],
-        'caption' => $values['caption'],
-        'type' => $values['type'],
-        'timestamp' => REQUEST_TIME,
-        'response_code' => (isset($response->code)) ? $response->code : NULL, // @TODO: this is currently null until there a better way to get it from Gateway
-        'response_values' => (isset($e)) ? $e->getMessage() : NULL,
-        'crop_x' => $values['crop_x'],
-        'crop_y' => $values['crop_y'],
-        'crop_width' => $values['crop_width'],
-        'crop_height' => $values['crop_height'],
-        'crop_rotate' => $values['crop_rotate'],
-        'northstar_id' => $values['northstar_id'],
-      ])
-      ->execute();
+    // If the user previously tried to reportback for the same campaign run using the same file and caption and is already in the failed task log,
+    // do not enter a new record and instead, increment the number of tries.
+    $previously_failed = dosomething_rogue_previously_failed($values['northstar_id'], $values['campaign_run_id'], $values['caption'], $values['file']);
+    if ($previously_failed) {
+      // Increment the number of tries the cron job attempted to send failed record to Rogue.
+      $incremented_tries = $previously_failed[0]->tries + 1;
+      db_update('dosomething_rogue_failed_task_log')
+        ->fields([
+          'tries' => $incremented_tries,
+        ])
+        ->execute();
+    } else {
+      db_insert('dosomething_rogue_failed_task_log')
+        ->fields([
+          'drupal_id' => $user->uid,
+          'campaign_id' => $values['campaign_id'],
+          'campaign_run_id' => $values['campaign_run_id'],
+          'quantity' => $values['quantity'],
+          'why_participated' => $values['why_participated'],
+          'file' => $values['file'],
+          'caption' => $values['caption'],
+          'type' => $values['type'],
+          'timestamp' => REQUEST_TIME,
+          'response_code' => (isset($response->code)) ? $response->code : NULL, // @TODO: this is currently null until there a better way to get it from Gateway
+          'response_values' => (isset($e)) ? $e->getMessage() : NULL,
+          'crop_x' => $values['crop_x'],
+          'crop_y' => $values['crop_y'],
+          'crop_width' => $values['crop_width'],
+          'crop_height' => $values['crop_height'],
+          'crop_rotate' => $values['crop_rotate'],
+          'northstar_id' => $values['northstar_id'],
+          'source' => $values['source'],
+          'remote_addr' => $values['remote_addr'],
+          'failed_at' => REQUEST_TIME,
+        ])
+        ->execute();
+    }
 
     watchdog('dosomething_rogue', 'Reportback not migrated to Rogue: northstar_id: !northstar_id, campaign_id: !campaign_id, campaign run_nid: !campaign_run_id.', ['!northstar_id' => $values['northstar_id'], '!campaign_id' => $values['campaign_id'], '!campaign_run_id' => $values['campaign_run_id']], WATCHDOG_ERROR);
 
@@ -335,3 +351,16 @@ function dosomething_rogue_check_rbid_and_store_ref($rogue_reportback) {
 
    return $data;
  }
+
+/**
+ * Query to check if a reportback item exists in the dosomething_rogue_failed_task_log table.
+ *
+ * @param string $northstar_id
+ * @param int $campaign_run_id
+ * @param string $caption
+ * @param string $file
+ *
+ */
+function dosomething_rogue_previously_failed($northstar_id, $campaign_run_id, $caption, $file) {
+  return db_query("SELECT * FROM {dosomething_rogue_failed_task_log} failed_rbs WHERE northstar_id = :northstar_id AND campaign_run_id = :campaign_run_id AND caption = :caption AND file = :file", array(':northstar_id' => $northstar_id, ':campaign_run_id' => $campaign_run_id, ':caption' => $caption, ':file' => $file))->fetchAll();
+}
