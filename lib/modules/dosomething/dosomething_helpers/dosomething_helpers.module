@@ -946,6 +946,8 @@ function dosomething_helpers_get_current_campaign_run_for_user($nid, $user = NUL
 */
 function dosomething_helpers_get_data_uri_from_fid($fid) {
   $image = file_load($fid);
+
+  // Make sure the image data exists before manipulating it
   if (isset($image->filemime)) {
     $mime = $image->filemime;
     $data = base64_encode(file_get_contents($image->uri));

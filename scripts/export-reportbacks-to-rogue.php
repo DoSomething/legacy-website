@@ -11,21 +11,23 @@ include_once('../lib/modules/dosomething/dosomething_northstar/dosomething_north
 
 $last_saved = variable_get('dosomething_rogue_last_rbi_migrated', NULL);
 if ($last_saved) {
-  $rbis = db_query("SELECT *
+  $rbis = db_query("SELECT rb.uid, rbf.fid, rb.nid, rb.run_nid, rb.quantity, rb.why_participated, rbf.caption, rbf.source, rbf.remote_addr, rbf.status, rb.rbid
             FROM dosomething_reportback_file rbf
             INNER JOIN dosomething_reportback rb on rbf.rbid = rb.rbid
             INNER JOIN file_managed fm on fm.fid = rbf.fid
             WHERE rbf.fid > $last_saved
             AND rbf.fid NOT IN (SELECT fid FROM dosomething_rogue_reportbacks)
+            AND rbf.fid NOT IN (SELECT fid FROM _the_departed)
             ORDER BY rbf.fid");
 }
 else {
   // Get all the things!
-  $rbis = db_query('SELECT *
+  $rbis = db_query('SELECT rb.uid, rbf.fid, rb.nid, rb.run_nid, rb.quantity, rb.why_participated, rbf.caption, rbf.source, rbf.remote_addr, rbf.status, rb.rbid
                    FROM dosomething_reportback_file rbf
                    INNER JOIN dosomething_reportback rb on rbf.rbid = rb.rbid
                    INNER JOIN file_managed fm on fm.fid = rbf.fid
                    WHERE rbf.fid NOT IN (SELECT fid FROM dosomething_rogue_reportbacks)
+                   AND rbf.fid NOT IN (SELECT fid FROM _the_departed)
                    ORDER BY rbf.fid');
 }
 
@@ -33,6 +35,8 @@ $client = dosomething_rogue_client();
 
 foreach ($rbis as $rb) {
   $northstar_id = dosomething_northstar_get_user($rb->uid, 'drupal_id');
+
+  // Only try to send to Rogue if we have a Northstar ID
   if (isset($northstar_id)) {
     $data = [
       'northstar_id' => $northstar_id->id,
@@ -66,6 +70,8 @@ foreach ($rbis as $rb) {
 
     }
   }
-  echo 'No northstar id, that is terrible ' . $rb->uid . PHP_EOL;
+  else {
+    echo 'No northstar id, that is terrible ' . $rb->uid . PHP_EOL;
+  }
 
 }
