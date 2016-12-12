@@ -66,6 +66,8 @@ foreach ($rbis as $rb) {
 
     }
   }
-  echo 'No northstar id, that is terrible ' . $rb->uid . PHP_EOL;
+  else {
+    echo 'No northstar id, that is terrible ' . $rb->uid . PHP_EOL;
+  }
 
 }
