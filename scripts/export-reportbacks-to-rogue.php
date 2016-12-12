@@ -11,7 +11,7 @@ include_once('../lib/modules/dosomething/dosomething_northstar/dosomething_north
 
 $last_saved = variable_get('dosomething_rogue_last_rbi_migrated', NULL);
 if ($last_saved) {
-  $rbis = db_query("SELECT *
+  $rbis = db_query("SELECT rb.uid, rbf.fid, rb.nid, rb.run_nid, rb.quantity, rb.why_participated, rbf.caption, rbf.source, rbf.remote_addr, rbf.status, rb.rbid
             FROM dosomething_reportback_file rbf
             INNER JOIN dosomething_reportback rb on rbf.rbid = rb.rbid
             INNER JOIN file_managed fm on fm.fid = rbf.fid
@@ -21,7 +21,7 @@ if ($last_saved) {
 }
 else {
   // Get all the things!
-  $rbis = db_query('SELECT *
+  $rbis = db_query('SELECT rb.uid, rbf.fid, rb.nid, rb.run_nid, rb.quantity, rb.why_participated, rbf.caption, rbf.source, rbf.remote_addr, rbf.status, rb.rbid
                    FROM dosomething_reportback_file rbf
                    INNER JOIN dosomething_reportback rb on rbf.rbid = rb.rbid
                    INNER JOIN file_managed fm on fm.fid = rbf.fid
