@@ -259,32 +259,27 @@ function dosomething_rogue_update_7006(&$sandbox) {
 function dosomething_rogue_update_7007(&$sandbox) {
   $table = 'dosomething_rogue_failed_task_log';
   if (db_table_exists($table)) {
-    $source_spec = [
-      'type' => 'text',
-      'description' => 'Where the user reported back from.',
-    ];
-
-    db_add_field($table, 'source', $source_spec);
-
-    $remote_addr_spec = [
-      'type' => 'varchar',
-      'length' => '45',
-      'description' => 'The IP address of the user that submitted the file.',
-    ];
-
-    db_add_field($table, 'remote_addr', $remote_addr_spec);
-
     $new_fields = [
-      'failed_at' => 'The Unix timestamp at which the reportback first fails to send to Rogue.',
-      'tries' => 'The number of attempts the reportback is sent to Rogue.',
+      'source' => [
+        'type' => 'text',
+        'description' => 'Where the user reported back from.',
+      ],
+      'remote_addr' => [
+        'type' => 'varchar',
+        'length' => '45',
+        'description' => 'The IP address of the user that submitted the file.',
+      ],
+      'failed_at' => [
+        'type' => 'int',
+        'description' => 'The Unix timestamp at which the reportback first fails to send to Rogue.',
+      ],
+      'tries' => [
+        'type' => 'int',
+        'description' => 'The number of attempts the reportback is sent to Rogue.',
+      ],
     ];
 
-    foreach ($new_fields as $field => $description) {
-      $spec = [
-        'type' => 'int',
-        'description' => $description,
-      ];
-
+    foreach ($new_fields as $field => $spec) {
       db_add_field($table, $field, $spec);
     }
   }
