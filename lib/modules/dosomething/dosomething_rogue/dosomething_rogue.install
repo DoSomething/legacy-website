@@ -252,3 +252,35 @@ function dosomething_rogue_update_7006(&$sandbox) {
     }
   }
 }
+
+/**
+ * Adds source, remote_addr, failed_at, and tries columns to dosomething_rogue_failed_task_log.
+ */
+function dosomething_rogue_update_7007(&$sandbox) {
+  $table = 'dosomething_rogue_failed_task_log';
+  if (db_table_exists($table)) {
+    $new_fields = [
+      'source' => [
+        'type' => 'text',
+        'description' => 'Where the user reported back from.',
+      ],
+      'remote_addr' => [
+        'type' => 'varchar',
+        'length' => '45',
+        'description' => 'The IP address of the user that submitted the file.',
+      ],
+      'failed_at' => [
+        'type' => 'int',
+        'description' => 'The Unix timestamp at which the reportback first fails to send to Rogue.',
+      ],
+      'tries' => [
+        'type' => 'int',
+        'description' => 'The number of attempts the reportback is sent to Rogue.',
+      ],
+    ];
+
+    foreach ($new_fields as $field => $spec) {
+      db_add_field($table, $field, $spec);
+    }
+  }
+}
