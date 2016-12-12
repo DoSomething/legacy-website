@@ -36,7 +36,7 @@ $client = dosomething_rogue_client();
 foreach ($rbis as $rb) {
   $northstar_id = dosomething_northstar_get_user($rb->uid, 'drupal_id');
 
-  // Only try to send to Rogue if we have a Northstar ID and a file
+  // Only try to send to Rogue if we have a Northstar ID
   if (isset($northstar_id)) {
     $data = [
       'northstar_id' => $northstar_id->id,
