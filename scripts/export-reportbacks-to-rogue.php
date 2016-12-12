@@ -17,6 +17,7 @@ if ($last_saved) {
             INNER JOIN file_managed fm on fm.fid = rbf.fid
             WHERE rbf.fid > $last_saved
             AND rbf.fid NOT IN (SELECT fid FROM dosomething_rogue_reportbacks)
+            AND rbf.fid NOT IN (SELECT fid FROM _the_departed)
             ORDER BY rbf.fid");
 }
 else {
@@ -26,6 +27,7 @@ else {
                    INNER JOIN dosomething_reportback rb on rbf.rbid = rb.rbid
                    INNER JOIN file_managed fm on fm.fid = rbf.fid
                    WHERE rbf.fid NOT IN (SELECT fid FROM dosomething_rogue_reportbacks)
+                   AND rbf.fid NOT IN (SELECT fid FROM _the_departed)
                    ORDER BY rbf.fid');
 }
 
