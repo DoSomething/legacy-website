@@ -35,10 +35,9 @@ $client = dosomething_rogue_client();
 
 foreach ($rbis as $rb) {
   $northstar_id = dosomething_northstar_get_user($rb->uid, 'drupal_id');
-  $file_data = dosomething_helpers_get_data_uri_from_fid($rb->fid);
 
   // Only try to send to Rogue if we have a Northstar ID and a file
-  if (isset($northstar_id) && $file_data) {
+  if (isset($northstar_id)) {
     $data = [
       'northstar_id' => $northstar_id->id,
       'drupal_id' => $rb->uid,
@@ -46,7 +45,7 @@ foreach ($rbis as $rb) {
       'campaign_run_id' => $rb->run_nid,
       'quantity' => $rb->quantity,
       'why_participated' => $rb->why_participated,
-      'file' => $file_data,
+      'file' => dosomething_helpers_get_data_uri_from_fid($rb->fid),
       'caption' => $rb->caption,
       'source' => $rb->source,
       'remote_addr' => $rb->remote_addr,
@@ -72,7 +71,7 @@ foreach ($rbis as $rb) {
     }
   }
   else {
-    echo 'No northstar id and/or no file, that is terrible ' . $rb->uid . PHP_EOL;
+    echo 'No northstar id, that is terrible ' . $rb->uid . PHP_EOL;
   }
 
 }
