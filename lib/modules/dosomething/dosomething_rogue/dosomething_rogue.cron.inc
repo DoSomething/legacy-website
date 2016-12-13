@@ -3,18 +3,19 @@
 /**
  * Implements hook_cron()
  */
- function dosomething_rogue_cron() {
-    dosomething_rogue_retry_failed_reportbacks();
- }
+function dosomething_rogue_cron() {
+  dosomething_rogue_retry_failed_reportbacks();
+}
 
- function dosomething_rogue_retry_failed_reportbacks() {
-    $task_log = db_select('dosomething_rogue_failed_task_log', 't')
-      ->fields('t')
-      ->execute()
-      ->fetchAll();
-    db_truncate('dosomething_rogue_failed_task_log')->execute();
+function dosomething_rogue_retry_failed_reportbacks() {
+  $task_log = db_select('dosomething_rogue_failed_task_log', 't')
+    ->fields('t')
+    ->execute()
+    ->fetchAll();
+  // db_truncate('dosomething_rogue_failed_task_log')->execute();
 
-    foreach ($task_log as $task) {
+  foreach ($task_log as $task) {
+    if ($task->tries < 5) {
       if ($task->type === 'reportback') {
         // Check to see if the MIME type is missing
         if (strpos($task->file, 'data:;') !== false) {
@@ -46,5 +47,6 @@
 
         dosomething_rogue_update_rogue_reportback_items($data);
       }
-   }
- }
+    }
+  }
+}
