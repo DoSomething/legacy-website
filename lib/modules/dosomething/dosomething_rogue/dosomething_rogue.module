@@ -206,7 +206,7 @@ function dosomething_rogue_handle_failure($values, $response = NULL, $e = NULL, 
       }
   }
   // Check to see if the reportback item is in the dosomething_rogue_failed_task_log.
-  $previously_failed = dosomething_rogue_previously_failed($values);
+  $previously_failed = array_pop(dosomething_rogue_previously_failed($values));
   // If the reportback has previously failed, do not enter a new record.
   // Instead, increment the number of tries and update the time of most recent attempt to send to Rogue.
   if ($previously_failed) {
@@ -330,12 +330,12 @@ function dosomething_rogue_previously_failed($values) {
  * Update the timestamp and tries in the dosomething_rogue_failed_task_log for a failed reportback item.
  *
  * @param array $values
- * @param array $previously_failed
+ * @param object $previously_failed
  *
  */
 function update_failed_task_log($values, $previously_failed) {
   // Increment the number of tries the cron job attempted to send failed record to Rogue.
-  $incremented_tries = $previously_failed[0]->tries + 1;
+  $incremented_tries = $previously_failed->tries + 1;
 
   if ($values['type'] === 'reportback') {
     db_update('dosomething_rogue_failed_task_log')
@@ -343,10 +343,10 @@ function update_failed_task_log($values, $previously_failed) {
         'tries' => $incremented_tries,
         'timestamp' => REQUEST_TIME,
       ])
-      ->condition ('northstar_id', $values['northstar_id'])
-      ->condition ('campaign_run_id', $values['campaign_run_id'])
-      ->condition ('caption', $values['caption'])
-      ->condition ('file', $values['file'])
+      ->condition('northstar_id', $values['northstar_id'])
+      ->condition('campaign_run_id', $values['campaign_run_id'])
+      ->condition('caption', $values['caption'])
+      ->condition('file', $values['file'])
       ->execute();
   } else {
     db_update('dosomething_rogue_failed_task_log')
@@ -354,7 +354,7 @@ function update_failed_task_log($values, $previously_failed) {
         'tries' => $incremented_tries,
         'timestamp' => REQUEST_TIME,
       ])
-      ->condition ('rogue_item_id', $values['rogue_reportback_item_id'])
+      ->condition('rogue_item_id', $values['rogue_reportback_item_id'])
       ->execute();
   }
 }
