@@ -52,7 +52,7 @@ foreach ($rbis as $rb) {
       'campaign_run_id' => $rb->run_nid,
       'quantity' => $rb->quantity,
       'why_participated' => $rb->why_participated,
-      'file' => dosomething_helpers_get_data_uri_from_fid($rb->fid),
+      'file' => $file,
       'caption' => $rb->caption,
       'source' => $rb->source,
       'remote_addr' => $rb->remote_addr,
