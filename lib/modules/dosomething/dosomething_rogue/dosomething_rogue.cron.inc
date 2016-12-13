@@ -12,7 +12,6 @@
       ->fields('t')
       ->execute()
       ->fetchAll();
-    db_truncate('dosomething_rogue_failed_task_log')->execute();
 
     foreach ($task_log as $task) {
       if ($task->type === 'reportback') {
