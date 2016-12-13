@@ -958,7 +958,12 @@ function dosomething_helpers_get_data_uri_from_fid($fid) {
   }
 
   // Return the formated data uri: data:{mime};base64,{data};
-  return 'data:' . $mime . ';base64,' . $data;
+  if ($data) {
+    return 'data:' . $mime . ';base64,' . $data;
+  }
+
+  // @TODO: what are implications of this
+  return false;
 }
 
 /**
