@@ -38,6 +38,13 @@ foreach ($rbis as $rb) {
 
   // Only try to send to Rogue if we have a Northstar ID
   if (isset($northstar_id)) {
+    // See if the image is broken
+    $file = dosomething_helpers_get_data_uri_from_fid($rb->fid);
+    // Test seeing contents of known broken image
+    if (!$file) {
+      // assign file to be data of the default image
+    }
+
     $data = [
       'northstar_id' => $northstar_id->id,
       'drupal_id' => $rb->uid,
