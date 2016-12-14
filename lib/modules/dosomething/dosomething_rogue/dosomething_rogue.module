@@ -395,6 +395,7 @@ function insert_failed_task_into_failed_task_log($values, $response = NULL, $e =
         'response_code' => (isset($response->code)) ? $response->code : NULL, // @TODO: this is currently null until there a better way to get it from Gateway
         'response_values' => (isset($e)) ? $e->getMessage() : NULL,
         'failed_at' => REQUEST_TIME,
+        'reviewer' => $values['reviewer'],
       ])
       ->execute();
   }
