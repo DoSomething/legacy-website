@@ -203,8 +203,10 @@ function paraneue_dosomething_form_dosomething_payment_form_alter(&$form, &$form
  * Preprocesses the User Profile Form.
  */
 function paraneue_dosomething_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
-  // If user was created by Northstar, redirect them to edit profile there.
-  if (module_exists('dosomething_northstar') && dosomething_user_get_field('field_created_by_openid_connect')) {
+  $is_resetting_password = $form['account']['current_pass']['#access'] === false;
+
+  // If user was created by Northstar & isn't resetting their password, redirect them to edit profile there.
+  if (module_exists('dosomething_northstar') && dosomething_user_get_field('field_created_by_openid_connect') && !$is_resetting_password) {
     drupal_goto(NORTHSTAR_URL . '/users/' . dosomething_user_get_northstar_id($form['account']['uid']) . '/edit', ['absolute' => TRUE]);
   }
 
