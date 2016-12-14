@@ -1176,7 +1176,7 @@ msgstr "Mmm, ¿Qué es lo que NO has entendido? Cada campaña ofrece los hechos 
 msgid "You make the world suck less for others. Great! So what’s in it for you? Money. Lots and lots of money. (For school.) Complete any campaign on the site, send a pic in the Prove It section, and you’ll enter to win a $10,000 scholarship! We award one of these seasonal scholarships four times a year. And, lots of other campaigns offer their own scholarship opps. Mad chances to win mad money."
 msgstr "Tú haces que el mundo apeste menos para los demás. ¡Genial! Así que ¿qué beneficio obtienes tú? Dinero. Mucho, mucho dinero. (Para la escuela.) Completa cualquier campaña del sitio, envía una foto en la sección Pruébalo, y participarás en el sorteo de una beca de US$10,000! Entregamos una de estas becas de temporada cuatro veces al año. Y muchas otras campañas ofrecen sus propias oportunidades de ganar becas. Tremendas oportunidades de ganar tremendas cantidades de dinero."
 
-#: dosomething_signup.forms.inc:170
+#: dosomething_user.address.inc:24 dosomething_user.features.field_instance.inc:477 dosomething_user.views_default.inc:422
 msgid "First Name"
 msgstr "Nombre"
 
@@ -1208,7 +1208,7 @@ msgstr "Cargo"
 msgid "Partner / Sponsor"
 msgstr "Socio/Patrocinador"
 
-#: dosomething_signup.signup_data_form.inc:368
+#: dosomething_user.features.field_instance.inc:481
 msgid "School ID"
 msgstr "Id. de la escuela"
 
@@ -1424,7 +1424,7 @@ msgstr "60 caracteres o menos"
 msgid "Caption"
 msgstr "Subtítulos"
 
-#: dosomething_reportback.forms.inc:209;236
+#: dosomething_reportback.forms.inc
 msgid "Enter # here"
 msgstr "Ingresa # aquí"
 
@@ -1444,7 +1444,7 @@ msgstr "Escribe algo..."
 msgid "Why is this campaign important to you?"
 msgstr "¿Por qué es esta campaña importante para ti?"
 
-#: dosomething_shipment.forms.inc:110
+#: dosomething_reportback.forms.inc:285
 msgid "You are no longer logged in. Please log in."
 msgstr "Ya no tienes una sesión abierta. Inicia sesión."
 
@@ -1925,4 +1925,76 @@ msgstr "¿Quisiste decir"
 #: DoSomething/validation
 msgid "Fix it!"
 msgstr "¡Arréglalo!"
+
+#: dosomething_user.module:1230
+msgid "User information saved."
+msgstr ""
+
+#: dosomething_user.module:304
+msgid "Forgot your password? We’ve all been there. Reset by entering your email."
+msgstr ""
+
+#: dosomething_reportback.forms.inc
+msgid "Add your photo here and we'll check it out!"
+msgstr "¡Sube tu foto aquí para que le echemos un vistazo!"
+
+#: dosomething_reportback.forms.inc
+msgid "Add your photo here for a scholarship entry!"
+msgstr "¡Sube tu foto aquí para aplicar para la beca!"
+
+#: dosomething_reportback.forms.inc
+msgid "Add another photo and we'll check it out!"
+msgstr "¡Sube otra foto aquí y le echaremos un vistazo!"
+
+#: dosomething_reportback.forms.inc
+msgid "Your Impact"
+msgstr "Tu impacto"
+
+#: dosomething_campaign.theme
+msgid "Enter # here -- like '300' or '5'"
+msgstr "Introduce la cantidad de su impacto aquí---cómo ‘300’ o ‘5’"
+
+#: dosomething_reportback.forms.inc
+msgid "No need to write an essay, but we'd love to see why this matters to you!"
+msgstr "¡No hace falta que escribas un ensayo, pero nos encantaría saber por qué esto importa para ti!"
+
+#: dosomething_campaign_problem_share_prompt
+msgid "Share this stat with friends"
+msgstr "Olvídalo, haz correr la voz"
+
+#: dosomething_settings_copy_about_ds
+msgid "DoSomething.org makes the world suck less. One of the largest orgs for young people and social change, our millions of members tackle campaigns that impact every cause, from poverty to violence to the environment to literally everything else. Any cause, anytime, anywhere."
+msgstr "DoSomething.org hace que el mundo sea un lugar mejor. Es una de las mayores organizaciones para jóvenes y el cambio social, y nuestros millones de miembros entran en campañas que repercuten sobre cada causa, desde la pobreza a la violencia, al medio ambiente hasta literalmente todo lo demás. Cualquier causa, en cualquier momento, en cualquier lugar."
+
+#: templates/campaign/node--campaign.tpl.php
+msgid "Helpful Tips"
+msgstr "Consejos útiles"
+
+#: Brand Slogan
+msgid "Let's do this!"
+msgstr ""
+
+#: Brand Slogan
+msgid "Join others making a difference."
+msgstr "Únete a los demás para hacer una diferencia."
+
+#: Brand Slogan
+msgid "A global movement for good."
+msgstr ""
+
+#: Brand Slogan
+msgid "Find ways to take action both online and off."
+msgstr ""
+
+#: Brand Slogan
+msgid "Choose a campaign and take action with 5.3 million young people."
+msgstr ""
+
+#: templates/campaign/node--campaign.tpl.php
+msgid "Join others making a difference"
+msgstr "Únete a los demás para hacer una diferencia"
+
+#: paraneue_dosomething.info
+msgid "What Is DoSomething?"
+msgstr ""
 
