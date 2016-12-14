@@ -963,7 +963,7 @@ function dosomething_helpers_get_data_uri_from_fid($fid) {
   }
 
   // @TODO: what are implications of this
-  return false;
+  return null;
 }
 
 /**

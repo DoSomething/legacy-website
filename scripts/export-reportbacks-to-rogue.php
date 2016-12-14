@@ -53,7 +53,7 @@ foreach ($rbis as $rb) {
       'campaign_run_id' => $rb->run_nid,
       'quantity' => $rb->quantity,
       'why_participated' => $rb->why_participated,
-      'file' => $file ? $file : NULL,
+      'file' => $file,
       'caption' => $rb->caption,
       'source' => $rb->source,
       'remote_addr' => $rb->remote_addr,
