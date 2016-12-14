@@ -214,6 +214,11 @@ function dosomething_rogue_handle_failure($values, $response = NULL, $e = NULL, 
       }
   }
 
+<<<<<<< HEAD
+=======
+  // Check to see if the reportback item is in the dosomething_rogue_failed_task_log.
+  $previously_failed = array_pop(dosomething_rogue_previously_failed($values));
+>>>>>>> cron job works for rb items
   // If the reportback has previously failed, do not enter a new record.
   // Instead, increment the number of tries and update the time of most recent attempt to send to Rogue.
   if (! is_null($failed_task_id)) {
