@@ -38,9 +38,10 @@ foreach ($rbis as $rb) {
 
   // Only try to send to Rogue if we have a Northstar ID
   if (isset($northstar_id)) {
-    // See if the image is broken
+    // Grab the image
     $file = dosomething_helpers_get_data_uri_from_fid($rb->fid);
-    // Test seeing contents of known broken image
+
+    // If the image is missing, use the default image
     if (!$file) {
       // assign file to be data of the default image
     }
@@ -52,13 +53,14 @@ foreach ($rbis as $rb) {
       'campaign_run_id' => $rb->run_nid,
       'quantity' => $rb->quantity,
       'why_participated' => $rb->why_participated,
-      'file' => $file,
+      'file' => $file ? $file : NULL,
       'caption' => $rb->caption,
       'source' => $rb->source,
       'remote_addr' => $rb->remote_addr,
       'status' => dosomething_rogue_transform_status($rb->status),
       // Tell rogue not to try to forward the reportback back to phoenix.
       'do_not_forward' => TRUE,
+      'default_image' => isset($default_image) ? $default_image : NULL,
     ];
 
     try {
