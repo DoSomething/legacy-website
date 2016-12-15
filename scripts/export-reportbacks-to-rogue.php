@@ -17,7 +17,6 @@ if ($last_saved) {
             INNER JOIN file_managed fm on fm.fid = rbf.fid
             WHERE rbf.fid > $last_saved
             AND rbf.fid NOT IN (SELECT fid FROM dosomething_rogue_reportbacks)
-            AND rbf.fid NOT IN (SELECT fid FROM _the_departed)
             ORDER BY rbf.fid");
 }
 else {
@@ -27,7 +26,6 @@ else {
                    INNER JOIN dosomething_reportback rb on rbf.rbid = rb.rbid
                    INNER JOIN file_managed fm on fm.fid = rbf.fid
                    WHERE rbf.fid NOT IN (SELECT fid FROM dosomething_rogue_reportbacks)
-                   AND rbf.fid NOT IN (SELECT fid FROM _the_departed)
                    ORDER BY rbf.fid');
 }
 
@@ -40,11 +38,6 @@ foreach ($rbis as $rb) {
   if (isset($northstar_id)) {
     // Grab the image
     $file = dosomething_helpers_get_data_uri_from_fid($rb->fid);
-
-    // If the image is missing, use the default image
-    if (!$file) {
-      $default_image = 1;
-    }
 
     $data = [
       'northstar_id' => $northstar_id->id,
@@ -60,7 +53,7 @@ foreach ($rbis as $rb) {
       'status' => dosomething_rogue_transform_status($rb->status),
       // Tell rogue not to try to forward the reportback back to phoenix.
       'do_not_forward' => TRUE,
-      'default_image' => isset($default_image) ? $default_image : NULL,
+      'default_image' => isset($file) ? NULL : TRUE,
     ];
 
     try {
