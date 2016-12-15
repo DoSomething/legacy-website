@@ -230,6 +230,19 @@ function paraneue_dosomething_form_user_profile_form_alter(&$form, &$form_state,
   // Add our process function to the array:
   $process[] = 'paraneue_dosomething_process_password_confirm';
   $form['account']['pass']['#process'] = $process;
+
+  $form['#submit'][] = 'paraneue_dosomething_user_profile_submit_handler';
+}
+
+/**
+ * Form submission handler for the profile form.
+ *
+ * @param $form
+ * @param $form_state
+ */
+function paraneue_dosomething_user_profile_submit_handler(&$form, &$form_state)
+{
+  $form_state['redirect'] = 'user';
 }
 
 function paraneue_dosomething_form_user_profile_after_build($form, &$form_state) {
