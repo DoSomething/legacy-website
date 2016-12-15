@@ -43,7 +43,7 @@ foreach ($rbis as $rb) {
 
     // If the image is missing, use the default image
     if (!$file) {
-      // assign file to be data of the default image
+      $default_image = 1;
     }
 
     $data = [
