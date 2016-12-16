@@ -284,3 +284,20 @@ function dosomething_rogue_update_7007(&$sandbox) {
     }
   }
 }
+
+/**
+ * Adds reviewer column to the dosomething_rogue_failed_task_log.
+ */
+function dosomething_rogue_update_7008(&$sandbox) {
+  $table = 'dosomething_rogue_failed_task_log';
+  if (db_table_exists($table)) {
+    $reviewer_spec = [
+      'type' => 'varchar',
+      'length' => '255',
+      'description' => 'The Northstar id of reviewer who updated the reportback item.',
+    ];
+
+    db_add_field($table, 'reviewer', $reviewer_spec);
+  }
+}
+

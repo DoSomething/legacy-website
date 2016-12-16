@@ -66,7 +66,7 @@ function dosomething_rogue_send_reportback_to_rogue($values, $user = NULL, $fail
   // from northstar directly.
   if (!$northstar_id) {
     $northstar_user = dosomething_northstar_get_user($user->uid, 'drupal_id');
-   $northstar_id = $northstar_user->id;
+    $northstar_id = $northstar_user->id;
   }
 
   $run = dosomething_helpers_get_current_campaign_run_for_user($values['nid']);
@@ -83,15 +83,15 @@ function dosomething_rogue_send_reportback_to_rogue($values, $user = NULL, $fail
     }
     if (!$response) {
       // This is a 404
-      dosomething_rogue_handle_failure($data, $response, $e, $failed_task_id, $user);
+      dosomething_rogue_handle_failure($data, $response, $failed_task_id, $user);
     }
   }
   catch (GuzzleHttp\Exception\ServerException $e) {
     // These aren't yet caught by Gateway
-    dosomething_rogue_handle_failure($values, $response, $e, $failed_task_id, $user);
+    dosomething_rogue_handle_failure($data, $response, $failed_task_id, $user, $e);
   }
   catch (DoSomething\Gateway\Exceptions\ApiException $e) {
-    dosomething_rogue_handle_failure($values, $response, $e, $failed_task_id, $user);
+    dosomething_rogue_handle_failure($data, $response, $failed_task_id, $user, $e);
   }
 
   return $response;
@@ -118,7 +118,7 @@ function dosomething_rogue_update_rogue_reportback_items($data, $failed_task_id 
     if (!$response) {
       foreach ($data as $values) {
         $values['type'] = 'reportback item';
-        dosomething_rogue_handle_failure($values, $response, $e, $failed_task_id);
+        dosomething_rogue_handle_failure($values, $response, $failed_task_id);
       }
     }
   }
@@ -126,13 +126,13 @@ function dosomething_rogue_update_rogue_reportback_items($data, $failed_task_id 
     // These aren't yet caught by Gateway
     foreach ($data as $values) {
       $values['type'] = 'reportback item';
-      dosomething_rogue_handle_failure($values, $response, $e, $failed_task_id);
+      dosomething_rogue_handle_failure($values, $response, $failed_task_id, $e);
     }
   }
   catch (DoSomething\Gateway\Exceptions\ApiException $e) {
     foreach ($data as $values) {
       $values['type'] = 'reportback item';
-      dosomething_rogue_handle_failure($values, $response, $e, $failed_task_id);
+      dosomething_rogue_handle_failure($values, $response, $failed_task_id, $e);
     }
   }
 
@@ -205,7 +205,7 @@ function dosomething_rogue_transform_status($status) {
  * @param object $user
  *
  */
-function dosomething_rogue_handle_failure($values, $response = NULL, $e = NULL, $failed_task_id = NULL, $user = NULL) {
+function dosomething_rogue_handle_failure($values, $response = NULL, $failed_task_id = NULL, $user = NULL, $e = NULL) {
   if (module_exists('stathat')) {
       if ($values['type'] === 'reportback') {
         stathat_send_ez_count('drupal - Rogue - reportback failed - count', 1);
@@ -395,6 +395,7 @@ function insert_failed_task_into_failed_task_log($values, $response = NULL, $e =
         'response_code' => (isset($response->code)) ? $response->code : NULL, // @TODO: this is currently null until there a better way to get it from Gateway
         'response_values' => (isset($e)) ? $e->getMessage() : NULL,
         'failed_at' => REQUEST_TIME,
+        'reviewer' => $values['reviewer'],
       ])
       ->execute();
   }
