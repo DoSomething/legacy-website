@@ -53,13 +53,12 @@ foreach ($rbis as $rb) {
       'status' => dosomething_rogue_transform_status($rb->status),
       // Tell rogue not to try to forward the reportback back to phoenix.
       'do_not_forward' => TRUE,
-      'default_image' => isset($file) ? NULL : TRUE,
     ];
 
     try {
       $response = $client->postReportback($data);
       // Output progress to see what's going on.
-      echo 'Migrated reportback ' . $rb->fid . ' to Rogue [' . $rb->caption . ']' . PHP_EOL;
+      echo 'Migrated reportback with fid ' . $rb->fid . ' to Rogue [' . $rb->caption . ']' . PHP_EOL;
 
       // Store the reference in dosomething_rogue_reportbacks.
       dosomething_rogue_store_rogue_references($rb->rbid, $rb->fid, $response);
