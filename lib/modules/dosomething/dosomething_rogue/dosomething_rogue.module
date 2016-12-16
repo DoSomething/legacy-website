@@ -66,7 +66,7 @@ function dosomething_rogue_send_reportback_to_rogue($values, $user = NULL, $fail
   // from northstar directly.
   if (!$northstar_id) {
     $northstar_user = dosomething_northstar_get_user($user->uid, 'drupal_id');
-   $northstar_id = $northstar_user->id;
+    $northstar_id = $northstar_user->id;
   }
 
   $run = dosomething_helpers_get_current_campaign_run_for_user($values['nid']);
@@ -83,15 +83,15 @@ function dosomething_rogue_send_reportback_to_rogue($values, $user = NULL, $fail
     }
     if (!$response) {
       // This is a 404
-      dosomething_rogue_handle_failure($data, $response, $e, $failed_task_id, $user);
+      dosomething_rogue_handle_failure($data, $response, $failed_task_id, $user);
     }
   }
   catch (GuzzleHttp\Exception\ServerException $e) {
     // These aren't yet caught by Gateway
-    dosomething_rogue_handle_failure($values, $response, $e, $failed_task_id, $user);
+    dosomething_rogue_handle_failure($data, $response, $failed_task_id, $user, $e);
   }
   catch (DoSomething\Gateway\Exceptions\ApiException $e) {
-    dosomething_rogue_handle_failure($values, $response, $e, $failed_task_id, $user);
+    dosomething_rogue_handle_failure($data, $response, $failed_task_id, $user, $e);
   }
 
   return $response;
@@ -118,7 +118,7 @@ function dosomething_rogue_update_rogue_reportback_items($data, $failed_task_id 
     if (!$response) {
       foreach ($data as $values) {
         $values['type'] = 'reportback item';
-        dosomething_rogue_handle_failure($values, $response, $e, $failed_task_id);
+        dosomething_rogue_handle_failure($values, $response, $failed_task_id);
       }
     }
   }
@@ -126,13 +126,15 @@ function dosomething_rogue_update_rogue_reportback_items($data, $failed_task_id 
     // These aren't yet caught by Gateway
     foreach ($data as $values) {
       $values['type'] = 'reportback item';
-      dosomething_rogue_handle_failure($values, $response, $e, $failed_task_id);
+      $user = NULL;
+      dosomething_rogue_handle_failure($values, $response, $failed_task_id, $e);
     }
   }
   catch (DoSomething\Gateway\Exceptions\ApiException $e) {
     foreach ($data as $values) {
       $values['type'] = 'reportback item';
-      dosomething_rogue_handle_failure($values, $response, $e, $failed_task_id);
+      $user = NULL;
+      dosomething_rogue_handle_failure($values, $response, $failed_task_id, $e);
     }
   }
 
@@ -205,7 +207,7 @@ function dosomething_rogue_transform_status($status) {
  * @param object $user
  *
  */
-function dosomething_rogue_handle_failure($values, $response = NULL, $e = NULL, $failed_task_id = NULL, $user = NULL) {
+function dosomething_rogue_handle_failure($values, $response = NULL, $failed_task_id = NULL, $user = NULL, $e = NULL) {
   if (module_exists('stathat')) {
       if ($values['type'] === 'reportback') {
         stathat_send_ez_count('drupal - Rogue - reportback failed - count', 1);
@@ -214,11 +216,6 @@ function dosomething_rogue_handle_failure($values, $response = NULL, $e = NULL, 
       }
   }
 
-<<<<<<< HEAD
-=======
-  // Check to see if the reportback item is in the dosomething_rogue_failed_task_log.
-  $previously_failed = array_pop(dosomething_rogue_previously_failed($values));
->>>>>>> cron job works for rb items
   // If the reportback has previously failed, do not enter a new record.
   // Instead, increment the number of tries and update the time of most recent attempt to send to Rogue.
   if (! is_null($failed_task_id)) {
