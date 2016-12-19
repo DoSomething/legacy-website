@@ -32,6 +32,7 @@ else {
 $client = dosomething_rogue_client();
 
 foreach ($rbis as $rb) {
+  echo 'Trying fid ' . $rb->fid . ' and rbid ' . $rb->rbid . '...' . PHP_EOL;
   $northstar_id = dosomething_northstar_get_user($rb->uid, 'drupal_id');
 
   // Only try to send to Rogue if we have a Northstar ID
