@@ -36,7 +36,6 @@ foreach ($rbis as $rb) {
 
   // Only try to send to Rogue if we have a Northstar ID
   if (isset($northstar_id)) {
-
     $data = [
       'northstar_id' => $northstar_id->id,
       'drupal_id' => $rb->uid,
