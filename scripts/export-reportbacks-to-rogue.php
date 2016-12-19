@@ -36,8 +36,6 @@ foreach ($rbis as $rb) {
 
   // Only try to send to Rogue if we have a Northstar ID
   if (isset($northstar_id)) {
-    // Grab the image
-    $file = dosomething_helpers_get_data_uri_from_fid($rb->fid);
 
     $data = [
       'northstar_id' => $northstar_id->id,
@@ -46,7 +44,7 @@ foreach ($rbis as $rb) {
       'campaign_run_id' => $rb->run_nid,
       'quantity' => $rb->quantity,
       'why_participated' => $rb->why_participated,
-      'file' => $file,
+      'file' => dosomething_helpers_get_data_uri_from_fid($rb->fid),
       'caption' => $rb->caption,
       'source' => $rb->source,
       'remote_addr' => $rb->remote_addr,
