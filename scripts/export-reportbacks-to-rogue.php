@@ -17,7 +17,6 @@ if ($last_saved) {
             INNER JOIN file_managed fm on fm.fid = rbf.fid
             WHERE rbf.fid > $last_saved
             AND rbf.fid NOT IN (SELECT fid FROM dosomething_rogue_reportbacks)
-            AND rbf.fid NOT IN (SELECT fid FROM _the_departed)
             ORDER BY rbf.fid");
 }
 else {
@@ -27,7 +26,6 @@ else {
                    INNER JOIN dosomething_reportback rb on rbf.rbid = rb.rbid
                    INNER JOIN file_managed fm on fm.fid = rbf.fid
                    WHERE rbf.fid NOT IN (SELECT fid FROM dosomething_rogue_reportbacks)
-                   AND rbf.fid NOT IN (SELECT fid FROM _the_departed)
                    ORDER BY rbf.fid');
 }
 
@@ -57,7 +55,7 @@ foreach ($rbis as $rb) {
     try {
       $response = $client->postReportback($data);
       // Output progress to see what's going on.
-      echo 'Migrated reportback ' . $rb->fid . ' to Rogue [' . $rb->caption . ']' . PHP_EOL;
+      echo 'Migrated reportback with fid ' . $rb->fid . ' to Rogue [' . $rb->caption . ']' . PHP_EOL;
 
       // Store the reference in dosomething_rogue_reportbacks.
       dosomething_rogue_store_rogue_references($rb->rbid, $rb->fid, $response);
