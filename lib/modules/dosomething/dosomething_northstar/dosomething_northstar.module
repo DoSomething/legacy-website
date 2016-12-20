@@ -271,8 +271,6 @@ function dosomething_northstar_transform_user($user, $password = null) {
   // field and Northstar can then verify via its DrupalPasswordHash class.
   if (! is_null($password)) {
     $northstar_user['password'] = $password;
-  } else {
-    $northstar_user['drupal_password'] = $user->pass;
   }
 
   // If user has a "1234565555@mobile" or "1234565555@mobile.import" placeholder
