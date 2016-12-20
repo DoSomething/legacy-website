@@ -9,19 +9,26 @@
 $wild_typers = db_query('SELECT uid, mail FROM users WHERE uid NOT IN (SELECT uid FROM authmap);');
 
 foreach($wild_typers as $wilder) {
-  if ($wilder->uid == 0) {
+  $user = user_load($wilder->uid);
+
+  if ($user->uid == 0) {
     continue;
   }
 
-  if (! (filter_var($wilder->mail, FILTER_VALIDATE_EMAIL))) {
-    print 'Removing invalid email for ' . $wilder->uid . ' (' . $wilder->mail . ')' . PHP_EOL;
+  if (! filter_var($user->mail, FILTER_VALIDATE_EMAIL)) {
+    print 'Removing invalid email for ' . $user->uid . ' (' . $user->mail . ')' . PHP_EOL;
 
-    $user = user_load($wilder->uid);
     user_save($user, ['mail' => 'bad-email-' . $user->uid . '@dosomething.invalid']);
   }
 
-  // Now, update (or create) the corresponding profile in Northstar by Drupal ID.
-  dosomething_northstar_create_user($user);
+  // Now, update the corresponding profile in Northstar & save ID to authmap table.
+  $response = dosomething_northstar_update_user($user);
+  dosomething_northstar_save_id_field($user->uid, $response);
+
+  // If user 404'd on Northstar, try to create them.
+  if (is_null($response)) {
+    dosomething_northstar_create_user($user, $password);
+  }
 }
 
 print 'done';
