@@ -289,10 +289,13 @@ function updb {
   echo 'Enabling modules in dosomething.info'
   drush --script-path=$BASE_PATH/bin/ php-script enable_modules.php
 
+  echo 'Clearing caches before Features Revert...'
+  drush cc all
+
   echo 'Reverting Features'
   drush fra -y
 
-  echo 'Clearing caches...'
+  echo 'Clearing caches after Features Revert...'
   drush cc all
 }
 
