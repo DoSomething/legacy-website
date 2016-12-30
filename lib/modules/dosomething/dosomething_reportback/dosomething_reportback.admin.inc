@@ -173,9 +173,7 @@ function dosomething_reportback_files_form($form, &$form_state, $status = NULL, 
 
   foreach ($result as $record) {
     $rb_path = 'admin/reportback/' . $record->rbid;
-    // @TODO: temporarily disable pre-approved to unblock campaigns team from reviewing reportbacks.
-    // Refs #4797
-    // $status = 'approved';
+    $status = 'approved';
     if (isset($record->status) && $record->status != 'pending') {
       $status = $record->status;
     }
@@ -196,7 +194,6 @@ function dosomething_reportback_files_form($form, &$form_state, $status = NULL, 
       'status' => array(
         '#type' => 'radios',
         '#title' => t('Status'),
-        '#required' => TRUE,
         '#options' => $status_options,
         '#default_value' => $status ?: '',
       ),
