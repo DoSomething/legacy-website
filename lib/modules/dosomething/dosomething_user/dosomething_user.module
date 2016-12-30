@@ -1056,7 +1056,7 @@ function _dosomething_user_register_display_fields(&$form) {
 /**
  * After build function to unset all address field elements except postal code.
  */
-function dosomething_user_address_field_postal_code_only($form, &$form_state) {
+function dosomething_user_address_field_postal_code_only(&$form, &$form_state) {
   $element = &$form['field_address'][LANGUAGE_NONE][0]['address'];
   // Hide the Address field label.
   unset($element['#title']);
