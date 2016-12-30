@@ -253,6 +253,7 @@ projects[views_limit_grouping][subdir] = "contrib"
 ; XML Sitemap
 projects[xmlsitemap][version] = "2.3"
 projects[xmlsitemap][subdir] = "contrib"
+projects[xmlsitemap][patch][] = "https://gist.githubusercontent.com/mshmsh5000/9166035/raw/5943e7732f054b8741f473a14239f076db97301e/xmlsitemap-dosomething-787-1.patch"
 
 
 ; GIT PROJECTS
