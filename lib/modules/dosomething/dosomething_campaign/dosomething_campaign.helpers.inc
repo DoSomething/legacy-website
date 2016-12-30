@@ -376,6 +376,8 @@ function dosomething_campaign_load_stats(&$campaign) {
  */
 function dosomething_campaign_create_node_from_json($string) {
   $data = json_decode($string);
+  $created_nodes = array();
+  $created_entities = array();
   $node = new stdClass();
 
   // We'll use this as a flag to find test nodes.
@@ -420,6 +422,8 @@ function dosomething_campaign_create_node_from_json($string) {
       foreach($data->{$fact_field} as $data_fact) {
         $fact_node = dosomething_fact_create_node_from_json(json_encode($data_fact));
         $node->{$field_name}[LANGUAGE_NONE][]['target_id'] = $fact_node->nid;
+
+        array_push($created_nodes, $fact_node->nid);
       }
     }
   }
@@ -437,6 +441,8 @@ function dosomething_campaign_create_node_from_json($string) {
       $field_name = 'field_' . $image_field;
       $image_node = dosomething_image_create_node_from_json(json_encode($data->{$image_field}));
       $node->{$field_name}[LANGUAGE_NONE][0]['target_id'] = $image_node->nid;
+
+      array_push($created_nodes, $image_node->nid);
     }
   }
 
@@ -447,12 +453,21 @@ function dosomething_campaign_create_node_from_json($string) {
       foreach ($data->{$field_collection_field} as $key => $item) {
         $field_name = 'field_' . $field_collection_field;
         $field_collection_entity = dosomething_campaign_create_field_collection_from_json(json_encode($item), $field_name, $node);
-        $node->{$field_name}[LANGUAGE_NONE][$key]['target_id'] = $field_collection_entity->nid;
+
+        array_push($created_entities, $field_collection_entity->item_id);
       }
     }
   }
 
   node_save($node);
+  array_push($created_nodes, $node->nid);
+
+  // Output list of created nodes
+  $created_nodes_list = implode(', ', $created_nodes);
+  $created_entities_list = implode(', ', $created_entities);
+  printf("Created nodes: %s\n", $created_nodes_list);
+  printf("Created entities: %s\n", $created_entities_list);
+
   return $node;
 }
 
@@ -556,6 +571,8 @@ function dosomething_campaign_create_field_collection_from_json($string, $field_
   }
 
   $field_collection_item->save();
+
+  return $field_collection_item;
 }
 
 /**
