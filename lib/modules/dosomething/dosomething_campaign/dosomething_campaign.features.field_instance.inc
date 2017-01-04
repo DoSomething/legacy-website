@@ -2377,7 +2377,7 @@ Note: If this scholarship has a campaign, you should list any helpful tips about
     'bundle' => 'campaign',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'i.e. JEANS collected, SENIOR CITIZENS educated, FLYERS posted. Your responses should not be in all caps though, instead write - Jeans',
+    'description' => 'i.e. JEANS collected, SENIOR CITIZENS educated, FLYERS posted. Your responses should not be in all caps though, instead write - jeans',
     'display' => array(
       'default' => array(
         'label' => 'above',
@@ -2424,7 +2424,7 @@ Note: If this scholarship has a campaign, you should list any helpful tips about
     'bundle' => 'campaign',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'i.e. jeans COLLECTED, senior citizens EDUCATED, flyers POSTED. Your responses should not be in all caps though, instead write - Collected',
+    'description' => 'i.e. jeans COLLECTED, senior citizens EDUCATED, flyers POSTED. Your responses should not be in all caps though, instead write - collected',
     'display' => array(
       'default' => array(
         'label' => 'above',
