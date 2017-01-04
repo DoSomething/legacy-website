@@ -29,6 +29,7 @@ function dosomething_rogue_retry_failed_reportbacks() {
           $mime_split = explode(':', $task->file);
           $task->file = $mime_split[0] . ':' . $mimetype . $mime_split[1];
         }
+
         $user = user_load($task->drupal_id);
         $data = (array)$task;
 
