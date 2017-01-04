@@ -67,10 +67,11 @@ function dosomething_rogue_send_reportback_to_rogue($values, $user = NULL, $fail
   if (!$northstar_id) {
     if ($user->uid) {
       $northstar_user = dosomething_northstar_get_user($user->uid, 'drupal_id');
-      $northstar_id = $northstar_user->id;
     } else {
-      $northstar_id = dosomething_northstar_get_user($values['northstar_id']);
+      $northstar_user = dosomething_northstar_get_user($values['northstar_id']);
+      $user = user_load($northstar_user->drupal_id);
     }
+    $northstar_id = $northstar_user->id;
   }
 
   $run = dosomething_helpers_get_current_campaign_run_for_user($values['nid']);
@@ -287,7 +288,7 @@ function dosomething_rogue_check_rbid_and_store_ref($rogue_reportback) {
   * Transform reportback into the appropriate scheme to send to Rogue.
   *
   * @param $values - Reportback values to send to Rogue.
-  * @param  $user - Loaded drupal user
+  * @param $user - Loaded drupal user
   * @param $northstar_id - User's Northstar user id.
   * @return array
   */
