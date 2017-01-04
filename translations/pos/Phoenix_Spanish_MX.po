@@ -1972,7 +1972,7 @@ msgstr "Consejos útiles"
 
 #: Brand Slogan
 msgid "Let's do this!"
-msgstr ""
+msgstr "¡Hagámoslo!"
 
 #: Brand Slogan
 msgid "Join others making a difference."
@@ -1980,15 +1980,15 @@ msgstr "Únete a los demás para hacer una diferencia."
 
 #: Brand Slogan
 msgid "A global movement for good."
-msgstr ""
+msgstr "Un movimiento global para el bien de todos."
 
 #: Brand Slogan
 msgid "Find ways to take action both online and off."
-msgstr ""
+msgstr "Descubre la manera de hacer una diferencia tanto conectado a la red como desconectado."
 
 #: Brand Slogan
 msgid "Choose a campaign and take action with 5.3 million young people."
-msgstr ""
+msgstr "Elige una campaña y únete a los 5.3 millones de jóvenes que ya hacen una diferencia."
 
 #: templates/campaign/node--campaign.tpl.php
 msgid "Join others making a difference"
