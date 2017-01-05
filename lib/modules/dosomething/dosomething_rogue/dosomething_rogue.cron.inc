@@ -30,7 +30,13 @@ function dosomething_rogue_retry_failed_reportbacks() {
           $task->file = $mime_split[0] . ':' . $mimetype . $mime_split[1];
         }
 
-        $user = user_load($task->drupal_id);
+        if ($task->drupal_id) {
+          $user = user_load($task->drupal_id);
+        } else {
+          $northstar_user = dosomething_northstar_get_user($task->northstar_id);
+          $user = user_load($northstar_user->drupal_id);
+        }
+
         $data = (array)$task;
 
         $rogue_reportback = dosomething_rogue_send_reportback_to_rogue($data, $user, $task->id);
