@@ -29,8 +29,20 @@ function dosomething_rogue_retry_failed_reportbacks() {
           $mime_split = explode(':', $task->file);
           $task->file = $mime_split[0] . ':' . $mimetype . $mime_split[1];
         }
-        $user = user_load($task->drupal_id);
+
         $data = (array)$task;
+
+        if ($task->drupal_id) {
+          $user = user_load($task->drupal_id);
+        }
+        elseif ($task->northstar_id) {
+          $northstar_user = dosomething_northstar_get_user($task->northstar_id);
+          $user = user_load($northstar_user->drupal_id);
+        }
+        else {
+          dosomething_rogue_handle_failure($data, NULL, $task->id);
+          continue;
+        }
 
         $rogue_reportback = dosomething_rogue_send_reportback_to_rogue($data, $user, $task->id);
 
