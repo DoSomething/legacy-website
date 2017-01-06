@@ -218,7 +218,7 @@ function dosomething_rogue_handle_failure($values, $response = NULL, $failed_tas
   // Instead, increment the number of tries and update the time of most recent attempt to send to Rogue.
   if (! is_null($failed_task_id)) {
     $previously_failed = array_pop(dosomething_rogue_previously_failed($failed_task_id));
-    update_failed_task_log($values, $previously_failed);
+    update_failed_task_log($previously_failed);
   } else {
     insert_failed_task_into_failed_task_log($values, $response, $e, $user);
   }
@@ -333,11 +333,10 @@ function dosomething_rogue_previously_failed($id) {
 /**
  * Update the timestamp and tries in the dosomething_rogue_failed_task_log for a failed reportback item.
  *
- * @param array $values
  * @param object $previously_failed
  *
  */
-function update_failed_task_log($values, $previously_failed) {
+function update_failed_task_log($previously_failed) {
   // Increment the number of tries the cron job attempted to send failed record to Rogue.
   $incremented_tries = $previously_failed->tries + 1;
 
