@@ -2007,10 +2007,6 @@ msgid "What Is DoSomething?"
 msgstr "O que é DoSomething.org? "
 
 #: Brand Slogan
-msgid "Let's Do This!mgstr \""
-msgstr ""
-
-#: Brand Slogan
 msgid "Let's Do This!"
 msgstr "Vamos em frente!"
 

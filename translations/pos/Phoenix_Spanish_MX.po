@@ -1999,10 +1999,6 @@ msgid "What Is DoSomething?"
 msgstr ""
 
 #: Brand Slogan
-msgid "Let's Do This!mgstr \""
-msgstr ""
-
-#: Brand Slogan
 msgid "Let's Do This!"
 msgstr "¡Hagámoslo!"
 
