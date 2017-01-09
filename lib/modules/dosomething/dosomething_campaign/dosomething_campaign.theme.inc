@@ -439,7 +439,7 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
   $base_url = url(base_path(), array('absolute'=> TRUE, 'language' => 'en-global'));
   $campaign_path = url(current_path(), array('absolute' => TRUE));
   $country_prefix_for_share = (dosomething_global_get_current_prefix()) ? strtoupper(dosomething_global_get_current_prefix()) : 'global';
-  if (dosomething_campaign_feature_on($campaign, 'enable_voter_registration', TRUE)) {
+  if (dosomething_campaign_feature_on($campaign, 'social_share_unique_link')) {
       $vars['share_image'] = dosomething_image_get_themed_image_url($campaign->variables['share_image_nid'], 'landscape');
   }
   else {
