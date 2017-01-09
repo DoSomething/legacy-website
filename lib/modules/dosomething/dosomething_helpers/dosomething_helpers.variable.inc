@@ -37,9 +37,9 @@ function dosomething_helpers_variable_form($form, &$form_state, $node) {
     '#title' => t('Custom social share description'),
     '#description' => t("Custom description to share with social links."),
     '#default_value' => $vars['social_share_custom_description'],
-    '#attributes' => array(
+    '#attributes' => array[
       'maxlength' => '140',
-    ),
+    ],
   ];
   $form['custom_social_sharing']['share_image_nid'] = [
     '#type' => 'textfield',
