@@ -32,6 +32,15 @@ function dosomething_helpers_variable_form($form, &$form_state, $node) {
       'maxlength' => '140',
     ),
   ];
+  $form['custom_social_sharing']['social_share_custom_description'] = [
+    '#type' => 'textfield',
+    '#title' => t('Custom social share description'),
+    '#description' => t("Custom description to share with social links."),
+    '#default_value' => $vars['social_share_custom_description'],
+    '#attributes' => array(
+      'maxlength' => '140',
+    ),
+  ];
   $form['custom_social_sharing']['share_image_nid'] = [
     '#type' => 'textfield',
     '#title' => t('Photo nid'),
@@ -291,8 +300,9 @@ function dosomething_helpers_get_variable_names() {
     'signup_form_submit_label',
     'sms_game_mp_story_id',
     'sms_game_mp_story_type',
-    'social_share_unique_link',
+    'social_share_custom_description',
     'social_share_custom_text',
+    'social_share_unique_link',
   ];
 }
 
