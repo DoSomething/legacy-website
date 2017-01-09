@@ -451,9 +451,6 @@
             <?php if ($register_voters) : ?>
               <p><?php print $voter_reg_share_modal_text_2 ?></p>
             <?php endif; ?>
-            <div class="padded-gray-box">
-              <?php print $custom_social_share_link ?>
-            </div>
           </div>
         </div>
        <?php endif; ?>
