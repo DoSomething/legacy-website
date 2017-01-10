@@ -467,20 +467,6 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
   $vars['social_share_bar'] = $share_button_markup;
   $vars['custom_social_share_link'] = $custom_social_share_link;
 
-  // Pass along whether or not voter registration is enabled
-  $vars['register_voters'] = dosomething_campaign_feature_on($campaign, 'enable_voter_registration', TRUE) ? true : false;
-
-  // If we are registering voters check to see if the user will be 18 by the election
-  if ($vars['register_voters']) {
-    // Calculate the user's age on election day
-    $election_day_age = dosomething_user_age_on_date('Nov 8 2016');
-    $vars['can_vote'] = (!($election_day_age < 18)) ? true : false;
-    $vars['voter_reg_form'] = '<iframe src="https://register2.rockthevote.com/registrants/map/?source=iframe&partner=35164" width="100%" height="1000" marginheight="0" frameborder="0"></iframe>';
-    $vars['voter_reg_form_copy'] = $campaign->variables['registration_form_copy'];
-    $vars['voter_reg_share_modal_heading'] = t('Share This Now!');
-    $vars['voter_reg_share_modal_text_1'] = t('Just click the social media icons below to share this V-Card with your unique registration link already attached. Tag friends to remind them to register to vote.');
-    $vars['voter_reg_share_modal_text_2'] = t('Want to use a different V-Card? Download a V-Card from our <a target=_blank href="https://www.dropbox.com/sh/1x5r1mf396gm1gh/AAAb5bHwDspL0c3U3MaFQ5Yea?dl=0">gallery</a>, then share it on social with your unique registration link below. (You must share this unique link to qualify for the $5000 scholarship!)');
-  }
 }
 
 /**
