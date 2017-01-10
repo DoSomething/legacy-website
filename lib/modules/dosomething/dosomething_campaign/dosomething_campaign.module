@@ -683,11 +683,6 @@ function dosomething_campaign_node_view($node, $view_mode, $langcode) {
     // Add signup_data_form variables if needed.
     dosomething_campaign_add_signup_data_form_vars($node, $langcode);
 
-    // Flag if we need to register an organ donor on the page.
-    if (module_exists('dosomething_organ_donation')) {
-      $node->register_organ_donor = !dosomething_organ_donation_has_registered($node) ? TRUE : FALSE;
-    }
-
     if (module_exists('dosomething_shipment')) {
       dosomething_campaign_add_shipment_form_vars($node);
     }

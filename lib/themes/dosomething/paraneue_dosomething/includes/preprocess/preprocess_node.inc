@@ -80,7 +80,7 @@ function paraneue_dosomething_add_info_bar(&$vars) {
       // All other countries get the zendesk form.
     }
     else {
-      
+
       // If being called from a taxonomy page, this won't be set.
       if (isset($vars['nid'])) {
         // If the campaign is closed, link to the help center
@@ -196,18 +196,6 @@ function paraneue_dosomething_preprocess_node_campaign(&$vars) {
 
     $js = 'jQuery(document).ready(function() { DSModal.open( jQuery("#' . $id . '"), {animated: false, closeButton: "' . $closeButton . '", skipForm: "' . $skipForm . '"}); });';
     drupal_add_js($js, 'inline');
-  }
-
-  if (module_exists('dosomething_organ_donation')) {
-    if ($vars['node']->register_organ_donor) {
-      // Add JS to open the signup data form modal.
-      $id = 'modal-organ-donation';
-      $closeButton = 'skip';
-
-      // @TODO - New function?
-      $js = 'jQuery(document).ready(function() { DSModal.open( jQuery("#' . $id . '"), {animated: false, closeButton: "' . $closeButton . '"}); });';
-      drupal_add_js($js, 'inline');
-    }
   }
 
   // If this is not the pitch page:
