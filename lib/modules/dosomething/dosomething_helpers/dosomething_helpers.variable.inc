@@ -188,26 +188,6 @@ function dosomething_helpers_variable_form($form, &$form_state, $node) {
     ),
   ];
 
-  $form['voter_registration'] = [
-    '#type' => 'fieldset',
-    '#title' => t('Rock the Vote Registration'),
-    '#collapsible' => TRUE,
-    '#collapsed' => TRUE,
-  ];
-  $form['voter_registration']['enable_voter_registration'] = [
-    '#type' => 'textfield',
-    '#type' => 'checkbox',
-    '#title' => t('Enable Voter Registration'),
-    '#description' => t(''),
-    '#default_value' => $vars['enable_voter_registration'],
-  ];
-  $form['voter_registration']['registration_form_copy'] = [
-    '#type' => 'textarea',
-    '#title' => t('Registration Form Copy'),
-    '#description' => t('The text that will appear above the voter registration form.'),
-    '#default_value' => $vars['registration_form_copy'],
-  ];
-
   $form['onboarding'] = [
     '#type' => 'fieldset',
     '#title' => t('Onboarding'),
