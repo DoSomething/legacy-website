@@ -353,10 +353,6 @@ function dosomething_campaign_admin_custom_settings_page($node) {
     $signup_data_config_form = drupal_get_form('dosomething_signup_node_signup_data_form', $node);
     $output .= render($signup_data_config_form);
   }
-  if (module_exists('dosomething_organ_donation')) {
-    $organ_donation_config_form = drupal_get_form('dosomething_organ_donation_config_form', $node);
-    $output .= render($organ_donation_config_form);
-  }
   if (module_exists('dosomething_helpers')) {
     $form_id = 'dosomething_campaign_reportback_config_form';
     $reportback_field_form = drupal_get_form($form_id, $node);
