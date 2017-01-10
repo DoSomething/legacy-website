@@ -443,6 +443,9 @@
               <p><?php print $voter_reg_share_modal_text_1 ?></p>
             <?php else : ?>
               <h3><?php print t('Share This Campaign') ?></h3><br>
+              <?php if ($social_share_custom_description) : ?>
+                <p><?php print $social_share_custom_description ?></p><br>
+              <?php endif; ?>
             <?php endif; ?>
             <?php if ($share_image) : ?>
               <img src="<?php print $share_image ?>">
@@ -451,9 +454,6 @@
             <?php if ($register_voters) : ?>
               <p><?php print $voter_reg_share_modal_text_2 ?></p>
             <?php endif; ?>
-            <div class="padded-gray-box">
-              <?php print $custom_social_share_link ?>
-            </div>
           </div>
         </div>
        <?php endif; ?>
