@@ -477,7 +477,7 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
     'tumblr' => array(
       'posttype' => 'photo',
       'content' => $vars['share_image'],
-      'caption' => t("This is REAL, do something about this with me: "),
+      'caption' => $custom_tumblr_copy,
     ),
   );
 
