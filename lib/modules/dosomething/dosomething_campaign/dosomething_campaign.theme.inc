@@ -445,14 +445,22 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
   }
 
   // Add social share bar.
-  if ($campaign->variables['custom_twitter_copy']) {
-    $tweet = $campaign->variables['custom_twitter_copy'];
-  }
-  elseif (isset($campaign->fact_problem['fact'])) {
-    $tweet = $campaign->fact_problem['fact'];
-  }
-  else {
-    $tweet = NULL;
+  $custom_social_copy_variables = [
+    'custom_facebook_copy' => $campaign->variables['custom_facebook_copy'],
+    'custom_twitter_copy' => $campaign->variables['custom_twitter_copy'],
+    'custom_tumblr_copy' => $campaign->variables['custom_tumblr_copy'],
+  ];
+
+  foreach ($custom_social_copy_variables as $key => $value) {
+    if ($value) {
+      $$key = $value;
+    }
+    elseif (isset($campaign->fact_problem['fact'])) {
+      $$key = $campaign->fact_problem['fact'];
+    }
+    else {
+      $$key = NULL;
+    }
   }
 
   $social_share_types = array(
@@ -460,10 +468,11 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
       'type' => 'feed_dialog',
       'parameters' => array(
       'picture' => $vars['share_image'],
+      'caption' => $custom_facebook_copy,
     ),
   ),
     'twitter' => array(
-      'tweet' => $tweet,
+      'tweet' => $custom_twitter_copy,
     ),
     'tumblr' => array(
       'posttype' => 'photo',
