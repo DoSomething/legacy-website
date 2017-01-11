@@ -907,51 +907,51 @@ msgstr "Você deve ter entre 13 e 25 anos (desculpe, pessoal com 26 anos ou mais
 msgid "Month"
 msgstr "Mês"
 
-#: templates/campaign/submit-campaign-idea.tpl.php:79
+#: Month of the year.
 msgid "January"
 msgstr "Janeiro"
 
-#: templates/campaign/submit-campaign-idea.tpl.php:80
+#: Month of the year.
 msgid "February"
 msgstr "Fevereiro "
 
-#: templates/campaign/submit-campaign-idea.tpl.php:81
+#: Month of the year.
 msgid "March"
 msgstr "Março"
 
-#: templates/campaign/submit-campaign-idea.tpl.php:82
+#: Month of the year.
 msgid "April"
 msgstr "Abril"
 
-#: templates/campaign/submit-campaign-idea.tpl.php:83
+#: Month of the year.
 msgid "May"
 msgstr "Maio"
 
-#: templates/campaign/submit-campaign-idea.tpl.php:84
+#: Month of the year.
 msgid "June"
 msgstr "Junho"
 
-#: templates/campaign/submit-campaign-idea.tpl.php:85
+#: Month of the year.
 msgid "July"
 msgstr "Julho"
 
-#: templates/campaign/submit-campaign-idea.tpl.php:86
+#: Month of the year.
 msgid "August"
 msgstr "Agosto"
 
-#: templates/campaign/submit-campaign-idea.tpl.php:87
+#: Month of the year.
 msgid "September"
 msgstr "Setembro"
 
-#: templates/campaign/submit-campaign-idea.tpl.php:88
+#: Month of the year.
 msgid "October"
 msgstr "Outubro"
 
-#: templates/campaign/submit-campaign-idea.tpl.php:89
+#: Month of the year.
 msgid "November"
 msgstr "Novembro"
 
-#: templates/campaign/submit-campaign-idea.tpl.php:90
+#: Month of the year.
 msgid "December"
 msgstr "Dezembro"
 
@@ -1980,7 +1980,7 @@ msgstr "Dicas úteis"
 
 #: Brand Slogan
 msgid "Let's do this!"
-msgstr "Vamos em frente! "
+msgstr "Vamos em frente!"
 
 #: Brand Slogan
 msgid "Join others making a difference."
@@ -2005,4 +2005,12 @@ msgstr "Junte-se a outros e faça a diferença"
 #: paraneue_dosomething.info
 msgid "What Is DoSomething?"
 msgstr "O que é DoSomething.org? "
+
+#: Brand Slogan
+msgid "Let's Do This!"
+msgstr "Vamos em frente!"
+
+#: Brand Slogan
+msgid "Choose a campaign and take action with 5.5 million young people."
+msgstr "Escolha uma campanha, e engaje-se com 5.5 milhões de jovens."
 

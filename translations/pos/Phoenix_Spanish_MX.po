@@ -900,51 +900,51 @@ msgstr "Debes tener entre 13 y 25 (los mayores de 26, disculpen)."
 msgid "Month"
 msgstr "Mes"
 
-#: templates/campaign/submit-campaign-idea.tpl.php:79
+#: Month of the year.
 msgid "January"
 msgstr "enero"
 
-#: templates/campaign/submit-campaign-idea.tpl.php:80
+#: Month of the year.
 msgid "February"
 msgstr "febrero"
 
-#: templates/campaign/submit-campaign-idea.tpl.php:81
+#: Month of the year.
 msgid "March"
 msgstr "marzo"
 
-#: templates/campaign/submit-campaign-idea.tpl.php:82
+#: Month of the year.
 msgid "April"
 msgstr "abril"
 
-#: templates/campaign/submit-campaign-idea.tpl.php:83
+#: Month of the year.
 msgid "May"
 msgstr "mayo"
 
-#: templates/campaign/submit-campaign-idea.tpl.php:84
+#: Month of the year.
 msgid "June"
 msgstr "junio"
 
-#: templates/campaign/submit-campaign-idea.tpl.php:85
+#: Month of the year.
 msgid "July"
 msgstr "julio"
 
-#: templates/campaign/submit-campaign-idea.tpl.php:86
+#: Month of the year.
 msgid "August"
 msgstr "agosto"
 
-#: templates/campaign/submit-campaign-idea.tpl.php:87
+#: Month of the year.
 msgid "September"
 msgstr "septiembre"
 
-#: templates/campaign/submit-campaign-idea.tpl.php:88
+#: Month of the year.
 msgid "October"
 msgstr "octubre"
 
-#: templates/campaign/submit-campaign-idea.tpl.php:89
+#: Month of the year.
 msgid "November"
 msgstr "noviembre"
 
-#: templates/campaign/submit-campaign-idea.tpl.php:90
+#: Month of the year.
 msgid "December"
 msgstr "diciembre"
 
@@ -1997,4 +1997,12 @@ msgstr "Únete a los demás para hacer una diferencia"
 #: paraneue_dosomething.info
 msgid "What Is DoSomething?"
 msgstr ""
+
+#: Brand Slogan
+msgid "Let's Do This!"
+msgstr "¡Hagámoslo!"
+
+#: Brand Slogan
+msgid "Choose a campaign and take action with 5.5 million young people."
+msgstr "Elige una campaña y únete a los 5.5 millones de jóvenes que ya hacen una diferencia."
 

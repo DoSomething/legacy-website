@@ -115,3 +115,13 @@ msgstr ""
 #: Brand Slogan
 msgid "Choose a campaign and take action with 5.3 million young people."
 msgstr ""
+
+#: Brand Slogan
+msgid "Let's Do This!"
+msgstr ""
+
+#: Brand Slogan
+msgid "Choose a campaign and take action with 5.5 million young people."
+msgstr ""
+
+
