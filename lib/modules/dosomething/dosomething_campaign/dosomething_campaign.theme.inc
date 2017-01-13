@@ -442,6 +442,7 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
   if (dosomething_campaign_feature_on($campaign, 'social_share_unique_link')) {
       $vars['social_share_custom_description'] = $campaign->variables['social_share_custom_description'];
       $vars['share_image'] = dosomething_image_get_themed_image_url($campaign->variables['share_image_nid'], 'landscape');
+      $vars['show_social_share_link'] = $campaign->variables['show_social_share_link'];
   }
 
   // Add social share bar.

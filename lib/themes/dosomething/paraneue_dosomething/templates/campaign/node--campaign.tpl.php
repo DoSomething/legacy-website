@@ -433,6 +433,11 @@
             <?php if ($register_voters) : ?>
               <p><?php print $voter_reg_share_modal_text_2 ?></p>
             <?php endif; ?>
+            <?php if ($show_social_share_link) : ?>
+              <div class="padded-gray-box">
+                <?php print $custom_social_share_link ?>
+              </div>
+            <?php endif; ?>
           </div>
         </div>
        <?php endif; ?>

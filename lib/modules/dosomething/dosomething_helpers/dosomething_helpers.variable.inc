@@ -71,6 +71,12 @@ function dosomething_helpers_variable_form($form, &$form_state, $node) {
     '#default_value' => $vars['custom_tumblr_copy'],
     '#size' => 20,
   ];
+  $form['custom_social_sharing']['show_social_share_link'] = [
+    '#type' => 'checkbox',
+    '#title' => t('Visible custom social share link'),
+    '#default_value' => $vars['show_social_share_link'],
+    '#description' => t('If checked, the custom social share link will be visible in a gray padded box for the user to copy and paste.'),
+  ];
   $form['styles'] = array(
     '#type' => 'fieldset',
     '#title' => t('Styles'),
@@ -300,6 +306,7 @@ function dosomething_helpers_get_variable_names() {
     'shipment_form_submit_label',
     'shipment_form_submitted_copy',
     'shipment_item',
+    'show_social_share_link',
     'signup_count',
     'signup_form_submit_label',
     'sms_game_mp_story_id',
