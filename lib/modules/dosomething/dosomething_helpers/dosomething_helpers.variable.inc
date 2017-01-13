@@ -48,6 +48,29 @@ function dosomething_helpers_variable_form($form, &$form_state, $node) {
       'maxlength' => '140',
     ),
   ];
+  $form['custom_social_sharing']['custom_facebook_copy'] = [
+    '#type' => 'textarea',
+    '#title'=> t('Custom Facebook copy'),
+    '#description' => t("Custom Facebook copy to populate Facebook share. If blank, copy will default to the problem statement."),
+    '#default_value' => $vars['custom_facebook_copy'],
+    '#size' => 20,
+  ];
+  $form['custom_social_sharing']['custom_twitter_copy'] = [
+    '#type' => 'textfield',
+    '#title' => t('Custom Twitter copy'),
+    '#description' => t("Custom Twitter copy to populate Twitter share. If blank, copy will default to the problem statement."),
+    '#default_value' => $vars['custom_twitter_copy'],
+    '#attributes' => [
+      'maxlength' => '140',
+    ],
+  ];
+  $form['custom_social_sharing']['custom_tumblr_copy'] = [
+    '#type' => 'textarea',
+    '#title'=> t('Custom Tumblr copy'),
+    '#description' => t("Custom Tumblr copy to populate Tumblr share. If blank, copy will default to the problem statement."),
+    '#default_value' => $vars['custom_tumblr_copy'],
+    '#size' => 20,
+  ];
   $form['styles'] = array(
     '#type' => 'fieldset',
     '#title' => t('Styles'),
@@ -257,6 +280,9 @@ function dosomething_helpers_get_variable_names() {
     'count_flagged',
     'count_pending',
     'count_promoted',
+    'custom_facebook_copy',
+    'custom_tumblr_copy',
+    'custom_twitter_copy',
     'disable_onboarding',
     'enable_voter_registration',
     'magic_link_copy',
