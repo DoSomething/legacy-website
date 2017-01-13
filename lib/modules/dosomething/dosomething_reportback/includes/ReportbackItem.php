@@ -192,6 +192,17 @@ class ReportbackItem extends Entity {
       $this->deleteFile();
     }
 
+    // Send external message request
+    $vision_url = variable_get('dosomething_settings_vision_url');
+    if (isset($vision_url)) {
+      $options = [
+        'method' => 'POST',
+        'headers' => ['Content-Type' => 'application/json', 'X-DS-Vision-API-Key' => variable_get('dosomething_settings_vision_key', '')],
+        'data' => json_encode($values),
+      ];
+      $response = drupal_http_request($vision_url, $options);
+    }
+
     // Save the reviewed properties.
     return $updated_reportback_item;
   }
