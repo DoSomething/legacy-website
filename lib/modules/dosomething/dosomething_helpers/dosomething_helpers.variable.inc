@@ -70,6 +70,7 @@ function dosomething_helpers_variable_form($form, &$form_state, $node) {
     '#description' => t("Custom Tumblr copy to populate Tumblr share. If blank, copy will default to the problem statement."),
     '#default_value' => $vars['custom_tumblr_copy'],
     '#size' => 20,
+  ];
   $form['custom_social_sharing']['show_social_share_link'] = [
     '#type' => 'checkbox',
     '#title' => t('Visible custom social share link'),
