@@ -70,7 +70,10 @@ function dosomething_rogue_send_reportback_to_rogue($values, $user = NULL, $fail
   }
 
   $run = dosomething_helpers_get_current_campaign_run_for_user($values['nid']);
-  $client = dosomething_rogue_client();
+  // $client = dosomething_rogue_client();
+  $client = new Rogue(ROGUE_API_URL . '/v2/',
+    ['headers' => ['X-DS-Rogue-API-Key' => ROGUE_API_KEY]]
+  );
 
   $data = dosomething_rogue_transform_reportback($values, $user, $northstar_id);
   $data['type'] = 'reportback';
