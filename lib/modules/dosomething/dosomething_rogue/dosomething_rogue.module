@@ -70,13 +70,14 @@ function dosomething_rogue_send_reportback_to_rogue($values, $user = NULL, $fail
   }
 
   $run = dosomething_helpers_get_current_campaign_run_for_user($values['nid']);
-  $client = dosomething_rogue_client();
-  // $client = new Rogue(ROGUE_API_URL . '/v2/',
-  //   ['headers' => ['X-DS-Rogue-API-Key' => ROGUE_API_KEY]]
-  // );
+  // $client = dosomething_rogue_client();
+  $client = new Rogue(ROGUE_API_URL . '/v2/',
+    ['headers' => ['X-DS-Rogue-API-Key' => ROGUE_API_KEY]]
+  );
 
   $data = dosomething_rogue_transform_reportback($values, $user, $northstar_id);
   $data['type'] = 'reportback';
+  $data['event_type'] = 'post_photo';
 
   try {
     $response = $client->postReportback($data);
@@ -86,14 +87,20 @@ function dosomething_rogue_send_reportback_to_rogue($values, $user = NULL, $fail
     }
     if (!$response) {
       // This is a 404
+      print_r('hi');
+      die();
       dosomething_rogue_handle_failure($data, $response, $failed_task_id, $user);
     }
   }
   catch (GuzzleHttp\Exception\ServerException $e) {
     // These aren't yet caught by Gateway
+    print_r('hi2');
+    die();
     dosomething_rogue_handle_failure($data, $response, $failed_task_id, $user, $e);
   }
   catch (DoSomething\Gateway\Exceptions\ApiException $e) {
+    print_r('hi3');
+    die();
     dosomething_rogue_handle_failure($data, $response, $failed_task_id, $user, $e);
   }
 
