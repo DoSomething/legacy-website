@@ -462,13 +462,7 @@ function pull_db {
       drush -y fra
 
       echo "Disabling external modules locally."
-      drush -y dis optimizely dosomething_northstar dosomething_gladiator
-
-      # Also reset Northstar settings, so enabling the module doesn't default to Northstar QA.
-      drush variable-delete dosomething_northstar_url -y
-      drush variable-delete dosomething_northstar_port -y
-      drush variable-delete dosomething_northstar_app_id -y
-      drush variable-delete dosomething_northstar_app_key -y
+      drush -y dis optimizely dosomething_gladiator
 
       echo "Clearing cache..."
       drush cc all
