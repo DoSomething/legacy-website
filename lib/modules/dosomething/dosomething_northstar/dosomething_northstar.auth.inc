@@ -182,27 +182,23 @@ function dosomething_northstar_user_logout($account) {
   // Destroy the current session, and reset $user to the anonymous user.
   session_destroy();
 
-  $is_openid_login = ! empty($user->field_refresh_token[LANGUAGE_NONE][0]['value']);
-  if ($is_openid_login) {
-    // Clear out token information to track that SSO session will be revoked.
-    // @TODO: Actually revoke the refresh token in Northstar on logout.
-    $edit = [];
-    dosomething_user_set_fields($edit, [
-      'access_token' => NULL,
-      'access_token_expiration' => NULL,
-      'refresh_token' => NULL,
-    ]);
-    user_save($user, $edit);
+  // Clear out token information to track that SSO session will be revoked.
+  // @TODO: Actually revoke the refresh token in Northstar on logout.
+  $edit = [];
+  dosomething_user_set_fields($edit, [
+    'access_token' => NULL,
+    'access_token_expiration' => NULL,
+    'refresh_token' => NULL,
+  ]);
+  user_save($user, $edit);
 
-    // And redirect to SSO logout to prevent users from automatically
-    // logging in to the same account again.
-    $northstar_logout_url = url(NORTHSTAR_URL . '/logout', [
-      'query' => ['redirect' => url('/', ['absolute' => TRUE])],
-    ]);
-    drupal_goto($northstar_logout_url);
-  }
+  // And redirect to SSO logout to prevent users from automatically
+  // logging in to the same account again.
+  $northstar_logout_url = url(NORTHSTAR_URL . '/logout', [
+    'query' => ['redirect' => url('/', ['absolute' => TRUE])],
+  ]);
 
-  drupal_goto('/');
+  drupal_goto($northstar_logout_url);
 }
 
 /**

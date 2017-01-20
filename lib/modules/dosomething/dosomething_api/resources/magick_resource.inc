@@ -134,7 +134,7 @@ function magick_signup($parameters) {
   $campaign_uri = $data['language_prefix'] . '/node/' . $parameters['campaign'];
 
   if (array_key_exists('error', $response)) {
-    return magick_redirect($campaign_uri, [], 'modal--login');
+    return magick_redirect($campaign_uri);
   }
 
   $query = [
