@@ -272,11 +272,6 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
         // Gather helper text.
         _dosomething_user_register_helper_text($form);
       }
-      else {
-        // If this is not the registration form, then register submit handler
-        // to update that existing Northstar user by their Drupal ID.
-        $form['#submit'][] = 'dosomething_user_update_user';
-      }
 
       // Add extra validation on the edit page, for addresses.
       $current_page = $_SERVER['REQUEST_URI'];
@@ -573,55 +568,10 @@ function dosomething_user_user_pass_submit($form, &$form_state) {
 }
 
 /**
- * Custom form submission handler to update an existing user.
- * Triggered when making changes on the user profile form.
- *
- * @param $form
- * @param $form_state
- */
-function dosomething_user_update_user($form, &$form_state) {
-
-  if (!module_exists('dosomething_northstar')) {
-    return;
-  }
-
-  // Forward user updates into Northstar.
-  $user = $form_state['user'];
-
-  // Don't send blank passwords from the user update screen.
-  $password = ! empty($form_state['values']['pass']) ? $form_state['values']['pass'] : null;
-
-  dosomething_northstar_update_user($user, $password);
-}
-
-/**
- * Custom new user login submission handler.
- *
- * Does actions after a new user has registered via the web.
- * Sign user up for emails/texts.
- */
-function dosomething_user_new_user($form, &$form_state)
-{
-  global $user;
-
-  // Trigger an analytics event on registration
-  dosomething_helpers_add_analytics_event('Authentication', 'Register');
-
-  if (module_exists('dosomething_northstar')) {
-    dosomething_northstar_create_user($user, $form_state['values']['pass']);
-  };
-
-  // Sign the user up for transactional messaging.
-  // Must be after dosomething_northstar_create_user()
-  // because it needs to access Northstar ID.
-  _dosomething_user_send_to_message_broker();
-}
-
-/**
  * Sign the authenticated user up for transactional messaging through Message Broker
  * if the required modules are enabled and the user meets relevant criteria.
  *
- * @see dosomething_user_new_user
+ * @see dosomething_northstar_openid_connect_post_authorize
  */
 function _dosomething_user_send_to_message_broker() {
   if (!module_exists('dosomething_mbp') || !module_exists('dosomething_signup')) {
@@ -702,16 +652,6 @@ function _dosomething_user_send_to_message_broker() {
    }
 
   dosomething_mbp_request('user_register', $params);
-}
-
-function dosomething_user_new_user_attributes($form, &$form_state) {
-  global $user;
-
-  dosomething_user_set_global_attributes();
-
-  if (module_exists('dosomething_northstar')){
-    dosomething_northstar_create_user($user, $form_state['values']['pass']);
-  }
 }
 
 /**
@@ -837,28 +777,6 @@ function dosomething_user_is_old_person($user = NULL) {
 function dosomething_user_login_submit($form, &$form_state) {
   // Trigger an analytics event on login
   dosomething_helpers_add_analytics_event('Authentication', 'Login');
-}
-
-/**
- * Verify the given login against Northstar's records! This is a "dry run"
- * for eventually having authentication solely happen in Northstar.
- *
- * @param $form_state
- */
-function _dosomething_user_verify_northstar_login($form_state) {
-  global $user;
-
-  // Short-circuit if Northstar is not enabled.
-  if (!module_exists('dosomething_northstar')) return;
-
-  $northstar_user = dosomething_northstar_verify_user([
-    'username' => $form_state['input']['name'],
-    'password' => $form_state['input']['pass'],
-  ]);
-
-  // If the user exists in Northstar, store their ID on their Drupal profile.
-  // @TODO: Remove this once we properly back-fill this field!
-  dosomething_northstar_save_id_field($user->uid, $northstar_user);
 }
 
 /**
@@ -1324,13 +1242,8 @@ function dosomething_user_get_field_last_name($field_value, $format = 'ucwords')
  *   Returns NULL if not set, otherwise string Northstar ID.
  */
 function dosomething_user_get_field_northstar_id($field_value) {
-  // Return NULL if the module is not enabled.
-  if (!module_exists('dosomething_northstar')) {
-    return NULL;
-  }
-
-  // NONE is a special value representing that Northstar id is not present.
-  // @see dosomething_northstar_save_id_field();
+  // NONE was a special value representing that Northstar id is not present.
+  // @see history for dosomething_northstar_save_id_field();
   if (empty($field_value) || $field_value === 'NONE') {
     return NULL;
   }
