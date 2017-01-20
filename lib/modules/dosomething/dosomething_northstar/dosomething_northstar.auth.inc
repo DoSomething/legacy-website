@@ -114,13 +114,6 @@ function dosomething_northstar_openid_connect_post_authorize($tokens, $account, 
     dosomething_northstar_save_id_field($account->uid, ['data' => $userinfo]);
   }
 
-  // Make sure the user's `drupal_id` field is set in Northstar (now that they *have* a Drupal ID).
-  try {
-    dosomething_northstar_client()->put('v1/users/id/' . $userinfo['id'], ['drupal_id' => $account->uid]);
-  } catch (Exception $error) {
-    watchdog('dosomething_northstar', 'User NOT updated on Northstar: ' . $error->getMessage(), NULL, WATCHDOG_ERROR);
-  }
-
   // If we saved a "post-authorization" action, do it now.
   dosomething_northstar_perform_authorization_actions();
 
