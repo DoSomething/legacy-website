@@ -77,95 +77,94 @@ function paraneue_dosomething_breadcrumb($variables) {
  * Implements hook_theme().
  */
 function paraneue_dosomething_theme() {
-  return array(
 
-    'campaign_creator' => array(
+    'campaign_creator' => [
       'template' => 'campaign-creator',
       'path' => PARANEUE_PATH . '/templates/campaign/partials',
-    ),
+    ],
 
-    'campaign_headings' => array(
+    'campaign_headings' => [
       'template' => 'campaign-headings',
       'path' => PARANEUE_PATH . '/templates/campaign/partials',
-    ),
+    ],
 
-    'campaign_scholarship' => array(
+    'campaign_scholarship' => [
       'template' => 'campaign-scholarship',
       'path' => PARANEUE_PATH . '/templates/campaign/partials',
-      'variables' => array(
+      'variables' => [
         'amount' => NULL,
         'classes' => NULL,
-      )
-    ),
+      ]
+    ],
 
-    'footer' => array(
+    'footer' => [
       'template' => 'footer',
       'path' => PARANEUE_PATH . '/templates/system/partials',
-    ),
+    ],
 
-    'social-networks' => array(
+    'social-networks' => [
       'template' => 'social-networks',
       'path' => PARANEUE_PATH . '/templates/system/partials',
-      'variables' => array(
+      'variables' => [
         'container_classes' => '',
-      )
-    ),
+      ]
+    ],
 
-    'header' => array(
+    'header' => [
       'template' => 'header',
       'path' => PARANEUE_PATH . '/templates/system/partials',
-    ),
+    ],
 
-    'info_bar' => array(
+    'info_bar' => [
       'template' => 'info-bar',
       'path' => PARANEUE_PATH . '/templates/system/partials',
-    ),
+    ],
 
-    'navigation' => array(
+    'navigation' => [
       'template' => 'navigation',
       'path' => PARANEUE_PATH . '/templates/system/partials',
-    ),
+    ],
 
-    'sponsor_logos' => array(
+    'sponsor_logos' => [
       'template' => 'sponsor-logos',
       'path' => PARANEUE_PATH . '/templates/system/partials',
-      'variables' => array(
+      'variables' => [
         'sponsors' => NULL,
-      ),
-    ),
+      ],
+    ],
 
-    'thumbnail' => array(
+    'thumbnail' => [
       'template' => 'thumbnail',
       'path' => PARANEUE_PATH . '/templates/home/partials',
-    ),
+    ],
 
     // Register theme functions for Forge patterns.
-    'paraneue_figure' => array(
+    'paraneue_figure' => [
       'template' => 'figure',
       'path' => PARANEUE_PATH . '/templates/system/patterns',
-    ),
+    ],
 
-    'paraneue_media' => array(
+    'paraneue_media' => [
       'template' => 'media',
       'path' => PARANEUE_PATH . '/templates/system/patterns',
-      'variables' => array(
+      'variables' => [
         'content' => NULL,
-      ),
-    ),
+      ],
+    ],
 
-    'paraneue_photo' => array(
+    'paraneue_photo' => [
       'template' => 'photo',
       'path' => PARANEUE_PATH . '/templates/system/patterns',
-    ),
+    ],
 
-    'paraneue_tile' => array(
+    'paraneue_tile' => [
       'template' => 'tile',
       'path' => PARANEUE_PATH . '/templates/system/patterns',
-    ),
+    ],
 
-    'paraneue_gallery' => array(
+    'paraneue_gallery' => [
       'template' => 'gallery',
       'path' => PARANEUE_PATH . '/templates/system/patterns',
-    ),
-  );
+    ],
+  ];
 }
