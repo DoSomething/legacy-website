@@ -49,12 +49,6 @@ function dosomething_northstar_menu() {
       'access arguments' => ['administer modules'],
       'file' => 'dosomething_northstar.admin.inc',
     ],
-    'user/openid' => [
-      'title' => 'OpenID Connect',
-      'page callback' => 'dosomething_northstar_openid_login_view',
-      'access arguments' => ['access content'],
-      'type' => MENU_CALLBACK,
-    ],
     'user/authorize' => [
       'title' => 'openid connect authorize',
       'page callback' => 'dosomething_northstar_openid_authorize',
@@ -337,18 +331,6 @@ function dosomething_northstar_log_request($op, $user, $request_body, $response,
       'response_values' => json_encode($response),
     ])
     ->execute();
-}
-
-/**
- * Implements hook_theme().
- */
-function dosomething_northstar_theme() {
-  return [
-    'openid_login' => [
-      'template' => 'openid-login',
-      'path' => drupal_get_path('module', 'dosomething_northstar') . '/theme',
-    ]
-  ];
 }
 
 /**
