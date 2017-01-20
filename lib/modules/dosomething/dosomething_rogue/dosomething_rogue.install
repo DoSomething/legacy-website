@@ -301,3 +301,18 @@ function dosomething_rogue_update_7008(&$sandbox) {
   }
 }
 
+/**
+ * Changes rogue_reportback_id column to rogue_signup_id in the dosomething_rogue_reportbacks table.
+ */
+function dosomething_rogue_update_7009(&$sandbox) {
+  $table = 'dosomething_rogue_reportbacks';
+  if (db_table_exists($table)) {
+    $spec = [
+      'type' => 'int',
+      'length' => '11',
+      'description' => 'The Rogue signup id that is associated with the same Phoenix reportback.',
+    ];
+
+    db_change_field($table, 'rogue_reportback_id', 'rogue_signup_id', $spec);
+  }
+}

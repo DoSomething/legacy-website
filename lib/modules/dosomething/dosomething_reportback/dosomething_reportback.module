@@ -703,7 +703,6 @@ function dosomething_reportback_delete_reportback($rbid) {
   return entity_delete('reportback', $rbid);
 }
 
-
 /**
  * Checks if a reportback exists for given $nid and $uid.
  *
@@ -714,11 +713,17 @@ function dosomething_reportback_delete_reportback($rbid) {
  * @param  int  $uid
  *   Optional - the user uid of reportback to check.
  *   If not given, uses global $user->uid.
+ * @param int $northstar_id
+ *   Optional - the user's Northstar id of reportback to check.
  * @return mixed
  *   The rbid of reportback or FALSE if it doesn't exist.
  */
-function dosomething_reportback_exists($nid, $run_nid = NULL, $uid = NULL) {
-  if (!isset($uid)) {
+function dosomething_reportback_exists($nid, $run_nid = NULL, $uid = NULL, $northstar_id = NULL) {
+  if ($northstar_id) {
+    $user = dosomething_northstar_get_user($northstar_id);
+    $uid = $user->uid;
+  }
+  else if (!isset($uid)) {
     global $user;
     $uid = $user->uid;
   }
