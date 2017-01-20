@@ -8,7 +8,7 @@ include_once('plugins/openid_connect_client/northstar/OpenIDConnectClientNorthst
 /**
  * Create an OpenID Connect authorization URL.
  *
- * @return array
+ * @return string
  */
 function dosomething_northstar_openid_authorize_url() {
   /** @var $client OpenIDConnectClientNorthstar */
