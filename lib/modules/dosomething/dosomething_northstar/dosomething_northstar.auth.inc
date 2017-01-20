@@ -19,19 +19,6 @@ function dosomething_northstar_openid_authorize_url() {
 }
 
 /**
- * Render the super-secret page for testing OpenID Connect login.
- *
- * GET /user/openid
- *
- * @return array
- */
-function dosomething_northstar_openid_login_view() {
-  $authorize_url = dosomething_northstar_openid_authorize_url();
-
-  return theme('openid_login', ['url' => $authorize_url]);
-}
-
-/**
  * Create an Northstar authorization link and redirect to it. (This way we don't
  * have to make a state token every time we have a page with a login link).
  *

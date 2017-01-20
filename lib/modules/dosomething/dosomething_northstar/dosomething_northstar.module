@@ -340,18 +340,6 @@ function dosomething_northstar_log_request($op, $user, $request_body, $response,
 }
 
 /**
- * Implements hook_theme().
- */
-function dosomething_northstar_theme() {
-  return [
-    'openid_login' => [
-      'template' => 'openid-login',
-      'path' => drupal_get_path('module', 'dosomething_northstar') . '/theme',
-    ]
-  ];
-}
-
-/**
  * Return whether the response has a "successful" status code or not.
  *
  * @param $response
