@@ -77,6 +77,18 @@ function paraneue_dosomething_breadcrumb($variables) {
  * Implements hook_theme().
  */
 function paraneue_dosomething_theme() {
+  return [
+    'user_login' => [
+      'render element' => 'form',
+      'path' => PARANEUE_PATH . '/templates/user',
+      'template' => 'user-login',
+    ],
+
+    'user_register_form' => [
+      'render element' => 'form',
+      'path' => PARANEUE_PATH . '/templates/user',
+      'template' => 'user-register-form',
+    ],
 
     'campaign_creator' => [
       'template' => 'campaign-creator',
