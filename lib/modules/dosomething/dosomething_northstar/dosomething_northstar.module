@@ -353,20 +353,9 @@ function _dosomething_northstar_is_successful_response($response) {
 
 /**
  * Build the drupal_http_request object for Northstar calls.
- * @returns array
+ *
+ * @throws InvalidArgumentException
  */
 function _dosomething_northstar_build_http_client() {
-  $base_url = NORTHSTAR_URL;
-  $base_url .= '/' . NORTHSTAR_VERSION;
-
-  $client = [
-    'base_url' => $base_url,
-    'headers' => [
-      'X-DS-REST-API-Key' => NORTHSTAR_APP_KEY,
-      'Content-Type' => 'application/json',
-      'Accept' => 'application/json',
-    ],
-  ];
-
-  return $client;
+  throw new InvalidArgumentException('Removed. Use dosomething_northstar_client() instead.');
 }
