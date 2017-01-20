@@ -721,7 +721,7 @@ function dosomething_reportback_delete_reportback($rbid) {
 function dosomething_reportback_exists($nid, $run_nid = NULL, $uid = NULL, $northstar_id = NULL) {
   if ($northstar_id) {
     $user = dosomething_northstar_get_user($northstar_id);
-    $uid = $user->uid;
+    $uid = $user->drupal_id;
   }
   else if (!isset($uid)) {
     global $user;
