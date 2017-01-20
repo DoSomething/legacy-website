@@ -45,7 +45,6 @@
   </div>
 
   <?php print $scripts; ?>
-  <?php print $page_bottom; ?>
 
   <?php if ($variables['enable_ad_tracking']): ?>
     <!-- Twitter single-event website tag code -->
