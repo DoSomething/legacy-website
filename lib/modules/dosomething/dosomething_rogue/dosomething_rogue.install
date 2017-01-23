@@ -307,12 +307,20 @@ function dosomething_rogue_update_7008(&$sandbox) {
 function dosomething_rogue_update_7009(&$sandbox) {
   $table = 'dosomething_rogue_reportbacks';
   if (db_table_exists($table)) {
-    $spec = [
+    $rogue_signup_id_spec = [
       'type' => 'int',
       'length' => '11',
       'description' => 'The Rogue signup id that is associated with the same Phoenix reportback.',
     ];
 
-    db_change_field($table, 'rogue_reportback_id', 'rogue_signup_id', $spec);
+    db_change_field($table, 'rogue_reportback_id', 'rogue_signup_id', $rogue_signup_id_spec);
+
+    $rogue_event_id_spec = [
+      'type' => 'int',
+      'length' => '11',
+      'description' => 'The Rogue event id that is associated with the same Phoenix reportback item (fid).',
+    ];
+
+    db_change_field($table, 'rogue_item_id', 'rogue_event_id', $rogue_event_id_spec);
   }
 }

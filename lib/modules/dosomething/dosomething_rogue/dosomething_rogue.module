@@ -165,8 +165,9 @@ function dosomething_rogue_get_by_file_id($fid) {
  * @return
  */
 function dosomething_rogue_store_rogue_references($rbid, $fid, $rogue_reportback) {
+  print_r($rogue_reportback['data']['event']);
+  die();
   $most_recent_rogue_item = array_pop($rogue_reportback['data']['reportback_items']['data']);
-
   if (! dosomething_rogue_get_by_file_id($fid)) {
     // Store references to rogue IDs.
     db_insert('dosomething_rogue_reportbacks')
