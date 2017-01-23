@@ -48,12 +48,6 @@ function dosomething_northstar_menu() {
       'access arguments' => ['administer modules'],
       'file' => 'dosomething_northstar.admin.inc',
     ],
-    'user/openid' => [
-      'title' => 'OpenID Connect',
-      'page callback' => 'dosomething_northstar_openid_login_view',
-      'access arguments' => ['access content'],
-      'type' => MENU_CALLBACK,
-    ],
     'user/authorize' => [
       'title' => 'openid connect authorize',
       'page callback' => 'dosomething_northstar_openid_authorize',
