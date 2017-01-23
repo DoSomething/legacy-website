@@ -8,7 +8,7 @@ include_once('plugins/openid_connect_client/northstar/OpenIDConnectClientNorthst
 /**
  * Create an OpenID Connect authorization URL.
  *
- * @return array
+ * @return string
  */
 function dosomething_northstar_openid_authorize_url() {
   /** @var $client OpenIDConnectClientNorthstar */
@@ -16,19 +16,6 @@ function dosomething_northstar_openid_authorize_url() {
   $scopes = openid_connect_get_scopes();
 
   return $client->getAuthorizeUrl($scopes);
-}
-
-/**
- * Render the super-secret page for testing OpenID Connect login.
- *
- * GET /user/openid
- *
- * @return array
- */
-function dosomething_northstar_openid_login_view() {
-  $authorize_url = dosomething_northstar_openid_authorize_url();
-
-  return theme('openid_login', ['url' => $authorize_url]);
 }
 
 /**
@@ -127,13 +114,6 @@ function dosomething_northstar_openid_connect_post_authorize($tokens, $account, 
     dosomething_northstar_save_id_field($account->uid, ['data' => $userinfo]);
   }
 
-  // Make sure the user's `drupal_id` field is set in Northstar (now that they *have* a Drupal ID).
-  try {
-    dosomething_northstar_client()->put('v1/users/id/' . $userinfo['id'], ['drupal_id' => $account->uid]);
-  } catch (Exception $error) {
-    watchdog('dosomething_northstar', 'User NOT updated on Northstar: ' . $error->getMessage(), NULL, WATCHDOG_ERROR);
-  }
-
   // If we saved a "post-authorization" action, do it now.
   dosomething_northstar_perform_authorization_actions();
 
@@ -202,27 +182,23 @@ function dosomething_northstar_user_logout($account) {
   // Destroy the current session, and reset $user to the anonymous user.
   session_destroy();
 
-  $is_openid_login = ! empty($user->field_refresh_token[LANGUAGE_NONE][0]['value']);
-  if ($is_openid_login) {
-    // Clear out token information to track that SSO session will be revoked.
-    // @TODO: Actually revoke the refresh token in Northstar on logout.
-    $edit = [];
-    dosomething_user_set_fields($edit, [
-      'access_token' => NULL,
-      'access_token_expiration' => NULL,
-      'refresh_token' => NULL,
-    ]);
-    user_save($user, $edit);
+  // Clear out token information to track that SSO session will be revoked.
+  // @TODO: Actually revoke the refresh token in Northstar on logout.
+  $edit = [];
+  dosomething_user_set_fields($edit, [
+    'access_token' => NULL,
+    'access_token_expiration' => NULL,
+    'refresh_token' => NULL,
+  ]);
+  user_save($user, $edit);
 
-    // And redirect to SSO logout to prevent users from automatically
-    // logging in to the same account again.
-    $northstar_logout_url = url(NORTHSTAR_URL . '/logout', [
-      'query' => ['redirect' => url('/', ['absolute' => TRUE])],
-    ]);
-    drupal_goto($northstar_logout_url);
-  }
+  // And redirect to SSO logout to prevent users from automatically
+  // logging in to the same account again.
+  $northstar_logout_url = url(NORTHSTAR_URL . '/logout', [
+    'query' => ['redirect' => url('/', ['absolute' => TRUE])],
+  ]);
 
-  drupal_goto('/');
+  drupal_goto($northstar_logout_url);
 }
 
 /**

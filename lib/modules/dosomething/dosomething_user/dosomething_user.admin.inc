@@ -88,14 +88,6 @@ function dosomething_user_admin_config_form($form, &$form_state) {
     '#default_value' => t(variable_get($var_name)),
   ];
 
-  $var_name = 'dosomething_user_openid_oauth_login_enabled';
-  $form['login'][$var_name] = [
-    '#type' => 'checkbox',
-    '#title' => t('Enable Login with OpenID & OAuth'),
-    '#description' => t('Allow members to login using OpenID & OAuth via Northstar.'),
-    '#default_value' => variable_get($var_name, FALSE),
-  ];
-
   // Registration form settings.
   $form['reg'] = array(
     '#type' => 'fieldset',
