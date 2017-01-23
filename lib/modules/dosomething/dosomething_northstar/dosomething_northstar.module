@@ -14,7 +14,6 @@ include_once('dosomething_northstar.auth.inc');
 
 // Config vars, if not set.
 define('NORTHSTAR_URL', variable_get('dosomething_northstar_url', 'http://northstar.dev:8000'));
-define('NORTHSTAR_VERSION', variable_get('dosomething_northstar_version', 'v1'));
 define('NORTHSTAR_APP_ID', variable_get('dosomething_northstar_app_id', 'trusted-test-client'));
 define('NORTHSTAR_APP_KEY', variable_get('dosomething_northstar_app_key', 'secret1'));
 

@@ -19,25 +19,19 @@ function dosomething_northstar_config_form($form, &$form_state) {
     '#type' => 'textfield',
     '#title' => t('Northstar URL'),
     '#required' => TRUE,
-    '#default_value' => variable_get('dosomething_northstar_url', 'http://northstar.dev:8000'),
-  ];
-  $form['northstar']['dosomething_northstar_version'] = [
-    '#type' => 'textfield',
-    '#title' => t('Northstar API version number'),
-    '#required' => TRUE,
-    '#default_value' => variable_get('dosomething_northstar_version', 'v1'),
+    '#default_value' => variable_get('dosomething_northstar_url', 'http://northstar-qa.dosomething.org'),
   ];
   $form['northstar']['dosomething_northstar_app_id'] = [
     '#type' => 'textfield',
-    '#title' => t('App id'),
-    '#description' => t('The app id needed to connect to northstar (found in aurora).'),
+    '#title' => t('Client ID (Client Credentials)'),
+    '#description' => t('The OAuth client to use for machine requests.'),
     '#required' => TRUE,
     '#default_value' => variable_get('dosomething_northstar_app_id', 'trusted-test-client'),
   ];
   $form['northstar']['dosomething_northstar_app_key'] = [
     '#type' => 'textfield',
-    '#title' => t('App key'),
-    '#description' => t('The app key needed to connect to northstar (found in Aurora).'),
+    '#title' => t('Client Secret (Client Credentials)'),
+    '#description' => t('The top-secret key for this OAuth client.'),
     '#required' => TRUE,
     '#default_value' => variable_get('dosomething_northstar_app_key', 'secret1'),
   ];
