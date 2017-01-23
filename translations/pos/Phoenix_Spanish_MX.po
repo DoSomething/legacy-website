@@ -1984,7 +1984,7 @@ msgstr "Un movimiento global para el bien de todos."
 
 #: Brand Slogan
 msgid "Find ways to take action both online and off."
-msgstr "Descubre la manera de hacer una diferencia tanto conectado a la red como desconectado."
+msgstr "Has una diferencia conectado, o desconectado, de la red."
 
 #: Brand Slogan
 msgid "Choose a campaign and take action with 5.3 million young people."
