@@ -275,10 +275,14 @@ function dosomething_campaign_load($node, $public = FALSE, $cache = TRUE) {
       $campaign->image_header = $campaign->image_cover;
     }
 
+    // dump($node);
+    // die();
+
     // Load Creator property.
     dosomething_campaign_load_creator($campaign, $wrapper);
 
-    cache_set('ds_campaign_' . $campaign->nid .'_'. $current_lang, $campaign, 'cache_dosomething_campaign', REQUEST_TIME + 60*60*24);
+    // @TODO: Uncomment following line.
+    // cache_set('ds_campaign_' . $campaign->nid .'_'. $current_lang, $campaign, 'cache_dosomething_campaign', REQUEST_TIME + 60*60*24);
 
     // If this is accessed via API:
     if ($public) {
@@ -289,6 +293,9 @@ function dosomething_campaign_load($node, $public = FALSE, $cache = TRUE) {
     }
   }
 
+  $campaign->poop = TRUE;
+  // dump($campaign);
+  // die();
   return $campaign;
 }
 
@@ -635,4 +642,40 @@ function dosomething_campaign_get_runs($nid, $language) {
                              ))->fetchAll();
 
   return $campaign_runs;
+}
+
+/**
+ * Get all the affiliate configurations data for a campaign.
+ *
+ * @param  string|array $campaign_info Either a node ID or an array of campaign variables.
+ * @return array
+ */
+function dosomething_campaign_get_affiliate_data($campaign_info) {
+  if (!$campaign_info) {
+    return FALSE;
+  }
+
+  // Is provided info an array of campaign variables?
+  if (is_array($campaign_info)) {
+    $variables = $campaign_info;
+  }
+
+  // Is provided info a string node ID?
+  if (is_string($campaign_info)) {
+    $variables = dosomething_helpers_get_variables('node', $campaign_info);
+  }
+
+  $data = [
+    'messaging_opt_in' => [
+      'enabled' => $variables['affiliate_opt_in_toggle'] ? TRUE : FALSE,
+    ],
+  ];
+
+  if ($data['messaging_opt_in']['enabled']) {
+    $data['messaging_opt_in']['label'] = $variables['affiliate_opt_in_toggle_label'];
+    $data['messaging_opt_in']['info_label'] = $variables['affiliate_opt_in_toggle_information_label'];
+    $data['messaging_opt_in']['info_message'] = $variables['affiliate_opt_in_toggle_information_message'];
+  }
+
+  return $data;
 }

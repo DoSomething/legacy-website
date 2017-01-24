@@ -528,14 +528,23 @@ function dosomething_campaign_preprocess_shipment_form(&$vars) {
  *   The corresponding entity wrapper for the node in $vars.
  */
 function dosomething_campaign_preprocess_pitch_page(&$vars, &$wrapper) {
+  $campaign = $vars['campaign'];
+
   // Use the pitch page template to theme.
   $vars['theme_hook_suggestions'][] = 'node__' . $vars['type'] . '__pitch';
 
   // Track that we're viewing a pitch page.
-  $vars['campaign']->is_pitch_page = TRUE;
+  $campaign->is_pitch_page = TRUE;
+
+  // Affiliate Data
+  $campaign->affiliate = dosomething_campaign_get_affiliate_data($campaign->variables);
+
+  if ($campaign->affiliate['messaging_opt_in']['enabled']) {
+    $campaign->secondary_call_to_action = NULL;
+  }
 
   // Check for a signup button copy override.
-  $label = $vars['campaign']->variables['signup_form_submit_label'];
+  $label = $campaign->variables['signup_form_submit_label'];
 
   // Adds signup_button_primary and signup_button_secondary variables.
   $ids = array('primary', 'secondary');

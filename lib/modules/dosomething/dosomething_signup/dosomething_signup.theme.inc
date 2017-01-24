@@ -25,13 +25,16 @@ function dosomething_signup_preprocess_signup_button(&$vars, $label = "Sign Up",
   if ($label == NULL) {
     $label = "Sign Up";
   }
+
   $label = t($label);
   $var_name = 'signup_button';
   $form_id = 'dosomething_signup_form';
+
   // If this is a presignup form:
   if ($presignup) {
     $form_id = 'dosomething_signup_presignup_form';
   }
+
   // If we have an array of signup forms to render:
   if (!empty($ids)) {
     // Loop through each id:
