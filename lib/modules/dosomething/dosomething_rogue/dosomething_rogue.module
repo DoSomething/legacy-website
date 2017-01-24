@@ -77,7 +77,13 @@ function dosomething_rogue_send_reportback_to_rogue($values, $user = NULL, $fail
 
   $data = dosomething_rogue_transform_reportback($values, $user, $northstar_id);
   $data['type'] = 'reportback';
-  $data['event_type'] = 'post_photo';
+
+  if ($data['file']) {
+    $data['event_type'] = 'post_photo';
+  }
+  else {
+    $data['event_type'] = 'update_signup';
+  }
 
   try {
     $response = $client->postReportback($data);
