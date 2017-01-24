@@ -200,38 +200,3 @@ function dosomething_northstar_user_logout($account) {
 
   drupal_goto($northstar_logout_url);
 }
-
-/**
- * Submit handler for handling "classic" logins of accounts that do not have
- * local passwords, using Northstar's `v1/auth/verify` endpoint.
- *
- * @param $form
- * @param $form_state
- * @return bool
- */
-function dosomething_northstar_fallback_classic_login(&$form, &$form_state) {
-  // If the account does not have a local password, verify using Northstar
-  $northstar_user = dosomething_northstar_verify_user([
-    'username' => $form_state['input']['name'],
-    'password' => $form_state['input']['pass'],
-  ]);
-
-  // If successful response & ID field is given, the credentials worked.
-  if (empty($northstar_user['data']['id'])) {
-    return FALSE;
-  }
-
-  $sub = $northstar_user['data']['id'];
-  $account = openid_connect_user_load_by_sub($sub, 'northstar');
-
-  if (! $account) {
-    return FALSE;
-  }
-
-  // Since we've validated these credentials in Northstar, force login this user.
-  $form_state['uid'] = $account->uid;
-  unset($form_state['values']['name']);
-  unset($form_state['values']['pass']);
-
-  return TRUE;
-}
