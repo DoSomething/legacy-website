@@ -137,6 +137,12 @@ class OpenIDConnectClientNorthstar extends OpenIDConnectClientBase {
    */
   public function retrieveUserInfo($access_token) {
     $base = parent::retrieveUserInfo($access_token);
+
+    // Parse birthdate to timestamp, if provided.
+    if (! empty($base['data']['birthdate'])) {
+      $base['data']['birthdate'] = strtotime($base['data']['birthdate']);
+    }
+
     if ($base) {
       return $base['data'];
     }
