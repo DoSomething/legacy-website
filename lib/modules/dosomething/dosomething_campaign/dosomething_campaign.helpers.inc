@@ -275,14 +275,10 @@ function dosomething_campaign_load($node, $public = FALSE, $cache = TRUE) {
       $campaign->image_header = $campaign->image_cover;
     }
 
-    // dump($node);
-    // die();
-
     // Load Creator property.
     dosomething_campaign_load_creator($campaign, $wrapper);
 
-    // @TODO: Uncomment following line.
-    // cache_set('ds_campaign_' . $campaign->nid .'_'. $current_lang, $campaign, 'cache_dosomething_campaign', REQUEST_TIME + 60*60*24);
+    cache_set('ds_campaign_' . $campaign->nid .'_'. $current_lang, $campaign, 'cache_dosomething_campaign', REQUEST_TIME + 60*60*24);
 
     // If this is accessed via API:
     if ($public) {
@@ -293,9 +289,6 @@ function dosomething_campaign_load($node, $public = FALSE, $cache = TRUE) {
     }
   }
 
-  $campaign->poop = TRUE;
-  // dump($campaign);
-  // die();
   return $campaign;
 }
 
