@@ -205,33 +205,23 @@ function paraneue_dosomething_form_dosomething_payment_form_alter(&$form, &$form
 function paraneue_dosomething_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
   $is_resetting_password = $form['account']['current_pass']['#access'] === false;
 
-  // If user was created by Northstar & isn't resetting their password, redirect them to edit profile there.
-  if (module_exists('dosomething_northstar') && dosomething_user_get_field('field_created_by_openid_connect') && !$is_resetting_password) {
+  // Unless the user is resetting their password, send them to Northstar's profile form.
+  if (! $is_resetting_password) {
     drupal_goto(NORTHSTAR_URL . '/users/' . dosomething_user_get_northstar_id($form['account']['uid']) . '/edit', ['absolute' => TRUE]);
   }
 
+  // Remove all extra fields besides password.
+  unset($form['field_birthdate']);
+  unset($form['field_address']);
+  unset($form['field_first_name']);
+  unset($form['field_last_name']);
+  unset($form['field_opt_in_email']);
+  unset($form['field_opt_in_sms']);
+  unset($form['locale']);
   unset($form['timezone']);
-  $form['account']['mail']['#weight'] = -100;
-  $form['account']['mail']['#title'] = t("Email");
-  unset($form['account']['mail']['#description']);
-  $form['account']['current_pass']['#title'] = t("Current Password");
-  unset($form['field_address'][LANGUAGE_NONE][0]['#title']);
-
-  // Hides address fields for non-us users.
-  if (dosomething_settings_get_geo_country_code() !== 'US') {
-    $form['field_address']['#access'] = FALSE;
-  }
-
-  $form['field_birthdate'][LANGUAGE_NONE][0]['#after_build'][] = 'paraneue_dosomething_form_user_profile_after_build';
-
-  // Thanks to https://www.drupal.org/node/540340#comment-6576704.
-  $element_info = element_info('password_confirm');
-  $process = $element_info['#process'];
-  // Add our process function to the array:
-  $process[] = 'paraneue_dosomething_process_password_confirm';
-  $form['account']['pass']['#process'] = $process;
 
   $form['#submit'][] = 'paraneue_dosomething_user_profile_submit_handler';
+  $form['#after_build'][] = 'paraneue_dosomething_form_user_profile_after_build';
 }
 
 /**
@@ -242,38 +232,27 @@ function paraneue_dosomething_form_user_profile_form_alter(&$form, &$form_state,
  */
 function paraneue_dosomething_user_profile_submit_handler(&$form, &$form_state)
 {
+  // Send the new password to Northstar so that it can be used for future logins.
+  // @TODO: Remove this once we've shipped Northstar password reset flow.
+  $id = dosomething_user_get_field('field_northstar_id', $form_state['user']);
+  dosomething_northstar_client()->put('v1/users/id/' . $id, [
+    'password' => $form_state['values']['pass']
+  ]);
+
   $form_state['redirect'] = 'user';
 }
 
 function paraneue_dosomething_form_user_profile_after_build($form, &$form_state) {
-  $form['#weight'] = '-18';
-  $form['#attributes']['class'] = array('auth-twocol');
+  // These fields are needed for form processing, but should not be visible/editable.
+  $form['account']['name']['#access'] = FALSE;
+  $form['account']['mail']['#access'] = FALSE;
+  $form['field_mobile']['#access'] = FALSE;
 
-  $translated_year = t('YYYY');
-  $date_format = t('MM/DD/' . $translated_year);
-
-  // Update the format of the default value of the birthdate field for non-US users.
-  if (dosomething_settings_get_geo_country_code() !== 'US') {
-    $date_format = t('DD/MM/' . $translated_year);
-
-    if ($form['value']['date']['#value'] && dosomething_user_get_field('field_birthdate')) {
-      $form['value']['date']['#value'] = dosomething_user_get_field_birthdate(dosomething_user_get_field('field_birthdate'), 'd/m/Y');
-    }
-  }
-
-  $form['value']['date']['#attributes']['placeholder'] = $date_format;
-  $form['value']['date']['#attributes']['class'] = array('js-validate');
-  $form['value']['date']['#attributes']['data-validate'] = 'birthday';
-  $form['value']['date']['#attributes']['data-validate-required'] = '';
-  $form['value']['date']['#title_display'] = 'before';
-  $form['value']['date']['#title'] = t('Birthday');
-  $form['#title'] = '';
-  unset($form['value']['date']['#description']);
   return $form;
 }
 
 /**
- * Preprocesses a given password_confrm form element.
+ * Preprocesses a given password_confirm form element.
  *
  * @see paraneue_dosomething_form_user_profile_form_alter.
  */

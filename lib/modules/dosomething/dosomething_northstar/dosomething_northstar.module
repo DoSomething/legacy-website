@@ -12,11 +12,7 @@ include_once 'dosomething_northstar.features.inc';
 include_once('dosomething_northstar.admin.inc');
 include_once('dosomething_northstar.auth.inc');
 
-// Config vars, if not set.
 define('NORTHSTAR_URL', variable_get('dosomething_northstar_url', 'http://northstar.dev:8000'));
-define('NORTHSTAR_VERSION', variable_get('dosomething_northstar_version', 'v1'));
-define('NORTHSTAR_APP_ID', variable_get('dosomething_northstar_app_id', 'trusted-test-client'));
-define('NORTHSTAR_APP_KEY', variable_get('dosomething_northstar_app_key', 'secret1'));
 
 /**
  * Get a configured instance of the Northstar client.
@@ -29,8 +25,8 @@ function dosomething_northstar_client() {
     'url' => NORTHSTAR_URL,
     'bridge' => PhoenixOAuthBridge::class,
     'client_credentials' => [
-      'client_id' => NORTHSTAR_APP_ID,
-      'client_secret' => NORTHSTAR_APP_KEY,
+      'client_id' => variable_get('dosomething_northstar_app_id', 'trusted-test-client'),
+      'client_secret' => variable_get('dosomething_northstar_app_key', 'secret1'),
       'scope' => ['admin', 'user'],
     ],
   ]);
@@ -49,12 +45,6 @@ function dosomething_northstar_menu() {
       'access arguments' => ['administer modules'],
       'file' => 'dosomething_northstar.admin.inc',
     ],
-    'user/openid' => [
-      'title' => 'OpenID Connect',
-      'page callback' => 'dosomething_northstar_openid_login_view',
-      'access arguments' => ['access content'],
-      'type' => MENU_CALLBACK,
-    ],
     'user/authorize' => [
       'title' => 'openid connect authorize',
       'page callback' => 'dosomething_northstar_openid_authorize',
@@ -62,98 +52,6 @@ function dosomething_northstar_menu() {
       'type' => MENU_CALLBACK,
     ],
   ];
-}
-
-/**
- * Verify the given credentials against Northstar, returning the authorized
- * user account if one exists.
- *
- * @param  array $credentials
- * @return array|null
- */
-function dosomething_northstar_verify_user($credentials) {
-  global $user;
-
-  try {
-    $response = dosomething_northstar_client()->post('v1/auth/verify', $credentials);
-    $code = 200;
-  }
-  catch (Exception $error) {
-    watchdog('dosomething_northstar', 'User NOT verified by Northstar: ' . $error->getMessage(), NULL, WATCHDOG_ERROR);
-
-    $response = NULL;
-    $code = dosomething_northstar_get_error_code($error->getMessage());
-  }
-
-  // Add to request log if enabled.
-  dosomething_northstar_log_request('verify_user', $user, $credentials, $response, $code);
-
-  return $response;
-}
-
-/**
- * Send user registration events to northstar.
- *
- * @param  object $user - Drupal user object
- * @param  string $password - Unhashed password provided during registration.
- * @return array|null
- */
-function dosomething_northstar_create_user($user, $password = null) {
-  $payload = dosomething_northstar_transform_user($user, $password);
-
-  try {
-    $response = dosomething_northstar_client()->post('v1/users', $payload);
-    $code = 201;
-  }
-  catch (Exception $error) {
-    watchdog('dosomething_northstar', 'User NOT migrated to Northstar: ' . $error->getMessage(), NULL, WATCHDOG_ERROR);
-
-    $response = NULL;
-    $code = dosomething_northstar_get_error_code($error->getMessage());
-  }
-
-  // Save the newly registered user's ID to their local profile field.
-  dosomething_northstar_save_id_field($user->uid, $response);
-
-  // Add to request log if enabled.
-  dosomething_northstar_log_request('register_user', $user, $payload, $response, $code);
-
-  if (module_exists('stathat')) {
-    stathat_send_ez_count('drupal - Northstar - user migrated - count', 1);
-  }
-
-  return $response;
-}
-
-/**
- * Update a user's existing Northstar profile based on their Drupal ID.
- *
- * @param  object $user - Drupal user object
- * @param  string $password - Unhashed password provided during registration.
- * @return array|null
- */
-function dosomething_northstar_update_user($user, $password = null) {
-  $payload = dosomething_northstar_transform_user($user, $password);
-
-  try {
-    $response = dosomething_northstar_client()->put('v1/users/drupal_id/' . $user->uid, $payload);
-    $code = 200;
-  }
-  catch (Exception $error) {
-    watchdog('dosomething_northstar', 'User NOT updated on Northstar: ' . $error->getMessage(), NULL, WATCHDOG_ERROR);
-
-    $response = NULL;
-    $code = dosomething_northstar_get_error_code($error->getMessage());
-  }
-
-  // Add to request log if enabled.
-  dosomething_northstar_log_request('update_user', $user, $payload, $response, $code);
-
-  if (module_exists('stathat')) {
-    stathat_send_ez_count('drupal - Northstar - user updated - count', 1);
-  }
-
-  return $response;
 }
 
 /**
@@ -340,18 +238,6 @@ function dosomething_northstar_log_request($op, $user, $request_body, $response,
 }
 
 /**
- * Implements hook_theme().
- */
-function dosomething_northstar_theme() {
-  return [
-    'openid_login' => [
-      'template' => 'openid-login',
-      'path' => drupal_get_path('module', 'dosomething_northstar') . '/theme',
-    ]
-  ];
-}
-
-/**
  * Return whether the response has a "successful" status code or not.
  *
  * @param $response
@@ -364,21 +250,31 @@ function _dosomething_northstar_is_successful_response($response) {
 }
 
 /**
+ * Send user registration events to northstar.
+ *
+ * @deprecated Removed. Users should be created via authorization flow.
+ * @throws InvalidArgumentException
+ */
+function dosomething_northstar_create_user() {
+  throw new InvalidArgumentException('Removed. Users should be created via authorization flow.');
+}
+
+/**
+ * Update a user's existing Northstar profile based on their Drupal ID.
+ *
+ * @deprecated Removed. Update individual fields via Gateway client.
+ * @throws InvalidArgumentException
+ */
+function dosomething_northstar_update_user() {
+  throw new InvalidArgumentException('Removed. Update individual fields via Gateway client.');
+}
+
+/**
  * Build the drupal_http_request object for Northstar calls.
- * @returns array
+ *
+ * @deprecated Removed. Use dosomething_northstar_client() instead.
+ * @throws InvalidArgumentException
  */
 function _dosomething_northstar_build_http_client() {
-  $base_url = NORTHSTAR_URL;
-  $base_url .= '/' . NORTHSTAR_VERSION;
-
-  $client = [
-    'base_url' => $base_url,
-    'headers' => [
-      'X-DS-REST-API-Key' => NORTHSTAR_APP_KEY,
-      'Content-Type' => 'application/json',
-      'Accept' => 'application/json',
-    ],
-  ];
-
-  return $client;
+  throw new InvalidArgumentException('Removed. Use dosomething_northstar_client() instead.');
 }

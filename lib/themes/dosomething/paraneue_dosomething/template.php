@@ -15,7 +15,6 @@ require_once PARANEUE_PATH . '/includes/helpers.inc';
 require_once PARANEUE_PATH . '/includes/patterns.inc';
 require_once PARANEUE_PATH . '/includes/form.inc';
 require_once PARANEUE_PATH . '/includes/auth/login.inc';
-require_once PARANEUE_PATH . '/includes/auth/register.inc';
 
 /**
  * We use our own asset pipeline (through Grunt), so we want to bypass most
@@ -92,13 +91,7 @@ function paraneue_dosomething_js_alter(&$js) {
  * Implements hook_page_alter().
  */
 function paraneue_dosomething_page_alter(&$page) {
-  // Ensure we have a 'page_bottom' region
-  if (!isset($page['page_bottom'])) {
-    $page['page_bottom'] = [];
-  }
-
-  paraneue_dosomething_page_alter_login($page);
-  paraneue_dosomething_page_alter_register($page);
+  // ...
 }
 
 /**
@@ -106,8 +99,6 @@ function paraneue_dosomething_page_alter(&$page) {
  */
 function paraneue_dosomething_form_alter(&$form, &$form_state, $form_id) {
   paraneue_dosomething_form_alter_base($form, $form_state, $form_id);
-  paraneue_dosomething_form_alter_login($form, $form_state, $form_id);
-  paraneue_dosomething_form_alter_register($form, $form_state, $form_id);
 }
 
 /**
