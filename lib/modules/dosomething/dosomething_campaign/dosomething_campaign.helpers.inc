@@ -641,11 +641,11 @@ function dosomething_campaign_get_runs($nid, $language) {
  * Get all the affiliate configurations data for a campaign.
  *
  * @param  string|array $campaign_info Either a node ID or an array of campaign variables.
- * @return array
+ * @return array|null
  */
 function dosomething_campaign_get_affiliate_data($campaign_info) {
   if (!$campaign_info) {
-    return FALSE;
+    return NULL;
   }
 
   // Is provided info an array of campaign variables?
@@ -660,7 +660,7 @@ function dosomething_campaign_get_affiliate_data($campaign_info) {
 
   $data = [
     'messaging_opt_in' => [
-      'enabled' => $variables['affiliate_opt_in_toggle'] ? TRUE : FALSE,
+      'enabled' => (bool) $variables['affiliate_opt_in_toggle'],
     ],
   ];
 

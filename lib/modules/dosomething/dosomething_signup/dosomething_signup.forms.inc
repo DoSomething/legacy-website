@@ -35,8 +35,7 @@ function dosomething_signup_forms($form_id, $args) {
  *   The label to display on the form submit button.
  */
 function dosomething_signup_form($form, &$form_state, $nid, $label = "Sign Up") {
-
-  $campaign_variables = dosomething_campaign_get_affiliate_data($nid);
+  $affiliate_data = dosomething_campaign_get_affiliate_data($nid);
 
   $form['nid'] = [
     '#type' => 'hidden',
@@ -64,8 +63,8 @@ function dosomething_signup_form($form, &$form_state, $nid, $label = "Sign Up") 
     ],
   ];
 
-  if ($campaign_variables['messaging_opt_in']['enabled']) {
-    $messaging_opt_in = $campaign_variables['messaging_opt_in'];
+  if ($affiliate_data['messaging_opt_in']['enabled']) {
+    $messaging_opt_in = $affiliate_data['messaging_opt_in'];
 
     $form['affiliate_messeging_opt_in'] = [
       '#type' => 'checkbox',
