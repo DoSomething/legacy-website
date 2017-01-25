@@ -636,3 +636,39 @@ function dosomething_campaign_get_runs($nid, $language) {
 
   return $campaign_runs;
 }
+
+/**
+ * Get all the affiliate configurations data for a campaign.
+ *
+ * @param  string|array $campaign_info Either a node ID or an array of campaign variables.
+ * @return array|null
+ */
+function dosomething_campaign_get_affiliate_data($campaign_info) {
+  if (!$campaign_info) {
+    return NULL;
+  }
+
+  // Is provided info an array of campaign variables?
+  if (is_array($campaign_info)) {
+    $variables = $campaign_info;
+  }
+
+  // Is provided info a string node ID?
+  if (is_string($campaign_info)) {
+    $variables = dosomething_helpers_get_variables('node', $campaign_info);
+  }
+
+  $data = [
+    'messaging_opt_in' => [
+      'enabled' => (bool) $variables['affiliate_opt_in_toggle'],
+    ],
+  ];
+
+  if ($data['messaging_opt_in']['enabled']) {
+    $data['messaging_opt_in']['label'] = $variables['affiliate_opt_in_toggle_label'];
+    $data['messaging_opt_in']['info_label'] = $variables['affiliate_opt_in_toggle_information_label'];
+    $data['messaging_opt_in']['info_message'] = $variables['affiliate_opt_in_toggle_information_message'];
+  }
+
+  return $data;
+}

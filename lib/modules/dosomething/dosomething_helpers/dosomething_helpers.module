@@ -283,6 +283,16 @@ function dosomething_helpers_extract_id($data, $property = 'nid') {
   return $data->$property;
 }
 
+/**
+ * Utility function to export provided data as a CSV.
+ *
+ * @param  array  $data
+ * @return void
+ */
+function dosomething_helpers_export_csv(array $data) {
+  // @TODO: export the data!
+}
+
 
 /**
  * Format a string of comma separated data items into an array, or

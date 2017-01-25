@@ -7,6 +7,7 @@
 
 function dosomething_helpers_variable_form($form, &$form_state, $node) {
   $vars = dosomething_helpers_get_variables('node', $node->nid);
+
   $form['nid'] = array(
     '#type' => 'hidden',
     '#value' => $node->nid,
@@ -15,7 +16,7 @@ function dosomething_helpers_variable_form($form, &$form_state, $node) {
     '#type' => 'fieldset',
     '#title' => t('Custom Social Sharing'),
     '#collapsible' => TRUE,
-    '#collapsed' => FALSE,
+    '#collapsed' => TRUE,
   ];
   $form['custom_social_sharing']['social_share_unique_link'] = [
     '#type' => 'checkbox',
@@ -201,6 +202,7 @@ function dosomething_helpers_variable_form($form, &$form_state, $node) {
     );
   }
 
+  // Magic Link
   $form['magic_link'] = [
     '#type' => 'fieldset',
     '#title' => t('Magic Link'),
@@ -217,6 +219,7 @@ function dosomething_helpers_variable_form($form, &$form_state, $node) {
     ),
   ];
 
+  // Onboarding
   $form['onboarding'] = [
     '#type' => 'fieldset',
     '#title' => t('Onboarding'),
@@ -237,6 +240,50 @@ function dosomething_helpers_variable_form($form, &$form_state, $node) {
       '#value' => 'Save',
     ),
   );
+
+  // Affiliate Configurations
+  $form['affiliate_configurations'] = [
+    '#type' => 'fieldset',
+    '#title' => t('Affiliate Configurations'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  ];
+  $form['affiliate_configurations']['messaging_opt-in'] = [
+    '#type' => 'fieldset',
+    '#title' => t('Messaging Opt-in'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  ];
+  $affiliate_form = &$form['affiliate_configurations']['messaging_opt-in'];
+
+  $affiliate_form['affiliate_opt_in_toggle'] = [
+    '#type' => 'checkbox',
+    '#title' => t('Affiliate Opt-in enabled?'),
+    '#default_value' => $vars['affiliate_opt_in_toggle'],
+    '#description' => t('If checked, this campaign shows a toggle for adding a user to affiliate marketing emails when signing up.'),
+    '#disabled' => FALSE,
+  ];
+  $affiliate_form['affiliate_opt_in_toggle_label'] = [
+    '#type' => 'textfield',
+    '#title' => t('Affiliate Opt-in Checkbox Toggle Label'),
+    '#default_value' => $vars['affiliate_opt_in_toggle_label'] ? $vars['affiliate_opt_in_toggle_label'] : 'Also sign me up for messages from our partner',
+    '#description' => t('The copy to show next to the checkbox.'),
+    '#disabled' => FALSE,
+  ];
+  $affiliate_form['affiliate_opt_in_toggle_information_label'] = [
+    '#type' => 'textfield',
+    '#title' => t('Affiliate Opt-in More Information Label'),
+    '#default_value' => $vars['affiliate_opt_in_toggle_information_label'],
+    '#description' => t('The copy to indicate the "more information" link.'),
+    '#disabled' => FALSE,
+  ];
+  $affiliate_form['affiliate_opt_in_toggle_information_message'] = [
+    '#type' => 'textarea',
+    '#title' => t('Affiliate Opt-in More Information Message'),
+    '#default_value' => $vars['affiliate_opt_in_toggle_information_message'],
+    '#description' => t('The copy to explain what the affiliate opt-in is for.'),
+    '#disabled' => FALSE,
+  ];
 
   return $form;
 }
@@ -277,6 +324,10 @@ function dosomething_helpers_get_variable_names() {
   return [
     'alt_bg_fid',
     'sponsor_color',
+    'affiliate_opt_in_toggle',
+    'affiliate_opt_in_toggle_label',
+    'affiliate_opt_in_toggle_information_label',
+    'affiliate_opt_in_toggle_information_message',
     'alt_background_color',
     'alt_text_color',
     'alt_image_campaign_cover_nid',
@@ -397,13 +448,58 @@ function dosomething_helpers_set_variable($entity_type, $entity_id, $var_name, $
 }
 
 /**
+ * Export form for designating data to be exported.
+ */
+function dosomething_helpers_exports_form($form, &$form_state, $node) {
+  $nid = $node->nid;
+
+  $form['exports'] = [
+    '#type' => 'fieldset',
+    '#title' => t('Exports'),
+    '#description' => t('Export data associated with this campaign.'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  ];
+  $form['exports']['export_affiliate_messaging_optins'] = [
+    '#type' => 'checkbox',
+    '#title' => t('Export CSV of users that opted to receive affiliate messaging.'),
+    '#default_value' => FALSE,
+  ];
+  $form['exports']['actions'] = [
+    '#type' => 'actions',
+    'submit' => [
+      '#type' => 'submit',
+      '#value' => 'Export',
+    ],
+  ];
+
+  return $form;
+}
+
+/**
+ * Export form submit handler.
+ * @todo form added, but functionality is forthcoming... stay tuned!
+ */
+function dosomething_helpers_exports_form_submit(&$form, &$form_state) {
+  $data = [];
+
+  if ($form_state['values']['export_affiliate_messaging_optins']) {
+    // @TODO: gather the data to export!
+  }
+
+  dosomething_helpers_export_csv($data);
+
+  drupal_set_message('Check yer downloads folder kiddo.');
+}
+
+/**
  * Displays a node's relevant signup variables.
  */
 function dosomething_helpers_third_party_variable_form($form, &$form_state, $node) {
   $nid = $node->nid;
   $form['optins'] = array(
     '#type' => 'fieldset',
-    '#title' => t('Third Party Opt-ins'),
+    '#title' => t('Third Party Service Opt-ins'),
     '#description' => t('Custom campaign opt-in values.'),
     '#collapsible' => TRUE,
     '#collapsed' => TRUE,

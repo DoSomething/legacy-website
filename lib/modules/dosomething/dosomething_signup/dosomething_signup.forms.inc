@@ -35,11 +35,14 @@ function dosomething_signup_forms($form_id, $args) {
  *   The label to display on the form submit button.
  */
 function dosomething_signup_form($form, &$form_state, $nid, $label = "Sign Up") {
+  $affiliate_data = dosomething_campaign_get_affiliate_data($nid);
+
   $form['nid'] = [
     '#type' => 'hidden',
     '#value' => $nid,
     '#access' => FALSE,
   ];
+
   // Check query string for signup source value.
   if ($source = dosomething_signup_get_query_source()) {
     $form['source'] = [
@@ -48,6 +51,7 @@ function dosomething_signup_form($form, &$form_state, $nid, $label = "Sign Up") 
       '#access' => FALSE,
     ];
   }
+
   $form['submit'] = [
     '#type' => 'submit',
     '#value' => t($label),
@@ -58,6 +62,22 @@ function dosomething_signup_form($form, &$form_state, $nid, $label = "Sign Up") 
       'data-track-label' => 'Signup (Authenticated)',
     ],
   ];
+
+  if ($affiliate_data['messaging_opt_in']['enabled']) {
+    $messaging_opt_in = $affiliate_data['messaging_opt_in'];
+
+    $form['affiliate_messeging_opt_in'] = [
+      '#type' => 'checkbox',
+      '#title' => t($messaging_opt_in['label']),
+      '#default_value' => TRUE, // @TODO: eventually, this should be false so it's OPT-IN!
+    ];
+
+    if ($messaging_opt_in['info_label'] && $messaging_opt_in['info_message'])
+    $form['affiliate_messeging_opt_in_info'] = [
+      '#markup' => '<div class="opt-in-info"><p>'.$messaging_opt_in['info_label'].'</p><div>'.$messaging_opt_in['info_message'].'</div></div>',
+    ];
+  }
+
   return $form;
 }
 
