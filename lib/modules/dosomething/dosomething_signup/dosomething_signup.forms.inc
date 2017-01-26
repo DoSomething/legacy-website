@@ -92,13 +92,22 @@ function dosomething_signup_form_submit($form, &$form_state) {
     drupal_set_message(t("Please sign in first."));
     return;
   }
+
+  $params = [];
+
   $nid = $form_state['values']['nid'];
+
   $source = NULL;
   if (isset($form_state['values']['source'])) {
     $source = $form_state['values']['source'];
   }
+
+  if (isset($form_state['values']['affiliate_messeging_opt_in'])) {
+    $params['affiliate_messaging_opt_in'] = (bool) $form_state['values']['affiliate_messeging_opt_in'];
+  }
+
   // Create signup for logged in user.
-  dosomething_signup_user_signup($nid, NULL, $source);
+  dosomething_signup_user_signup($nid, NULL, $source, $params);
 }
 
 /**

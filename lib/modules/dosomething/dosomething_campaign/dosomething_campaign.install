@@ -6,6 +6,61 @@
 
 function dosomething_campaign_schema() {
   $schema['cache_dosomething_campaign'] = drupal_get_schema_unprocessed('system', 'cache');
+
+  $schema['dosomething_campaign_affiliate_opt_ins'] = [
+    'description' => 'Table of affiliate messaging opt-ins.',
+    'fields' => [
+      'id' => [
+        'description' => 'Primary key.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ],
+      'campaign_id' => [
+        'description' => 'The campaign ID containing the affiliate opt-in.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ],
+      'campaign_run_id' => [
+        'description' => 'The campaign run ID containing the affiliate opt-in.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ],
+      'northstar_id' => [
+        'description' => 'The Northstar ID for the user that opted-in.',
+        'type' => 'varchar',
+        'not null' => TRUE,
+        'length' => '255',
+      ],
+      'first_name' => [
+        'description' => 'The first name for the user that opted-in.',
+        'type' => 'varchar',
+        'not null' => FALSE,
+        'length' => '255',
+      ],
+      'email' => [
+        'description' => 'The email for the user that opted-in.',
+        'type' => 'varchar',
+        'not null' => FALSE,
+        'length' => '255',
+      ],
+      'mobile' => [
+        'description' => 'The mobile number for the user that opted-in.',
+        'type' => 'varchar',
+        'not null' => FALSE,
+        'length' => '255',
+      ],
+    ],
+    'primary key' => ['id'],
+    'indexes' => [
+      'campaign_id' => ['campaign_id'],
+      'campaign_run_id' => ['campaign_run_id'],
+      'northstar_id' => ['northstar_id'],
+    ]
+  ];
+
   return $schema;
 }
 
@@ -153,4 +208,17 @@ function dosomething_campaign_update_7012() {
 function dosomething_campaign_update_7013() {
   field_delete_field('field_mobile_app_date');
   field_delete_field('field_on_mobile_app');
+}
+
+/**
+ * Add new dosomething_campaign_affiliate_opt_ins table.
+ */
+function dosomething_campaign_update_7014() {
+  $table_name = 'dosomething_campaign_affiliate_opt_ins';
+
+  if (!db_table_exists($table_name)) {
+    $schema = dosomething_campaign_schema();
+
+    db_create_table($table_name, $schema[$table_name]);
+  }
 }

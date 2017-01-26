@@ -573,7 +573,7 @@ function dosomething_signup_third_party_subscribe($account, $node, $options = []
  * @param string $source
  *   (optional) The signup source.
  */
-function dosomething_signup_user_signup($nid, $account = NULL, $source = NULL) {
+function dosomething_signup_user_signup($nid, $account = NULL, $source = NULL, $params = []) {
   if ($account == NULL) {
     global $user;
     $account = $user;
@@ -585,6 +585,12 @@ function dosomething_signup_user_signup($nid, $account = NULL, $source = NULL) {
 
     // Set default signup message if we're still in this function.
     dosomething_signup_set_signup_message($node->title);
+
+    if ($params) {
+      if (isset($params['affiliate_messaging_opt_in']) && $params['affiliate_messaging_opt_in']) {
+        dosomething_campaign_create_affiliate_messaging_opt_in($account, $nid, $node);
+      }
+    }
   }
 }
 
