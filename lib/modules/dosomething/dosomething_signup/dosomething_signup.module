@@ -580,8 +580,7 @@ function dosomething_signup_user_signup($nid, $account = NULL, $source = NULL, $
   }
 
   // Insert signup.
-  // if ($sid = dosomething_signup_create($nid, $account->uid, $source)) {
-  if (true) {
+  if ($sid = dosomething_signup_create($nid, $account->uid, $source)) {
     $node = node_load($nid);
 
     // Set default signup message if we're still in this function.
