@@ -152,6 +152,17 @@ function dosomething_rogue_get_by_file_id($fid) {
 }
 
 /**
+ * Query to find Rogue signup id by Phoenix sid.
+ *
+ * @param string $sid
+ * Phoenix sid of signup.
+ *
+ */
+function dosomething_rogue_get_signup_by_sid($sid) {
+  return db_query("SELECT rogue_signups.rogue_signup_id FROM {dosomething_rogue_signups} rogue_signups WHERE sid = :sid", array(':sid' => $sid))->fetchAll();
+}
+
+/**
  * Insert record that stores reference to the most recent uploaded reportback item in
  * phoenix and it's corresponding id's in Rogue
  *
@@ -478,7 +489,13 @@ function dosomething_rogue_send_signup_to_rogue($values, $user = NULL, $failed_t
 * @return array
 */
 function dosomething_rogue_transform_signup($values, $northstar_id, $user) {
- $run = dosomething_helpers_get_current_campaign_run_for_user($values['campaign_id'], $user);
+  // Make sure we have the data in the right form (failed table stores campaign_id, not nid)
+  if (isset($values['nid'])) {
+    $values['campaign_id'] = $values['nid'];
+  }
+
+  $run = dosomething_helpers_get_current_campaign_run_for_user($values['campaign_id'], $user);
+
 
  $data = [
    'northstar_id' => $northstar_id,
@@ -488,4 +505,55 @@ function dosomething_rogue_transform_signup($values, $northstar_id, $user) {
  ];
 
  return $data;
+}
+
+/**
+ * Checks to see if the given signup data exists in Phoenix and if so stores in Rogue reference table.
+ *
+ * @param array $rogue_signup
+ * The response from dosomething_rogue_send_signup_to_rogue().
+ *
+ */
+function dosomething_rogue_check_sid_and_store_ref($rogue_signup) {
+  // Get user from Northstar ID
+  $northstar_user = dosomething_northstar_get_user($rogue_signup['data']['northstar_id']);
+  $user = user_load($northstar_user->drupal_id);
+
+  // Get the signup
+  $sid = dosomething_signup_exists($rogue_signup['data']['campaign_id'], $rogue_signup['data']['campaign_run_id'], $user->id);
+
+  // Make sure the signup exists before we try to use it
+  if ($sid) {
+    // Make sure that signup is not in the Rogue reference table yet
+    if (!dosomething_rogue_get_signup_by_sid($sid)) {
+      // Store reference to the signup in rogue
+      dosomething_rogue_store_rogue_signup_references($sid, $rogue_signup);
+    }
+
+    return $sid;
+  }
+
+  return false;
+}
+
+/**
+ * Insert record that stores reference to the signup in
+ * phoenix and corresponding signup id in Rogue
+ *
+ * @param string $sid
+ * @param object $rogue_signup
+ *
+ * @return
+ */
+function dosomething_rogue_store_rogue_signup_references($sid, $rogue_signup) {
+  if (! dosomething_rogue_get_signup_by_sid($sid)) {
+    // Store references to rogue IDs.
+    db_insert('dosomething_rogue_signups')
+    ->fields([
+      'sid' => $sid,
+      'rogue_signup_id' => $rogue_signup['data']['id'],
+      'created_at' => REQUEST_TIME,
+      ])
+    ->execute();
+  }
 }
