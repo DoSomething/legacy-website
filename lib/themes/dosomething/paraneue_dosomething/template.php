@@ -99,6 +99,7 @@ function paraneue_dosomething_page_alter(&$page) {
  */
 function paraneue_dosomething_form_alter(&$form, &$form_state, $form_id) {
   paraneue_dosomething_form_alter_base($form, $form_state, $form_id);
+  paraneue_dosomething_form_alter_login($form, $form_state, $form_id);
 }
 
 /**

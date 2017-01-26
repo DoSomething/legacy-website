@@ -1,6 +1,22 @@
 <?php
 
 /**
+ * Configures login form.
+ *
+ * Implements hook_form_alter().
+ */
+function paraneue_dosomething_form_alter_login($form, &$form_state, $form_id) {
+  // Add some changes for the reset password form.
+  if ( $form_id ==  'user_pass' ) {
+    $form['#after_build'][] = 'paraneue_dosomething_pass_reset_after_build';
+    $form['#submit'][] = 'paraneue_dosomething_pass_submit';
+    $form['#validate'][] = 'paraneue_dosomething_pass_validate';
+  }
+
+  return $form;
+}
+
+/**
  * Custom afterbuild on password reset form.
  *
  * @param array - $form
