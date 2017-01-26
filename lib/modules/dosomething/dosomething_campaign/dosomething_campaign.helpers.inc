@@ -372,6 +372,30 @@ function dosomething_campaign_load_stats(&$campaign) {
 }
 
 /**
+ * Create a new record to store the user's messaging opt-in preference.
+ *
+ * @param  object $user
+ * @param  string $campaign_id
+ * @return void
+ */
+function dosomething_campaign_create_affiliate_messaging_opt_in($user, $campaign_id) {
+  $campaign_run = dosomething_helpers_get_current_campaign_run_for_user($campaign_id, $user);
+  $northstar_user = dosomething_northstar_get_user($user->uid, 'drupal_id');
+
+  db_insert('dosomething_campaign_affiliate_opt_ins')
+    ->fields([
+      'campaign_id' => $campaign_id,
+      'campaign_run_id' => $campaign_run->nid,
+      'northstar_id' => $northstar_user->id,
+      'first_name' => $northstar_user->first_name,
+      'email' => $northstar_user->email,
+      'mobile' => $northstar_user->mobile,
+    ])->execute();
+
+  drupal_set_message('And thanks for signing up for messaging from our affiliate!');
+}
+
+/**
  * Creates and returns a campaign node from given JSON string.
  */
 function dosomething_campaign_create_node_from_json($string) {
