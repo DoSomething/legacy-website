@@ -30,9 +30,9 @@ function dosomething_campaign_schema() {
       ],
       'northstar_id' => [
         'description' => 'The Northstar ID for the user that opted-in.',
-        'type' => 'int',
+        'type' => 'varchar',
         'not null' => TRUE,
-        'default' => 0,
+        'length' => '255',
       ],
       'first_name' => [
         'description' => 'The first name for the user that opted-in.',
