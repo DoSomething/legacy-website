@@ -310,7 +310,7 @@ function dosomething_reportback_files_form_submit($form, &$form_state) {
 
   // Send updates to Rogue.
   if (variable_get('rogue_collection', FALSE)) {
-    $response = dosomething_rogue_send_reportback_to_rogue($updates_to_send_to_rogue);
+    $response = dosomething_rogue_update_rogue_reportback_items($updates_to_send_to_rogue);
     if ($response->code != 201) {
       drupal_set_message(print_r($response->code, TRUE) . ' ' . print_r($response->status_message, TRUE), 'warning');
     } else {

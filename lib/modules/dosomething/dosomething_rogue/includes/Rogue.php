@@ -34,7 +34,7 @@ class Rogue extends RestApiClient {
    * @return object|false
    */
   public function updateReportback($data) {
-    $response = $this->put('items', $data);
+    $response = $this->put('reviews', $data);
 
     return $response;
   }
