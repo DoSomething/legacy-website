@@ -284,23 +284,21 @@ function _campaign_resource_signup($nid, $values) {
 
   $headers = getallheaders();
 
+  // Check to see if the request came from Rogue and if we should be sending it there
   // $headers['X-Request-Id'] will only be set if the request is coming from Rogue
-  if ( !isset($headers['X-Request-Id'])) {
-    // Send to Rogue since the signup is not there yet
-    if (variable_get('rogue_signup_collection', FALSE)) {
-      // Pass the campaign_id
-      $values['campaign_id'] = $nid;
+  if ( !isset($headers['X-Request-Id']) && variable_get('rogue_signup_collection', FALSE)) {
+    // Pass the campaign_id
+    $values['campaign_id'] = $nid;
 
-      // Get the run to pass
-      $user = user_load($values['uid']);
-      $run = dosomething_helpers_get_current_campaign_run_for_user($nid, $user);
+    // Get the run to pass
+    $user = user_load($values['uid']);
+    $run = dosomething_helpers_get_current_campaign_run_for_user($nid, $user);
 
-      // Post the signup to Rogue
-      $rogue_signup = dosomething_rogue_send_signup_to_rogue($values);
+    // Post the signup to Rogue
+    $rogue_signup = dosomething_rogue_send_signup_to_rogue($values);
 
-      // Store the reference to the Rogue signup
-      return dosomething_rogue_check_sid_and_store_ref($rogue_signup);
-    }
+    // Store the reference to the Rogue signup
+    return dosomething_rogue_check_sid_and_store_ref($rogue_signup);
   } else {
     // @TODO: make helper function to do this?
     // Increment transaction id and log that the request has been received with new transaction id.
