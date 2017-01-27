@@ -62,7 +62,7 @@ function dosomething_rogue_retry_failed_reportbacks() {
           ]
         ];
 
-        $response = dosomething_rogue_send_reportback_to_rogue($data, NULL, $task->id);
+        $response = dosomething_rogue_update_rogue_reportback_items($data, NULL, $task->id);
 
         if ($response) {
           db_delete('dosomething_rogue_failed_task_log')

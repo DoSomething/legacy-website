@@ -59,29 +59,22 @@ function dosomething_rogue_send_reportback_to_rogue($values, $user = NULL, $fail
     global $user;
   }
 
-  if (!array_key_exists('rogue_event_id', $values[0])) {
-    $northstar_id = dosomething_user_get_field('field_northstar_id', $user);
+  $northstar_id = dosomething_user_get_field('field_northstar_id', $user);
 
-    // Band-aid fix for an issue we are seeing with phoenix not being
-    // aware of a user's northstar id. If it doesn't find one, we just grab it
-    // from northstar directly.
-    if (!$northstar_id) {
-      $northstar_user = dosomething_northstar_get_user($user->uid, 'drupal_id');
-      $northstar_id = $northstar_user->id;
-    }
-
-    $run = dosomething_helpers_get_current_campaign_run_for_user($values['nid']);
-
-    $data = dosomething_rogue_transform_reportback($values, $user, $northstar_id);
-    $data['type'] = 'reportback';
-  } else {
-    $data = $values;
-    $data['type'] = 'reportback item';
+  // Band-aid fix for an issue we are seeing with phoenix not being
+  // aware of a user's northstar id. If it doesn't find one, we just grab it
+  // from northstar directly.
+  if (!$northstar_id) {
+    $northstar_user = dosomething_northstar_get_user($user->uid, 'drupal_id');
+    $northstar_id = $northstar_user->id;
   }
 
-  $data['event_type'] = 'post_photo';
-
+  $run = dosomething_helpers_get_current_campaign_run_for_user($values['nid']);
   $client = dosomething_rogue_client();
+
+  $data = dosomething_rogue_transform_reportback($values, $user, $northstar_id);
+  $data['type'] = 'reportback';
+  $data['event_type'] = 'post_photo';
 
   try {
     $response = $client->postReportback($data);
@@ -90,42 +83,64 @@ function dosomething_rogue_send_reportback_to_rogue($values, $user = NULL, $fail
       stathat_send_ez_count('drupal - Rogue - reportback sent - count', 1);
     }
     if (!$response) {
-      if (!array_key_exists('rogue_event_id', $values[0])) {
-        // This is a 404
-        dosomething_rogue_handle_failure($data, $response, $failed_task_id, $user);
-      } else {
-        foreach ($data as $values) {
-          $values['type'] = 'reportback item';
-          dosomething_rogue_handle_failure($values, $response, $failed_task_id);
-        }
-      }
+      // This is a 404
+      dosomething_rogue_handle_failure($data, $response, $failed_task_id, $user);
     }
   }
   catch (GuzzleHttp\Exception\ServerException $e) {
-    if (!array_key_exists('rogue_event_id', $values[0])) {
-      // These aren't yet caught by Gateway
-      dosomething_rogue_handle_failure($data, $response, $failed_task_id, $user, $e);
-    } else {
-      foreach ($data as $values) {
-        $values['type'] = 'reportback item';
-         dosomething_rogue_handle_failure($values, $response, $failed_task_id);
-      }
-    }
+    // These aren't yet caught by Gateway
+    dosomething_rogue_handle_failure($data, $response, $failed_task_id, $user, $e);
   }
   catch (DoSomething\Gateway\Exceptions\ApiException $e) {
-    if (!array_key_exists('rogue_event_id', $values[0])) {
-      dosomething_rogue_handle_failure($data, $response, $failed_task_id, $user, $e);
-    } else {
+    dosomething_rogue_handle_failure($data, $response, $failed_task_id, $user, $e);
+  }
+
+  return $response;
+}
+
+/**
+ * Sends updated reportback item(s) to Rogue.
+ *
+ * @param array $data
+ *    Values to send to Rogue.
+ * @param int $failed_task_id
+ *    Index of failed reportback item if it exists in the dosomething_rogue_failed_task_log.
+ *
+ */
+function dosomething_rogue_update_rogue_reportback_items($data, $failed_task_id = NULL) {
+  $client = dosomething_rogue_client();
+  try {
+    $response = $client->updateReportback($data);
+
+    if (module_exists('stathat')) {
+      stathat_send_ez_count('drupal - Rogue - reportback items(s) updated status sent - count', count($data));
+    }
+
+    if (!$response) {
       foreach ($data as $values) {
         $values['type'] = 'reportback item';
         dosomething_rogue_handle_failure($values, $response, $failed_task_id);
       }
     }
   }
+  catch (GuzzleHttp\Exception\ServerException $e) {
+    // These aren't yet caught by Gateway
+    foreach ($data as $values) {
+      $values['type'] = 'reportback item';
+      dosomething_rogue_handle_failure($values, $response, $failed_task_id, $e);
+    }
+  }
+  catch (DoSomething\Gateway\Exceptions\ApiException $e) {
+    foreach ($data as $values) {
+      $values['type'] = 'reportback item';
+      dosomething_rogue_handle_failure($values, $response, $failed_task_id, $e);
+    }
+  }
 
   return $response;
 }
 
+/**
  * Query to find Rogue reportback item id by Phoenix fid.
  *
  * @param string $fid
