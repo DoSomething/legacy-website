@@ -520,7 +520,7 @@ function dosomething_rogue_check_sid_and_store_ref($rogue_signup) {
   $user = user_load($northstar_user->drupal_id);
 
   // Get the signup
-  $sid = dosomething_signup_exists($rogue_signup['data']['campaign_id'], $rogue_signup['data']['campaign_run_id'], $user->id);
+  $sid = dosomething_signup_exists($rogue_signup['data']['campaign_id'], $rogue_signup['data']['campaign_run_id'], $user->uid);
 
   // Make sure the signup exists before we try to use it
   if ($sid) {

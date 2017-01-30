@@ -63,8 +63,7 @@ function dosomething_rogue_retry_failed_reportbacks() {
         $rogue_signup = dosomething_rogue_send_signup_to_rogue($data, $user, $task->id);
 
         if ($rogue_signup) {
-          // @TODO: signup ref storage
-          dosomething_rogue_check_rbid_and_store_ref($rogue_reportback);
+          dosomething_rogue_check_sid_and_store_ref($rogue_signup);
 
           // Remove signup from failed log once it has been send successfully
           db_delete('dosomething_rogue_failed_task_log')
