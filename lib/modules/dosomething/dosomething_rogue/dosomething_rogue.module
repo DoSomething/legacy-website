@@ -227,7 +227,7 @@ function dosomething_rogue_handle_failure($values, $response = NULL, $failed_tas
     watchdog('dosomething_rogue', 'Reportback not migrated to Rogue: northstar_id: !northstar_id, campaign_id: !campaign_id, campaign run_nid: !campaign_run_id.', ['!northstar_id' => $values['northstar_id'], '!campaign_id' => $values['campaign_id'], '!campaign_run_id' => $values['campaign_run_id']], WATCHDOG_ERROR);
 
   } else {
-    watchdog('dosomething_rogue', 'Reportback item status not migrated to Rogue: Rogue item id: !rogue_item_id, status: !status.', ['!rogue_item_id' => $values['rogue_reportback_item_id'], '!status' => $values['status']], WATCHDOG_ERROR);
+    watchdog('dosomething_rogue', 'Reportback item status not migrated to Rogue: Rogue item id: !rogue_item_id, status: !status.', ['!rogue_item_id' => $values['rogue_event_id'], '!status' => $values['status']], WATCHDOG_ERROR);
   }
 }
 
@@ -386,7 +386,7 @@ function insert_failed_task_into_failed_task_log($values, $response = NULL, $e =
   } else {
     db_insert('dosomething_rogue_failed_task_log')
       ->fields([
-        'rogue_item_id' => $values['rogue_reportback_item_id'],
+        'rogue_event_id' => $values['rogue_event_id'],
         'status' => $values['status'],
         'type' => $values['type'],
         'timestamp' => REQUEST_TIME,
