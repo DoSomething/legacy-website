@@ -464,7 +464,6 @@ function dosomething_rogue_send_signup_to_rogue($values, $user = NULL, $failed_t
     }
     if (!$response) {
       // This is a 404
-      // @TODO: update dosomething_rogue_handle_failure to deal with signup failures
       dosomething_rogue_handle_failure($data, $response, $failed_task_id, $user);
     }
   }
