@@ -300,7 +300,6 @@ function _campaign_resource_signup($nid, $values) {
     // Store the reference to the Rogue signup
     return dosomething_rogue_check_sid_and_store_ref($rogue_signup);
   } else {
-    // @TODO: make helper function to do this?
     // Increment transaction id and log that the request has been received with new transaction id.
     $transaction_id_parts = explode('-', $headers['X-Request-Id']);
     $transaction_id_base = $transaction_id_parts[0];

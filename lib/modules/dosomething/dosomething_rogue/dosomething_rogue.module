@@ -216,7 +216,6 @@ function dosomething_rogue_transform_status($status) {
  *
  */
 function dosomething_rogue_handle_failure($values, $response = NULL, $failed_task_id = NULL, $user = NULL, $e = NULL) {
-
   if (module_exists('stathat')) {
       if ($values['type'] === 'reportback') {
         stathat_send_ez_count('drupal - Rogue - reportback failed - count', 1);
@@ -233,7 +232,6 @@ function dosomething_rogue_handle_failure($values, $response = NULL, $failed_tas
     $previously_failed = array_pop(dosomething_rogue_previously_failed($failed_task_id));
     update_failed_task_log($previously_failed);
   } else {
-    // @TODO: this for signups
     insert_failed_task_into_failed_task_log($values, $response, $e, $user);
   }
 
