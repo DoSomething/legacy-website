@@ -66,15 +66,23 @@ function dosomething_signup_form($form, &$form_state, $nid, $label = "Sign Up") 
   if ($affiliate_data['messaging_opt_in']['enabled']) {
     $messaging_opt_in = $affiliate_data['messaging_opt_in'];
 
-    $form['affiliate_messeging_opt_in'] = [
+    $form['affiliate_messaging_opt_in'] = [
+      '#type' => 'container',
+      '#id' => 'messaging-opt-in',
+      '#attributes' => [
+        'class' => ['messaging-opt-in'],
+      ],
+    ];
+
+    $form['affiliate_messaging_opt_in']['toggle'] = [
       '#type' => 'checkbox',
       '#title' => t($messaging_opt_in['label']),
       '#default_value' => TRUE, // @TODO: eventually, this should be false so it's OPT-IN!
     ];
 
     if ($messaging_opt_in['info_label'] && $messaging_opt_in['info_message'])
-    $form['affiliate_messeging_opt_in_info'] = [
-      '#markup' => '<div class="opt-in-info"><p>'.$messaging_opt_in['info_label'].'</p><div>'.$messaging_opt_in['info_message'].'</div></div>',
+    $form['affiliate_messaging_opt_in']['info'] = [
+      '#markup' => '<div class="opt-in-info footnote"><p class="info-toggle js-footnote-toggle">'.$messaging_opt_in['info_label'].'</p><div class="info-message js-footnote-hidden">'.$messaging_opt_in['info_message'].'</div></div>',
     ];
   }
 
