@@ -287,9 +287,8 @@ function dosomething_reportback_files_form_submit($form, &$form_state) {
     // Check to see if Rogue feature flag is enabled.
     if (variable_get('rogue_collection', FALSE)) {
       $rogue_item_id = dosomething_rogue_get_by_file_id($fid);
-
       // If there is a rogue_item_id in the dosomething_rogue_reportbacks table, send update to Rogue.
-      if ($rogue_item_id[0]->rogue_item_id) {
+      if ($rogue_item_id[0]->rogue_event_id) {
         if ($values['status'] === 'promoted' || $values['status'] === 'approved' || $values['status'] === 'excluded') {
           $rogue_status = 'accepted';
         } else {
@@ -297,9 +296,9 @@ function dosomething_reportback_files_form_submit($form, &$form_state) {
         }
 
         $data = [
-          'rogue_reportback_item_id' => $rogue_item_id[0]->rogue_item_id,
+          'rogue_event_id' => $rogue_item_id[0]->rogue_event_id,
           'status' => $rogue_status,
-          'reviewer' => dosomething_user_get_field('field_northstar_id'),
+          'event_type' => 'post_photo',
         ];
 
         $updates_to_send_to_rogue[] = $data;

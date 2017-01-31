@@ -301,3 +301,43 @@ function dosomething_rogue_update_7008(&$sandbox) {
   }
 }
 
+/**
+ * Changes rogue_reportback_id column to rogue_signup_id in the dosomething_rogue_reportbacks table.
+ */
+function dosomething_rogue_update_7009(&$sandbox) {
+  $table = 'dosomething_rogue_reportbacks';
+  if (db_table_exists($table)) {
+    $rogue_signup_id_spec = [
+      'type' => 'int',
+      'length' => '11',
+      'description' => 'The Rogue signup id that is associated with the same Phoenix reportback.',
+    ];
+
+    db_change_field($table, 'rogue_reportback_id', 'rogue_signup_id', $rogue_signup_id_spec);
+
+    $rogue_event_id_spec = [
+      'type' => 'int',
+      'length' => '11',
+      'description' => 'The Rogue event id that is associated with the same Phoenix reportback item (fid).',
+    ];
+
+    db_change_field($table, 'rogue_item_id', 'rogue_event_id', $rogue_event_id_spec);
+  }
+}
+
+/**
+ * Changes rogue_item_id column to rogue_event_id in the dosomething_rogue_failed_task_log.
+ */
+function dosomething_rogue_update_7010(&$sandbox) {
+  $table = 'dosomething_rogue_failed_task_log';
+  if (db_table_exists($table)) {
+    $spec = [
+      'description' => 'The event id of the reportback item as it is stored in rogue.',
+      'type' => 'int',
+      'length' => '11',
+    ];
+
+    db_change_field($table, 'rogue_item_id', 'rogue_event_id', $spec);
+  }
+}
+

@@ -74,6 +74,7 @@ function dosomething_rogue_send_reportback_to_rogue($values, $user = NULL, $fail
 
   $data = dosomething_rogue_transform_reportback($values, $user, $northstar_id);
   $data['type'] = 'reportback';
+  $data['event_type'] = 'post_photo';
 
   try {
     $response = $client->postReportback($data);
@@ -147,7 +148,7 @@ function dosomething_rogue_update_rogue_reportback_items($data, $failed_task_id 
  *
  */
 function dosomething_rogue_get_by_file_id($fid) {
-  return db_query("SELECT rogue_rbs.rogue_item_id FROM {dosomething_rogue_reportbacks} rogue_rbs WHERE fid = :fid", array(':fid' => $fid))->fetchAll();
+  return db_query("SELECT rogue_rbs.rogue_event_id FROM {dosomething_rogue_reportbacks} rogue_rbs WHERE fid = :fid", array(':fid' => $fid))->fetchAll();
 }
 
 /**
@@ -161,16 +162,14 @@ function dosomething_rogue_get_by_file_id($fid) {
  * @return
  */
 function dosomething_rogue_store_rogue_references($rbid, $fid, $rogue_reportback) {
-  $most_recent_rogue_item = array_pop($rogue_reportback['data']['reportback_items']['data']);
-
   if (! dosomething_rogue_get_by_file_id($fid)) {
     // Store references to rogue IDs.
     db_insert('dosomething_rogue_reportbacks')
     ->fields([
       'fid' => $fid,
-      'rogue_item_id' => $most_recent_rogue_item['id'],
+      'rogue_event_id' => $rogue_reportback['data']['event']['data']['event_id'],
       'rbid' => $rbid,
-      'rogue_reportback_id' => $rogue_reportback['data']['id'],
+      'rogue_signup_id' => $rogue_reportback['data']['signup_id'],
       'created_at' => REQUEST_TIME,
       ])
     ->execute();
@@ -228,7 +227,7 @@ function dosomething_rogue_handle_failure($values, $response = NULL, $failed_tas
     watchdog('dosomething_rogue', 'Reportback not migrated to Rogue: northstar_id: !northstar_id, campaign_id: !campaign_id, campaign run_nid: !campaign_run_id.', ['!northstar_id' => $values['northstar_id'], '!campaign_id' => $values['campaign_id'], '!campaign_run_id' => $values['campaign_run_id']], WATCHDOG_ERROR);
 
   } else {
-    watchdog('dosomething_rogue', 'Reportback item status not migrated to Rogue: Rogue item id: !rogue_item_id, status: !status.', ['!rogue_item_id' => $values['rogue_reportback_item_id'], '!status' => $values['status']], WATCHDOG_ERROR);
+    watchdog('dosomething_rogue', 'Reportback item status not migrated to Rogue: Rogue item id: !rogue_item_id, status: !status.', ['!rogue_item_id' => $values['rogue_event_id'], '!status' => $values['status']], WATCHDOG_ERROR);
   }
 }
 
@@ -251,7 +250,7 @@ function dosomething_rogue_rb_exists_in_rogue($rbid) {
  *
  */
 function dosomething_rogue_check_rbid_and_store_ref($rogue_reportback) {
-  $rbid = dosomething_reportback_exists($rogue_reportback['data']['campaign_id'], $rogue_reportback['data']['campaign_run_id'], $rogue_reportback['data']['drupal_id']);
+  $rbid = dosomething_reportback_exists($rogue_reportback['data']['campaign_id'], $rogue_reportback['data']['campaign_run_id'], NULL, $rogue_reportback['data']['northstar_id']);
 
   // Make sure the reportback exists before we try to use it
   if ($rbid) {
@@ -387,7 +386,7 @@ function insert_failed_task_into_failed_task_log($values, $response = NULL, $e =
   } else {
     db_insert('dosomething_rogue_failed_task_log')
       ->fields([
-        'rogue_item_id' => $values['rogue_reportback_item_id'],
+        'rogue_event_id' => $values['rogue_event_id'],
         'status' => $values['status'],
         'type' => $values['type'],
         'timestamp' => REQUEST_TIME,

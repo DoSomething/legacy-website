@@ -56,9 +56,9 @@ function dosomething_rogue_retry_failed_reportbacks() {
       } else {
         $data = [
           [
-            'rogue_reportback_item_id' => $task->rogue_item_id,
+            'rogue_event_id' => $task->rogue_event_id,
             'status' => $task->status,
-            'reviewer' => $task->reviewer,
+            'event_type' => 'post_photo',
           ]
         ];
 
