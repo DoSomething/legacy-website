@@ -63,27 +63,10 @@ function dosomething_signup_form($form, &$form_state, $nid, $label = "Sign Up") 
     ],
   ];
 
-  if ($affiliate_data['messaging_opt_in']['enabled']) {
-    $messaging_opt_in = $affiliate_data['messaging_opt_in'];
+  $affiliate_messaging_form = dosomething_signup_get_affiliate_form_component($nid);
 
-    $form['affiliate_messaging_opt_in'] = [
-      '#type' => 'container',
-      '#id' => 'messaging-opt-in',
-      '#attributes' => [
-        'class' => ['messaging-opt-in'],
-      ],
-    ];
-
-    $form['affiliate_messaging_opt_in']['toggle'] = [
-      '#type' => 'checkbox',
-      '#title' => t($messaging_opt_in['label']),
-      '#default_value' => TRUE, // @TODO: eventually, this should be false so it's OPT-IN!
-    ];
-
-    if ($messaging_opt_in['info_label'] && $messaging_opt_in['info_message'])
-    $form['affiliate_messaging_opt_in']['info'] = [
-      '#markup' => '<div class="opt-in-info footnote"><p class="info-toggle js-footnote-toggle">'.$messaging_opt_in['info_label'].'</p><div class="info-message js-footnote-hidden">'.$messaging_opt_in['info_message'].'</div></div>',
-    ];
+  if ($affiliate_messaging_form) {
+    $form = array_merge($form, $affiliate_messaging_form);
   }
 
   return $form;
@@ -110,12 +93,69 @@ function dosomething_signup_form_submit($form, &$form_state) {
     $source = $form_state['values']['source'];
   }
 
-  if (isset($form_state['values']['affiliate_messeging_opt_in'])) {
-    $params['affiliate_messaging_opt_in'] = (bool) $form_state['values']['affiliate_messeging_opt_in'];
+  if (isset($form_state['values']['affiliate_messaging_opt_in'])) {
+    $params['affiliate_messaging_opt_in'] = (bool) $form_state['values']['affiliate_messaging_opt_in'];
   }
 
   // Create signup for logged in user.
   dosomething_signup_user_signup($nid, NULL, $source, $params);
+}
+
+/**
+ * Form constructor for unathenticated user signup form.
+ * Displayed for an unathenticated user to signup for a node,
+ * requiring them first to login via Northstar.
+ *
+ * @param  array $form
+ * @param  array $form_state
+ * @param  string $nid
+ * @param  string $label
+ * @return array
+ */
+function dosomething_signup_unauthenticated_form($form, &$form_state, $nid, $label = "Sign Up") {
+  $campaign = Campaign::get($nid);
+
+  $form['#method'] = 'get';
+
+  $form['#action'] = url('user/authorize');
+
+  $form['action'] = array(
+    '#type' => 'hidden',
+    '#value' => 'signup',
+    '#access' => TRUE,
+  );
+
+  $form['node'] = array(
+    '#type' => 'hidden',
+    '#value' => $nid,
+    '#access' => TRUE,
+  );
+
+  $form['title'] = array(
+    '#type' => 'hidden',
+    '#value' => $campaign->title,
+    '#access' => TRUE,
+  );
+
+  $form['submit'] = [
+    '#type' => 'submit',
+    '#value' => t($label),
+    '#attributes' => [
+      'id' => 'link--openid-connect-campaign-signup-login',
+      'class' => ['button'],
+      'data-track-category' => 'Link',
+      'data-track-action' => 'Click',
+      'data-track-label' => 'Signup (Unauthenticated)',
+    ],
+  ];
+
+  $affiliate_messaging_form = dosomething_signup_get_affiliate_form_component($nid);
+
+  if ($affiliate_messaging_form) {
+    $form = array_merge($form, $affiliate_messaging_form);
+  }
+
+  return $form;
 }
 
 /**
@@ -478,4 +518,47 @@ function dosomething_signup_reset_signup_data_form_submit($form, &$form_state) {
   $signup->signup_data_form_response = NULL;
   entity_save('signup', $signup);
   drupal_set_message(t("The Signup data form has been reset."));
+}
+
+/**
+ * Get form structure for adding the affiliate messaging opt-in to
+ * the sign up forms.
+ *
+ * @param  string $campaign_id
+ * @return array
+ */
+function dosomething_signup_get_affiliate_form_component($campaign_id) {
+  if (!$campaign_id) {
+    return NULL;
+  }
+
+  $affiliate_data = dosomething_campaign_get_affiliate_data($campaign_id);
+
+  if (!$affiliate_data['messaging_opt_in']['enabled']) {
+    return NULL;
+  }
+
+  $messaging_opt_in = $affiliate_data['messaging_opt_in'];
+
+  $form['affiliate_messaging'] = [
+    '#type' => 'container',
+    '#id' => 'messaging-opt-in',
+    '#attributes' => [
+      'class' => ['messaging-opt-in'],
+    ],
+  ];
+
+  $form['affiliate_messaging']['affiliate_messaging_opt_in'] = [
+    '#type' => 'checkbox',
+    '#title' => t($messaging_opt_in['label']),
+    '#default_value' => TRUE, // @TODO: eventually, this should be false so it's OPT-IN!
+  ];
+
+  if ($messaging_opt_in['info_label'] && $messaging_opt_in['info_message'])
+  $form['affiliate_messaging']['info'] = [
+    '#markup' => '<div class="opt-in-info footnote"><p class="info-toggle js-footnote-toggle">'.$messaging_opt_in['info_label'].'</p><div class="info-message js-footnote-hidden">'.$messaging_opt_in['info_message'].'</div></div>',
+  ];
+
+  return $form;
+
 }
