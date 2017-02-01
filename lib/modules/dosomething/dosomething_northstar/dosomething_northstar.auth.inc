@@ -41,7 +41,14 @@ function dosomething_northstar_openid_authorize() {
   }
 
   if(isset($_GET['action']) && isset($_GET['node'])) {
-    dosomething_northstar_set_authorization_action($_GET['action'], $_GET['node']);
+    $params = [];
+
+    if (isset($_GET['affiliate_messaging_opt_in'])) {
+      $params['affiliate_messaging_opt_in'] = (bool) $_GET['affiliate_messaging_opt_in'];
+    }
+
+    dosomething_northstar_set_authorization_action($_GET['action'], $_GET['node'], $params);
+
     // @TODO: Rename parameter on the Northstar side to 'title'.
     $url_options['query'] = ['destination' => $_GET['title']];
   }
@@ -135,15 +142,17 @@ function dosomething_northstar_openid_connect_post_authorize($tokens, $account, 
  * Save a post-authorization destination in the session (e.g. for signing
  * up for a campaign).
  *
- * @param $action
- * @param $nid
+ * @param string $action
+ * @param string $nid
+ * @param array $param
  */
-function dosomething_northstar_set_authorization_action($action, $nid) {
+function dosomething_northstar_set_authorization_action($action, $nid, $params = []) {
   if ($action !== 'signup') {
     return;
   }
 
   $_SESSION['openid_connect_action'] = ['signup' => $nid];
+  $_SESSION['affiliate_messaging_opt_in'] = isset($params['affiliate_messaging_opt_in']) ? $params['affiliate_messaging_opt_in'] : FALSE;
 }
 
 /**
@@ -159,10 +168,12 @@ function dosomething_northstar_perform_authorization_actions() {
   }
 
   $actions = $_SESSION['openid_connect_action'];
+  $params = ['affiliate_messaging_opt_in' => $_SESSION['affiliate_messaging_opt_in']];
+
   foreach ($actions as $action => $target) {
-    if($action === 'signup') {
+    if ($action === 'signup') {
       $source = dosomething_signup_get_query_source();
-      dosomething_signup_user_signup((int) $target, $user, $source);
+      dosomething_signup_user_signup((int) $target, $user, $source, $params);
 
       drupal_goto('node/' . $target);
     }
