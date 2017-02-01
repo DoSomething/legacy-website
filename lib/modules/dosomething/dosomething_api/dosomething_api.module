@@ -131,3 +131,20 @@ function dosomething_api_get_reportback_files($params, $count = 25, $start = 0) 
   unset($record);
   return $result;
 }
+
+/**
+ * Handles incrementing the transaction IDs for requests.
+ *
+ * @param string $transaction_id
+ *   The transaction ID that Phoenix received and needs to increment.
+ *
+ * @return string
+ *   The incremented transaction ID.
+ */
+function dosomething_api_increment_transaction_id($transaction_id) {
+    $transaction_id_parts = explode('-', $transaction_id);
+    $transaction_id_base = $transaction_id_parts[0];
+    $incremented_step = $transaction_id_parts[1] + 1;
+
+    return $transaction_id_base . '-' . $incremented_step;
+}

@@ -309,10 +309,7 @@ function _campaign_resource_signup($nid, $values) {
   } else {
     // Only try to increment transaction IDs if they were already set
     // Increment transaction id and log that the request has been received with new transaction id.
-    $transaction_id_parts = explode('-', $headers['X-Request-Id']);
-    $transaction_id_base = $transaction_id_parts[0];
-    $incremented_step = $transaction_id_parts[1] + 1;
-    $incremented_transaction_id = $transaction_id_base . '-' . $incremented_step;
+    $incremented_transaction_id = dosomething_api_increment_transaction_id($headers['X-Request-Id']);
 
     watchdog('PhoenixTransactionBridge', 'Request received. Transaction ID: !incremented_transaction_id', ['!incremented_transaction_id' => $incremented_transaction_id], WATCHDOG_INFO);
 
@@ -409,10 +406,7 @@ function _campaign_resource_reportback($nid, $values) {
   }
   else {
     // Increment transaction id and log that the request has been received with new transaction id.
-    $transaction_id_parts = explode('-', $headers['X-Request-Id']);
-    $transaction_id_base = $transaction_id_parts[0];
-    $incremented_step = $transaction_id_parts[1] + 1;
-    $incremented_transaction_id = $transaction_id_base . '-' . $incremented_step;
+    $incremented_transaction_id = dosomething_api_increment_transaction_id($headers['X-Request-Id']);
 
     watchdog('PhoenixTransactionBridge', 'Request received. Transaction ID: !incremented_transaction_id', ['!incremented_transaction_id' => $incremented_transaction_id], WATCHDOG_INFO);
 
