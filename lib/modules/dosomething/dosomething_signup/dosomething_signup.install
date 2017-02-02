@@ -114,12 +114,6 @@ function dosomething_signup_schema() {
         'not null' => TRUE,
         'default' => 0,
       ),
-      'custom_social_share_signup' => [
-        'description' => 'Boolean indicating this is a custom social share signup form',
-        'type' => 'int',
-        'not null' => TRUE,
-        'default' => 0,
-      ],
       'link_text' => array(
         'description' => 'The text to display in the link to the form.',
         'type' => 'varchar',
@@ -727,5 +721,23 @@ function dosomething_signup_update_7025() {
   $column = 'source';
   if (!db_index_exists($table, $column)) {
     db_add_index($table, $column, array($column));
+  }
+}
+
+/**
+ * Adds field to support custom social share modal to the dosomething_signup_data_form table.
+ *
+ */
+function dosomething_signup_update_7026() {
+  $table = 'dosomething_signup_data_form';
+  $spec = array(
+    'type' => 'int',
+    'description' => 'Boolean indicating this is a custom social share signup form',
+    'length' => 11,
+    'not null' => TRUE,
+    'default' => 0,
+  );
+  if (!db_field_exists($table, 'custom_social_share_signup')) {
+    db_add_field($table, 'custom_social_share_signup', $spec);
   }
 }
