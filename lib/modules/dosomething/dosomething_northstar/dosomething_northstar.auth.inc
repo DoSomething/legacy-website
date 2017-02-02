@@ -152,9 +152,11 @@ function dosomething_northstar_set_authorization_action($action, $nid, $params =
   }
 
   $_SESSION['openid_connect_action'] = [
-    'signup' => $nid,
-    'params' => [
-      'affiliate_messaging_opt_in' => isset($params['affiliate_messaging_opt_in']) ? $params['affiliate_messaging_opt_in'] : FALSE,
+    'signup' => [
+      'nid' => $nid,
+      'params' => [
+        'affiliate_messaging_opt_in' => isset($params['affiliate_messaging_opt_in']) ? $params['affiliate_messaging_opt_in'] : FALSE,
+      ],
     ],
   ];
 }
@@ -176,9 +178,9 @@ function dosomething_northstar_perform_authorization_actions() {
   foreach ($actions as $action => $target) {
     if ($action === 'signup') {
       $source = dosomething_signup_get_query_source();
-      dosomething_signup_user_signup((int) $target, $user, $source, $actions['params']);
+      dosomething_signup_user_signup((int) $target['nid'], $user, $source, $target['params']);
 
-      drupal_goto('node/' . $target);
+      drupal_goto('node/' . $target['nid']);
     }
   }
 }
