@@ -451,7 +451,9 @@ function dosomething_helpers_set_variable($entity_type, $entity_id, $var_name, $
  * Export form for designating data to be exported.
  */
 function dosomething_helpers_exports_form($form, &$form_state, $node) {
-  $nid = $node->nid;
+  $campaign = Campaign::get($node->nid);
+
+  dump($campaign);
 
   $form['exports'] = [
     '#type' => 'fieldset',
@@ -465,6 +467,11 @@ function dosomething_helpers_exports_form($form, &$form_state, $node) {
     '#title' => t('Export CSV of users that opted to receive affiliate messaging.'),
     '#default_value' => FALSE,
   ];
+  // $form['nid'] = array(
+  //   '#type' => 'hidden',
+  //   '#value' => $nid,
+  //   '#access' => TRUE,
+  // );
   $form['exports']['actions'] = [
     '#type' => 'actions',
     'submit' => [
@@ -482,6 +489,10 @@ function dosomething_helpers_exports_form($form, &$form_state, $node) {
  */
 function dosomething_helpers_exports_form_submit(&$form, &$form_state) {
   $data = [];
+
+  dump($form);
+  dump($form_state);
+  die();
 
   if ($form_state['values']['export_affiliate_messaging_optins']) {
     // @TODO: gather the data to export!
