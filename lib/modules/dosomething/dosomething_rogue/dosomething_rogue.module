@@ -519,7 +519,6 @@ function dosomething_rogue_transform_signup($values, $northstar_id, $user) {
 
   $run = dosomething_helpers_get_current_campaign_run_for_user($values['campaign_id'], $user);
 
-
  $data = [
    'northstar_id' => $northstar_id,
    'campaign_id' => $values['campaign_id'],
