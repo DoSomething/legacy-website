@@ -152,6 +152,17 @@ function dosomething_rogue_get_by_file_id($fid) {
 }
 
 /**
+ * Query to find Rogue signup id by Phoenix sid.
+ *
+ * @param string $sid
+ * Phoenix sid of signup.
+ *
+ */
+function dosomething_rogue_get_signup_by_sid($sid) {
+  return db_query("SELECT rogue_signups.rogue_signup_id FROM {dosomething_rogue_signups} rogue_signups WHERE sid = :sid", array(':sid' => $sid))->fetchAll();
+}
+
+/**
  * Insert record that stores reference to the most recent uploaded reportback item in
  * phoenix and it's corresponding id's in Rogue
  *
@@ -225,10 +236,38 @@ function dosomething_rogue_handle_failure($values, $response = NULL, $failed_tas
   // Save fail to a db log so we can easily export.
   if ($values['type'] === 'reportback') {
     watchdog('dosomething_rogue', 'Reportback not migrated to Rogue: northstar_id: !northstar_id, campaign_id: !campaign_id, campaign run_nid: !campaign_run_id.', ['!northstar_id' => $values['northstar_id'], '!campaign_id' => $values['campaign_id'], '!campaign_run_id' => $values['campaign_run_id']], WATCHDOG_ERROR);
-
   } else {
     watchdog('dosomething_rogue', 'Reportback item status not migrated to Rogue: Rogue item id: !rogue_item_id, status: !status.', ['!rogue_item_id' => $values['rogue_event_id'], '!status' => $values['status']], WATCHDOG_ERROR);
   }
+}
+
+/**
+ * Insert record that stores the request data of to a signup that did
+ * not successfully post to Rogue
+ *
+ * @param array  $values
+ * @param array  $response
+ * @param int $failed_task_id
+ * @param object $user
+ * @param object $e
+ *
+ */
+function dosomething_rogue_handle_signup_failure($values, $response = NULL, $failed_task_id = NULL, $user = NULL, $e = NULL) {
+  if (module_exists('stathat')) {
+    stathat_send_ez_count('drupal - Rogue - signup failed - count', 1);
+  }
+
+  // If the signup has previously failed, do not enter a new record.
+  // Instead, increment the number of tries and update the time of most recent attempt to send to Rogue.
+  if (! is_null($failed_task_id)) {
+    $previously_failed = array_pop(dosomething_rogue_previously_failed($failed_task_id));
+    update_failed_task_log($previously_failed);
+  } else {
+    insert_failed_task_into_failed_task_log($values, $response, $e, $user);
+  }
+
+  // Save fail to a db log so we can easily export.
+  watchdog('dosomething_rogue', 'Signup not migrated to Rogue: northstar_id: !northstar_id, campaign_id: !campaign_id, campaign run_nid: !campaign_run_id.', ['!northstar_id' => $values['northstar_id'], '!campaign_id' => $values['campaign_id'], '!campaign_run_id' => $values['campaign_run_id']], WATCHDOG_ERROR);
 }
 
 /**
@@ -383,6 +422,20 @@ function insert_failed_task_into_failed_task_log($values, $response = NULL, $e =
         'failed_at' => REQUEST_TIME,
       ])
       ->execute();
+  } elseif ($values['type'] === 'signup') {
+      db_insert('dosomething_rogue_failed_task_log')
+          ->fields([
+            'northstar_id' => $values['northstar_id'],
+            'campaign_id' => $values['campaign_id'],
+            'campaign_run_id' => $values['campaign_run_id'],
+            'source' => $values['source'],
+            'timestamp' => REQUEST_TIME,
+            'response_code' => (isset($response->code)) ? $response->code : NULL,
+            'response_values' => (isset($e)) ? $e->getMessage() : NULL,
+            'type' => $values['type'],
+            'failed_at' => REQUEST_TIME,
+          ])
+          ->execute();
   } else {
     db_insert('dosomething_rogue_failed_task_log')
       ->fields([
@@ -396,5 +449,133 @@ function insert_failed_task_into_failed_task_log($values, $response = NULL, $e =
         'reviewer' => $values['reviewer'],
       ])
       ->execute();
+  }
+}
+
+/**
+ * Send a signup to Rogue
+ *
+ * @param array $values
+ * @param object $user
+ * @param object $response
+ * @param object $e
+ *
+ */
+function dosomething_rogue_send_signup_to_rogue($values, $user = NULL, $failed_task_id = NULL) {
+  // Get the user in order to grab the northstar id
+  if (!isset($user)) {
+    global $user;
+  }
+
+  $northstar_id = dosomething_user_get_field('field_northstar_id', $user);
+
+  // Band-aid fix for an issue we are seeing with phoenix not being
+  // aware of a user's northstar id. If it doesn't find one, we just grab it
+  // from northstar directly.
+  if (!$northstar_id) {
+    $northstar_user = dosomething_northstar_get_user($user->uid, 'drupal_id');
+    $northstar_id = $northstar_user->id;
+  }
+
+  $client = dosomething_rogue_client();
+
+  $data = dosomething_rogue_transform_signup($values, $northstar_id, $user);
+  $data['type'] = 'signup';
+
+  try {
+    $response = $client->postSignup($data);
+
+    if (module_exists('stathat')) {
+      stathat_send_ez_count('drupal - Rogue - signup sent - count', 1);
+    }
+    if (!$response) {
+      // This is a 404
+      dosomething_rogue_handle_signup_failure($data, $response, $failed_task_id, $user);
+    }
+  }
+  catch (GuzzleHttp\Exception\ServerException $e) {
+    // These aren't yet caught by Gateway
+    dosomething_rogue_handle_signup_failure($data, $response, $failed_task_id, $user, $e);
+  }
+  catch (DoSomething\Gateway\Exceptions\ApiException $e) {
+    dosomething_rogue_handle_signup_failure($data, $response, $failed_task_id, $user, $e);
+  }
+
+  return $response;
+}
+
+/**
+* Transform signup into the appropriate scheme to send to Rogue.
+*
+* @param $values - Signup values to send to Rogue.
+* @param $northstar_id - User's Northstar user id.
+* @return array
+*/
+function dosomething_rogue_transform_signup($values, $northstar_id, $user) {
+  // Make sure we have the data in the right form (failed table stores campaign_id, not nid)
+  if (isset($values['nid'])) {
+    $values['campaign_id'] = $values['nid'];
+  }
+
+  $run = dosomething_helpers_get_current_campaign_run_for_user($values['campaign_id'], $user);
+
+ $data = [
+   'northstar_id' => $northstar_id,
+   'campaign_id' => $values['campaign_id'],
+   'campaign_run_id' => $run->nid,
+   'source' => $values['source'],
+ ];
+
+ return $data;
+}
+
+/**
+ * Checks to see if the given signup data exists in Phoenix and if so stores in Rogue reference table.
+ *
+ * @param array $rogue_signup
+ * The response from dosomething_rogue_send_signup_to_rogue().
+ *
+ */
+function dosomething_rogue_check_sid_and_store_ref($rogue_signup) {
+  // Get user from Northstar ID
+  $northstar_user = dosomething_northstar_get_user($rogue_signup['data']['northstar_id']);
+  $user = user_load($northstar_user->drupal_id);
+
+  // Get the signup
+  $sid = dosomething_signup_exists($rogue_signup['data']['campaign_id'], $rogue_signup['data']['campaign_run_id'], $user->uid);
+
+  // Make sure the signup exists before we try to use it
+  if ($sid) {
+    // Make sure that signup is not in the Rogue reference table yet
+    if (!dosomething_rogue_get_signup_by_sid($sid)) {
+      // Store reference to the signup in rogue
+      dosomething_rogue_store_rogue_signup_references($sid, $rogue_signup);
+    }
+
+    return $sid;
+  }
+
+  return false;
+}
+
+/**
+ * Insert record that stores reference to the signup in
+ * phoenix and corresponding signup id in Rogue
+ *
+ * @param string $sid
+ * @param object $rogue_signup
+ *
+ * @return
+ */
+function dosomething_rogue_store_rogue_signup_references($sid, $rogue_signup) {
+  if (! dosomething_rogue_get_signup_by_sid($sid)) {
+    // Store references to rogue IDs.
+    db_insert('dosomething_rogue_signups')
+    ->fields([
+      'sid' => $sid,
+      'rogue_signup_id' => $rogue_signup['data']['id'],
+      'created_at' => REQUEST_TIME,
+      ])
+    ->execute();
   }
 }

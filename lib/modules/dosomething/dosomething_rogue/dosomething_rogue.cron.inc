@@ -53,6 +53,21 @@ function dosomething_rogue_retry_failed_reportbacks() {
             ->condition('id', $task->id)
             ->execute();
         }
+      } elseif ($task->type === 'signup') {
+        // Load the user
+        $northstar_user = dosomething_northstar_get_user($task->northstar_id);
+        $user = user_load($northstar_user->drupal_id);
+
+        $rogue_signup = dosomething_rogue_send_signup_to_rogue((array)$task, $user, $task->id);
+
+        if ($rogue_signup) {
+          dosomething_rogue_check_sid_and_store_ref($rogue_signup);
+
+          // Remove signup from failed log once it has been send successfully
+          db_delete('dosomething_rogue_failed_task_log')
+            ->condition('id', $task->id)
+            ->execute();
+        }
       } else {
         $data = [
           [

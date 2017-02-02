@@ -118,6 +118,31 @@ function dosomething_rogue_schema() {
     ],
   ];
 
+  $schema['dosomething_rogue_signups'] = [
+    'description' => 'Table for tracking phoenix sid and corresponding rogue signups id and event id',
+    'fields' => [
+      'sid' => [
+        'description' => 'The sid of the signup as it is stored in phoenix.',
+        'type' => 'int',
+        'not null' => TRUE,
+      ],
+      'rogue_signup_id' => [
+        'description' => 'The signup id as it is stored in rogue.',
+        'type' => 'int',
+        'not null' => TRUE,
+      ],
+      'created_at' => [
+        'description' => 'The Unix timestamp of when the reportback was stored',
+        'type' => 'int',
+        'not null' => FALSE,
+      ],
+    ],
+    'primary key' => ['sid'],
+    'indexes' => [
+      'rbid' => ['rogue_signup_id'],
+    ],
+  ];
+
   return $schema;
 }
 
@@ -341,3 +366,13 @@ function dosomething_rogue_update_7010(&$sandbox) {
   }
 }
 
+/**
+ * Adds dosomething_rogue_signups table.
+ */
+function dosomething_rogue_update_7011(&$sandbox) {
+  $table_name = 'dosomething_rogue_signups';
+  if (!db_table_exists($table_name)) {
+    $schema = dosomething_rogue_schema();
+    db_create_table($table_name, $schema[$table_name]);
+  }
+}

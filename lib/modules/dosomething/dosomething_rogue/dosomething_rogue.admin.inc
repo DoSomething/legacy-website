@@ -45,5 +45,13 @@ function dosomething_rogue_config_form($form, &$form_state) {
     '#size' => 20,
   ];
 
+  $form['rogue']['rogue_signup_collection'] = [
+    '#type' => 'checkbox',
+    '#title' => t('Send signups to rogue'),
+    '#description' => t('If set, when a user signs up it will be sent to Rogue.'),
+    '#default_value' => variable_get('rogue_signup_collection', FALSE),
+    '#size' => 20,
+  ];
+
   return system_settings_form($form);
 }

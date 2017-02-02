@@ -106,8 +106,17 @@ function dosomething_signup_form_submit($form, &$form_state) {
     $params['affiliate_messaging_opt_in'] = (bool) $form_state['values']['affiliate_messeging_opt_in'];
   }
 
-  // Create signup for logged in user.
-  dosomething_signup_user_signup($nid, NULL, $source, $params);
+  if (variable_get('rogue_signup_collection', FALSE)) {
+    $rogue_signup = dosomething_rogue_send_signup_to_rogue($form_state['values']);
+
+    // Make sure the signup exists before using it
+    if ($rogue_signup) {
+      dosomething_rogue_check_sid_and_store_ref($rogue_signup);
+    }
+  } else {
+    // Create signup for logged in user.
+    dosomething_signup_user_signup($nid, NULL, $source, $params);
+  }
 }
 
 /**
