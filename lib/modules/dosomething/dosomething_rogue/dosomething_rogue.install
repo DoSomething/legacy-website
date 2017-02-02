@@ -369,7 +369,7 @@ function dosomething_rogue_update_7010(&$sandbox) {
 /**
  * Adds dosomething_rogue_signups table.
  */
-function dosomething_rogue_update_7009(&$sandbox) {
+function dosomething_rogue_update_7011(&$sandbox) {
   $table_name = 'dosomething_rogue_signups';
   if (!db_table_exists($table_name)) {
     $schema = dosomething_rogue_schema();
