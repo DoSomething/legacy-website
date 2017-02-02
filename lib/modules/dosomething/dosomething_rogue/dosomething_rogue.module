@@ -219,8 +219,6 @@ function dosomething_rogue_handle_failure($values, $response = NULL, $failed_tas
   if (module_exists('stathat')) {
       if ($values['type'] === 'reportback') {
         stathat_send_ez_count('drupal - Rogue - reportback failed - count', 1);
-      } elseif ($values['type'] === 'signup') {
-        stathat_send_ez_count('drupal - Rogue - signup failed - count', 1);
       } else {
         stathat_send_ez_count('drupal - Rogue - reportback item status failed - count', 1);
       }
@@ -238,11 +236,38 @@ function dosomething_rogue_handle_failure($values, $response = NULL, $failed_tas
   // Save fail to a db log so we can easily export.
   if ($values['type'] === 'reportback') {
     watchdog('dosomething_rogue', 'Reportback not migrated to Rogue: northstar_id: !northstar_id, campaign_id: !campaign_id, campaign run_nid: !campaign_run_id.', ['!northstar_id' => $values['northstar_id'], '!campaign_id' => $values['campaign_id'], '!campaign_run_id' => $values['campaign_run_id']], WATCHDOG_ERROR);
-  } elseif ($values['type'] === 'signup') {
-    watchdog('dosomething_rogue', 'Signup not migrated to Rogue: northstar_id: !northstar_id, campaign_id: !campaign_id, campaign run_nid: !campaign_run_id.', ['!northstar_id' => $values['northstar_id'], '!campaign_id' => $values['campaign_id'], '!campaign_run_id' => $values['campaign_run_id']], WATCHDOG_ERROR);
   } else {
     watchdog('dosomething_rogue', 'Reportback item status not migrated to Rogue: Rogue item id: !rogue_item_id, status: !status.', ['!rogue_item_id' => $values['rogue_event_id'], '!status' => $values['status']], WATCHDOG_ERROR);
   }
+}
+
+/**
+ * Insert record that stores the request data of to a signup that did
+ * not successfully post to Rogue
+ *
+ * @param array  $values
+ * @param array  $response
+ * @param int $failed_task_id
+ * @param object $user
+ * @param object $e
+ *
+ */
+function dosomething_rogue_handle_signup_failure($values, $response = NULL, $failed_task_id = NULL, $user = NULL, $e = NULL) {
+  if (module_exists('stathat')) {
+    stathat_send_ez_count('drupal - Rogue - signup failed - count', 1);
+  }
+
+  // If the signup has previously failed, do not enter a new record.
+  // Instead, increment the number of tries and update the time of most recent attempt to send to Rogue.
+  if (! is_null($failed_task_id)) {
+    $previously_failed = array_pop(dosomething_rogue_previously_failed($failed_task_id));
+    update_failed_task_log($previously_failed);
+  } else {
+    insert_failed_task_into_failed_task_log($values, $response, $e, $user);
+  }
+
+  // Save fail to a db log so we can easily export.
+  watchdog('dosomething_rogue', 'Signup not migrated to Rogue: northstar_id: !northstar_id, campaign_id: !campaign_id, campaign run_nid: !campaign_run_id.', ['!northstar_id' => $values['northstar_id'], '!campaign_id' => $values['campaign_id'], '!campaign_run_id' => $values['campaign_run_id']], WATCHDOG_ERROR);
 }
 
 /**
@@ -408,6 +433,7 @@ function insert_failed_task_into_failed_task_log($values, $response = NULL, $e =
             'response_code' => (isset($response->code)) ? $response->code : NULL,
             'response_values' => (isset($e)) ? $e->getMessage() : NULL,
             'type' => $values['type'],
+            'failed_at' => REQUEST_TIME,
           ])
           ->execute();
   } else {
@@ -464,15 +490,15 @@ function dosomething_rogue_send_signup_to_rogue($values, $user = NULL, $failed_t
     }
     if (!$response) {
       // This is a 404
-      dosomething_rogue_handle_failure($data, $response, $failed_task_id, $user);
+      dosomething_rogue_handle_signup_failure($data, $response, $failed_task_id, $user);
     }
   }
   catch (GuzzleHttp\Exception\ServerException $e) {
     // These aren't yet caught by Gateway
-    dosomething_rogue_handle_failure($data, $response, $failed_task_id, $user, $e);
+    dosomething_rogue_handle_signup_failure($data, $response, $failed_task_id, $user, $e);
   }
   catch (DoSomething\Gateway\Exceptions\ApiException $e) {
-    dosomething_rogue_handle_failure($data, $response, $failed_task_id, $user, $e);
+    dosomething_rogue_handle_signup_failure($data, $response, $failed_task_id, $user, $e);
   }
 
   return $response;
