@@ -114,6 +114,12 @@ function dosomething_signup_schema() {
         'not null' => TRUE,
         'default' => 0,
       ),
+      'custom_social_share_signup' => [
+        'description' => 'Boolean indicating this is a custom social share signup form',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ],
       'link_text' => array(
         'description' => 'The text to display in the link to the form.',
         'type' => 'varchar',

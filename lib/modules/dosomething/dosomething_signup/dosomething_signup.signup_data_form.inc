@@ -104,6 +104,12 @@ function dosomething_signup_node_signup_data_form($form, &$form_state, $node) {
       ),
     ),
   );
+  $form[$fieldset]['config'][$prefix . 'custom_social_share_signup'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Enable Custom Share Modal'),
+    '#default_value' => $values['custom_social_share_signup'],
+    '#description' => t('If checked, the custom social share modal will be enabled after a user signs up.'),
+  );
   $form[$fieldset]['config'][$prefix . 'link_text'] = array(
     '#type' => 'textfield',
     '#title' => t('Link text'),
@@ -265,6 +271,7 @@ function dosomething_signup_node_signup_data_form_submit(&$form, &$form_state) {
         'required' => $values[$prefix . 'required'],
         'required_allow_skip' => $values[$prefix . 'required_allow_skip'],
         'competition_signup' => $values[$prefix . 'competition_signup'],
+        'custom_social_share_signup' => $values[$prefix . 'custom_social_share_signup'],
         'link_text' => $values[$prefix . 'link_text'],
         'submit_text' => $values[$prefix . 'submit_text'],
         'skip_text' => $values[$prefix . 'skip_text'],
