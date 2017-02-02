@@ -299,7 +299,9 @@ function _campaign_resource_signup($nid, $values) {
       $rogue_signup = dosomething_rogue_send_signup_to_rogue($values);
 
       // Store the reference to the Rogue signup
-      return dosomething_rogue_check_sid_and_store_ref($rogue_signup);
+      if ($rogue_signup) {
+        return dosomething_rogue_check_sid_and_store_ref($rogue_signup);
+      }
     }
     // The request is not from Rogue and we don't want to send it there, so just save to Phoenix
     else {
