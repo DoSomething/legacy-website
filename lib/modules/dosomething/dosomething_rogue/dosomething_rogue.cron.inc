@@ -58,7 +58,7 @@ function dosomething_rogue_retry_failed_reportbacks() {
           [
             'rogue_event_id' => $task->rogue_event_id,
             'status' => $task->status,
-            'event_type' => 'post_photo',
+            'event_type' => 'review_photo',
           ]
         ];
 

@@ -298,7 +298,7 @@ function dosomething_reportback_files_form_submit($form, &$form_state) {
         $data = [
           'rogue_event_id' => $rogue_item_id[0]->rogue_event_id,
           'status' => $rogue_status,
-          'event_type' => 'post_photo',
+          'event_type' => 'review_photo',
         ];
 
         $updates_to_send_to_rogue[] = $data;
