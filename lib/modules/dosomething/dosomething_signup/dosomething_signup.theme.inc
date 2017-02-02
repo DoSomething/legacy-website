@@ -66,5 +66,5 @@ function dosomething_signup_get_signup_button($label, $nid, $form_id) {
   // Otherwise, for anonymous user, return a #markup array to be rendered.
   $node = node_load($nid);
 
-  return ['#markup' => dosomething_user_get_sign_up_link_markup($label, $nid, $node->title)];
+  return drupal_get_form('dosomething_signup_unauthenticated_form', $nid, $label);
 }
