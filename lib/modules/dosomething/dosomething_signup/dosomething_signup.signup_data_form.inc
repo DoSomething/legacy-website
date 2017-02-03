@@ -316,11 +316,21 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
     '#value' => $signup->run_nid,
     '#access' => FALSE,
   );
-  $form['header'] = array(
-    '#prefix' => '<div class="modal__block"><h2 class="heading">',
-    '#markup' => $config['form_header'],
-    '#suffix' => '</h2></div>',
-  );
+
+  // If custom social share signup is turned on, use the $config['form_header'] from signup data form.
+  if ($config['custom_social_share_signup']) {
+    $form['header'] = array(
+      '#prefix' => '<div class="modal__block"><h2 class="heading">',
+      '#markup' => dosomething_helpers_get_variable('node', $signup->nid, 'social_share_custom_text'),
+      '#suffix' => '</h2></div>',
+    );
+  } else {
+    $form['header'] = array(
+      '#prefix' => '<div class="modal__block"><h2 class="heading">',
+      '#markup' => $config['form_header'],
+      '#suffix' => '</h2></div>',
+    );
+  }
 
   // If the user has submitted form already:
   if (($timestamp = $signup->signup_data_form_timestamp) && $signup->signup_data_form_response == 1) {
@@ -465,16 +475,19 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
     '#suffix' => '</div></div>',
   );
 
-  $submit_label = ($config['submit_text']) ? t($config['submit_text']) : t('Submit');
-  $form['actions']['submit'] = array(
-    '#type' => 'submit',
-    '#value' => $submit_label,
-    '#attributes' => array(
-      'class' => array(
-        'button',
+// if enable custom share modal is on, do not show this submit button.
+  if (! $config['custom_social_share_signup']) {
+    $submit_label = ($config['submit_text']) ? t($config['submit_text']) : t('Submit');
+    $form['actions']['submit'] = array(
+      '#type' => 'submit',
+      '#value' => $submit_label,
+      '#attributes' => array(
+        'class' => array(
+          'button',
+        ),
       ),
-    ),
-  );
+    );
+  }
 
   // @todo Hacky solution to deal with form elements when no elements added and eliminate empty container added.
   // @see https://github.com/DoSomething/phoenix/pull/5809
