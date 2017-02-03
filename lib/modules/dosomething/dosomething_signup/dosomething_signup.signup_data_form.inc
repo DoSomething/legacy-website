@@ -324,11 +324,70 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
       '#markup' => dosomething_helpers_get_variable('node', $signup->nid, 'social_share_custom_text'),
       '#suffix' => '</h2></div>',
     );
+
+    $form['copy'] = array(
+      '#prefix' => '<div class="modal__block"><p>',
+      '#markup' => dosomething_helpers_get_variable('node', $signup->nid, 'social_share_custom_description'),
+      '#suffix' => '</p></div>',
+    );
+
+    $form['custom_social_share_signup_img'] = array(
+    // '#type' => 'markup',
+    '#prefix' => '<imc src="',
+    '#markup' => dosomething_helpers_get_variable('node', $signup->nid, 'share_image_nid'),
+    '#suffix' => '">',
+  );
+
+      // Add social share bar.
+  // $custom_social_copy_variables = [
+  //   'custom_facebook_copy' => $campaign->variables['custom_facebook_copy'],
+  //   'custom_twitter_copy' => $campaign->variables['custom_twitter_copy'],
+  //   'custom_tumblr_copy' => $campaign->variables['custom_tumblr_copy'],
+  // ];
+
+  // foreach ($custom_social_copy_variables as $key => $value) {
+  //   if ($value) {
+  //     $$key = $value;
+  //   }
+  //   elseif (isset($campaign->fact_problem['fact'])) {
+  //     $$key = $campaign->fact_problem['fact'];
+  //   }
+  //   else {
+  //     $$key = NULL;
+  //   }
+  // }
+  // $social_share_types = array(
+  //   'facebook' => array(
+  //     'type' => 'feed_dialog',
+  //     'parameters' => array(
+  //     'picture' => $vars['share_image'],
+  //     'caption' => $custom_facebook_copy,
+  //   ),
+  // ),
+  //   'twitter' => array(
+  //     'tweet' => $custom_twitter_copy,
+  //   ),
+  //   'tumblr' => array(
+  //     'posttype' => 'photo',
+  //     'content' => $vars['share_image'],
+  //     'caption' => $custom_tumblr_copy,
+  //   ),
+  // );
+
+  // $share_button_markup = dosomething_helpers_share_bar($campaign_path, $social_share_types, $campaign->nid . '_referral', 'social-menu', $share_path);
+  // $vars['social_share_bar'] = $share_button_markup;
+  // $vars['custom_social_share_link'] = $custom_social_share_link;
   } else {
     $form['header'] = array(
       '#prefix' => '<div class="modal__block"><h2 class="heading">',
       '#markup' => $config['form_header'],
       '#suffix' => '</h2></div>',
+    );
+
+    $form['copy'] = array(
+      '#prefix' => '<div class="modal__block"><p>',
+      '#markup' => $config['form_copy'],
+      '#suffix' => '</p></div>',
     );
   }
 
@@ -346,11 +405,6 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
     return $form;
   }
 
-  $form['copy'] = array(
-    '#prefix' => '<div class="modal__block"><p>',
-    '#markup' => $config['form_copy'],
-    '#suffix' => '</p></div>',
-  );
 
   // Container for form elements
   $form['elements'] = array(
