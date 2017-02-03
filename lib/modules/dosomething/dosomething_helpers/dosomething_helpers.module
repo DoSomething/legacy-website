@@ -290,7 +290,24 @@ function dosomething_helpers_extract_id($data, $property = 'nid') {
  * @return void
  */
 function dosomething_helpers_export_csv(array $data) {
-  // @TODO: export the data!
+  foreach ($data as $category => $content) {
+    header('Content-Type: text/csv; charset=utf-8');
+    header('Content-Disposition: attachment; filename='.$content['filename']);
+
+    $output = fopen('php://output', 'w');
+
+    $content['column_names'] = array_map(function($name) {
+      return ucwords(str_replace('_', ' ', $name));
+    }, $content['column_names']);
+
+    fputcsv($output, $content['column_names']);
+
+    foreach($content['items'] as $row) {
+      fputcsv($output, (array) $row);
+    }
+  }
+
+  exit();
 }
 
 
