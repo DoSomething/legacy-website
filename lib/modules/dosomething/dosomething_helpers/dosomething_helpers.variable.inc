@@ -453,8 +453,6 @@ function dosomething_helpers_set_variable($entity_type, $entity_id, $var_name, $
 function dosomething_helpers_exports_form($form, &$form_state, $node) {
   $campaign = Campaign::get($node->nid);
 
-  dump($campaign);
-
   $form['exports'] = [
     '#type' => 'fieldset',
     '#title' => t('Exports'),
@@ -467,11 +465,21 @@ function dosomething_helpers_exports_form($form, &$form_state, $node) {
     '#title' => t('Export CSV of users that opted to receive affiliate messaging.'),
     '#default_value' => FALSE,
   ];
-  // $form['nid'] = array(
-  //   '#type' => 'hidden',
-  //   '#value' => $nid,
-  //   '#access' => TRUE,
-  // );
+  $form['campaign_title'] = array(
+    '#type' => 'hidden',
+    '#value' => $campaign->title,
+    '#access' => TRUE,
+  );
+  $form['campaign_id'] = array(
+    '#type' => 'hidden',
+    '#value' => $campaign->id,
+    '#access' => TRUE,
+  );
+  $form['campaign_run_id'] = array(
+    '#type' => 'hidden',
+    '#value' => $campaign->campaign_runs['current']['en']['id'],
+    '#access' => TRUE,
+  );
   $form['exports']['actions'] = [
     '#type' => 'actions',
     'submit' => [
@@ -489,18 +497,29 @@ function dosomething_helpers_exports_form($form, &$form_state, $node) {
  */
 function dosomething_helpers_exports_form_submit(&$form, &$form_state) {
   $data = [];
+  $values = $form_state['values'];
 
-  dump($form);
-  dump($form_state);
-  die();
+  if ($values['export_affiliate_messaging_optins']) {
+    $fields = ['campaign_id', 'campaign_run_id', 'northstar_id', 'first_name', 'email', 'mobile'];
 
-  if ($form_state['values']['export_affiliate_messaging_optins']) {
-    // @TODO: gather the data to export!
+    $data['affiliate_messaging_optins']['filename'] = 'Messaging Optins For '.$values['campaign_title'].'.csv';
+
+    $data['affiliate_messaging_optins']['column_names'] = $fields;
+
+    $data['affiliate_messaging_optins']['items'] = db_select('dosomething_campaign_affiliate_opt_ins', 'optins')
+      ->fields('optins', $fields)
+      ->condition('campaign_id', $values['campaign_id'])
+      ->condition('campaign_run_id', $values['campaign_run_id'])
+      ->execute()
+      ->fetchAll();
   }
 
-  dosomething_helpers_export_csv($data);
+  if ($data) {
+    // Selected data will export as CSV and process exit()s.
+    dosomething_helpers_export_csv($data);
+  }
 
-  drupal_set_message('Check yer downloads folder kiddo.');
+  form_set_error('dosomething_helpers_export_error', 'Please make sure to select one or more items to export!');
 }
 
 /**
