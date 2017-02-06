@@ -337,52 +337,60 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
       '#suffix' => '">',
     );
 
-    // $form['custom_social_share_signup_img'] = array(
-    //   // '#type' => 'markup',
-    //   '#prefix' => '<img src="',
-    //   '#markup' => dosomething_helpers_get_variable('node', $signup->nid, 'share_image_nid'),
-    //   '#suffix' => '">',
-    // );
+    $custom_social_copy_variables = [
+      'custom_facebook_copy' => dosomething_helpers_get_variable('node', $signup->nid, 'custom_facebook_copy'),
+      'custom_twitter_copy' => dosomething_helpers_get_variable('node', $signup->nid, 'custom_twitter_copy'),
+      'custom_tumblr_copy' => dosomething_helpers_get_variable('node', $signup->nid, 'custom_tumblr_copy'),
+    ];
 
-      // Add social share bar.
-  // $custom_social_copy_variables = [
-  //   'custom_facebook_copy' => $campaign->variables['custom_facebook_copy'],
-  //   'custom_twitter_copy' => $campaign->variables['custom_twitter_copy'],
-  //   'custom_tumblr_copy' => $campaign->variables['custom_tumblr_copy'],
-  // ];
+    $campaign = node_load($signup->nid);
 
-  // foreach ($custom_social_copy_variables as $key => $value) {
-  //   if ($value) {
-  //     $$key = $value;
-  //   }
-  //   elseif (isset($campaign->fact_problem['fact'])) {
-  //     $$key = $campaign->fact_problem['fact'];
-  //   }
-  //   else {
-  //     $$key = NULL;
-  //   }
-  // }
-  // $social_share_types = array(
-  //   'facebook' => array(
-  //     'type' => 'feed_dialog',
-  //     'parameters' => array(
-  //     'picture' => $vars['share_image'],
-  //     'caption' => $custom_facebook_copy,
-  //   ),
-  // ),
-  //   'twitter' => array(
-  //     'tweet' => $custom_twitter_copy,
-  //   ),
-  //   'tumblr' => array(
-  //     'posttype' => 'photo',
-  //     'content' => $vars['share_image'],
-  //     'caption' => $custom_tumblr_copy,
-  //   ),
-  // );
+    foreach ($custom_social_copy_variables as $key => $value) {
+      if ($value) {
+        $$key = $value;
+      }
+      elseif (isset($campaign->field_fact_problem['en'][0]['entity']->title)) {
+        $$key = $campaign->field_fact_problem['en'][0]['entity']->title;
+      }
+      else {
+        $$key = NULL;
+      }
+    }
 
-  // $share_button_markup = dosomething_helpers_share_bar($campaign_path, $social_share_types, $campaign->nid . '_referral', 'social-menu', $share_path);
-  // $vars['social_share_bar'] = $share_button_markup;
-  // $vars['custom_social_share_link'] = $custom_social_share_link;
+    $social_share_types = array(
+      'facebook' => array(
+        'type' => 'feed_dialog',
+        'parameters' => array(
+        'picture' => dosomething_image_get_themed_image_url(dosomething_helpers_get_variable('node', $signup->nid, 'share_image_nid'), 'landscape'),
+        'caption' => $custom_facebook_copy,
+      ),
+    ),
+      'twitter' => array(
+        'tweet' => $custom_twitter_copy,
+      ),
+      'tumblr' => array(
+        'posttype' => 'photo',
+        'content' => dosomething_image_get_themed_image_url(dosomething_helpers_get_variable('node', $signup->nid, 'share_image_nid'), 'landscape'),
+        'caption' => $custom_tumblr_copy,
+      ),
+    );
+
+    $campaign_path = url(current_path(), array('absolute' => TRUE));
+
+    if (dosomething_user_get_field('field_northstar_id')) {
+      $share_path = 'user/' . dosomething_user_get_field('field_northstar_id');
+    }
+    else {
+      $share_path = 'user/' . dosomething_user_get_field('uid');
+    }
+
+    $share_button_markup = dosomething_helpers_share_bar($campaign_path, $social_share_types, $campaign->nid . '_referral', 'social-menu', $share_path);
+
+    $form['custom_social_share_bar'] = array(
+      '#prefix' => '<div class="modal__block"><p>',
+      '#markup' => $share_button_markup,
+      '#suffix' => '</p></div>',
+    );
   } else {
     $form['header'] = array(
       '#prefix' => '<div class="modal__block"><h2 class="heading">',
