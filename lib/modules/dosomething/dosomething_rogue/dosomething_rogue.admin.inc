@@ -41,7 +41,7 @@ function dosomething_rogue_config_form($form, &$form_state) {
     '#type' => 'checkbox',
     '#title' => t('Send reportbacks to rogue'),
     '#description' => t('If set, when a user submits a reportback it will be sent to our reportback service.'),
-    '#default_value' => variable_get('rogue_collection', TRUE),
+    '#default_value' => variable_get('rogue_collection', FALSE),
     '#size' => 20,
   ];
 
