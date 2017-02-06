@@ -197,6 +197,10 @@ function dosomething_northstar_save_id_field($uid, $northstar_response) {
   $northstar_id = !empty($northstar_response['data']['id']) ? $northstar_response['data']['id'] : null;
   $user = user_load($uid);
 
+  if (is_null($northstar_id)) {
+    return;
+  }
+
   // Save a record to the `authmap` table if Northstar user exists:
   user_set_authmaps($user, ['authname_openid_connect_northstar' => $northstar_id]);
 
