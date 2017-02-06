@@ -332,11 +332,17 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
     );
 
     $form['custom_social_share_signup_img'] = array(
-    // '#type' => 'markup',
-    '#prefix' => '<imc src="',
-    '#markup' => dosomething_helpers_get_variable('node', $signup->nid, 'share_image_nid'),
-    '#suffix' => '">',
-  );
+      '#prefix' => '<img src="',
+      '#markup' => dosomething_image_get_themed_image_url(dosomething_helpers_get_variable('node', $signup->nid, 'share_image_nid'), 'landscape'),
+      '#suffix' => '">',
+    );
+
+    // $form['custom_social_share_signup_img'] = array(
+    //   // '#type' => 'markup',
+    //   '#prefix' => '<img src="',
+    //   '#markup' => dosomething_helpers_get_variable('node', $signup->nid, 'share_image_nid'),
+    //   '#suffix' => '">',
+    // );
 
       // Add social share bar.
   // $custom_social_copy_variables = [
