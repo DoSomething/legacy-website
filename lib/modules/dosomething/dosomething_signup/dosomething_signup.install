@@ -735,27 +735,9 @@ function dosomething_signup_update_7026() {
     'description' => 'Boolean indicating this is a custom social share signup form',
     'length' => 11,
     'not null' => TRUE,
-    'default' => 1,
+    'default' => 0,
   );
   if (!db_field_exists($table, 'custom_social_share_signup')) {
     db_add_field($table, 'custom_social_share_signup', $spec);
-  }
-}
-
-/**
- * Updates so 'Collect additional signup data' checkbox is checked by default.
- *
- */
-function dosomething_signup_update_7027() {
-  $table = 'dosomething_signup_data_form';
-  if (db_table_exists($table)) {
-    $spec = [
-        'description' => 'Boolean indicating the form is enabled.',
-        'type' => 'int',
-        'not null' => TRUE,
-        'default' => 1,
-    ];
-
-    db_change_field($table, 'status', 'status', $spec);
   }
 }
