@@ -55,6 +55,7 @@ function dosomething_signup_node_signup_data_form($form, &$form_state, $node) {
     '#weight' => 60,
     '#collapsible' => TRUE,
     '#collapsed' => FALSE,
+    '#description' => t('Note: you must either chose Competition Signup or Enable Custom Share Modal, cannot have both.'),
     // Config fieldset should only be visible if the status field is checked.
     '#states' => array(
       'visible' => array(
@@ -72,7 +73,13 @@ function dosomething_signup_node_signup_data_form($form, &$form_state, $node) {
     '#type' => 'checkbox',
     '#title' => t('Competition Signup'),
     '#default_value' => $values['competition_signup'],
-    '#description' => t('If checked, when the user submits this form, they will be entered into a competition'),
+    '#description' => t('If checked, when the user submits this form, they will be entered into a competition.'),
+  );
+  $form[$fieldset]['config'][$prefix . 'custom_social_share_signup'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Enable Custom Share Modal'),
+    '#default_value' => $values['custom_social_share_signup'],
+    '#description' => t('If checked, the custom social share modal will be enabled after a user signs up.'),
   );
   $form[$fieldset]['config'][$prefix . 'required_allow_skip'] = array(
     '#type' => 'checkbox',
@@ -103,12 +110,6 @@ function dosomething_signup_node_signup_data_form($form, &$form_state, $node) {
         ':input[name="' . $prefix . 'prevent_old_people_submit"]' => array('checked' => TRUE),
       ),
     ),
-  );
-  $form[$fieldset]['config'][$prefix . 'custom_social_share_signup'] = array(
-    '#type' => 'checkbox',
-    '#title' => t('Enable Custom Share Modal'),
-    '#default_value' => $values['custom_social_share_signup'],
-    '#description' => t('If checked, the custom social share modal will be enabled after a user signs up.'),
   );
   $form[$fieldset]['config'][$prefix . 'link_text'] = array(
     '#type' => 'textfield',
