@@ -324,7 +324,7 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
 
     $campaign = dosomething_campaign_load(node_load($signup->nid));
 
-    $social_share_types = dosomething_helpers_social_share_types($campaign);
+    $social_share_types = dosomething_helpers_campaign_page_social_share_types($campaign);
 
     $campaign_path = url(current_path(), array('absolute' => TRUE));
 

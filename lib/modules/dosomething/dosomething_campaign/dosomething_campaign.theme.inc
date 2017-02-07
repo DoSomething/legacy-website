@@ -446,7 +446,7 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
   }
 
   // Add custom social share bar.
-  $social_share_types = dosomething_helpers_social_share_types($campaign);
+  $social_share_types = dosomething_helpers_campaign_page_social_share_types($campaign);
 
   $share_button_markup = dosomething_helpers_share_bar($campaign_path, $social_share_types, $campaign->nid . '_referral', 'social-menu', $share_path);
 
@@ -588,52 +588,4 @@ function dosomething_campaign_preprocess_closed_reportback_gallery(&$vars, $styl
   }
 }
 
-/**
- * Return social share types and custom content.
- *
- * @param object $campaign
- *   The campaign object to get custom content from.
- * @return array $social share types
- *   An array of social share types and custom content.
- */
 
-function dosomething_helpers_social_share_types($campaign) {
-  $custom_social_copy_variables = [
-    'custom_facebook_copy' => dosomething_helpers_get_variable('node', $campaign->nid, 'custom_facebook_copy'),
-    'custom_twitter_copy' => dosomething_helpers_get_variable('node', $campaign->nid, 'custom_twitter_copy'),
-    'custom_tumblr_copy' => dosomething_helpers_get_variable('node', $campaign->nid, 'custom_tumblr_copy'),
-  ];
-
-  foreach ($custom_social_copy_variables as $key => $value) {
-    if ($value) {
-      $$key = $value;
-    }
-    elseif (isset($campaign->fact_problem['fact'])) {
-      $$key = $campaign->fact_problem['fact'];
-    }
-    else {
-      $$key = NULL;
-    }
-  }
-
-  $social_share_types = array(
-    'facebook' => array(
-      'type' => 'feed_dialog',
-      'parameters' => array(
-      'picture' => dosomething_image_get_themed_image_url(dosomething_helpers_get_variable('node', $campaign->nid, 'share_image_nid'), 'landscape'),
-      'caption' => $custom_facebook_copy,
-    ),
-    ),
-    'twitter' => array(
-      'tweet' => $custom_twitter_copy,
-    ),
-    'tumblr' => array(
-      'posttype' => 'photo',
-      'content' => dosomething_image_get_themed_image_url(dosomething_helpers_get_variable('node', $campaign->nid, 'share_image_nid'), 'landscape'),
-      'caption' => $custom_tumblr_copy,
-    ),
-  );
-
-  return $social_share_types;
-
-}
