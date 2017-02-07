@@ -21,13 +21,28 @@ foreach($wild_typers as $wilder) {
     user_save($user, ['mail' => 'bad-email-' . $user->uid . '@dosomething.invalid']);
   }
 
-  // Now, update the corresponding profile in Northstar & save ID to authmap table.
-  $response = dosomething_northstar_update_user($user);
-  dosomething_northstar_save_id_field($user->uid, $response);
+  try {
+    $response = NULL;
 
-  // If user 404'd on Northstar, try to create them.
-  if (is_null($response)) {
-    dosomething_northstar_create_user($user, $password);
+    // Update the corresponding profile in Northstar if we have one.
+    $id = dosomething_user_get_field('field_northstar_id', $user);
+    if ($id) {
+      $response = dosomething_northstar_client()
+        ->put('v1/users/id/'.$id, dosomething_northstar_transform_user($user));
+    }
+
+    // If user didn't have ID or 404'd on Northstar, try to create them.
+    if (empty($response)) {
+      $response = dosomething_northstar_client()
+        ->post('v1/users', dosomething_northstar_transform_user($user));
+
+      // And save an updated ID field.
+      dosomething_northstar_save_id_field($user->uid, $response);
+    }
+
+    print 'Updated Northstar profile: ' . $response['data']['id'] . PHP_EOL;
+  } catch (\DoSomething\Gateway\Exceptions\ApiException $e) {
+    print 'Received an exception when trying to sync ' . $user->uid . ': ' . $e->getMessage() . PHP_EOL;
   }
 }
 
