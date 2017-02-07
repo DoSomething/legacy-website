@@ -55,6 +55,7 @@ function dosomething_signup_node_signup_data_form($form, &$form_state, $node) {
     '#weight' => 60,
     '#collapsible' => TRUE,
     '#collapsed' => FALSE,
+    '#description' => t('Note: You must either chose Competition Signup or Enable Custom Share Modal, you cannot have both. To customize the Competition Signup, fill out the below fields. To customize the Custom Social Share, scroll up to "Custom Social Sharing" section and fill out fields.'),
     // Config fieldset should only be visible if the status field is checked.
     '#states' => array(
       'visible' => array(
@@ -72,7 +73,13 @@ function dosomething_signup_node_signup_data_form($form, &$form_state, $node) {
     '#type' => 'checkbox',
     '#title' => t('Competition Signup'),
     '#default_value' => $values['competition_signup'],
-    '#description' => t('If checked, when the user submits this form, they will be entered into a competition'),
+    '#description' => t('If checked, when the user submits this form, they will be entered into a competition.'),
+  );
+  $form[$fieldset]['config'][$prefix . 'custom_social_share_signup'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Enable Custom Share Modal'),
+    '#default_value' => $values['custom_social_share_signup'],
+    '#description' => t('If checked, the custom social share modal will be enabled after a user signs up.'),
   );
   $form[$fieldset]['config'][$prefix . 'required_allow_skip'] = array(
     '#type' => 'checkbox',
@@ -235,22 +242,6 @@ function dosomething_signup_node_signup_data_form($form, &$form_state, $node) {
 }
 
 /**
- * Validates node signup_data_form values.
- */
-function dosomething_signup_node_signup_data_form_validate(&$form, &$form_state) {
-  $values = $form_state['values'];
-  $prefix = 'signup_data_form_';
-  // If signup data form is enabled:
-  if ($values[$prefix . 'status'] == 1) {
-    // Confirm_msg is mandatory.
-    $confirm_msg = $prefix . 'confirm_msg';
-    if (empty($values[$confirm_msg])) {
-      form_set_error($confirm_msg, t('Signup Data Form Confirmation message is mandatory.'));
-    }
-  }
-}
-
-/**
  * Saves node signup_data_form values into dosomething_signup_data_form.
  */
 function dosomething_signup_node_signup_data_form_submit(&$form, &$form_state) {
@@ -265,6 +256,7 @@ function dosomething_signup_node_signup_data_form_submit(&$form, &$form_state) {
         'required' => $values[$prefix . 'required'],
         'required_allow_skip' => $values[$prefix . 'required_allow_skip'],
         'competition_signup' => $values[$prefix . 'competition_signup'],
+        'custom_social_share_signup' => $values[$prefix . 'custom_social_share_signup'],
         'link_text' => $values[$prefix . 'link_text'],
         'submit_text' => $values[$prefix . 'submit_text'],
         'skip_text' => $values[$prefix . 'skip_text'],
@@ -309,11 +301,60 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
     '#value' => $signup->run_nid,
     '#access' => FALSE,
   );
-  $form['header'] = array(
-    '#prefix' => '<div class="modal__block"><h2 class="heading">',
-    '#markup' => $config['form_header'],
-    '#suffix' => '</h2></div>',
-  );
+
+  // If custom social share signup is turned on, use the $config['form_header'] from signup data form.
+  if ($config['custom_social_share_signup']) {
+    $form['header'] = array(
+      '#prefix' => '<div class="modal__block"><h2 class="heading">',
+      '#markup' => dosomething_helpers_get_variable('node', $signup->nid, 'social_share_custom_text'),
+      '#suffix' => '</h2></div>',
+    );
+
+    $form['copy'] = array(
+      '#prefix' => '<div class="modal__block"><p>',
+      '#markup' => dosomething_helpers_get_variable('node', $signup->nid, 'social_share_custom_description'),
+      '#suffix' => '</p></div>',
+    );
+
+    $form['custom_social_share_signup_img'] = array(
+      '#prefix' => '<img src="',
+      '#markup' => dosomething_image_get_themed_image_url(dosomething_helpers_get_variable('node', $signup->nid, 'share_image_nid'), 'landscape'),
+      '#suffix' => '">',
+    );
+
+    $campaign = dosomething_campaign_load(node_load($signup->nid));
+
+    $social_share_types = dosomething_helpers_campaign_page_social_share_types($campaign);
+
+    $campaign_path = url(current_path(), array('absolute' => TRUE));
+
+    if (dosomething_user_get_field('field_northstar_id')) {
+      $share_path = 'user/' . dosomething_user_get_field('field_northstar_id');
+    }
+    else {
+      $share_path = 'user/' . dosomething_user_get_field('uid');
+    }
+
+    $share_button_markup = dosomething_helpers_share_bar($campaign_path, $social_share_types, $campaign->nid . '_referral', 'social-menu', $share_path);
+
+    $form['custom_social_share_bar'] = array(
+      '#prefix' => '<div class="modal__block"><p>',
+      '#markup' => $share_button_markup,
+      '#suffix' => '</p></div>',
+    );
+  } else {
+    $form['header'] = array(
+      '#prefix' => '<div class="modal__block"><h2 class="heading">',
+      '#markup' => $config['form_header'],
+      '#suffix' => '</h2></div>',
+    );
+
+    $form['copy'] = array(
+      '#prefix' => '<div class="modal__block"><p>',
+      '#markup' => $config['form_copy'],
+      '#suffix' => '</p></div>',
+    );
+  }
 
   // If the user has submitted form already:
   if (($timestamp = $signup->signup_data_form_timestamp) && $signup->signup_data_form_response == 1) {
@@ -329,11 +370,6 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
     return $form;
   }
 
-  $form['copy'] = array(
-    '#prefix' => '<div class="modal__block"><p>',
-    '#markup' => $config['form_copy'],
-    '#suffix' => '</p></div>',
-  );
 
   // Container for form elements
   $form['elements'] = array(
@@ -458,16 +494,19 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
     '#suffix' => '</div></div>',
   );
 
-  $submit_label = ($config['submit_text']) ? t($config['submit_text']) : t('Submit');
-  $form['actions']['submit'] = array(
-    '#type' => 'submit',
-    '#value' => $submit_label,
-    '#attributes' => array(
-      'class' => array(
-        'button',
+// if enable custom share modal is on, do not show this submit button.
+  if (! $config['custom_social_share_signup']) {
+    $submit_label = ($config['submit_text']) ? t($config['submit_text']) : t('Submit');
+    $form['actions']['submit'] = array(
+      '#type' => 'submit',
+      '#value' => $submit_label,
+      '#attributes' => array(
+        'class' => array(
+          'button',
+        ),
       ),
-    ),
-  );
+    );
+  }
 
   // @todo Hacky solution to deal with form elements when no elements added and eliminate empty container added.
   // @see https://github.com/DoSomething/phoenix/pull/5809

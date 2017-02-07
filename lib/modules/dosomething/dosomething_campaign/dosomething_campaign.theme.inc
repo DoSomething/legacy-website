@@ -445,42 +445,8 @@ function dosomething_campaign_preprocess_action_page(&$vars, &$wrapper) {
       $vars['show_social_share_link'] = $campaign->variables['show_social_share_link'];
   }
 
-  // Add social share bar.
-  $custom_social_copy_variables = [
-    'custom_facebook_copy' => $campaign->variables['custom_facebook_copy'],
-    'custom_twitter_copy' => $campaign->variables['custom_twitter_copy'],
-    'custom_tumblr_copy' => $campaign->variables['custom_tumblr_copy'],
-  ];
-
-  foreach ($custom_social_copy_variables as $key => $value) {
-    if ($value) {
-      $$key = $value;
-    }
-    elseif (isset($campaign->fact_problem['fact'])) {
-      $$key = $campaign->fact_problem['fact'];
-    }
-    else {
-      $$key = NULL;
-    }
-  }
-
-  $social_share_types = array(
-    'facebook' => array(
-      'type' => 'feed_dialog',
-      'parameters' => array(
-      'picture' => $vars['share_image'],
-      'caption' => $custom_facebook_copy,
-    ),
-  ),
-    'twitter' => array(
-      'tweet' => $custom_twitter_copy,
-    ),
-    'tumblr' => array(
-      'posttype' => 'photo',
-      'content' => $vars['share_image'],
-      'caption' => $custom_tumblr_copy,
-    ),
-  );
+  // Add custom social share bar.
+  $social_share_types = dosomething_helpers_campaign_page_social_share_types($campaign);
 
   $share_button_markup = dosomething_helpers_share_bar($campaign_path, $social_share_types, $campaign->nid . '_referral', 'social-menu', $share_path);
 
@@ -621,3 +587,5 @@ function dosomething_campaign_preprocess_closed_reportback_gallery(&$vars, $styl
     $vars['reportback_gallery'][$delta]['first_name'] = dosomething_user_get_field('field_first_name', $account);
   }
 }
+
+
