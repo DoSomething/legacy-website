@@ -241,22 +241,6 @@ function dosomething_signup_node_signup_data_form($form, &$form_state, $node) {
 }
 
 /**
- * Validates node signup_data_form values.
- */
-function dosomething_signup_node_signup_data_form_validate(&$form, &$form_state) {
-  $values = $form_state['values'];
-  $prefix = 'signup_data_form_';
-  // If signup data form is enabled:
-  if ($values[$prefix . 'status'] == 1) {
-    // Confirm_msg is mandatory.
-    $confirm_msg = $prefix . 'confirm_msg';
-    if (empty($values[$confirm_msg])) {
-      form_set_error($confirm_msg, t('Signup Data Form Confirmation message is mandatory.'));
-    }
-  }
-}
-
-/**
  * Saves node signup_data_form values into dosomething_signup_data_form.
  */
 function dosomething_signup_node_signup_data_form_submit(&$form, &$form_state) {
