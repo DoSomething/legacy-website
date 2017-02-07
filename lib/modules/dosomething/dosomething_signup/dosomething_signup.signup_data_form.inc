@@ -55,7 +55,7 @@ function dosomething_signup_node_signup_data_form($form, &$form_state, $node) {
     '#weight' => 60,
     '#collapsible' => TRUE,
     '#collapsed' => FALSE,
-    '#description' => t('Note: you must either chose Competition Signup or Enable Custom Share Modal, cannot have both.'),
+    '#description' => t('Note: You must either chose Competition Signup or Enable Custom Share Modal, you cannot have both. To customize the Competition Signup, fill out the below fields. To customize the Custom Social Share, scroll up to "Custom Social Sharing" section and fill out fields.'),
     // Config fieldset should only be visible if the status field is checked.
     '#states' => array(
       'visible' => array(
@@ -322,43 +322,9 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
       '#suffix' => '">',
     );
 
-    $custom_social_copy_variables = [
-      'custom_facebook_copy' => dosomething_helpers_get_variable('node', $signup->nid, 'custom_facebook_copy'),
-      'custom_twitter_copy' => dosomething_helpers_get_variable('node', $signup->nid, 'custom_twitter_copy'),
-      'custom_tumblr_copy' => dosomething_helpers_get_variable('node', $signup->nid, 'custom_tumblr_copy'),
-    ];
-
     $campaign = dosomething_campaign_load(node_load($signup->nid));
 
-    foreach ($custom_social_copy_variables as $key => $value) {
-      if ($value) {
-        $$key = $value;
-      }
-      elseif (isset($campaign->fact_problem['fact'])) {
-        $$key = $campaign->fact_problem['fact'];
-      }
-      else {
-        $$key = NULL;
-      }
-    }
-
-    $social_share_types = array(
-      'facebook' => array(
-        'type' => 'feed_dialog',
-        'parameters' => array(
-        'picture' => dosomething_image_get_themed_image_url(dosomething_helpers_get_variable('node', $signup->nid, 'share_image_nid'), 'landscape'),
-        'caption' => $custom_facebook_copy,
-      ),
-    ),
-      'twitter' => array(
-        'tweet' => $custom_twitter_copy,
-      ),
-      'tumblr' => array(
-        'posttype' => 'photo',
-        'content' => dosomething_image_get_themed_image_url(dosomething_helpers_get_variable('node', $signup->nid, 'share_image_nid'), 'landscape'),
-        'caption' => $custom_tumblr_copy,
-      ),
-    );
+    $social_share_types = dosomething_helpers_social_share_types($campaign);
 
     $campaign_path = url(current_path(), array('absolute' => TRUE));
 
