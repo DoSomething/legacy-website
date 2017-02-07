@@ -343,14 +343,14 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
       'custom_tumblr_copy' => dosomething_helpers_get_variable('node', $signup->nid, 'custom_tumblr_copy'),
     ];
 
-    $campaign = node_load($signup->nid);
+    $campaign = dosomething_campaign_load(node_load($signup->nid));
 
     foreach ($custom_social_copy_variables as $key => $value) {
       if ($value) {
         $$key = $value;
       }
-      elseif (isset($campaign->field_fact_problem['en'][0]['entity']->title)) {
-        $$key = $campaign->field_fact_problem['en'][0]['entity']->title;
+      elseif (isset($campaign->fact_problem['fact'])) {
+        $$key = $campaign->fact_problem['fact'];
       }
       else {
         $$key = NULL;

@@ -117,7 +117,6 @@ function dosomething_campaign_load($node, $public = FALSE, $cache = TRUE) {
     $campaign->title = $node->title;
     $campaign->status = dosomething_campaign_is_closed($node) ? 'closed' : 'active';
     $campaign->type = dosomething_campaign_get_campaign_type($node);
-
     $campaign->scholarship = NULL;
     if (array_key_exists($current_lang, $node->field_scholarship_amount)) {
       $campaign->scholarship = (int) $node->field_scholarship_amount[$current_lang][0]['value'];
