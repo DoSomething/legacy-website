@@ -50,16 +50,18 @@ foreach ($signups as $signup) {
       'campaign_id' => $signup->nid,
       'campaign_run_id' => $signup->run_nid,
       'do_not_forward' => TRUE,
-      // @TODO: add timestamps (might still need to format them)
       'created_at' => $created_at,
-      'updated_at' => $created_at, // No way to know when quantity or why_participated were last updated
+      'updated_at' => $created_at, // Set updated same as created, will be overwritten if there was a RB submitted
     ];
 
     // Include all the Reportback data and files if they exist
     if ($signup->rbid) {
       $data['quantity'] = $signup->quantity;
       $data['why_participated'] = $signup->why_participated;
-      $data['updated_at'] = $signups->updated;
+
+      // Match Rogue's timestamp format
+      $updated_at = date('Y-m-d H:i:s', $signup->updated);
+      $data['updated_at'] = $signup->updated; // @TODO: this doesn't seem right, double check when this updates
 
       // Get the files for the Reportback
       $photos = db_query('SELECT rbf.fid, rbf.remote_addr, rbf.caption, rbf.status, rbf.reviewed, rbf.reviewer, rbf.source, rblog.timestamp
@@ -73,6 +75,7 @@ foreach ($signups as $signup) {
         echo "\t\t" . 'got timestamp for file of ' . $photo->timestamp . PHP_EOL;
 
         // Match Rogue's timestamp format
+        $photo_created_at = date('Y-m-d H:i:s', $photo->timestamp);
 
         $data['photo'][$key] = [
           'source' => $photo->source,
@@ -83,6 +86,7 @@ foreach ($signups as $signup) {
           'do_not_forward' => TRUE,
           'file' => dosomething_helpers_get_data_uri_from_fid($photo->fid),
           // @TODO: figure out timestamp situation
+          'created_at' => $photo_created_at,
         ];
       }
 
