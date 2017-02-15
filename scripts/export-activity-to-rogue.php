@@ -67,7 +67,8 @@ foreach ($signups as $signup) {
       $photos = db_query('SELECT rbf.fid, rbf.remote_addr, rbf.caption, rbf.status, rbf.reviewed, rbf.reviewer, rbf.source, rblog.timestamp
                           FROM dosomething_reportback_file rbf
                           INNER JOIN dosomething_reportback_log rblog ON rbf.fid = substring_index(rblog.files, \',\',-1)
-                          WHERE rbf.rbid = ' . $signup->rbid)->fetchAll();
+                          WHERE rbf.rbid = ' . $signup->rbid . '
+                          GROUP BY rbf.fid')->fetchAll();
 
       // Format the photos to send to Rogue
       foreach ($photos as $key=>$photo) {
