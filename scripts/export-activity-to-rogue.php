@@ -54,6 +54,8 @@ foreach ($signups as $signup) {
       'updated_at' => $created_at, // Set updated same as created, will be overwritten if there was a RB submitted
     ];
 
+    $fids = [];
+
     // Include all the Reportback data and files if they exist
     if ($signup->rbid) {
       $data['quantity'] = $signup->quantity;
@@ -73,7 +75,7 @@ foreach ($signups as $signup) {
       // Format the photos to send to Rogue
       foreach ($photos as $key=>$photo) {
         echo "\t" . 'Trying fid ' . $photo->fid . '...' . PHP_EOL;
-        echo "\t\t" . 'got timestamp for file of ' . $photo->timestamp . PHP_EOL;
+        array_push($fids, $photo->fid);
 
         // Match Rogue's timestamp format
         $photo_created_at = date('Y-m-d H:i:s', $photo->timestamp);
@@ -108,6 +110,33 @@ foreach ($signups as $signup) {
 
       // Store reportback reference
       // @TODO: new helper/rework current one to work with the response we get back from Rogue when posting a signup
+      // should be able to just grab each post since I don't think /signups response change the format of that
+      echo '$response[\'data\'][\'post\'] - ' . json_encode($response['data']['post']) . PHP_EOL;
+
+      if ($signup->rbid) {
+        foreach ($response['data']['post']['data'] as $post) {
+          echo 'Rogue event_id: ' . $post['event']['data']['event_id'] . PHP_EOL;
+          // echo 'Post data: ' . json_encode($post) . PHP_EOL;
+          // dosomething_rogue
+          // echo json_encode(dosomething_rogue_store_rogue_references($signup->rbid, array_shift($fids), $post)) . PHP_EOL;
+          $current_fid = array_shift($fids);
+
+          if (! dosomething_rogue_get_by_file_id($current_fid)) {
+
+            // Store references to rogue IDs.
+            db_insert('dosomething_rogue_reportbacks')
+            ->fields([
+              'fid' => $current_fid,
+              'rogue_event_id' => $post['event']['data']['event_id'],
+              'rbid' => $signup->rbid,
+              'rogue_signup_id' => $post['signup_id'],
+              'created_at' => REQUEST_TIME,
+              ])
+            ->execute();
+          }
+        }
+      }
+      // echo json_encode($response) . PHP_EOL;
     }
   }
   else {
