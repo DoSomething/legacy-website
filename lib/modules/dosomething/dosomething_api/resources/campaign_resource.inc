@@ -267,10 +267,15 @@ function _campaign_resource_index($ids, $staff_pick, $term_ids, $count, $random,
  *       Defaults to sending messages.
  */
 function _campaign_resource_signup($nid, $values) {
-  global $user;
-  if (!isset($values['uid'])) {
+
+  if (isset($values['northstar_id'])) {
+    $values['uid'] = dosomething_user_get_user_by_northstar_id($values['northstar_id'])->uid;
+  }
+  else if (!isset($values['uid'])) {
+    global $user;
     $values['uid'] = $user->uid;
   }
+
   if (!isset($values['source'])) {
     $values['source'] = NULL;
   }
@@ -343,12 +348,15 @@ function _campaign_resource_reportback($nid, $values) {
 
   $values['nid'] = $nid;
 
-  if (!isset($values['uid'])) {
-    global $user;
-    $values['uid'] = $user->uid;
+  if (isset($values['northstar_id'])) {
+    $values['uid'] = dosomething_user_get_user_by_northstar_id($values['northstar_id'])->uid;
+  }
+  else if (isset($values['uid'])) {
+    $user = user_load($values['uid']);
   }
   else {
-    $user = user_load($values['uid']);
+    global $user;
+    $values['uid'] = $user->uid;
   }
 
   $uid = $values['uid'];
