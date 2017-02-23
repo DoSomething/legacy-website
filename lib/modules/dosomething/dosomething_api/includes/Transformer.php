@@ -467,4 +467,19 @@ abstract class Transformer {
     ];
   }
 
+  /**
+   * Set the global user to a different account based on Northstar id.
+   *
+   * @param  String $northstarUserId
+   */
+  protected function asNorthstarUser($northstarUserId) {
+    if (!user_access('view any reportback')) return;
+
+    $userOverride = dosomething_user_get_user_by_northstar_id($northstarUserId);
+    if ($userOverride) {
+      global $user;
+      $user = $userOverride;
+    }
+  }
+
 }

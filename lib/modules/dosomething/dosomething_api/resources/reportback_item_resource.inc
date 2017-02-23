@@ -91,6 +91,14 @@ function _reportback_item_resource_definition() {
             'source' => array('param' => 'load_user'),
             'default value' => FALSE,
           ],
+          [
+            'name' => 'as_user',
+            'description' => 'Override the current global user',
+            'optional' => TRUE,
+            'type' => 'string',
+            'source' => ['param' => 'as_user'],
+            'default_value' => NULL,
+          ],
         ],
         'access callback' => '_reportback_item_resource_access',
         'access arguments' => array('index'),
@@ -133,9 +141,10 @@ function _reportback_item_resource_access($op) {
  * @param  bool    $random
  * @param  int     $page
  * @param  bool    $load_user
+ * @param  string  $as_user
  * @return array
  */
-function _reportback_item_resource_index($campaigns, $exclude, $status, $count, $random, $page, $load_user) {
+function _reportback_item_resource_index($campaigns, $exclude, $status, $count, $random, $page, $load_user, $as_user) {
   $parameters = array(
     'campaigns' => $campaigns,
     'exclude' => $exclude,
@@ -144,6 +153,7 @@ function _reportback_item_resource_index($campaigns, $exclude, $status, $count, 
     'random' => $random,
     'page' => $page,
     'load_user' => $load_user,
+    'as_user' => $as_user,
   );
 
   $reportbackItems = new ReportbackItemTransformer;

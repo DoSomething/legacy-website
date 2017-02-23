@@ -92,6 +92,14 @@ function _reportback_resource_definition() {
             'default value' => FALSE,
           ],
           [
+            'name' => 'as_user',
+            'description' => 'Override the current global user',
+            'optional' => TRUE,
+            'type' => 'string',
+            'source' => ['param' => 'as_user'],
+            'default_value' => NULL,
+          ],
+          [
             'name' => 'flagged',
             'description' => 'Boolean to indicate whether to also retrieve flagged reportbacks.',
             'optional' => TRUE,
@@ -149,10 +157,11 @@ function _reportback_resource_access($op) {
  * @param  bool    $random
  * @param  int     $page
  * @param  bool    $load_user
+ * @param  string  $reaction_user
  * @param  bool    $flagged
  * @return array
  */
-function _reportback_resource_index($ids, $campaigns, $status, $count, $random, $page, $load_user, $flagged, $runs) {
+function _reportback_resource_index($ids, $campaigns, $status, $count, $random, $page, $load_user, $as_user, $flagged, $runs) {
   $parameters =  [
     'ids' => $ids,
     'campaigns' => $campaigns,
@@ -161,6 +170,7 @@ function _reportback_resource_index($ids, $campaigns, $status, $count, $random, 
     'random' => $random,
     'page' => $page,
     'load_user' => $load_user,
+    'as_user' => $as_user,
     'flagged' => $flagged,
     'runs' => $runs,
   ];
