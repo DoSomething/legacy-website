@@ -22,6 +22,10 @@ class ReportbackTransformer extends Transformer {
   public function index($parameters) {
     $filters = $this->setFilters($parameters);
 
+    if ($parameters['as_user']) {
+      $this->asNorthstarUser($parameters['as_user']);
+    }
+
     try {
       $reportbacks = Reportback::find($filters);
       $reportbacks = services_resource_build_index_list($reportbacks, 'reportbacks', 'id');

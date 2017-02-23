@@ -92,11 +92,11 @@ function _reportback_resource_definition() {
             'default value' => FALSE,
           ],
           [
-            'name' => 'reaction_user',
-            'description' => 'Override the current user in respect to Reaction data',
+            'name' => 'as_user',
+            'description' => 'Override the current global user',
             'optional' => TRUE,
-            'type' => 'int',
-            'source' => ['param' => 'reaction_user'],
+            'type' => 'string',
+            'source' => ['param' => 'as_user'],
             'default_value' => NULL,
           ],
           [
@@ -161,16 +161,7 @@ function _reportback_resource_access($op) {
  * @param  bool    $flagged
  * @return array
  */
-function _reportback_resource_index($ids, $campaigns, $status, $count, $random, $page, $load_user, $reaction_user, $flagged, $runs) {
-  if ($reaction_user) {
-    $reaction_user = user_load($reaction_user);
-
-    if ($reaction_user) {
-      global $user;
-      $user = $reaction_user;
-    }
-  }
-
+function _reportback_resource_index($ids, $campaigns, $status, $count, $random, $page, $load_user, $as_user, $flagged, $runs) {
   $parameters =  [
     'ids' => $ids,
     'campaigns' => $campaigns,
@@ -179,6 +170,7 @@ function _reportback_resource_index($ids, $campaigns, $status, $count, $random, 
     'random' => $random,
     'page' => $page,
     'load_user' => $load_user,
+    'as_user' => $as_user,
     'flagged' => $flagged,
     'runs' => $runs,
   ];

@@ -11,6 +11,10 @@ class ReportbackItemTransformer extends ReportbackTransformer {
   public function index($parameters) {
     $filters = $this->setDatabaseQueryFilters($parameters);
 
+    if ($parameters['as_user']) {
+      $this->asNorthstarUser($parameters['as_user']);
+    }
+
     try {
       $reportbackItems = ReportbackItem::find($filters);
       $reportbackItems = services_resource_build_index_list($reportbackItems, 'reportback-items', 'id');
