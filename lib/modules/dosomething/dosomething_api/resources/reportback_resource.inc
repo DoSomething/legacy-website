@@ -157,7 +157,7 @@ function _reportback_resource_access($op) {
  * @param  bool    $random
  * @param  int     $page
  * @param  bool    $load_user
- * @param  int     $reaction_user
+ * @param  string  $reaction_user
  * @param  bool    $flagged
  * @return array
  */
