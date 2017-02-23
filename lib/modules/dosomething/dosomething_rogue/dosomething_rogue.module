@@ -580,3 +580,78 @@ function dosomething_rogue_store_rogue_signup_references($sid, $rogue_signup) {
     ->execute();
   }
 }
+
+/**
+ * Insert record that stores all the information for the failed migration request
+ *
+ * @param array  $values
+ * @param int    $sid
+ * @param array  $response
+ * @param object $e
+ *
+ */
+function dosomething_rogue_handle_migration_failure($values, $sid, $response = NULL, $e = NULL) {
+  // one row for each photo, just the sid if no northstar id, or just the signup info
+  if (!isset($values)) {
+      db_insert('dosomething_rogue_failed_migrations')
+      ->fields([
+        // Signup
+        'sid' => $sid,
+
+        // Fail data
+        'timestamp' => REQUEST_TIME,
+      ])
+      ->execute();
+  } elseif (array_key_exists('photo', $values)) {
+    foreach ($values['photo'] as $photo) {
+      db_insert('dosomething_rogue_failed_migrations')
+      ->fields([
+        // Signup
+        'sid' => $sid,
+        'northstar_id' => $values['northstar_id'],
+        'campaign_id' => $values['campaign_id'],
+        'campaign_run_id' => $values['campaign_run_id'],
+        'signup_created_at' => $values['created_at'],
+        'signup_updated_at' => $values['updated_at'],
+        'signup_source' => $values['source'],
+
+        // Reportback
+        'quantity' => $values['quantity'],
+        'quantity_pending' => $values['quantity_pending'],
+        'why_participated' => $values['why_participated'],
+
+        // Files
+        'photo_source' => $photo['source'],
+        'remote_addr' => $photo['remote_addr'],
+        'caption' => $photo['caption'],
+        'status' => $photo['status'],
+        'file' => $photo['file'],
+        'photo_created_at' => $photo['created_at'],
+
+        // Fail data
+        'timestamp' => REQUEST_TIME,
+        'response_code' => (isset($response->code)) ? $response->code : NULL, // @TODO: this is currently null until there a better way to get it from Gateway
+        'response_values' => (isset($e)) ? $e->getMessage() : NULL,
+      ])
+      ->execute();
+      }
+    } else {
+     db_insert('dosomething_rogue_failed_migrations')
+      ->fields([
+        // Signup
+        'sid' => $sid,
+        'northstar_id' => $values['northstar_id'],
+        'campaign_id' => $values['campaign_id'],
+        'campaign_run_id' => $values['campaign_run_id'],
+        'signup_created_at' => $values['created_at'],
+        'signup_updated_at' => $values['updated_at'],
+        'signup_source' => $values['source'],
+
+        // Fail data
+        'timestamp' => REQUEST_TIME,
+        'response_code' => (isset($response->code)) ? $response->code : NULL, // @TODO: this is currently null until there a better way to get it from Gateway
+        'response_values' => (isset($e)) ? $e->getMessage() : NULL,
+      ])
+      ->execute();
+  }
+}

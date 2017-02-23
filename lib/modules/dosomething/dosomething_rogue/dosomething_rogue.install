@@ -143,6 +143,130 @@ function dosomething_rogue_schema() {
     ],
   ];
 
+  $schema['dosomething_rogue_failed_migrations'] = [
+    'description' => 'Table of failed requests during the export-activity-to-rogue migration',
+    'fields' => [
+      'id' => [
+        'description' => 'Primary key of log table.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ],
+      'sid' => [
+        'description' => 'The sid of the signup.',
+        'type' => 'int',
+        'not null' => TRUE,
+      ],
+      'northstar_id' => [
+        'description' => 'The northstar_id of the user.',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => FALSE,
+      ],
+      'campaign_id' => [
+        'description' => 'Campaign nid for the signup.',
+        'type' => 'int',
+        'not null' => FALSE,
+      ],
+      'campaign_run_id' => [
+        'description' => 'Campaign run nid for the signup.',
+        'type' => 'int',
+        'not null' => FALSE,
+      ],
+      'signup_source' => [
+        'description' => 'Source of the signup.',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => FALSE,
+      ],
+      'signup_created_at' => [
+        'description' => 'Timestamp (Rogue format) of when the signup was created.',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => FALSE,
+      ],
+      'signup_updated_at' => [
+        'description' => 'Timestamp (Rogue format) of when the signup was updated.',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => FALSE,
+      ],
+      'quantity' => [
+        'description' => 'The approved quantity.',
+        'type' => 'int',
+        'not null' => FALSE,
+      ],
+      'quantity_pending' => [
+        'description' => 'The pending or flagged quantity.',
+        'type' => 'int',
+        'not null' => FALSE,
+      ],
+      'why_participated' => [
+        'description' => 'Why the user participated in the campaign.',
+        'type' => 'text',
+        'length' => '2048',
+        'not null' => FALSE,
+      ],
+      'photo_source' => [
+        'description' => 'Source of the reportback file.',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => FALSE,
+      ],
+      'remote_addr' => [
+        'type' => 'varchar',
+        'length' => '45',
+        'description' => 'The IP address of the user that submitted the file.',
+        'not null' => FALSE
+      ],
+      'caption' => [
+        'description' => 'File caption.',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => FALSE,
+      ],
+      'status' => [
+        'description' => 'The status of the reportback item.',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => FALSE,
+      ],
+      'file' => [
+        'description' => 'The file string to save of the reportback image.',
+        'type' => 'text',
+        'length' => '500000',
+        'not null' => FALSE,
+      ],
+      'photo_created_at' => [
+        'description' => 'Timestamp (Rogue format) of when the reportback item was created.',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => FALSE,
+      ],
+      'timestamp' => [
+        'description' => 'The Unix timestamp of when the request failed.',
+        'type' => 'int',
+        'not null' => TRUE,
+      ],
+      'response_code' => [
+        'description' => 'The HTTP response code from Rogue.',
+        'type' => 'int',
+        'not null' => FALSE,
+      ],
+      'response_values' => [
+        'description' => 'The JSON response from Rogue.',
+        'type' => 'text',
+        'length' => '500000',
+        'not null' => FALSE,
+      ],
+    ],
+    'primary key' => ['id'],
+    'indexes' => [
+      'campaign_id' => ['campaign_id'],
+      'campaign_run_id' => ['campaign_run_id'],
+    ],
+  ];
+
   return $schema;
 }
 
@@ -371,6 +495,17 @@ function dosomething_rogue_update_7010(&$sandbox) {
  */
 function dosomething_rogue_update_7011(&$sandbox) {
   $table_name = 'dosomething_rogue_signups';
+  if (!db_table_exists($table_name)) {
+    $schema = dosomething_rogue_schema();
+    db_create_table($table_name, $schema[$table_name]);
+  }
+}
+
+/**
+ * Adds dosomething_rogue_failed_migrations table.
+ */
+function dosomething_rogue_update_7012(&$sandbox) {
+  $table_name = 'dosomething_rogue_failed_migrations';
   if (!db_table_exists($table_name)) {
     $schema = dosomething_rogue_schema();
     db_create_table($table_name, $schema[$table_name]);
