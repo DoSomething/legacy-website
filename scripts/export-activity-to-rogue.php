@@ -35,16 +35,16 @@ foreach ($signups as $signup) {
   $data = [];
   echo 'Trying sid ' . $signup->sid . '...' . PHP_EOL;
 
-  $northstar_id = dosomething_northstar_get_user($signup->uid, 'drupal_id');
+  $northstar_user = dosomething_northstar_get_user($signup->uid, 'drupal_id');
 
   // Only try to send to Rogue if we have a Northstar ID
-  if (isset($northstar_id)) {
+  if (isset($northstar_user)) {
     // Match Rogue's timestamp format
     $created_at = date('Y-m-d H:i:s', $signup->timestamp);
 
     // Format signup data
     $data = [
-      'northstar_id' => $northstar_id->id,
+      'northstar_id' => $northstar_user->id,
       'campaign_id' => $signup->nid,
       'campaign_run_id' => $signup->run_nid,
       'do_not_forward' => TRUE,
@@ -93,7 +93,7 @@ foreach ($signups as $signup) {
           'remote_addr' => $photo->remote_addr,
           'caption' => $photo->caption,
           'event_type' => 'post_photo',
-          'northstar_id' => $northstar_id->id,
+          'northstar_id' => $northstar_user->id,
           'status' => $rogue_status,
           'do_not_forward' => TRUE,
           'submission_type' => 'user',
