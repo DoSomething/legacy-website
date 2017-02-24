@@ -143,10 +143,27 @@ class OpenIDConnectClientNorthstar extends OpenIDConnectClientBase {
       $base['data']['birthdate'] = strtotime($base['data']['birthdate']);
     }
 
-    if ($base) {
-      return $base['data'];
+    if (! $base) {
+      return null;
     }
 
-    return null;
+    $userinfo = $base['data'];
+
+    // @HACK: Ensure we have a valid local Drupal account.
+    // The `openid_connect` module won't merge a Northstar user to an existing local
+    // user account, so we need to make sure that's done before continuing to auth.
+    if (! empty($userinfo['id'])) {
+      $id = $userinfo['id'];
+      $account = openid_connect_user_load_by_sub($id, $this->getName());
+
+      // If the account doesn't exist but email or mobile does, link the existing account!
+      if (! $account && $existingEmail = user_load_by_mail($userinfo['email'])) {
+        dosomething_northstar_save_id_field($existingEmail->uid, $base);
+      } else if (! $account && $existingMobile = dosomething_user_get_user_by_mobile($userinfo['phone_number'])) {
+        dosomething_northstar_save_id_field($existingMobile->uid, $base);
+      }
+    }
+
+    return $userinfo;
   }
 }
