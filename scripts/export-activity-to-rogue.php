@@ -6,9 +6,6 @@
  * drush --script-path=../scripts/ php-script export-activity-to-rogue.php
  */
 
-include_once('../lib/modules/dosomething/dosomething_rogue/dosomething_rogue.module');
-include_once('../lib/modules/dosomething/dosomething_northstar/dosomething_northstar.module');
-
 // Pick up from where we left off, if we want to
 $last_saved = variable_get('dosomething_rogue_last_signup_migrated', NULL);
 
