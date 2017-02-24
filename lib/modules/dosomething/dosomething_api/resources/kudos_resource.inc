@@ -90,7 +90,7 @@ function _kudos_resource_definition() {
             'description' => 'The Northstar ID of the user to create this reaction for',
             'optional' => TRUE,
             'type' => 'string',
-            'source' => ['param' => 'northstar_id'],
+            'source' => ['data' => 'northstar_id'],
             'default_value' => NULL,
           ],
         ],
