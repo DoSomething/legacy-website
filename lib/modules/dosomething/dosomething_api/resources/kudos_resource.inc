@@ -85,6 +85,14 @@ function _kudos_resource_definition() {
               'data' => 'term_ids',
             ],
           ],
+          [
+            'name' => 'northstar_id',
+            'description' => 'The Northstar ID of the user to create this reaction for',
+            'optional' => TRUE,
+            'type' => 'string',
+            'source' => ['data' => 'northstar_id'],
+            'default_value' => NULL,
+          ],
         ],
         'access callback' => '_kudos_resource_access',
         'access arguments' => ['create'],
@@ -180,10 +188,11 @@ function _kudos_resource_index($reportbackitems, $count) {
  * @param $user_id
  * @param $term_ids
  */
-function _kudos_resource_create($reportback_item_id, $term_ids) {
+function _kudos_resource_create($reportback_item_id, $term_ids, $northstar_id) {
   $parameters = [
     'fid' => $reportback_item_id,
     'tids' => $term_ids,
+    'northstar_id' => $northstar_id,
   ];
 
   return (new KudosTransformer)->create($parameters);

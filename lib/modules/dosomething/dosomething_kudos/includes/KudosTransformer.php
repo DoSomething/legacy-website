@@ -71,12 +71,20 @@ class KudosTransformer extends Transformer {
    * @return array
    */
   public function create($parameters) {
-    // @TODO: may want to rethink using global $user here...
     global $user;
+    $uid = $user->uid;
+
+    if (user_access('view any reportback') && $parameters['northstar_id']) {
+      $northstarUser = dosomething_user_get_user_by_northstar_id($parameters['northstar_id']);
+
+      if ($northstarUser) {
+        $uid = $northstarUser->uid;
+      }
+    }
 
     $values = [
       'fid' => $parameters['fid'],
-      'uid' => $user->uid,
+      'uid' => $uid,
       'created' => time(),
     ];
 
