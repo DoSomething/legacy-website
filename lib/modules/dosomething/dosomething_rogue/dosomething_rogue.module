@@ -574,7 +574,7 @@ function dosomething_rogue_store_rogue_signup_references($sid, $rogue_signup) {
     db_insert('dosomething_rogue_signups')
     ->fields([
       'sid' => $sid,
-      'rogue_signup_id' => $rogue_signup['data']['id'],
+      'rogue_signup_id' => $rogue_signup['data']['signup_id'],
       'created_at' => REQUEST_TIME,
       ])
     ->execute();
