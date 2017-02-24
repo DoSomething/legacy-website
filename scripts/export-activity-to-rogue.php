@@ -26,7 +26,7 @@ else {
                       FROM dosomething_signup signups
                       LEFT JOIN dosomething_reportback rb ON signups.uid = rb.uid AND signups.nid = rb.nid AND signups.run_nid = rb.run_nid
                       WHERE signups.sid NOT IN (SELECT sid FROM dosomething_rogue_signups)
-                      ORDER BY signups.sid')->fetchAll();
+                      ORDER BY signups.sid');
 }
 
 $client = dosomething_rogue_client();
