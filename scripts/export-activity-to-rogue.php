@@ -112,8 +112,8 @@ foreach ($signups as $signup) {
         dosomething_rogue_store_rogue_signup_references($signup->sid, $response);
 
         if ($signup->rbid) {
-          foreach ($response['data']['post']['data'] as $post) {
-            echo 'Rogue event_id: ' . $post['event']['data']['event_id'] . PHP_EOL;
+          foreach ($response['data']['posts']['data'] as $post) {
+            echo 'Rogue event_id: ' . $post['post_event_id'] . PHP_EOL;
             $current_fid = array_shift($fids);
 
             if (! dosomething_rogue_get_by_file_id($current_fid)) {
@@ -121,9 +121,9 @@ foreach ($signups as $signup) {
               db_insert('dosomething_rogue_reportbacks')
               ->fields([
                 'fid' => $current_fid,
-                'rogue_event_id' => $post['event']['data']['event_id'],
+                'rogue_event_id' => $post['post_event_id'],
                 'rbid' => $signup->rbid,
-                'rogue_signup_id' => $post['signup_id'],
+                'rogue_signup_id' => $response['data']['signup_id'],
                 'created_at' => REQUEST_TIME,
                 ])
               ->execute();
