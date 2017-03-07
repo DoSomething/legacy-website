@@ -511,3 +511,27 @@ function dosomething_rogue_update_7012(&$sandbox) {
     db_create_table($table_name, $schema[$table_name]);
   }
 }
+
+/**
+ * Adds rbid and fid column to dosomething_rogue_failed_migrations.
+ */
+function dosomething_rogue_update_7013(&$sandbox) {
+  $table = 'dosomething_rogue_failed_migrations';
+  if (db_table_exists($table)) {
+    $rbid_spec = [
+      'description' => 'The rbid as it is stored in phoenix.',
+      'type' => 'int',
+      'not null' => FALSE,
+    ];
+
+    db_add_field($table, 'rbid', $rbid_spec);
+
+    $fid_spec = [
+      'description' => 'The fid of the reportback item as it is stored in phoenix.',
+      'type' => 'int',
+      'not null' => FALSE,
+    ];
+
+    db_add_field($table, 'fid', $fid_spec);
+  }
+}

@@ -590,7 +590,7 @@ function dosomething_rogue_store_rogue_signup_references($sid, $rogue_signup) {
  * @param object $e
  *
  */
-function dosomething_rogue_handle_migration_failure($values, $sid, $response = NULL, $e = NULL) {
+function dosomething_rogue_handle_migration_failure($values, $sid, $rbid = NULL, $fids = NULL, $response = NULL, $e = NULL) {
   // one row for each photo, just the sid if no northstar id, or just the signup info
   if (!isset($values)) {
       db_insert('dosomething_rogue_failed_migrations')
@@ -619,8 +619,10 @@ function dosomething_rogue_handle_migration_failure($values, $sid, $response = N
         'quantity' => $values['quantity'],
         'quantity_pending' => $values['quantity_pending'],
         'why_participated' => $values['why_participated'],
+        'rbid' => $rbid,
 
         // Files
+        'fid' => array_shift($fids),
         'photo_source' => $photo['source'],
         'remote_addr' => $photo['remote_addr'],
         'caption' => $photo['caption'],
