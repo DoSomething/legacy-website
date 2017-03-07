@@ -30,6 +30,7 @@ $client = dosomething_rogue_client();
 
 foreach ($signups as $signup) {
   $data = [];
+
   echo 'Trying sid ' . $signup->sid . '...' . PHP_EOL;
 
   $northstar_user = dosomething_northstar_get_user($signup->uid, 'drupal_id');
@@ -137,7 +138,7 @@ foreach ($signups as $signup) {
       // Handle getting a 404
       if (!$response) {
         // Put request in failed table for future investigation
-        dosomething_rogue_handle_migration_failure($data, $signup->sid);
+        dosomething_rogue_handle_migration_failure($data, $signup->sid, $signup->rbid, $fids);
 
         // Set where we left off so we don't keep trying this one forever
         variable_set('dosomething_rogue_last_signup_migrated', $signup->sid);
@@ -148,14 +149,14 @@ foreach ($signups as $signup) {
       // These aren't yet caught by Gateway
 
       // Put request in failed table for future investigation
-      dosomething_rogue_handle_migration_failure($data, $signup->sid, $response, $e);
+      dosomething_rogue_handle_migration_failure($data, $signup->sid, $signup->rbid, $fids);
 
       // Set where we left off so we don't keep trying this one forever
       variable_set('dosomething_rogue_last_signup_migrated', $signup->sid);
     }
     catch (DoSomething\Gateway\Exceptions\ApiException $e) {
       // Put request in failed table for future investigation
-      dosomething_rogue_handle_migration_failure($data, $signup->sid, $response, $e);
+      dosomething_rogue_handle_migration_failure($data, $signup->sid, $signup->rbid, $fids);
 
       // Set where we left off so we don't keep trying this one forever
       variable_set('dosomething_rogue_last_signup_migrated', $signup->sid);
