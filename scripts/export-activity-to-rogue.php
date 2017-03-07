@@ -112,7 +112,6 @@ foreach ($signups as $signup) {
         // Store signup reference
         dosomething_rogue_store_rogue_signup_references($signup->sid, $response);
 
-
         if ($signup->rbid) {
           foreach ($response['data']['posts']['data'] as $post) {
             echo 'Rogue event_id: ' . $post['post_event_id'] . PHP_EOL;
