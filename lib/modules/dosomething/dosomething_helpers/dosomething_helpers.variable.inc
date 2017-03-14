@@ -285,6 +285,25 @@ function dosomething_helpers_variable_form($form, &$form_state, $node) {
     '#disabled' => FALSE,
   ];
 
+  $form['partner_embed'] = [
+    '#type' => 'fieldset',
+    '#title' => t('Partner embed'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  ];
+  $form['partner_embed']['partner_embed_markup'] = [
+    '#type' => 'textarea',
+    '#title' => t('Markup for the iframe embed'),
+    '#description' => t('HTML Markup containing an iframe from a partner'),
+    '#default_value' => $vars['partner_embed_markup'],
+  ];
+  $form['partner_embed']['partner_embed_enable'] = [
+    '#type' => 'checkbox',
+    '#title' => t('Enable the partner embed.'),
+    '#description' => t('Display the iframe markup on this campaign page'),
+    '#default_value' => $vars['partner_embed_enable'],
+  ];
+
   return $form;
 }
 
@@ -345,6 +364,8 @@ function dosomething_helpers_get_variable_names() {
     'magic_link_copy',
     'mobilecommons_opt_in_path',
     'mobilecommons_friends_opt_in_path',
+    'partner_embed_markup',
+    'partner_embed_enable',
     'progress',
     'registration_form_copy',
     'share_image_nid',
