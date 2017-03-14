@@ -241,7 +241,7 @@
             <h2 class="heading -emphasized"><span><?php print t('Step 3: Do It'); ?></span></h2>
           </div>
         </div>
-        <?php if (!empty($partner_embed_markup)): ?>
+        <?php if (isset($partner_embed_markup)): ?>
           <div class="container__row">
             <?php print ($partner_embed_markup) ?>
           </div>
