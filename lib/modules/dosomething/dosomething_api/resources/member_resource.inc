@@ -299,7 +299,12 @@ function _member_resource_get_activity($uid, $nid = NULL) {
     $uid = (int) $uid;
   }
   else {
-    return services_error(t('Invalid uid value @uid.', array('@uid' => $uid)), 403);
+    $northstar_user = dosomething_user_get_user_by_northstar_id($uid);
+    if (!$northstar_user) {
+      return services_error(t('Invalid uid value @uid.', array('@uid' => $uid)), 403);
+    }
+
+    $uid = $northstar_user->uid;
   }
 
   // If nid is specified, we just want one Activity result for the nid.
