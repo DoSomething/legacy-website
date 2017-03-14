@@ -154,6 +154,12 @@ function paraneue_dosomething_preprocess_node_campaign(&$vars) {
       $vars['campaign_creator'] = theme('campaign_creator', $creator);
     }
 
+    // Check for partner embed
+    $partner_embed_enabled = dosomething_helpers_get_variable('node', $campaign->nid, 'partner_embed_enable');
+    if ($partner_embed_enabled) {
+      $vars['partner_embed_markup'] = dosomething_helpers_get_variable('node', $campaign->nid, 'partner_embed_markup');
+    }
+
     // Check for sponsors.
     $vars['sponsor_logos'] = paraneue_dosomething_get_sponsor_logos($campaign->partners);
 
