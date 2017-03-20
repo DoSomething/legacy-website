@@ -157,7 +157,10 @@ function paraneue_dosomething_preprocess_node_campaign(&$vars) {
     // Check for partner embed
     $partner_embed_enabled = dosomething_helpers_get_variable('node', $campaign->nid, 'partner_embed_enable');
     if ($partner_embed_enabled) {
-      $vars['partner_embed_markup'] = dosomething_helpers_get_variable('node', $campaign->nid, 'partner_embed_markup');
+      global $user;
+      $markup = dosomething_helpers_get_variable('node', $campaign->nid, 'partner_embed_markup');
+      $markup = str_replace('${northstarId}', dosomething_user_get_northstar_id($user->uid), $markup);
+      $vars['partner_embed_markup'] = $markup;
     }
 
     // Check for sponsors.
