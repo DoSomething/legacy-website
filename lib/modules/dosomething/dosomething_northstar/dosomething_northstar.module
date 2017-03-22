@@ -21,14 +21,10 @@ define('NORTHSTAR_URL', variable_get('dosomething_northstar_url', 'http://norths
  */
 function dosomething_northstar_client() {
   return new Northstar([
-    'grant' => 'client_credentials',
+    'grant' => 'authorization_code',
     'url' => NORTHSTAR_URL,
     'bridge' => PhoenixOAuthBridge::class,
-    'client_credentials' => [
-      'client_id' => variable_get('dosomething_northstar_app_id', 'trusted-test-client'),
-      'client_secret' => variable_get('dosomething_northstar_app_key', 'secret1'),
-      'scope' => ['admin', 'user'],
-    ],
+    // Other stuff will need to go here.
   ]);
 }
 

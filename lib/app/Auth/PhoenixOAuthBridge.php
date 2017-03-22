@@ -13,7 +13,9 @@ class PhoenixOAuthBridge implements OAuthBridgeContract {
    * @return NorthstarUserContract|null
    */
   public function getCurrentUser() {
-    //
+    $user = new PhoenixOAuthUser();
+    // Grab Northstar ID and assign it here.
+    return $user;
   }
 
   /**
