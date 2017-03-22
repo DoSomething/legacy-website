@@ -1148,6 +1148,21 @@ function dosomething_user_create_user_by_mobile($number) {
 
   return FALSE;
 }
+/**
+ * Convert a supplied ID into a legacy Drupal ID.
+ *
+ * @param  string $id
+ * @return string
+ */
+function dosomething_user_convert_to_legacy_id($id) {
+  if (is_numeric($id)) {
+    return $id;
+  }
+
+  $user = dosomething_user_get_user_by_northstar_id($id);
+
+  return $user->uid;
+}
 
 /**
  * Returns value for given field on given user.
