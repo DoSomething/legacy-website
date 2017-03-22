@@ -170,8 +170,10 @@ class SignupTransformer extends Transformer {
    * @return array
    */
   private function setFilters($parameters) {
+    $users = dosomething_helpers_format_data($parameters['user'], true);
+
     $filters = [
-      'user' => dosomething_helpers_format_data($parameters['user']),
+      'user' => array_map('dosomething_user_convert_to_legacy_id', $users),
       'campaigns' => dosomething_helpers_format_data($parameters['campaigns']),
       'count' => (int) $parameters['count'] ?: 25,
       'page' => (int) $parameters['page'],

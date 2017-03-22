@@ -315,14 +315,19 @@ function dosomething_helpers_export_csv(array $data) {
  * Format a string of comma separated data items into an array, or
  * if a single item, return it without formatting.
  *
- * @param string $data Single or multiple comma separated data items.
+ * @param  string $data Single or multiple comma separated data items.
+ * @param  boolean $asArray
  * @return string|array
  */
-function dosomething_helpers_format_data($data) {
+function dosomething_helpers_format_data($data, $asArray = false) {
   $array = explode(',', $data);
 
   if (count($array) > 1) {
     return $array;
+  }
+
+  if ($asArray) {
+    return [$data];
   }
 
   return $data;
