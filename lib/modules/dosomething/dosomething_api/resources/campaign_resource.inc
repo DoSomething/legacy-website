@@ -292,7 +292,7 @@ function _campaign_resource_signup($nid, $values) {
   // Check to see if the request came from Rogue and if we should be sending it there
   // $headers['X-Request-Id'] will only be set if the request is coming from Rogue
   if ( !isset($headers['X-Request-Id'])) {
-    if (variable_get('rogue_signup_collection', FALSE)) {
+    if (variable_get('rogue_collection', FALSE)) {
       // Pass the campaign_id
       $values['campaign_id'] = $nid;
 

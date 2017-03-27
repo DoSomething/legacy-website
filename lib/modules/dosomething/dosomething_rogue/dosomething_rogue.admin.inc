@@ -39,17 +39,9 @@ function dosomething_rogue_config_form($form, &$form_state) {
 
   $form['rogue']['rogue_collection'] = [
     '#type' => 'checkbox',
-    '#title' => t('Send reportbacks to rogue'),
-    '#description' => t('If set, when a user submits a reportback it will be sent to our reportback service.'),
+    '#title' => t('Send signups and reportbacks to Rogue'),
+    '#description' => t('If set, when a user signs up for a campaign and submits a reportback, it will be sent to our activity service.'),
     '#default_value' => variable_get('rogue_collection', FALSE),
-    '#size' => 20,
-  ];
-
-  $form['rogue']['rogue_signup_collection'] = [
-    '#type' => 'checkbox',
-    '#title' => t('Send signups to rogue'),
-    '#description' => t('If set, when a user signs up it will be sent to Rogue.'),
-    '#default_value' => variable_get('rogue_signup_collection', FALSE),
     '#size' => 20,
   ];
 
