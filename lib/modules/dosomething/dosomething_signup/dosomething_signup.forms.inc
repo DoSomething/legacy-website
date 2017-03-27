@@ -97,7 +97,7 @@ function dosomething_signup_form_submit($form, &$form_state) {
     $params['affiliate_messaging_opt_in'] = (bool) $form_state['values']['affiliate_messaging_opt_in'];
   }
 
-  if (variable_get('rogue_signup_collection', FALSE)) {
+  if (variable_get('rogue_collection', FALSE)) {
     $rogue_signup = dosomething_rogue_send_signup_to_rogue($form_state['values']);
 
     // Make sure the signup exists before using it
