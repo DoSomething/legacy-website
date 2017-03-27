@@ -86,11 +86,22 @@ class Signup extends Entity {
    * @param $data
    */
   private function build($data) {
+    $northstar_user = (object) [];
+
     $this->id = $data->sid;
     $this->created_at = $data->timestamp;
 
+    if (module_exists('dosomething_northstar')) {
+      $northstar_user = dosomething_northstar_get_user($data->uid, 'drupal_id');
+    }
+
     $this->user = [
-      'drupal_id' => $data->uid,
+      'drupal_id' => data_get($northstar_user, 'drupal_id') ?: $data->uid,
+      'id' => data_get($northstar_user, 'id') ?: $data->field_northstar_id_value,
+      'first_name' => data_get($northstar_user, 'first_name'),
+      'last_initial' => data_get($northstar_user, 'last_initial'),
+      'photo' => data_get($northstar_user, 'photo'),
+      'country' => data_get($northstar_user, 'country'),
     ];
 
     try {

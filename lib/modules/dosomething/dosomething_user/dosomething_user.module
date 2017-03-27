@@ -1155,6 +1155,10 @@ function dosomething_user_create_user_by_mobile($number) {
  * @return string
  */
 function dosomething_user_convert_to_legacy_id($id) {
+  if (!$id) {
+    return NULL;
+  }
+
   if (is_numeric($id)) {
     return $id;
   }
