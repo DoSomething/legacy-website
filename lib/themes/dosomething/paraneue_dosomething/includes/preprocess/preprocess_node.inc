@@ -238,34 +238,23 @@ function paraneue_dosomething_preprocess_reportback_gallery(&$vars, $count = 6) 
 
   // If the Rogue feature flag is on, grab reportbacks from Rogue.
   if (variable_get('rogue_collection', FALSE)) {
-    // @TODO: we'll want to grab the promoted reportback items from Rogue (similar to the try/catch block right after the else - do we have these or is it just accepted and rejected? Maybe this is a tag?
+    // @TODO: we'll want to grab the promoted reportback items from Rogue (similar to the below try/catch block right after the else - do we have these or is it just accepted and rejected? Maybe this is a tag?
+    // # Promoted Reportbacks:
+    // try {
+    //   $promotedReportbackItems = (new ReportbackItem)->find($filters);
+    // }
+    // catch (Exception $error) {
+    //   $promotedReportbackItems = [];
+    // }
 
-    // @TODO: again, what is considered promoted in Rogue? Also, what is the difference between inital_promoted_count and total_promoted_count?
+    // @TODO: again, what is considered promoted in Rogue? Also, what is the difference between initial_promoted_count and total_promoted_count?
     $gallery['initial_promoted_count'] = count(dosomething_rogue_get_reportback_items());
 
     // // @TODO: again, status will be associated with a tag or accepted?
-    $gallery['total_promoted'] = count(dosomething_rogue_get_reportback_items(['id' => $gallery['campaign_id'], 'status' => 'promoted']));
+    $gallery['total_promoted'] = count(dosomething_rogue_get_reportback_items(['nid' => $gallery['campaign_id'], 'status' => 'promoted']));
 
     // // # Approved Reportbacks:
     $gallery['total_approved'] = dosomething_rogue_get_reportback_items(['nid' => $gallery['campaign_id'], 'status' => 'accepted']);
-
-    // # Build the full initial gallery:
-
-    // Collect Reportbacks to fulfill desired amount.
-    // @TODO: deleted this comment but the below should be fine if we're okay with grabbing the placeholder still from Phoenix?
-    if ($gallery['initial_promoted_count'] < $gallery['desired_count']) {
-      $reportbackItems = paraneue_dosomething_build_reportbacks_gallery_collection($gallery, $promotedReportbackItems, TRUE);
-    }
-    // There are enough Promoted Reportbacks to fulfill desired amount.
-    else {
-      $reportbackItems = $promotedReportbackItems;
-    }
-
-    foreach ($reportbackItems as $item) {
-      $gallery['item_ids'][] = $item->id;
-      $gallery['items'][] = paraneue_dosomething_get_themed_reportback_item($item, TRUE);
-    }
-
   }
   else {
     // # Promoted Reportbacks:
@@ -281,19 +270,26 @@ function paraneue_dosomething_preprocess_reportback_gallery(&$vars, $count = 6) 
 
     // # Approved Reportbacks:
     $gallery['total_approved'] = dosomething_reportback_get_reportback_items_total_by_filters(['nid' => $gallery['campaign_id'], 'status' => 'approved']);
+  }
 
-    // # Build the full initial gallery:
+  // # Build the full initial gallery:
 
-    // Collect Reportbacks to fulfill desired amount.
-    if ($gallery['initial_promoted_count'] < $gallery['desired_count']) {
-      $reportbackItems = paraneue_dosomething_build_reportbacks_gallery_collection($gallery, $promotedReportbackItems, TRUE);
+  // Collect Reportbacks to fulfill desired amount.
+  // @TODO: delete this comment but the below should be fine if we're okay with grabbing the placeholder still from Phoenix?
+  if ($gallery['initial_promoted_count'] < $gallery['desired_count']) {
+    $reportbackItems = paraneue_dosomething_build_reportbacks_gallery_collection($gallery, $promotedReportbackItems, TRUE);
+  }
+  // There are enough Promoted Reportbacks to fulfill desired amount.
+  else {
+    $reportbackItems = $promotedReportbackItems;
+  }
+
+  foreach ($reportbackItems as $item) {
+    if (variable_get('rogue_collection', FALSE)) {
+      $gallery['item_ids'][] = $item->id;
+      $gallery['items'][] = paraneue_dosomething_get_themed_reportback_item($item, TRUE);
     }
-    // There are enough Promoted Reportbacks to fulfill desired amount.
     else {
-      $reportbackItems = $promotedReportbackItems;
-    }
-
-    foreach ($reportbackItems as $item) {
       if ($item instanceof ReportbackItem) {
         $gallery['item_ids'][] = $item->id;
       }
@@ -313,7 +309,7 @@ function paraneue_dosomething_preprocess_reportback_gallery(&$vars, $count = 6) 
 
   global $user;
 
-// @TODO: how do we deal with the below?/What is the below?
+  // @TODO: how do we deal with the below?
   drupal_add_js(
     [
       'dsKudosReactions' => [
