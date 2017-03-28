@@ -45,6 +45,19 @@ function dosomething_rogue_client() {
 }
 
 /**
+  * Send a GET request to return all reportback items matching a given
+  * query from Rogue.
+  *
+  * @param array $inputs
+  */
+function dosomething_rogue_get_reportback_items($inputs)
+{
+  $response = $client->getAllReportbacks($inputs);
+
+  return $response;
+}
+
+/**
  * Sends a reportback to Rogue.
  *
  * @param array $values
