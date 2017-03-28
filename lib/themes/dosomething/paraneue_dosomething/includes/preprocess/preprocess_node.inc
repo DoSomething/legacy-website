@@ -245,6 +245,12 @@ function paraneue_dosomething_preprocess_reportback_gallery(&$vars, $count = 6) 
     $promotedReportbackItems = [];
   }
   $gallery['initial_promoted_count'] = count($promotedReportbackItems);
+
+  // If the Rogue feature flag is on, grab reportbacks from Rogue.
+  if (variable_get('rogue_collection', FALSE)) {
+    print_r('hi');
+    die();
+  }
   $gallery['total_promoted'] = dosomething_reportback_get_reportback_items_total_by_filters(['nid' => $gallery['campaign_id'], 'status' => 'promoted']);
 
   // # Approved Reportbacks:
