@@ -307,6 +307,9 @@ function paraneue_dosomething_preprocess_reportback_gallery(&$vars, $count = 6) 
   global $user;
 
   // @TODO: how do we deal with the below?
+  // reactions in phoenix and rogue will not be the same (since we're not migrating)
+  // do we just display the reactions based on what they are in phoenix?
+  // this might not reflect accurately and seem like a bug to users. how much do we care?
   drupal_add_js(
     [
       'dsKudosReactions' => [

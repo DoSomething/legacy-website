@@ -690,11 +690,11 @@ function dosomething_reportback_preprocess_entity(&$variables) {
   }
 
   drupal_add_js(
-    array('dosomethingReportback' =>
-      array(
+    [
+      'dosomethingReportback' => [
         'apiUrl' => $apiUrl,
-      )
-    ),
+      ]
+    ],
     'setting'
   );
 }
