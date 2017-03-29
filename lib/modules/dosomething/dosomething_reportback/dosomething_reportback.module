@@ -679,6 +679,24 @@ function dosomething_reportback_preprocess_entity(&$variables) {
     $variables['theme_hook_suggestions'][] = 'reportback';
     $entity = $variables['elements']['#entity'];
   }
+
+  if (variable_get('rogue_collection', FALSE)) {
+    //@TODO: make sure this is the correct Rogue URL
+    $rogue_base_url = variable_get('dosomething_rogue_url', 'https://rogue.dosomething.org/api');
+    $apiUrl = $rogue_base_url . '/v2/reportbacks';
+  }
+  else {
+    $apiUrl = '/api/v1/reportback-items';
+  }
+
+  drupal_add_js(
+    array('dosomethingReportback' =>
+      array(
+        'apiUrl' => $apiUrl,
+      )
+    ),
+    'setting'
+  );
 }
 
 
