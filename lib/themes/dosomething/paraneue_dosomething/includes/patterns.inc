@@ -36,6 +36,7 @@ function paraneue_dosomething_get_gallery_item($content, $type = 'figure', $use_
     }
   }
 
+  // @TODO: check if Rogue feature flag is on. If so, we need to grab s3 url or will it already be here?
   $variables = array(
     'content' => $content,
     'classes' => implode(' ', $classes_array)

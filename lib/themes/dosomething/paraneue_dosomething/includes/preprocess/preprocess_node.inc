@@ -238,23 +238,20 @@ function paraneue_dosomething_preprocess_reportback_gallery(&$vars, $count = 6) 
 
   // If the Rogue feature flag is on, grab reportbacks from Rogue.
   if (variable_get('rogue_collection', FALSE)) {
-    // @TODO: we'll want to grab the promoted reportback items from Rogue (similar to the below try/catch block right after the else - do we have these or is it just accepted and rejected? Maybe this is a tag?
-    // # Promoted Reportbacks:
-    // try {
-    //   $promotedReportbackItems = (new ReportbackItem)->find($filters);
-    // }
-    // catch (Exception $error) {
-    //   $promotedReportbackItems = [];
-    // }
+    // Hit the GET /reportbacks endpoint in Rogue with nid filter.
+    // On the Rogue side, it will only return 'accepted', which will be shown in the gallery.
+    $promotedReportbackItems = dosomething_rogue_get_reportback_items(['nid' => $gallery['campaign_id']]);
 
-    // @TODO: again, what is considered promoted in Rogue? Also, what is the difference between initial_promoted_count and total_promoted_count?
-    $gallery['initial_promoted_count'] = count(dosomething_rogue_get_reportback_items());
+    // @TODO: What is the difference between initial_promoted_count and total_promoted_count?
+    // If all the same, we can just set total_promoted and total_approved to initial_promoted_count
+    // to not make same API calls over and over.
+    // inital_promoted_count, total_promoted, and total_approved all the same now in Rogue world.
+    $gallery['initial_promoted_count'] = count(dosomething_rogue_get_reportback_items(['nid' => $gallery['campaign_id']]));
 
-    // // @TODO: again, status will be associated with a tag or accepted?
-    $gallery['total_promoted'] = count(dosomething_rogue_get_reportback_items(['nid' => $gallery['campaign_id'], 'status' => 'promoted']));
+    $gallery['total_promoted'] = count(dosomething_rogue_get_reportback_items(['nid' => $gallery['campaign_id']]));
 
     // // # Approved Reportbacks:
-    $gallery['total_approved'] = dosomething_rogue_get_reportback_items(['nid' => $gallery['campaign_id'], 'status' => 'accepted']);
+    $gallery['total_approved'] = count($promotedReportbackItems);
   }
   else {
     // # Promoted Reportbacks:
