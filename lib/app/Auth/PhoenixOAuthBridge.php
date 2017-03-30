@@ -13,9 +13,9 @@ class PhoenixOAuthBridge implements OAuthBridgeContract {
    * @return NorthstarUserContract|null
    */
   public function getCurrentUser() {
-    $user = new PhoenixOAuthUser();
-    // Grab Northstar ID and assign it here.
-    return $user;
+    global $user;
+    $account = new PhoenixOAuthUser($user->uid);
+    return $account;
   }
 
   /**
@@ -24,7 +24,17 @@ class PhoenixOAuthBridge implements OAuthBridgeContract {
    * @return NorthstarUserContract|null
    */
   public function getUser($id) {
-    //
+    $query = new EntityFieldQuery();
+    $query->entityCondition('entity_type', 'user')
+      ->fieldCondition('field_northstar_id', 'value', $id);
+    $results = $query->execute();
+    if (empty($results)) {
+      return null;
+    }
+
+    $uid = key($results['user']);
+    $account = new PhoenixOAuthUser($uid);
+    return $account;
   }
 
   /**
@@ -34,7 +44,12 @@ class PhoenixOAuthBridge implements OAuthBridgeContract {
    * @return NorthstarUserContract
    */
   public function getOrCreateUser($id) {
-    //
+    $account = $this->getUser($id);
+    if (!empty($account)) {
+      return $account;
+    }
+
+    // @TODO: Create user here.
   }
 
   /**
@@ -63,7 +78,9 @@ class PhoenixOAuthBridge implements OAuthBridgeContract {
    * @internal param $userId - Northstar user ID
    */
   public function persistUserToken(AccessToken $token) {
-    //
+    global $user;
+    $account = new PhoenixOAuthUser($user->uid);
+    $account->setOAuthToken($token);
   }
 
   /**
@@ -87,7 +104,7 @@ class PhoenixOAuthBridge implements OAuthBridgeContract {
    * @return void
    */
   public function requestUserCredentials() {
-    //
+    user_logout();
   }
 
   /**
@@ -97,7 +114,7 @@ class PhoenixOAuthBridge implements OAuthBridgeContract {
    * @return void
    */
   public function saveStateToken($state) {
-    //
+    $_SESSION['openid_connect_state'] = $state;
   }
 
   /**
@@ -106,7 +123,7 @@ class PhoenixOAuthBridge implements OAuthBridgeContract {
    * @return string
    */
   public function getStateToken() {
-    //
+    return $_SESSION['openid_connect_state'];
   }
 
   /**
@@ -117,7 +134,8 @@ class PhoenixOAuthBridge implements OAuthBridgeContract {
    * @return mixed
    */
   public function login(NorthstarUserContract $user, AccessToken $token) {
-    //
+    $form_state = array('uid' => $user->user->uid);
+    user_login_submit(array(), $form_state);
   }
 
   /**
@@ -126,7 +144,7 @@ class PhoenixOAuthBridge implements OAuthBridgeContract {
    * @return mixed
    */
   public function logout() {
-    //
+    user_logout();
   }
 
   /**
@@ -137,6 +155,6 @@ class PhoenixOAuthBridge implements OAuthBridgeContract {
    * @return string
    */
   public function prepareUrl($url) {
-    //
+    return url($url, array('absolute' => TRUE));
   }
 }

@@ -11,15 +11,27 @@ use League\OAuth2\Client\Token\AccessToken;
  * @property string $access_token_expiration
  * @property string $refresh_token
  * @property string $role
+ * @property object $user
  */
 class PhoenixOAuthUser implements NorthstarUserContract {
+
+  /**
+   * PhoenixOAuthUser constructor.
+   *
+   * @param $user
+   */
+  public function __construct($uid) {
+    $this->user = user_load($uid);
+    $this->role = 'user'; // Hardcoding this is acceptable in Phoenix for now.
+  }
+
   /**
    * Get the Northstar ID for the user.
    *
    * @return string|null
    */
   public function getNorthstarIdentifier() {
-    return $this->northstar_id;
+    return $this->user->field_northstar_id[LANGUAGE_NONE][0]['value'];
   }
 
   /**
@@ -28,7 +40,8 @@ class PhoenixOAuthUser implements NorthstarUserContract {
    * @return void
    */
   public function setNorthstarIdentifier($id) {
-    $this->northstar_id = $id;
+    $this->user->field_northstar_id[LANGUAGE_NONE][0]['value'];
+    user_save($this->user);
   }
 
   /**
@@ -55,12 +68,15 @@ class PhoenixOAuthUser implements NorthstarUserContract {
    * @return AccessToken|null
    */
   public function getOAuthToken() {
+    if (empty($this->user)) {
+      return null;
+    }
     return new AccessToken([
       'resource_owner_id' => $this->getNorthstarIdentifier(),
-      'access_token' => $this->access_token,
-      'refresh_token' => $this->refresh_token,
-      'expires' => $this->access_token_expiration,
-      'role' => $this->role,
+      'access_token' => $this->user->field_access_token[LANGUAGE_NONE][0]['value'],
+      'refresh_token' => $this->user->field_refresh_token[LANGUAGE_NONE][0]['value'],
+      'expires' => $this->user->field_access_token_expiration[LANGUAGE_NONE][0]['value'],
+      'role' => $this->getRole(),
     ]);
   }
 
@@ -71,10 +87,10 @@ class PhoenixOAuthUser implements NorthstarUserContract {
    * @return void
    */
   public function setOAuthToken(AccessToken $token) {
-    $this->access_token = $token->getToken();
-    $this->access_token_expiration = $token->getExpires();
-    $this->refresh_token = $token->getRefreshToken();
-    $this->role = $token->getValues()['role'];
+    $this->user->field_access_token[LANGUAGE_NONE][0]['value'] = $token->getToken();
+    $this->user->field_refresh_token[LANGUAGE_NONE][0]['value'] = $token->getRefreshToken();
+    $this->user->field_access_token_expiration[LANGUAGE_NONE][0]['value'] = $token->getExpires();
+    user_save($this->user);
   }
 
   /**
@@ -83,8 +99,9 @@ class PhoenixOAuthUser implements NorthstarUserContract {
    * @return void
    */
   public function clearOAuthToken() {
-    $this->access_token = null;
-    $this->access_token_expiration = null;
-    $this->refresh_token = null;
+    unset($this->user->field_access_token);
+    unset($this->user->field_refresh_token);
+    unset($this->user->field_access_token_expiration);
+    user_save($this->user);
   }
 }

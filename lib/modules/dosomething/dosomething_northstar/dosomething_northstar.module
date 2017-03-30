@@ -24,7 +24,7 @@ function dosomething_northstar_client() {
     'grant' => 'authorization_code',
     'url' => NORTHSTAR_URL,
     'bridge' => PhoenixOAuthBridge::class,
-    // Other stuff will need to go here.
+    // @TODO: Does other stuff need to go here?
   ]);
 }
 
