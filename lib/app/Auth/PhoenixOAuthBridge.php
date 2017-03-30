@@ -49,7 +49,7 @@ class PhoenixOAuthBridge implements OAuthBridgeContract {
       return $account;
     }
 
-    // @TODO: Create user here.
+    // @TODO: Create user here, but with what info for username/email?
   }
 
   /**
