@@ -94,7 +94,7 @@ class PhoenixOAuthBridge implements OAuthBridgeContract {
    * @return void
    */
   public function requestUserCredentials() {
-    user_logout();
+    $this->logout();
   }
 
   /**
@@ -134,6 +134,7 @@ class PhoenixOAuthBridge implements OAuthBridgeContract {
    * @return mixed
    */
   public function logout() {
+    module_load_include('pages.inc', 'user');
     user_logout();
   }
 
