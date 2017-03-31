@@ -73,9 +73,9 @@ class PhoenixOAuthUser implements NorthstarUserContract {
     }
     return new AccessToken([
       'resource_owner_id' => $this->getNorthstarIdentifier(),
-      'access_token' => $this->user->field_access_token[LANGUAGE_NONE][0]['value'],
-      'refresh_token' => $this->user->field_refresh_token[LANGUAGE_NONE][0]['value'],
-      'expires' => $this->user->field_access_token_expiration[LANGUAGE_NONE][0]['value'],
+      'access_token' => dosomething_user_get_field('field_access_token', $this->user),
+      'refresh_token' => dosomething_user_get_field('field_refresh_token', $this->user),
+      'expires' => dosomething_user_get_field('field_access_token_expiration', $this->user),
       'role' => $this->getRole(),
     ]);
   }

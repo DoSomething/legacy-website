@@ -24,16 +24,11 @@ class PhoenixOAuthBridge implements OAuthBridgeContract {
    * @return NorthstarUserContract|null
    */
   public function getUser($id) {
-    $query = new EntityFieldQuery();
-    $query->entityCondition('entity_type', 'user')
-      ->fieldCondition('field_northstar_id', 'value', $id);
-    $results = $query->execute();
-    if (empty($results)) {
-      return null;
+    $user = dosomething_user_get_user_by_northstar_id($id);
+    if (empty($user)) {
+      return FALSE;
     }
-
-    $uid = key($results['user']);
-    $account = new PhoenixOAuthUser($uid);
+    $account = new PhoenixOAuthUser($user->uid);
     return $account;
   }
 
@@ -44,12 +39,7 @@ class PhoenixOAuthBridge implements OAuthBridgeContract {
    * @return NorthstarUserContract
    */
   public function getOrCreateUser($id) {
-    $account = $this->getUser($id);
-    if (!empty($account)) {
-      return $account;
-    }
-
-    // @TODO: Create user here, but with what info for username/email?
+    // This method can stay unimplemented for now because it isn't called.
   }
 
   /**
