@@ -90,7 +90,6 @@ foreach ($signups as $signup) {
           'source' => $photo->source,
           'remote_addr' => $photo->remote_addr,
           'caption' => $photo->caption,
-          'event_type' => 'post_photo',
           'northstar_id' => $northstar_user->id,
           'status' => $rogue_status,
           'do_not_forward' => TRUE,
