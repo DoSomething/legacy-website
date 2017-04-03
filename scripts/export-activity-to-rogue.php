@@ -114,7 +114,7 @@ foreach ($signups as $signup) {
 
         if ($signup->rbid) {
           foreach ($response['data']['posts']['data'] as $post) {
-            echo 'Rogue event_id: ' . $post['post_event_id'] . PHP_EOL;
+            echo 'Rogue event_id: ' . $post['id'] . PHP_EOL;
             $current_fid = array_shift($fids);
 
             if (! dosomething_rogue_get_by_file_id($current_fid)) {
