@@ -1023,3 +1023,21 @@ function dosomething_helpers_extract_values_by_keys($array, $desired_keys)
     $desired_values = array_intersect_key($array, array_flip($desired_keys));
     return (count($array) > 0) ? $desired_values : null;
 }
+
+/**
+ * Return a basic HTTP response.
+ *
+ * @param  Integer $code
+ * @param  String $message
+ * @return Array
+ */
+function dosomething_helpers_basic_http_response($code, $message) {
+  http_response_code($code);
+
+  return [
+    'error' => [
+      'code' => $code,
+      'message' => $message,
+    ]
+  ];
+}
