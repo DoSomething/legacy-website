@@ -238,9 +238,9 @@ function paraneue_dosomething_preprocess_reportback_gallery(&$vars, $count = 6) 
 
   // If the Rogue feature flag is on, grab reportbacks from Rogue.
   if (variable_get('rogue_collection', FALSE)) {
-    // Hit the GET /reportbacks endpoint in Rogue with nid filter.
+    // Hit the GET /reportbacks endpoint in Rogue with campaign_id filter.
     // On the Rogue side, it will only return 'accepted', which will be shown in the gallery.
-    $promotedReportbackItems = dosomething_rogue_get_reportback_items(['nid' => $gallery['campaign_id']]);
+    $promotedReportbackItems = dosomething_rogue_get_reportback_items(['campaign_id' => $gallery['campaign_id']]);
 
     // @TODO: What is the difference between initial_promoted_count and total_promoted_count?
     // If all the same, we can just set total_promoted and total_approved to initial_promoted_count
