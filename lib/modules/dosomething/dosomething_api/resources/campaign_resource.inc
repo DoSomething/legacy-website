@@ -333,10 +333,10 @@ function _campaign_resource_signup($nid, $values) {
  *   The Node nid to post the reportback to.
  * @param array $values
  *   The reportback data to post. Expected keys:
- *   - uid: The user uid (int).  Optional, uses global $user if not set.
- *   - file: Base64 encoded file string to save.
- *   - filename: The filename of the file provided as file.
- *   - file_url: The URL of the reportback file to save (used if no file/filename exist).
+ *   - uid: The user uid (int).
+ *   - file: Base64 encoded file string to save (required if using 'filename').
+ *   - filename: The filename of the file provided as file (required if using 'file').
+ *   - file_url: The URL of the reportback file to save (used if no 'file'/'filename' exist).
  *   - caption: The caption for the Reportback File if provided.
  *   - quantity (int).
  *   - why_participated (string).
@@ -344,62 +344,62 @@ function _campaign_resource_signup($nid, $values) {
  *   - remote_addr (string).
  */
 function _campaign_resource_reportback($nid, $values) {
+  global $user;
+  $api_user = $user;
+
+  if (!user_access('view any reportback', $api_user)) {
+    return dosomething_helpers_basic_http_response(401, 'Unauthorized.');
+  }
+
+  if (empty($values['uid'])) {
+    return dosomething_helpers_basic_http_response(422, 'Missing uid query parameter specifying a user id.');
+  }
+
+  $user = user_load(dosomething_user_convert_to_legacy_id($values['uid']));
+
+  if (!$user) {
+    return dosomething_helpers_basic_http_response(404, 'The specified user was not found.');
+  }
+
+  // Set uid to member user submitting reportback.
+  $values['uid'] = $uid = $user->uid;
+
   // @todo: Return error if signup doesn't exist.
 
-  $values['nid'] = $nid;
-
-  if (isset($values['northstar_id'])) {
-    $values['uid'] = dosomething_user_get_user_by_northstar_id($values['northstar_id'])->uid;
-  }
-  else if (isset($values['uid'])) {
-    $user = user_load($values['uid']);
-  }
-  else {
-    global $user;
-    $values['uid'] = $user->uid;
-  }
-
-  $uid = $values['uid'];
-
-  $file = NULL;
-
   // @todo: Move this logic into dosomething_reportback_save().
-  $rbid = dosomething_reportback_exists($nid, NULL, $uid);
+  $rbid = dosomething_reportback_exists($nid, NULL, $uid) ?: 0;
 
-  // If this is creating a new reportback, there must be a file
+  // If file is submitted as an upload, the 'file' and 'filename' values must be provided.
   if (!empty($values['file']) && !empty($values['filename'])) {
     $values['filepath'] = dosomething_reportback_get_file_dest($values['filename'], $nid, $uid);
+
     // Use Services module's File Create resource to save the file.
     module_load_include('inc', 'services', 'resources/file_resource');
+
     $result = _file_resource_create($values);
+
     $file = file_load($result['fid']);
   }
+  elseif (!empty($values['file_url'])) {
+    $file = dosomething_reportback_save_file_from_url($nid, $uid, $values['file_url']);
 
-  if (!$file) {
-    // If this is to create a new reportback, there must be an image
-    if (!array_key_exists('file_url', $values) && !$rbid) {
-      return services_error(t("Reportback file_url not found."), 500);
+    if (!$file) {
+      return dosomething_helpers_basic_http_response(500, 'Could not write file to destination.');
     }
-    // Create a file from the $file_url if there is one.
-    if (!empty($values['file_url'])) {
-      $file = dosomething_reportback_save_file_from_url($nid, $uid, $values['file_url']);
-      if (!$file) {
-        return services_error(t("Could not write file to destination"), 500);
-      }
-    }
+  } else {
+    $file = NULL;
   }
 
+  // Update or set values.
   if ($file) {
     $values['fid'] = $file->fid;
     $values['file'] = dosomething_helpers_get_data_uri_from_fid($file->fid);
   }
 
-  if (!$rbid) {
-    $rbid = 0;
-  }
-
+  $values['nid'] = $nid;
   $values['rbid'] = $rbid;
 
+  // Logging.
   if (DOSOMETHING_REPORTBACK_LOG) {
     watchdog('dosomething_api', '_campaign_resource_reportback:' . json_encode($values));
   }
@@ -409,7 +409,7 @@ function _campaign_resource_reportback($nid, $values) {
   if (variable_get('rogue_collection', FALSE) && ! isset($headers['X-Request-Id'])) {
     $rogue_reportback = dosomething_rogue_send_reportback_to_rogue($values, $user);
 
-    // Make sure reportback made it back to Phoenix and store reference to the Rogue item if one was added
+    // Make sure reportback made it back to Phoenix and store reference to the Rogue item if one was added.
     $rb_info = dosomething_rogue_check_rbid_and_store_ref($rogue_reportback);
 
     return $rb_info['rbid'];
