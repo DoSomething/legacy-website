@@ -122,7 +122,7 @@ foreach ($signups as $signup) {
               db_insert('dosomething_rogue_reportbacks')
               ->fields([
                 'fid' => $current_fid,
-                'rogue_event_id' => $post['post_event_id'],
+                'rogue_event_id' => $post['id'],
                 'rbid' => $signup->rbid,
                 'rogue_signup_id' => $response['data']['signup_id'],
                 'created_at' => REQUEST_TIME,
