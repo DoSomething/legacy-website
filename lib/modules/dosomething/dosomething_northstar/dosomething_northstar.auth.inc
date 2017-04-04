@@ -130,7 +130,7 @@ function dosomething_northstar_openid_connect_post_authorize($tokens, $account, 
  *
  * @param string $action
  * @param string $nid
- * @param array $param
+ * @param array $params
  */
 function dosomething_northstar_set_authorization_action($action, $nid, $params = []) {
   if ($action !== 'signup') {
