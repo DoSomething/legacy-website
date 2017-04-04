@@ -242,13 +242,11 @@ function paraneue_dosomething_preprocess_reportback_gallery(&$vars, $count = 6) 
     // On the Rogue side, it will only return 'accepted', which will be shown in the gallery.
     $promotedReportbackItems = dosomething_rogue_get_reportback_items(['campaign_id' => $gallery['campaign_id']]);
 
-    // @TODO: What is the difference between initial_promoted_count and total_promoted_count?
-    // If all the same, we can just set total_promoted and total_approved to initial_promoted_count
-    // to not make same API calls over and over.
+    // Since Rogue only sends back accepted reportbacks, we can just set inital_promoted_count, total_promoted and total_approved to count($promotedReportbackItems)to not make same API calls over and over.
     // inital_promoted_count, total_promoted, and total_approved all the same now in Rogue world.
-    $gallery['initial_promoted_count'] = count(dosomething_rogue_get_reportback_items(['nid' => $gallery['campaign_id']]));
+    $gallery['initial_promoted_count'] = count($promotedReportbackItems);
 
-    $gallery['total_promoted'] = count(dosomething_rogue_get_reportback_items(['nid' => $gallery['campaign_id']]));
+    $gallery['total_promoted'] = count($promotedReportbackItems);
 
     // // # Approved Reportbacks:
     $gallery['total_approved'] = count($promotedReportbackItems);
