@@ -74,6 +74,7 @@ function dosomething_user_update_7009() {
 
   db_add_unique_key('field_data_field_northstar_id', 'entity_id', ['entity_id']);
 }
+
 /**
  * Implements hook_uninstall().
  */
