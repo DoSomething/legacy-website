@@ -110,7 +110,8 @@ function dosomething_northstar_get_user($id, $type = 'id') {
     return $northstar_user->data;
   }
 
-  $northstar_user = dosomething_northstar_client()->getUser($type, $id);
+  // Request profile as machine, since we're caching this for all users.
+  $northstar_user = dosomething_northstar_client()->asClient()->getUser($type, $id);
 
   if ($northstar_user) {
     cache_set($cache_key, $northstar_user, $cache_bin, REQUEST_TIME + 60*60*24);
