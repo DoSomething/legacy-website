@@ -240,16 +240,17 @@ function paraneue_dosomething_preprocess_reportback_gallery(&$vars, $count = 6) 
   if (variable_get('rogue_collection', FALSE)) {
     // Hit the GET /reportbacks endpoint in Rogue with campaign_id filter.
     // On the Rogue side, it will only return 'approved', which will be shown in the gallery.
-    $promotedReportbackItems = dosomething_rogue_get_reportback_items(['campaign_id' => $gallery['campaign_id']])['data'];
+    $promotedReportbackItemsResponse = dosomething_rogue_get_reportback_items(['campaign_id' => $gallery['campaign_id']]);
 
-    // Since Rogue only sends back approved reportbacks, we can just set inital_promoted_count, total_promoted and total_approved to count($promotedReportbackItems)to not make same API calls over and over.
-    // inital_promoted_count, total_promoted, and total_approved all the same now in Rogue world.
+    $promotedReportbackItems = $promotedReportbackItemsResponse['data'];
+
     $gallery['initial_promoted_count'] = count($promotedReportbackItems);
 
-    $gallery['total_promoted'] = count($promotedReportbackItems);
+    // Since Rogue only sends back approved reportbacks, we can just set total_approved to total_promoted.
+    $gallery['total_promoted'] = $promotedReportbackItemsResponse['meta']['pagination']['total'];
 
-    // // # Approved Reportbacks:
-    $gallery['total_approved'] = count($promotedReportbackItems);
+    // # Approved Reportbacks:
+    $gallery['total_approved'] = $gallery['total_promoted'];
   }
   else {
     // # Promoted Reportbacks:
@@ -270,7 +271,6 @@ function paraneue_dosomething_preprocess_reportback_gallery(&$vars, $count = 6) 
   // # Build the full initial gallery:
 
   // Collect Reportbacks to fulfill desired amount.
-  // @TODO: delete this comment but the below should be fine if we're okay with grabbing the placeholder still from Phoenix?
   if ($gallery['initial_promoted_count'] < $gallery['desired_count']) {
     $reportbackItems = paraneue_dosomething_build_reportbacks_gallery_collection($gallery, $promotedReportbackItems, TRUE);
   }
