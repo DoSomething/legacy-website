@@ -96,6 +96,9 @@ function dosomething_northstar_openid_connect_post_authorize($tokens, $account, 
   // Determine the user's language code if possible.
   $language_code = dosomething_global_get_language($account);
 
+  // Make sure the user's email address is up to date.
+  $account->mail = $userinfo['email'];
+
   $edit = [];
   dosomething_user_set_fields($edit, [
     'access_token' => $tokens['access_token'],
