@@ -240,7 +240,7 @@ function paraneue_dosomething_preprocess_reportback_gallery(&$vars, $count = 6) 
   if (variable_get('rogue_collection', FALSE)) {
     // Hit the GET /reportbacks endpoint in Rogue with campaign_id filter.
     // On the Rogue side, it will only return 'accepted', which will be shown in the gallery.
-    $promotedReportbackItems = dosomething_rogue_get_reportback_items(['campaign_id' => $gallery['campaign_id']]);
+    $promotedReportbackItems = dosomething_rogue_get_reportback_items(['campaign_id' => $gallery['campaign_id']])['data'];
 
     // Since Rogue only sends back accepted reportbacks, we can just set inital_promoted_count, total_promoted and total_approved to count($promotedReportbackItems)to not make same API calls over and over.
     // inital_promoted_count, total_promoted, and total_approved all the same now in Rogue world.
@@ -281,6 +281,7 @@ function paraneue_dosomething_preprocess_reportback_gallery(&$vars, $count = 6) 
 
   foreach ($reportbackItems as $item) {
     if (variable_get('rogue_collection', FALSE)) {
+      $item = (object) $item;
       $gallery['item_ids'][] = $item->id;
       $gallery['items'][] = paraneue_dosomething_get_themed_reportback_item($item, TRUE);
     }
@@ -296,8 +297,13 @@ function paraneue_dosomething_preprocess_reportback_gallery(&$vars, $count = 6) 
   // Get total of Promoted & Approved RB Items prefetched.
   $gallery['prefetched'] = count($gallery['item_ids']);
 
-  // Get total of Promoted & Approved RB Items for Campaign.
-  $gallery['total_sum'] = $gallery['total_promoted'] + $gallery['total_approved'];
+  if (variable_get('rogue_collection', FALSE)) {
+    $gallery['total_sum'] = $gallery['total_approved'];
+  }
+  else {
+    // Get total of Promoted & Approved RB Items for Campaign.
+    $gallery['total_sum'] = $gallery['total_promoted'] + $gallery['total_approved'];
+  }
 
   // Get total remaining after subtracting the RB Items already retrieved.
   $gallery['remaining'] = $gallery['total_sum'] - $gallery['prefetched'];
