@@ -70,9 +70,9 @@ function dosomething_user_update_7008() {
  * northstar_id and entitiy_id fields.
  */
 function dosomething_user_update_7009() {
-  db_add_unique_key('field_data_field_northstar_id', 'field_northstar_id_value', ['field_northstar_id_value']);
+  db_add_index('field_data_field_northstar_id', 'field_northstar_id_value', ['field_northstar_id_value']);
 
-  db_add_unique_key('field_data_field_northstar_id', 'entity_id', ['entity_id']);
+  db_add_index('field_data_field_northstar_id', 'entity_id', ['entity_id']);
 }
 
 /**
