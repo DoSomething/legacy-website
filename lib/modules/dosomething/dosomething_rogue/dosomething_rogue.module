@@ -148,7 +148,7 @@ function dosomething_rogue_update_rogue_reportback_items($data, $failed_task_id 
  *
  */
 function dosomething_rogue_get_by_file_id($fid) {
-  return db_query("SELECT rogue_rbs.rogue_event_id FROM {dosomething_rogue_reportbacks} rogue_rbs WHERE fid = :fid", array(':fid' => $fid))->fetchAll();
+  return db_query("SELECT rogue_rbs.rogue_post_id FROM {dosomething_rogue_reportbacks} rogue_rbs WHERE fid = :fid", array(':fid' => $fid))->fetchAll();
 }
 
 /**

@@ -90,7 +90,6 @@ foreach ($signups as $signup) {
           'source' => $photo->source,
           'remote_addr' => $photo->remote_addr,
           'caption' => $photo->caption,
-          'event_type' => 'post_photo',
           'northstar_id' => $northstar_user->id,
           'status' => $rogue_status,
           'do_not_forward' => TRUE,
@@ -114,7 +113,7 @@ foreach ($signups as $signup) {
 
         if ($signup->rbid) {
           foreach ($response['data']['posts']['data'] as $post) {
-            echo 'Rogue event_id: ' . $post['post_event_id'] . PHP_EOL;
+            echo 'Rogue event_id: ' . $post['id'] . PHP_EOL;
             $current_fid = array_shift($fids);
 
             if (! dosomething_rogue_get_by_file_id($current_fid)) {
@@ -122,7 +121,7 @@ foreach ($signups as $signup) {
               db_insert('dosomething_rogue_reportbacks')
               ->fields([
                 'fid' => $current_fid,
-                'rogue_event_id' => $post['post_event_id'],
+                'rogue_post_id' => $post['id'],
                 'rbid' => $signup->rbid,
                 'rogue_signup_id' => $response['data']['signup_id'],
                 'created_at' => REQUEST_TIME,
