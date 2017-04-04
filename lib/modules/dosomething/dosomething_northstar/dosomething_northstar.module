@@ -20,8 +20,11 @@ define('NORTHSTAR_URL', variable_get('dosomething_northstar_url', 'http://norths
  * @return DoSomething\Gateway\Northstar
  */
 function dosomething_northstar_client() {
-  $oauth_client = variable_get('openid_connect_client_northstar',
-    array('client_id' => NULL, 'client_secret' => NULL));
+  $oauth_client = variable_get('openid_connect_client_northstar', [
+    'client_id' => NULL,
+    'client_secret' => NULL
+  ]);
+
   return new Northstar([
     'grant' => 'authorization_code',
     'url' => NORTHSTAR_URL,
