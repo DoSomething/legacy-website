@@ -420,7 +420,7 @@ function _campaign_resource_reportback($nid, $values) {
     return $rb_info['rbid'];
   }
   else {
-    if ($headers['X-Request-Id']) {
+    if (isset($headers['X-Request-Id'])) {
       // Increment transaction id and log that the request has been received with new transaction id.
       $incremented_transaction_id = dosomething_api_increment_transaction_id($headers['X-Request-Id']);
 
