@@ -390,6 +390,11 @@ function _campaign_resource_reportback($nid, $values) {
     $file = NULL;
   }
 
+  // If first time user is submitting RB, then a file is required.
+  if (!$file && $rbid === 0) {
+    return dosomething_helpers_basic_http_response(422, 'Cannot create new reportback without a file.');
+  }
+
   // Update or set values.
   if ($file) {
     $values['fid'] = $file->fid;
