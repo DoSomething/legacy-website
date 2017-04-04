@@ -239,10 +239,10 @@ function paraneue_dosomething_preprocess_reportback_gallery(&$vars, $count = 6) 
   // If the Rogue feature flag is on, grab reportbacks from Rogue.
   if (variable_get('rogue_collection', FALSE)) {
     // Hit the GET /reportbacks endpoint in Rogue with campaign_id filter.
-    // On the Rogue side, it will only return 'accepted', which will be shown in the gallery.
+    // On the Rogue side, it will only return 'approved', which will be shown in the gallery.
     $promotedReportbackItems = dosomething_rogue_get_reportback_items(['campaign_id' => $gallery['campaign_id']])['data'];
 
-    // Since Rogue only sends back accepted reportbacks, we can just set inital_promoted_count, total_promoted and total_approved to count($promotedReportbackItems)to not make same API calls over and over.
+    // Since Rogue only sends back approved reportbacks, we can just set inital_promoted_count, total_promoted and total_approved to count($promotedReportbackItems)to not make same API calls over and over.
     // inital_promoted_count, total_promoted, and total_approved all the same now in Rogue world.
     $gallery['initial_promoted_count'] = count($promotedReportbackItems);
 

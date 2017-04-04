@@ -681,9 +681,8 @@ function dosomething_reportback_preprocess_entity(&$variables) {
   }
 
   if (variable_get('rogue_collection', FALSE)) {
-    //@TODO: make sure this is the correct Rogue URL
     $rogue_base_url = variable_get('dosomething_rogue_url', 'https://rogue.dosomething.org/api');
-    $apiUrl = $rogue_base_url . '/v2/reportbacks';
+    $apiUrl = $rogue_base_url . '/v1/reportbacks';
   }
   else {
     $apiUrl = '/api/v1/reportback-items';
