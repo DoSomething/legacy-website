@@ -52,7 +52,10 @@ function dosomething_rogue_client() {
   */
 function dosomething_rogue_get_reportback_items($inputs)
 {
-  $client = dosomething_rogue_client();
+  $client = new Rogue(ROGUE_API_URL . '/v1/',
+    ['headers' => ['X-DS-Rogue-API-Key' => ROGUE_API_KEY]]
+  );
+
   $response = $client->getAllReportbacks($inputs);
 
   return $response;
