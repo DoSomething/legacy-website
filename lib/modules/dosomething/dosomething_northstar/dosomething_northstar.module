@@ -37,7 +37,7 @@ function dosomething_northstar_client() {
     'authorization_code' => [
       'client_id' => $oauth_client['client_id'],
       'client_secret' => $oauth_client['client_secret'],
-      'scope' => ['user'],
+      'scope' => openid_connect_get_scopes(),
       'redirect_uri' => 'user/login',
     ],
   ]);
