@@ -93,18 +93,22 @@ function dosomething_northstar_openid_connect_claims_alter(&$claims) {
  * @param string $provider - The provider used to authenticate
  */
 function dosomething_northstar_openid_connect_post_authorize($tokens, $account, $userinfo, $provider) {
-  $edit = [];
+  // Determine the user's language code if possible.
+  $language_code = dosomething_global_get_language($account);
 
+  $edit = [];
   dosomething_user_set_fields($edit, [
     'access_token' => $tokens['access_token'],
     'refresh_token' => $tokens['refresh_token'],
     'access_token_expiration' => $tokens['expire'],
+    'language' => $language_code ? $language_code : 'en-global',
+    'timezone' => 'UTC',
   ]);
+  user_save($account, $edit);
 
-  // HACK: Did this local account exist already? If not, mark as "remote"
-  // so that we know we can't use it's local password for login/profile.
-  if ($account->created > time() - 15) {
-    dosomething_user_set_fields($edit, ['created_by_openid_connect' => 1]);
+  // Make sure the user's Northstar ID is set in the field_data_field_northstar_id table.
+  if (!dosomething_user_get_northstar_id($account->uid)) {
+    dosomething_northstar_save_id_field($account->uid, ['data' => $userinfo]);
   }
 
   // HACK: Was this account registered just now (last 15s)? If so, send transactional
@@ -116,26 +120,8 @@ function dosomething_northstar_openid_connect_post_authorize($tokens, $account, 
     dosomething_helpers_add_analytics_event('Authentication', 'Login');
   }
 
-  // Make sure the user's Northstar ID is set in the field_data_field_northstar_id table.
-  if (!dosomething_user_get_northstar_id($account->uid)) {
-    dosomething_northstar_save_id_field($account->uid, ['data' => $userinfo]);
-  }
-
   // If we saved a "post-authorization" action, do it now.
   dosomething_northstar_perform_authorization_actions();
-
-  if (empty($account->language)) {
-    // Determine the user's language code if possible.
-    $language_code = dosomething_global_get_language($account);
-
-    $edit['language'] = $language_code ? $language_code : 'en-global';
-  }
-
-  if (empty($account->timezone)) {
-    $edit['timezone'] = 'UTC';
-  }
-
-  user_save($account, $edit);
 }
 
 /**
