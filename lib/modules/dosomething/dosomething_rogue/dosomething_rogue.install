@@ -524,7 +524,9 @@ function dosomething_rogue_update_7013(&$sandbox) {
       'not null' => FALSE,
     ];
 
-    db_add_field($table, 'rbid', $rbid_spec);
+    if (! db_field_exists($table, 'rbid')) {
+      db_add_field($table, 'rbid', $rbid_spec);
+    }
 
     $fid_spec = [
       'description' => 'The fid of the reportback item as it is stored in phoenix.',
@@ -532,7 +534,9 @@ function dosomething_rogue_update_7013(&$sandbox) {
       'not null' => FALSE,
     ];
 
-    db_add_field($table, 'fid', $fid_spec);
+    if (! db_field_exists($table, 'fid')) {
+      db_add_field($table, 'fid', $fid_spec);
+    }
   }
 }
 
@@ -548,6 +552,9 @@ function dosomething_rogue_update_7014(&$sandbox) {
       'length' => '11',
     ];
 
-    db_change_field($table, 'rogue_event_id', 'rogue_post_id', $spec);
+
+    if (db_field_exists($table, 'rogue_event_id')) {
+      db_change_field($table, 'rogue_event_id', 'rogue_post_id', $spec);
+    }
   }
 }
