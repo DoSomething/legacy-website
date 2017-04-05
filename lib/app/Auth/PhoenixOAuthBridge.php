@@ -13,7 +13,9 @@ class PhoenixOAuthBridge implements OAuthBridgeContract {
    * @return NorthstarUserContract|null
    */
   public function getCurrentUser() {
-    //
+    global $user;
+    $account = new PhoenixOAuthUser($user->uid);
+    return $account;
   }
 
   /**
@@ -22,7 +24,12 @@ class PhoenixOAuthBridge implements OAuthBridgeContract {
    * @return NorthstarUserContract|null
    */
   public function getUser($id) {
-    //
+    $user = dosomething_user_get_user_by_northstar_id($id);
+    if (empty($user)) {
+      return NULL;
+    }
+    $account = new PhoenixOAuthUser($user->uid);
+    return $account;
   }
 
   /**
@@ -32,7 +39,7 @@ class PhoenixOAuthBridge implements OAuthBridgeContract {
    * @return NorthstarUserContract
    */
   public function getOrCreateUser($id) {
-    //
+    // This method can stay unimplemented for now because it isn't called.
   }
 
   /**
@@ -61,7 +68,9 @@ class PhoenixOAuthBridge implements OAuthBridgeContract {
    * @internal param $userId - Northstar user ID
    */
   public function persistUserToken(AccessToken $token) {
-    //
+    global $user;
+    $account = new PhoenixOAuthUser($user->uid);
+    $account->setOAuthToken($token);
   }
 
   /**
@@ -85,7 +94,7 @@ class PhoenixOAuthBridge implements OAuthBridgeContract {
    * @return void
    */
   public function requestUserCredentials() {
-    //
+    $this->logout();
   }
 
   /**
@@ -95,7 +104,7 @@ class PhoenixOAuthBridge implements OAuthBridgeContract {
    * @return void
    */
   public function saveStateToken($state) {
-    //
+    $_SESSION['openid_connect_state'] = $state;
   }
 
   /**
@@ -104,7 +113,7 @@ class PhoenixOAuthBridge implements OAuthBridgeContract {
    * @return string
    */
   public function getStateToken() {
-    //
+    return $_SESSION['openid_connect_state'];
   }
 
   /**
@@ -115,7 +124,8 @@ class PhoenixOAuthBridge implements OAuthBridgeContract {
    * @return mixed
    */
   public function login(NorthstarUserContract $user, AccessToken $token) {
-    //
+    $form_state = array('uid' => $user->user->uid);
+    user_login_submit(array(), $form_state);
   }
 
   /**
@@ -124,7 +134,8 @@ class PhoenixOAuthBridge implements OAuthBridgeContract {
    * @return mixed
    */
   public function logout() {
-    //
+    module_load_include('pages.inc', 'user');
+    user_logout();
   }
 
   /**
@@ -135,6 +146,6 @@ class PhoenixOAuthBridge implements OAuthBridgeContract {
    * @return string
    */
   public function prepareUrl($url) {
-    //
+    return url($url, array('absolute' => TRUE));
   }
 }
