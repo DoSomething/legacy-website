@@ -26,7 +26,7 @@ class PhoenixOAuthBridge implements OAuthBridgeContract {
   public function getUser($id) {
     $user = dosomething_user_get_user_by_northstar_id($id);
     if (empty($user)) {
-      return FALSE;
+      return NULL;
     }
     $account = new PhoenixOAuthUser($user->uid);
     return $account;
