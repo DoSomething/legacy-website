@@ -156,6 +156,12 @@ function _reportback_item_resource_index($campaigns, $exclude, $status, $count, 
     'as_user' => $as_user,
   );
 
+  if (variable_get('rogue_collection', FALSE)) {
+    $client = dosomething_rogue_client('v1');
+    $response = $client->getAllReportbacks($inputs);
+    return $response;
+  }
+
   $reportbackItems = new ReportbackItemTransformer;
   return $reportbackItems->index($parameters);
 }

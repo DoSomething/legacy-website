@@ -240,7 +240,7 @@ function paraneue_dosomething_preprocess_reportback_gallery(&$vars, $count = 6) 
   if (variable_get('rogue_collection', FALSE)) {
     // Hit the GET /reportbacks endpoint in Rogue with campaign_id filter.
     // On the Rogue side, it will only return 'approved', which will be shown in the gallery.
-    $promotedReportbackItemsResponse = dosomething_rogue_get_reportback_items(['campaign_id' => $gallery['campaign_id']]);
+    $promotedReportbackItemsResponse = dosomething_rogue_get_reportback_items(['campaign_id' => $gallery['campaign_id'], 'limit' => 6]);
 
     $promotedReportbackItems = $promotedReportbackItemsResponse['data'];
 
