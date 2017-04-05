@@ -14,13 +14,28 @@ class Rogue extends RestApiClient {
   protected $transactionBridge = Phoenix\Auth\PhoenixTransactionBridge::class;
 
   /**
+   * Send a GET request to return all reportbacks matching a given
+   * query from Rogue.
+   *
+   * @param array $inputs
+   * @return Rogue Reportbacks
+   */
+  public function getAllReportbacks($inputs = [])
+  {
+    $response = $this->get('reportbacks', $inputs);
+
+    return $response;
+  }
+
+  /**
    * Send a POST request of the reportback to be saved in Rogue.
    *
    * @param string $baseurl
    * @param array $data
    * @return object|false
    */
-  public function postReportback($data) {
+  public function postReportback($data)
+  {
     $response = $this->post('posts', $data);
 
     return $response;
@@ -33,7 +48,8 @@ class Rogue extends RestApiClient {
    * @param array $data
    * @return object|false
    */
-  public function updateReportback($data) {
+  public function updateReportback($data)
+  {
     $response = $this->put('reviews', $data);
 
     return $response;
@@ -45,7 +61,8 @@ class Rogue extends RestApiClient {
    * @param array $data
    * @return object|false
    */
-  public function postSignup($data) {
+  public function postSignup($data)
+  {
     $response = $this->post('signups', $data);
 
     return $response;

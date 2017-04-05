@@ -353,16 +353,19 @@ function paraneue_dosomething_get_themed_reportbacks_by_status($campaign_id, $st
  * Theme a single Reportback Item for the gallery.
  *
  * @param  object  $data
+ * @param  boolean $rogue_rb_item
  * @return null|string
  */
-function paraneue_dosomething_get_themed_reportback_item($data) {
+function paraneue_dosomething_get_themed_reportback_item($data, $rogue_rb_item = FALSE) {
   if (!$data) {
     return NULL;
   }
 
-  if ($data->id && !dosomething_kudos_disable_reactions($data->campaign->id)) {
+  if ($data->id && !dosomething_kudos_disable_reactions($data->campaign->id) && !$rogue_rb_item) {
     $data->kudos = dosomething_kudos_get_kudos_data_for_fid($data->id);
   }
+
+  // @TODO: do we want to add kudos from Rogue here?
 
   if ($data instanceof ReportbackItem && user_access('view any reportback')) {
     $data->admin_link = '/admin/reportback/' . $data->reportback['id'];

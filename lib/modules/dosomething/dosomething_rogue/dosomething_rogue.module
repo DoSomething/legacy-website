@@ -38,10 +38,25 @@ function dosomething_rogue_menu() {
  *
  * https://github.com/DoSomething/rogue
  */
-function dosomething_rogue_client() {
-  return new Rogue(ROGUE_API_URL . '/' . ROGUE_API_VERSION . '/',
+function dosomething_rogue_client($version = ROGUE_API_VERSION) {
+  return new Rogue(ROGUE_API_URL . '/' . $version . '/',
     ['headers' => ['X-DS-Rogue-API-Key' => ROGUE_API_KEY]]
   );
+}
+
+/**
+  * Send a GET request to return all reportback items matching a given
+  * query from Rogue.
+  *
+  * @param array $inputs
+  */
+function dosomething_rogue_get_reportback_items($inputs)
+{
+  $client = dosomething_rogue_client('v1');
+
+  $response = $client->getAllReportbacks($inputs);
+
+  return $response;
 }
 
 /**

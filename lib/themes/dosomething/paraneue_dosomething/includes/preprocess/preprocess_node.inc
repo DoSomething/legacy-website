@@ -236,19 +236,37 @@ function paraneue_dosomething_preprocess_reportback_gallery(&$vars, $count = 6) 
     'random' => TRUE,
   ];
 
+  // If the Rogue feature flag is on, grab reportbacks from Rogue.
+  if (variable_get('rogue_collection', FALSE)) {
+    // Hit the GET /reportbacks endpoint in Rogue with campaign_id filter.
+    // On the Rogue side, it will only return 'approved', which will be shown in the gallery.
+    $promotedReportbackItemsResponse = dosomething_rogue_get_reportback_items(['campaign_id' => $gallery['campaign_id'], 'limit' => 6]);
 
-  // # Promoted Reportbacks:
-  try {
-    $promotedReportbackItems = (new ReportbackItem)->find($filters);
-  }
-  catch (Exception $error) {
-    $promotedReportbackItems = [];
-  }
-  $gallery['initial_promoted_count'] = count($promotedReportbackItems);
-  $gallery['total_promoted'] = dosomething_reportback_get_reportback_items_total_by_filters(['nid' => $gallery['campaign_id'], 'status' => 'promoted']);
+    $promotedReportbackItems = $promotedReportbackItemsResponse['data'];
 
-  // # Approved Reportbacks:
-  $gallery['total_approved'] = dosomething_reportback_get_reportback_items_total_by_filters(['nid' => $gallery['campaign_id'], 'status' => 'approved']);
+    $gallery['initial_promoted_count'] = count($promotedReportbackItems);
+
+    // Since Rogue only sends back approved reportbacks, we can just set total_approved to total_promoted.
+    $gallery['total_promoted'] = $promotedReportbackItemsResponse['meta']['pagination']['total'];
+
+    // # Approved Reportbacks:
+    $gallery['total_approved'] = $gallery['total_promoted'];
+  }
+  else {
+    // # Promoted Reportbacks:
+    try {
+      $promotedReportbackItems = (new ReportbackItem)->find($filters);
+    }
+    catch (Exception $error) {
+      $promotedReportbackItems = [];
+    }
+    $gallery['initial_promoted_count'] = count($promotedReportbackItems);
+
+    $gallery['total_promoted'] = dosomething_reportback_get_reportback_items_total_by_filters(['nid' => $gallery['campaign_id'], 'status' => 'promoted']);
+
+    // # Approved Reportbacks:
+    $gallery['total_approved'] = dosomething_reportback_get_reportback_items_total_by_filters(['nid' => $gallery['campaign_id'], 'status' => 'approved']);
+  }
 
   // # Build the full initial gallery:
 
@@ -262,24 +280,40 @@ function paraneue_dosomething_preprocess_reportback_gallery(&$vars, $count = 6) 
   }
 
   foreach ($reportbackItems as $item) {
-    if ($item instanceof ReportbackItem) {
+    if (variable_get('rogue_collection', FALSE)) {
+      $item = (object) $item;
       $gallery['item_ids'][] = $item->id;
+      $gallery['items'][] = paraneue_dosomething_get_themed_reportback_item($item, TRUE);
     }
+    else {
+      if ($item instanceof ReportbackItem) {
+        $gallery['item_ids'][] = $item->id;
+      }
 
-    $gallery['items'][] = paraneue_dosomething_get_themed_reportback_item($item);
+      $gallery['items'][] = paraneue_dosomething_get_themed_reportback_item($item);
+    }
   }
 
   // Get total of Promoted & Approved RB Items prefetched.
   $gallery['prefetched'] = count($gallery['item_ids']);
 
-  // Get total of Promoted & Approved RB Items for Campaign.
-  $gallery['total_sum'] = $gallery['total_promoted'] + $gallery['total_approved'];
+  if (variable_get('rogue_collection', FALSE)) {
+    $gallery['total_sum'] = $gallery['total_approved'];
+  }
+  else {
+    // Get total of Promoted & Approved RB Items for Campaign.
+    $gallery['total_sum'] = $gallery['total_promoted'] + $gallery['total_approved'];
+  }
 
   // Get total remaining after subtracting the RB Items already retrieved.
   $gallery['remaining'] = $gallery['total_sum'] - $gallery['prefetched'];
 
   global $user;
 
+  // @TODO: how do we deal with the below?
+  // reactions in phoenix and rogue will not be the same (since we're not migrating)
+  // do we just display the reactions based on what they are in phoenix?
+  // this might not reflect accurately and seem like a bug to users. how much do we care?
   drupal_add_js(
     [
       'dsKudosReactions' => [

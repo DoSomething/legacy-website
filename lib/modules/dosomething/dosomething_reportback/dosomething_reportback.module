@@ -21,7 +21,6 @@ include_once 'includes/ReportbackItem.php';
 include_once 'includes/ReportbackItemController.php';
 include_once 'includes/ReportbackItemTransformer.php';
 
-
 /**
  * Implements hook_entity_info().
  *
