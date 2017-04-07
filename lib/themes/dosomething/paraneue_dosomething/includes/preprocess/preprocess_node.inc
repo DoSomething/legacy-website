@@ -282,8 +282,20 @@ function paraneue_dosomething_preprocess_reportback_gallery(&$vars, $count = 6) 
   foreach ($reportbackItems as $item) {
     if (variable_get('rogue_collection', FALSE)) {
       $item = (object) $item;
+      // @TODO: This is the fid. We need to update according to the reference table?
       $gallery['item_ids'][] = $item->id;
       $gallery['items'][] = paraneue_dosomething_get_themed_reportback_item($item, TRUE);
+
+      drupal_add_js(
+        [
+          'dsKudosReactions' => [
+            'sendToRogue' => true,
+            'northstarId' => $item->user,
+            'postId' => $item->event_id,
+          ]
+        ],
+        'setting'
+      );
     }
     else {
       if ($item instanceof ReportbackItem) {
@@ -310,10 +322,6 @@ function paraneue_dosomething_preprocess_reportback_gallery(&$vars, $count = 6) 
 
   global $user;
 
-  // @TODO: how do we deal with the below?
-  // reactions in phoenix and rogue will not be the same (since we're not migrating)
-  // do we just display the reactions based on what they are in phoenix?
-  // this might not reflect accurately and seem like a bug to users. how much do we care?
   drupal_add_js(
     [
       'dsKudosReactions' => [
