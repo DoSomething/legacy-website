@@ -367,9 +367,10 @@ function paraneue_dosomething_get_themed_reportback_item($data, $rogue_rb_item =
         // $data->id = db_query("SELECT rogue_rbs.fid FROM {dosomething_rogue_reportbacks} rogue_rbs WHERE rogue_event_id = :rogue_event_id", array(':rogue_event_id' => $data->event_id))->fetchField();
 
         $total_rogue_kudos = $data->kudos['total'];
+        $liked_by_current_user = $data->kudos['liked_by_current_user'] ? true : false;
       }
 
-      $data->kudos = dosomething_kudos_get_kudos_data_for_fid($data->id, $total_rogue_kudos ? $total_rogue_kudos : null);
+      $data->kudos = dosomething_kudos_get_kudos_data_for_fid($data->id, $total_rogue_kudos ? $total_rogue_kudos : null, $liked_by_current_user ? $liked_by_current_user : null);
   }
 
   if ($data instanceof ReportbackItem && user_access('view any reportback')) {

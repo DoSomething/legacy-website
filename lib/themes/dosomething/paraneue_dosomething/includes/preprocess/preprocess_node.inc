@@ -291,17 +291,16 @@ function paraneue_dosomething_preprocess_reportback_gallery(&$vars, $count = 6) 
       // @TODO: This is the fid. We need to update according to the reference table?
       $gallery['item_ids'][] = $item->id;
       $gallery['items'][] = paraneue_dosomething_get_themed_reportback_item($item, TRUE);
-
-      drupal_add_js(
-        [
-          'dsKudosReactions' => [
-            'sendToRogue' => true,
-            'northstarId' => $item->user,
-            'postId' => $item->event_id,
-          ]
-        ],
-        'setting'
-      );
+      // drupal_add_js(
+      //   [
+      //     'dsKudosReactions' => [
+      //       'sendToRogue' => true,
+      //       'northstarId' => $item->user,
+      //       'postId' => $item->event_id,
+      //     ]
+      //   ],
+      //   'setting'
+      // );
     }
     else {
       if ($item instanceof ReportbackItem) {
