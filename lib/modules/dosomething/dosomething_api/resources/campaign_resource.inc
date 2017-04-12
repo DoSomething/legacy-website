@@ -267,7 +267,6 @@ function _campaign_resource_index($ids, $staff_pick, $term_ids, $count, $random,
  *       Defaults to sending messages.
  */
 function _campaign_resource_signup($nid, $values) {
-
   if (isset($values['northstar_id'])) {
     $values['uid'] = dosomething_user_get_user_by_northstar_id($values['northstar_id'])->uid;
   }
@@ -287,42 +286,19 @@ function _campaign_resource_signup($nid, $values) {
     watchdog('dosomething_api', '_campaign_resource_signup values:' . json_encode($values));
   }
 
-  $headers = getallheaders();
+  // Check to see if we should be sending requests to Rogue instead:
+  if (variable_get('rogue_collection', FALSE)) {
+    $rogue_signup = dosomething_rogue_send_signup_to_rogue(array_merge($values, [
+      'campaign_id' => $nid,
+    ]));
 
-  // Check to see if the request came from Rogue and if we should be sending it there
-  // $headers['X-Request-Id'] will only be set if the request is coming from Rogue
-  if ( !isset($headers['X-Request-Id'])) {
-    if (variable_get('rogue_collection', FALSE)) {
-      // Pass the campaign_id
-      $values['campaign_id'] = $nid;
-
-      // Get the run to pass
-      $user = user_load($values['uid']);
-      $run = dosomething_helpers_get_current_campaign_run_for_user($nid, $user);
-
-      // Post the signup to Rogue
-      $rogue_signup = dosomething_rogue_send_signup_to_rogue($values);
-
-      // Store the reference to the Rogue signup
-      if ($rogue_signup) {
-        return dosomething_rogue_check_sid_and_store_ref($rogue_signup);
-      }
+    // Store the reference to the Rogue signup
+    if ($rogue_signup) {
+      return dosomething_rogue_check_sid_and_store_ref($rogue_signup);
     }
-    // The request is not from Rogue and we don't want to send it there, so just save to Phoenix
-    else {
-      // transactionals = FALSE will result in neither email or SMS transactional messages being sent.
-      return dosomething_signup_create($nid, $values['uid'], $values['source'], NULL, $values['transactionals']);
-    }
-  } else {
-    // Only try to increment transaction IDs if they were already set
-    // Increment transaction id and log that the request has been received with new transaction id.
-    $incremented_transaction_id = dosomething_api_increment_transaction_id($headers['X-Request-Id']);
-
-    watchdog('PhoenixTransactionBridge', 'Request received. Transaction ID: !incremented_transaction_id', ['!incremented_transaction_id' => $incremented_transaction_id], WATCHDOG_INFO);
-
-    // transactionals = FALSE will result in neither email or SMS transactional messages being sent.
-    return dosomething_signup_create($nid, $values['uid'], $values['source'], NULL, $values['transactionals']);
   }
+
+  return dosomething_signup_create($nid, $values['uid'], $values['source'], NULL, $values['transactionals']);
 }
 
 
