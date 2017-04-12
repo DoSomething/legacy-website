@@ -270,9 +270,9 @@ function _campaign_resource_signup($nid, $values) {
   if (isset($values['northstar_id'])) {
     $values['uid'] = dosomething_user_get_user_by_northstar_id($values['northstar_id'])->uid;
   }
-  else if (!isset($values['uid'])) {
-    global $user;
-    $values['uid'] = $user->uid;
+
+  if (!isset($values['uid'])) {
+    return services_error('Cannot create signup without a `northstar_id` or `uid`.');
   }
 
   if (!isset($values['source'])) {
