@@ -163,8 +163,8 @@ function _reportback_item_resource_index($campaigns, $exclude, $status, $count, 
         'campaign_id' => $campaigns,
       ],
       'as_user' => dosomething_user_get_field('field_northstar_id'),
-      'limit' => 6
     ]);
+
     return $response;
   }
 
