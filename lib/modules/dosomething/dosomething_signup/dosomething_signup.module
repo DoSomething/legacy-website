@@ -254,9 +254,9 @@ function dosomething_signup_create($nid, $uid = NULL, $source = NULL, $timestamp
   $campaign = Campaign::get($nid);
   $run = dosomething_helpers_get_current_campaign_run_for_user($nid, $user, $campaign);
 
-  // If a signup already exists, return the signup ID.
-  if ($existing_id = dosomething_signup_exists($nid, $run->nid, $uid)) {
-    return $existing_id;
+  // If a signup already exists, exit.
+  if (dosomething_signup_exists($nid, $run->nid, $uid)) {
+    return FALSE;
   }
 
   $values = array(
@@ -270,11 +270,11 @@ function dosomething_signup_create($nid, $uid = NULL, $source = NULL, $timestamp
 
   try {
     // Create a signup entity.
-    // @see: SignupsController.php save()
     $entity = entity_create('signup', $values);
+    // The SignupEntityController save method handles any NULL values.
     $entity->save();
-
     if (isset($entity->sid)) {
+
       if (module_exists('stathat')) {
         // The source is often a string longer than just "reportback", but always starts with it if the page is a permalink
         if (strpos($source, 'reportback') === 0) {
