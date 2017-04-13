@@ -367,7 +367,7 @@ function paraneue_dosomething_get_themed_reportback_item($data, $rogue_rb_item =
         // $data->id = db_query("SELECT rogue_rbs.fid FROM {dosomething_rogue_reportbacks} rogue_rbs WHERE rogue_event_id = :rogue_event_id", array(':rogue_event_id' => $data->event_id))->fetchField();
 
         $total_rogue_kudos = $data->kudos['total'];
-        $liked_by_current_user = $data->kudos['liked_by_current_user'] ? true : false;
+        $liked_by_current_user = $data->kudos['data']['current_user']['reacted'] ? true : false;
 
         if ($liked_by_current_user) {
           drupal_add_js(
