@@ -158,13 +158,30 @@ function _reportback_item_resource_index($campaigns, $exclude, $status, $count, 
 
   if (variable_get('rogue_collection', FALSE)) {
     $client = dosomething_rogue_client('v1');
-    $response = $client->getAllReportbacks([
-      'filter' => [
-        'campaign_id' => $campaigns,
-      ],
-      'as_user' => dosomething_user_get_field('field_northstar_id'),
-      'limit' => 12,
-    ]);
+    // is there anyway to get the url string here so we can grab the page number param?
+    // $query_parts = explode("&", $_SERVER['REQUEST_URI']);
+    // $page = end($query_parts);
+    // // // page=2
+    // $page = explode("=", $page);
+    // $page = end($page);
+    // if ($page) {
+    //   $response = $client->getAllReportbacks([
+    //     'filter' => [
+    //       'campaign_id' => $campaigns,
+    //     ],
+    //     'as_user' => dosomething_user_get_field('field_northstar_id'),
+    //     'limit' => 12,
+    //     'page' => 3,
+    //   ]);
+    // } else {
+      $response = $client->getAllReportbacks([
+        'filter' => [
+          'campaign_id' => $campaigns,
+        ],
+        'as_user' => dosomething_user_get_field('field_northstar_id'),
+        'limit' => 12,
+      ]);
+    // }
 
     return $response;
   }
