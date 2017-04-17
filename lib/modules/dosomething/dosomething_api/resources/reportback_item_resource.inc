@@ -158,32 +158,16 @@ function _reportback_item_resource_index($campaigns, $exclude, $status, $count, 
 
   if (variable_get('rogue_collection', FALSE)) {
     $client = dosomething_rogue_client('v1');
-    $query_parts = explode("&", $_SERVER['REQUEST_URI']);
-    $last_query_param = end($query_parts);
-    $last_query_param_parts = explode("=", $last_query_param);
 
-    if ($last_query_param_parts[0] === 'page') {
-      $page_number = end($last_query_param_parts);
-
-      if ($page_number) {
-        $response = $client->getAllReportbacks([
-          'filter' => [
-            'campaign_id' => $campaigns,
-          ],
-          'as_user' => dosomething_user_get_field('field_northstar_id'),
-          'limit' => 12,
-          'page' => $page_number,
-        ]);
-      }
-    } else {
-      $response = $client->getAllReportbacks([
-        'filter' => [
-          'campaign_id' => $campaigns,
-        ],
-        'as_user' => dosomething_user_get_field('field_northstar_id'),
-        'limit' => 12,
-      ]);
-    }
+    $response = $client->getAllReportbacks([
+      'filter' => [
+        'campaign_id' => $campaigns,
+        'exclude' => $exclude,
+      ],
+      'as_user' => dosomething_user_get_field('field_northstar_id'),
+      'limit' => 12,
+      'page' => $page,
+    ]);
 
     return $response;
   }
