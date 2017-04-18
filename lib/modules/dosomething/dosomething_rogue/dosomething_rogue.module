@@ -38,8 +38,8 @@ function dosomething_rogue_menu() {
  *
  * https://github.com/DoSomething/rogue
  */
-function dosomething_rogue_client($version = ROGUE_API_VERSION) {
-  return new Rogue(ROGUE_API_URL . '/' . $version . '/',
+function dosomething_rogue_client() {
+  return new Rogue(ROGUE_API_URL . '/',
     ['headers' => ['X-DS-Rogue-API-Key' => ROGUE_API_KEY]]
   );
 }
@@ -52,7 +52,7 @@ function dosomething_rogue_client($version = ROGUE_API_VERSION) {
   */
 function dosomething_rogue_get_reportback_items($inputs)
 {
-  $client = dosomething_rogue_client('v1');
+  $client = dosomething_rogue_client();
 
   $response = $client->getAllReportbacks($inputs);
 
