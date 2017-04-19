@@ -157,7 +157,7 @@ function _reportback_item_resource_index($campaigns, $exclude, $status, $count, 
   );
 
   if (variable_get('rogue_collection', FALSE)) {
-    $client = dosomething_rogue_client('v1');
+    $client = dosomething_rogue_client();
 
     $response = $client->getAllReportbacks([
       'filter' => [
