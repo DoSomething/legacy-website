@@ -22,7 +22,7 @@ class Rogue extends RestApiClient {
    */
   public function getAllReportbacks($inputs = [])
   {
-    $response = $this->get('reportbacks', $inputs);
+    $response = $this->get('v1/reportbacks', $inputs);
 
     return $response;
   }
@@ -36,7 +36,7 @@ class Rogue extends RestApiClient {
    */
   public function postReportback($data)
   {
-    $response = $this->post('posts', $data);
+    $response = $this->post('v2/posts', $data);
 
     return $response;
   }
@@ -50,7 +50,7 @@ class Rogue extends RestApiClient {
    */
   public function updateReportback($data)
   {
-    $response = $this->put('reviews', $data);
+    $response = $this->put('v2/reviews', $data);
 
     return $response;
   }
@@ -63,7 +63,7 @@ class Rogue extends RestApiClient {
    */
   public function postSignup($data)
   {
-    $response = $this->post('signups', $data);
+    $response = $this->post('v2/signups', $data);
 
     return $response;
   }
