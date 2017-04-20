@@ -368,6 +368,16 @@ function paraneue_dosomething_get_themed_reportback_item($data, $rogue_rb_item =
 
         $total_rogue_kudos = $data->kudos['total'];
         $liked_by_current_user = $data->kudos['data']['current_user']['reacted'] ? true : false;
+
+        // Let the front end know that Rogue is powering the gallery.
+        drupal_add_js(
+          [
+            'dsRogue' => [
+              'poweringGallery' => true,
+            ]
+          ],
+          'setting'
+        );
       }
 
       $data->kudos = dosomething_kudos_get_kudos_data_for_fid($data->id, $total_rogue_kudos ? $total_rogue_kudos : null, $liked_by_current_user ? $liked_by_current_user : null);
