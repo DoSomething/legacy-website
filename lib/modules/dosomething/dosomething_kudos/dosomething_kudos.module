@@ -326,6 +326,7 @@ function dosomething_kudos_get_kudos_data_for_fid($fid = NULL, $total_rogue_kudo
   }
   $kudos = [];
   $kudos['fid'] = $fid;
+  // @TODO: update the below to grab from the Rogue response when we start sending reaction data to Rogue when a user newly reacts to a post.
   $kudos['existing_kids'] = dosomething_kudos_get_kudos_for_user_by_file($fid);
   $kudos['reaction_totals'] = [
     'heart' =>
@@ -333,7 +334,8 @@ function dosomething_kudos_get_kudos_data_for_fid($fid = NULL, $total_rogue_kudo
   ];
   $kudos['allowed_reactions'] = [dosomething_kudos_get_term_id_by_name('heart')];
 
-  $kudos['from_rogue'] = $liked_by_current_user ? $liked_by_current_user : FALSE;
+  // Use this in photo.tpl.php for the logged in user's reaction. If the user has reacted to the post, make the reaction button active.
+  $kudos['from_rogue'] = $liked_by_current_user;
 
   return $kudos;
 }
