@@ -152,7 +152,7 @@ projects[oauth][patch][] = "https://www.drupal.org/files/issues/oauth-OAuth-PHP-
 ; OpenID Connect
 projects[openid_connect][version] = "1.0-beta6"
 projects[openid_connect][subdir] = "contrib"
-projects[openid_connect][patch][] = "https://github.com/DoSomething/drupal-openid_connect/commit/5a216dbffc997d136036ccaf3f629ad8ca3df82b.patch"
+projects[openid_connect][patch][] = "https://github.com/DoSomething/drupal-openid_connect/commit/a2ae6adb6e670f50862ba8795fe62f9dff3ae735.patch"
 
 ; Optimizely
 projects[optimizely][version] = "2.18"
