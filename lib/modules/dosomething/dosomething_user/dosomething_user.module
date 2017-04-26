@@ -647,7 +647,7 @@ function _dosomething_user_send_to_message_broker() {
     if ($template_name) {
       $params['email_template'] = $template_name;
     }
-   }
+  }
 
   dosomething_mbp_request('user_register', $params);
 }
