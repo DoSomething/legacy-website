@@ -69,6 +69,12 @@ Endpoint                                       | Functionality
 `GET /api/v1/taxonomy_term/:id`                | [Retrieve a term](endpoints/terms.md#retrieve-a-term)
 
 
+#### Transactionals
+Endpoint                                       | Functionality                                           
+---------------------------------------------- | --------------------------------------------------------
+`POST /api/v1/transactionals`                  | [Create a Transactional](endpoints/transactionals.md#create-a-transactional)
+
+
 #### Users
 Endpoint                                       | Functionality                                           
 ---------------------------------------------- | --------------------------------------------------------
