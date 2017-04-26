@@ -252,6 +252,7 @@ function dosomething_kudos_get_total_for_file_by_term_name($fid, $term) {
       ->condition('tid', $tid, '=')
       ->execute()
       ->rowCount();
+
   return $kudos;
 }
 
@@ -296,6 +297,10 @@ function dosomething_kudos_term_is_selected($kudos, $term) {
     return false;
   }
 
+  if ($kudos['from_rogue']) {
+    return true;
+  }
+
   return true;
 }
 
@@ -311,21 +316,26 @@ function dosomething_kudos_disable_reactions($nid) {
 /**
  * Grab all Kudos data required to render the markup for a given reportback fid
  * @param  int $fid Reportback file id
+ * @param  int $total_rogue_kudos Total kudos from Rogue response (If Rogue is powering the gallery).
+ * @param  bool $liked_by_current_user Response from Rogue if the current user has reacted to the post or not.
  * @return array Values needed to render Kudos markup
  */
-function dosomething_kudos_get_kudos_data_for_fid($fid = NULL) {
+function dosomething_kudos_get_kudos_data_for_fid($fid = NULL, $total_rogue_kudos = NULL, $liked_by_current_user = NULL) {
   if (! $fid) {
     return [];
   }
-
   $kudos = [];
   $kudos['fid'] = $fid;
-  $kudos['reaction_totals'] = [
-    'heart' => dosomething_kudos_get_total_for_file_by_term_name($fid, 'heart'),
-  ];
+  // @TODO: update the below to grab from the Rogue response when we start sending reaction data to Rogue when a user newly reacts to a post.
   $kudos['existing_kids'] = dosomething_kudos_get_kudos_for_user_by_file($fid);
-  $kudos['reaction_totals'] = ['heart' => dosomething_kudos_get_total_for_file_by_term_name($fid, 'heart')];
+  $kudos['reaction_totals'] = [
+    'heart' =>
+        $total_rogue_kudos ? $total_rogue_kudos : dosomething_kudos_get_total_for_file_by_term_name($fid, 'heart')
+  ];
   $kudos['allowed_reactions'] = [dosomething_kudos_get_term_id_by_name('heart')];
+
+  // Use this in photo.tpl.php for the logged in user's reaction. If the user has reacted to the post, make the reaction button active.
+  $kudos['from_rogue'] = $liked_by_current_user;
 
   return $kudos;
 }
