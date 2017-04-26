@@ -180,7 +180,6 @@ function _kudos_resource_index($reportbackitems, $count) {
   return (new KudosTransformer)->index($parameters);
 }
 
-
 /**
  * Create a new kudos record.
  *
@@ -194,6 +193,22 @@ function _kudos_resource_create($reportback_item_id, $term_ids, $northstar_id) {
     'tids' => $term_ids,
     'northstar_id' => $northstar_id,
   ];
+
+  if (variable_get('rogue_collection', FALSE)) {
+    $data = [
+      'northstar_id' => $northstar_id,
+      'post_id' => $reportback_item_id,
+    ];
+    $response = dosomething_rogue_client()->postReaction($data);
+    print_r($response);
+    die();
+
+    return [
+      [
+        'kid' => $response['post_id'],
+      ]
+    ];
+  }
 
   return (new KudosTransformer)->create($parameters);
 }
