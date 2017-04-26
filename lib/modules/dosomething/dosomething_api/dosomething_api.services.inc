@@ -195,6 +195,13 @@ function dosomething_api_default_services_endpoint() {
         ),
       ),
     ),
+    'transactionals' => array(
+      'operations' => array(
+        'create' => array(
+          'enabled' => '1',
+        ),
+      ),
+    ),
     'users' => array(
       'operations' => array(
         'create' => array(
