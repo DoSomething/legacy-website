@@ -326,7 +326,6 @@ function dosomething_kudos_get_kudos_data_for_fid($fid = NULL, $total_rogue_kudo
   }
   $kudos = [];
   $kudos['fid'] = $fid;
-  // @TODO: update the below to grab from the Rogue response when we start sending reaction data to Rogue when a user newly reacts to a post.
   $kudos['existing_kids'] = dosomething_kudos_get_kudos_for_user_by_file($fid);
   $kudos['reaction_totals'] = [
     'heart' =>
