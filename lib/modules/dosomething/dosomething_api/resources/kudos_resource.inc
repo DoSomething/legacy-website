@@ -199,11 +199,16 @@ function _kudos_resource_create($reportback_item_id, $term_ids, $northstar_id) {
 
     $response = dosomething_rogue_client()->postReaction($data);
 
-    return [
-      [
-        'kid' => $response['data']['post_id'],
-      ]
-    ];
+    if ($response['meta']['action'] === 'liked') {
+      return [
+        [
+          'kid' => $response['data']['post_id'],
+        ]
+      ];
+    }
+    else {
+      return;
+    }
   }
 
   $parameters = [
