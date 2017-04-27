@@ -189,13 +189,15 @@ function _kudos_resource_index($reportbackitems, $count) {
  */
 function _kudos_resource_create($reportback_item_id, $term_ids, $northstar_id) {
   if (variable_get('rogue_collection', FALSE)) {
+    global $user;
+    $northstar_user = dosomething_northstar_get_user($user->uid, 'drupal_id');
+
     $data = [
-      'northstar_id' => $northstar_id,
+      'northstar_id' => $northstar_user->id,
       'post_id' => $reportback_item_id,
     ];
 
-    $client = dosomething_rogue_client();
-    $response = $client->postReaction($data);
+    $response = dosomething_rogue_client()->postReaction($data);
 
     return [
       [
@@ -213,7 +215,6 @@ function _kudos_resource_create($reportback_item_id, $term_ids, $northstar_id) {
   return (new KudosTransformer)->create($parameters);
 }
 
-
 /**
  * Delete the specified kudos record.
  *
@@ -222,23 +223,21 @@ function _kudos_resource_create($reportback_item_id, $term_ids, $northstar_id) {
  * @return string
  */
 function _kudos_resource_delete($kudos_id) {
-  // if (variable_get('rogue_collection', FALSE)) {
-  //   // @TODO: we need to get the below values
-  //   $data = [
-  //     'northstar_id' => $northstar_id,
-  //     'post_id' => $reportback_item_id,
-  //   ];
+  if (variable_get('rogue_collection', FALSE)) {
+    global $user;
+    $northstar_user = dosomething_northstar_get_user($user->uid, 'drupal_id');
 
-  //   $response = dosomething_rogue_client()->postReaction($data);
+    $data = [
+      'northstar_id' => $northstar_user->id,
+      'post_id' => $kudos_id,
+    ];
 
-  //   if ($response['meta']['action'] === 'unliked') {
-  //     return [
-  //       [
-  //         'kid' => 0,
-  //       ]
-  //     ];
-  //   }
-  // }
+    $response = dosomething_rogue_client()->postReaction($data);
+
+    if ($response['meta']['action'] === 'unliked') {
+      return;
+    }
+  }
 
   return (new KudosTransformer)->delete($kudos_id);
 }

@@ -30,7 +30,6 @@ class Rogue extends RestApiClient {
   /**
    * Send a POST request of a reaction to be saved/deleted in Rogue.
    *
-   * @param string $baseurl
    * @param array $data
    * @return object|false
    */
