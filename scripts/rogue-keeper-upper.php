@@ -7,10 +7,10 @@
  * drush --script-path=../scripts/ php-script rogue-keeper-upper.php
  */
 
+// 1. New signups
 // Pick up from where we left off, if we want to
 $last_saved = variable_get('dosomething_rogue_last_signup_kept_up', NULL);
 
-// Get ALL the unmigrated signups first
 if ($last_saved) {
   $signups = db_query("SELECT signups.sid, signups.uid, signups.nid, signups.run_nid, signups.source, signups.timestamp, rb.quantity, rb.why_participated, rb.rbid, rb.flagged, rb.updated
                       FROM dosomething_signup signups
@@ -76,9 +76,7 @@ foreach ($signups as $signup) {
         // Set where we left off so we don't keep trying this one forever
         variable_set('dosomething_rogue_last_signup_kept_up', $signup->sid);
 
-        //
-        variable_set('dosomething_rogue_last_timestamp_sent', isset($signup->updated) ? $signup->updated : $signup->timestamp);
-
+        // Send to StatHat
         if (module_exists('stathat')) {
           stathat_send_ez_count('drupal - Rogue - signup migrated - count', 1);
         }
@@ -123,6 +121,82 @@ foreach ($signups as $signup) {
   }
 }
 
+// 2. Quantity and why participated updates with no new file
+$last_timestamp = variable_get('dosomething_rogue_last_timestamp_sent', NULL);
+
+$postless_updates = db_query("SELECT rblog.rbid, rblog.quantity, rblog.why_participated, rb.nid, rb.run_nid, rb.uid, rblog.timestamp
+                              FROM dosomething_reportback_log rblog
+                              JOIN dosomething_reportback rb on rb.rbid = rblog.rbid
+                              WHERE rblog.timestamp>$last_timestamp
+                              AND substring_index(rblog.files, ',',-1) IN (Select fid from dosomething_rogue_reportbacks)");
+
+foreach ($postless_updates as $update) {
+  echo 'Trying to update rbid ' . $update->rbid . '...' . PHP_EOL;
+
+  // Get the user info
+  $northstar_user = dosomething_northstar_get_user($update->uid, 'drupal_id');
+
+  // Only try to send the data if the user exists in Northstar
+  if ($northstar_user) {
+
+    $updated_at = date('Y-m-d H:i:s', $update->timestamp);
+
+    $data = [
+      'northstar_id' => $northstar_user->id,
+      'campaign_id' => $update->nid,
+      'campaign_run_id' => $update->run_nid,
+      'quantity' => $update->quantity,
+      'why_participated' => $update->why_participated,
+      'do_not_forward' => TRUE,
+      'updated_at' => $updated_at,
+    ];
+
+    // Try to send the request to Rogue, catch unsuccessful responses
+     try {
+        $response = $client->postReportback($data);
+
+        // Make sure we get a successful response
+        if ($response) {
+          // Update the timestamp so we only check for updates after where we left off
+          variable_set('dosomething_rogue_last_timestamp_sent', $update->timestamp);
+
+          // Send to StatHat
+          if (module_exists('stathat')) {
+            stathat_send_ez_count('drupal - Rogue - post migrated - count', 1);
+          }
+        }
+
+        // Handle getting a 404
+        if (!$response) {
+          echo '404' . PHP_EOL;
+
+          // Put request in failed table for future investigation
+          dosomething_rogue_handle_migration_failure($data, $post->sid, $post->rbid, $post->fid, $response);
+        }
+      }
+      catch (GuzzleHttp\Exception\ServerException $e) {
+          echo 'server exception' . PHP_EOL;
+        // These aren't yet caught by Gateway
+
+        // Put request in failed table for future investigation
+        // @TODO: only put in this table if it's not already there
+        dosomething_rogue_handle_migration_failure($data, $post->sid, $post->rbid, $post->fid, $response, $e);
+      }
+      catch (DoSomething\Gateway\Exceptions\ApiException $e) {
+        echo 'api exception' . PHP_EOL;
+        // Put request in failed table for future investigation
+        dosomething_rogue_handle_migration_failure($data, $post->sid, $post->rbid, $post->fid, $response, $e);
+      }
+  }
+  else {
+    echo 'No northstar id, that is terrible ' . $post->fid . PHP_EOL;
+
+    // Put request in failed table for future investigation
+    dosomething_rogue_handle_migration_failure($data, $post->sid, $post->rbid, $post->fid);
+  }
+}
+
+// 3. Send all new posts
 // Get all posts that are not in Rogue, but belong to a signup that IS in Rogue
 // Do not include posts that are already in the failed table
 $posts = db_query('SELECT rbf.fid, rb.rbid, rb.flagged, rbf.source, rbf.remote_addr, rbf.caption, rbf.status, rb.nid, rb.run_nid, signup.sid, rblog.timestamp, rb.uid, rb.nid, rb.run_nid, rb.quantity, rb.why_participated
@@ -187,8 +261,7 @@ foreach ($posts as $post) {
         // Store Post reference
         dosomething_rogue_store_rogue_references($post->rbid, $post->fid, $response);
 
-        variable_set('dosomething_rogue_last_timestamp_sent', $post->timestamp);
-
+        // Send to StatHat
         if (module_exists('stathat')) {
           stathat_send_ez_count('drupal - Rogue - post migrated - count', 1);
         }
@@ -218,78 +291,6 @@ foreach ($posts as $post) {
       // Put request in failed table for future investigation
       dosomething_rogue_handle_migration_failure($data, $post->sid, $post->rbid, $post->fid, $response, $e);
     }
-  }
-  else {
-    echo 'No northstar id, that is terrible ' . $post->fid . PHP_EOL;
-
-    // Put request in failed table for future investigation
-    dosomething_rogue_handle_migration_failure($data, $post->sid, $post->rbid, $post->fid);
-  }
-}
-
-$last_timestamp = variable_get('dosomething_rogue_last_timestamp_sent', NULL);
-
-$postless_updates = db_query("SELECT rblog.rbid, rblog.quantity, rblog.why_participated, rb.nid, rb.run_nid, rb.uid, rblog.timestamp
-                              FROM dosomething_reportback_log rblog
-                              JOIN dosomething_reportback rb on rb.rbid = rblog.rbid
-                              WHERE rblog.timestamp>$last_timestamp");
-
-foreach ($postless_updates as $update) {
-  echo 'Trying to update rbid ' . $update->rbid . '...' . PHP_EOL;
-
-  // Send to Rogue (make sure timestamps are correct AKA only signup updated_at should change) <- does this actually even matter?
-
-  // Get the user info
-  $northstar_user = dosomething_northstar_get_user($update->uid, 'drupal_id');
-
-  if ($northstar_user) {
-
-    $updated_at = date('Y-m-d H:i:s', $update->timestamp);
-
-    $data = [
-      'northstar_id' => $northstar_user->id,
-      'campaign_id' => $update->nid,
-      'campaign_run_id' => $update->run_nid,
-      'quantity' => $update->quantity,
-      'why_participated' => $update->why_participated,
-      'do_not_forward' => TRUE,
-      'updated_at' => $updated_at,
-    ];
-
-    // send it and all the other stuff
-     try {
-        $response = $client->postReportback($data);
-
-        // Make sure we get a successful response
-        if ($response) {
-          variable_set('dosomething_rogue_last_timestamp_sent', $update->timestamp);
-
-          if (module_exists('stathat')) {
-            stathat_send_ez_count('drupal - Rogue - post migrated - count', 1);
-          }
-        }
-
-        // Handle getting a 404
-        if (!$response) {
-          echo '404' . PHP_EOL;
-
-          // Put request in failed table for future investigation
-          dosomething_rogue_handle_migration_failure($data, $post->sid, $post->rbid, $post->fid, $response);
-        }
-      }
-      catch (GuzzleHttp\Exception\ServerException $e) {
-          echo 'server exception' . PHP_EOL;
-        // These aren't yet caught by Gateway
-
-        // Put request in failed table for future investigation
-        // @TODO: only put in this table if it's not already there
-        dosomething_rogue_handle_migration_failure($data, $post->sid, $post->rbid, $post->fid, $response, $e);
-      }
-      catch (DoSomething\Gateway\Exceptions\ApiException $e) {
-        echo 'api exception' . PHP_EOL;
-        // Put request in failed table for future investigation
-        dosomething_rogue_handle_migration_failure($data, $post->sid, $post->rbid, $post->fid, $response, $e);
-      }
   }
   else {
     echo 'No northstar id, that is terrible ' . $post->fid . PHP_EOL;
