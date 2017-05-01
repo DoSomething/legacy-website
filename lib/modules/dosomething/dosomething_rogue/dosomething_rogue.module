@@ -194,7 +194,7 @@ function dosomething_rogue_store_rogue_references($rbid, $fid, $rogue_reportback
     db_insert('dosomething_rogue_reportbacks')
     ->fields([
       'fid' => $fid,
-      'rogue_event_id' => $rogue_reportback['data']['event']['data']['event_id'],
+      'rogue_post_id' => $rogue_reportback['data']['id'],
       'rbid' => $rbid,
       'rogue_signup_id' => $rogue_reportback['data']['signup_id'],
       'created_at' => REQUEST_TIME,
@@ -617,8 +617,8 @@ function dosomething_rogue_handle_migration_failure($values, $sid, $rbid = NULL,
         'timestamp' => REQUEST_TIME,
       ])
       ->execute();
-  } elseif (array_key_exists('photo', $values)) {
-    foreach ($values['photo'] as $photo) {
+      // keeper upper script when sending just a post
+  } elseif (array_key_exists('file', $values)) {
       db_insert('dosomething_rogue_failed_migrations')
       ->fields([
         // Signup
@@ -626,24 +626,18 @@ function dosomething_rogue_handle_migration_failure($values, $sid, $rbid = NULL,
         'northstar_id' => $values['northstar_id'],
         'campaign_id' => $values['campaign_id'],
         'campaign_run_id' => $values['campaign_run_id'],
-        'signup_created_at' => $values['created_at'],
-        'signup_updated_at' => $values['updated_at'],
-        'signup_source' => $values['source'],
 
         // Reportback
-        'quantity' => $values['quantity'],
-        'quantity_pending' => $values['quantity_pending'],
-        'why_participated' => $values['why_participated'],
         'rbid' => $rbid,
 
         // Files
-        'fid' => array_shift($fids),
-        'photo_source' => $photo['source'],
-        'remote_addr' => $photo['remote_addr'],
-        'caption' => $photo['caption'],
-        'status' => $photo['status'],
-        'file' => $photo['file'],
-        'photo_created_at' => $photo['created_at'],
+        'fid' => $fids,
+        'photo_source' => $values['source'],
+        'remote_addr' => $values['remote_addr'],
+        'caption' => $values['caption'],
+        'status' => $values['status'],
+        'file' => $values['file'],
+        'photo_created_at' => $values['created_at'],
 
         // Fail data
         'timestamp' => REQUEST_TIME,
@@ -651,6 +645,40 @@ function dosomething_rogue_handle_migration_failure($values, $sid, $rbid = NULL,
         'response_values' => (isset($e)) ? $e->getMessage() : NULL,
       ])
       ->execute();
+    } elseif (array_key_exists('photo', $values)) {
+      foreach ($values['photo'] as $photo) {
+        db_insert('dosomething_rogue_failed_migrations')
+        ->fields([
+          // Signup
+          'sid' => $sid,
+          'northstar_id' => $values['northstar_id'],
+          'campaign_id' => $values['campaign_id'],
+          'campaign_run_id' => $values['campaign_run_id'],
+          'signup_created_at' => $values['created_at'],
+          'signup_updated_at' => $values['updated_at'],
+          'signup_source' => $values['source'],
+
+          // Reportback
+          'quantity' => $values['quantity'],
+          'quantity_pending' => $values['quantity_pending'],
+          'why_participated' => $values['why_participated'],
+          'rbid' => $rbid,
+
+          // Files
+          'fid' => array_shift($fids),
+          'photo_source' => $photo['source'],
+          'remote_addr' => $photo['remote_addr'],
+          'caption' => $photo['caption'],
+          'status' => $photo['status'],
+          'file' => $photo['file'],
+          'photo_created_at' => $photo['created_at'],
+
+          // Fail data
+          'timestamp' => REQUEST_TIME,
+          'response_code' => (isset($response->code)) ? $response->code : NULL, // @TODO: this is currently null until there a better way to get it from Gateway
+          'response_values' => (isset($e)) ? $e->getMessage() : NULL,
+        ])
+        ->execute();
       }
     } else {
      db_insert('dosomething_rogue_failed_migrations')
