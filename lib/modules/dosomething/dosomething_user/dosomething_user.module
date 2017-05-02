@@ -106,8 +106,7 @@ function dosomething_user_menu() {
   $items['northstar/%'] = array(
     'page callback' => 'dosomething_user_get_view',
     'page arguments' => array(1),
-    'access callback' => 'user_view_access',
-    'access arguments' => array(1),
+    'access callback' => TRUE,
   );
   $items['user/magic/%'] = array(
     'page callback' => 'dosomething_user_magic_session',
@@ -122,7 +121,12 @@ function dosomething_user_get_view($id) {
   if (!$phoenix_user) {
     drupal_not_found();
   }
-  drupal_goto('user/' . $phoenix_user->uid);
+
+  if (user_is_anonymous()) {
+    drupal_goto('user/authorize');
+  } else {
+    drupal_goto('user/' . $phoenix_user->uid);
+  }
 }
 
 /**
