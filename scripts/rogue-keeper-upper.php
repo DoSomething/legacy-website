@@ -81,9 +81,8 @@ foreach ($signups as $signup) {
           stathat_send_ez_count('drupal - Rogue - signup migrated - count', 1);
         }
       }
-
       // Handle getting a 404
-      if (!$response) {
+      else {
         // Put request in failed table for future investigation
         dosomething_rogue_handle_migration_failure($data, $signup->sid, $signup->rbid, $fids);
 
@@ -165,9 +164,8 @@ foreach ($postless_updates as $update) {
             stathat_send_ez_count('drupal - Rogue - post migrated - count', 1);
           }
         }
-
         // Handle getting a 404
-        if (!$response) {
+        else {
           echo '404' . PHP_EOL;
 
           // Put request in failed table for future investigation
@@ -268,9 +266,8 @@ foreach ($posts as $post) {
 
         echo 'Migrated file ' . $post->fid . ' to Rogue.' . PHP_EOL;
       }
-
       // Handle getting a 404
-      if (!$response) {
+      else {
         echo '404' . PHP_EOL;
 
         // Put request in failed table for future investigation
