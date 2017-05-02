@@ -35,80 +35,8 @@ foreach ($signups as $signup) {
 
   $northstar_user = dosomething_northstar_get_user($signup->uid, 'drupal_id');
 
-  // Only try to send to Rogue if we have a Northstar ID
-  if (isset($northstar_user)) {
-    // Match Rogue's timestamp format
-    $created_at = date('Y-m-d H:i:s', $signup->timestamp);
-
-    // Format signup data
-    $data = [
-      'northstar_id' => $northstar_user->id,
-      'campaign_id' => $signup->nid,
-      'campaign_run_id' => $signup->run_nid,
-      'do_not_forward' => TRUE,
-      'source' => $signup->source,
-      'created_at' => $created_at,
-      'updated_at' => $created_at, // Set updated same as created, will be overwritten if there was a RB submitted
-    ];
-
-    // Include all the Reportback data and files if they exist
-    if ($signup->rbid) {
-      // Pull the quantity and why
-      $data['quantity'] = $signup->quantity;
-      $data['why_participated'] = $signup->why_participated;
-
-      // Match Rogue's timestamp format
-      $updated_at = date('Y-m-d H:i:s', $signup->updated);
-      $data['updated_at'] = $updated_at;
-    }
-
-    // Send the request to Rogue
-    try {
-      $response = $client->postSignup($data);
-
-      // Make sure we get a successful response
-      if ($response) {
-        // Store signup reference
-        dosomething_rogue_store_rogue_signup_references($signup->sid, $response);
-
-        echo 'Migrated signup ' . $signup->sid . ' to Rogue.' . PHP_EOL;
-
-        // Set where we left off so we don't keep trying this one forever
-        variable_set('dosomething_rogue_last_signup_kept_up', $signup->sid);
-
-        // Send to StatHat
-        if (module_exists('stathat')) {
-          stathat_send_ez_count('drupal - Rogue - signup migrated - count', 1);
-        }
-      }
-      // Handle getting a 404
-      else {
-        // Put request in failed table for future investigation
-        dosomething_rogue_handle_migration_failure($data, $signup->sid, $signup->rbid, $fids);
-
-        // Set where we left off so we don't keep trying this one forever
-        variable_set('dosomething_rogue_last_signup_kept_up', $signup->sid);
-
-      }
-    }
-    catch (GuzzleHttp\Exception\ServerException $e) {
-      // These aren't yet caught by Gateway
-
-      // Put request in failed table for future investigation
-      dosomething_rogue_handle_migration_failure($data, $signup->sid, $signup->rbid, $fids);
-
-      // Set where we left off so we don't keep trying this one forever
-      variable_set('dosomething_rogue_last_signup_kept_up', $signup->sid);
-    }
-    catch (DoSomething\Gateway\Exceptions\ApiException $e) {
-      // Put request in failed table for future investigation
-      dosomething_rogue_handle_migration_failure($data, $signup->sid, $signup->rbid, $fids);
-
-      // Set where we left off so we don't keep trying this one forever
-      variable_set('dosomething_rogue_last_signup_kept_up', $signup->sid);
-    }
-  }
-  else {
+  // Skip this signup if there is no Northstar ID
+  if (!isset($northstar_user)) {
     echo 'No northstar id, that is terrible ' . $signup->sid . PHP_EOL;
 
     // Put request in failed table for future investigation
@@ -117,6 +45,78 @@ foreach ($signups as $signup) {
     // Set where we left off so we don't keep trying this one forever
     variable_set('dosomething_rogue_last_signup_kept_up', $signup->sid);
 
+    continue;
+  }
+
+  // Match Rogue's timestamp format
+  $created_at = date('Y-m-d H:i:s', $signup->timestamp);
+
+  // Format signup data
+  $data = [
+    'northstar_id' => $northstar_user->id,
+    'campaign_id' => $signup->nid,
+    'campaign_run_id' => $signup->run_nid,
+    'do_not_forward' => TRUE,
+    'source' => $signup->source,
+    'created_at' => $created_at,
+    'updated_at' => $created_at, // Set updated same as created, will be overwritten if there was a RB submitted
+  ];
+
+  // Include all the Reportback data and files if they exist
+  if ($signup->rbid) {
+    // Pull the quantity and why
+    $data['quantity'] = $signup->quantity;
+    $data['why_participated'] = $signup->why_participated;
+
+    // Match Rogue's timestamp format
+    $updated_at = date('Y-m-d H:i:s', $signup->updated);
+    $data['updated_at'] = $updated_at;
+  }
+
+  // Send the request to Rogue
+  try {
+    $response = $client->postSignup($data);
+
+    // Make sure we get a successful response
+    if ($response) {
+      // Store signup reference
+      dosomething_rogue_store_rogue_signup_references($signup->sid, $response);
+
+      echo 'Migrated signup ' . $signup->sid . ' to Rogue.' . PHP_EOL;
+
+      // Set where we left off so we don't keep trying this one forever
+      variable_set('dosomething_rogue_last_signup_kept_up', $signup->sid);
+
+      // Send to StatHat
+      if (module_exists('stathat')) {
+        stathat_send_ez_count('drupal - Rogue - signup migrated - count', 1);
+      }
+    }
+    // Handle getting a 404
+    else {
+      // Put request in failed table for future investigation
+      dosomething_rogue_handle_migration_failure($data, $signup->sid, $signup->rbid, $fids);
+
+      // Set where we left off so we don't keep trying this one forever
+      variable_set('dosomething_rogue_last_signup_kept_up', $signup->sid);
+
+    }
+  }
+  catch (GuzzleHttp\Exception\ServerException $e) {
+    // These aren't yet caught by Gateway
+
+    // Put request in failed table for future investigation
+    dosomething_rogue_handle_migration_failure($data, $signup->sid, $signup->rbid, $fids);
+
+    // Set where we left off so we don't keep trying this one forever
+    variable_set('dosomething_rogue_last_signup_kept_up', $signup->sid);
+  }
+  catch (DoSomething\Gateway\Exceptions\ApiException $e) {
+    // Put request in failed table for future investigation
+    dosomething_rogue_handle_migration_failure($data, $signup->sid, $signup->rbid, $fids);
+
+    // Set where we left off so we don't keep trying this one forever
+    variable_set('dosomething_rogue_last_signup_kept_up', $signup->sid);
   }
 }
 
@@ -135,63 +135,61 @@ foreach ($postless_updates as $update) {
   // Get the user info
   $northstar_user = dosomething_northstar_get_user($update->uid, 'drupal_id');
 
-  // Only try to send the data if the user exists in Northstar
-  if ($northstar_user) {
-
-    $updated_at = date('Y-m-d H:i:s', $update->timestamp);
-
-    $data = [
-      'northstar_id' => $northstar_user->id,
-      'campaign_id' => $update->nid,
-      'campaign_run_id' => $update->run_nid,
-      'quantity' => $update->quantity,
-      'why_participated' => $update->why_participated,
-      'do_not_forward' => TRUE,
-      'updated_at' => $updated_at,
-    ];
-
-    // Try to send the request to Rogue, catch unsuccessful responses
-     try {
-        $response = $client->postReportback($data);
-
-        // Make sure we get a successful response
-        if ($response) {
-          // Update the timestamp so we only check for updates after where we left off
-          variable_set('dosomething_rogue_last_timestamp_sent', $update->timestamp);
-
-          // Send to StatHat
-          if (module_exists('stathat')) {
-            stathat_send_ez_count('drupal - Rogue - post migrated - count', 1);
-          }
-        }
-        // Handle getting a 404
-        else {
-          echo '404' . PHP_EOL;
-
-          // Put request in failed table for future investigation
-          dosomething_rogue_handle_migration_failure($data, $post->sid, $post->rbid, $post->fid, $response);
-        }
-      }
-      catch (GuzzleHttp\Exception\ServerException $e) {
-          echo 'server exception' . PHP_EOL;
-        // These aren't yet caught by Gateway
-
-        // Put request in failed table for future investigation
-        // @TODO: only put in this table if it's not already there
-        dosomething_rogue_handle_migration_failure($data, $post->sid, $post->rbid, $post->fid, $response, $e);
-      }
-      catch (DoSomething\Gateway\Exceptions\ApiException $e) {
-        echo 'api exception' . PHP_EOL;
-        // Put request in failed table for future investigation
-        dosomething_rogue_handle_migration_failure($data, $post->sid, $post->rbid, $post->fid, $response, $e);
-      }
-  }
-  else {
+  // Skip this post if there is no Northstar user
+  if (!isset($northstar_user)) {
     echo 'No northstar id, that is terrible ' . $post->fid . PHP_EOL;
 
     // Put request in failed table for future investigation
     dosomething_rogue_handle_migration_failure($data, $post->sid, $post->rbid, $post->fid);
   }
+
+  $updated_at = date('Y-m-d H:i:s', $update->timestamp);
+
+  $data = [
+    'northstar_id' => $northstar_user->id,
+    'campaign_id' => $update->nid,
+    'campaign_run_id' => $update->run_nid,
+    'quantity' => $update->quantity,
+    'why_participated' => $update->why_participated,
+    'do_not_forward' => TRUE,
+    'updated_at' => $updated_at,
+  ];
+
+  // Try to send the request to Rogue, catch unsuccessful responses
+   try {
+      $response = $client->postReportback($data);
+
+      // Make sure we get a successful response
+      if ($response) {
+        // Update the timestamp so we only check for updates after where we left off
+        variable_set('dosomething_rogue_last_timestamp_sent', $update->timestamp);
+
+        // Send to StatHat
+        if (module_exists('stathat')) {
+          stathat_send_ez_count('drupal - Rogue - post migrated - count', 1);
+        }
+      }
+      // Handle getting a 404
+      else {
+        echo '404' . PHP_EOL;
+
+        // Put request in failed table for future investigation
+        dosomething_rogue_handle_migration_failure($data, $post->sid, $post->rbid, $post->fid, $response);
+      }
+    }
+    catch (GuzzleHttp\Exception\ServerException $e) {
+        echo 'server exception' . PHP_EOL;
+      // These aren't yet caught by Gateway
+
+      // Put request in failed table for future investigation
+      // @TODO: only put in this table if it's not already there
+      dosomething_rogue_handle_migration_failure($data, $post->sid, $post->rbid, $post->fid, $response, $e);
+    }
+    catch (DoSomething\Gateway\Exceptions\ApiException $e) {
+      echo 'api exception' . PHP_EOL;
+      // Put request in failed table for future investigation
+      dosomething_rogue_handle_migration_failure($data, $post->sid, $post->rbid, $post->fid, $response, $e);
+    }
 }
 
 // 3. Send all new posts
@@ -221,80 +219,82 @@ foreach ($posts as $post) {
   // Get the user info
   $northstar_user = dosomething_northstar_get_user($post->uid, 'drupal_id');
 
-  if (isset($northstar_user)) {
-  // Format the Post data to send to Rogue
-    // Get the status as a Rogue status
-    $rogue_status = dosomething_rogue_transform_status($post->status);
-
-    // Match Rogue's timestamp format
-    $photo_created_at = date('Y-m-d H:i:s', $post->timestamp);
-
-    // Format the photo data
-    $data = [
-      // Post
-      'northstar_id' => $northstar_user->id,
-      'campaign_id' => $post->nid,
-      'campaign_run_id' => $post->run_nid,
-      'caption' => $post->caption,
-      'source' => $post->source,
-      'remote_addr' => $post->remote_addr,
-      'status' => $rogue_status, //can you send this? not in docs
-      'do_not_forward' => TRUE,
-      'file' => dosomething_helpers_get_data_uri_from_fid($post->fid),
-      'created_at' => $photo_created_at,
-
-      // Signup (but /posts will update)
-      // @TODO: will this respect timestamps?
-      'why_participated' => $post->why_participated,
-      'quantity' => $post->quantity,
-      'updated_at' => $photo_created_at,
-    ];
-
-  // Send to Rogue
-    try {
-      $response = $client->postReportback($data);
-
-      // Make sure we get a successful response
-      if ($response) {
-        // Store Post reference
-        dosomething_rogue_store_rogue_references($post->rbid, $post->fid, $response);
-
-        // Send to StatHat
-        if (module_exists('stathat')) {
-          stathat_send_ez_count('drupal - Rogue - post migrated - count', 1);
-        }
-
-        echo 'Migrated file ' . $post->fid . ' to Rogue.' . PHP_EOL;
-      }
-      // Handle getting a 404
-      else {
-        echo '404' . PHP_EOL;
-
-        // Put request in failed table for future investigation
-        dosomething_rogue_handle_migration_failure($data, $post->sid, $post->rbid, $post->fid, $response);
-      }
-    }
-    catch (GuzzleHttp\Exception\ServerException $e) {
-        echo 'server exception' . PHP_EOL;
-
-      // These aren't yet caught by Gateway
-
-      // Put request in failed table for future investigation
-      // @TODO: only put in this table if it's not already there
-      dosomething_rogue_handle_migration_failure($data, $post->sid, $post->rbid, $post->fid, $response, $e);
-    }
-    catch (DoSomething\Gateway\Exceptions\ApiException $e) {
-      echo 'api exception' . PHP_EOL;
-      // Put request in failed table for future investigation
-      dosomething_rogue_handle_migration_failure($data, $post->sid, $post->rbid, $post->fid, $response, $e);
-    }
-  }
-  else {
+  if (!isset($northstar_user)) {
     echo 'No northstar id, that is terrible ' . $post->fid . PHP_EOL;
 
     // Put request in failed table for future investigation
     dosomething_rogue_handle_migration_failure($data, $post->sid, $post->rbid, $post->fid);
+
+    continue;
+  }
+
+  // Format the Post data to send to Rogue
+  // Get the status as a Rogue status
+  $rogue_status = dosomething_rogue_transform_status($post->status);
+
+  // Match Rogue's timestamp format
+  $photo_created_at = date('Y-m-d H:i:s', $post->timestamp);
+
+  // Format the photo data
+  $data = [
+    // Post
+    'northstar_id' => $northstar_user->id,
+    'campaign_id' => $post->nid,
+    'campaign_run_id' => $post->run_nid,
+    'caption' => $post->caption,
+    'source' => $post->source,
+    'remote_addr' => $post->remote_addr,
+    'status' => $rogue_status, //can you send this? not in docs
+    'do_not_forward' => TRUE,
+    'file' => dosomething_helpers_get_data_uri_from_fid($post->fid),
+    'created_at' => $photo_created_at,
+
+    // Signup (but /posts will update)
+    // @TODO: will this respect timestamps?
+    'why_participated' => $post->why_participated,
+    'quantity' => $post->quantity,
+    'updated_at' => $photo_created_at,
+  ];
+
+  // Send to Rogue
+  try {
+    $response = $client->postReportback($data);
+
+    // Make sure we get a successful response
+    if ($response) {
+      // Store Post reference
+      dosomething_rogue_store_rogue_references($post->rbid, $post->fid, $response);
+
+      // Send to StatHat
+      if (module_exists('stathat')) {
+        stathat_send_ez_count('drupal - Rogue - post migrated - count', 1);
+      }
+
+      echo 'Migrated file ' . $post->fid . ' to Rogue.' . PHP_EOL;
+    }
+    // Handle getting a 404
+    else {
+      echo '404' . PHP_EOL;
+
+      // Put request in failed table for future investigation
+      dosomething_rogue_handle_migration_failure($data, $post->sid, $post->rbid, $post->fid, $response);
+    }
+  }
+  catch (GuzzleHttp\Exception\ServerException $e) {
+      echo 'server exception' . PHP_EOL;
+
+    // These aren't yet caught by Gateway
+
+    // Put request in failed table for future investigation
+    // @TODO: only put in this table if it's not already there
+    dosomething_rogue_handle_migration_failure($data, $post->sid, $post->rbid, $post->fid, $response, $e);
+  }
+  catch (DoSomething\Gateway\Exceptions\ApiException $e) {
+    echo 'api exception' . PHP_EOL;
+    // Put request in failed table for future investigation
+    dosomething_rogue_handle_migration_failure($data, $post->sid, $post->rbid, $post->fid, $response, $e);
   }
 }
 
+// Done for now!
 echo 'Nothing else to migrate!' . PHP_EOL;
