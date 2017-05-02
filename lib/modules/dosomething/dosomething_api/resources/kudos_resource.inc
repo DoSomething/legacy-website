@@ -189,15 +189,13 @@ function _kudos_resource_index($reportbackitems, $count) {
  */
 function _kudos_resource_create($reportback_item_id, $term_ids, $northstar_id) {
   if (variable_get('rogue_collection', FALSE)) {
-    if (isset($northstar_id)) {
-      $northstar_user->id = $northstar_id;
-    } else {
+    if (!isset($northstar_id)) {
       global $user;
       $northstar_user = dosomething_northstar_get_user($user->uid, 'drupal_id');
     }
 
     $data = [
-      'northstar_id' => $northstar_user->id,
+      'northstar_id' => $northstar_id ? $northstar_id : $northstar_user->id,
       'post_id' => $reportback_item_id,
     ];
 
