@@ -24,15 +24,15 @@
 
       <?php if (isset($signup_button)): ?>
         <div class="header__signup">
-          <?php print render($signup_button); ?>
-
           <?php if (isset($presignup_callout)): ?>
-          <div class="message-callout -below -white -dynamic-right">
+          <div class="message-callout -above -white -dynamic-right">
             <div class="message-callout__copy">
               <p><?php print $presignup_callout; ?></p>
             </div>
           </div>
           <?php endif; ?>
+
+          <?php print render($signup_button); ?>
         </div>
       <?php endif; ?>
 
