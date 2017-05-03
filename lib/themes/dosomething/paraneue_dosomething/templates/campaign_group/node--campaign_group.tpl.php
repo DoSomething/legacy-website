@@ -26,14 +26,15 @@
 
       <?php if (isset($signup_button_primary)): ?>
         <div class="header__signup">
-          <?php print render($signup_button_primary); ?>
           <?php if (isset($scholarship)): ?>
-            <div class="message-callout -below -white -dynamic-right">
+            <div class="message-callout -above -white -dynamic-right">
               <div class="message-callout__copy">
                 <p><?php print $scholarship; ?></p>
               </div>
             </div>
           <?php endif; ?>
+
+          <?php print render($signup_button_primary); ?>
         </div>
       <?php endif; ?>
 

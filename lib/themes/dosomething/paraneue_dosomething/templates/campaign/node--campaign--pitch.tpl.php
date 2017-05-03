@@ -16,8 +16,8 @@
 
       <?php if (isset($signup_button_primary)): ?>
         <div class="header__signup">
-          <?php print render($signup_button_primary); ?>
           <?php print $campaign_scholarship; ?>
+          <?php print render($signup_button_primary); ?>
         </div>
       <?php endif; ?>
 

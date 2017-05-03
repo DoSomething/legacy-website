@@ -381,7 +381,7 @@ function paraneue_dosomething_preprocess_node_campaign_scholarship(&$vars) {
     // Pitch page classes:
     elseif (isset($campaign->is_pitch_page)) {
       // Values for pitch page:
-      $classes = array('-below', '-white',  '-dynamic-right');
+      $classes = array('-above', '-white',  '-dynamic-right');
     }
     // Else action page classes:
     else {

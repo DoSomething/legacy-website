@@ -13,9 +13,6 @@
 .campaign--action .container--prove {
   .message-callout__copy {
     left: 12px;
-    &:before {
-      left: 250px;
-    }
   }
 }
 
@@ -25,23 +22,26 @@
     .message-callout {
       .message-callout__copy {
         &:before {
-          right: 35px;
-          top: -25px;
+          bottom: -30px;
+          right: 0;
+          transform: rotate(30deg);
         }
       }
 
       @include media($tablet) {
         position: absolute;
         left: 144px;
-        bottom: 0;
+        top: 0;
         width: 180px;
 
         .message-callout__copy {
           text-align: center;
 
           &:before {
+            bottom: auto;
             right: auto;
             top: 50%;
+            transform: none;
           }
         }
       }
