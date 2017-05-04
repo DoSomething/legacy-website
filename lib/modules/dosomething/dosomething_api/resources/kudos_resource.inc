@@ -188,9 +188,10 @@ function _kudos_resource_index($reportbackitems, $count) {
  * @param $term_ids
  */
 function _kudos_resource_create($reportback_item_id, $term_ids, $northstar_id) {
+  global $user;
+
   if (variable_get('rogue_collection', FALSE)) {
     if (!isset($northstar_id)) {
-      global $user;
       $northstar_user = dosomething_northstar_get_user($user->uid, 'drupal_id');
     }
 
@@ -209,9 +210,10 @@ function _kudos_resource_create($reportback_item_id, $term_ids, $northstar_id) {
       ];
     }
     else {
-      return [
-          'kid' => 'unliked',
-      ];
+      return;
+      // return [
+      //     'kid' => 'unliked',
+      // ];
     }
   }
 
@@ -232,8 +234,9 @@ function _kudos_resource_create($reportback_item_id, $term_ids, $northstar_id) {
  * @return string
  */
 function _kudos_resource_delete($kudos_id) {
+  global $user;
+
   if (variable_get('rogue_collection', FALSE)) {
-    global $user;
     $northstar_user = dosomething_northstar_get_user($user->uid, 'drupal_id');
 
     $data = [

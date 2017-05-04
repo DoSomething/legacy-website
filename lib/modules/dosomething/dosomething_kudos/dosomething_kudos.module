@@ -297,7 +297,7 @@ function dosomething_kudos_term_is_selected($kudos, $term) {
     return false;
   }
 
-  if ($kudos['from_rogue']) {
+  if ($kudos['liked_in_rogue']) {
     return true;
   }
 
@@ -334,7 +334,7 @@ function dosomething_kudos_get_kudos_data_for_fid($fid = NULL, $total_rogue_kudo
   $kudos['allowed_reactions'] = [dosomething_kudos_get_term_id_by_name('heart')];
 
   // Use this in photo.tpl.php for the logged in user's reaction. If the user has reacted to the post, make the reaction button active.
-  $kudos['from_rogue'] = $liked_by_current_user;
+  $kudos['liked_in_rogue'] = $liked_by_current_user;
 
   return $kudos;
 }
