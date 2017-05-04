@@ -91,17 +91,22 @@ foreach ($signups as $signup) {
     }
     // Handle getting a 404
     else {
+      echo '404' . PHP_EOL;
       // Put request in failed table for future investigation
       dosomething_rogue_handle_migration_failure($data, $signup->sid, $signup->rbid, $fids);
     }
   }
   catch (GuzzleHttp\Exception\ServerException $e) {
+    echo 'server exception' . PHP_EOL;
+
     // These aren't yet caught by Gateway
 
     // Put request in failed table for future investigation
     dosomething_rogue_handle_migration_failure($data, $signup->sid, $signup->rbid, $fids);
   }
   catch (DoSomething\Gateway\Exceptions\ApiException $e) {
+    echo 'api exception' . PHP_EOL;
+
     // Put request in failed table for future investigation
     dosomething_rogue_handle_migration_failure($data, $signup->sid, $signup->rbid, $fids);
   }
