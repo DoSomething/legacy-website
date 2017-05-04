@@ -211,9 +211,6 @@ function _kudos_resource_create($reportback_item_id, $term_ids, $northstar_id) {
     }
     else {
       return;
-      // return [
-      //     'kid' => 'unliked',
-      // ];
     }
   }
 
