@@ -84,9 +84,6 @@ foreach ($signups as $signup) {
 
       echo 'Migrated signup ' . $signup->sid . ' to Rogue.' . PHP_EOL;
 
-      // Set where we left off so we don't keep trying this one forever
-      variable_set('dosomething_rogue_last_signup_kept_up', $signup->sid);
-
       // Send to StatHat
       if (module_exists('stathat')) {
         stathat_send_ez_count('drupal - Rogue - signup migrated - count', 1);
@@ -96,10 +93,6 @@ foreach ($signups as $signup) {
     else {
       // Put request in failed table for future investigation
       dosomething_rogue_handle_migration_failure($data, $signup->sid, $signup->rbid, $fids);
-
-      // Set where we left off so we don't keep trying this one forever
-      variable_set('dosomething_rogue_last_signup_kept_up', $signup->sid);
-
     }
   }
   catch (GuzzleHttp\Exception\ServerException $e) {
@@ -107,17 +100,14 @@ foreach ($signups as $signup) {
 
     // Put request in failed table for future investigation
     dosomething_rogue_handle_migration_failure($data, $signup->sid, $signup->rbid, $fids);
-
-    // Set where we left off so we don't keep trying this one forever
-    variable_set('dosomething_rogue_last_signup_kept_up', $signup->sid);
   }
   catch (DoSomething\Gateway\Exceptions\ApiException $e) {
     // Put request in failed table for future investigation
     dosomething_rogue_handle_migration_failure($data, $signup->sid, $signup->rbid, $fids);
-
-    // Set where we left off so we don't keep trying this one forever
-    variable_set('dosomething_rogue_last_signup_kept_up', $signup->sid);
   }
+
+  // Set where we left off so we don't keep trying this one forever
+  variable_set('dosomething_rogue_last_signup_kept_up', $signup->sid);
 }
 
 // 2. Quantity and why participated updates with no new file
@@ -142,6 +132,9 @@ foreach ($postless_updates as $update) {
     // Put request in failed table for future investigation
     dosomething_rogue_handle_migration_failure($data, $post->sid, $post->rbid, $post->fid);
 
+    // Update the timestamp so we only check for updates after where we left off
+    variable_set('dosomething_rogue_last_timestamp_sent', $update->timestamp);
+
     continue;
   }
 
@@ -165,9 +158,6 @@ foreach ($postless_updates as $update) {
       if ($response) {
         echo 'Updated rbid ' . $update->rbid . '...' . PHP_EOL;
 
-        // Update the timestamp so we only check for updates after where we left off
-        variable_set('dosomething_rogue_last_timestamp_sent', $update->timestamp);
-
         // Send to StatHat
         if (module_exists('stathat')) {
           stathat_send_ez_count('drupal - Rogue - post migrated - count', 1);
@@ -178,7 +168,7 @@ foreach ($postless_updates as $update) {
         echo '404' . PHP_EOL;
 
         // Put request in failed table for future investigation
-        dosomething_rogue_handle_migration_failure($data, $post->sid, $post->rbid, $post->fid, $response);
+        dosomething_rogue_handle_migration_failure($data, $update->sid, $update->rbid, $update->fid, $response);
       }
     }
     catch (GuzzleHttp\Exception\ServerException $e) {
@@ -187,13 +177,16 @@ foreach ($postless_updates as $update) {
 
       // Put request in failed table for future investigation
       // @TODO: only put in this table if it's not already there
-      dosomething_rogue_handle_migration_failure($data, $post->sid, $post->rbid, $post->fid, $response, $e);
+      dosomething_rogue_handle_migration_failure($data, $update->sid, $update->rbid, $update->fid, $response, $e);
     }
     catch (DoSomething\Gateway\Exceptions\ApiException $e) {
       echo 'api exception' . PHP_EOL;
       // Put request in failed table for future investigation
-      dosomething_rogue_handle_migration_failure($data, $post->sid, $post->rbid, $post->fid, $response, $e);
+      dosomething_rogue_handle_migration_failure($data, $update->sid, $update->rbid, $update->fid, $response, $e);
     }
+
+    // Update the timestamp so we only check for updates after where we left off
+    variable_set('dosomething_rogue_last_timestamp_sent', $update->timestamp);
 }
 
 // 3. Send all new posts
