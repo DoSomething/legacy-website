@@ -121,7 +121,7 @@ foreach ($signups as $signup) {
 }
 
 // 2. Quantity and why participated updates with no new file
-$last_timestamp = variable_get('dosomething_rogue_last_timestamp_sent', NULL);
+$last_timestamp = variable_get('dosomething_rogue_last_timestamp_sent', 0);
 
 $postless_updates = db_query("SELECT rblog.rbid, rblog.quantity, rblog.why_participated, rb.nid, rb.run_nid, rb.uid, rblog.timestamp
                               FROM dosomething_reportback_log rblog
@@ -141,6 +141,8 @@ foreach ($postless_updates as $update) {
 
     // Put request in failed table for future investigation
     dosomething_rogue_handle_migration_failure($data, $post->sid, $post->rbid, $post->fid);
+
+    continue;
   }
 
   $updated_at = date('Y-m-d H:i:s', $update->timestamp);
@@ -161,6 +163,8 @@ foreach ($postless_updates as $update) {
 
       // Make sure we get a successful response
       if ($response) {
+        echo 'Updated rbid ' . $update->rbid . '...' . PHP_EOL;
+
         // Update the timestamp so we only check for updates after where we left off
         variable_set('dosomething_rogue_last_timestamp_sent', $update->timestamp);
 
