@@ -179,6 +179,9 @@ foreach ($postless_updates as $update) {
 
         // Put request in failed table for future investigation
         dosomething_rogue_handle_migration_failure($data, $update->sid, $update->rbid, $update->fid, $response);
+
+        // Update the timestamp so we only check for updates after where we left off
+        variable_set('dosomething_rogue_last_timestamp_sent', $update->timestamp);
       }
     }
     catch (GuzzleHttp\Exception\ServerException $e) {
@@ -188,11 +191,17 @@ foreach ($postless_updates as $update) {
       // Put request in failed table for future investigation
       // @TODO: only put in this table if it's not already there
       dosomething_rogue_handle_migration_failure($data, $update->sid, $update->rbid, $update->fid, $response, $e);
+
+        // Update the timestamp so we only check for updates after where we left off
+        variable_set('dosomething_rogue_last_timestamp_sent', $update->timestamp);
     }
     catch (DoSomething\Gateway\Exceptions\ApiException $e) {
       echo 'api exception' . PHP_EOL;
       // Put request in failed table for future investigation
       dosomething_rogue_handle_migration_failure($data, $update->sid, $update->rbid, $update->fid, $response, $e);
+
+        // Update the timestamp so we only check for updates after where we left off
+        variable_set('dosomething_rogue_last_timestamp_sent', $update->timestamp);
     }
 }
 
