@@ -180,7 +180,6 @@ function _kudos_resource_index($reportbackitems, $count) {
   return (new KudosTransformer)->index($parameters);
 }
 
-
 /**
  * Create a new kudos record.
  *
@@ -189,6 +188,32 @@ function _kudos_resource_index($reportbackitems, $count) {
  * @param $term_ids
  */
 function _kudos_resource_create($reportback_item_id, $term_ids, $northstar_id) {
+  global $user;
+
+  if (variable_get('rogue_collection', FALSE)) {
+    if (!isset($northstar_id)) {
+      $northstar_user = dosomething_northstar_get_user($user->uid, 'drupal_id');
+    }
+
+    $data = [
+      'northstar_id' => $northstar_id ? $northstar_id : $northstar_user->id,
+      'post_id' => $reportback_item_id,
+    ];
+
+    $response = dosomething_rogue_client()->postReaction($data);
+
+    if ($response['meta']['action'] === 'liked') {
+      return [
+        [
+          'kid' => $response['data']['post_id'],
+        ]
+      ];
+    }
+    else {
+      return;
+    }
+  }
+
   $parameters = [
     'fid' => $reportback_item_id,
     'tids' => $term_ids,
@@ -198,7 +223,6 @@ function _kudos_resource_create($reportback_item_id, $term_ids, $northstar_id) {
   return (new KudosTransformer)->create($parameters);
 }
 
-
 /**
  * Delete the specified kudos record.
  *
@@ -207,5 +231,22 @@ function _kudos_resource_create($reportback_item_id, $term_ids, $northstar_id) {
  * @return string
  */
 function _kudos_resource_delete($kudos_id) {
+  global $user;
+
+  if (variable_get('rogue_collection', FALSE)) {
+    $northstar_user = dosomething_northstar_get_user($user->uid, 'drupal_id');
+
+    $data = [
+      'northstar_id' => $northstar_user->id,
+      'post_id' => $kudos_id,
+    ];
+
+    $response = dosomething_rogue_client()->postReaction($data);
+
+    if ($response['meta']['action'] === 'unliked') {
+      return;
+    }
+  }
+
   return (new KudosTransformer)->delete($kudos_id);
 }

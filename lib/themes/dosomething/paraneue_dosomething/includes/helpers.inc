@@ -363,9 +363,6 @@ function paraneue_dosomething_get_themed_reportback_item($data, $rogue_rb_item =
 
   if ($data->id && !dosomething_kudos_disable_reactions($data->campaign->id)) {
       if ($rogue_rb_item) {
-        // Find the fid from the rogue reference table
-        // $data->id = db_query("SELECT rogue_rbs.fid FROM {dosomething_rogue_reportbacks} rogue_rbs WHERE rogue_event_id = :rogue_event_id", array(':rogue_event_id' => $data->event_id))->fetchField();
-
         $total_rogue_kudos = $data->kudos['total'];
         $liked_by_current_user = $data->kudos['data']['current_user']['reacted'] ? true : false;
 
