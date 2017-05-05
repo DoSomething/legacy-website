@@ -91,17 +91,22 @@ foreach ($signups as $signup) {
     }
     // Handle getting a 404
     else {
+      echo '404' . PHP_EOL;
       // Put request in failed table for future investigation
       dosomething_rogue_handle_migration_failure($data, $signup->sid, $signup->rbid, $fids);
     }
   }
   catch (GuzzleHttp\Exception\ServerException $e) {
+    echo 'server exception' . PHP_EOL;
+
     // These aren't yet caught by Gateway
 
     // Put request in failed table for future investigation
     dosomething_rogue_handle_migration_failure($data, $signup->sid, $signup->rbid, $fids);
   }
   catch (DoSomething\Gateway\Exceptions\ApiException $e) {
+    echo 'api exception' . PHP_EOL;
+
     // Put request in failed table for future investigation
     dosomething_rogue_handle_migration_failure($data, $signup->sid, $signup->rbid, $fids);
   }
@@ -113,9 +118,12 @@ foreach ($signups as $signup) {
 // 2. Quantity and why participated updates with no new file
 $last_timestamp = variable_get('dosomething_rogue_last_timestamp_sent', 0);
 
-$postless_updates = db_query("SELECT rblog.rbid, rblog.quantity, rblog.why_participated, rb.nid, rb.run_nid, rb.uid, rblog.timestamp
+$postless_updates = db_query("SELECT rblog.rbid, rblog.quantity, rblog.why_participated, rb.nid, rb.run_nid, rb.uid, rblog.timestamp, signup.sid
                               FROM dosomething_reportback_log rblog
                               JOIN dosomething_reportback rb on rb.rbid = rblog.rbid
+                              JOIN dosomething_signup signup ON signup.uid = rb.uid
+                                AND signup.nid = rb.nid
+                                AND signup.run_nid = rb.run_nid
                               WHERE rblog.timestamp>$last_timestamp
                               AND substring_index(rblog.files, ',',-1) IN (Select fid from dosomething_rogue_reportbacks)");
 
