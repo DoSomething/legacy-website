@@ -607,7 +607,24 @@ function dosomething_rogue_store_rogue_signup_references($sid, $rogue_signup) {
  */
 function dosomething_rogue_handle_migration_failure($values, $sid, $rbid = NULL, $fids = NULL, $response = NULL, $e = NULL) {
   // one row for each photo, just the sid if no northstar id, or just the signup info
-  if (!isset($values)) {
+  // When trying to send a file but there is no northstar id
+  if (empty($values) && isset($fids)) {
+      db_insert('dosomething_rogue_failed_migrations')
+      ->fields([
+        // Signup
+        'sid' => $sid,
+
+        // Reportback
+        'rbid' => $rbid,
+
+        // Files
+        'fid' => $fids,
+
+        // Fail data
+        'timestamp' => REQUEST_TIME,
+      ])
+      ->execute();
+  } elseif (!isset($values)) {
       db_insert('dosomething_rogue_failed_migrations')
       ->fields([
         // Signup
