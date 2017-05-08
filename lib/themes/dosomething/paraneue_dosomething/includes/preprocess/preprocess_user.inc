@@ -17,13 +17,14 @@ function paraneue_dosomething_preprocess_user_profile(&$vars) {
         'title' => htmlspecialchars_decode($value['link'], ENT_QUOTES),
         'image' => $image,
         'description' => $value['call_to_action'],
-        'url' => dosomething_global_node_url($value['nid'], $language, 'prove'),
+        'url' => '/' . $value['path_alias'] . '#prove',
         'button_text' => t("Prove It"),
       );
       $doing_items[$delta] = paraneue_dosomething_get_gallery_item($item, 'figure');
     }
     $vars['doing_gallery'] = paraneue_dosomething_get_gallery($doing_items, 'triad', array(), TRUE);
   }
+
   // Get an array of reportbacks.
   $reportbacks = $vars['reportbacks'];
   if (!empty($reportbacks)) {
