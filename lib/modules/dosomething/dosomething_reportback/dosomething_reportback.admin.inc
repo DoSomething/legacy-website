@@ -81,6 +81,55 @@ function dosomething_reportback_admin_generate_form_submit($form, &$form_state) 
 }
 
 /**
+ * Form constructor for refreshing Reportback counts.
+ */
+function dosomething_reportback_admin_refresh_counts_form($form, &$form_state) {
+  $collection = collect(dosomething_campaign_get_campaigns_query_result(['type' => 'campaign'], 'all'));
+
+  $campaigns = $collection->mapWithKeys(function ($item) {
+    return [$item->nid => $item->title];
+  });
+
+  $form['help'] = array(
+    '#markup' => t("Use this form to refresh the Reportback counts for all statuses on the specified campaign, if the numbers don't see to be adding up."),
+  );
+
+  $form['campaign'] = array(
+   '#type' => 'select',
+   '#title' => t('Select a campaign to refresh the reportback counts for it:'),
+   '#required' => TRUE,
+   '#empty_option' => '- Select a campaign -',
+   '#empty_value' => 'none',
+   '#options' => $campaigns->toArray(),
+ );
+
+  $form['actions'] = array(
+    '#type' => 'actions',
+    'submit' => [
+      '#type' => 'submit',
+      '#value' => t("Refresh Count"),
+    ],
+  );
+
+  return $form;
+}
+
+/**
+ * Form submit callback for dosomething_reportback_admin_refresh_counts_form.
+ */
+function dosomething_reportback_admin_refresh_counts_form_submit($form, &$form_state) {
+  $campaign_id = (int) $form_state['values']['campaign'];
+
+  if ($campaign_id && is_int($campaign_id)) {
+    dosomething_reportback_reset_count('node', $campaign_id);
+    drupal_set_message(t("Great! Reportback count for all statuses for this campaign have been refreshed."));
+  } else {
+    drupal_set_message(t("Hmmm, looks like something went wrong when trying to refresh the reportback statuses count."), 'error');
+  }
+
+}
+
+/**
  * Form to set the status of Reportback Files.
  *
  * @param string $status
@@ -240,6 +289,7 @@ function dosomething_reportback_files_form_submit($form, &$form_state) {
   }
 
   $updates_to_send_to_rogue = [];
+
   foreach ($rb_files as $fid => $values) {
     $kudos = [
       'fid' => $fid,
@@ -407,26 +457,29 @@ function dosomething_reportback_count_page() {
   $status_values = dosomething_reportback_get_file_status_values();
   $params = ['type' => 'campaign'];
 
-  $header = array(t('Title'));
+  $header = [t('Title')];
   foreach ($status_values as $status) {
     $header[] = t($status);
   }
 
-  $tables = array();
+  $tables = [];
   $tables['node']['title'] = t("Campaigns");
   $tables['node']['url'] = 'node/';
   $tables['node']['results'] = dosomething_campaign_get_campaigns_query_result($params, 'all');
 
   $tables['taxonomy_term']['title'] = t("Cause");
   $tables['taxonomy_term']['url'] = 'taxonomy/term/';
-  $tables['taxonomy_term']['results'] = array();
+  $tables['taxonomy_term']['results'] = [];
+
   $cause = taxonomy_vocabulary_machine_name_load('cause');
+
   if ($cause) {
     $tables['taxonomy_term']['results'] = taxonomy_get_tree($cause->vid);
   }
 
   foreach ($tables as $entity_type => $table) {
-    $rows = array();
+    $rows = [];
+
     foreach ($table['results'] as $record) {
       if ($entity_type === 'node') {
         $id = $record->nid;
@@ -436,10 +489,12 @@ function dosomething_reportback_count_page() {
         $id = $record->tid;
         $title = $record->name;
       }
+
       $vars = dosomething_helpers_get_variables($entity_type, $id);
-      ;
+
       // First column is a link to the entity.
-      $row_values = array(l($title, $table['url'] . $id));
+      $row_values = [l($title, $table['url'] . $id)];
+
       // Loop through status values and set links for each.
       $i = 0;
       foreach ($status_values as $status) {

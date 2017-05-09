@@ -278,6 +278,16 @@ function dosomething_reportback_menu() {
     $items = array_merge($items, $rb_items);
   }
 
+  $items['admin/users/rb/refresh-counts'] = array(
+    'title' => 'Refresh Counts',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => ['dosomething_reportback_admin_refresh_counts_form'],
+    'access callback' => 'user_access',
+    'access arguments' => ['edit any reportback'],
+    'file' => 'dosomething_reportback.admin.inc',
+    'type' => MENU_LOCAL_TASK,
+    'weight' => 100,
+  );
   $items['admin/users/rb/add'] = array(
     'title' => 'Add reportback',
     'page callback' => 'drupal_get_form',
@@ -285,7 +295,7 @@ function dosomething_reportback_menu() {
     'access callback' => 'user_access',
     'access arguments' => array('edit any reportback'),
     'type' => MENU_LOCAL_TASK,
-    'weight' => 100,
+    'weight' => 110,
   );
   $items['reportback/%reportback/edit'] = array(
     'title' => 'Edit',
@@ -1247,6 +1257,7 @@ function dosomething_reportback_get_reportback_files_query_count($params, $reset
   if ($entity_type && !$reset) {
     // Check if we have the count stored already.
     $count = dosomething_helpers_get_variable($entity_type, $entity_id, $var_name);
+
     if ($count === FALSE) {
       $reset = TRUE;
     }
@@ -1308,7 +1319,8 @@ function dosomething_reportback_mark_reportback_as_excluded($fid) {
  * Resets Reportback Count variables for given entity type and entity_id.
  */
 function dosomething_reportback_reset_count($entity_type, $entity_id, $status = NULL) {
-  $params = array();
+  $params = [];
+
   if ($entity_type == 'node') {
     $params['nid'] = $entity_id;
   }
