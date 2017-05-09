@@ -324,15 +324,23 @@ function dosomething_kudos_get_kudos_data_for_fid($fid = NULL, $total_rogue_kudo
   if (! $fid) {
     return [];
   }
+
+  if ($total_rogue_kudos === 0) {
+    $total_kudos = 0;
+  } elseif ($total_rogue_kudos) {
+    $total_kudos = $total_rogue_kudos;
+  } else {
+    $total_kudos = dosomething_kudos_get_total_for_file_by_term_name($fid, 'heart');
+  }
+
   $kudos = [];
   $kudos['fid'] = $fid;
   $kudos['existing_kids'] = dosomething_kudos_get_kudos_for_user_by_file($fid);
   $kudos['reaction_totals'] = [
     'heart' =>
-        $total_rogue_kudos ? $total_rogue_kudos : dosomething_kudos_get_total_for_file_by_term_name($fid, 'heart')
+        $total_kudos,
   ];
   $kudos['allowed_reactions'] = [dosomething_kudos_get_term_id_by_name('heart')];
-
   // Use this in photo.tpl.php for the logged in user's reaction. If the user has reacted to the post, make the reaction button active.
   $kudos['liked_in_rogue'] = $liked_by_current_user;
 
