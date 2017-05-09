@@ -364,6 +364,7 @@ function paraneue_dosomething_get_themed_reportback_item($data, $rogue_rb_item =
   if ($data->id && !dosomething_kudos_disable_reactions($data->campaign->id)) {
       if ($rogue_rb_item) {
         $total_rogue_kudos = $data->kudos['total'];
+
         $liked_by_current_user = $data->kudos['data']['current_user']['reacted'] ? true : false;
 
         // Let the front end know that Rogue is powering the gallery.
@@ -377,7 +378,7 @@ function paraneue_dosomething_get_themed_reportback_item($data, $rogue_rb_item =
         );
       }
 
-      $data->kudos = dosomething_kudos_get_kudos_data_for_fid($data->id, $total_rogue_kudos ? $total_rogue_kudos : null, $liked_by_current_user ? $liked_by_current_user : null);
+      $data->kudos = dosomething_kudos_get_kudos_data_for_fid($data->id, $total_rogue_kudos ? $total_rogue_kudos : 0, $liked_by_current_user ? $liked_by_current_user : null);
   }
 
   if ($data instanceof ReportbackItem && user_access('view any reportback')) {
