@@ -160,19 +160,23 @@ class ReportbackItem extends Entity {
    */
   public function review($values) {
     global $user;
+
     if (!isset($values['status'])) {
       return FALSE;
     }
+
     $this->status = $values['status'];
     $this->reviewer = $user->uid;
     $this->reviewed = REQUEST_TIME;
     // Default source as the current URL path of page being viewed.
     $this->review_source = current_path();
+
     // If source was passed:
     if (isset($values['source'])) {
       // Store that instead.
       $this->review_source = $values['source'];
     }
+
     $reportback = reportback_load($this->rbid);
     $reason = NULL;
 
@@ -191,6 +195,9 @@ class ReportbackItem extends Entity {
     if (!empty($values['delete'])) {
       $this->deleteFile();
     }
+
+    // Reset the count to reflect reportback review update!
+    dosomething_reportback_reset_count('node', $reportback->nid, $values['status']);
 
     // Save the reviewed properties.
     return $updated_reportback_item;
