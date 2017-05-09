@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "950dee19f2cd86c9d11ce407a07efe84",
-    "content-hash": "5caf0890d5c68f86a5f721c42b9bbace",
+    "hash": "71716a478a83f648503e5cdf5a6f4d03",
+    "content-hash": "3fcf86a2f9762dfd3cab874df8dd0535",
     "packages": [
         {
             "name": "dosomething/gateway",
@@ -943,24 +943,24 @@
         },
         {
             "name": "tightenco/collect",
-            "version": "v5.3.20",
+            "version": "v5.4.20",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tightenco/collect.git",
-                "reference": "07547aa6191f6d05b459ecea7c62526e18f33851"
+                "reference": "884ee096c8c5501f3ea87e97314b4373991b04a7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tightenco/collect/zipball/07547aa6191f6d05b459ecea7c62526e18f33851",
-                "reference": "07547aa6191f6d05b459ecea7c62526e18f33851",
+                "url": "https://api.github.com/repos/tightenco/collect/zipball/884ee096c8c5501f3ea87e97314b4373991b04a7",
+                "reference": "884ee096c8c5501f3ea87e97314b4373991b04a7",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.5.9"
+                "php": ">=5.6.4"
             },
             "require-dev": {
-                "mockery/mockery": "~0.9.4",
-                "phpunit/phpunit": "~4.1"
+                "mockery/mockery": "^0.9.7",
+                "phpunit/phpunit": "^5.7"
             },
             "type": "library",
             "autoload": {
@@ -986,7 +986,7 @@
                 "collection",
                 "laravel"
             ],
-            "time": "2016-10-25 18:10:45"
+            "time": "2017-04-27 15:27:15"
         },
         {
             "name": "zendesk/zendesk_api_client_php",
