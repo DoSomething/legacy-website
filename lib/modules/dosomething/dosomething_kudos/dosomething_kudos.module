@@ -331,13 +331,6 @@ function dosomething_kudos_get_kudos_data_for_fid($fid = NULL, $total_rogue_kudo
     $total_kudos = $total_rogue_kudos;
   }
 
-  // if ($total_rogue_kudos === 0) {
-  //   $total_kudos = 0;
-  // } elseif ($total_rogue_kudos) {
-  //   $total_kudos = $total_rogue_kudos;
-  // } else {
-  // }
-
   $kudos = [];
   $kudos['fid'] = $fid;
   $kudos['existing_kids'] = dosomething_kudos_get_kudos_for_user_by_file($fid);
