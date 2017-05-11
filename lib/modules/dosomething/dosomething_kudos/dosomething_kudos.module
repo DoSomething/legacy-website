@@ -325,10 +325,10 @@ function dosomething_kudos_get_kudos_data_for_fid($fid = NULL, $total_rogue_kudo
     return [];
   }
 
-  if(!isset($total_rogue_kudos)) {
-    $total_kudos = dosomething_kudos_get_total_for_file_by_term_name($fid, 'heart');
-  } else {
+  if (variable_get('rogue_collection', FALSE)) {
     $total_kudos = $total_rogue_kudos;
+  } else {
+    $total_kudos = dosomething_kudos_get_total_for_file_by_term_name($fid, 'heart');
   }
 
   $kudos = [];
