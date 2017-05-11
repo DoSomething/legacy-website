@@ -376,7 +376,7 @@ function paraneue_dosomething_get_themed_reportback_item($data, $rogue_rb_item =
         );
       }
 
-      $data->kudos = dosomething_kudos_get_kudos_data_for_fid($data->id, $rogue_rb_item ? $data->kudos['total'] : 0, $rogue_rb_item ? $liked_by_current_user : null);
+      $data->kudos = dosomething_kudos_get_kudos_data_for_fid($data->id, $rogue_rb_item ? $data->kudos['total'] : null, $rogue_rb_item ? $liked_by_current_user : null);
   }
 
   if ($data instanceof ReportbackItem && user_access('view any reportback')) {
