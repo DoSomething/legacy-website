@@ -325,13 +325,18 @@ function dosomething_kudos_get_kudos_data_for_fid($fid = NULL, $total_rogue_kudo
     return [];
   }
 
-  if ($total_rogue_kudos === 0) {
-    $total_kudos = 0;
-  } elseif ($total_rogue_kudos) {
-    $total_kudos = $total_rogue_kudos;
-  } else {
+  if(!isset($total_rogue_kudos)) {
     $total_kudos = dosomething_kudos_get_total_for_file_by_term_name($fid, 'heart');
+  } else {
+    $total_kudos = $total_rogue_kudos;
   }
+
+  // if ($total_rogue_kudos === 0) {
+  //   $total_kudos = 0;
+  // } elseif ($total_rogue_kudos) {
+  //   $total_kudos = $total_rogue_kudos;
+  // } else {
+  // }
 
   $kudos = [];
   $kudos['fid'] = $fid;
