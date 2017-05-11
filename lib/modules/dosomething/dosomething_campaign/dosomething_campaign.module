@@ -760,7 +760,15 @@ function dosomething_campaign_add_signup_data_form_vars(&$node, $langcode) {
   // Pass to the user signup data form.
   $node->content['signup_data_form'] = drupal_get_form('dosomething_signup_user_signup_data_form', $signup);
   // If the signup_data_form is required and user has not submitted form yet:
-  if ($config['required'] && !$signup->signup_data_form_timestamp) {
+  $hasCompetitionRecordedLocally = $signup->signup_data_form_timestamp;
+  $shouldShowCompetitionPrompt = $config['required'] && !$hasCompetitionRecordedLocally;
+
+  // If Gladiator is enabled, check there too!
+  if (module_exists('dosomething_gladiator')) {
+    $shouldShowCompetitionPrompt = $shouldShowCompetitionPrompt && ! dosomething_gladiator_in_a_competition($signup);
+  }
+
+  if ($shouldShowCompetitionPrompt) {
     // Store flag to indicate we need to prompt user (handled in theme).
     $node->required_signup_data_form = 1;
     // If form is configured to include a skip button:

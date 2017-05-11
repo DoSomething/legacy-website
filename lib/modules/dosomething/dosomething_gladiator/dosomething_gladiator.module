@@ -38,6 +38,41 @@ function _dosomething_gladiator_build_http_client() {
 }
 
 /**
+ * Check if the given user is already in a competition for this campaign.
+ * If they are in a competition or waiting room in Gladiator, update their
+ * local signup record to reflect that.
+ *
+ * @param $signup - signup entity
+ *
+ * @return bool
+ */
+function dosomething_gladiator_in_a_competition($signup) {
+  $client = _dosomething_gladiator_build_http_client();
+
+  $query = drupal_http_build_query([
+    'id' => dosomething_user_get_northstar_id($signup->uid),
+    'campaign_id' => $signup->nid,
+    'campaign_run_id' => $signup->run_nid,
+  ]);
+
+  $response = drupal_http_request($client['base_url'] . '/users?'.$query, [
+    'method' => 'GET',
+    'headers' => $client['headers'],
+  ]);
+
+  $json = json_decode($response->data, TRUE);
+  $already_in_gladiator = !empty($json['data']['waitingRoom']) || !empty($json['data']['competition']);
+
+  // If signup exists in Gladiator (from Phoenix Next, for example), set
+  // the "signup data form" timestamp so we know not to ask again.
+  if ($already_in_gladiator) {
+    dosomething_signup_update_signup_data(['sid' => $signup->sid], ['competition_signup' => $already_in_gladiator]);
+  }
+
+  return $already_in_gladiator;
+}
+
+/**
  * Sends a user to Gladiator (https://github.com/DoSomething/gladiator)
  *
  * @param object $user
