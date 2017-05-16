@@ -160,6 +160,14 @@ function dosomething_mbp_update_7010() {
 }
 
 /**
+ * Retire mailchimp-related queues
+ */
+function dosomething_mbp_update_7011() {
+  db_drop_table('message_broker_producer_productions');
+  dosomething_mbp_install_productions();
+}
+
+/**
  * Common function for install and update of related DoSomething specific
  * message_broker_producer produciton settings.
  */
@@ -181,10 +189,7 @@ function dosomething_mbp_install_productions() {
   $productions[0]['exchange'] = 'transactionalExchange';
   $productions[0]['queues'][] = 'transactionalQueue';
   $productions[0]['queues'][] = 'loggingQueue';
-  $productions[0]['queues'][] = 'activityStatsQueue';
-  $productions[0]['queues'][] = 'userRegistrationQueue';
   $productions[0]['queues'][] = 'mobileCommonsQueue';
-  $productions[0]['queues'][] = 'userAPIRegistrationQueue';
   $productions[0]['routing_key'] = 'user.registration.transactional';
   $productions[0]['status'] = 1;
 
@@ -192,53 +197,28 @@ function dosomething_mbp_install_productions() {
   $productions[1]['exchange'] = 'transactionalExchange';
   $productions[1]['queues'][] = 'transactionalQueue';
   $productions[1]['queues'][] = 'loggingQueue';
-  $productions[1]['queues'][] = 'activityStatsQueue';
   $productions[1]['queues'][] = 'mobileCommonsQueue';
-  $productions[1]['queues'][] = 'userAPICampaignActivityQueue';
   $productions[1]['routing_key'] = 'user.password_reset.transactional';
   $productions[1]['status'] = 1;
 
   $productions[2]['machine_name'] = 'transactional_campaign_signup';
   $productions[2]['exchange'] = 'transactionalExchange';
   $productions[2]['queues'][] = 'transactionalQueue';
-  $productions[2]['queues'][] = 'transactionalDigestQueue';
   $productions[2]['queues'][] = 'loggingQueue';
-  $productions[2]['queues'][] = 'activityStatsQueue';
-  $productions[2]['queues'][] = 'mailchimpCampaignSignupQueue';
-  $productions[2]['queues'][] = 'userCampaignActivityQueue';
-  $productions[2]['queues'][] = 'userAPICampaignActivityQueue';
   $productions[2]['queues'][] = 'mobileCommonsQueue';
   $productions[2]['queues'][] = 'messagingGroupsQueue';
   $productions[2]['queues'][] = 'dispatchDelayedTextsQueue';
   $productions[2]['routing_key'] = 'campaign.signup.transactional';
   $productions[2]['status'] = 1;
 
-  $productions[3]['machine_name'] = 'transactional_campaign_group_signup';
+  $productions[3]['machine_name'] = 'transactional_campaign_reportback';
   $productions[3]['exchange'] = 'transactionalExchange';
   $productions[3]['queues'][] = 'transactionalQueue';
-  $productions[3]['queues'][] = 'transactionalDigestQueue';
   $productions[3]['queues'][] = 'loggingQueue';
-  $productions[3]['queues'][] = 'activityStatsQueue';
-  $productions[3]['queues'][] = 'mailchimpCampaignSignupQueue';
-  $productions[3]['queues'][] = 'userCampaignActivityQueue';
-  $productions[3]['queues'][] = 'userAPICampaignActivityQueue';
-  $productions[3]['queues'][] = 'mobileCommonsQueue';
   $productions[3]['queues'][] = 'messagingGroupsQueue';
   $productions[3]['queues'][] = 'dispatchDelayedTextsQueue';
-  $productions[3]['routing_key'] = 'campaign.signup.transactional';
+  $productions[3]['routing_key'] = 'campaign.report_back.transactional';
   $productions[3]['status'] = 1;
-
-  $productions[4]['machine_name'] = 'transactional_campaign_reportback';
-  $productions[4]['exchange'] = 'transactionalExchange';
-  $productions[4]['queues'][] = 'transactionalQueue';
-  $productions[4]['queues'][] = 'loggingQueue';
-  $productions[4]['queues'][] = 'activityStatsQueue';
-  $productions[4]['queues'][] = 'userAPICampaignActivityQueue';
-  $productions[4]['queues'][] = 'imageProcessingQueue';
-  $productions[4]['queues'][] = 'messagingGroupsQueue';
-  $productions[4]['queues'][] = 'dispatchDelayedTextsQueue';
-  $productions[4]['routing_key'] = 'campaign.report_back.transactional';
-  $productions[4]['status'] = 1;
 
   foreach($productions as $production) {
     message_broker_producer_production_create($production);

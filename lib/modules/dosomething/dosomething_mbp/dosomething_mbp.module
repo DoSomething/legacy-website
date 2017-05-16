@@ -49,10 +49,6 @@ function dosomething_mbp_request($origin, $params = NULL) {
       $production = 'transactional_campaign_signup';
       break;
 
-    case 'campaign_group_signup':
-      $production = 'transactional_campaign_group_signup';
-      break;
-
     case 'campaign_reportback':
       $production = 'transactional_campaign_reportback';
       break;
@@ -181,12 +177,6 @@ function dosomething_mbp_get_transactional_payload($origin, $params = NULL) {
       $payload['merge_vars']['STEP_TWO'] = $params['step_two'];
       $payload['merge_vars']['STEP_THREE'] = $params['step_three'];
       $payload['email_tags'][] = 'drupal_campaign_signup';
-      break;
-
-    case 'campaign_group_signup':
-      dosomething_mbp_get_common_campaign_payload($payload, $params);
-      $payload['merge_vars']['CAMPAIGN_COPY'] = $params['transactional_email_copy'];
-      $payload['email_tags'][] = 'drupal_campaign_group_signup';
       break;
 
     case 'campaign_reportback':
