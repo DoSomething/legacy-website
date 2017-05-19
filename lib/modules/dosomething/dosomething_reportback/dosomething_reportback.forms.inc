@@ -566,9 +566,13 @@ function dosomething_reportback_delete_form($form, &$form_state, $entity) {
  */
 function dosomething_reportback_delete_form_submit($form, &$form_state) {
   $rbid = $form_state['values']['rbid'];
+
   // Check for user screwing with form values via browser type firebuggin' things.
-  // This check will only work if the form lives only on reportback/*/delete.
-  if ($rbid == arg(1)) {
+  // This form lives on reportback/{rbid}?fid={fid}/delete,
+  // so we need to extract rbid from the request string.
+  $request = explode("?", arg(1));
+
+  if ($rbid == $request[0]) {
     dosomething_reportback_delete_reportback($rbid);
     // Redirect back to the node that the reportback was for.
     $form_state['redirect'] = 'node/' . $form_state['values']['nid'];
