@@ -80,4 +80,17 @@ class Rogue extends RestApiClient {
 
     return $response;
   }
+
+  /**
+   * Send a POST request of the signup to be saved in Rogue.
+   *
+   * @param array $data
+   * @return object|false
+   */
+  public function postReview($data)
+  {
+    $response = $this->post('v2/reviews', $data);
+
+    return $response;
+  }
 }
