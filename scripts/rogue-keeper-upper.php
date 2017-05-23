@@ -121,7 +121,7 @@ $last_timestamp = variable_get('dosomething_rogue_last_timestamp_sent', 0);
 
 $postless_updates = db_query("SELECT rblog.rbid, rblog.quantity, rblog.why_participated, rb.nid, rb.run_nid, rb.uid, rblog.timestamp, signup.sid
                               FROM dosomething_reportback_log rblog
-                              JOIN dosomething_reportback rb on rb.rbid = rblog.rbid
+                              JOIN dosomething_reportback rb ON rb.rbid = rblog.rbid
                               JOIN dosomething_signup signup ON signup.uid = rb.uid
                                 AND signup.nid = rb.nid
                                 AND signup.run_nid = rb.run_nid
