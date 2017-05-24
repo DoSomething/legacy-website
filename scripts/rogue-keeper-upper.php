@@ -305,10 +305,15 @@ foreach ($posts as $post) {
 // 4. Get fresh reviews and send them over
 $last_review_timestamp = variable_get('dosomething_rogue_last_review_sent', 0);
 
-$reviews = db_query("SELECT rbf.fid, rbf.status, rbf.reviewer
+$reviews = db_query("SELECT rbf.fid, rbf.status, rbf.reviewer, rbf.reviewed, rb.rbid, signup.sid
                     FROM dosomething_reportback_file rbf
+                    JOIN dosomething_reportback rb ON rb.rbid = rbf.rbid
+                    JOIN dosomething_signup signup ON signup.uid = rb.uid
+                      AND signup.nid = rb.nid
+                      AND signup.run_nid = rb.run_nid
                     WHERE rbf.reviewed>$last_review_timestamp
-                      AND rbf.fid IN (Select fid from dosomething_rogue_reportbacks)");
+                      AND rbf.fid IN (Select fid from dosomething_rogue_reportbacks)
+                      AND rbf.fid NOT IN (SELECT fid FROM dosomething_rogue_failed_migrations WHERE fid IS NOT NULL)");
 
 foreach ($reviews as $review) {
   echo 'Trying to send review of fid ' . $review->fid . '...' . PHP_EOL;
@@ -322,7 +327,7 @@ foreach ($reviews as $review) {
 
     // TODO: handle this
     // Put request in failed table for future investigation
-    dosomething_rogue_handle_migration_failure($data, $post->sid, $post->rbid, $post->fid);
+    dosomething_rogue_handle_migration_failure($data, $review->sid, $review->rbid, $review->fid);
 
     continue;
   }
@@ -347,20 +352,22 @@ foreach ($reviews as $review) {
 
     // Make sure we get a successful response
     if ($response) {
+      // Update timestamp of last sent
+      variable_set('dosomething_rogue_last_review_sent', $review->reviewed);
+
       // Send to StatHat
       if (module_exists('stathat')) {
         stathat_send_ez_count('drupal - Rogue - review migrated - count', 1);
       }
 
-      echo 'Migrated review of  ' . $post->fid . ' to Rogue.' . PHP_EOL;
+      echo 'Migrated review of ' . $review->fid . ' to Rogue.' . PHP_EOL;
     }
     // Handle getting a 404
     else {
       echo '404' . PHP_EOL;
 
-      // @TODO: this
       // Put request in failed table for future investigation
-      dosomething_rogue_handle_migration_failure($data, $post->sid, $post->rbid, $post->fid, $response);
+      dosomething_rogue_handle_migration_failure($data, $review->sid, $review->rbid, $review->fid, $response);
     }
   }
   catch (GuzzleHttp\Exception\ServerException $e) {
@@ -368,19 +375,15 @@ foreach ($reviews as $review) {
 
     // These aren't yet caught by Gateway
 
-    // @TODO: this
     // Put request in failed table for future investigation
-    // @TODO: only put in this table if it's not already there
-    dosomething_rogue_handle_migration_failure($data, $post->sid, $post->rbid, $post->fid, $response, $e);
+    dosomething_rogue_handle_migration_failure($data, $review->sid, $review->rbid, $review->fid, $response, $e);
   }
   catch (DoSomething\Gateway\Exceptions\ApiException $e) {
     echo 'api exception' . PHP_EOL;
 
-    // @TODO: this
     // Put request in failed table for future investigation
-    dosomething_rogue_handle_migration_failure($data, $post->sid, $post->rbid, $post->fid, $response, $e);
+    dosomething_rogue_handle_migration_failure($data, $review->sid, $review->rbid, $review->fid, $response, $e);
   }
-
 }
 
 // Done for now!
