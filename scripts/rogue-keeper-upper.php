@@ -139,7 +139,7 @@ foreach ($postless_updates as $update) {
     echo 'No northstar id, that is terrible ' . $post->fid . PHP_EOL;
 
     // Put request in failed table for future investigation
-    dosomething_rogue_handle_migration_failure($data, $post->sid, $post->rbid, $post->fid);
+    dosomething_rogue_handle_migration_failure($data, $update->sid, $update->rbid, $update->fid);
 
     // Update the timestamp so we only check for updates after where we left off
     variable_set('dosomething_rogue_last_timestamp_sent', $update->timestamp);
