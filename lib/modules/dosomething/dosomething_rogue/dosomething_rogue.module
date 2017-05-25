@@ -697,6 +697,23 @@ function dosomething_rogue_handle_migration_failure($values, $sid, $rbid = NULL,
         ])
         ->execute();
       }
+    } elseif (array_key_exists('admin_northstar_id', $values)) {
+       // Store review
+       db_insert('dosomething_rogue_failed_migrations')
+        ->fields([
+          // Signup
+          'sid' => $sid,
+          'northstar_id' => $values['admin_northstar_id'],
+          'status' => $values['status'],
+          'fid' => $fids,
+          'rbid' => $rbid,
+
+          // Fail data
+          'timestamp' => REQUEST_TIME,
+          'response_code' => (isset($response->code)) ? $response->code : NULL, // @TODO: this is currently null until there a better way to get it from Gateway
+          'response_values' => (isset($e)) ? $e->getMessage() : NULL,
+        ])
+        ->execute();
     } else {
      db_insert('dosomething_rogue_failed_migrations')
       ->fields([

@@ -121,7 +121,7 @@ $last_timestamp = variable_get('dosomething_rogue_last_timestamp_sent', 0);
 
 $postless_updates = db_query("SELECT rblog.rbid, rblog.quantity, rblog.why_participated, rb.nid, rb.run_nid, rb.uid, rblog.timestamp, signup.sid
                               FROM dosomething_reportback_log rblog
-                              JOIN dosomething_reportback rb on rb.rbid = rblog.rbid
+                              JOIN dosomething_reportback rb ON rb.rbid = rblog.rbid
                               JOIN dosomething_signup signup ON signup.uid = rb.uid
                                 AND signup.nid = rb.nid
                                 AND signup.run_nid = rb.run_nid
@@ -299,6 +299,90 @@ foreach ($posts as $post) {
     echo 'api exception' . PHP_EOL;
     // Put request in failed table for future investigation
     dosomething_rogue_handle_migration_failure($data, $post->sid, $post->rbid, $post->fid, $response, $e);
+  }
+}
+
+// 4. Get fresh reviews and send them over
+$last_review_timestamp = variable_get('dosomething_rogue_last_review_sent', 0);
+
+$reviews = db_query("SELECT rbf.fid, rbf.status, rbf.reviewer, rbf.reviewed, rb.rbid, signup.sid
+                    FROM dosomething_reportback_file rbf
+                    JOIN dosomething_reportback rb ON rb.rbid = rbf.rbid
+                    JOIN dosomething_signup signup ON signup.uid = rb.uid
+                      AND signup.nid = rb.nid
+                      AND signup.run_nid = rb.run_nid
+                    WHERE rbf.reviewed>$last_review_timestamp
+                      AND rbf.fid IN (Select fid from dosomething_rogue_reportbacks)
+                      AND rbf.fid NOT IN (SELECT fid FROM dosomething_rogue_failed_migrations WHERE fid IS NOT NULL)");
+
+foreach ($reviews as $review) {
+  echo 'Trying to send review of fid ' . $review->fid . '...' . PHP_EOL;
+
+  // Get admin user info
+  $northstar_user = dosomething_northstar_get_user($review->reviewer, 'drupal_id');
+
+  // Don't send if there is no admin northstar user
+  if (!isset($northstar_user)) {
+    echo 'No northstar id, that is terrible ' . $review->fid . PHP_EOL;
+
+    // TODO: handle this
+    // Put request in failed table for future investigation
+    dosomething_rogue_handle_migration_failure($data, $review->sid, $review->rbid, $review->fid);
+
+    continue;
+  }
+
+  // Convert status to Rogue status
+  $rogue_status = dosomething_rogue_transform_status($review->status);
+
+  // Get Rogue post_id
+  $rogue_post_id = dosomething_rogue_get_by_file_id($review->fid);
+
+  // Format the data
+  $data = [
+    'admin_northstar_id' => $northstar_user->id,
+    'status' => $rogue_status,
+    'post_id' => $rogue_post_id,
+  ];
+
+  // Send to Rogue and handle failure
+    // Send to Rogue
+  try {
+    $response = $client->postReview($data);
+
+    // Make sure we get a successful response
+    if ($response) {
+      // Update timestamp of last sent
+      variable_set('dosomething_rogue_last_review_sent', $review->reviewed);
+
+      // Send to StatHat
+      if (module_exists('stathat')) {
+        stathat_send_ez_count('drupal - Rogue - review migrated - count', 1);
+      }
+
+      echo 'Migrated review of ' . $review->fid . ' to Rogue.' . PHP_EOL;
+    }
+    // Handle getting a 404
+    else {
+      echo '404' . PHP_EOL;
+
+      // Put request in failed table for future investigation
+      dosomething_rogue_handle_migration_failure($data, $review->sid, $review->rbid, $review->fid, $response);
+    }
+  }
+  catch (GuzzleHttp\Exception\ServerException $e) {
+      echo 'server exception' . PHP_EOL;
+
+    // These aren't yet caught by Gateway
+
+    // Put request in failed table for future investigation
+    dosomething_rogue_handle_migration_failure($data, $review->sid, $review->rbid, $review->fid, $response, $e);
+  }
+  catch (DoSomething\Gateway\Exceptions\ApiException $e) {
+    echo 'api exception' . PHP_EOL;
+
+    // Put request in failed table for future investigation
+    dosomething_rogue_handle_migration_failure($data, $review->sid, $review->rbid, $review->fid, $response, $e);
   }
 }
 
