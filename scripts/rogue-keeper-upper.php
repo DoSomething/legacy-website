@@ -33,6 +33,7 @@ foreach ($signups as $signup) {
   $data = [];
 
   echo 'Trying sid ' . $signup->sid . '...' . PHP_EOL;
+  echo 'for uid ' . $signup->uid . PHP_EOL;
 
   $northstar_user = dosomething_northstar_get_user($signup->uid, 'drupal_id');
 
