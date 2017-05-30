@@ -66,7 +66,8 @@ foreach ($rbis as $rb) {
     } catch (GuzzleHttp\Exception\ServerException $e) {
       // @todo do we care about this?
       echo 'Something guzzle and terrible ' . $rb->fid . PHP_EOL;
-
+    } catch (DoSomething\Gateway\Exceptions\ApiException $e) {
+      echo 'Something terrible from Rogue or Gateway ' . $rb->fid . PHP_EOL;
     }
   }
   else {
