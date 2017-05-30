@@ -35,10 +35,10 @@ foreach ($signups as $signup) {
   echo 'Trying sid ' . $signup->sid . '...' . PHP_EOL;
   echo 'for uid ' . $signup->uid . PHP_EOL;
 
-  $northstar_user = dosomething_northstar_get_user($signup->uid, 'drupal_id');
+  $northstar_id = dosomething_user_get_northstar_id($signup->uid);
 
   // Skip this signup if there is no Northstar ID
-  if (!isset($northstar_user)) {
+  if (is_null($northstar_id)) {
     echo 'No northstar id, that is terrible ' . $signup->sid . PHP_EOL;
 
     // Put request in failed table for future investigation
@@ -55,7 +55,7 @@ foreach ($signups as $signup) {
 
   // Format signup data
   $data = [
-    'northstar_id' => $northstar_user->id,
+    'northstar_id' => $northstar_id,
     'campaign_id' => $signup->nid,
     'campaign_run_id' => $signup->run_nid,
     'do_not_forward' => TRUE,
