@@ -35,10 +35,10 @@ foreach ($signups as $signup) {
   echo 'Trying sid ' . $signup->sid . '...' . PHP_EOL;
   echo 'for uid ' . $signup->uid . PHP_EOL;
 
-  $northstar_user = dosomething_northstar_get_user($signup->uid, 'drupal_id');
+  $northstar_id = dosomething_user_get_northstar_id($signup->uid);
 
   // Skip this signup if there is no Northstar ID
-  if (!isset($northstar_user)) {
+  if (is_null($northstar_id)) {
     echo 'No northstar id, that is terrible ' . $signup->sid . PHP_EOL;
 
     // Put request in failed table for future investigation
@@ -55,7 +55,7 @@ foreach ($signups as $signup) {
 
   // Format signup data
   $data = [
-    'northstar_id' => $northstar_user->id,
+    'northstar_id' => $northstar_id,
     'campaign_id' => $signup->nid,
     'campaign_run_id' => $signup->run_nid,
     'do_not_forward' => TRUE,
@@ -132,11 +132,11 @@ $postless_updates = db_query("SELECT rblog.rbid, rblog.quantity, rblog.why_parti
 foreach ($postless_updates as $update) {
   echo 'Trying to update rbid ' . $update->rbid . '...' . PHP_EOL;
 
-  // Get the user info
-  $northstar_user = dosomething_northstar_get_user($update->uid, 'drupal_id');
+  // Get the Northstar ID
+  $northstar_id = dosomething_user_get_northstar_id($update->uid);
 
   // Skip this post if there is no Northstar user
-  if (!isset($northstar_user)) {
+  if (is_null($northstar_id)) {
     echo 'No northstar id, that is terrible ' . $post->fid . PHP_EOL;
 
     // Put request in failed table for future investigation
@@ -151,7 +151,7 @@ foreach ($postless_updates as $update) {
   $updated_at = date('Y-m-d H:i:s', $update->timestamp);
 
   $data = [
-    'northstar_id' => $northstar_user->id,
+    'northstar_id' => $northstar_id,
     'campaign_id' => $update->nid,
     'campaign_run_id' => $update->run_nid,
     'quantity' => $update->quantity,
@@ -223,10 +223,10 @@ foreach ($posts as $post) {
 
   echo 'Trying fid ' . $post->fid . ' sid ' . $post->sid . '...' . PHP_EOL;
 
-  // Get the user info
-  $northstar_user = dosomething_northstar_get_user($post->uid, 'drupal_id');
+  // Get the Northstar ID
+  $northstar_id = dosomething_user_get_northstar_id($post->uid);
 
-  if (!isset($northstar_user)) {
+  if (is_null($northstar_id)) {
     echo 'No northstar id, that is terrible ' . $post->fid . PHP_EOL;
 
     // Put request in failed table for future investigation
@@ -245,7 +245,7 @@ foreach ($posts as $post) {
   // Format the photo data
   $data = [
     // Post
-    'northstar_id' => $northstar_user->id,
+    'northstar_id' => $northstar_id,
     'campaign_id' => $post->nid,
     'campaign_run_id' => $post->run_nid,
     'caption' => $post->caption,
@@ -319,11 +319,11 @@ $reviews = db_query("SELECT rbf.fid, rbf.status, rbf.reviewer, rbf.reviewed, rb.
 foreach ($reviews as $review) {
   echo 'Trying to send review of fid ' . $review->fid . '...' . PHP_EOL;
 
-  // Get admin user info
-  $northstar_user = dosomething_northstar_get_user($review->reviewer, 'drupal_id');
+  // Get admin user Northstar id
+  $northstar_id = dosomething_user_get_northstar_id($review->reviewer);
 
   // Don't send if there is no admin northstar user
-  if (!isset($northstar_user)) {
+  if (is_null($northstar_id)) {
     echo 'No northstar id, that is terrible ' . $review->fid . PHP_EOL;
 
     // TODO: handle this
@@ -341,7 +341,7 @@ foreach ($reviews as $review) {
 
   // Format the data
   $data = [
-    'admin_northstar_id' => $northstar_user->id,
+    'admin_northstar_id' => $northstar_id,
     'status' => $rogue_status,
     'post_id' => $rogue_post_id,
   ];
