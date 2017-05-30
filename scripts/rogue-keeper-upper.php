@@ -132,11 +132,11 @@ $postless_updates = db_query("SELECT rblog.rbid, rblog.quantity, rblog.why_parti
 foreach ($postless_updates as $update) {
   echo 'Trying to update rbid ' . $update->rbid . '...' . PHP_EOL;
 
-  // Get the user info
-  $northstar_user = dosomething_northstar_get_user($update->uid, 'drupal_id');
+  // Get the Northstar ID
+  $northstar_id = dosomething_user_get_northstar_id($signup->uid);
 
   // Skip this post if there is no Northstar user
-  if (!isset($northstar_user)) {
+  if (is_null($northstar_id)) {
     echo 'No northstar id, that is terrible ' . $post->fid . PHP_EOL;
 
     // Put request in failed table for future investigation
@@ -151,7 +151,7 @@ foreach ($postless_updates as $update) {
   $updated_at = date('Y-m-d H:i:s', $update->timestamp);
 
   $data = [
-    'northstar_id' => $northstar_user->id,
+    'northstar_id' => $northstar_id,
     'campaign_id' => $update->nid,
     'campaign_run_id' => $update->run_nid,
     'quantity' => $update->quantity,
