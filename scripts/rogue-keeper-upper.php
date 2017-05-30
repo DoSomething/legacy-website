@@ -319,11 +319,11 @@ $reviews = db_query("SELECT rbf.fid, rbf.status, rbf.reviewer, rbf.reviewed, rb.
 foreach ($reviews as $review) {
   echo 'Trying to send review of fid ' . $review->fid . '...' . PHP_EOL;
 
-  // Get admin user info
-  $northstar_user = dosomething_northstar_get_user($review->reviewer, 'drupal_id');
+  // Get admin user Northstar id
+  $northstar_id = dosomething_user_get_northstar_id($review->reviewer);
 
   // Don't send if there is no admin northstar user
-  if (!isset($northstar_user)) {
+  if (is_null($northstar_id)) {
     echo 'No northstar id, that is terrible ' . $review->fid . PHP_EOL;
 
     // TODO: handle this
@@ -341,7 +341,7 @@ foreach ($reviews as $review) {
 
   // Format the data
   $data = [
-    'admin_northstar_id' => $northstar_user->id,
+    'admin_northstar_id' => $northstar_id,
     'status' => $rogue_status,
     'post_id' => $rogue_post_id,
   ];
