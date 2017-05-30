@@ -223,10 +223,10 @@ foreach ($posts as $post) {
 
   echo 'Trying fid ' . $post->fid . ' sid ' . $post->sid . '...' . PHP_EOL;
 
-  // Get the user info
-  $northstar_user = dosomething_northstar_get_user($post->uid, 'drupal_id');
+  // Get the Northstar ID
+  $northstar_id = dosomething_user_get_northstar_id($signup->uid);
 
-  if (!isset($northstar_user)) {
+  if (is_null($northstar_id)) {
     echo 'No northstar id, that is terrible ' . $post->fid . PHP_EOL;
 
     // Put request in failed table for future investigation
@@ -245,7 +245,7 @@ foreach ($posts as $post) {
   // Format the photo data
   $data = [
     // Post
-    'northstar_id' => $northstar_user->id,
+    'northstar_id' => $northstar_id,
     'campaign_id' => $post->nid,
     'campaign_run_id' => $post->run_nid,
     'caption' => $post->caption,
