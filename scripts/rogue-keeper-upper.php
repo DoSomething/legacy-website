@@ -133,7 +133,7 @@ foreach ($postless_updates as $update) {
   echo 'Trying to update rbid ' . $update->rbid . '...' . PHP_EOL;
 
   // Get the Northstar ID
-  $northstar_id = dosomething_user_get_northstar_id($signup->uid);
+  $northstar_id = dosomething_user_get_northstar_id($update->uid);
 
   // Skip this post if there is no Northstar user
   if (is_null($northstar_id)) {
@@ -224,7 +224,7 @@ foreach ($posts as $post) {
   echo 'Trying fid ' . $post->fid . ' sid ' . $post->sid . '...' . PHP_EOL;
 
   // Get the Northstar ID
-  $northstar_id = dosomething_user_get_northstar_id($signup->uid);
+  $northstar_id = dosomething_user_get_northstar_id($post->uid);
 
   if (is_null($northstar_id)) {
     echo 'No northstar id, that is terrible ' . $post->fid . PHP_EOL;
