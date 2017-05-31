@@ -527,6 +527,12 @@ function dosomething_reportback_form_alter(&$form, &$form_state, $form_id) {
  * Callback for /rbf/FID page.
  */
 function dosomething_reportback_view_entity($entity) {
+  if (!$entity) {
+    print_r(current_path());
+    die();
+    // redirect to custom function. but how do we get the data of the post to send to Rogue??
+  }
+
   $rb_simple_user = dosomething_user_get_simple_user($rb_user = user_load($entity->uid));
   global $user;
 

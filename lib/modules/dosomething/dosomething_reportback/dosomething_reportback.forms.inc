@@ -439,6 +439,9 @@ function dosomething_reportback_form_submit($form, &$form_state) {
           ),
         ),
       );
+    } elseif ($rogue_reportback['data']['id']) {
+      // Redirect to permalink page, populated as /reportback/{rogue_signup_id}?fid={rogue_post_id}
+      $form_state['redirect'] = 'reportback/' . $rogue_reportback['data']['signup_id'] . '?fid=' . $rogue_reportback['data']['id'];
     } else {
       // Send user to the failed permalink page
       $form_state['redirect'] = 'reportback/failure/' . $values['nid'];
