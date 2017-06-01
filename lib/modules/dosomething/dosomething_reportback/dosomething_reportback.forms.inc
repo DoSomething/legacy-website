@@ -431,17 +431,9 @@ function dosomething_reportback_form_submit($form, &$form_state) {
 
     if ($rb_info) {
       // Redirect to permalink page.
-      $form_state['redirect'] = array(
-        'reportback/' . $rb_info['rbid'],
-        array(
-          'query' => array(
-            'fid' => $rb_info['fid'],
-          ),
-        ),
-      );
+      dosomething_reportback_permalink_page($rb_info['rbid']);
     } elseif ($rogue_reportback['data']['id']) {
-      // Redirect to permalink page, populated as /reportback/{rogue_signup_id}?fid={rogue_post_id}
-      $form_state['redirect'] = 'reportback/' . $rogue_reportback['data']['signup_id'] . '?fid=' . $rogue_reportback['data']['id'];
+      dosomething_reportback_view_rogue_permalink($rogue_reportback['data']['signup_id'];
     } else {
       // Send user to the failed permalink page
       $form_state['redirect'] = 'reportback/failure/' . $values['nid'];
@@ -457,14 +449,7 @@ function dosomething_reportback_form_submit($form, &$form_state) {
     $rid = dosomething_reportback_save($values, $user);
 
     // Redirect to permalink page.
-    $form_state['redirect'] = array(
-      'reportback/' . $rid,
-      array(
-        'query' => array(
-          'fid' => $values['fid'],
-        ),
-      ),
-    );
+    dosomething_reportback_permalink_page($rid);
   }
 }
 

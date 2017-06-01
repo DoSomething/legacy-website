@@ -249,7 +249,7 @@ function dosomething_reportback_menu() {
   );
   $items['reportback/%reportback'] = array(
     'title' => 'Reportback',
-    'page callback' => 'dosomething_reportback_view_entity',
+    'page callback' => 'dosomething_reportback_permalink_page',
     'page arguments' => array(1),
     //'access callback' => 'dosomething_reportback_access',
     'access arguments' => array('access content'),
@@ -522,17 +522,40 @@ function dosomething_reportback_form_alter(&$form, &$form_state, $form_id) {
   }
 }
 
+function dosomething_reportback_permalink_page($rbid) {
+  $fid = $_GET['fid'];
+  $vars = [];
+
+  if (variable_get('rogue_collection', FALSE)) {
+    $rogue = dosomething_rogue_client();
+    $response = $rogue->get('v1/reportbacks/' . $rbid);
+
+    $vars = [
+      // @TODO: Make this look the same as the one below, but using Rogue's response.
+      'rb' => $rb,
+      'reportback' => $entity,
+      'node' => $node,
+      'user' => $rb_simple_user,
+      'is_owner' => $is_owner,
+      'copy_vars' => $copy_vars,
+      'title' => $title,
+      'subtitle' => $subtitle,
+      'share_bar' => $share_bar,
+      'share_enabled' => $share_enabled,
+      'why_participated_short' => isset($why_participated_short) ? $why_participated_short : $participated_copy,
+    ];
+  } else {
+    $entity = entity_load('reportback', $rbid);
+    $vars = dosomething_reportback_permalink_vars_from_entity($entity);
+  }
+
+  return theme('reportback_permalink', $vars);
+}
 
 /**
  * Callback for /rbf/FID page.
  */
 function dosomething_reportback_view_entity($entity) {
-  if (!$entity) {
-    print_r(current_path());
-    die();
-    // redirect to custom function. but how do we get the data of the post to send to Rogue??
-  }
-
   $rb_simple_user = dosomething_user_get_simple_user($rb_user = user_load($entity->uid));
   global $user;
 
@@ -633,7 +656,7 @@ function dosomething_reportback_view_entity($entity) {
     $permalink_vars['kudos'] = dosomething_kudos_get_kudos_data_for_fid($fid);
   }
 
-  return theme('reportback_permalink', $permalink_vars);
+  return $permalink_vars;
 }
 
 /**
