@@ -522,7 +522,7 @@ function dosomething_reportback_form_alter(&$form, &$form_state, $form_id) {
   }
 }
 
-function dosomething_reportback_permalink_page($rbid, $rogue_post = null, $campaign = null, $uid = null) {
+function dosomething_reportback_permalink_page($rbid, $rogue_post = null, $campaign = null, $uid = null, $why_participated = null, $quantity = null) {
   $fid = $_GET['fid'];
   $vars = [];
 
@@ -542,21 +542,20 @@ function dosomething_reportback_permalink_page($rbid, $rogue_post = null, $campa
     ];
 
     $reportback = new stdClass();
-    // $reportback->quantity =
+    $reportback->quantity = $quantity;
     $reportback->quantity_label = 'TBD';
-    // $reportback->why_participated =
+    $reportback->why_participated = $why_participated;
 
     $copy_vars = _dosomething_reportback_get_permalink_copy_vars($rb_user);
     $title = ($is_owner) ? $copy_vars['owners_title'] : $copy_vars['non_owners_title'];
     $subtitle = ($is_owner) ? $copy_vars['owners_rb_subtitle'] . " " . $incentive : $node->call_to_action;
 
-    // @TODO: we'll have to do the below logic once we get the why_participated
-    // $character_limit = 250;
-    // $participated_copy = $entity->why_participated;
+    $character_limit = 250;
+    $participated_copy = $why_participated;
 
-    // if (strlen($participated_copy) > $character_limit) {
-    //   $why_participated_short = dosomething_helpers_text_truncate($participated_copy, $character_limit, '...', FALSE, FALSE);
-    // }
+    if (strlen($participated_copy) > $character_limit) {
+      $why_participated_short = dosomething_helpers_text_truncate($participated_copy, $character_limit, '...', FALSE, FALSE);
+    }
 
     // @TODO: will the below work?
     $reportback_url = url(current_path(), array('absolute' => TRUE, 'query' => array('fid' => $rogue_post['data']['id'])));
@@ -587,7 +586,6 @@ function dosomething_reportback_permalink_page($rbid, $rogue_post = null, $campa
     $share_enabled = variable_get('dosomething_reportback_display_permalink_share', '');
 
     $vars = [
-      // @TODO: Make this look the same as the one below, but using Rogue's response.
       'rb' => $rb,
       'reportback' => $entity, // @TODO: Revisit this.
       'node' => $campaign,
