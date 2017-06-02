@@ -433,7 +433,7 @@ function dosomething_reportback_form_submit($form, &$form_state) {
       // Redirect to permalink page.
       dosomething_reportback_permalink_page($rb_info['rbid']);
     } elseif ($rogue_reportback['data']['id']) {
-      dosomething_reportback_view_rogue_permalink($rogue_reportback['data']['signup_id'];
+      dosomething_reportback_permalink_page($rogue_reportback['data']['signup_id'], $rogue_reportback, $campaign, $values['uid']);
     } else {
       // Send user to the failed permalink page
       $form_state['redirect'] = 'reportback/failure/' . $values['nid'];

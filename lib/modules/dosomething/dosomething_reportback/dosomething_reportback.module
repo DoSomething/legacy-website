@@ -522,19 +522,75 @@ function dosomething_reportback_form_alter(&$form, &$form_state, $form_id) {
   }
 }
 
-function dosomething_reportback_permalink_page($rbid) {
+function dosomething_reportback_permalink_page($rbid, $rogue_post = null, $campaign = null, $uid = null) {
   $fid = $_GET['fid'];
   $vars = [];
 
   if (variable_get('rogue_collection', FALSE)) {
-    $rogue = dosomething_rogue_client();
-    $response = $rogue->get('v1/reportbacks/' . $rbid);
+    // $rogue = dosomething_rogue_client();
+    // $response = $rogue->get('v1/reportbacks/' . $rbid); this isn't possible right now
+
+    $rb_simple_user = dosomething_user_get_simple_user($rb_user = user_load($uid));
+    global $user;
+
+    $is_owner = ($user->uid == $rb_simple_user->uid) ? 1 : 0;
+
+    $rb = [
+      // @TODO: might have to reformat the image
+      'image' => $rogue_post['data']['media']['url'],
+      'caption' => $rogue_post['data']['media']['caption'],
+    ];
+
+    $reportback = new stdClass();
+    // $reportback->quantity =
+    $reportback->quantity_label = 'TBD';
+    // $reportback->why_participated =
+
+    $copy_vars = _dosomething_reportback_get_permalink_copy_vars($rb_user);
+    $title = ($is_owner) ? $copy_vars['owners_title'] : $copy_vars['non_owners_title'];
+    $subtitle = ($is_owner) ? $copy_vars['owners_rb_subtitle'] . " " . $incentive : $node->call_to_action;
+
+    // @TODO: we'll have to do the below logic once we get the why_participated
+    // $character_limit = 250;
+    // $participated_copy = $entity->why_participated;
+
+    // if (strlen($participated_copy) > $character_limit) {
+    //   $why_participated_short = dosomething_helpers_text_truncate($participated_copy, $character_limit, '...', FALSE, FALSE);
+    // }
+
+    // @TODO: will the below work?
+    $reportback_url = url(current_path(), array('absolute' => TRUE, 'query' => array('fid' => $rogue_post['data']['id'])));
+
+    $share_text = token_replace(t(variable_get('dosomething_campaign_permalink_confirmation_owners_social_network_copy')), array('node' => $campaign));
+    $share_text = str_replace('[node:issue]', strtolower($campaign->issue['name']), $share_text);
+
+    $share_types = array(
+      'facebook' => array(
+        'type' => 'feed_dialog',
+        'parameters' => array(
+          'picture' => $rb['image'],
+          'caption' => $campaign->call_to_action,
+        ),
+      ),
+      'twitter' => array(
+        'tweet' => htmlspecialchars_decode($share_text, ENT_QUOTES) . " ",
+      ),
+      'tumblr' => array(
+        'posttype' => 'photo',
+        'content' => $rb['image'],
+        'caption' => $share_text . " ",
+      ),
+    );
+
+    $share_bar = dosomething_helpers_share_bar($reportback_url, $share_types, 'Confirmation Page', 'cta__actions');
+
+    $share_enabled = variable_get('dosomething_reportback_display_permalink_share', '');
 
     $vars = [
       // @TODO: Make this look the same as the one below, but using Rogue's response.
       'rb' => $rb,
-      'reportback' => $entity,
-      'node' => $node,
+      'reportback' => $entity, // @TODO: Revisit this.
+      'node' => $campaign,
       'user' => $rb_simple_user,
       'is_owner' => $is_owner,
       'copy_vars' => $copy_vars,
