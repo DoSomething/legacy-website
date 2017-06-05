@@ -523,8 +523,10 @@ function dosomething_reportback_form_alter(&$form, &$form_state, $form_id) {
 }
 
 function dosomething_reportback_permalink_page($rbid, $rogue_post = null, $campaign = null, $uid = null, $why_participated = null, $quantity = null) {
-  $fid = $_GET['fid'];
+  // $fid = $_GET['fid'];
   $vars = [];
+
+  $campaign = dosomething_campaign_load(node_load($campaign->nid));
 
   if (variable_get('rogue_collection', FALSE)) {
     // $rogue = dosomething_rogue_client();
@@ -547,6 +549,8 @@ function dosomething_reportback_permalink_page($rbid, $rogue_post = null, $campa
     $reportback->why_participated = $why_participated;
 
     $copy_vars = _dosomething_reportback_get_permalink_copy_vars($rb_user);
+
+    $incentive = ($campaign->scholarship) ? $copy_vars['owners_rb_scholarship'] : "";
     $title = ($is_owner) ? $copy_vars['owners_title'] : $copy_vars['non_owners_title'];
     $subtitle = ($is_owner) ? $copy_vars['owners_rb_subtitle'] . " " . $incentive : $node->call_to_action;
 
@@ -587,7 +591,7 @@ function dosomething_reportback_permalink_page($rbid, $rogue_post = null, $campa
 
     $vars = [
       'rb' => $rb,
-      'reportback' => $entity, // @TODO: Revisit this.
+      'reportback' => $reportback,
       'node' => $campaign,
       'user' => $rb_simple_user,
       'is_owner' => $is_owner,
