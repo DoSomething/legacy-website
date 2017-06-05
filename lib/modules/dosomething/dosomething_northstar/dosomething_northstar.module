@@ -2,6 +2,7 @@
 
 use DoSomething\Gateway\Northstar;
 use Phoenix\Auth\PhoenixOAuthBridge;
+use Phoenix\Auth\PhoenixOAuthUser;
 
 /**
  * @file
@@ -60,6 +61,24 @@ function dosomething_northstar_menu() {
       'type' => MENU_CALLBACK,
     ],
   ];
+}
+
+/**
+ * Implements hook_init().
+ */
+function dosomething_northstar_init() {
+  global $user;
+
+  // If a user is logged in, check their access token & ensure they
+  // have a valid session by refreshing it if it's expired.
+  if (user_is_logged_in()) {
+    $account = new PhoenixOAuthUser($user->uid);
+    $token = $account->getOAuthToken();
+
+    if ($token->hasExpired()) {
+      dosomething_northstar_client()->getTokenByRefreshTokenGrant($token);
+    }
+  }
 }
 
 /**
