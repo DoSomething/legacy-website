@@ -36,9 +36,6 @@ function dosomething_campaign_preprocess_node(&$vars) {
 
   $pitch_path = 'node/' . $node->nid . '/pitch';
 
-  // @TODO: pitch page is always rendered because Phoenix doesn't know about sign up in Rogue
-  // need to be able to check if Signup exists in Rogue here via API call?
-  // Gather vars for pitch page.
   if (variable_get('rogue_collection', FALSE)) {
     global $user;
     $northstar_user = dosomething_northstar_get_user($user->uid, 'drupal_id');
@@ -50,22 +47,17 @@ function dosomething_campaign_preprocess_node(&$vars) {
     $response = $rogue->getActivity([
       'filter' => [
         'northstar_id' => $northstar_user->id,
+        'campaign_id' => $vars['nid'],
       ],
     ]);
 
-    if ($response['data']) {
-      $signup_exists = TRUE;
-    } else {
-      $signup_exists = FALSE;
-    }
+    $response['data'] ? $signup_exists = TRUE : $signup_exists = FALSE;
   } else {
-    if (dosomething_campaign_is_pitch_page($node)) {
-      $signup_exists = FALSE;
-    } else {
-      $signup_exists = TRUE;
-    }
+    dosomething_campaign_is_pitch_page($node) ? $signup_exists = FALSE : $signup_exists = TRUE;
   }
+
   if ($pitch_path == $current_path || ! $signup_exists) {
+    // Gather vars for pitch page.
     $vars['is_pitch_page'] = TRUE;
     dosomething_campaign_preprocess_pitch_page($vars, $wrapper);
     return;
