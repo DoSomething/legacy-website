@@ -538,8 +538,7 @@ function dosomething_reportback_permalink_page($rbid, $rogue_post = null, $campa
     $is_owner = ($user->uid == $rb_simple_user->uid) ? 1 : 0;
 
     $rb = [
-      // @TODO: might have to reformat the image
-      'image' => $rogue_post['data']['media']['url'],
+      'image' => '<img src="'.$rogue_post['data']['media']['url'].'" width="480" height="480">&nbsp;',
       'caption' => $rogue_post['data']['media']['caption'],
     ];
 
@@ -606,7 +605,8 @@ function dosomething_reportback_permalink_page($rbid, $rogue_post = null, $campa
     $entity = entity_load('reportback', $rbid);
     $vars = dosomething_reportback_permalink_vars_from_entity($entity);
   }
-
+  // print_r(theme('reportback_permalink', $vars));
+  // die();
   return theme('reportback_permalink', $vars);
 }
 
