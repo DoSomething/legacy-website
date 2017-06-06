@@ -71,7 +71,8 @@ function dosomething_northstar_init() {
 
   // If a user is logged in, check their access token & ensure they
   // have a valid session by refreshing it if it's expired.
-  if (user_is_logged_in()) {
+  $is_web_request = !dosomething_helpers_is_api_request() && !drupal_is_cli();
+  if ($is_web_request && user_is_logged_in()) {
     $account = new PhoenixOAuthUser($user->uid);
     $token = $account->getOAuthToken();
 
