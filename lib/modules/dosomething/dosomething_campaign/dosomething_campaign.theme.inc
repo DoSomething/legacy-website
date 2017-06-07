@@ -40,9 +40,7 @@ function dosomething_campaign_preprocess_node(&$vars) {
     global $user;
     $northstar_user = dosomething_user_get_northstar_id($user->uid);
 
-    $rogue = new Rogue(ROGUE_API_URL . '/',
-      ['headers' => ['X-DS-Rogue-API-Key' => ROGUE_API_KEY]]
-    );
+    $rogue = dosomething_rogue_client();
 
     $response = $rogue->getActivity([
       'filter' => [
