@@ -98,6 +98,7 @@ function dosomething_signup_form_submit($form, &$form_state) {
   }
 
   if (variable_get('rogue_collection', FALSE)) {
+    $form_state['values']['source'] = 'phoenix-web';
     $rogue_signup = dosomething_rogue_send_signup_to_rogue($form_state['values']);
 
     // Make sure the signup exists before using it
