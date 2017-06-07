@@ -49,9 +49,9 @@ function dosomething_campaign_preprocess_node(&$vars) {
       ],
     ]);
 
-    $response['data'] ? $signup_exists = TRUE : $signup_exists = FALSE;
+    $signup_exists = ! empty($response['data']);
   } else {
-    dosomething_campaign_is_pitch_page($node) ? $signup_exists = FALSE : $signup_exists = TRUE;
+    $signup_exists = ! dosomething_campaign_is_pitch_page($node);
   }
 
   if ($pitch_path == $current_path || ! $signup_exists) {
