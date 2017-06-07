@@ -14,12 +14,12 @@
  * @see paraneue_dosomething_get_gallery()
  */
 ?>
+<?php if (!empty($title)): ?>
+  <div class="gallery__heading">
+    <h1><?php print $title; ?></h1>
+  </div>
+<?php endif; ?>
 <ul class="gallery -<?php print $layout; ?> <?php print $classes; ?>" <?php if (isset($roles)) { print $roles; } ?>>
-  <?php if (!empty($title)): ?>
-    <div class="gallery__heading">
-      <h1><?php print $title; ?></h1>
-    </div>
-  <?php endif; ?>
   <?php if (!empty($items)): ?>
     <?php foreach ($items as $item): ?>
       <li>
