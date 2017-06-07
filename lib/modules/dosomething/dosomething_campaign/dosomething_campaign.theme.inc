@@ -38,7 +38,7 @@ function dosomething_campaign_preprocess_node(&$vars) {
 
   if (variable_get('rogue_collection', FALSE)) {
     global $user;
-    $northstar_user = dosomething_northstar_get_user($user->uid, 'drupal_id');
+    $northstar_user = dosomething_user_get_northstar_id($user->uid);
 
     $rogue = new Rogue(ROGUE_API_URL . '/',
       ['headers' => ['X-DS-Rogue-API-Key' => ROGUE_API_KEY]]
