@@ -93,4 +93,18 @@ class Rogue extends RestApiClient {
 
     return $response;
   }
+
+  /**
+   * Send a GET request to return all reportbacks matching a given
+   * query from Rogue.
+   *
+   * @param array $inputs
+   * @return Rogue Reportbacks
+   */
+  public function getActivity($inputs = [])
+  {
+    $response = $this->get('v2/activity', $inputs);
+
+    return $response;
+  }
 }

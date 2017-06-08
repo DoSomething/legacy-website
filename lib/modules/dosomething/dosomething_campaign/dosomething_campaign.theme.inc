@@ -10,7 +10,6 @@
  */
 function dosomething_campaign_preprocess_node(&$vars) {
   if ($vars['type'] != 'campaign' || $vars['view_mode'] != 'full') return;
-
   $node = $vars['node'];
   $vars['campaign'] = dosomething_campaign_load($node);
 
@@ -36,7 +35,26 @@ function dosomething_campaign_preprocess_node(&$vars) {
   dosomething_campaign_preprocess_common_vars($vars, $wrapper);
 
   $pitch_path = 'node/' . $node->nid . '/pitch';
-  if ($pitch_path == $current_path || dosomething_campaign_is_pitch_page($node)) {
+
+  if (variable_get('rogue_collection', FALSE)) {
+    global $user;
+    $northstar_user = dosomething_user_get_northstar_id($user->uid);
+
+    $rogue = dosomething_rogue_client();
+
+    $response = $rogue->getActivity([
+      'filter' => [
+        'northstar_id' => $northstar_user->id,
+        'campaign_id' => $vars['nid'],
+      ],
+    ]);
+
+    $signup_exists = ! empty($response['data']);
+  } else {
+    $signup_exists = ! dosomething_campaign_is_pitch_page($node);
+  }
+
+  if ($pitch_path == $current_path || ! $signup_exists) {
     // Gather vars for pitch page.
     $vars['is_pitch_page'] = TRUE;
     dosomething_campaign_preprocess_pitch_page($vars, $wrapper);

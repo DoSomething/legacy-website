@@ -810,7 +810,6 @@ function dosomething_campaign_add_shipment_form_vars($node) {
 function dosomething_campaign_is_pitch_page($node) {
   // Exclude all non campaign node types.
   if ($node->type != 'campaign') { return FALSE; }
-
   // If not a campaign campaign (e.g. SMS Game), no pitch page is needed.
   if (dosomething_campaign_get_campaign_type($node) != 'campaign') {
     return FALSE;
@@ -830,6 +829,7 @@ function dosomething_campaign_is_pitch_page($node) {
   elseif (dosomething_user_is_staff() || dosomething_global_is_regional_admin()) {
     return FALSE;
   }
+
   // The $node is a pitch page if you haven't signed up yet.
   return (!dosomething_signup_exists($node->nid));
 }
