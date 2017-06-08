@@ -52,6 +52,11 @@ function dosomething_campaign_schema() {
         'not null' => FALSE,
         'length' => '255',
       ],
+      'age' => [
+        'description' => 'The ae for the user that opted-in.',
+        'type' => 'int',
+        'not null' => FALSE,
+      ],
     ],
     'primary key' => ['id'],
     'indexes' => [
@@ -220,5 +225,18 @@ function dosomething_campaign_update_7014() {
     $schema = dosomething_campaign_schema();
 
     db_create_table($table_name, $schema[$table_name]);
+  }
+}
+
+/**
+ * Add the age field to the dosomething_campaign_affiliate_opt_ins table.
+ */
+function dosomething_campaign_update_7015() {
+  $field_name = 'age';
+  $table = 'dosomething_campaign_affiliate_opt_ins';
+  $schema = dosomething_campaign_schema();
+
+  if (!db_field_exists($table, $field_name)) {
+    db_add_field($table, $field_name, $schema[$table]['fields'][$field_name]);
   }
 }
