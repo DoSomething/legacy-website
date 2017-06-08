@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * Helper functions for dosomething_campaign functionality.
@@ -389,6 +390,7 @@ function dosomething_campaign_create_affiliate_messaging_opt_in($user, $campaign
       'first_name' => $northstar_user->first_name,
       'email' => $northstar_user->email,
       'mobile' => $northstar_user->mobile,
+      'age' => dosomething_user_get_age($northstar_user->birthdate)->y,
     ])->execute();
 
   drupal_set_message('And thanks for signing up for messaging from our affiliate!');

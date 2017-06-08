@@ -521,7 +521,7 @@ function dosomething_helpers_exports_form_submit(&$form, &$form_state) {
   $values = $form_state['values'];
 
   if ($values['export_affiliate_messaging_optins']) {
-    $fields = ['campaign_id', 'campaign_run_id', 'northstar_id', 'first_name', 'email', 'mobile'];
+    $fields = ['campaign_id', 'campaign_run_id', 'northstar_id', 'first_name', 'email', 'mobile', 'age'];
 
     $data['affiliate_messaging_optins']['filename'] = 'Messaging Optins For '.$values['campaign_title'].'.csv';
 
