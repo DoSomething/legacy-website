@@ -53,7 +53,7 @@ function dosomething_campaign_schema() {
         'length' => '255',
       ],
       'age' => [
-        'description' => 'The ae for the user that opted-in.',
+        'description' => 'The age for the user that opted-in.',
         'type' => 'int',
         'not null' => FALSE,
       ],
