@@ -38,13 +38,13 @@ function dosomething_campaign_preprocess_node(&$vars) {
 
   if (variable_get('rogue_collection', FALSE)) {
     global $user;
-    $northstar_user = dosomething_user_get_northstar_id($user->uid);
+    $northstar_user_id = dosomething_user_get_northstar_id($user->uid);
 
     $rogue = dosomething_rogue_client();
 
     $response = $rogue->getActivity([
       'filter' => [
-        'northstar_id' => $northstar_user->id,
+        'northstar_id' => $northstar_user_id,
         'campaign_id' => $vars['nid'],
       ],
     ]);
