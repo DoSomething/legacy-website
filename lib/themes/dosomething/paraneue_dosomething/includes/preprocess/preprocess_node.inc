@@ -250,6 +250,12 @@ function paraneue_dosomething_preprocess_reportback_gallery(&$vars, $count = 6) 
 
     $promotedReportbackItems = $promotedReportbackItemsResponse['data'];
 
+    foreach ($promotedReportbackItems as $key => $promotedReportbackItem) {
+      if ($promotedReportbackItem['media']['uri'] === 'default') {
+        unset($promotedReportbackItems[$key]);
+      }
+    }
+
     $gallery['initial_promoted_count'] = count($promotedReportbackItems);
 
     // Since Rogue only sends back approved reportbacks, we can just set total_approved to total_promoted.
