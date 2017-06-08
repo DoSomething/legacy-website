@@ -1,7 +1,5 @@
 <?php
 
-use Carbon\Carbon;
-
 /**
  * @file
  * Helper functions for dosomething_campaign functionality.
