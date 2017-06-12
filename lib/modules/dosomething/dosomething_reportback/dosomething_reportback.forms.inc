@@ -15,6 +15,30 @@
  * @ingroup forms
  */
 function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
+  if (variable_get('rogue_collection', FALSE)) {
+    global $user;
+    $northstar_user_id = dosomething_user_get_northstar_id($user->uid);
+
+    $rogue = dosomething_rogue_client();
+
+    $response = $rogue->getActivity([
+      'filter' => [
+        'northstar_id' => $northstar_user_id,
+        'campaign_id' => menu_get_object()->nid,
+      ],
+    ]);
+
+    if ($response['data'][0]['quantity']) {
+      $entity = new stdClass();
+      $entity->nid = $response['data'][0]['campaign_id'];
+      $entity->why_participated = $response['data'][0]['why_participated'];
+      $entity->quantity = $response['data'][0]['quantity'];
+      // @TODO: is the below ok??
+      $entity->rbid = $response['data'][0]['posts']['data'][0]['id'];
+      // @TODO: figure out how to populate the post picture in the template
+    }
+  }
+
   if (!$entity) {
     $entity = entity_create('reportback', array(
       'uid' => NULL,
@@ -99,8 +123,6 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
     $entity->rbid = 0;
 
     $submit_label = t("Submit your pic");
-
-
   }
 
   // Else, it's an update form.
@@ -109,9 +131,11 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
     unset($form['reportback_submissions']['reportback_item']['#attributes']['data-validate']);
 
     $reportback_submissions_data = array();
+
     // Specify number of prior reportbacks to retrieve, including the latest one to show prominently.
     $reportback__submissions_count = 5;
 
+    // @TODO come back to this
     foreach ($entity->fids as $index => $fid) {
       $reportback_submissions_data[$index] = reportback_file_load($fid);
       $reportback_submissions_data[$index]->image = dosomething_image_get_themed_image_by_fid($fid, '400x400');
