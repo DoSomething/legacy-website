@@ -49,7 +49,7 @@ function dosomething_campaign_preprocess_node(&$vars) {
       ],
     ]);
 
-    $signup_exists = ! empty($response['data']);
+    $signup_exists = ! dosomething_campaign_is_pitch_page($node, ! empty($response['data']));
   } else {
     $signup_exists = ! dosomething_campaign_is_pitch_page($node);
   }

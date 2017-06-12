@@ -805,9 +805,12 @@ function dosomething_campaign_add_shipment_form_vars($node) {
  * @param obj $node
  *   A loaded node.
  *
+ * @param bool $rogue_signup_exists
+ *   Boolean if a signup exists in Rogue. Optional param.
+ *
  * @return bool
  */
-function dosomething_campaign_is_pitch_page($node) {
+function dosomething_campaign_is_pitch_page($node, $rogue_signup_exists = NULL) {
   // Exclude all non campaign node types.
   if ($node->type != 'campaign') { return FALSE; }
   // If not a campaign campaign (e.g. SMS Game), no pitch page is needed.
@@ -823,6 +826,7 @@ function dosomething_campaign_is_pitch_page($node) {
 
   // Anonymous users are always shown pitch page.
   if (!user_is_logged_in()) {
+
     return TRUE;
   }
   // Staff can always bypass pitch page to view full action page.
@@ -831,7 +835,11 @@ function dosomething_campaign_is_pitch_page($node) {
   }
 
   // The $node is a pitch page if you haven't signed up yet.
-  return (!dosomething_signup_exists($node->nid));
+  if ($rogue_signup_exists) {
+    return FALSE;
+  } else {
+    return (!dosomething_signup_exists($node->nid));
+  }
 }
 
 /**
