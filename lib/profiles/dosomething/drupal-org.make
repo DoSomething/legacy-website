@@ -244,7 +244,7 @@ projects[views][version] = "3.16"
 projects[views][subdir] = "contrib"
 
 ; Views Data Export
-projects[views_data_export][version] = "3.0-beta8"
+projects[views_data_export][version] = "3.2"
 projects[views_data_export][subdir] = "contrib"
 
 ; Views Grouping Row Limit
