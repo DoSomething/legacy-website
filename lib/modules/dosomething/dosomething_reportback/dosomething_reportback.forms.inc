@@ -107,11 +107,9 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
     unset($form['reportback_submissions']['reportback_item']['#attributes']['data-validate']);
 
     $reportback_submissions_data = array();
-
     // Specify number of prior reportbacks to retrieve, including the latest one to show prominently.
     $reportback__submissions_count = 5;
 
-    // @TODO come back to this
     foreach ($entity->fids as $index => $fid) {
       $reportback_submissions_data[$index] = reportback_file_load($fid);
       $reportback_submissions_data[$index]->image = dosomething_image_get_themed_image_by_fid($fid, '400x400');
@@ -342,7 +340,7 @@ function dosomething_reportback_form_validate($form, &$form_state) {
     $response = $rogue->getActivity([
       'filter' => [
         'northstar_id' => $northstar_user_id,
-        'campaign_id' => menu_get_object()->nid,
+        'campaign_id' => $campaign_id,
       ],
     ]);
 
