@@ -15,30 +15,6 @@
  * @ingroup forms
  */
 function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
-  if (variable_get('rogue_collection', FALSE)) {
-    global $user;
-    $northstar_user_id = dosomething_user_get_northstar_id($user->uid);
-
-    $rogue = dosomething_rogue_client();
-
-    $response = $rogue->getActivity([
-      'filter' => [
-        'northstar_id' => $northstar_user_id,
-        'campaign_id' => menu_get_object()->nid,
-      ],
-    ]);
-
-    if ($response['data'][0]['quantity']) {
-      $entity = new stdClass();
-      $entity->nid = $response['data'][0]['campaign_id'];
-      $entity->why_participated = $response['data'][0]['why_participated'];
-      $entity->quantity = $response['data'][0]['quantity'];
-      // @TODO: is the below ok??
-      $entity->rbid = $response['data'][0]['posts']['data'][0]['id'];
-      // @TODO: figure out how to populate the post picture in the template
-    }
-  }
-
   if (!$entity) {
     $entity = entity_create('reportback', array(
       'uid' => NULL,
