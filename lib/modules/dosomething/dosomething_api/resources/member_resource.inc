@@ -287,7 +287,7 @@ function _member_resource_create($request) {
  * @return mixed Object of the newly created user if successful. String if errors.
  */
 function _member_resource_update($id, $request) {
-  $keys = ['addr_street1', 'addr_street2', 'addr_city', 'addr_state'];
+  $keys = ['addr_street1', 'addr_street2', 'addr_city', 'addr_state', 'addr_zip'];
   $fields = [];
   $account = $request['account'];
 
