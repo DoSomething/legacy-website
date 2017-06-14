@@ -189,6 +189,23 @@ function _signup_resource_index($user, $users, $campaigns, $count, $page, $compe
     'runs' => $runs,
   ];
 
+  if (variable_get('rogue_collection', FALSE)) {
+    if ($user) {
+      $northstar_user_id = dosomething_user_get_northstar_id($user->uid);
+    }
+
+     $rogue = dosomething_rogue_client();
+
+     $response = $rogue->getActivity([
+       'filter' => [
+         'northstar_id' => $northstar_user_id,
+         'campaign_id' => $campaigns[0],
+       ],
+     ]);
+
+     return
+  }
+
   return (new SignupTransformer)->index($parameters);
 }
 
