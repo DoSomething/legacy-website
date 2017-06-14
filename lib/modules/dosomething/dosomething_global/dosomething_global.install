@@ -67,7 +67,7 @@ function dosomething_global_update_7003(&$sandbox) {
 /**
  * Uninstall some unused modules.
  */
-function dosomething_global_update_7004() {
+function dosomething_global_update_7005() {
   // Disable and uninstall Views Data Export
   if (module_exists('views_data_export')) {
     module_disable(array('views_data_export'));
