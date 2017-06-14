@@ -118,8 +118,10 @@ function dosomething_user_address_form_element_set_values($form, &$form_state, $
  */
 function dosomething_user_save_address_values($values) {
   global $user;
+
   $account = $user;
   $edit = array();
+
   if (isset($values['user_address'])) {
     $edit['field_address'] = array(
       LANGUAGE_NONE => array(
@@ -127,6 +129,7 @@ function dosomething_user_save_address_values($values) {
       ),
     );
   }
+
   if (isset($values['user_first_name'])) {
     $edit['field_first_name'] = array(
       LANGUAGE_NONE => array(
@@ -136,6 +139,7 @@ function dosomething_user_save_address_values($values) {
       ),
     );
   }
+
   if (isset($values['user_last_name'])) {
     $edit['field_last_name'] = array(
       LANGUAGE_NONE => array(
@@ -145,7 +149,33 @@ function dosomething_user_save_address_values($values) {
       ),
     );
   }
+
   user_save($account, $edit);
+}
+
+function dosomething_user_save_address_values_to_northstar($user, $values) {
+  $northstar_id = dosomething_user_get_northstar_id($user->uid);
+  $profile = [];
+  $submission = $values['user_address'];
+
+  // Map Signup Data Form fields to Northstar profile fields.
+  $address_fields = [
+    'thoroughfare' => 'addr_street1',
+    'premise' => 'addr_street2',
+    'locality' => 'addr_city',
+    'administrative_area' => 'addr_state',
+    'postal_code' => 'addr_zip',
+  ];
+
+  foreach ($address_fields as $drupal_key => $northstar_key) {
+    $field = $submission[$drupal_key];
+
+    if ($field) {
+      $profile[$northstar_key] = $field;
+    }
+  }
+
+  dosomething_northstar_client()->asClient()->put('v1/users/id/' . $northstar_id, $profile);
 }
 
 /**

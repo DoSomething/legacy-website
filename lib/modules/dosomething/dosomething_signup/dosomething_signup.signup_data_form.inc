@@ -522,12 +522,17 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
  */
 function dosomething_signup_user_signup_data_form_submit($form, &$form_state) {
   global $user;
+
   $values = $form_state['values'];
+
   // Load signup_data_form record to gather relevant config and confirm_msg.
   $config = dosomething_signup_get_signup_data_form_info($values['nid']);
+
   if ($config['collect_user_address']) {
     // Update user address.
     dosomething_user_save_address_values($values);
+    dosomething_user_save_address_values_to_northstar($user, $values);
+
     if (isset($values['item'])) {
       // Create a shipment entity for this signup.
       $shipment = entity_create('shipment', array(
@@ -537,19 +542,24 @@ function dosomething_signup_user_signup_data_form_submit($form, &$form_state) {
         'item' => $values['item'],
         'item_option' => $values['item_option'],
       ));
+
       // Save the shipment entity.
       $shipment->save();
     }
   }
+
   if ($config['collect_user_school']) {
     dosomething_user_save_school_id($values['school_id']);
   }
+
   // Update signup record.
   dosomething_signup_update_signup_data($values, $config);
   // If this is a competition sign up, send it to gladiator.
+  //
   if ($config['competition_signup'] && module_exists('dosomething_gladiator')) {
     dosomething_gladiator_send_user_to_gladiator($user, $values);
   }
+
   // Display the signup_data_form's confirm_msg field.
   drupal_set_message($config['confirm_msg']);
 }
