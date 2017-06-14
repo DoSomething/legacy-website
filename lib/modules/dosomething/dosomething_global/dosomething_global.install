@@ -63,3 +63,25 @@ function dosomething_global_update_7003(&$sandbox) {
                         WHERE u.language = 'en-global'
                         AND a.field_address_country = 'XR';");
 }
+
+/**
+ * Uninstall some unused modules.
+ */
+function dosomething_global_update_7004() {
+  // Disable and uninstall Views Data Export
+  module_disable(array('views_data_export'));
+  drupal_uninstall_modules(array('views_data_export'));
+
+  // Remove some lingering previously removed modules from the System table.
+  $modules = array(
+    'flag',
+    'restful',
+    'wysiwyg',
+    'dosomething_campaign_hot_shares',
+    'securepages',
+  );
+  db_delete('system')
+    ->condition('name', $modules, 'IN')
+    ->condition('type', 'module')
+    ->execute();
+}
