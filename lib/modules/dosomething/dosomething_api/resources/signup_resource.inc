@@ -203,7 +203,9 @@ function _signup_resource_index($user, $users, $campaigns, $count, $page, $compe
        ],
      ]);
 
-     return
+     if ($response) {
+      return $response;
+     }
   }
 
   return (new SignupTransformer)->index($parameters);
