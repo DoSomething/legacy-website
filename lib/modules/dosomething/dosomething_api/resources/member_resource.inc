@@ -53,7 +53,7 @@ function _member_resource_definition() {
           'module' => 'dosomething_api',
           'name' => 'resources/member_resource',
         ),
-        'help'   => 'Returns Current User Activity. GET from users/current/activity, users/23423/activity',
+        'help' => 'Returns Current User Activity. GET from users/current/activity, users/23423/activity',
         'access callback' => '_member_resource_access',
         'access arguments' => array('activity'),
         'access arguments append' => TRUE,
@@ -90,6 +90,33 @@ function _member_resource_definition() {
       ),
     ),
     'targeted_actions' => array(
+      'update' => [
+        'file' => [
+          'type' => 'inc',
+          'module' => 'dosomething_api',
+          'name' => 'resources/member_resource',
+        ],
+        'help' => 'Update the users profile',
+        'args' => [
+          [
+            'name' => 'id',
+            'optional' => FALSE,
+            'source' => array('path' => 0),
+            'type' => 'string',
+            'description' => 'The Northstar ID of the user we\'re updating.',
+          ],
+          [
+            'name' => 'account',
+            'type' => 'array',
+            'description' => 'The user object',
+            'source' => 'data',
+            'optional' => FALSE,
+          ],
+        ],
+        'callback' => '_member_resource_update',
+        'access callback' => '_member_update_access',
+        'access arguments append' => TRUE,
+      ],
       'password_reset_url' => array(
         'help' => 'Gets the user password reset URL.',
         'file' => array(
@@ -145,6 +172,18 @@ function _member_resource_access($op) {
   global $user;
   // For now, only admins can access any other User resources.
   return in_array('administrator', $user->roles);
+}
+
+/**
+ * Access calback for the user update resource.
+ *
+ * Only allow users to edit their own profile.
+ */
+function _member_update_access($id) {
+  global $user;
+
+  $request_user = dosomething_user_get_user_by_northstar_id($id);
+  return $user->uid === $request_user->uid;
 }
 
 /**
@@ -234,6 +273,37 @@ function _member_resource_create($request) {
   catch (Exception $e) {
     services_error($e);
   }
+}
+
+/**
+ * Callback for User create.
+ *
+ * @param $request Array passed to the endpoint.
+ *   Possible keys:
+ *   - addr_street1
+ *   - addr_street2
+ *   - addr_city
+ *   - addr_state
+ * @return mixed Object of the newly created user if successful. String if errors.
+ */
+function _member_resource_update($id, $request) {
+  $keys = ['addr_street1', 'addr_street2', 'addr_city', 'addr_state', 'addr_zip'];
+  $fields = [];
+  $account = $request['account'];
+
+  if ($account) {
+    foreach ($keys as $key) {
+      $value = $account[$key];
+
+      if (isset($value)) {
+        $fields[$key] = $value;
+      }
+    }
+  }
+
+  $response = dosomething_northstar_client()->asClient()->put('v1/users/id/' . $id, $fields);
+
+  return $response;
 }
 
 /**

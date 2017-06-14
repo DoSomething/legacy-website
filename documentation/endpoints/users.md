@@ -229,3 +229,27 @@ POST /api/v1/users/{uid}/magic_login_url
 }
 ```
 
+## Update User Profile
+
+Users may only update their own profile. Must include Northstar ID in the URL.
+
+Currently the only fields supported are for location fields.
+
+```
+POST /api/v1/users/{northstar_id}/update
+```
+
+**Example Response:**
+
+```js
+// 200 Okay
+
+{
+    "data": {
+        "id": "559442c4a59dbfc9578b4b6a",
+        "_id": "559442c4a59dbfc9578b4b6a",
+        "first_name": "Joe",
+        ...
+    }
+}
+```
