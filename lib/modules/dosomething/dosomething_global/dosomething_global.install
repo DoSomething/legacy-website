@@ -69,8 +69,10 @@ function dosomething_global_update_7003(&$sandbox) {
  */
 function dosomething_global_update_7004() {
   // Disable and uninstall Views Data Export
-  module_disable(array('views_data_export'));
-  drupal_uninstall_modules(array('views_data_export'));
+  if (module_exists('views_data_export')) {
+    module_disable(array('views_data_export'));
+    drupal_uninstall_modules(array('views_data_export'));
+  }
 
   // Remove some lingering previously removed modules from the System table.
   $modules = array(
