@@ -4,6 +4,12 @@
  * Code for the DoSomething Metatag feature.
  */
 
+include_once 'dosomething_metatag.features.inc';
+/**
+ * @file
+ * Code for the DoSomething Metatag feature.
+ */
+
 /**
  * Implements hook_preprocess_page().
  */
