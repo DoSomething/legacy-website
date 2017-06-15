@@ -99,8 +99,6 @@ function dosomething_reportback_form($form, &$form_state, $entity = NULL) {
     $entity->rbid = 0;
 
     $submit_label = t("Submit your pic");
-
-
   }
 
   // Else, it's an update form.
@@ -333,8 +331,26 @@ function dosomething_reportback_form_validate($form, &$form_state) {
     drupal_goto('node/' . $campaign_id);
   }
 
+  if (variable_get('rogue_collection', FALSE)) {
+    global $user;
+    $northstar_user_id = dosomething_user_get_northstar_id($user->uid);
+
+    $rogue = dosomething_rogue_client();
+
+    $response = $rogue->getActivity([
+      'filter' => [
+        'northstar_id' => $northstar_user_id,
+        'campaign_id' => $campaign_id,
+      ],
+    ]);
+
+    $signup_exists = $response['data'][0]['signup_id'] ? TRUE : FALSE;
+  } else {
+    $signup_exists = dosomething_signup_exists($campaign_id);
+  }
+
   // If user isn't signed up for the campaign.
-  if (!dosomething_user_is_staff() && !dosomething_signup_exists($campaign_id)) {
+  if (!dosomething_user_is_staff() && !$signup_exists) {
     drupal_set_message(t("You must be signed up for this campaign first."), 'error');
     drupal_goto('node/' . $campaign_id);
   }
