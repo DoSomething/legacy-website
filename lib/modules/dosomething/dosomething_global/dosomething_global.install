@@ -65,6 +65,12 @@ function dosomething_global_update_7003(&$sandbox) {
 }
 
 /**
+ * Empty update function.
+ */
+function dosomething_global_update_7004() {
+}
+
+/**
  * Uninstall some unused modules.
  */
 function dosomething_global_update_7005() {
