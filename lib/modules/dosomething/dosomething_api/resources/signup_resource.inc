@@ -203,9 +203,22 @@ function _signup_resource_index($user, $users, $campaigns, $count, $page, $compe
        ],
      ]);
 
-     if ($response) {
-      return $response;
-     }
+    if ($response) {
+      $transformed_response = collect($response['data'])->map(function($signup) {
+      print_r((dosomething_helpers_get_current_campaign_run_for_user($signup['campaign_id'], $user)->nid == $signup['campaign_run_id']) ? TRUE : FALSE);
+        // print_r($signup['campaign_run_id']);
+      die();
+        return [
+          'id' => $signup['signup_id'],
+          // @TODO: come back to this
+          // 'created_at' => new Carbon($signup['created_at'])->timestamp,
+          'campaign_run' => [
+            'id' => $signup['campaign_run_id'],
+            'current' => (dosomething_helpers_get_current_campaign_run_for_user($signup['campaign_id'], $user)->nid == $signup['campaign_run_id']) ? TRUE : FALSE);
+          ],
+        ];
+      });
+    }
   }
 
   return (new SignupTransformer)->index($parameters);
