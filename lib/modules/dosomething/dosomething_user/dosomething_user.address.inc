@@ -154,7 +154,6 @@ function dosomething_user_save_address_values($values) {
 }
 
 function dosomething_user_save_address_values_to_northstar($user, $values) {
-  $northstar_id = dosomething_user_get_northstar_id($user->uid);
   $profile = [];
   $submission = $values['user_address'];
 
@@ -175,7 +174,7 @@ function dosomething_user_save_address_values_to_northstar($user, $values) {
     }
   }
 
-  dosomething_northstar_client()->asClient()->put('v1/users/id/' . $northstar_id, $profile);
+  dosomething_northstar_client()->asUser()->post('v1/profile', $profile);
 }
 
 /**
