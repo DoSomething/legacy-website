@@ -1,5 +1,7 @@
 <?php
 
+use Carbon\Carbon;
+
 function _signup_resource_definition() {
   $signup_resource = [];
   $signup_resource['signups'] = [
@@ -191,7 +193,10 @@ function _signup_resource_index($user, $users, $campaigns, $count, $page, $compe
 
   if (variable_get('rogue_collection', FALSE)) {
     if ($user) {
-      $northstar_user_id = dosomething_user_get_northstar_id($user->uid);
+      $northstar_user_id = dosomething_user_get_northstar_id($user);
+      $user_object = user_load($user);
+      // print_r($user_object->language);
+      // die();
     }
 
      $rogue = dosomething_rogue_client();
@@ -199,22 +204,71 @@ function _signup_resource_index($user, $users, $campaigns, $count, $page, $compe
      $response = $rogue->getActivity([
        'filter' => [
          'northstar_id' => $northstar_user_id,
-         'campaign_id' => $campaigns[0],
+         'campaign_id' => $campaigns,
        ],
      ]);
 
     if ($response) {
-      $transformed_response = collect($response['data'])->map(function($signup) {
-      print_r((dosomething_helpers_get_current_campaign_run_for_user($signup['campaign_id'], $user)->nid == $signup['campaign_run_id']) ? TRUE : FALSE);
-        // print_r($signup['campaign_run_id']);
-      die();
+      collect($response['data'])->map(function($signup) {
+        $campaign = node_load($signup['campaign_id']);
+        print_r($campaign->field_campaign_status);
+        die();
         return [
           'id' => $signup['signup_id'],
-          // @TODO: come back to this
-          // 'created_at' => new Carbon($signup['created_at'])->timestamp,
+          'created_at' => (new Carbon($signup['created_at']))->timestamp,
           'campaign_run' => [
             'id' => $signup['campaign_run_id'],
-            'current' => (dosomething_helpers_get_current_campaign_run_for_user($signup['campaign_id'], $user)->nid == $signup['campaign_run_id']) ? TRUE : FALSE);
+            'current' => (dosomething_helpers_get_current_campaign_run_for_user($signup['campaign_id'], $user_object)->nid == $signup['campaign_run_id']) ? TRUE : FALSE,
+          ],
+          // @TODO: come back to this
+          // 'uri' =>
+          'campaign' => [
+            'id' => $signup['campaign_id'],
+            'title' => $campaign->title,
+            // 'campaign_runs' => [
+              // 'current' => [
+              // ],
+              // 'past' => [
+
+              // ],
+            // ],
+            'language' => [
+              // 'language_code' => ,
+              // 'prefix' => ,
+            ],
+            'translations' => [
+              // 'original' => ,
+              // ''
+            ],
+            'tagline' => [
+
+            ],
+            'status' => [
+
+            ],
+            'type' => [
+            ],
+            // 'reportback_info' => [
+            //   'copy' => ,
+            //   'confirmation_message' => ,
+            //   'noun' => ,
+            //   'verb' => ,
+            // ],
+            'reportback' => [
+              'id' => $signup['signup_id'],
+              'created_at' => (new Carbon($signup['created_at']))->timestamp,
+              'updated_at' => (new Carbon($signup['updated_at']))->timestamp,
+              'quantity' => $signup['quantity'],
+              // 'uri' => ,
+              'why_participated' => $signup['why_participated'],
+              // 'flagged' => ,
+              'reportback_items' => [
+                'total' => count($signup['posts']['data']),
+                'data' => [
+                  // iterate through each here.
+                ],
+              ],
+            ],
           ],
         ];
       });
