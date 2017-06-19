@@ -136,7 +136,7 @@ function dosomething_helpers_variable_form($form, &$form_state, $node) {
     $form['shipment'] = array(
       '#type' => 'fieldset',
       '#title' => t('Shipment Form'),
-      '#description' => t("If set, a modal is provided to create a User Shipment for this node."),
+      '#description' => t('Legacy system, use the Signup Data Form instead.'),
       '#collapsible' => TRUE,
       '#collapsed' => TRUE,
     );
