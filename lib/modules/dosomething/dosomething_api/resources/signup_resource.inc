@@ -211,7 +211,8 @@ function _signup_resource_index($user, $users, $campaigns, $count, $page, $compe
     if ($response) {
       collect($response['data'])->map(function($signup) {
         $campaign = node_load($signup['campaign_id']);
-        print_r($campaign->field_campaign_status);
+        $campaign = Campaign::get($signup['campaign_id']);
+        print_r($campaign->reportback_info);
         die();
         return [
           'id' => $signup['signup_id'],
@@ -225,35 +226,16 @@ function _signup_resource_index($user, $users, $campaigns, $count, $page, $compe
           'campaign' => [
             'id' => $signup['campaign_id'],
             'title' => $campaign->title,
-            // 'campaign_runs' => [
-              // 'current' => [
-              // ],
-              // 'past' => [
-
-              // ],
-            // ],
+            'campaign_runs' => $campaign->campaign_runs,
             'language' => [
-              // 'language_code' => ,
-              // 'prefix' => ,
+              'language_code' => $campaign->language['language_code'],
+              'prefix' => $campaign->language['prefix'],
             ],
-            'translations' => [
-              // 'original' => ,
-              // ''
-            ],
-            'tagline' => [
-
-            ],
-            'status' => [
-
-            ],
-            'type' => [
-            ],
-            // 'reportback_info' => [
-            //   'copy' => ,
-            //   'confirmation_message' => ,
-            //   'noun' => ,
-            //   'verb' => ,
-            // ],
+            'translations' => $campaign->translations,
+            'tagline' => $campaign->tagline,
+            'status' => $campaign->status,
+            'type' => $campaign->type,
+            'reportback_info' => $campaign->reportback_info,
             'reportback' => [
               'id' => $signup['signup_id'],
               'created_at' => (new Carbon($signup['created_at']))->timestamp,
