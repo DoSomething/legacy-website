@@ -128,7 +128,7 @@ projects[markdown][version] = "1.2"
 projects[markdown][subdir] = "contrib"
 
 ; Metatag
-projects[metatag][version] = "1.4"
+projects[metatag][version] = "1.21"
 projects[metatag][subdir] = "contrib"
 
 ; Mobile Commons
