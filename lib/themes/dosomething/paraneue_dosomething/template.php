@@ -17,7 +17,7 @@ require_once PARANEUE_PATH . '/includes/form.inc';
 require_once PARANEUE_PATH . '/includes/auth/login.inc';
 
 /**
- * We use our own asset pipeline (through Grunt), so we want to bypass most
+ * We use our own asset pipeline (through Webpack), so we want to bypass most
  * of Drupal's included assets.
  *
  * Implements hook_css_alter().
@@ -41,7 +41,7 @@ function paraneue_dosomething_css_alter(&$css) {
 }
 
 /**
- * We use our own asset pipeline (through Grunt), so we want to bypass most
+ * We use our own asset pipeline (through Webpack), so we want to bypass most
  * of Drupal's included assets.
  *
  * Implements hook_js_alter().
