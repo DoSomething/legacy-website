@@ -195,8 +195,6 @@ function _signup_resource_index($user, $users, $campaigns, $count, $page, $compe
     if ($user) {
       $northstar_user_id = dosomething_user_get_northstar_id($user);
       $user_object = user_load($user);
-      // print_r($user_object->language);
-      // die();
     }
 
      $rogue = dosomething_rogue_client();
@@ -212,46 +210,57 @@ function _signup_resource_index($user, $users, $campaigns, $count, $page, $compe
       collect($response['data'])->map(function($signup) {
         $campaign = node_load($signup['campaign_id']);
         $campaign = Campaign::get($signup['campaign_id']);
-        print_r($campaign->reportback_info);
-        die();
+        if ($signup['posts']['data']) {
+          $posts = [];
+          foreach ($signup['posts']['data'] as $post) {
+            $formatted_post = [];
+            $formatted_post['id'] = $post['id'];
+            $formatted_post['status'] = $post['status'];
+            $formatted_post['caption'] = $post['media']['caption'];
+            // $formatted_post['uri']
+            $formatted_post['media']['uri'] = $post['media']['url'];
+            $formatted_post['media']['type'] = 'image';
+            $formatted_post['created_at'] = (new Carbon($post['created_at']))->timestamp;
+            // $formatted_post['kudos']
+            array_push($posts, $formatted_post);
+          };
+        };
         return [
-          'id' => $signup['signup_id'],
-          'created_at' => (new Carbon($signup['created_at']))->timestamp,
-          'campaign_run' => [
-            'id' => $signup['campaign_run_id'],
-            'current' => (dosomething_helpers_get_current_campaign_run_for_user($signup['campaign_id'], $user_object)->nid == $signup['campaign_run_id']) ? TRUE : FALSE,
-          ],
-          // @TODO: come back to this
-          // 'uri' =>
-          'campaign' => [
-            'id' => $signup['campaign_id'],
-            'title' => $campaign->title,
-            'campaign_runs' => $campaign->campaign_runs,
-            'language' => [
-              'language_code' => $campaign->language['language_code'],
-              'prefix' => $campaign->language['prefix'],
-            ],
-            'translations' => $campaign->translations,
-            'tagline' => $campaign->tagline,
-            'status' => $campaign->status,
-            'type' => $campaign->type,
-            'reportback_info' => $campaign->reportback_info,
-            'reportback' => [
-              'id' => $signup['signup_id'],
-              'created_at' => (new Carbon($signup['created_at']))->timestamp,
-              'updated_at' => (new Carbon($signup['updated_at']))->timestamp,
-              'quantity' => $signup['quantity'],
-              // 'uri' => ,
-              'why_participated' => $signup['why_participated'],
-              // 'flagged' => ,
-              'reportback_items' => [
-                'total' => count($signup['posts']['data']),
-                'data' => [
-                  // iterate through each here.
-                ],
-              ],
-            ],
-          ],
+          // 'id' => $signup['signup_id'],
+          // 'created_at' => (new Carbon($signup['created_at']))->timestamp,
+          // 'campaign_run' => [
+          //   'id' => $signup['campaign_run_id'],
+          //   'current' => (dosomething_helpers_get_current_campaign_run_for_user($signup['campaign_id'], $user_object)->nid == $signup['campaign_run_id']) ? TRUE : FALSE,
+          // ],
+          // // @TODO: come back to this
+          // // 'uri' =>
+          // 'campaign' => [
+          //   'id' => $signup['campaign_id'],
+          //   'title' => $campaign->title,
+          //   'campaign_runs' => $campaign->campaign_runs,
+          //   'language' => [
+          //     'language_code' => $campaign->language['language_code'],
+          //     'prefix' => $campaign->language['prefix'],
+          //   ],
+          //   'translations' => $campaign->translations,
+          //   'tagline' => $campaign->tagline,
+          //   'status' => $campaign->status,
+          //   'type' => $campaign->type,
+          //   'reportback_info' => $campaign->reportback_info,
+          //   'reportback' => [
+          //     'id' => $signup['signup_id'],
+          //     'created_at' => (new Carbon($signup['created_at']))->timestamp,
+          //     'updated_at' => (new Carbon($signup['updated_at']))->timestamp,
+          //     'quantity' => $signup['quantity'],
+          //     // 'uri' => ,
+          //     'why_participated' => $signup['why_participated'],
+          //     // 'flagged' => ,
+          //     'reportback_items' => [
+          //       'total' => count($signup['posts']['data']),
+          //       'data' => $posts,
+          //     ],
+          //   ],
+          // ],
         ];
       });
     }
