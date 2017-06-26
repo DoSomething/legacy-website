@@ -84,6 +84,12 @@ function paraneue_dosomething_theme() {
       'template' => 'user-login',
     ],
 
+    'user_pass' => [
+      'render element' => 'form',
+      'path' => PARANEUE_PATH . '/templates/user',
+      'template' => 'user-pass',
+    ],
+
     'user_register_form' => [
       'render element' => 'form',
       'path' => PARANEUE_PATH . '/templates/user',
