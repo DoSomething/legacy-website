@@ -1,0 +1,29 @@
+<?php
+/**
+ * @file
+ * Installation and schema hooks for dosomething_metatag.module
+ */
+
+/**
+ * Ensure this module's 7000 update runs before the 7040 & 7041 metatag updates.
+ *
+ * We do not need to update the metatag entries for user entities.
+ * In fact, we don't even need the entries. We remove the entries prior to doing
+ * the time-consuming work of updating them.
+ */
+function dosomething_metatag_update_dependencies() {
+  $dependencies['dosomething_metatag'][7000] = array(
+    'metatag' => 7039,
+  );
+
+  return $dependencies;
+}
+
+/**
+ * Remove metatag entries for user entities.
+ */
+function dosomething_metatag_update_7000() {
+  db_delete('metatag')
+  ->condition('entity_type', 'user')
+  ->execute();
+}
