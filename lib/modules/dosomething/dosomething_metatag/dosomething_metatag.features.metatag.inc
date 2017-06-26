@@ -101,9 +101,6 @@ function dosomething_metatag_metatag_export_default() {
       'twitter:description' => array(
         'value' => '',
       ),
-      'twitter:image:src' => array(
-        'value' => '',
-      ),
       'twitter:image:width' => array(
         'value' => '',
       ),
@@ -177,6 +174,9 @@ function dosomething_metatag_metatag_export_default() {
         'value' => '',
       ),
       'twitter:data2' => array(
+        'value' => '',
+      ),
+      'twitter:image' => array(
         'value' => '',
       ),
     ),
