@@ -14,7 +14,6 @@ require_once PARANEUE_PATH . '/includes/preprocess.inc';
 require_once PARANEUE_PATH . '/includes/helpers.inc';
 require_once PARANEUE_PATH . '/includes/patterns.inc';
 require_once PARANEUE_PATH . '/includes/form.inc';
-require_once PARANEUE_PATH . '/includes/auth/login.inc';
 
 /**
  * We use our own asset pipeline (through Webpack), so we want to bypass most
@@ -99,7 +98,6 @@ function paraneue_dosomething_page_alter(&$page) {
  */
 function paraneue_dosomething_form_alter(&$form, &$form_state, $form_id) {
   paraneue_dosomething_form_alter_base($form, $form_state, $form_id);
-  paraneue_dosomething_form_alter_login($form, $form_state, $form_id);
 }
 
 /**
