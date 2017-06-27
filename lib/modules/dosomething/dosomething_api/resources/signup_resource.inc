@@ -285,9 +285,6 @@ function _signup_resource_index($user, $users, $campaigns, $count, $page, $compe
         ];
       });
     }
-  }
-
-  if ($transformed_response) {
     $final_response = [];
 
     // Mimic meta data response
@@ -302,9 +299,9 @@ function _signup_resource_index($user, $users, $campaigns, $count, $page, $compe
     $final_response['data'] = $transformed_response;
 
     return $final_response;
-  } else {
-    return (new SignupTransformer)->index($parameters);
   }
+
+    return (new SignupTransformer)->index($parameters);
 }
 
 /**
