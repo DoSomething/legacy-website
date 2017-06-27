@@ -601,15 +601,11 @@ function dosomething_reportback_permalink_page($rbid, $rogue_post = null, $campa
       'share_enabled' => $share_enabled,
       'why_participated_short' => isset($why_participated_short) ? $why_participated_short : $participated_copy,
     ];
-  } else {
-    print_r($rbid);
-    die();
-    $entity = entity_load('reportback', $rbid);
-    $vars = dosomething_reportback_permalink_vars_from_entity($entity);
-    return theme('reportback_permalink', $vars);
-  }
 
-  // return theme('reportback_permalink', $vars);
+    return theme('reportback_permalink', $vars);
+  } else {
+    dosomething_reportback_view_entity(entity_load('reportback', $rbid));
+  }
 }
 
 /**
@@ -716,7 +712,7 @@ function dosomething_reportback_view_entity($entity) {
     $permalink_vars['kudos'] = dosomething_kudos_get_kudos_data_for_fid($fid);
   }
 
-  return $permalink_vars;
+  return theme('reportback_permalink', $permalink_vars);
 }
 
 /**
