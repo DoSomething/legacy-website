@@ -533,6 +533,7 @@ function dosomething_reportback_permalink_page($rbid, $rogue_post = null, $campa
     // $response = $rogue->get('v1/reportbacks/' . $rbid); this isn't possible right now
 
     $rb_simple_user = dosomething_user_get_simple_user($rb_user = user_load($uid));
+
     global $user;
 
     $is_owner = ($user->uid == $rb_simple_user->uid) ? 1 : 0;
@@ -543,6 +544,8 @@ function dosomething_reportback_permalink_page($rbid, $rogue_post = null, $campa
     ];
 
     $reportback = new Reportback();
+    $reportback->rbid = $rogue_post['data']['signup_id'];
+    $reportback->fids = [$rogue_post['data']['id']];
     $reportback->quantity = $quantity;
     $reportback->quantity_label = 'TBD';
     $reportback->why_participated = $why_participated;
@@ -588,7 +591,7 @@ function dosomething_reportback_permalink_page($rbid, $rogue_post = null, $campa
 
     $share_enabled = variable_get('dosomething_reportback_display_permalink_share', '');
 
-    $vars = [
+    $permalink_vars = [
       'rb' => $rb,
       'reportback' => $reportback,
       'node' => $campaign,
@@ -602,7 +605,7 @@ function dosomething_reportback_permalink_page($rbid, $rogue_post = null, $campa
       'why_participated_short' => isset($why_participated_short) ? $why_participated_short : $participated_copy,
     ];
 
-    return theme('reportback_permalink', $vars);
+    theme('reportback_permalink', $permalink_vars);
   } else {
     dosomething_reportback_view_entity(entity_load('reportback', $rbid));
   }
