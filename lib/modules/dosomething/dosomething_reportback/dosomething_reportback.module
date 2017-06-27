@@ -542,7 +542,7 @@ function dosomething_reportback_permalink_page($rbid, $rogue_post = null, $campa
       'caption' => $rogue_post['data']['media']['caption'],
     ];
 
-    $reportback = new stdClass();
+    $reportback = new Reportback();
     $reportback->quantity = $quantity;
     $reportback->quantity_label = 'TBD';
     $reportback->why_participated = $why_participated;
