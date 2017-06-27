@@ -521,44 +521,6 @@ function dosomething_user_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'user-user-field_under_thirteen'.
-  $field_instances['user-user-field_under_thirteen'] = array(
-    'bundle' => 'user',
-    'default_value' => array(
-      0 => array(
-        'value' => 0,
-      ),
-    ),
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'list',
-        'settings' => array(),
-        'type' => 'list_default',
-        'weight' => 3,
-      ),
-    ),
-    'entity_type' => 'user',
-    'field_name' => 'field_under_thirteen',
-    'label' => 'Under Thirteen',
-    'required' => 0,
-    'settings' => array(
-      'entity_translation_sync' => FALSE,
-      'user_register_form' => 0,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'options',
-      'settings' => array(
-        'display_label' => 1,
-      ),
-      'type' => 'options_onoff',
-      'weight' => 10,
-    ),
-  );
-
   // Exported field_instance: 'user-user-field_user_registration_source'.
   $field_instances['user-user-field_user_registration_source'] = array(
     'bundle' => 'user',
@@ -614,7 +576,6 @@ function dosomething_user_field_default_field_instances() {
   t('This field may be set if a User has been programatically created.');
   t('This is the user\'s access token, issued by Northstar.');
   t('This is the user\'s refresh token, issued by Northstar. It is used to request a new access token once the current one expires.');
-  t('Under Thirteen');
   t('User Registration Source');
 
   return $field_instances;

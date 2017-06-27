@@ -296,7 +296,6 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
         unset($form['field_access_token_expiration']);
         unset($form['field_refresh_token']);
         unset($form['picture']);
-        unset($form['field_under_thirteen']);
         unset($form['field_job_title']);
         // Add an after build to remove the language switcher.
         $form['#after_build'][] = 'dosomething_user_remove_language_and_country_switcher';
@@ -310,7 +309,6 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
         $form['field_access_token']['#disabled'] = TRUE;
         $form['field_access_token_expiration']['#disabled'] = TRUE;
         $form['field_refresh_token']['#disabled'] = TRUE;
-        $form['field_under_thirteen']['#disabled'] = TRUE;
       }
 
       $form['#after_build'][] = 'dosomething_user_remove_extra_values_from_address_field';
@@ -698,20 +696,12 @@ function dosomething_user_is_under_thirteen($user = NULL) {
   if ($user == NULL) {
     global $user;
   }
+
   $birthday = dosomething_user_get_field('field_birthdate', $user);
+
   // Get the date 13 years ago today.
   $date_cutoff = strtotime('-13 years');
-  if ($date_cutoff < $birthday) {
-    // Set under 13 bool to true.
-    //@TODO: Cron that checks users in these values and updates users.
-    $wrapper = entity_metadata_wrapper('user', $user);
-    $wrapper->field_under_thirteen->set(1);
-    $wrapper->save();
-    return TRUE;
-  }
-  else {
-    return FALSE;
-  }
+  return $date_cutoff < $birthday;
 }
 
 /**
