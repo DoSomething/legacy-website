@@ -198,44 +198,6 @@ function dosomething_user_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'user-user-field_created_by_openid_connect'.
-  $field_instances['user-user-field_created_by_openid_connect'] = array(
-    'bundle' => 'user',
-    'default_value' => array(
-      0 => array(
-        'value' => 0,
-      ),
-    ),
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'list',
-        'settings' => array(),
-        'type' => 'list_default',
-        'weight' => 16,
-      ),
-    ),
-    'entity_type' => 'user',
-    'field_name' => 'field_created_by_openid_connect',
-    'label' => 'Created By OpenID Connect',
-    'required' => 0,
-    'settings' => array(
-      'entity_translation_sync' => FALSE,
-      'user_register_form' => 0,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'options',
-      'settings' => array(
-        'display_label' => 1,
-      ),
-      'type' => 'options_onoff',
-      'weight' => 23,
-    ),
-  );
-
   // Exported field_instance: 'user-user-field_first_name'.
   $field_instances['user-user-field_first_name'] = array(
     'bundle' => 'user',
@@ -411,82 +373,6 @@ function dosomething_user_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'user-user-field_opt_in_email'.
-  $field_instances['user-user-field_opt_in_email'] = array(
-    'bundle' => 'user',
-    'default_value' => array(
-      0 => array(
-        'value' => 1,
-      ),
-    ),
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'list',
-        'settings' => array(),
-        'type' => 'list_default',
-        'weight' => 8,
-      ),
-    ),
-    'entity_type' => 'user',
-    'field_name' => 'field_opt_in_email',
-    'label' => 'Subscribe to our email newsletter',
-    'required' => 0,
-    'settings' => array(
-      'entity_translation_sync' => FALSE,
-      'user_register_form' => 1,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'options',
-      'settings' => array(
-        'display_label' => 1,
-      ),
-      'type' => 'options_onoff',
-      'weight' => 16,
-    ),
-  );
-
-  // Exported field_instance: 'user-user-field_opt_in_sms'.
-  $field_instances['user-user-field_opt_in_sms'] = array(
-    'bundle' => 'user',
-    'default_value' => array(
-      0 => array(
-        'value' => 0,
-      ),
-    ),
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'list',
-        'settings' => array(),
-        'type' => 'list_default',
-        'weight' => 9,
-      ),
-    ),
-    'entity_type' => 'user',
-    'field_name' => 'field_opt_in_sms',
-    'label' => 'Subscribe to SMS updates',
-    'required' => 0,
-    'settings' => array(
-      'entity_translation_sync' => FALSE,
-      'user_register_form' => 1,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'options',
-      'settings' => array(
-        'display_label' => 1,
-      ),
-      'type' => 'options_onoff',
-      'weight' => 17,
-    ),
-  );
-
   // Exported field_instance: 'user-user-field_partner'.
   $field_instances['user-user-field_partner'] = array(
     'bundle' => 'user',
@@ -597,44 +483,6 @@ function dosomething_user_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'user-user-field_under_thirteen'.
-  $field_instances['user-user-field_under_thirteen'] = array(
-    'bundle' => 'user',
-    'default_value' => array(
-      0 => array(
-        'value' => 0,
-      ),
-    ),
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'list',
-        'settings' => array(),
-        'type' => 'list_default',
-        'weight' => 3,
-      ),
-    ),
-    'entity_type' => 'user',
-    'field_name' => 'field_under_thirteen',
-    'label' => 'Under Thirteen',
-    'required' => 0,
-    'settings' => array(
-      'entity_translation_sync' => FALSE,
-      'user_register_form' => 0,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'options',
-      'settings' => array(
-        'display_label' => 1,
-      ),
-      'type' => 'options_onoff',
-      'weight' => 10,
-    ),
-  );
-
   // Exported field_instance: 'user-user-field_user_registration_source'.
   $field_instances['user-user-field_user_registration_source'] = array(
     'bundle' => 'user',
@@ -677,7 +525,6 @@ function dosomething_user_field_default_field_instances() {
   t('Address');
   t('Birthday');
   t('Cell #');
-  t('Created By OpenID Connect');
   t('First Name');
   t('Job Title');
   t('Last Name');
@@ -685,14 +532,11 @@ function dosomething_user_field_default_field_instances() {
   t('Partner / Sponsor');
   t('Refresh Token');
   t('School ID');
-  t('Subscribe to SMS updates');
-  t('Subscribe to our email newsletter');
   t('The corresponding user ID in Northstar, our user API.');
   t('The expiration timestamp for the user\'s access token.');
   t('This field may be set if a User has been programatically created.');
   t('This is the user\'s access token, issued by Northstar.');
   t('This is the user\'s refresh token, issued by Northstar. It is used to request a new access token once the current one expires.');
-  t('Under Thirteen');
   t('User Registration Source');
 
   return $field_instances;

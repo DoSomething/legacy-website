@@ -207,7 +207,6 @@ function _member_resource_create($request) {
     'mobile' => !empty($request['mobile']) ? dosomething_user_clean_mobile_number($request['mobile']) : NULL,
     'user_registration_source' => !empty($request['user_registration_source']) ? $request['user_registration_source'] : NULL,
     'northstar_id' => $request['_id'],
-    'created_by_openid_connect' => empty($request['password']) ? 1 : 0, // If no password given, specify that this user *must* login via Northstar.
   ];
 
   dosomething_user_set_fields($edit, $fields);

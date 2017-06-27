@@ -215,8 +215,6 @@ function paraneue_dosomething_form_user_profile_form_alter(&$form, &$form_state,
   unset($form['field_address']);
   unset($form['field_first_name']);
   unset($form['field_last_name']);
-  unset($form['field_opt_in_email']);
-  unset($form['field_opt_in_sms']);
   unset($form['locale']);
   unset($form['timezone']);
 
