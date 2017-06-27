@@ -77,6 +77,10 @@ function paraneue_dosomething_get_social_networks() {
       'id' => 'snapchat',
       'name' => t('Snapchat'),
     ],
+    'tumblr' => [
+      'id' => 'tumblr',
+      'name' => t('Tumblr'),
+    ],
     'twitter' => [
       'id' => 'twitter',
       'name' => t('Twitter'),
@@ -88,10 +92,6 @@ function paraneue_dosomething_get_social_networks() {
     'youtube' => [
       'id' => 'youtube',
       'name' => t('Youtube'),
-    ],
-    'tumblr' => [
-      'id' => 'tumblr',
-      'name' => t('Tumblr'),
     ],
   ];
 }
