@@ -208,7 +208,6 @@ function _signup_resource_index($user, $users, $campaigns, $count, $page, $compe
 
     if ($response) {
       $transformed_response = collect($response['data'])->map(function($signup) {
-        $campaign = node_load($signup['campaign_id']);
         $campaign = Campaign::get($signup['campaign_id']);
 
         if ($signup['posts']['data']) {
