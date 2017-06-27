@@ -64,32 +64,36 @@ function paraneue_dosomething_get_gallery_style($style) {
  *   Supported social networks names indexed with designated ids
  */
 function paraneue_dosomething_get_social_networks() {
-  return array(
-    'facebook'  => array(
-      'id'    => 'facebook',
-      'name'  => t('Facebook'),
-    ),
-    'twitter'   => array(
-      'id'    => 'twitter',
-      'name'  => t('Twitter'),
-    ),
-    'snapchat'    => array(
-      'id'    => 'snapchat',
-      'name'  => t('Snapchat'),
-    ),
-    'weheartit'    => array(
-      'id'    => 'weheartit',
-      'name'  => t('We Heart It'),
-    ),
-    'instagram' => array(
-      'id'    => 'instagram',
-      'name'  => t('Instagram'),
-    ),
-    'youtube'   => array(
-      'id'    => 'youtube',
-      'name'  => t('Youtube'),
-    ),
-  );
+  return [
+    'facebook' => [
+      'id' => 'facebook',
+      'name' => t('Facebook'),
+    ],
+    'instagram' => [
+      'id' => 'instagram',
+      'name' => t('Instagram'),
+    ],
+    'snapchat' => [
+      'id' => 'snapchat',
+      'name' => t('Snapchat'),
+    ],
+    'twitter' => [
+      'id' => 'twitter',
+      'name' => t('Twitter'),
+    ],
+    'weheartit' => [
+      'id' => 'weheartit',
+      'name' => t('We Heart It'),
+    ],
+    'youtube' => [
+      'id' => 'youtube',
+      'name' => t('Youtube'),
+    ],
+    'tumblr' => [
+      'id' => 'tumblr',
+      'name' => t('Tumblr'),
+    ],
+  ];
 }
 
 /**
