@@ -272,8 +272,6 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
         if (module_exists('dosomething_global')) {
           $form['#submit'][] = 'dosomething_user_new_user_attributes';
         }
-        // Unsets relevant register form fields based on configuration variables.
-        _dosomething_user_register_display_fields($form);
         // Add campaign data, if needed.
         _dosomething_user_add_signup_data($form);
         // Gather helper text.
@@ -932,64 +930,6 @@ function _dosomething_user_global_display_fields(&$form) {
       $form[$field_name]['#access'] = FALSE;
     }
   }
-}
-
-/**
- * Conditionally displays user fields to collect on the Registration form.
- *
- * @see dosomething_user_form_alter().
- *
- * @param array $form
- *  A Drupal Form API array, expected form is the User Register form.
- */
-function _dosomething_user_register_display_fields(&$form) {
-
-  // Check if last name is being collected.
-  $var_name = 'dosomething_user_register_form_display_last_name';
-  $collect_last_name = variable_get($var_name, FALSE);
-  $field_name = 'field_last_name';
-
-  if ($collect_last_name) {
-    // Make it required.
-    $form[$field_name]['#required'] = TRUE;
-  }
-  // Else unset from the form.
-  else {
-    unset($form[$field_name]);
-  }
-
-  // Check if postal code is being collected.
-  $var_name = 'dosomething_user_register_form_display_postal_code';
-  $collect_postal_code = variable_get($var_name, FALSE);
-  // Postal code is a form element within the field_address field.
-  // We store 'field_address' as the field_name value to unset.
-  $field_name = 'field_address';
-
-  if ($collect_postal_code) {
-    // Adds form element for postal code only to the register form.
-    $form['#after_build'][] = 'dosomething_user_address_field_postal_code_only';
-  }
-  // Else deny access to the corresponding form field.
-  else {
-    $form[$field_name]['#access'] = FALSE;
-  }
-
-}
-
-/**
- * After build function to unset all address field elements except postal code.
- */
-function dosomething_user_address_field_postal_code_only($form, &$form_state) {
-  $element = &$form['field_address'][LANGUAGE_NONE][0]['address'];
-  // Hide the Address field label.
-  unset($element['#title']);
-  // Require Postal Code.
-  $element['locality_block']['postal_code']['#required'] = TRUE;
-  // Remove all other address fields.
-  unset($element['street_block']);
-  unset($element['locality_block']['locality']);
-  unset($element['locality_block']['administrative_area']);
-  return $form;
 }
 
 /**
