@@ -92,6 +92,16 @@ function dosomething_user_update_7010() {
 }
 
 /**
+ * Remove database tables for unused fields.
+ */
+function dosomething_user_update_7011() {
+  field_delete_field('field_under_thirteen');
+  field_delete_field('field_opt_in_sms');
+  field_delete_field('field_opt_in_email');
+  field_delete_field('field_created_by_openid_connect');
+}
+
+/**
  * Implements hook_uninstall().
  */
 function dosomething_user_uninstall() {
