@@ -196,7 +196,7 @@ function dosomething_metatag_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'metatag_enable_user';
-  $strongarm->value = 1;
+  $strongarm->value = 0;
   $export['metatag_enable_user'] = $strongarm;
 
   $strongarm = new stdClass();
