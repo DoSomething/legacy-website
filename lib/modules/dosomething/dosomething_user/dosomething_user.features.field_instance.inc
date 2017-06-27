@@ -411,82 +411,6 @@ function dosomething_user_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'user-user-field_opt_in_email'.
-  $field_instances['user-user-field_opt_in_email'] = array(
-    'bundle' => 'user',
-    'default_value' => array(
-      0 => array(
-        'value' => 1,
-      ),
-    ),
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'list',
-        'settings' => array(),
-        'type' => 'list_default',
-        'weight' => 8,
-      ),
-    ),
-    'entity_type' => 'user',
-    'field_name' => 'field_opt_in_email',
-    'label' => 'Subscribe to our email newsletter',
-    'required' => 0,
-    'settings' => array(
-      'entity_translation_sync' => FALSE,
-      'user_register_form' => 1,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'options',
-      'settings' => array(
-        'display_label' => 1,
-      ),
-      'type' => 'options_onoff',
-      'weight' => 16,
-    ),
-  );
-
-  // Exported field_instance: 'user-user-field_opt_in_sms'.
-  $field_instances['user-user-field_opt_in_sms'] = array(
-    'bundle' => 'user',
-    'default_value' => array(
-      0 => array(
-        'value' => 0,
-      ),
-    ),
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'list',
-        'settings' => array(),
-        'type' => 'list_default',
-        'weight' => 9,
-      ),
-    ),
-    'entity_type' => 'user',
-    'field_name' => 'field_opt_in_sms',
-    'label' => 'Subscribe to SMS updates',
-    'required' => 0,
-    'settings' => array(
-      'entity_translation_sync' => FALSE,
-      'user_register_form' => 1,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'options',
-      'settings' => array(
-        'display_label' => 1,
-      ),
-      'type' => 'options_onoff',
-      'weight' => 17,
-    ),
-  );
-
   // Exported field_instance: 'user-user-field_partner'.
   $field_instances['user-user-field_partner'] = array(
     'bundle' => 'user',
@@ -685,8 +609,6 @@ function dosomething_user_field_default_field_instances() {
   t('Partner / Sponsor');
   t('Refresh Token');
   t('School ID');
-  t('Subscribe to SMS updates');
-  t('Subscribe to our email newsletter');
   t('The corresponding user ID in Northstar, our user API.');
   t('The expiration timestamp for the user\'s access token.');
   t('This field may be set if a User has been programatically created.');
