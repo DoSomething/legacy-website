@@ -224,7 +224,21 @@ function _signup_resource_index($user, $users, $campaigns, $count, $page, $compe
             $formatted_post['media']['uri'] = $post['media']['url'];
             $formatted_post['media']['type'] = 'image';
             $formatted_post['created_at'] = (new Carbon($post['created_at']))->timestamp;
-            // $formatted_post['kudos'] =
+
+            if ($post['reactions']) {
+              $reactions = [];
+              foreach ($post['reactions'] as $reaction) {
+                $formatted_reaction = [];
+                $formatted_reaction['id'] = $reaction['id'];
+                $formatted_reaction['term'] = 'heart';
+                $formatted_reaction['reportback_item'] = $reaction['post_id'];
+                $formatted_reaction['user'] = $reaction['northstar_id'];
+                $formatted_reaction['uri'] = null;
+                array_push($reactions, $formatted_reaction);
+              }
+            }
+
+            $formatted_post['kudos'] = $reactions ? $reactions : null;
             array_push($posts, $formatted_post);
 
             if ($post['status'] === 'rejected') {
@@ -274,7 +288,20 @@ function _signup_resource_index($user, $users, $campaigns, $count, $page, $compe
   }
 
   if ($transformed_response) {
-    return $transformed_response;
+    $final_response = [];
+
+    // Mimic meta data response
+    $final_response['meta'] = $response['meta'];
+
+    $final_response['meta']['pagination']['links']['next_uri'] = $response['meta']['pagination']['links']['next'];
+    $final_response['meta']['pagination']['links']['prev_uri'] = $response['meta']['pagination']['links']['prev'];
+    unset($final_response['meta']['pagination']['links']['next']);
+    unset($final_response['meta']['pagination']['links']['prev']);
+
+    // Add data to the response
+    $final_response['data'] = $transformed_response;
+
+    return $final_response;
   } else {
     return (new SignupTransformer)->index($parameters);
   }
