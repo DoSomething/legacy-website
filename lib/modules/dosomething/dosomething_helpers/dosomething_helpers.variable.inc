@@ -233,6 +233,20 @@ function dosomething_helpers_variable_form($form, &$form_state, $node) {
     '#default_value' => $vars['disable_onboarding']
   ];
 
+  // Auto Competition-Opt-In
+  $form['auto_competition'] = [
+    '#type' => 'fieldset',
+    '#title' => t('Auto Competition Opt-In'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  ];
+  $form['auto_competition']['enable_auto_competition_opt_in'] = [
+    '#type' => 'checkbox',
+    '#title' => t('Enable auto competition opt-in'),
+    '#description' => t('Users who signup will automatically join a competition'),
+    '#default_value' => $vars['enable_auto_competition_opt_in']
+  ];
+
   $form['actions'] = array(
     '#type' => 'actions',
     'submit' => array(
