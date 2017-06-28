@@ -188,7 +188,7 @@ abstract class Transformer {
    *   - reportback_info: (array)
    * @return array
    */
-  protected function transformCampaign($data) {
+  public function transformCampaign($data) {
     $output = [
       'id' => isset($data->id) ? $data->id : $data->nid,
       'title' => $data->title,
@@ -456,7 +456,7 @@ abstract class Transformer {
    *   - uid: (int) User id.
    * @return array
    */
-  protected function transformUser($data) {
+  public function transformUser($data) {
     return [
       'id' => dosomething_helpers_isset($data, 'id'),
       'drupal_id' => dosomething_helpers_isset($data, 'drupal_id'),
