@@ -426,9 +426,8 @@ function dosomething_reportback_form_submit($form, &$form_state) {
     // Send the reportback to rogue.
     $rogue_reportback = dosomething_rogue_send_reportback_to_rogue($values, $user);
 
-    // @TODO: Test that this covers all error scenarios. Might need try/catch instead.
     if (! $rogue_reportback) {
-      $form_state['redirect'] = 'reportback/failure/' . $values['nid'];
+      return $form_state['redirect'] = 'reportback/failure/' . $values['nid'];
     }
 
     $rid = $rogue_reportback['data']['signup_id'];

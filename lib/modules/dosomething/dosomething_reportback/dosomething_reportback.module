@@ -543,7 +543,7 @@ function dosomething_reportback_view_rogue($rbid, $fid) {
     // $campaign = dosomething_campaign_load(node_load($rogue_signup['data']['campaign_id']));
 
     return theme('reportback_simple_permalink', [
-      'image' => 'lol',
+      'image' => dosomething_image_get_themed_image(variable_get('dosomething_campaign_permalink_failure_image_nid'), 'square', '480x480'),
     ]);
 }
 
