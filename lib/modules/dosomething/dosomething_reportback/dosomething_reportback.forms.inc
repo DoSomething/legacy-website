@@ -426,19 +426,13 @@ function dosomething_reportback_form_submit($form, &$form_state) {
     // Send the reportback to rogue.
     $rogue_reportback = dosomething_rogue_send_reportback_to_rogue($values, $user);
 
-    // Make sure reportback made it back to Phoenix and store reference to the Rogue item if one was added
-    $rb_info = dosomething_rogue_check_rbid_and_store_ref($rogue_reportback);
-
-    if ($rb_info) {
-      // Redirect to permalink page.
-      dosomething_reportback_permalink_page($rb_info['rbid']);
-    } elseif ($rogue_reportback['data']['id']) {
-    // if ($rogue_reportback['data']['id']) {
-      dosomething_reportback_permalink_page($rogue_reportback['data']['signup_id'], $rogue_reportback, $campaign, $values['uid'], $values['why_participated'], $values['quantity']);
-    } else {
-      // Send user to the failed permalink page
+    // @TODO: Test that this covers all error scenarios. Might need try/catch instead.
+    if (! $rogue_reportback) {
       $form_state['redirect'] = 'reportback/failure/' . $values['nid'];
     }
+
+    $rid = $rogue_reportback['data']['signup_id'];
+    $fid = $rogue_reportback['data']['id'];
   } else {
     // Save uploaded file.
     if ($file = dosomething_reportback_form_save_file($form_state)) {
@@ -448,17 +442,17 @@ function dosomething_reportback_form_submit($form, &$form_state) {
 
     // Save values into reportback.
     $rid = dosomething_reportback_save($values, $user);
-    // @TODO: this is sending the whole object, not just the $id of the reportback
-    // Redirect to permalink page.
-    $form_state['redirect'] = array(
-      'reportback/' . $rid,
-      array(
-        'query' => array(
-          'fid' => $values['fid'],
-        ),
-      ),
-    );
+    $fid = $values['fid'];
   }
+
+  // Redirect to permalink page.
+  $form_state['redirect'] = [
+    'reportback/' . $rid, [
+      'query' => [
+        'fid' => $fid,
+      ],
+    ],
+  ];
 }
 
 /**

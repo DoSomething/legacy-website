@@ -247,18 +247,16 @@ function dosomething_reportback_menu() {
     'page arguments' => array(2),
     'access arguments' => array('access content'),
   );
-  $items['reportback/%reportback'] = array(
+  $items['reportback/%'] = array(
     'title' => 'Reportback',
-    'page callback' => 'dosomething_reportback_permalink_page',
+    'page callback' => 'dosomething_reportback_permalink_view',
     'page arguments' => array(1),
-    //'access callback' => 'dosomething_reportback_access',
     'access arguments' => array('access content'),
   );
   $items['admin/reportback/%reportback'] = array(
     'title' => 'Reportback',
     'page callback' => 'dosomething_reportback_admin_view_entity',
     'page arguments' => array(2),
-    // 'access callback' => 'dosomething_reportback_access',
     'access arguments' => array('view any reportback'),
   );
   $items['admin/users/rb'] = array(
@@ -522,13 +520,30 @@ function dosomething_reportback_form_alter(&$form, &$form_state, $form_id) {
   }
 }
 
-function dosomething_reportback_permalink_page($rbid, $rogue_post = null, $campaign = null, $uid = null, $why_participated = null, $quantity = null) {
-  // $fid = $_GET['fid'];
-  $vars = [];
-
-  $campaign = dosomething_campaign_load(node_load($campaign->nid));
+/**
+ * Callback for /rbf/FID page.
+ */
+function dosomething_reportback_permalink_view($args) {
+  $rbid = $args[0];
+  $fid = $_GET['fid'];
 
   if (variable_get('rogue_collection', FALSE)) {
+    $campaign = dosomething_campaign_load(node_load($campaign->nid));
+
+    // @TODO: Request signup from Rogue so we can display it on permalink page.
+    // $rogue_signup = dosomething_rogue_client()->get('v2/activity')
+
+    return dosomething_reportback_view_rogue($rbid, $rogue_signup, $campaign);
+  }
+
+  return dosomething_reportback_view_entity(entity_load('reportback', $rbid));
+}
+
+/**
+ * Callback for /rbf/FID page, when Rogue is enabled.
+ */
+function dosomething_reportback_view_rogue($rbid, $rogue_post, $campaign) {
+    $vars = [];
     // $rogue = dosomething_rogue_client();
     // $response = $rogue->get('v1/reportbacks/' . $rbid); this isn't possible right now
 
@@ -605,10 +620,7 @@ function dosomething_reportback_permalink_page($rbid, $rogue_post = null, $campa
       'why_participated_short' => isset($why_participated_short) ? $why_participated_short : $participated_copy,
     ];
 
-    theme('reportback_permalink', $permalink_vars);
-  } else {
-    dosomething_reportback_view_entity(entity_load('reportback', $rbid));
-  }
+    return theme('reportback_permalink', $permalink_vars);
 }
 
 /**
