@@ -528,12 +528,7 @@ function dosomething_reportback_permalink_view($args) {
   $fid = $_GET['fid'];
 
   if (variable_get('rogue_collection', FALSE)) {
-    $campaign = dosomething_campaign_load(node_load($campaign->nid));
-
-    // @TODO: Request signup from Rogue so we can display it on permalink page.
-    // $rogue_signup = dosomething_rogue_client()->get('v2/activity')
-
-    return dosomething_reportback_view_rogue($rbid, $rogue_signup, $campaign);
+    return dosomething_reportback_view_rogue($rbid, $fid);
   }
 
   return dosomething_reportback_view_entity(entity_load('reportback', $rbid));
@@ -542,85 +537,14 @@ function dosomething_reportback_permalink_view($args) {
 /**
  * Callback for /rbf/FID page, when Rogue is enabled.
  */
-function dosomething_reportback_view_rogue($rbid, $rogue_post, $campaign) {
-    $vars = [];
-    // $rogue = dosomething_rogue_client();
-    // $response = $rogue->get('v1/reportbacks/' . $rbid); this isn't possible right now
+function dosomething_reportback_view_rogue($rbid, $fid) {
+    // @TODO: Request signup from Rogue so we can display it on permalink page.
+    // $rogue_signup = dosomething_rogue_client()->get('v2/activity')
+    // $campaign = dosomething_campaign_load(node_load($rogue_signup['data']['campaign_id']));
 
-    $rb_simple_user = dosomething_user_get_simple_user($rb_user = user_load($uid));
-
-    global $user;
-
-    $is_owner = ($user->uid == $rb_simple_user->uid) ? 1 : 0;
-
-    $rb = [
-      'image' => '<img src="'.$rogue_post['data']['media']['url'].'" width="480" height="480">&nbsp;',
-      'caption' => $rogue_post['data']['media']['caption'],
-    ];
-
-    $reportback = new Reportback();
-    $reportback->rbid = $rogue_post['data']['signup_id'];
-    $reportback->fids = [$rogue_post['data']['id']];
-    $reportback->quantity = $quantity;
-    $reportback->quantity_label = 'TBD';
-    $reportback->why_participated = $why_participated;
-
-    $copy_vars = _dosomething_reportback_get_permalink_copy_vars($rb_user);
-
-    $incentive = ($campaign->scholarship) ? $copy_vars['owners_rb_scholarship'] : "";
-    $title = ($is_owner) ? $copy_vars['owners_title'] : $copy_vars['non_owners_title'];
-    $subtitle = ($is_owner) ? $copy_vars['owners_rb_subtitle'] . " " . $incentive : $node->call_to_action;
-
-    $character_limit = 250;
-    $participated_copy = $why_participated;
-
-    if (strlen($participated_copy) > $character_limit) {
-      $why_participated_short = dosomething_helpers_text_truncate($participated_copy, $character_limit, '...', FALSE, FALSE);
-    }
-
-    // @TODO: will the below work?
-    $reportback_url = url(current_path(), array('absolute' => TRUE, 'query' => array('fid' => $rogue_post['data']['id'])));
-
-    $share_text = token_replace(t(variable_get('dosomething_campaign_permalink_confirmation_owners_social_network_copy')), array('node' => $campaign));
-    $share_text = str_replace('[node:issue]', strtolower($campaign->issue['name']), $share_text);
-
-    $share_types = array(
-      'facebook' => array(
-        'type' => 'feed_dialog',
-        'parameters' => array(
-          'picture' => $rb['image'],
-          'caption' => $campaign->call_to_action,
-        ),
-      ),
-      'twitter' => array(
-        'tweet' => htmlspecialchars_decode($share_text, ENT_QUOTES) . " ",
-      ),
-      'tumblr' => array(
-        'posttype' => 'photo',
-        'content' => $rb['image'],
-        'caption' => $share_text . " ",
-      ),
-    );
-
-    $share_bar = dosomething_helpers_share_bar($reportback_url, $share_types, 'Confirmation Page', 'cta__actions');
-
-    $share_enabled = variable_get('dosomething_reportback_display_permalink_share', '');
-
-    $permalink_vars = [
-      'rb' => $rb,
-      'reportback' => $reportback,
-      'node' => $campaign,
-      'user' => $rb_simple_user,
-      'is_owner' => $is_owner,
-      'copy_vars' => $copy_vars,
-      'title' => $title,
-      'subtitle' => $subtitle,
-      'share_bar' => $share_bar,
-      'share_enabled' => $share_enabled,
-      'why_participated_short' => isset($why_participated_short) ? $why_participated_short : $participated_copy,
-    ];
-
-    return theme('reportback_permalink', $permalink_vars);
+    return theme('reportback_simple_permalink', [
+      'image' => 'lol',
+    ]);
 }
 
 /**
