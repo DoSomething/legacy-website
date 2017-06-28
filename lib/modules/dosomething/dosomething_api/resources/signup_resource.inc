@@ -193,8 +193,21 @@ function _signup_resource_index($user, $users, $campaigns, $count, $page, $compe
 
   if (variable_get('rogue_collection', FALSE)) {
     if ($user) {
-      $northstar_user_id = dosomething_user_get_northstar_id($user);
-      $user_object = user_load($user);
+      if( strpos($user, ',') !== false ) {
+        $users = explode(',', $user);
+        $northstar_user_ids_array = [];
+
+        foreach ($users as $user) {
+          $northstar_user_id = dosomething_user_get_northstar_id($user);
+          array_push($northstar_user_ids_array, $northstar_user_id);
+        }
+
+        $northstar_user_id = implode(',', $northstar_user_ids_array);
+        // 5589c991a59dbfa93d8b45ae,559442aba59dbfca578b49cb
+      } else {
+        $northstar_user_id = dosomething_user_get_northstar_id($user);
+        $user_object = user_load($user);
+      }
     }
 
      $rogue = dosomething_rogue_client();
