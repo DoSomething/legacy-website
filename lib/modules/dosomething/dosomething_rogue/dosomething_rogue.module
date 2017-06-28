@@ -8,6 +8,7 @@
 include_once('dosomething_rogue.admin.inc');
 include_once('dosomething_rogue.cron.inc');
 include_once('includes/Rogue.php');
+include_once('../dosomething_signup/includes/SignupTransformer.php');
 
 define('ROGUE_API_URL', variable_get('dosomething_rogue_url', 'http://rogue.app/api'));
 define('ROGUE_API_VERSION', variable_get('dosomething_rogue_api_version', 'v1'));
@@ -211,6 +212,23 @@ function dosomething_rogue_store_rogue_references($rbid, $fid, $rogue_reportback
 function dosomething_rogue_transform_status($status) {
   if ($status === 'promoted' || $status === 'approved' || $status === 'excluded') {
     return 'accepted';
+  }
+  else if ($status === 'pending') {
+    return 'pending';
+  }
+  else {
+    return 'rejected';
+  }
+}
+
+/**
+ * Given a Rogue status, transform that into the corresponding Phoenix status
+ * @param  string $status phoenix item status
+ * @return string
+ */
+function dosomething_rogue_transform_rogue_status_to_phoenix_status($status) {
+  if ($status === 'accepted') {
+    return 'approved';
   }
   else if ($status === 'pending') {
     return 'pending';
