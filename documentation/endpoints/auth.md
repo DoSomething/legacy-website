@@ -16,6 +16,11 @@ If login was successful, the response contains values to use when making subsequ
 - session_name: (string). The name of the Cookie header to post.
 - user: (object). The logged in user.
 
+**Important**
+
+Your authentication cookie is good for one month. Make sure you regenerate your session before the cookie expires. Otherwise, you'll get an error "Must be logged in!" in response to all API calls which require authentication.
+
+
 Example request
 ```
 curl https://www.dosomething.org/api/v1/auth/login
