@@ -585,8 +585,11 @@ function dosomething_signup_user_signup($nid, $account = NULL, $source = NULL, $
 
     // Opt into competition if auto opt-in is enabled for this campaign.
     $auto_opt_in = dosomething_helpers_get_variable('node', $nid, 'enable_auto_competition_opt_in');
+
     if ($auto_opt_in) {
-      dosomething_gladiator_send_user_to_gladiator($account, ['nid' => $nid, 'run_nid' => ]);
+      $run = dosomething_helpers_get_current_campaign_run_for_user($nid, $account);
+
+      dosomething_gladiator_send_user_to_gladiator($account, ['nid' => $nid, 'run_nid' => $run->nid]);
     }
 
     // Set default signup message if we're still in this function.
