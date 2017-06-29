@@ -18,7 +18,7 @@ If login was successful, the response contains values to use when making subsequ
 
 **Important**
 
-Your autentication cookie is good for one month. Make sure you regenerate it before it expires. Otherwise you'll get an error "Must be logged in!" in response for all API calls that require autentication.
+Your authentication cookie is good for one month. Make sure you regenerate your session before the cookie expires. Otherwise, you'll get an error "Must be logged in!" in response to all API calls which require authentication.
 
 
 Example request
