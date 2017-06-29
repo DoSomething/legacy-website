@@ -247,18 +247,16 @@ function dosomething_reportback_menu() {
     'page arguments' => array(2),
     'access arguments' => array('access content'),
   );
-  $items['reportback/%reportback'] = array(
+  $items['reportback/%'] = array(
     'title' => 'Reportback',
-    'page callback' => 'dosomething_reportback_view_entity',
+    'page callback' => 'dosomething_reportback_permalink_view',
     'page arguments' => array(1),
-    //'access callback' => 'dosomething_reportback_access',
     'access arguments' => array('access content'),
   );
   $items['admin/reportback/%reportback'] = array(
     'title' => 'Reportback',
     'page callback' => 'dosomething_reportback_admin_view_entity',
     'page arguments' => array(2),
-    // 'access callback' => 'dosomething_reportback_access',
     'access arguments' => array('view any reportback'),
   );
   $items['admin/users/rb'] = array(
@@ -522,6 +520,32 @@ function dosomething_reportback_form_alter(&$form, &$form_state, $form_id) {
   }
 }
 
+/**
+ * Callback for /rbf/FID page.
+ */
+function dosomething_reportback_permalink_view($args) {
+  $rbid = $args[0];
+  $fid = $_GET['fid'];
+
+  if (variable_get('rogue_collection', FALSE)) {
+    return dosomething_reportback_view_rogue($rbid, $fid);
+  }
+
+  return dosomething_reportback_view_entity(entity_load('reportback', $rbid));
+}
+
+/**
+ * Callback for /rbf/FID page, when Rogue is enabled.
+ */
+function dosomething_reportback_view_rogue($rbid, $fid) {
+    // @TODO: Request signup from Rogue so we can display it on permalink page.
+    // $rogue_signup = dosomething_rogue_client()->get('v2/activity')
+    // $campaign = dosomething_campaign_load(node_load($rogue_signup['data']['campaign_id']));
+
+    return theme('reportback_simple_permalink', [
+      'image' => dosomething_image_get_themed_image(variable_get('dosomething_campaign_permalink_failure_image_nid'), 'square', '480x480'),
+    ]);
+}
 
 /**
  * Callback for /rbf/FID page.

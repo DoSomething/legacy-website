@@ -32,6 +32,10 @@ function dosomething_reportback_theme($existing, $type, $theme, $path) {
       'template' => 'reportback-permalink',
       'path' => drupal_get_path('module', 'dosomething_reportback') . '/theme',
     ),
+    'reportback_simple_permalink' => array(
+      'template' => 'reportback-simple-permalink',
+      'path' => drupal_get_path('module', 'dosomething_reportback') . '/theme',
+    ),
     'reportback_rogue_fail_permalink' => array(
       'template' => 'reportback-rogue-fail-permalink',
       'path' => drupal_get_path('module', 'dosomething_reportback') . '/theme',
