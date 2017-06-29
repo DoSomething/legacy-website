@@ -203,7 +203,6 @@ function _signup_resource_index($user, $users, $campaigns, $count, $page, $compe
         }
 
         $northstar_user_id = implode(',', $northstar_user_ids_array);
-        // 5589c991a59dbfa93d8b45ae,559442aba59dbfca578b49cb
       } else {
         $northstar_user_id = dosomething_user_get_northstar_id($user);
         $user_object = user_load($user);
@@ -302,8 +301,22 @@ function _signup_resource_index($user, $users, $campaigns, $count, $page, $compe
     // Mimic meta data response
     $final_response['meta'] = $response['meta'];
 
-    $final_response['meta']['pagination']['links']['next_uri'] = $response['meta']['pagination']['links']['next'];
-    $final_response['meta']['pagination']['links']['prev_uri'] = $response['meta']['pagination']['links']['prev'];
+    if ($response['meta']['pagination']['links']['next']) {
+      $query = drupal_get_query_parameters();
+      $query['page'] = $response['meta']['pagination']['current_page'] + 1;
+      $final_response['meta']['pagination']['links']['next_uri'] = url(current_path(), ['absolute' => TRUE, 'query' => $query]);
+    } else {
+      $final_response['meta']['pagination']['links']['next_uri'] = null;
+    }
+
+    if ($response['meta']['pagination']['links']['prev']) {
+      $query = drupal_get_query_parameters();
+      $query['page'] = $response['meta']['pagination']['current_page'] - 1;
+      $final_response['meta']['pagination']['links']['prev_uri'] = url(current_path(), ['absolute' => TRUE, 'query' => $query]);
+    } else {
+      $final_response['meta']['pagination']['links']['prev_uri'] = null;
+    }
+
     unset($final_response['meta']['pagination']['links']['next']);
     unset($final_response['meta']['pagination']['links']['prev']);
 
