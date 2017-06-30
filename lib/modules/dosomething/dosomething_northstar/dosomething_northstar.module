@@ -123,9 +123,9 @@ function dosomething_northstar_get_user($id, $type = 'id') {
   $northstar_user = cache_get($cache_key, $cache_bin);
 
   // Return cached northstar user data.
-  if ($northstar_user) {
-    return $northstar_user->data;
-  }
+  // if ($northstar_user) {
+  //   return $northstar_user->data;
+  // }
 
   $northstar_user = dosomething_northstar_client()->asClient()->getUser($type, $id);
 

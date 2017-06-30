@@ -138,6 +138,8 @@ function dosomething_campaign_preprocess_common_vars(&$vars, &$wrapper) {
   $vars['show_problem_shares'] = theme_get_setting('show_problem_shares');
   $campaign = $vars['campaign'];
 
+  $vars['enable_address_form'] = dosomething_helpers_get_variable('node', $campaign->nid, 'enable_address_form');
+
   if ($vars['show_problem_shares']) {
     $problem_share_prompt = t(variable_get('dosomething_campaign_problem_share_prompt'));
     if ($problem_share_prompt) {
@@ -605,5 +607,3 @@ function dosomething_campaign_preprocess_closed_reportback_gallery(&$vars, $styl
     $vars['reportback_gallery'][$delta]['first_name'] = dosomething_user_get_field('field_first_name', $account);
   }
 }
-
-

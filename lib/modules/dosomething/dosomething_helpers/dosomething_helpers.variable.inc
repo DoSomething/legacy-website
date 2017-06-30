@@ -135,8 +135,8 @@ function dosomething_helpers_variable_form($form, &$form_state, $node) {
   if (module_exists('dosomething_shipment')) {
     $form['shipment'] = array(
       '#type' => 'fieldset',
-      '#title' => t('Shipment Form'),
-      '#description' => t('Legacy system, use the Signup Data Form instead.'),
+      '#title' => t('Shipment Form (Legacy)'),
+      '#description' => t('Legacy system, use the address form below.'),
       '#collapsible' => TRUE,
       '#collapsed' => TRUE,
     );
@@ -245,6 +245,20 @@ function dosomething_helpers_variable_form($form, &$form_state, $node) {
     '#title' => t('Enable auto competition opt-in'),
     '#description' => t('Users who signup will automatically join a competition'),
     '#default_value' => $vars['enable_auto_competition_opt_in']
+  ];
+
+  // Address form V2
+  $form['address_form'] = [
+    '#type' => 'fieldset',
+    '#title' => t('Address form'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  ];
+  $form['address_form']['enable_address_form'] = [
+    '#type' => 'checkbox',
+    '#title' => t('Enable address form'),
+    '#description' => t('Users will be presented a form within the campaign template to update there address'),
+    '#default_value' => $vars['enable_address_form']
   ];
 
   $form['actions'] = array(

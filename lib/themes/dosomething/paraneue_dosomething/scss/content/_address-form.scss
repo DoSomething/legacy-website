@@ -1,0 +1,43 @@
+.address-form {
+  form {
+    display: none;
+  }
+
+  .address-form__message {
+    margin: $base-spacing / 2 0;
+  }
+
+  [role="revealer"] {
+    display: block;
+  }
+
+  [role="success"] {
+    color: #008000;
+  }
+
+  [role="error"] {
+    color: $error-color;
+  }
+
+  &.js-reveal {
+    form {
+      display: block;
+      margin-top: $base-spacing;
+      animation: reveal-form 250ms ease-in-out both;
+    }
+
+    [role="revealer"] {
+      display: none;
+    }
+  }
+}
+
+@keyframes reveal-form {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
