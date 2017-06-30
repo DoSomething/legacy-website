@@ -177,7 +177,7 @@ function _member_resource_access($op) {
 /**
  * Access calback for the user update resource.
  *
- * Only allow users to edit their own profile.
+ * Only allow users to edit their own profile for now.
  */
 function _member_update_access($id) {
   global $user;
