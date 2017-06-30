@@ -132,6 +132,8 @@ function dosomething_rogue_format_activity($response)
       ],
     ];
 
+    $data['data'] = [];
+
     // Format each signup
     foreach ($response['data'] as $signup) {
       // Get campaign and run information for the signup data response
@@ -250,7 +252,7 @@ function dosomething_rogue_format_activity($response)
         }
 
       // Add data to the overall response
-      array_push($data, $signup_data);
+      array_push($data['data'], $signup_data);
     }
 
     return json_encode($data);
