@@ -123,9 +123,9 @@ function dosomething_northstar_get_user($id, $type = 'id') {
   $northstar_user = cache_get($cache_key, $cache_bin);
 
   // Return cached northstar user data.
-  // if ($northstar_user) {
-  //   return $northstar_user->data;
-  // }
+  if ($northstar_user) {
+    return $northstar_user->data;
+  }
 
   $northstar_user = dosomething_northstar_client()->asClient()->getUser($type, $id);
 
@@ -140,6 +140,18 @@ function dosomething_northstar_get_user($id, $type = 'id') {
   watchdog_exception('northstar', new Exception($error));
 
   return NULL;
+}
+
+/**
+ * Clear the Northstar cache for the given Northstar id.
+ *
+ * @param  $northstar_id - Northstar id
+ */
+function dosomething_northstar_clear_user_cache($northstar_id) {
+  $cache_bin = 'cache_dosomething_northstar';
+  $cache_key = 'northstar_user_id' . '=' . $northstar_id;
+
+  cache_clear_all($cache_key, $cache_bin);
 }
 
 /**

@@ -257,7 +257,7 @@ function dosomething_helpers_variable_form($form, &$form_state, $node) {
   $form['address_form']['enable_address_form'] = [
     '#type' => 'checkbox',
     '#title' => t('Enable address form'),
-    '#description' => t('Users will be presented a form within the campaign template to update there address'),
+    '#description' => t('Users will be presented a form within the campaign template to update their address'),
     '#default_value' => $vars['enable_address_form']
   ];
 

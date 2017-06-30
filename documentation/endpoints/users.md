@@ -231,7 +231,7 @@ POST /api/v1/users/{uid}/magic_login_url
 
 ## Update User Profile
 
-Users may only update their own profile. Must include Northstar ID in the URL.
+Users may only update their own profile for now. Must include Northstar ID in the URL.
 
 Currently the only fields supported are for location fields.
 

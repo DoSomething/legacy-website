@@ -300,6 +300,7 @@ function _member_resource_update($id, $request) {
     }
   }
 
+  dosomething_northstar_clear_user_cache($id);
   $response = dosomething_northstar_client()->asClient()->put('v1/users/id/' . $id, $fields);
 
   return $response;
