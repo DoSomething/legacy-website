@@ -69,21 +69,21 @@ function paraneue_dosomething_get_social_networks() {
       'id' => 'facebook',
       'name' => t('Facebook'),
     ],
+    'twitter' => [
+      'id' => 'twitter',
+      'name' => t('Twitter'),
+    ],
     'instagram' => [
       'id' => 'instagram',
       'name' => t('Instagram'),
-    ],
-    'snapchat' => [
-      'id' => 'snapchat',
-      'name' => t('Snapchat'),
     ],
     'tumblr' => [
       'id' => 'tumblr',
       'name' => t('Tumblr'),
     ],
-    'twitter' => [
-      'id' => 'twitter',
-      'name' => t('Twitter'),
+    'snapchat' => [
+      'id' => 'snapchat',
+      'name' => t('Snapchat'),
     ],
     'weheartit' => [
       'id' => 'weheartit',
