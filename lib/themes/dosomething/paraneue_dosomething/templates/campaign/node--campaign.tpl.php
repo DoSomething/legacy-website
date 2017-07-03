@@ -181,6 +181,38 @@
       <?php endforeach; ?>
       <?php endif; ?>
 
+      <?php if (isset($enable_address_form)): ?>
+        <div id="dosomething-address-form" class="container__block -half address-form">
+          <h3 class="inline-sponsor-color">Want Free Thumb Socks?</h3>
+          <p>Fill out this information and we’ll send you two free pairs of Thumb Socks. One for you and one for a friend.</p>
+          <p class="address-form__message" role="error"></p>
+          <p class="address-form__message" role="success"></p>
+          <form>
+            <div class="form-item">
+              <label for="addr-street1" class="field-label">Address Street 1</label>
+              <input type="text" id="addr-street1" class="text-field" name="addr_street1" value="">
+            </div>
+            <div class="form-item">
+              <label for="addr-street2" class="field-label">Address Street 2</label>
+              <input type="text" id="addr-street2" class="text-field" name="addr_street2" value="">
+            </div>
+            <div class="form-item">
+              <label for="addr-city" class="field-label">City</label>
+              <input type="text" id="addr-city" class="text-field" name="addr_city" value="">
+            </div>
+            <div class="form-item">
+              <label for="addr-state" class="field-label">State</label>
+              <input type="text" id="addr-state" class="text-field" name="addr_state" value="">
+            </div>
+            <div class="form-item">
+              <label for="addr-zip" class="field-label">ZIP</label>
+              <input type="text" id="addr-zip" class="text-field" name="addr_zip" value="">
+            </div>
+            <button role="submit" class="button">Submit</button>
+          </form>
+          <button role="revealer" class="button -secondary">Show form</button>
+        </div>
+      <?php endif; ?>
 
       <?php if (isset($location_finder['url'])) : ?>
         <div class="container__block -narrow">

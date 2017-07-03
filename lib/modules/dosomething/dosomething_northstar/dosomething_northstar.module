@@ -143,6 +143,18 @@ function dosomething_northstar_get_user($id, $type = 'id') {
 }
 
 /**
+ * Clear the Northstar cache for the given Northstar id.
+ *
+ * @param  $northstar_id - Northstar id
+ */
+function dosomething_northstar_clear_user_cache($northstar_id) {
+  $cache_bin = 'cache_dosomething_northstar';
+  $cache_key = 'northstar_user_id' . '=' . $northstar_id;
+
+  cache_clear_all($cache_key, $cache_bin);
+}
+
+/**
  * Transform Drupal user fields into the appropriate schema for Northstar.
  *
  * @param $user - Drupal user object

@@ -18,3 +18,4 @@ Gemfile.lock
 lib/themes/dosomething/paraneue_dosomething/dist/
 tmp/
 vendor/
+package-lock.json

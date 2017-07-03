@@ -222,6 +222,9 @@ function dosomething_api_default_services_endpoint() {
         ),
       ),
       'targeted_actions' => array(
+        'update' => array(
+          'enabled' => '1',
+        ),
         'password_reset_url' => array(
           'enabled' => '1',
         ),
