@@ -301,7 +301,7 @@ function _member_resource_update($id, $request) {
   }
 
   dosomething_northstar_clear_user_cache($id);
-  $response = dosomething_northstar_client()->asClient()->put('v1/users/id/' . $id, $fields);
+  $response = dosomething_northstar_client()->asUser()->post('v1/profile', $fields);
 
   return $response;
 }
