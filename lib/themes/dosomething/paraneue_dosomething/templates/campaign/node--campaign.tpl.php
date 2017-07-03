@@ -183,8 +183,8 @@
 
       <?php if (isset($enable_address_form)): ?>
         <div id="dosomething-address-form" class="container__block -half address-form">
-          <h3 class="inline-sponsor-color">Tell us your address</h3>
-          <p>Some copy is going here, we'll put some actual stuff here later.</p>
+          <h3 class="inline-sponsor-color">Want Free Thumb Socks?</h3>
+          <p>Fill out this information and we’ll send you two free pairs of Thumb Socks. One for you and one for a friend.</p>
           <p class="address-form__message" role="error"></p>
           <p class="address-form__message" role="success"></p>
           <form>
