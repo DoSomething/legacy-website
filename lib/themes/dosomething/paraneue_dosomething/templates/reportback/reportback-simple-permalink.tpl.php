@@ -8,7 +8,7 @@
   <header role="banner" class="header ">
     <div class="wrapper">
       <h1 class="header__title">Awesome! We got your photo.</h1>
-      <p class="header__subtitle">You've entered into the scholarship and your photo will show up in the gallery soon!</p>
+      <p class="header__subtitle">Your photo will show up in the gallery soon!</p>
     </div>
   </header>
 
