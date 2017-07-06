@@ -181,7 +181,7 @@
       <?php endforeach; ?>
       <?php endif; ?>
 
-      <?php if (isset($enable_address_form)): ?>
+      <?php if (isset($enable_address_form) && $enable_address_form === TRUE): ?>
         <div id="dosomething-address-form" class="container__block -half address-form">
           <h3 class="inline-sponsor-color">Want Free Thumb Socks?</h3>
           <p>Fill out this information and we’ll send you two free pairs of Thumb Socks. One for you and one for a friend.</p>
