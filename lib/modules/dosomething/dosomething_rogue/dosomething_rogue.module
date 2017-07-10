@@ -142,9 +142,9 @@ function dosomething_rogue_format_activity($response)
         $drupal_user = dosomething_user_get_user_by_northstar_id($signup['northstar_id']);
 
         try {
-          $campaign_run = dosomething_helpers_get_current_campaign_run_for_user($signup['campaign_id'], $drupal_user); // @TODO - get errors when calling this sometimes it seems (500 - no campaign data found??????)
+          $campaign_run = dosomething_helpers_get_current_campaign_run_for_user($signup['campaign_id'], $drupal_user); // get errors when calling this sometimes (500 - no campaign data found)
         } catch(Exception $e) {
-          // the regular Phoenix endpoint doesn't seem to handle this so should we just leave it? unclear
+          // the regular Phoenix endpoint doesn't seem to handle exceptions like these so we just set the run to null if there is an exception
           $campaign_run = null;
         }
 
