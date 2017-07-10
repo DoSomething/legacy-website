@@ -1,7 +1,5 @@
 <?php
 
-use Carbon\Carbon;
-
 function _signup_resource_definition() {
   $signup_resource = [];
   $signup_resource['signups'] = [
@@ -191,142 +189,14 @@ function _signup_resource_index($user, $users, $campaigns, $count, $page, $compe
     'runs' => $runs,
   ];
 
+  // Return data from Rogue if Rogue is turned on
   if (variable_get('rogue_collection', FALSE)) {
-    if ($user) {
-      if( strpos($user, ',') !== false ) {
-        $users = explode(',', $user);
-        $northstar_user_ids_array = [];
+    $rogue_response = dosomething_rogue_get_activity($parameters);
 
-        foreach ($users as $user) {
-          $northstar_user_id = dosomething_user_get_northstar_id($user);
-          array_push($northstar_user_ids_array, $northstar_user_id);
-        }
-
-        $northstar_user_id = implode(',', $northstar_user_ids_array);
-      } else {
-        $northstar_user_id = dosomething_user_get_northstar_id($user);
-        $user_object = user_load($user);
-      }
-    }
-
-     $rogue = dosomething_rogue_client();
-
-     $response = $rogue->getActivity([
-       'filter' => [
-         'northstar_id' => $northstar_user_id,
-         'campaign_id' => $campaigns,
-       ],
-     ]);
-
-    if ($response) {
-      $transformed_response = collect($response['data'])->map(function($signup) {
-        $campaign = Campaign::get($signup['campaign_id']);
-
-        if ($signup['posts']['data']) {
-          $posts = [];
-          $flagged = FALSE;
-
-          foreach ($signup['posts']['data'] as $post) {
-            $formatted_post = [];
-            $formatted_post['id'] = $post['id'];
-            $formatted_post['status'] = $post['status'];
-            $formatted_post['caption'] = $post['media']['caption'];
-            $formatted_post['uri'] = null;
-            $formatted_post['media']['uri'] = $post['media']['url'];
-            $formatted_post['media']['type'] = 'image';
-            $formatted_post['created_at'] = (new Carbon($post['created_at']))->timestamp;
-
-            if ($post['reactions']) {
-              $reactions = [];
-              foreach ($post['reactions'] as $reaction) {
-                $formatted_reaction = [];
-                $formatted_reaction['id'] = $reaction['id'];
-                $formatted_reaction['term'] = 'heart';
-                $formatted_reaction['reportback_item'] = $reaction['post_id'];
-                $formatted_reaction['user'] = $reaction['northstar_id'];
-                $formatted_reaction['uri'] = null;
-                array_push($reactions, $formatted_reaction);
-              }
-            }
-
-            $formatted_post['kudos'] = $reactions ? $reactions : null;
-            array_push($posts, $formatted_post);
-
-            if ($post['status'] === 'rejected') {
-              $flagged = TRUE;
-            }
-          }
-        }
-
-        return [
-          'id' => $signup['signup_id'],
-          'created_at' => (new Carbon($signup['created_at']))->timestamp,
-          'campaign_run' => [
-            'id' => $signup['campaign_run_id'],
-            'current' => (dosomething_helpers_get_current_campaign_run_for_user($signup['campaign_id'], $user_object)->nid == $signup['campaign_run_id']) ? TRUE : FALSE,
-          ],
-          'uri' => null,
-          'campaign' => [
-            'id' => $signup['campaign_id'],
-            'title' => $campaign->title,
-            'campaign_runs' => $campaign->campaign_runs,
-            'language' => [
-              'language_code' => $campaign->language['language_code'],
-              'prefix' => $campaign->language['prefix'],
-            ],
-            'translations' => $campaign->translations,
-            'tagline' => $campaign->tagline,
-            'status' => $campaign->status,
-            'type' => $campaign->type,
-            'reportback_info' => $campaign->reportback_info,
-          ],
-          'reportback' => [
-            'id' => $signup['signup_id'],
-            'created_at' => (new Carbon($signup['created_at']))->timestamp,
-            'updated_at' => (new Carbon($signup['updated_at']))->timestamp,
-            'quantity' => $signup['quantity'],
-            'uri' => null,
-            'why_participated' => $signup['why_participated'],
-            'flagged' => $flagged,
-            'reportback_items' => [
-              'total' => count($signup['posts']['data']),
-              'data' => $posts,
-            ],
-          ],
-        ];
-      });
-    }
-    $final_response = [];
-
-    // Mimic meta data response
-    $final_response['meta'] = $response['meta'];
-
-    if ($response['meta']['pagination']['links']['next']) {
-      $query = drupal_get_query_parameters();
-      $query['page'] = $response['meta']['pagination']['current_page'] + 1;
-      $final_response['meta']['pagination']['links']['next_uri'] = url(current_path(), ['absolute' => TRUE, 'query' => $query]);
-    } else {
-      $final_response['meta']['pagination']['links']['next_uri'] = null;
-    }
-
-    if ($response['meta']['pagination']['links']['prev']) {
-      $query = drupal_get_query_parameters();
-      $query['page'] = $response['meta']['pagination']['current_page'] - 1;
-      $final_response['meta']['pagination']['links']['prev_uri'] = url(current_path(), ['absolute' => TRUE, 'query' => $query]);
-    } else {
-      $final_response['meta']['pagination']['links']['prev_uri'] = null;
-    }
-
-    unset($final_response['meta']['pagination']['links']['next']);
-    unset($final_response['meta']['pagination']['links']['prev']);
-
-    // Add data to the response
-    $final_response['data'] = $transformed_response;
-
-    return $final_response;
+    return json_decode(dosomething_rogue_format_activity($rogue_response));
   }
 
-    return (new SignupTransformer)->index($parameters);
+  return (new SignupTransformer)->index($parameters);
 }
 
 /**
