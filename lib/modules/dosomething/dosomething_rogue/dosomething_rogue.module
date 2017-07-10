@@ -70,7 +70,6 @@ function dosomething_rogue_get_activity($inputs)
 {
   $client = dosomething_rogue_client();
 
-  // @TODO: need to transform inputs
   $rogue_inputs = [
     'filter' => [
       'campaign_id' => dosomething_helpers_isset($inputs, 'campaigns'),
@@ -137,7 +136,6 @@ function dosomething_rogue_format_activity($response)
     // Format each signup
     foreach ($response['data'] as $signup) {
       // Get campaign and run information for the signup data response
-      // @TODO: note how this is different
         $northstar_user = dosomething_northstar_get_user($signup['northstar_id']);
 
         // Get campaign information
@@ -218,7 +216,6 @@ function dosomething_rogue_format_activity($response)
                 'type' => 'image',
               ],
               'created_at' => strtotime($post['created_at']),
-              // @TODO: include kudo stuff here CONDITIONALLY
               'kudos' => [
                 'data' => [],
               ],
@@ -233,7 +230,7 @@ function dosomething_rogue_format_activity($response)
                     'name' => 'heart',
                     'total' => count($post['reactions']),
                   ],
-                  'current_user' => null, // @TODO: there's not really a current user in this case so always null is cool yes?
+                  'current_user' => null,
                 ]
               ];
             }
