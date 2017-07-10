@@ -760,35 +760,6 @@ function dosomething_rogue_transform_signup($values, $northstar_id, $user) {
 }
 
 /**
- * Checks to see if the given signup data exists in Phoenix and if so stores in Rogue reference table.
- *
- * @param array $rogue_signup
- * The response from dosomething_rogue_send_signup_to_rogue().
- *
- */
-function dosomething_rogue_check_sid_and_store_ref($rogue_signup) {
-  // Get user from Northstar ID
-  $northstar_user = dosomething_northstar_get_user($rogue_signup['data']['northstar_id']);
-  $user = user_load($northstar_user->drupal_id);
-
-  // Get the signup
-  $sid = dosomething_signup_exists($rogue_signup['data']['campaign_id'], $rogue_signup['data']['campaign_run_id'], $user->uid);
-
-  // Make sure the signup exists before we try to use it
-  if ($sid) {
-    // Make sure that signup is not in the Rogue reference table yet
-    if (!dosomething_rogue_get_signup_by_sid($sid)) {
-      // Store reference to the signup in rogue
-      dosomething_rogue_store_rogue_signup_references($sid, $rogue_signup);
-    }
-
-    return $sid;
-  }
-
-  return false;
-}
-
-/**
  * Insert record that stores reference to the signup in
  * phoenix and corresponding signup id in Rogue
  *

@@ -292,9 +292,8 @@ function _campaign_resource_signup($nid, $values) {
       'campaign_id' => $nid,
     ]));
 
-    // Store the reference to the Rogue signup
     if ($rogue_signup) {
-      return dosomething_rogue_check_sid_and_store_ref($rogue_signup);
+      return $rogue_signup['data']['signup_id'];
     }
   }
 

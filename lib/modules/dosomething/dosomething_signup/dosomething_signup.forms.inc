@@ -102,7 +102,6 @@ function dosomething_signup_form_submit($form, &$form_state) {
 
     // Make sure the signup exists before using it
     if ($rogue_signup) {
-      dosomething_rogue_check_sid_and_store_ref($rogue_signup);
       $node = node_load($rogue_signup['data']['campaign_id']);
       dosomething_signup_set_signup_message($node->title);
     }
