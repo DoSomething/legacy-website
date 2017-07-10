@@ -23,6 +23,7 @@ Returns campaign activity, including signups and reportbacks.
 - **competition** _(bool)_
  - Only return competition signups & order by reportback quantity.
  - eg: `/signups?competition=true`
+ - NOTE: this filter is only available when Rogue is turned OFF
 - **runs** _(string|csv)_
  - Comma separated list of campaign run ids to get signups
  - eg: `/signups?runs=6737`

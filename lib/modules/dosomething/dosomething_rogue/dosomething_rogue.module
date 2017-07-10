@@ -8,6 +8,7 @@
 include_once('dosomething_rogue.admin.inc');
 include_once('dosomething_rogue.cron.inc');
 include_once('includes/Rogue.php');
+include_once('../dosomething_signup/includes/SignupTransformer.php');
 
 define('ROGUE_API_URL', variable_get('dosomething_rogue_url', 'http://rogue.app/api'));
 define('ROGUE_API_VERSION', variable_get('dosomething_rogue_api_version', 'v1'));
@@ -57,6 +58,202 @@ function dosomething_rogue_get_reportback_items($inputs)
   $response = $client->getAllReportbacks($inputs);
 
   return $response;
+}
+
+/**
+  * Send a GET request to return all activiy matching a given
+  * query from Rogue.
+  *
+  * @param array $inputs
+  */
+function dosomething_rogue_get_activity($inputs)
+{
+  $client = dosomething_rogue_client();
+
+  $rogue_inputs = [
+    'filter' => [
+      'campaign_id' => dosomething_helpers_isset($inputs, 'campaigns'),
+      'campaign_run_id' => dosomething_helpers_isset($inputs, 'runs'),
+      'northstar_id' => dosomething_helpers_isset($inputs, 'user'),
+    ],
+    'limit' => dosomething_helpers_isset($inputs, 'count'),
+    'page' => dosomething_helpers_isset($inputs, 'page'),
+  ];
+
+  $response = $client->getActivity($rogue_inputs);
+
+  return $response;
+}
+
+/**
+  * Format a response from Rogue's GET /activity to match
+  * the response from Phoenix's GET /signups
+  *
+  * @param array $inputs
+  */
+function dosomething_rogue_format_activity($response)
+{
+  $data = [];
+
+  if ($response) {
+    $query = drupal_get_query_parameters();
+    $current_page = $query['page'];
+
+    // Set next page
+    if (is_null($current_page)) {
+      $query['page'] = 2;
+    } else {
+      $query['page'] = $query['page'] + 1;
+    }
+
+    $next_uri = url(current_path(), ['absolute' => TRUE, 'query' => $query]);
+
+    // Set previous page
+    if ($current_page < 2) {
+      $prev_uri = null;
+    } else {
+      $query['page'] = $current_page - 1;
+
+      $prev_uri = url(current_path(), ['absolute' => TRUE, 'query' => $query]);
+    }
+
+    // Include meta data
+    $data['meta'] = [
+      'pagination' => [
+        'total' => $response['meta']['pagination']['total'],
+        'per_page' => $response['meta']['pagination']['per_page'],
+        'current_page' => $response['meta']['pagination']['current_page'],
+        'total_pages' => $response['meta']['pagination']['total_pages'],
+        'links' => [
+          'prev_uri' => $prev_uri,
+          'next_uri'=> $next_uri,
+        ],
+      ],
+    ];
+
+    $data['data'] = [];
+
+    // Format each signup
+    foreach ($response['data'] as $signup) {
+      // Get campaign and run information for the signup data response
+        $northstar_user = dosomething_northstar_get_user($signup['northstar_id']);
+
+        // Get campaign information
+        $drupal_user = dosomething_user_get_user_by_northstar_id($signup['northstar_id']);
+
+        try {
+          $campaign_run = dosomething_helpers_get_current_campaign_run_for_user($signup['campaign_id'], $drupal_user); // get errors when calling this sometimes (500 - no campaign data found)
+        } catch(Exception $e) {
+          // the regular Phoenix endpoint doesn't seem to handle exceptions like these so we just set the run to null if there is an exception
+          $campaign_run = null;
+        }
+
+        $campaign_run_nid = $campaign_run->nid;
+
+        $current = ($signups['campaign_run_id'] == $campaign_run_nid) ? true : false;
+
+        if (isset($campaign_run->field_run_date['en'][0])) {
+          $current_run_start = $campaign_run->field_run_date['en'][0]['value'];
+          $current_run_end = $campaign_run->field_run_date['en'][0]['value2'];
+        }
+        else {
+          $current_run_start = NULL;
+          $current_run_end = NULL;
+        }
+
+        $campaign = node_load($signup['campaign_id']);
+
+        $campaign_data = (new SignupTransformer)->transformCampaign((object) $campaign);
+
+        $user_data = (new SignupTransformer)->transformUser((object) $northstar_user);
+
+      // Format the data for each signup
+        $signup_data = [
+          // SIGNUP
+          'id' => $signup['signup_id'],
+          'created_at' => strtotime($signup['created_at']),
+
+          // CAMPAIGN RUN
+          'campaign_run' => [
+            'id' => $campaign_run_nid,
+            'current' => $current,
+            'timing' => [
+              'start' => $current_run_start,
+              'end' => $current_run_end,
+            ],
+          ],
+          'uri' => null,
+
+          // CAMPAIGN - no changes
+          'campaign' => $campaign_data,
+
+          // USER - no changes
+          'user' => $user_data,
+        ];
+
+        // REPORTBACK IS CONDITIONAL
+        if (array_key_exists('posts', $signup)) {
+          $reportback_data = [
+              'id' => $signup['signup_id'],
+              'created_at' => strtotime($signup['created_at']),
+              'updated_at' => strtotime($signup['updated_at']),
+              'quantity' => $signup['quantity'],
+              'uri' => null,
+              'why_participated' => $signup['why_participated'],
+              'flagged' => null,
+          ];
+
+          // Add data for each reportback item
+          $reportback_item_array = [];
+          foreach ($signup['posts']['data'] as $post) {
+            $post_data = [
+              'id' => $post['id'],
+              'status' => dosomething_rogue_transform_rogue_status_to_phoenix_status($post['status']),
+              'caption' => $post['media']['caption'],
+              'uri' => null,
+              'media' => [
+                'uri' => $post['media']['url'],
+                'type' => 'image',
+              ],
+              'created_at' => strtotime($post['created_at']),
+              'kudos' => [
+                'data' => [],
+              ],
+            ];
+
+            // Include reaction data if there is any
+            if (count($post['reactions']) > 0) {
+              $post_data['kudos']['data'] = [
+                '641' => [
+                  'term' => [
+                    'id' => '641',
+                    'name' => 'heart',
+                    'total' => count($post['reactions']),
+                  ],
+                  'current_user' => null,
+                ]
+              ];
+            }
+
+            array_push($reportback_item_array, $post_data);
+          }
+
+          // Include total number of items in the response
+          $reportback_data['reportback_items']['total'] = count($reportback_item_array);
+
+          // Add reportback item data to reportback portion of response
+          $reportback_data['reportback_items']['data'] = $reportback_item_array;
+
+          // Add reportback data to the response for this signup
+          $signup_data['reportback'] = $reportback_data;
+        }
+
+      // Add data to the overall response
+      array_push($data['data'], $signup_data);
+    }
+
+    return json_encode($data);
+  }
 }
 
 /**
@@ -211,6 +408,23 @@ function dosomething_rogue_store_rogue_references($rbid, $fid, $rogue_reportback
 function dosomething_rogue_transform_status($status) {
   if ($status === 'promoted' || $status === 'approved' || $status === 'excluded') {
     return 'accepted';
+  }
+  else if ($status === 'pending') {
+    return 'pending';
+  }
+  else {
+    return 'rejected';
+  }
+}
+
+/**
+ * Given a Rogue status, transform that into the corresponding Phoenix status
+ * @param  string $status phoenix item status
+ * @return string
+ */
+function dosomething_rogue_transform_rogue_status_to_phoenix_status($status) {
+  if ($status === 'accepted') {
+    return 'approved';
   }
   else if ($status === 'pending') {
     return 'pending';

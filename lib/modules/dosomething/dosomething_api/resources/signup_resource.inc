@@ -189,6 +189,13 @@ function _signup_resource_index($user, $users, $campaigns, $count, $page, $compe
     'runs' => $runs,
   ];
 
+  // Return data from Rogue if Rogue is turned on
+  if (variable_get('rogue_collection', FALSE)) {
+    $rogue_response = dosomething_rogue_get_activity($parameters);
+
+    return json_decode(dosomething_rogue_format_activity($rogue_response));
+  }
+
   return (new SignupTransformer)->index($parameters);
 }
 
