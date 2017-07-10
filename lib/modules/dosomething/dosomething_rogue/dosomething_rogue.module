@@ -87,8 +87,8 @@ function dosomething_rogue_get_activity($inputs)
 }
 
 /**
-  * Send a GET request to return all activiy matching a given
-  * query from Rogue.
+  * Format a response from Rogue's GET /activity to match
+  * the response from Phoenix's GET /signups
   *
   * @param array $inputs
   */
