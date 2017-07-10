@@ -72,6 +72,11 @@ function dosomething_zendesk_form($form, &$form_state, $entity = NULL)  {
     $ip_address = ip_address();
   }
 
+  $form['not_honeypot'] = [
+    '#type' => 'textfield',
+    '#title' => 'honeypot',
+  ];
+
   $form['browser'] = array(
     '#type' => 'hidden',
     '#access' => FALSE,
@@ -191,6 +196,12 @@ function dosomething_zendesk_get_zendesk_group_id($entity = NULL) {
  * Validation callback for dosomething_zendesk_form().
  */
 function dosomething_zendesk_form_validate($form, &$form_state) {
+  // If a bot fell for the honeypot...
+  if (!empty($form_state['values']['not_honeypot'])) {
+    form_set_error('bot', 'Are you a bot?');
+    stathat_send_ez_count('drupal - Zendesk - honeypot', 1);
+  }
+
   // If an email field is present:
   if (isset($form_state['values']['email'])) {
     // Check if valid email.
