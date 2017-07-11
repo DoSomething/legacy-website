@@ -180,7 +180,7 @@ function dosomething_rogue_format_signup($signup) {
     $current_run_end = NULL;
   }
 
-  $campaign = node_load($signup['campaign_id']);
+  $campaign = Campaign::get($signup['campaign_id']);
 
   $campaign_data = (new SignupTransformer)->transformCampaign((object) $campaign);
 
