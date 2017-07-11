@@ -220,11 +220,11 @@ projects[token][version] = "1.5"
 projects[token][subdir] = "contrib"
 
 ; UUID
-projects[uuid][version] = "1.0-alpha5"
+projects[uuid][version] = "1.0"
 projects[uuid][subdir] = "contrib"
 
 ; UUID Features
-projects[uuid_features][version] = "1.0-alpha4"
+projects[uuid_features][version] = "1.0-rc1"
 projects[uuid_features][subdir] = "contrib"
 
 ; Variable
