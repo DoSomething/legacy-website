@@ -432,6 +432,11 @@ function dosomething_reportback_form_submit($form, &$form_state) {
 
     $rid = $rogue_reportback['data']['signup_id'];
     $fid = $rogue_reportback['data']['id'];
+
+    if (module_exists('dosomething_mbp')) {
+      dosomething_reportback_mbp_request($entity);
+    }
+
   } else {
     // Save uploaded file.
     if ($file = dosomething_reportback_form_save_file($form_state)) {
