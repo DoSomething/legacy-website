@@ -148,7 +148,11 @@ function dosomething_rogue_format_activity($response)
 }
 
 /**
-*/
+  * Format a response from Rogue's GET /activity to match
+  * the response from Phoenix's GET /signups/:sid
+  *
+  * @param array $signup
+  */
 function dosomething_rogue_format_signup($signup) {
   // Get campaign and run information for the signup data response
   $northstar_user = dosomething_northstar_get_user($signup['northstar_id']);
