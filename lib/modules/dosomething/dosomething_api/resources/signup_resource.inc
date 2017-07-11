@@ -232,7 +232,7 @@ function _signup_resource_retrieve($sid) {
 
     $rogue_response = dosomething_rogue_get_activity(['id' => $sid]);
 
-    return dosomething_rogue_format_signup($rogue_response['data'][0]);
+    return dosomething_rogue_format_signup($rogue_response['data']);
   }
 
   return (new SignupTransformer)->show($sid);
