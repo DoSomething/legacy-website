@@ -95,10 +95,15 @@ class PhoenixOAuthUser implements NorthstarUserContract {
    * @return void
    */
   public function setOAuthToken(AccessToken $token) {
-    $this->user->field_access_token[LANGUAGE_NONE][0]['value'] = $token->getToken();
-    $this->user->field_refresh_token[LANGUAGE_NONE][0]['value'] = $token->getRefreshToken();
-    $this->user->field_access_token_expiration[LANGUAGE_NONE][0]['value'] = $token->getExpires();
-    user_save($this->user);
+    $edit = [];
+
+    dosomething_user_set_fields($edit, [
+      'access_token' => $token->getToken(),
+      'refresh_token' => $token->getRefreshToken(),
+      'access_token_expiration' => $token->getExpires(),
+    ]);
+
+    user_save($this->user, $edit);
   }
 
   /**
@@ -107,9 +112,14 @@ class PhoenixOAuthUser implements NorthstarUserContract {
    * @return void
    */
   public function clearOAuthToken() {
-    unset($this->user->field_access_token);
-    unset($this->user->field_refresh_token);
-    unset($this->user->field_access_token_expiration);
+    $edit = [];
+
+    dosomething_user_set_fields($edit, [
+      'access_token' => null,
+      'refresh_token' => null,
+      'access_token_expiration' => null,
+    ]);
+
     user_save($this->user);
   }
 }

@@ -76,6 +76,12 @@ function dosomething_northstar_init() {
     $account = new PhoenixOAuthUser($user->uid);
     $token = $account->getOAuthToken();
 
+    // If the user doesn't have a token, log them out.
+    if (! $token) {
+      watchdog('dosomething_northstar', 'logged user `!uid` out because of missing token', ['!uid' => $user->uid]);
+      user_logout();
+    }
+
     if ($token->hasExpired()) {
       dosomething_northstar_client()->getTokenByRefreshTokenGrant($token);
     }
