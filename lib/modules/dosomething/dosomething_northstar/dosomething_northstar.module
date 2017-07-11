@@ -79,6 +79,7 @@ function dosomething_northstar_init() {
     // If the user doesn't have a token, log them out.
     if (! $token) {
       watchdog('dosomething_northstar', 'logged user `!uid` out because of missing token', ['!uid' => $user->uid]);
+      module_load_include('pages.inc', 'user'); // @see: https://drupal.stackexchange.com/a/188886
       user_logout();
     }
 
