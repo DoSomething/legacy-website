@@ -227,5 +227,13 @@ function _signup_resource_create($campaign_id, $campaign_run_id, $key, $user_id)
  * @return array
  */
 function _signup_resource_retrieve($sid) {
+  // Return data from Rogue if Rogue is turned on
+  if (variable_get('rogue_collection', FALSE)) {
+
+    $rogue_response = dosomething_rogue_get_activity(['id' => $sid]);
+
+    return dosomething_rogue_format_signup($rogue_response['data'][0]);
+  }
+
   return (new SignupTransformer)->show($sid);
 }
