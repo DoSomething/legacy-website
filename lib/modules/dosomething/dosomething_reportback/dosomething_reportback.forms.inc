@@ -434,7 +434,7 @@ function dosomething_reportback_form_submit($form, &$form_state) {
     $fid = $rogue_reportback['data']['id'];
 
     if (module_exists('dosomething_mbp')) {
-      dosomething_reportback_mbp_request($entity);
+      dosomething_reportback_rogue_mbp_request($rogue_reportback['data']);
     }
 
   } else {
