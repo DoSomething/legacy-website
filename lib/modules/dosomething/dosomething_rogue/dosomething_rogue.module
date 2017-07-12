@@ -75,6 +75,7 @@ function dosomething_rogue_get_activity($inputs)
       'campaign_id' => dosomething_helpers_isset($inputs, 'campaigns'),
       'campaign_run_id' => dosomething_helpers_isset($inputs, 'runs'),
       'northstar_id' => dosomething_helpers_isset($inputs, 'user'),
+      'id' => dosomething_helpers_isset($inputs, 'id'),
     ],
     'limit' => dosomething_helpers_isset($inputs, 'count'),
     'page' => dosomething_helpers_isset($inputs, 'page'),
