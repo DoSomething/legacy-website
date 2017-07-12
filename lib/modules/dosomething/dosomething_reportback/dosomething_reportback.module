@@ -1072,10 +1072,18 @@ function dosomething_reportback_rogue_mbp_request($rb) {
   // die();
   // This fid is the last file uploaded to the reportback.
   // @see Reportback->save().
-  $fid = $rb['id'];
+  // $fid = $rb['id'];
 
   // @TODO - Figure this out.
-  // $image_markup = dosomething_image_get_themed_image_by_fid($fid, '300x300');
+  // $image_markup = dosomething_image_get_themed_image(variable_get('dosomething_campaign_permalink_failure_image_nid'), 'square', '480x480');
+
+  // dump($image_markup);
+  // dump(dosomething_image_get_themed_image_by_fid(22, '300x300')) => returns <img src="http://dev.dosomething.org:8888/sites/default/files/styles/300x300/public/Girls%20laughing%20cyberbully.jpg?itok=pKphE1jo" width="300" height="300" alt="" />;
+  // die();
+  //dosomething_image_get_themed_image_by_fid(22, '300x300');
+
+  $image_url = $rb['media']['url'];
+  $image_markup = '<img src="' . $image_url . '" width="300" height="300" alt="" />';
 
   if (module_exists('dosomething_northstar')) {
     $northstar_user = dosomething_northstar_get_user($rb['northstar_id']);//user_load($entity->uid);
@@ -1114,7 +1122,7 @@ function dosomething_reportback_rogue_mbp_request($rb) {
       // 'impact_verb' => $entity->verb,
       // 'impact_number' => $entity->quantity,
       // 'impact_noun' => $entity->noun,
-      // 'image_markup' => $image_markup,
+      'image_markup' => $image_markup,
       // 'campaign_language' => $campaign_language,
       // 'campaign_country' => $campaign_country,
     );
