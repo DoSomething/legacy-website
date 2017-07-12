@@ -1107,19 +1107,8 @@ function dosomething_user_get_field($field_name, $account = NULL, $format = NULL
     $account = $user;
   }
 
-  $wrapper = entity_metadata_wrapper('user', $account);
-  try {
-    $field_value =  $wrapper->{$field_name}->value();
-  } catch (EntityMetadataWrapperException $e) {
-    // Don't fall into error 500 when the field is not accessible.
-    watchdog(
-      'dosomething_user',
-      'Can\'t load field `!field_name` for user `!email`.',
-      ['!field_name' => $field_name, '!email' => $account->mail],
-      WATCHDOG_NOTICE
-    );
-    return NULL;
-  }
+  // Load the requested field from the provided user.
+  $field_value = $account->{$field_name}[LANGUAGE_NONE][0]['value'];
 
   // Check if there is a specifc function handler for that field, use that first.
   $handler = 'dosomething_user_get_' . $field_name;
