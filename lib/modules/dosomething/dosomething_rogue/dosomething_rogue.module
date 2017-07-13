@@ -169,7 +169,7 @@ function dosomething_rogue_format_signup($signup) {
 
   $campaign_run_nid = $campaign_run->nid;
 
-  $current = ($signups['campaign_run_id'] == $campaign_run_nid) ? true : false;
+  $current = ($signup['campaign_run_id'] == $campaign_run_nid) ? true : false;
 
   if (isset($campaign_run->field_run_date['en'][0])) {
     $current_run_start = $campaign_run->field_run_date['en'][0]['value'];
