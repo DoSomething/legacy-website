@@ -1068,15 +1068,14 @@ function dosomething_reportback_mbp_request($entity) {
 /**
  * Sends mbp request for a reportback stored in Rogue.
  */
-function dosomething_reportback_rogue_mbp_request($rb) {
+function dosomething_reportback_rogue_mbp_request($rb, $signup) {
   $image_url = $rb['media']['url'];
   $image_markup = '<img src="' . $image_url . '" width="300" height="300" alt="" />';
 
   if (module_exists('dosomething_northstar')) {
     $northstar_user = dosomething_northstar_get_user($rb['northstar_id']);
     $account = user_load($northstar_user->drupal_id);
-    $rogue_signup = dosomething_rogue_get_activity(['id' => $rb['signup_id']]);
-    $node = node_load($rogue_signup['data'][0]['campaign_id']);
+    $node = node_load($signup['campaign_id']);
     $language = dosomething_global_get_language($account, $node);
     $campaign_language = !empty($node->language) ? $node->language : DOSOMETHING_GLOBAL_DEFAULT_LANG_CODE;
     $campaign_country = dosomething_global_get_current_country_code();
@@ -1097,7 +1096,7 @@ function dosomething_reportback_rogue_mbp_request($rb) {
       watchdog(
         'dosomething_reportback',
         'Node !nid !nid not found for post id !post_id.',
-        ['!nid' => $rogue_signup['data'][0]['campaign_id'], '!post_id' => $rb['id']],
+        ['!nid' => $signup['campaign_id'], '!post_id' => $rb['id']],
         WATCHDOG_WARNING
       );
     }
@@ -1108,9 +1107,9 @@ function dosomething_reportback_rogue_mbp_request($rb) {
       'first_name' => $northstar_user->first_name,
       'mobile' => $northstar_user->mobile,
       'campaign_title' => $title,
-      'event_id' => (string) $rogue_signup['data'][0]['campaign_id'],
+      'event_id' => (string) $signup['campaign_id'],
       'impact_verb' => $verb,
-      'impact_number' => (string) $rogue_signup['data'][0]['quantity'],
+      'impact_number' => (string) $signup['quantity'],
       'impact_noun' => $noun,
       'image_markup' => $image_markup,
       'campaign_language' => $campaign_language,
