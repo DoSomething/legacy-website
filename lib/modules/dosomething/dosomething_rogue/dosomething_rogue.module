@@ -8,7 +8,8 @@
 include_once('dosomething_rogue.admin.inc');
 include_once('dosomething_rogue.cron.inc');
 include_once('includes/Rogue.php');
-include_once('../dosomething_signup/includes/SignupTransformer.php');
+
+module_load_include('php', 'dosomething_signup', 'includes/SignupTransformer');
 
 define('ROGUE_API_URL', variable_get('dosomething_rogue_url', 'http://rogue.app/api'));
 define('ROGUE_API_VERSION', variable_get('dosomething_rogue_api_version', 'v1'));
