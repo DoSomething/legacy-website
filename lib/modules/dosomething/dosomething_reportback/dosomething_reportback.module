@@ -1068,64 +1068,59 @@ function dosomething_reportback_mbp_request($entity) {
  * Sends mbp request for a reportback stored in Rogue.
  */
 function dosomething_reportback_rogue_mbp_request($rb) {
-  // dump($rb);
-  // die();
-  // This fid is the last file uploaded to the reportback.
-  // @see Reportback->save().
-  // $fid = $rb['id'];
-
-  // @TODO - Figure this out.
-  // $image_markup = dosomething_image_get_themed_image(variable_get('dosomething_campaign_permalink_failure_image_nid'), 'square', '480x480');
-
-  // dump($image_markup);
-  // dump(dosomething_image_get_themed_image_by_fid(22, '300x300')) => returns <img src="http://dev.dosomething.org:8888/sites/default/files/styles/300x300/public/Girls%20laughing%20cyberbully.jpg?itok=pKphE1jo" width="300" height="300" alt="" />;
-  // die();
-  //dosomething_image_get_themed_image_by_fid(22, '300x300');
-
   $image_url = $rb['media']['url'];
   $image_markup = '<img src="' . $image_url . '" width="300" height="300" alt="" />';
 
   if (module_exists('dosomething_northstar')) {
-    $northstar_user = dosomething_northstar_get_user($rb['northstar_id']);//user_load($entity->uid);
-    // dump($account);
-    // die();
-  //   $node = node_load($entity->nid);
-  //   $language = dosomething_global_get_language($account, $node);
-  //   $campaign_language = !empty($node->language) ? $node->language : DOSOMETHING_GLOBAL_DEFAULT_LANG_CODE;
-  //   $campaign_country = dosomething_global_get_current_country_code();
+    $northstar_user = dosomething_northstar_get_user($rb['northstar_id']);
+    $account = user_load($northstar_user->drupal_id);
+    $rogue_signup = dosomething_rogue_get_activity(['id' => $rb['signup_id']]);
+    $node = node_load($rogue_signup['data'][0]['campaign_id']);
+    $language = dosomething_global_get_language($account, $node);
+    $campaign_language = !empty($node->language) ? $node->language : DOSOMETHING_GLOBAL_DEFAULT_LANG_CODE;
+    $campaign_country = dosomething_global_get_current_country_code();
 
-  //   $title = $entity->node_title;
-  //   if ($node) {
-  //     // Get node title, normal for collections, translatable for campaigns.
-  //     if (isset($node->title_field)) {
-  //       $wrapper = entity_metadata_wrapper('node', $node);
-  //       $title = $wrapper->language($language)->title_field->value();
-  //     } else {
-  //       $title = $node->title;
-  //     }
-  //   } else {
-  //     watchdog(
-  //       'dosomething_reportback',
-  //       'Node !nid !nid not found for reportback fid !fid.',
-  //       ['!nid' => $entity->nid, '!fid' => $entity->fid],
-  //       WATCHDOG_WARNING
-  //     );
-  //   }
+    // @TODO - figure out what this is in the other function an see if I can replicate it here.
+    // $title = $entity->node_title;
+
+    if ($node) {
+      $wrapper = entity_metadata_wrapper('node', $node);
+
+      $noun = $wrapper->language($language)->field_reportback_noun->value();
+      $verb = $wrapper->language($language)->field_reportback_verb->value();
+      // Get node title, normal for collections, translatable for campaigns.
+      if (isset($node->title_field)) {
+        $wrapper = entity_metadata_wrapper('node', $node);
+        $title = $wrapper->language($language)->title_field->value();
+      } else {
+        $title = $node->title;
+      }
+    } else {
+      watchdog(
+        'dosomething_reportback',
+        'Node !nid !nid not found for post id !post_id.',
+        ['!nid' => $rogue_signup['data'][0]['campaign_id'], '!post_id' => $rb['id']],
+        WATCHDOG_WARNING
+      );
+    }
 
     $params = array(
       'email' => $northstar_user->email,
       'uid' => $northstar_user->drupal_id,
       'first_name' => $northstar_user->first_name,
       'mobile' => $northstar_user->mobile,
-      // 'campaign_title' => $title,
-      // 'event_id' => $entity->nid,
-      // 'impact_verb' => $entity->verb,
-      // 'impact_number' => $entity->quantity,
-      // 'impact_noun' => $entity->noun,
+      'campaign_title' => $title,
+      'event_id' => $rogue_signup['data'][0]['campaign_id'],
+      'impact_verb' => $verb,
+      'impact_number' => $rogue_signup['data'][0]['quantity'],
+      'impact_noun' => $noun,
       'image_markup' => $image_markup,
-      // 'campaign_language' => $campaign_language,
-      // 'campaign_country' => $campaign_country,
+      'campaign_language' => $campaign_language,
+      'campaign_country' => $campaign_country,
     );
+
+    dump('params', $params);
+    die();
 
     // if (module_exists('dosomething_mbp')) {
     //   dosomething_mbp_request('campaign_reportback', $params);
