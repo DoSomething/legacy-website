@@ -433,11 +433,14 @@ function dosomething_reportback_form_submit($form, &$form_state) {
     $rid = $rogue_reportback['data']['signup_id'];
     $fid = $rogue_reportback['data']['id'];
 
-    // @TODO - Is this only supposed to happen on the first submission?
-    if (module_exists('dosomething_mbp')) {
-      dosomething_reportback_rogue_mbp_request($rogue_reportback['data']);
-    }
+    $rogue_signup = dosomething_rogue_get_activity(['id' => $rid]);
+    $post_count = count($rogue_signup['data'][0]['posts']['data']);
 
+    if ($post_count === 1) {
+      if (module_exists('dosomething_mbp')) {
+        dosomething_reportback_rogue_mbp_request($rogue_reportback['data']);
+      }
+    }
   } else {
     // Save uploaded file.
     if ($file = dosomething_reportback_form_save_file($form_state)) {
