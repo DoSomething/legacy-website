@@ -433,6 +433,7 @@ function dosomething_reportback_form_submit($form, &$form_state) {
     $rid = $rogue_reportback['data']['signup_id'];
     $fid = $rogue_reportback['data']['id'];
 
+    // @TODO - Is this only supposed to happen on the first submission?
     if (module_exists('dosomething_mbp')) {
       dosomething_reportback_rogue_mbp_request($rogue_reportback['data']);
     }

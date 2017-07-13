@@ -1026,6 +1026,7 @@ function dosomething_reportback_mbp_request($entity) {
     $campaign_country = dosomething_global_get_current_country_code();
 
     $title = $entity->node_title;
+
     if ($node) {
       // Get node title, normal for collections, translatable for campaigns.
       if (isset($node->title_field)) {
@@ -1080,9 +1081,6 @@ function dosomething_reportback_rogue_mbp_request($rb) {
     $campaign_language = !empty($node->language) ? $node->language : DOSOMETHING_GLOBAL_DEFAULT_LANG_CODE;
     $campaign_country = dosomething_global_get_current_country_code();
 
-    // @TODO - figure out what this is in the other function an see if I can replicate it here.
-    // $title = $entity->node_title;
-
     if ($node) {
       $wrapper = entity_metadata_wrapper('node', $node);
 
@@ -1110,21 +1108,18 @@ function dosomething_reportback_rogue_mbp_request($rb) {
       'first_name' => $northstar_user->first_name,
       'mobile' => $northstar_user->mobile,
       'campaign_title' => $title,
-      'event_id' => $rogue_signup['data'][0]['campaign_id'],
+      'event_id' => (string) $rogue_signup['data'][0]['campaign_id'],
       'impact_verb' => $verb,
-      'impact_number' => $rogue_signup['data'][0]['quantity'],
+      'impact_number' => (string) $rogue_signup['data'][0]['quantity'],
       'impact_noun' => $noun,
       'image_markup' => $image_markup,
       'campaign_language' => $campaign_language,
       'campaign_country' => $campaign_country,
     );
 
-    dump('params', $params);
-    die();
-
-    // if (module_exists('dosomething_mbp')) {
-    //   dosomething_mbp_request('campaign_reportback', $params);
-    // }
+    if (module_exists('dosomething_mbp')) {
+      dosomething_mbp_request('campaign_reportback', $params);
+    }
   }
 }
 
