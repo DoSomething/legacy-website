@@ -541,8 +541,17 @@ function dosomething_reportback_view_rogue($rbid, $fid) {
     // $rogue_signup = dosomething_rogue_client()->get('v2/activity')
     // $campaign = dosomething_campaign_load(node_load($rogue_signup['data']['campaign_id']));
 
+    $args = [
+      'path' => PARANEUE_PATH .'/images/rogue-permalink-page-photo.jpg',
+      'alt' => 'Rogue Permalink Page Photo',
+      'title' => 'Rogue Permalink Photo',
+      'attributes' => NULL,
+    ];
+
+    $image = theme_image($args);
+
     return theme('reportback_simple_permalink', [
-      'image' => dosomething_image_get_themed_image(variable_get('dosomething_campaign_permalink_failure_image_nid'), 'square', '480x480'),
+      'image' => $image,
     ]);
 }
 
