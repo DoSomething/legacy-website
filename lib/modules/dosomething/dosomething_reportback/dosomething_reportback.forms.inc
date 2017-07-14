@@ -432,6 +432,16 @@ function dosomething_reportback_form_submit($form, &$form_state) {
 
     $rid = $rogue_reportback['data']['signup_id'];
     $fid = $rogue_reportback['data']['id'];
+
+    // Get signup associated with the post.
+    $rogue_signup = dosomething_rogue_get_activity(['id' => $rid]);
+
+    // Send an email if it is the first post.
+    if (dosomething_rogue_get_post_count($rogue_signup['data'][0]) === 1) {
+      if (module_exists('dosomething_mbp')) {
+        dosomething_reportback_rogue_mbp_request($rogue_reportback['data'], rogue_signup['data'][0]);
+      }
+    }
   } else {
     // Save uploaded file.
     if ($file = dosomething_reportback_form_save_file($form_state)) {
