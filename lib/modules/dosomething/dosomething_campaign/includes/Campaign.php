@@ -58,6 +58,7 @@ class Campaign {
       $single_campaign = TRUE;
       $ids = [$ids];
     }
+
     // Only load campaign types in this class.
     $results = node_load_multiple($ids, ['type' => 'campaign']);
 
