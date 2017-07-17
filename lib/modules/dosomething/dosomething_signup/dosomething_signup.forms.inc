@@ -98,20 +98,7 @@ function dosomething_signup_form_submit($form, &$form_state) {
   }
 
   // Create signup for logged in user.
-  dosomething_signup_user_signup($nid, NULL, $source, $params, $form_state['values']);
-
-  // if (variable_get('rogue_collection', FALSE)) {
-  //   $rogue_signup = dosomething_rogue_send_signup_to_rogue($form_state['values']);
-
-  //   // Make sure the signup exists before using it
-  //   if ($rogue_signup) {
-  //     $node = node_load($rogue_signup['data']['campaign_id']);
-  //     dosomething_signup_set_signup_message($node->title);
-  //   }
-  // } else {
-  //   // Create signup for logged in user.
-  //   dosomething_signup_user_signup($nid, NULL, $source, $params);
-  // }
+  dosomething_signup_user_signup($nid, NULL, $source, $params);
 }
 
 /**
