@@ -1107,7 +1107,8 @@ function dosomething_user_get_field($field_name, $account = NULL, $format = NULL
     $account = $user;
   }
 
-  // Load the requested field from the provided user.
+  // Load the full user profile & grab the requested field.
+  $account = user_load($account->uid);
   $field_value = $account->{$field_name}[LANGUAGE_NONE][0]['value'];
 
   // Check if there is a specifc function handler for that field, use that first.
