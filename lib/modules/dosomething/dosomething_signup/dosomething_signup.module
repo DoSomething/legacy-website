@@ -254,11 +254,6 @@ function dosomething_signup_create($nid, $uid = NULL, $source = NULL, $timestamp
   $campaign = Campaign::get($nid);
   $run = dosomething_helpers_get_current_campaign_run_for_user($nid, $user, $campaign);
 
-  // If a signup already exists, return the signup ID.
-  if ($existing_id = dosomething_signup_exists($nid, $run->nid, $uid)) {
-    return $existing_id;
-  }
-
   $values = array(
     'nid' => $nid,
     'uid' => $uid,
@@ -268,30 +263,64 @@ function dosomething_signup_create($nid, $uid = NULL, $source = NULL, $timestamp
     'transactionals' => $transactionals,
   );
 
+  // If a signup already exists, return the signup ID.
+  if ($existing_id = dosomething_signup_exists($nid, $run->nid, $uid)) {
+    return $existing_id;
+  }
+
+  // If Rogue is enabled, create the signup there.
+  if (variable_get('rogue_collection', FALSE)) {
+    $rogue_signup = dosomething_rogue_send_signup_to_rogue(array_merge($values, [
+      'campaign_id' => $values['nid'],
+    ]));
+
+    $sid = $rogue_signup ? $rogue_signup['data']['signup_id'] : NULL;
+    _dosomething_signup_log_signup($sid, $source);
+
+    return $sid ? $sid : FALSE;
+  }
+
+  // Otherwise, create a local Phoenix entity.
+  // @TODO: Remove this once Rogue is shipped.
   try {
     // Create a signup entity.
     // @see: SignupsController.php save()
     $entity = entity_create('signup', $values);
     $entity->save();
 
-    if (isset($entity->sid)) {
-      if (module_exists('stathat')) {
-        // The source is often a string longer than just "reportback", but always starts with it if the page is a permalink
-        if (strpos($source, 'reportback') === 0) {
-          stathat_send_ez_count('drupal - Signup - permalink signup', 1);
-        }
-      }
+    _dosomething_signup_log_signup($entity->sid, $source);
 
-      return $entity->sid;
-    }
-    return FALSE;
+    return isset($entity->sid) ? $entity->sid : FALSE;
   }
   catch (Exception $e) {
+    _dosomething_signup_log_signup(NULL);
+
+    return FALSE;
+  }
+}
+
+/**
+ * Log details when creating a signup.
+ *
+ * @param $sid
+ * @param $source
+ */
+function _dosomething_signup_log_signup($sid, $source = '') {
+  if (! module_exists('stathat')) {
+    return;
+  }
+
+  if (is_null($sid)) {
     // Keep message general in case a user ever sees it.
     drupal_set_message(t("There was an error processing your request."));
+
     // Log the error.
     watchdog('dosomething_signup', $e, array(), WATCHDOG_ERROR);
-    return FALSE;
+  }
+
+  // The source is often a string longer than just "reportback", but always starts with it if the page is a permalink
+  if (strpos($source, 'reportback') === 0) {
+    stathat_send_ez_count('drupal - Signup - permalink signup', 1);
   }
 }
 
@@ -346,6 +375,17 @@ function dosomething_signup_exists($nid, $run_nid = NULL, $uid = NULL, $presignu
   if (!isset($run_nid)) {
     $run = dosomething_helpers_get_current_campaign_run_for_user($nid, $user);
     $run_nid = $run->nid;
+  }
+
+  if (variable_get('rogue_collection', FALSE)) {
+    $response = dosomething_rogue_get_activity([
+      'northstar_id' => dosomething_user_get_northstar_id($uid),
+      'campaign_id' => $nid,
+      'campaign_run_id' => $run_nid,
+    ]);
+
+    $has_signup = isset($response['data']) && count($response['data']) === 1;
+    return $has_signup ? $response['data'][0]['signup_id'] : FALSE;
   }
 
   if ($presignup) {

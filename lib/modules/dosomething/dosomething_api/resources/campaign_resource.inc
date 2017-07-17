@@ -286,17 +286,6 @@ function _campaign_resource_signup($nid, $values) {
     watchdog('dosomething_api', '_campaign_resource_signup values:' . json_encode($values));
   }
 
-  // Check to see if we should be sending requests to Rogue instead:
-  if (variable_get('rogue_collection', FALSE)) {
-    $rogue_signup = dosomething_rogue_send_signup_to_rogue(array_merge($values, [
-      'campaign_id' => $nid,
-    ]));
-
-    if ($rogue_signup) {
-      return $rogue_signup['data']['signup_id'];
-    }
-  }
-
   return dosomething_signup_create($nid, $values['uid'], $values['source'], NULL, $values['transactionals']);
 }
 
