@@ -61,29 +61,15 @@ function dosomething_rogue_get_reportback_items($inputs)
 }
 
 /**
-  * Send a GET request to return all activiy matching a given
-  * query from Rogue.
-  *
-  * @param array $inputs
-  */
-function dosomething_rogue_get_activity($inputs)
+ * Send a GET request to return all activity matching a given
+ * query from Rogue.
+ *
+ * @param array $query
+ * @return array
+ */
+function dosomething_rogue_get_activity($query)
 {
-  $client = dosomething_rogue_client();
-
-  $rogue_inputs = [
-    'filter' => [
-      'campaign_id' => dosomething_helpers_isset($inputs, 'campaigns'),
-      'campaign_run_id' => dosomething_helpers_isset($inputs, 'runs'),
-      'northstar_id' => dosomething_helpers_isset($inputs, 'user'),
-      'id' => dosomething_helpers_isset($inputs, 'id'),
-    ],
-    'limit' => dosomething_helpers_isset($inputs, 'count'),
-    'page' => dosomething_helpers_isset($inputs, 'page'),
-  ];
-
-  $response = $client->getActivity($rogue_inputs);
-
-  return $response;
+  return dosomething_rogue_client()->getActivity($query);
 }
 
 /**
