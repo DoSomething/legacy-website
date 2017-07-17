@@ -583,36 +583,31 @@ function dosomething_signup_user_signup($nid, $account = NULL, $source = NULL, $
     $rogue_signup = dosomething_rogue_send_signup_to_rogue([
       'campaign_id' => $nid,
       'source' => $source,
-    ]);
-
-    // Make sure the signup exists before using it
-    if ($rogue_signup) {
-      $node = $node = node_load($nid);
-      dosomething_signup_set_signup_message($node->title);
-    }
+    ], $account);
   } else {
     // Insert signup.
-    if ($sid = dosomething_signup_create($nid, $account->uid, $source)) {
-      $node = node_load($nid);
+    $sid = dosomething_signup_create($nid, $account->uid, $source);
 
-      // Opt into competition if auto opt-in is enabled for this campaign.
-      $auto_opt_in = dosomething_helpers_get_variable('node', $nid, 'enable_auto_competition_opt_in');
-
-      if ($auto_opt_in) {
-        $run = dosomething_helpers_get_current_campaign_run_for_user($nid, $account);
-
-        dosomething_gladiator_send_user_to_gladiator($account, ['nid' => $nid, 'run_nid' => $run->nid]);
-      }
-
-      // Set default signup message if we're still in this function.
-      dosomething_signup_set_signup_message($node->title);
-
-      if ($params) {
-        if (isset($params['affiliate_messaging_opt_in']) && $params['affiliate_messaging_opt_in']) {
-          dosomething_campaign_create_affiliate_messaging_opt_in($account, $nid, $node);
-        }
+    if ($sid && $params) {
+      if (isset($params['affiliate_messaging_opt_in']) && $params['affiliate_messaging_opt_in']) {
+        dosomething_campaign_create_affiliate_messaging_opt_in($account, $nid, $node);
       }
     }
+  }
+
+  // Opt into competition if auto opt-in is enabled for this campaign.
+  $auto_opt_in = dosomething_helpers_get_variable('node', $nid, 'enable_auto_competition_opt_in');
+
+  if ($auto_opt_in) {
+    $run = dosomething_helpers_get_current_campaign_run_for_user($nid, $account);
+
+    dosomething_gladiator_send_user_to_gladiator($account, ['nid' => $nid, 'run_nid' => $run->nid]);
+  }
+
+  // Set default signup message if we're still in this function.
+  if (!empty($sid) || !empty($rogue_signup)) {
+    $node = node_load($nid);
+    dosomething_signup_set_signup_message($node->title);
   }
 }
 
