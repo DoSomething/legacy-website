@@ -935,16 +935,16 @@ function dosomething_rogue_handle_migration_failure($values, $sid, $rbid = NULL,
       ])
       ->execute();
   }
+}
 
-  /**
-   * Get count of posts under a signup.
-   *
-   * @param array $rogue_signup
-   * @param int $count|null
-   *
-   * @return
-   */
-  function dosomething_rogue_get_post_count($rogue_signup) {
-    return $rogue_signup['posts'] ? count($rogue_signup['posts']['data']) : null;
-  }
+/**
+ * Get count of posts under a signup.
+ *
+ * @param array $rogue_signup
+ * @param int $count|null
+ *
+ * @return
+ */
+function dosomething_rogue_get_post_count($rogue_signup) {
+  return $rogue_signup['posts'] ? count($rogue_signup['posts']['data']) : null;
 }
