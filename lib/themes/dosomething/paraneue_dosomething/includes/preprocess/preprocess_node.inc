@@ -291,10 +291,18 @@ function paraneue_dosomething_preprocess_reportback_gallery(&$vars, $count = 6) 
     $reportbackItems = $promotedReportbackItems;
   }
 
+
   foreach ($reportbackItems as $item) {
     if (variable_get('rogue_collection', FALSE)) {
       $item = (object) $item;
       $gallery['item_ids'][] = $item->id;
+
+      // Use square image
+      $fileParts = explode('/', $item->media['uri']);
+      $newFileName = 'edited_' . $item->id . '.jpeg';
+      $fileParts[sizeof($fileParts) - 1] = $newFileName;
+      $item->media['uri'] = implode('/', $fileParts);
+
       $gallery['items'][] = paraneue_dosomething_get_themed_reportback_item($item, TRUE);
     }
     else {
