@@ -363,6 +363,8 @@ function dosomething_reportback_form_validate($form, &$form_state) {
  * Submit callback for dosomething_reportback_form().
  */
 function dosomething_reportback_form_submit($form, &$form_state) {
+  global $user;
+
   $values = $form_state['values'];
   $campaign = node_load($values['nid']);
   $language_code = $campaign->language;
@@ -371,10 +373,9 @@ function dosomething_reportback_form_submit($form, &$form_state) {
   // If username field is set, this is an admin form.
   $is_admin_form = isset($form_state['values']['username']);
 
-  // Load uid by selected username.
+  // If admin form, override uid by selected username.
   if ($is_admin_form) {
     $user = user_load_by_name($form_state['values']['username']);
-    $values['uid'] = $user->uid;
   }
 
   // Load uid by selected username and give access to file.
@@ -386,79 +387,19 @@ function dosomething_reportback_form_submit($form, &$form_state) {
     $most_recently_added_fid = end($reportback->fids);
     $values['fid'] =  $most_recently_added_fid;
   }
-  // Else if regular user form:
-  else {
-    // Store logged in user's uid.
-    global $user;
-    $values['uid'] = $user->uid;
-  }
 
-  // Collect reportbacks in Rogue if rogue collection is turned on for this campaign.
-  if (variable_get('rogue_collection', FALSE)) {
-    // If this is a reportback update, grab the file most recent file in case we need it later
-    $rbid = dosomething_reportback_exists($values['nid'], $values['run_nid'], $values['uid']);
+  // Store given user in values (logged-in or admin override).
+  $values['uid'] = $user->uid;
 
-    if ($rbid) {
-      $reportback = reportback_load($rbid);
-      $fid = array_pop($reportback->fids);
-    }
-
-    // Store the base64 encoded data uri of the file in the values array to send to rogue.
-    if (array_key_exists('storage', $form_state)) {
-      $file = $form_state['storage']['file'];
-      $values['file'] = dosomething_helpers_get_data_uri_from_fid($file->fid);
-      $values['source'] = 'phoenix-web';
-    } else {
-      // If there is no file and there is a RB in Phoenix, check the dosomething_rogue_reportback table to see if the RB already exists in Rogue.
-      if ($rbid) {
-        $exists_in_rogue = dosomething_rogue_rb_exists_in_rogue($rbid);
-
-        // If the RB does not yet exist in Rogue, send along the most recently created reportback_item so the RB can be created in Rogue.
-        if (! $exists_in_rogue) {
-          $reportback_file = entity_load('reportback_item', array($fid));
-          $values['file'] = dosomething_helpers_get_data_uri_from_fid($fid);
-          $values['caption'] = $reportback_file[$fid]->caption;
-          $values['source'] = isset($reportback_file[$fid]->source) ? $reportback_file[$fid]->source : 'phoenix-web';
-        }
-      }
-    }
-
-    // Send the reportback to rogue.
-    $rogue_reportback = dosomething_rogue_send_reportback_to_rogue($values, $user);
-
-    if (! $rogue_reportback) {
-      return $form_state['redirect'] = 'reportback/failure/' . $values['nid'];
-    }
-
-    $rid = $rogue_reportback['data']['signup_id'];
-    $fid = $rogue_reportback['data']['id'];
-
-    // Get signup associated with the post.
-    $rogue_signup = dosomething_rogue_get_activity(['id' => $rid]);
-
-    // Send an email if it is the first post.
-    if (dosomething_rogue_get_post_count($rogue_signup['data'][0]) === 1) {
-      if (module_exists('dosomething_mbp')) {
-        dosomething_reportback_rogue_mbp_request($rogue_reportback['data'], $rogue_signup['data'][0]);
-      }
-    }
-  } else {
-    // Save uploaded file.
-    if ($file = dosomething_reportback_form_save_file($form_state)) {
-      // Store new file's fid into values.
-      $values['fid'] = $file->fid;
-    }
-
-    // Save values into reportback.
-    $rid = dosomething_reportback_save($values, $user);
-    $fid = $values['fid'];
-  }
+  // Save values into reportback.
+  $file = dosomething_reportback_form_save_file($form_state);
+  $rid = dosomething_reportback_save($values, $user, $file);
 
   // Redirect to permalink page.
   $form_state['redirect'] = [
     'reportback/' . $rid, [
       'query' => [
-        'fid' => $fid,
+        'fid' => $file ? $file->fid : NULL,
       ],
     ],
   ];
@@ -495,6 +436,8 @@ function dosomething_reportback_form_validate_file($form, &$form_state) {
 
 /**
  * Saves file from form into file_managed with permanent status.
+ *
+ * @return stdClass|bool - file or FALSE
  */
 function dosomething_reportback_form_save_file(&$form_state) {
   // If nothing set in storage, exit.

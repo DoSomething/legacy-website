@@ -777,6 +777,8 @@ function dosomething_reportback_exists($nid, $run_nid = NULL, $uid = NULL, $nort
     $run_nid = $run->nid;
   }
 
+  // @TODO: Ask Rogue if reportback exists here.
+
   $result = db_select('dosomething_reportback', 'r')
     ->condition('uid', $uid)
     ->condition('nid', $nid)
@@ -798,26 +800,36 @@ function dosomething_reportback_exists($nid, $run_nid = NULL, $uid = NULL, $nort
 /**
  * Saves a reportback entity with given values.
  *
- * @param  array  $values
+ * @param  array $values
  *   The reportback entity values to save.
  *   If the rbid is set to 0, a new entity will be saved.
  *   Otherwise if a numeric rbid is passed, the entity will be updated.
- * @param  object|null  $user
- * @return mixed
- *   The reportback entity rbid if success, or FALSE if error.
+ * @param  object $user
+ * @param object|null $file - a Drupal file object
+ * @return mixed The reportback entity rbid if success, or FALSE if error.
+ * The reportback entity rbid if success, or FALSE if error.
  */
-function dosomething_reportback_save($values, $user = NULL) {
-  if (!isset($user)) {
-    global $user;
-  }
-
-  $values['why_participated'] = dosomething_helpers_remove_emoji_from_string($values['why_participated']);
-  $values['caption'] = dosomething_helpers_remove_emoji_from_string($values['caption']);
-
+function dosomething_reportback_save($values, $user, $file = NULL) {
   $campaign = Campaign::get($values['nid']);
   $run = dosomething_helpers_get_current_campaign_run_for_user($values['nid'], $user, $campaign);
 
+  // If Rogue is enabled, don't save a local entity.
+  if (variable_get('rogue_collection', FALSE)) {
+    $response = dosomething_rogue_send_reportback_to_rogue($values, $user, $file);
+    dosomething_rogue_check_rbid_and_store_ref($response);
+
+    return $response ? $response['data']['id'] : FALSE;
+  }
+
+  // Otherwise, format data for Drupal database quirks & create an entity.
+  $values['why_participated'] = dosomething_helpers_remove_emoji_from_string($values['why_participated']);
+  $values['caption'] = dosomething_helpers_remove_emoji_from_string($values['caption']);
   $values['run_nid'] = $run->nid;
+
+  if ($file) {
+    // Store new file's fid into values.
+    $values['fid'] = $file->fid;
+  }
 
   if ($values['rbid'] === 0) {
     $entity = entity_create('reportback', ['nid' => $values['nid']]);
@@ -1463,66 +1475,6 @@ function dosomething_reportback_get_file_status_options() {
 
   return $options;
 }
-
-
-/**
- * Generates a new Reportback with Placekitten and Lorem ipsum.
- */
-function dosomething_reportback_generate($nid = NULL, $num_reportbacks = 5) {
-  global $user;
-
-  // Load devel_generate module to get random Lorem ipsum's.
-  module_load_include('inc', 'devel_generate', 'devel_generate');
-
-  if ($num_reportbacks > 50) {
-    return FALSE;
-  }
-
-  if (!$nid) {
-    $nid = db_select("node", "n")
-      ->fields("n", array("nid"))
-      ->condition("type", "campaign")
-      ->orderRandom()
-      ->range(0,1)
-      ->execute()
-      ->fetchField();
-  }
-
-  // List of sites to grab images from.
-  $generators = array(
-    'placebear',
-    'placecreature',
-    'placekitten',
-    'place-hoff',
-  );
-
-  for ($i = 0; $i < $num_reportbacks; $i++) {
-    $values = array(
-      'nid' => $nid,
-      'uid' => $user->uid,
-      'rbid' => 0,
-      'caption' => devel_create_greeking(rand(1, 3)),
-      'why_participated' => devel_create_greeking(rand(2, 20)),
-      'quantity' => rand(2,800),
-    );
-
-    // Pick a site, any site.
-    $random_key = array_rand($generators);
-    $site = $generators[$random_key];
-
-    // Pick an image, any image.
-    $file_url = "http://" . $site . ".com/" . rand(300, 1000) . "/" . rand(300, 1000);
-
-    // Save it.
-    $file = dosomething_reportback_save_file_from_url($nid, $user->uid, $file_url);
-
-    $values['fid'] = $file->fid;
-    watchdog('dosomething_reportback', "Generated RB:" . json_encode($values));
-
-    dosomething_reportback_save($values, $user);
-  }
-}
-
 
 function dosomething_reportback_fix_null_values($nid = NULL) {
   if ($nid) {

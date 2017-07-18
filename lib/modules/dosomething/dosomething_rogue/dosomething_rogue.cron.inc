@@ -44,7 +44,7 @@ function dosomething_rogue_retry_failed_reportbacks() {
           continue;
         }
 
-        $rogue_reportback = dosomething_rogue_send_reportback_to_rogue($data, $user, $task->id);
+        $rogue_reportback = dosomething_rogue_send_reportback_to_rogue($data, $user, NULL, $task->id);
 
         if ($rogue_reportback) {
           dosomething_rogue_check_rbid_and_store_ref($rogue_reportback);

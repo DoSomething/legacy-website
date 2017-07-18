@@ -373,24 +373,5 @@ function _campaign_resource_reportback($nid, $values) {
     watchdog('dosomething_api', '_campaign_resource_reportback:' . json_encode($values));
   }
 
-  $headers = getallheaders();
-
-  if (variable_get('rogue_collection', FALSE) && ! isset($headers['X-Request-Id'])) {
-    $rogue_reportback = dosomething_rogue_send_reportback_to_rogue($values, $user);
-
-    // Make sure reportback made it back to Phoenix and store reference to the Rogue item if one was added.
-    $rb_info = dosomething_rogue_check_rbid_and_store_ref($rogue_reportback);
-
-    return $rb_info['rbid'];
-  }
-  else {
-    if (isset($headers['X-Request-Id'])) {
-      // Increment transaction id and log that the request has been received with new transaction id.
-      $incremented_transaction_id = dosomething_api_increment_transaction_id($headers['X-Request-Id']);
-
-      watchdog('PhoenixTransactionBridge', 'Request received. Transaction ID: !incremented_transaction_id', ['!incremented_transaction_id' => $incremented_transaction_id], WATCHDOG_INFO);
-    }
-
-    return dosomething_reportback_save($values, $user);
-  }
+  return dosomething_reportback_save($values, $user, $file);
 }

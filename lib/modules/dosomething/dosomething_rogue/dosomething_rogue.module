@@ -266,10 +266,12 @@ function dosomething_rogue_format_signup($signup) {
  *    Values to send to Rogue.
  * @param object $user
  *    Drupal user object of user that reported back.
+ * @param stdClass|null $file - the Drupal file object
  * @param int $failed_task_id
  *    Index of failed reportback item if it exists in the dosomething_rogue_failed_task_log.
+ * @return array|false
  */
-function dosomething_rogue_send_reportback_to_rogue($values, $user = NULL, $failed_task_id = NULL) {
+function dosomething_rogue_send_reportback_to_rogue($values, $user = NULL, $file, $failed_task_id = NULL) {
   if (!isset($user)) {
     global $user;
   }
@@ -284,15 +286,12 @@ function dosomething_rogue_send_reportback_to_rogue($values, $user = NULL, $fail
     $northstar_id = $northstar_user->id;
   }
 
-  $run = dosomething_helpers_get_current_campaign_run_for_user($values['nid']);
-  $client = dosomething_rogue_client();
-
   $data = dosomething_rogue_transform_reportback($values, $user, $northstar_id);
   $data['type'] = 'reportback';
   $data['event_type'] = 'post_photo';
 
   try {
-    $response = $client->postReportback($data);
+    $response = dosomething_rogue_client()->postReportback($data);
 
     if (module_exists('stathat')) {
       stathat_send_ez_count('drupal - Rogue - reportback sent - count', 1);
@@ -520,6 +519,7 @@ function dosomething_rogue_rb_exists_in_rogue($rbid) {
  * @param array $rogue_reportback
  * The response from dosomething_rogue_send_reportback_to_rogue().
  *
+ * @return void
  */
 function dosomething_rogue_check_rbid_and_store_ref($rogue_reportback) {
   $rbid = dosomething_reportback_exists($rogue_reportback['data']['campaign_id'], $rogue_reportback['data']['campaign_run_id'], NULL, $rogue_reportback['data']['northstar_id']);
@@ -711,13 +711,11 @@ function dosomething_rogue_send_signup_to_rogue($values, $user = NULL, $failed_t
     $northstar_id = $northstar_user->id;
   }
 
-  $client = dosomething_rogue_client();
-
   $data = dosomething_rogue_transform_signup($values, $northstar_id, $user);
   $data['type'] = 'signup';
 
   try {
-    $response = $client->postSignup($data);
+    $response = dosomething_rogue_client()->postSignup($data);
 
     if (module_exists('stathat')) {
       stathat_send_ez_count('drupal - Rogue - signup sent - count', 1);

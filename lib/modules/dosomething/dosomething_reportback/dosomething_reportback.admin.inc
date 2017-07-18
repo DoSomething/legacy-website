@@ -75,9 +75,7 @@ function dosomething_reportback_admin_generate_form($form, &$form_state) {
  * Form submit callback for dosomething_reportback_admin_generate_form.
  */
 function dosomething_reportback_admin_generate_form_submit($form, &$form_state) {
-  $values = $form_state['values'];
-  dosomething_reportback_generate($values['nid'], $values['num']);
-  drupal_set_message(t("Generated %num dummy reportbacks.", array('%num' => $values['num'])));
+  drupal_set_message(t("Functionality removed. Generate reportbacks in Rogue plz!"));
 }
 
 /**
