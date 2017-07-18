@@ -270,11 +270,14 @@ function dosomething_signup_create($nid, $uid = NULL, $source = NULL, $timestamp
 
   // If Rogue is enabled, create the signup there.
   if (variable_get('rogue_collection', FALSE)) {
-    $rogue_signup = dosomething_rogue_send_signup_to_rogue(array_merge($values, [
-      'campaign_id' => $values['nid'],
-    ]));
 
-    $sid = $rogue_signup ? $rogue_signup['data']['signup_id'] : NULL;
+    // Reformat the `$values` array for Rogue.
+    // @TODO: Clean this up so it happens in Rogue method.
+    $values['campaign_id'] = $nid;
+
+    $response = dosomething_rogue_send_signup_to_rogue($values);
+
+    $sid = $response ? $response['data']['signup_id'] : NULL;
     _dosomething_signup_log_signup($sid, $source);
 
     return $sid ? $sid : FALSE;
@@ -621,19 +624,12 @@ function dosomething_signup_user_signup($nid, $account = NULL, $source = NULL, $
     $account = $user;
   }
 
-  if (variable_get('rogue_collection', FALSE)) {
-    $rogue_signup = dosomething_rogue_send_signup_to_rogue([
-      'campaign_id' => $nid,
-      'source' => $source,
-    ], $account);
-  } else {
-    // Insert signup.
-    $sid = dosomething_signup_create($nid, $account->uid, $source);
+  // Insert signup.
+  $sid = dosomething_signup_create($nid, $account->uid, $source);
 
-    if ($sid && $params) {
-      if (isset($params['affiliate_messaging_opt_in']) && $params['affiliate_messaging_opt_in']) {
-        dosomething_campaign_create_affiliate_messaging_opt_in($account, $nid, $node);
-      }
+  if ($sid && $params) {
+    if (isset($params['affiliate_messaging_opt_in']) && $params['affiliate_messaging_opt_in']) {
+      dosomething_campaign_create_affiliate_messaging_opt_in($account, $nid);
     }
   }
 
