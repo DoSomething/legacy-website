@@ -191,7 +191,16 @@ function _signup_resource_index($user, $users, $campaigns, $count, $page, $compe
 
   // Return data from Rogue if Rogue is turned on
   if (variable_get('rogue_collection', FALSE)) {
-    $rogue_response = dosomething_rogue_get_activity($parameters);
+    $rogue_response = dosomething_rogue_get_activity([
+      'filter' => [
+        'campaign_id' => data_get($parameters, 'campaigns'),
+        'campaign_run_id' => data_get($parameters, 'runs'),
+        'northstar_id' => data_get($parameters, 'user'),
+        'id' => data_get($parameters, 'id'),
+      ],
+      'limit' => data_get($parameters, 'count'),
+      'page' => data_get($parameters, 'page'),
+    ]);
 
     return json_decode(dosomething_rogue_format_activity($rogue_response));
   }

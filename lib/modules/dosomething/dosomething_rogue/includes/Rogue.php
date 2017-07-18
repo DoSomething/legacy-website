@@ -99,7 +99,7 @@ class Rogue extends RestApiClient {
    * query from Rogue.
    *
    * @param array $inputs
-   * @return Rogue Reportbacks
+   * @return array - JSON response
    */
   public function getActivity($inputs = [])
   {

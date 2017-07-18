@@ -61,29 +61,15 @@ function dosomething_rogue_get_reportback_items($inputs)
 }
 
 /**
-  * Send a GET request to return all activiy matching a given
-  * query from Rogue.
-  *
-  * @param array $inputs
-  */
-function dosomething_rogue_get_activity($inputs)
+ * Send a GET request to return all activity matching a given
+ * query from Rogue.
+ *
+ * @param array $query
+ * @return array
+ */
+function dosomething_rogue_get_activity($query)
 {
-  $client = dosomething_rogue_client();
-
-  $rogue_inputs = [
-    'filter' => [
-      'campaign_id' => dosomething_helpers_isset($inputs, 'campaigns'),
-      'campaign_run_id' => dosomething_helpers_isset($inputs, 'runs'),
-      'northstar_id' => dosomething_helpers_isset($inputs, 'user'),
-      'id' => dosomething_helpers_isset($inputs, 'id'),
-    ],
-    'limit' => dosomething_helpers_isset($inputs, 'count'),
-    'page' => dosomething_helpers_isset($inputs, 'page'),
-  ];
-
-  $response = $client->getActivity($rogue_inputs);
-
-  return $response;
+  return dosomething_rogue_client()->getActivity($query);
 }
 
 /**
@@ -719,6 +705,7 @@ function dosomething_rogue_send_signup_to_rogue($values, $user = NULL, $failed_t
   // Band-aid fix for an issue we are seeing with phoenix not being
   // aware of a user's northstar id. If it doesn't find one, we just grab it
   // from northstar directly.
+  // @TODO: Investigate why this is happening.
   if (!$northstar_id) {
     $northstar_user = dosomething_northstar_get_user($user->uid, 'drupal_id');
     $northstar_id = $northstar_user->id;
