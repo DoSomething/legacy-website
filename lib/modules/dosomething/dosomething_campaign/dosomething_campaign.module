@@ -762,8 +762,12 @@ function dosomething_campaign_add_signup_data_form_vars(&$node, $langcode) {
   $node->content['signup_data_form'] = drupal_get_form('dosomething_signup_user_signup_data_form', $signup);
 
   // If the signup_data_form is required and user has not submitted form yet:
-  $hasCompetitionRecordedLocally = $signup->signup_data_form_timestamp;
-  $shouldShowCompetitionPrompt = $config['required'] && !$hasCompetitionRecordedLocally;
+  if (!variable_get('rogue_collection', FALSE)) {
+    $hasCompetitionRecordedLocally = $signup->signup_data_form_timestamp;
+    $shouldShowCompetitionPrompt = $config['required'] && !$hasCompetitionRecordedLocally;
+  } else {
+    $shouldShowCompetitionPrompt = $config['required'];
+  }
 
   // If Gladiator is enabled, check there too!
   if (module_exists('dosomething_gladiator')) {
