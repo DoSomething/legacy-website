@@ -379,9 +379,11 @@ function dosomething_signup_exists($nid, $run_nid = NULL, $uid = NULL, $presignu
 
   if (variable_get('rogue_collection', FALSE)) {
     $response = dosomething_rogue_get_activity([
-      'northstar_id' => dosomething_user_get_northstar_id($uid),
-      'campaign_id' => $nid,
-      'campaign_run_id' => $run_nid,
+      'filter' => [
+        'northstar_id' => dosomething_user_get_northstar_id($uid),
+        'campaign_id' => $nid,
+        'campaign_run_id' => $run_nid,
+      ],
     ]);
 
     $has_signup = isset($response['data']) && count($response['data']) === 1;
