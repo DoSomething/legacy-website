@@ -35,24 +35,7 @@ function dosomething_campaign_preprocess_node(&$vars) {
   dosomething_campaign_preprocess_common_vars($vars, $wrapper);
 
   $pitch_path = 'node/' . $node->nid . '/pitch';
-
-  if (variable_get('rogue_collection', FALSE)) {
-    global $user;
-    $northstar_user_id = dosomething_user_get_northstar_id($user->uid);
-
-    $rogue = dosomething_rogue_client();
-
-    $response = $rogue->getActivity([
-      'filter' => [
-        'northstar_id' => $northstar_user_id,
-        'campaign_id' => $vars['nid'],
-      ],
-    ]);
-
-    $signup_exists = ! dosomething_campaign_is_pitch_page($node, ! empty($response['data']));
-  } else {
-    $signup_exists = ! dosomething_campaign_is_pitch_page($node);
-  }
+  $signup_exists = ! dosomething_campaign_is_pitch_page($node);
 
   if ($pitch_path == $current_path || ! $signup_exists) {
     // Gather vars for pitch page.

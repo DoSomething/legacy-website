@@ -802,15 +802,12 @@ function dosomething_campaign_add_shipment_form_vars($node) {
  * @todo: Assumes the campaign is in a live state, for now.
  * This logic will need to change when a campaign is in a closed state.
  *
- * @param obj $node
+ * @param stdClass $node
  *   A loaded node.
- *
- * @param bool $rogue_signup_exists
- *   Boolean if a signup exists in Rogue. Optional param.
  *
  * @return bool
  */
-function dosomething_campaign_is_pitch_page($node, $rogue_signup_exists = NULL) {
+function dosomething_campaign_is_pitch_page($node) {
   // Exclude all non campaign node types.
   if ($node->type != 'campaign') { return FALSE; }
   // If not a campaign campaign (e.g. SMS Game), no pitch page is needed.
@@ -835,17 +832,13 @@ function dosomething_campaign_is_pitch_page($node, $rogue_signup_exists = NULL) 
   }
 
   // The $node is a pitch page if you haven't signed up yet.
-  if ($rogue_signup_exists) {
-    return FALSE;
-  } else {
-    return (!dosomething_signup_exists($node->nid));
-  }
+  return ! dosomething_signup_exists($node->nid);
 }
 
 /**
  * For given campaign $node, determines if the closed page should be displayed.
  *
- * @param obj $node
+ * @param stdClass $node
  *   A loaded node.
  *
  * @return bool
