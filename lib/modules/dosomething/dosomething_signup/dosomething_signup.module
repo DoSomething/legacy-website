@@ -252,7 +252,9 @@ function dosomething_signup_create($nid, $uid = NULL, $source = NULL, $timestamp
   // @TODO: If campaign is unpublished and non-staff $uid, return error.
 
   $campaign = Campaign::get($nid);
+  $campaign_node = node_load($nid);
   $run = dosomething_helpers_get_current_campaign_run_for_user($nid, $user, $campaign);
+  $account = user_load($uid);
 
   $values = [
     'nid' => $nid,
@@ -274,6 +276,14 @@ function dosomething_signup_create($nid, $uid = NULL, $source = NULL, $timestamp
 
     $sid = $response ? $response['data']['signup_id'] : NULL;
     _dosomething_signup_log_signup($sid, $source);
+
+    // Send relevant third-party subscribe requests.
+    // @NOTE: For legacy signups, this was handled in an entity save hook.
+    dosomething_signup_third_party_subscribe($account, $campaign_node, [
+      'transactionals' => $transactionals,
+      'source' => $source,
+      'signup_id' => $sid,
+    ]);
 
     return $sid ? $sid : FALSE;
   }
@@ -555,20 +565,14 @@ function dosomething_signup_entity_insert($entity, $type) {
   // If not a signup, exit out of function.
   if ($type != 'signup') { return; }
   $node = node_load($entity->nid);
-  // If this is a SMS Game Campaign node:
-  if (module_exists('dosomething_campaign') && dosomething_campaign_get_campaign_type($node) == 'sms_game') {
-    // Third party subscription is handled elsewhere,
-    // @see dosomething_signup_friends_form_submit.
-    // Exit out of function.
-    return;
-  }
   $account = user_load($entity->uid);
-  $options['transactionals'] = $entity->transactionals;
-  $options['source'] = $entity->source;
-  $options['signup_id'] = $entity->sid;
 
   // Send relevant third-party subscribe requests.
-  dosomething_signup_third_party_subscribe($account, $node, $options);
+  dosomething_signup_third_party_subscribe($account, $node, [
+    'transactionals' => $entity->transactionals,
+    'source' => $entity->source,
+    'signup_id' => $entity->sid,
+  ]);
 }
 
 /**
@@ -582,10 +586,16 @@ function dosomething_signup_entity_insert($entity, $type) {
  *   Possible options used for the subscribe request.
  *   - source
  *     A value defining where the request to sign a user up to a campaign originated.
- *   - trasactionals
+ *   - transactionals
  *     A flag to prevent sending transactionals when FALSE. Defaults to TRUE when NULL.
  */
 function dosomething_signup_third_party_subscribe($account, $node, $options = []) {
+  // If this is a SMS Game Campaign node:
+  if (module_exists('dosomething_campaign') && dosomething_campaign_get_campaign_type($node) == 'sms_game') {
+    // @see dosomething_signup_friends_form_submit.
+    return;
+  }
+
   $var_name  = 'mobilecommons_opt_in_path';
   // Is there an override set on this campaign?
   $opt_in = dosomething_helpers_get_variable('node', $node->nid, $var_name);
