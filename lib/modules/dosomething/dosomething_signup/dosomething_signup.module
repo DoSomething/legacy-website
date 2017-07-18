@@ -270,11 +270,6 @@ function dosomething_signup_create($nid, $uid = NULL, $source = NULL, $timestamp
 
   // If Rogue is enabled, create the signup there.
   if (variable_get('rogue_collection', FALSE)) {
-
-    // Reformat the `$values` array for Rogue.
-    // @TODO: Clean this up so it happens in Rogue method.
-    $values['campaign_id'] = $nid;
-
     $response = dosomething_rogue_send_signup_to_rogue($values);
 
     $sid = $response ? $response['data']['signup_id'] : NULL;
