@@ -70,7 +70,7 @@ function dosomething_gladiator_in_a_competition($signup) {
 
   // If signup exists in Gladiator (from Phoenix Next, for example), set
   // the "signup data form" timestamp so we know not to ask again.
-  if ($already_in_gladiator) {
+  if ($already_in_gladiator && !variable_get('rogue_collection', FALSE)) {
     dosomething_signup_update_signup_data(['sid' => $sid], ['competition_signup' => $already_in_gladiator]);
   }
 
