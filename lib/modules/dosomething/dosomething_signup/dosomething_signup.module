@@ -186,7 +186,18 @@ function dosomething_signup_permission() {
  * Menu autoloader for /signup.
  */
 function signup_load($id) {
-  return entity_load_single('signup', $id);
+  // If rogue is on load signup from rogue.
+  if (variable_get('rogue_collection', FALSE)) {
+    $response = dosomething_rogue_get_activity([
+      'filter' => [
+        'id' => $id
+      ],
+    ]);
+
+    return isset($response['data']) && count($response['data']) === 1 ? $response['data'][0] : FALSE;
+  } else {
+    return entity_load_single('signup', $id);
+  }
 }
 
 /**

@@ -284,21 +284,26 @@ function dosomething_signup_node_signup_data_form_submit(&$form, &$form_state) {
  *   The signup entity to save additional data to.
  */
 function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) {
+  // Get the nid from the signup (either rogue signup or phoenix signup)
+  $nid = isset($signup->nid) ? $signup->nid : $signup['campaign_id'];
+  $sid = isset($signup->sid) ? $signup->sid : $signup['signup_id'];
+  $run_nid = isset($signup->run_nid) ? $signup->run_nid : $signup['campaign_run_id'];
   // Load signup data form config to determine what form elements we need.
-  $config = dosomething_signup_get_signup_data_form_info($signup->nid);
+  $config = dosomething_signup_get_signup_data_form_info($nid);
+
   $form['sid'] = array(
     '#type' => 'hidden',
-    '#value' => $signup->sid,
+    '#value' => $sid,
     '#access' => FALSE,
   );
   $form['nid'] = array(
     '#type' => 'hidden',
-    '#value' => $signup->nid,
+    '#value' => $nid,
     '#access' => FALSE,
   );
   $form['run_nid'] = array(
     '#type' => 'hidden',
-    '#value' => $signup->run_nid,
+    '#value' => $run_nid,
     '#access' => FALSE,
   );
 
@@ -306,23 +311,23 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
   if ($config['custom_social_share_signup']) {
     $form['header'] = array(
       '#prefix' => '<div class="modal__block"><h2 class="heading">',
-      '#markup' => dosomething_helpers_get_variable('node', $signup->nid, 'social_share_custom_text'),
+      '#markup' => dosomething_helpers_get_variable('node', $nid, 'social_share_custom_text'),
       '#suffix' => '</h2></div>',
     );
 
     $form['copy'] = array(
       '#prefix' => '<div class="modal__block"><p>',
-      '#markup' => dosomething_helpers_get_variable('node', $signup->nid, 'social_share_custom_description'),
+      '#markup' => dosomething_helpers_get_variable('node', $nid, 'social_share_custom_description'),
       '#suffix' => '</p></div>',
     );
 
     $form['custom_social_share_signup_img'] = array(
       '#prefix' => '<img src="',
-      '#markup' => dosomething_image_get_themed_image_url(dosomething_helpers_get_variable('node', $signup->nid, 'share_image_nid'), 'landscape'),
+      '#markup' => dosomething_image_get_themed_image_url(dosomething_helpers_get_variable('node', $nid, 'share_image_nid'), 'landscape'),
       '#suffix' => '">',
     );
 
-    $campaign = dosomething_campaign_load(node_load($signup->nid));
+    $campaign = dosomething_campaign_load(node_load($nid));
 
     $social_share_types = dosomething_helpers_campaign_page_social_share_types($campaign);
 
@@ -357,19 +362,20 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
   }
 
   // If the user has submitted form already:
-  if (($timestamp = $signup->signup_data_form_timestamp) && $signup->signup_data_form_response == 1) {
-    // Get filtered form_submitted_copy.
-    $copy = dosomething_signup_filter_form_submitted_copy($config['form_submitted_copy'], $timestamp);
-    // Display the form submitted copy:
-    $form['submitted_copy'] = array(
-      '#prefix' => '<div class="modal__block"><p>',
-      '#markup' => $copy,
-      '#suffix' => '</p></div>',
-    );
-    // Return form as is (without a submit button).
-    return $form;
+  if (!variable_get('rogue_collection', FALSE)) {
+    if (($timestamp = $signup->signup_data_form_timestamp) && $signup->signup_data_form_response == 1) {
+      // Get filtered form_submitted_copy.
+      $copy = dosomething_signup_filter_form_submitted_copy($config['form_submitted_copy'], $timestamp);
+      // Display the form submitted copy:
+      $form['submitted_copy'] = array(
+        '#prefix' => '<div class="modal__block"><p>',
+        '#markup' => $copy,
+        '#suffix' => '</p></div>',
+      );
+      // Return form as is (without a submit button).
+      return $form;
+    }
   }
-
 
   // Container for form elements
   $form['elements'] = array(
@@ -553,9 +559,11 @@ function dosomething_signup_user_signup_data_form_submit($form, &$form_state) {
   }
 
   // Update signup record.
-  dosomething_signup_update_signup_data($values, $config);
+  if (!variable_get('rogue_collection', FALSE)) {
+    dosomething_signup_update_signup_data($values, $config);
+  }
+
   // If this is a competition sign up, send it to gladiator.
-  //
   if ($config['competition_signup'] && module_exists('dosomething_gladiator')) {
     dosomething_gladiator_send_user_to_gladiator($user, $values);
   }
@@ -585,13 +593,17 @@ function dosomething_signup_user_signup_data_form_validate_school($form, &$form_
  *   The signup entity to save additional data to.
  */
 function dosomething_signup_user_skip_signup_data_form($form, &$form_state, $signup) {
-  $config = dosomething_signup_get_signup_data_form_info($signup->nid);
+  $nid = isset($signup->nid) ? $signup->nid : $signup['campaign_id'];
+  $sid = isset($signup->sid) ? $signup->sid : $signup['signup_id'];
+  $run_nid = isset($signup->run_nid) ? $signup->run_nid : $signup['campaign_run_id'];
+
+  $config = dosomething_signup_get_signup_data_form_info($nid);
   $skip_label = ($config['skip_text']) ? t($config['skip_text']) : t('Skip');
 
   $form['#attributes']['class'] = ['modal__block', 'form-actions'];
   $form['sid'] = [
     '#type' => 'hidden',
-    '#value' => $signup->sid,
+    '#value' => $sid,
     '#access' => FALSE,
   ];
   $form['submit'] = [
@@ -612,7 +624,9 @@ function dosomething_signup_user_skip_signup_data_form($form, &$form_state, $sig
  */
 function dosomething_signup_user_skip_signup_data_form_submit($form, &$form_state) {
   // Update signup record with response = 0.
-  dosomething_signup_update_signup_data($form_state['values'], NULL, 0);
+  if (!variable_get('rogue_collection', FALSE)) {
+    dosomething_signup_update_signup_data($form_state['values'], NULL, 0);
+  }
 }
 
 /**

@@ -49,10 +49,15 @@ function _dosomething_gladiator_build_http_client() {
 function dosomething_gladiator_in_a_competition($signup) {
   $client = _dosomething_gladiator_build_http_client();
 
+  $nid = isset($signup->nid) ? $signup->nid : $signup['campaign_id'];
+  $sid = isset($signup->sid) ? $signup->sid : $signup['signup_id'];
+  $run_nid = isset($signup->run_nid) ? $signup->run_nid : $signup['campaign_run_id'];
+  $user_id = isset($signup->uid) ? dosomething_user_get_northstar_id($signup->uid) : $signup['northstar_id'];
+
   $query = drupal_http_build_query([
-    'id' => dosomething_user_get_northstar_id($signup->uid),
-    'campaign_id' => $signup->nid,
-    'campaign_run_id' => $signup->run_nid,
+    'id' => $user_id,
+    'campaign_id' => $nid,
+    'campaign_run_id' => $run_nid,
   ]);
 
   $response = drupal_http_request($client['base_url'] . '/users?'.$query, [
@@ -65,8 +70,8 @@ function dosomething_gladiator_in_a_competition($signup) {
 
   // If signup exists in Gladiator (from Phoenix Next, for example), set
   // the "signup data form" timestamp so we know not to ask again.
-  if ($already_in_gladiator) {
-    dosomething_signup_update_signup_data(['sid' => $signup->sid], ['competition_signup' => $already_in_gladiator]);
+  if ($already_in_gladiator && !variable_get('rogue_collection', FALSE)) {
+    dosomething_signup_update_signup_data(['sid' => $sid], ['competition_signup' => $already_in_gladiator]);
   }
 
   return $already_in_gladiator;
