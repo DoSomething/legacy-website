@@ -241,8 +241,8 @@ function _signup_resource_retrieve($sid) {
 
     $rogue_response = dosomething_rogue_get_activity([
       'filter'=> [
-        'id' => $sid
-      ]
+        'id' => $sid,
+      ],
     ]);
 
     $formatted_signup = (object) dosomething_rogue_format_signup($rogue_response['data'][0]);
