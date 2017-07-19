@@ -181,8 +181,8 @@ function _reportback_resource_index($ids, $campaigns, $status, $count, $random, 
       'filter' => [
         'campaign_id' => $campaigns,
       ],
-      'as_user' => dosomething_user_get_field('field_northstar_id'),
-      'limit' => 12,
+      'as_user' => $as_user,
+      'limit' => $count,
       'page' => $page,
     ]);
 
