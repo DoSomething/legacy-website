@@ -191,6 +191,18 @@ function _signup_resource_index($user, $users, $campaigns, $count, $page, $compe
 
   // Return data from Rogue if Rogue is turned on
   if (variable_get('rogue_collection', FALSE)) {
+    // Replace all drupal ids with northstar ids
+    $user = explode(',', $user);
+
+    foreach ($user as $key=>$current_user) {
+      if (is_numeric($current_user)) {
+        $user[$key] = dosomething_user_get_northstar_id($current_user);
+      }
+    }
+
+    $user = implode(',', $user);
+    $parameters['user'] = $user;
+
     $rogue_response = dosomething_rogue_get_activity([
       'filter' => [
         'campaign_id' => data_get($parameters, 'campaigns'),
