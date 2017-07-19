@@ -145,7 +145,7 @@ function _reportback_item_resource_access($op) {
  * @return array
  */
 function _reportback_item_resource_index($campaigns, $exclude, $status, $count, $random, $page, $load_user, $as_user) {
-  $parameters = array(
+  $parameters = [
     'campaigns' => $campaigns,
     'exclude' => $exclude,
     'status' => $status,
@@ -154,12 +154,11 @@ function _reportback_item_resource_index($campaigns, $exclude, $status, $count, 
     'page' => $page,
     'load_user' => $load_user,
     'as_user' => $as_user,
-  );
+  ];
 
+  // If Rogue is enabled, fetch reportback items from there.
   if (variable_get('rogue_collection', FALSE)) {
-    $client = dosomething_rogue_client();
-
-    $response = $client->getAllReportbacks([
+    $response = dosomething_rogue_client()->getAllReportbacks([
       'filter' => [
         'campaign_id' => $campaigns,
         'exclude' => $exclude,
