@@ -434,7 +434,7 @@ function dosomething_reportback_form_submit($form, &$form_state) {
     $fid = $rogue_reportback['data']['id'];
 
     // Get signup associated with the post.
-    $rogue_signup = dosomething_rogue_get_activity(['id' => $rid]);
+    $rogue_signup = dosomething_rogue_get_activity(['filter' => ['id' => $rid]]);
 
     // Send an email if it is the first post.
     if (dosomething_rogue_get_post_count($rogue_signup['data'][0]) === 1) {
