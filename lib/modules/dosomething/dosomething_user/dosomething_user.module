@@ -1066,10 +1066,11 @@ function dosomething_user_create_user_by_mobile($number) {
 
   return FALSE;
 }
+
 /**
  * Convert a supplied ID into a legacy Drupal ID.
  *
- * @param  string $id
+ * @param  string $id - Northstar or Drupal ID
  * @return string
  */
 function dosomething_user_convert_to_legacy_id($id) {
@@ -1084,6 +1085,24 @@ function dosomething_user_convert_to_legacy_id($id) {
   $user = dosomething_user_get_user_by_northstar_id($id);
 
   return $user->uid;
+}
+
+/**
+ * Convert a supplied ID into a Northstar ID.
+ *
+ * @param  string $id - Northstar or Drupal ID
+ * @return string
+ */
+function dosomething_user_convert_to_northstar_id($id) {
+  if (!$id) {
+    return NULL;
+  }
+
+  if (is_numeric($id)) {
+    return dosomething_user_get_northstar_id($id);
+  }
+
+  return $id;
 }
 
 /**
