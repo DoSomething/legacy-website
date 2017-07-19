@@ -245,6 +245,15 @@ function _signup_resource_retrieve($sid) {
       ],
     ]);
 
+    // If Rogue response is empty, return expected error.
+    if (empty($rogue_response['data'])) {
+      return [
+        'error' => [
+          'message' => 'No signup data found.',
+        ],
+      ];
+    }
+
     $formatted_signup = (object) dosomething_rogue_format_signup($rogue_response['data'][0]);
 
     $data['data'] = $formatted_signup;
