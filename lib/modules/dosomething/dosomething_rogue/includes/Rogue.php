@@ -18,7 +18,7 @@ class Rogue extends RestApiClient {
    * query from Rogue.
    *
    * @param array $inputs
-   * @return Rogue Reportbacks
+   * @return array - JSON response
    */
   public function getAllReportbacks($inputs = [])
   {
@@ -31,7 +31,7 @@ class Rogue extends RestApiClient {
    * Send a POST request of a reaction to be saved/deleted in Rogue.
    *
    * @param array $data
-   * @return object|false
+   * @return array - JSON response
    */
   public function postReaction($data)
   {
@@ -45,7 +45,7 @@ class Rogue extends RestApiClient {
    *
    * @param string $baseurl
    * @param array $data
-   * @return object|false
+   * @return array - JSON response
    */
   public function postReportback($data)
   {
@@ -59,7 +59,7 @@ class Rogue extends RestApiClient {
    *
    * @param string $baseurl
    * @param array $data
-   * @return object|false
+   * @return array - JSON response
    */
   public function updateReportback($data)
   {
@@ -72,7 +72,7 @@ class Rogue extends RestApiClient {
    * Send a POST request of the signup to be saved in Rogue.
    *
    * @param array $data
-   * @return object|false
+   * @return array - JSON response
    */
   public function postSignup($data)
   {
@@ -85,7 +85,7 @@ class Rogue extends RestApiClient {
    * Send a POST request of the signup to be saved in Rogue.
    *
    * @param array $data
-   * @return object|false
+   * @return array - JSON response
    */
   public function postReview($data)
   {
