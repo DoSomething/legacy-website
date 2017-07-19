@@ -168,6 +168,32 @@ function _reportback_item_resource_index($campaigns, $exclude, $status, $count, 
       'page' => $page,
     ]);
 
+    $response['data'] = collect($response['data'])->map(function ($item) use ($load_user) {
+      // Add campaign to each item:
+      try {
+        $campaign = Campaign::get($item['campaign']['id']);
+        $item['campaign'] = $campaign;
+      } catch (Exception $e) {
+        // Oh well!
+      }
+
+      // If requested, add full user to each item:
+      if ($load_user) {
+        $profile = dosomething_northstar_get_user($item['user']['id']);
+
+        $item['user'] = [
+          'id' => $profile->id,
+          'drupal_id' => $profile->drupal_id,
+          'first_name' => $profile->first_name,
+          'last_initial' => $profile->last_initial,
+          'photo' => $profile->photo,
+          'country' => $profile->country,
+        ];
+      }
+
+      return $item;
+    });
+
     return $response;
   }
 
