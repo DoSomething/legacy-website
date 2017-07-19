@@ -175,6 +175,20 @@ function _reportback_resource_index($ids, $campaigns, $status, $count, $random, 
     'runs' => $runs,
   ];
 
+  // If Rogue is enabled, fetch reportback items from there.
+  if (variable_get('rogue_collection', FALSE)) {
+    $response = dosomething_rogue_client()->getAllReportbacks([
+      'filter' => [
+        'campaign_id' => $campaigns,
+      ],
+      'as_user' => dosomething_user_get_field('field_northstar_id'),
+      'limit' => 12,
+      'page' => $page,
+    ]);
+
+    return $response;
+  }
+
   return (new ReportbackTransformer)->index($parameters);
 }
 
