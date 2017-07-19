@@ -378,7 +378,7 @@ function _campaign_resource_reportback($nid, $values) {
   if (variable_get('rogue_collection', FALSE) && ! isset($headers['X-Request-Id'])) {
     $rogue_reportback = dosomething_rogue_send_reportback_to_rogue($values, $user);
 
-    return $rogue_reportback['data']['id']
+    return isset($rogue_reportback['data']['id']) ? $rogue_reportback['data']['id'] : FALSE;
   }
   else {
     if (isset($headers['X-Request-Id'])) {
