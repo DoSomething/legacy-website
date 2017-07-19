@@ -135,7 +135,7 @@ function dosomething_search_apachesolr_query_alter(DrupalSolrQueryInterface $que
     // We also need to make sure that we give a small boost to the language
     // specific translation of the node so that we don't see en-global versions
     // of nodes that do have valid translations in the current language.
-    $params['bq'][] = "ss_language:{$language}^1.0";
+    $params['bq'][] = "ss_language:{$language}^10.0";
   }
 
   // There is a bug in the apachesolr allowed types export that
