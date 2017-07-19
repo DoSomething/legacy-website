@@ -145,6 +145,8 @@ function _reportback_item_resource_access($op) {
  * @return array
  */
 function _reportback_item_resource_index($campaigns, $exclude, $status, $count, $random, $page, $load_user, $as_user) {
+  global $user;
+
   $parameters = [
     'campaigns' => $campaigns,
     'exclude' => $exclude,
@@ -163,8 +165,9 @@ function _reportback_item_resource_index($campaigns, $exclude, $status, $count, 
         'campaign_id' => $campaigns,
         'exclude' => $exclude,
       ],
-      'as_user' => dosomething_user_get_field('field_northstar_id'),
-      'limit' => 12,
+      // If `?as_user` provided with UID or Northstar ID, use that. Otherwise, send logged-in user's NS ID.
+      'as_user' => dosomething_user_get_northstar_id($as_user ? $as_user : $user->uid),
+      'limit' => $count,
       'page' => $page,
     ]);
 
