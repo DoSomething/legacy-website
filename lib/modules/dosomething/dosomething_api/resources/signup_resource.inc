@@ -239,7 +239,11 @@ function _signup_resource_retrieve($sid) {
   // Return data from Rogue if Rogue is turned on
   if (variable_get('rogue_collection', FALSE)) {
 
-    $rogue_response = dosomething_rogue_get_activity(['id' => $sid]);
+    $rogue_response = dosomething_rogue_get_activity([
+      'filter'=> [
+        'id' => $sid
+      ]
+    ]);
 
     $formatted_signup = (object) dosomething_rogue_format_signup($rogue_response['data'][0]);
 
