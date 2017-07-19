@@ -378,10 +378,7 @@ function _campaign_resource_reportback($nid, $values) {
   if (variable_get('rogue_collection', FALSE) && ! isset($headers['X-Request-Id'])) {
     $rogue_reportback = dosomething_rogue_send_reportback_to_rogue($values, $user);
 
-    // Make sure reportback made it back to Phoenix and store reference to the Rogue item if one was added.
-    $rb_info = dosomething_rogue_check_rbid_and_store_ref($rogue_reportback);
-
-    return $rb_info['rbid'];
+    return $rogue_reportback['data']['id']
   }
   else {
     if (isset($headers['X-Request-Id'])) {
