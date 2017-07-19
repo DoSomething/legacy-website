@@ -265,11 +265,17 @@ function _campaign_resource_index($ids, $staff_pick, $term_ids, $count, $random,
  *   - source (string).
  *   - transactionals (bool). Optional flag to disable sending transactional messages.
  *       Defaults to sending messages.
+ * @return mixed
  */
 function _campaign_resource_signup($nid, $values) {
+  // Include support for passing user ID as `northstar_id`.
   if (isset($values['northstar_id'])) {
-    $values['uid'] = dosomething_user_get_user_by_northstar_id($values['northstar_id'])->uid;
+    $values['uid'] = $values['northstar_id'];
+    unset($values['northstar_id']);
   }
+
+  // If we pass either a Northstar ID or Drupal UID to `uid`, convert it to a real UID.
+  $values['uid'] = dosomething_user_convert_to_legacy_id($values['northstar_id']);
 
   if (!isset($values['uid'])) {
     return services_error('Cannot create signup without a `northstar_id` or `uid`.');
