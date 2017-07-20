@@ -212,7 +212,7 @@ function _kudos_resource_create($reportback_item_id, $term_ids, $northstar_id) {
     // Otherwise, return Phoenix-style success!
     return [
       [
-        'kid' => $response['data']['post_id'],
+        'kid' => $response['data']['post_id'] . '|' . $northstar_id,
         'fid' => $reportback_item_id,
         'uid' => $northstar_id,
         'tid' => $term_ids[0],
@@ -241,11 +241,23 @@ function _kudos_resource_delete($kudos_id) {
   global $user;
 
   if (variable_get('rogue_collection', FALSE)) {
-    $northstar_user = dosomething_northstar_get_user($user->uid, 'drupal_id');
+    list($post_id, $northstar_id) = explode($kudos_id, '|');
+
+    // Make sure authenticated user is an admin or the kudo owner.
+    $api_user_is_an_admin = user_access('view any reportback', $user);
+    $logged_in_user_matches_given_id = dosomething_user_get_northstar_id($user->uid) === $northstar_id;
+    if (!$api_user_is_an_admin && !$logged_in_user_matches_given_id) {
+        return [
+          'error' => [
+            'message' => 'There was an error deleting the specified kudos record.',
+          ],
+        ];
+      }
+    }
 
     $data = [
-      'northstar_id' => $northstar_user->id,
-      'post_id' => $kudos_id,
+      'northstar_id' => $northstar_id,
+      'post_id' => $post_id,
     ];
 
     $response = dosomething_rogue_client()->postReaction($data);
