@@ -384,6 +384,17 @@ function _campaign_resource_reportback($nid, $values) {
   if (variable_get('rogue_collection', FALSE) && ! isset($headers['X-Request-Id'])) {
     $rogue_reportback = dosomething_rogue_send_reportback_to_rogue($values, $user);
 
+    // Get signup associated with the post.
+    $rid = $rogue_reportback['data']['signup_id'];
+    $rogue_signup = dosomething_rogue_get_activity(['filter' => ['id' => $rid]]);
+
+    // Send an email if it is the first post.
+    if (dosomething_rogue_get_post_count($rogue_signup['data'][0]) === 1) {
+      if (module_exists('dosomething_mbp')) {
+        dosomething_reportback_rogue_mbp_request($rogue_reportback['data'], $rogue_signup['data'][0]);
+      }
+    }
+
     return isset($rogue_reportback['data']['id']) ? $rogue_reportback['data']['id'] : FALSE;
   }
   else {
