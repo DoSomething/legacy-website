@@ -275,7 +275,7 @@ function _campaign_resource_signup($nid, $values) {
   }
 
   // If we pass either a Northstar ID or Drupal UID to `uid`, convert it to a real UID.
-  $values['uid'] = dosomething_user_convert_to_legacy_id($values['northstar_id']);
+  $values['uid'] = dosomething_user_convert_to_legacy_id($values['uid']);
 
   if (!isset($values['uid'])) {
     return services_error('Cannot create signup without a `northstar_id` or `uid`.');
