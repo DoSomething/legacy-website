@@ -1,5 +1,7 @@
 <?php
 
+use Carbon\Carbon;
+
 function _kudos_resource_definition() {
   $kudos_resource = [];
   $kudos_resource['kudos'] = [
@@ -192,26 +194,31 @@ function _kudos_resource_create($reportback_item_id, $term_ids, $northstar_id) {
 
   if (variable_get('rogue_collection', FALSE)) {
     if (!isset($northstar_id)) {
-      $northstar_user = dosomething_northstar_get_user($user->uid, 'drupal_id');
+      $northstar_id = dosomething_user_get_northstar_id($user->uid);
     }
 
     $data = [
-      'northstar_id' => $northstar_id ? $northstar_id : $northstar_user->id,
+      'northstar_id' => $northstar_id,
       'post_id' => $reportback_item_id,
     ];
 
     $response = dosomething_rogue_client()->postReaction($data);
 
-    if ($response['meta']['action'] === 'liked') {
-      return [
-        [
-          'kid' => $response['data']['post_id'],
-        ]
-      ];
+    // If Rogue doesn't acknowledge that we liked a post, return Phoenix-style failure.
+    if ($response['meta']['action'] !== 'liked') {
+      return [false];
     }
-    else {
-      return;
-    }
+
+    // Otherwise, return Phoenix-style success!
+    return [
+      [
+        'kid' => $response['data']['post_id'],
+        'fid' => $reportback_item_id,
+        'uid' => $northstar_id,
+        'tid' => $term_ids[0],
+        'created' => (new Carbon($response['data']['created_at']))->timestamp,
+      ]
+    ];
   }
 
   $parameters = [
@@ -228,7 +235,7 @@ function _kudos_resource_create($reportback_item_id, $term_ids, $northstar_id) {
  *
  * @param $kudos_id
  *
- * @return string
+ * @return array
  */
 function _kudos_resource_delete($kudos_id) {
   global $user;
@@ -243,9 +250,21 @@ function _kudos_resource_delete($kudos_id) {
 
     $response = dosomething_rogue_client()->postReaction($data);
 
-    if ($response['meta']['action'] === 'unliked') {
-      return;
+    // If Rogue doesn't acknowledge that we unliked a post, return Phoenix-style failure.
+    if ($response['meta']['action'] !== 'unliked') {
+      return [
+        'error' => [
+          'message' => 'There was an error deleting the specified kudos record.',
+        ],
+      ];
     }
+
+    // Otherwise, return Phoenix-style success!
+    return [
+      'success' => [
+        'message' => 'Kudos record successfully deleted.',
+      ],
+    ];
   }
 
   return (new KudosTransformer)->delete($kudos_id);
