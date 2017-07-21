@@ -519,7 +519,38 @@ function dosomething_campaign_get_campaigns_doing($uid = NULL) {
   }
 
   // Get all signups.
-  $signup_nids = dosomething_signup_get_signup_nids_by_uid($uid);
+  if (variable_get('rogue_collection', FALSE)) {
+    $northstar_id = dosomething_user_get_northstar_id($uid);
+
+    $rogue_signups = dosomething_rogue_get_activity([
+      'filter' => [
+        'northstar_id' => $northstar_id,
+      ],
+      'limit' => 300,
+    ]);
+
+    // Filter through response and put all signup ids with no posts in an array
+    $signup_nids = [];
+
+    foreach ($rogue_signups['data'] as $signup) {
+      if ($signup['posts']['data']) {
+        continue;
+      } else {
+        array_push($signup_nids, $signup['campaign_id']);
+      }
+    }
+  }
+  else {
+    $signup_nids = dosomething_signup_get_signup_nids_by_uid($uid);
+
+    // Remove signups that have already been reported back for.
+    foreach ($signup_nids as $delta => $nid) {
+      if (dosomething_reportback_exists($nid, NULL, $uid)) {
+        unset($signup_nids[$delta]);
+      }
+    }
+  }
+
   if (empty($signup_nids)) {
     return [];
   }
@@ -527,11 +558,6 @@ function dosomething_campaign_get_campaigns_doing($uid = NULL) {
   $doing = [];
 
   foreach ($signup_nids as $delta => $nid) {
-    // If they reported back, they already did it.
-    if (dosomething_reportback_exists($nid, NULL, $uid)) {
-      continue;
-    }
-
     $node = node_load($nid);
 
     // If the campaign is closed, they're not doing it anymore.
