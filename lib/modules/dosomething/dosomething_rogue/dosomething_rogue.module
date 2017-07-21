@@ -200,7 +200,7 @@ function dosomething_rogue_format_signup($signup) {
   ];
 
   // REPORTBACK IS CONDITIONAL
-  if (array_key_exists('posts', $signup)) {
+  if (array_key_exists('posts', $signup) && !empty($signup['posts']['data'])) {
     $reportback_data = [
         'id' => $signup['signup_id'],
         'created_at' => strtotime($signup['created_at']),
@@ -254,6 +254,11 @@ function dosomething_rogue_format_signup($signup) {
 
     // Add reportback data to the response for this signup
     $signup_data['reportback'] = $reportback_data;
+
+    return $signup_data;
+  } else {
+    // Add reportback data to the response for this signup
+    $signup_data['reportback'] = null;
 
     return $signup_data;
   }
