@@ -254,14 +254,11 @@ function dosomething_rogue_format_signup($signup) {
 
     // Add reportback data to the response for this signup
     $signup_data['reportback'] = $reportback_data;
-
-    return $signup_data;
   } else {
-    // Add reportback data to the response for this signup
     $signup_data['reportback'] = null;
-
-    return $signup_data;
   }
+
+  return $signup_data;
 }
 
 /**
