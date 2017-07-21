@@ -1150,18 +1150,48 @@ function dosomething_reportback_get_reportbacks($uid = NULL) {
   if (variable_get('rogue_collection', FALSE)) {
     $northstar_id = dosomething_user_get_northstar_id($uid);
 
-    $reportback_ids = [];
+    $reportback_items = [];
 
     $response = dosomething_rogue_get_reportback_items([
       'as_user' => $northstar_id,
       'limit' => 6
     ]);
 
-    foreach ($response['data'] as $reportback) {
-      array_push($reportback_ids, $reportback['id']);
+    foreach ($response['data'] as $delta => $reportback) {
+      $reportback = (object) $reportback;
+
+      $total_kudos = $reportback->kudos['data'][0]['term']['total'];
+      $liked_by_current_user = $reportback->kudos['data'][0]['current_user']['reacted'] ? TRUE : FALSE;
+
+      $campaign = node_load($reportback->campaign['id']);
+
+      $impact = $reportback->reportback['quantity'] . ' ' . dosomething_helpers_extract_field_data($campaign->field_reportback_noun) . ' ' . dosomething_helpers_extract_field_data($campaign->field_reportback_verb);
+
+      // $img = paraneue_dosomething_get_themed_reportback_item($reportback, TRUE);
+
+      $args = [
+       'path' => $reportback->media['uri'],
+      ];
+
+      $img = theme_image($args);
+      // $img = paraneue_dosomething_get_gallery_item($reportback, 'photo', FALSE);
+      $url = dosomething_global_url('node/' . $reportback->campaign['id']);
+
+      $content = [
+        'url' => $url,
+        'title' => htmlspecialchars_decode($campaign->title, ENT_QUOTES),
+        'image' => $img,
+        'description' => $impact,
+      ];
+
+      if (! dosomething_kudos_disable_reactions($campaign->nid)) {
+        $content['kudos'] = dosomething_kudos_get_kudos_data_for_fid($reportback->id, $total_kudos, $liked_by_current_user);
+      }
+
+      $reportback_items[$delta] = paraneue_dosomething_get_gallery_item($content, 'figure', TRUE, ['-left', '-medium']);
     }
 
-    return $reportback_ids;
+    return $reportback_items;
   }
   else {
     return db_select('dosomething_reportback', 'rb')
