@@ -1144,12 +1144,31 @@ function dosomething_reportback_get_reportbacks($uid = NULL) {
     global $user;
     $uid = $user->uid;
   }
-  return db_select('dosomething_reportback', 'rb')
-    ->fields('rb', array('rbid'))
-    ->condition('uid', $uid)
-    ->orderBy('created', 'DESC')
-    ->execute()
-    ->fetchCol(0);
+
+  if (variable_get('rogue_collection', FALSE)) {
+    $northstar_id = dosomething_user_get_northstar_id($uid);
+
+    $reportback_ids = [];
+
+    $response = dosomething_rogue_get_reportback_items([
+      'as_user' => $northstar_id,
+      'limit' => 6
+    ]);
+
+    foreach ($response['data'] as $reportback) {
+      array_push($reportback_ids, $reportback['id']);
+    }
+
+    return $reportback_ids;
+  }
+  else {
+    return db_select('dosomething_reportback', 'rb')
+      ->fields('rb', array('rbid'))
+      ->condition('uid', $uid)
+      ->orderBy('created', 'DESC')
+      ->execute()
+      ->fetchCol(0);
+  }
 }
 
 
