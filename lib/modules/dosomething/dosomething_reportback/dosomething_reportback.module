@@ -1145,6 +1145,8 @@ function dosomething_reportback_get_reportbacks($uid = NULL) {
     $uid = $user->uid;
   }
 
+  // If Rogue is on, return array of themed reportbacks as done in https://github.com/DoSomething/phoenix/blob/76164b2006fb5a266e8166688472742556eae33e/lib/themes/dosomething/paraneue_dosomething/includes/preprocess/preprocess_user.inc#L32-L51 for user profile page.
+  // This will be okay because this function is only called in dosomething_user.theme.inc for user profile page.
   if (variable_get('rogue_collection', FALSE)) {
     $northstar_id = dosomething_user_get_northstar_id($uid);
 

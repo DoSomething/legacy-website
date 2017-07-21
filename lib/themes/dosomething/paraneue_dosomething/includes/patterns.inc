@@ -61,6 +61,7 @@ function paraneue_dosomething_get_gallery($content, $layout = 'triad', $classes_
   if (empty($content)) {
     return '';
   }
+
   $items = array();
   foreach ($content as $delta => $item) {
     $items[$delta]['content'] = $item;

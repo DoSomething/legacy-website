@@ -27,6 +27,7 @@ function paraneue_dosomething_preprocess_user_profile(&$vars) {
 
   // Get an array of reportbacks.
   $reportbacks = $vars['reportbacks'];
+
   if (!empty($reportbacks)) {
     // Theme each reportback and create an array.
     foreach ($reportbacks as $delta => $rbid) {
