@@ -367,6 +367,7 @@ function paraneue_dosomething_get_themed_reportback_item($data, $rogue_rb_item =
 
   if ($data->id && !dosomething_kudos_disable_reactions($data->campaign->id)) {
       if ($rogue_rb_item) {
+
         $liked_by_current_user = $data->kudos['data'][0]['current_user']['reacted'] ? true : false;
 
         // Let the front end know that Rogue is powering the gallery.

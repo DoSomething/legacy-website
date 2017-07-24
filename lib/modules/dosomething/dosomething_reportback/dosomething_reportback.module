@@ -1154,7 +1154,6 @@ function dosomething_reportback_get_reportbacks($uid = NULL) {
 
     $response = dosomething_rogue_get_reportback_items([
       'as_user' => $northstar_id,
-      'limit' => 6
     ]);
 
     foreach ($response['data'] as $delta => $reportback) {
