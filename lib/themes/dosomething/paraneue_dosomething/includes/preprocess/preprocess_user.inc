@@ -25,38 +25,46 @@ function paraneue_dosomething_preprocess_user_profile(&$vars) {
     $vars['doing_gallery'] = paraneue_dosomething_get_gallery($doing_items, 'triad', array(), TRUE);
   }
 
-  // Get an array of reportbacks.
-  $reportbacks = $vars['reportbacks'];
-  if (!empty($reportbacks)) {
-    // Theme each reportback and create an array.
-    foreach ($reportbacks as $delta => $rbid) {
-      $reportback = reportback_load((int) $rbid);
-      $impact = $reportback->quantity . ' ' . $reportback->noun . ' ' . $reportback->verb;
-      $fid = end($reportback->fids);
-      if (user_access('view any reportback')) {
-        // Link to the full reportback entity view.
-        $impact = l($impact, 'admin/reportback/' . $rbid);
-      }
-      else {
-        $impact = l($impact, 'reportback/' . $rbid);
-      }
-      $img = dosomething_image_get_themed_image_by_fid($fid, '300x300');
-      // Media gallery template expects a full URL.
-      $url = dosomething_global_url('node/' . $reportback->nid);
-      $content = array(
-        'url' => $url,
-        'title' => htmlspecialchars_decode($reportback->node_title, ENT_QUOTES),
-        'image' => $img,
-        'description' => $impact,
-      );
-
-      if (! dosomething_kudos_disable_reactions($reportback->nid)) {
-        $content['kudos'] = dosomething_kudos_get_kudos_data_for_fid($fid);
-      }
-
-      $reportback_items[$delta] = paraneue_dosomething_get_gallery_item($content, 'figure', TRUE, ['-left', '-medium']);
-    }
-    // Theme a gallery of reportbacks, and give the user profile template access to it.
-    $vars['reportback_gallery'] = paraneue_dosomething_get_gallery($reportback_items, 'duo', [], TRUE);
+  if (variable_get('rogue_collection', FALSE)) {
+    $reportback_items = $vars['reportbacks'];
   }
+  else {
+    // Get an array of reportbacks.
+    $reportbacks = $vars['reportbacks'];
+
+    if (!empty($reportbacks)) {
+      // Theme each reportback and create an array.
+      foreach ($reportbacks as $delta => $rbid) {
+        $reportback = reportback_load((int) $rbid);
+        $impact = $reportback->quantity . ' ' . $reportback->noun . ' ' . $reportback->verb;
+        $fid = end($reportback->fids);
+        if (user_access('view any reportback')) {
+          // Link to the full reportback entity view.
+          $impact = l($impact, 'admin/reportback/' . $rbid);
+        }
+        else {
+          $impact = l($impact, 'reportback/' . $rbid);
+        }
+
+        $img = dosomething_image_get_themed_image_by_fid($fid, '300x300');
+
+        // Media gallery template expects a full URL.
+        $url = dosomething_global_url('node/' . $reportback->nid);
+        $content = array(
+          'url' => $url,
+          'title' => htmlspecialchars_decode($reportback->node_title, ENT_QUOTES),
+          'image' => $img,
+          'description' => $impact,
+        );
+
+        if (! dosomething_kudos_disable_reactions($reportback->nid)) {
+          $content['kudos'] = dosomething_kudos_get_kudos_data_for_fid($fid);
+        }
+
+        $reportback_items[$delta] = paraneue_dosomething_get_gallery_item($content, 'figure', TRUE, ['-left', '-medium']);
+      }
+    }
+  }
+  // Theme a gallery of reportbacks, and give the user profile template access to it.
+  $vars['reportback_gallery'] = paraneue_dosomething_get_gallery($reportback_items, 'duo', [], TRUE);
 }
