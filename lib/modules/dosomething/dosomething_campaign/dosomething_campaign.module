@@ -526,7 +526,6 @@ function dosomething_campaign_get_campaigns_doing($uid = NULL) {
       'filter' => [
         'northstar_id' => $northstar_id,
       ],
-      'limit' => 300,
     ]);
 
     // Filter through response and put all signup ids with no posts in an array
