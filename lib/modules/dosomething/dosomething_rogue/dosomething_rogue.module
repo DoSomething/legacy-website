@@ -435,7 +435,7 @@ function dosomething_rogue_transform_rogue_status_to_phoenix_status($status) {
     return 'pending';
   }
   else {
-    return 'rejected';
+    return 'excluded';
   }
 }
 
