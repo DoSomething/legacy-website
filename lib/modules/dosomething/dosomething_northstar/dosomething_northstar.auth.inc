@@ -56,7 +56,6 @@ function dosomething_northstar_openid_authorize() {
       'callToAction' => $campaign->call_to_action,
       'coverImage' => $campaign->image_cover['src'],
     ];
-    print_r($url_options['query']);die();
   }
 
   drupal_goto($authorize_url, $url_options);
