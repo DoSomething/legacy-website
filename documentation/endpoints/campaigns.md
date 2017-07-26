@@ -268,8 +268,8 @@ POST https://www.dosomething.org/api/v1/campaigns/[nid]/signup
 
 Must be authenticated to post.
 
-  - **uid**: (int).
-    The user uid reporting back.  If not included, the uid of the current user will be used.
+  - **northstar_id**: (string).
+    The Northstar ID of the user to create a signup for.
   - **source**: (string) required.
     The signup source, e.g. `iphone`, `android`
 
@@ -281,7 +281,7 @@ curl https://www.dosomething.org/api/v1/campaigns/23/signup -X POST
 --header "X-CSRF-Token: G136HF5yB5ZZawvrsOfU4gw0poUOaQygPrsJlaFakMU"
 --header "Cookie:SESSd57f2aef87e6d4352ce5db4659184fa7=mKI5_yfoXYBz3r4o95utui4fwBV_lUO1JNN1nEVsPRg"
 -d '{
-  "uid": 1702889,
+  "northstar_id": "5543dfd6469c64ec7d8b46b3",
   "source": "sms"
 }'
 ````
@@ -304,8 +304,8 @@ POST https://www.dosomething.org/api/v1/campaigns/[nid]/reportback
 
 Must be authenticated to post.
 
-  - **uid**: (int).
-    The user uid reporting back.  If not included, the uid of the current user will be used.
+  - **northstar_id**: (string).
+    The Northstar ID of the user to create a reportback for.
   - **nid**: (int) required.
     The node nid the user is reporting back to.
   - **quantity**: (int) required.
@@ -336,7 +336,7 @@ curl https://www.dosomething.org/api/v1/campaigns/23/reportback -X POST
 --header "Cookie:SESSd57f2aef87e6d4352ce5db4659184fa7=mKI5_yfoXYBz3r4o95utui4fwBV_lUO1JNN1nEVsPRg"
 -d '{
   "quantity": 30,
-  "uid": 1702889,
+  "northstar_id": "5543dfd6469c64ec7d8b46b3",
   "file_url": "http://voldemortwearsarmani.files.wordpress.com/2013/01/batman-chronicles.jpg",
   "why_participated": "Test from API",
   "caption": "API Testing!",
