@@ -9,10 +9,10 @@ Returns campaign activity, including signups and reportbacks.
 ### Optional query parameters
 
 - **user** _(string|csv)_
- - Comma separated list of user ids to get signups
- - eg: `/signups?user=98,38`
+ - Comma separated list of user IDs to get signups for.
+ - eg: `/signups?user=5543dfd6469c64ec7d8b46b3,5554eac1a59dbf117e8b4567`
 - **campaigns** _(string|csv)_
- - Comma separated list of campaign ids to get signups
+ - Comma separated list of campaign IDs to get signups for.
  - eg: `/signups?campaigns=362,1172`
 - **count** _(integer)_
  - The number of signups to retrieve
