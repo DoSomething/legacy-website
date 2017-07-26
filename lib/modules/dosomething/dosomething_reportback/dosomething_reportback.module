@@ -1153,7 +1153,9 @@ function dosomething_reportback_get_reportbacks($uid = NULL) {
     $reportback_items = [];
 
     $response = dosomething_rogue_get_reportback_items([
-      'as_user' => $northstar_id,
+      'filter' => [
+        'northstar_id' => $northstar_id,
+      ],
     ]);
 
     foreach ($response['data'] as $delta => $reportback) {
