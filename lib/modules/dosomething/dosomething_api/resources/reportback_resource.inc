@@ -180,6 +180,7 @@ function _reportback_resource_index($ids, $campaigns, $status, $count, $random, 
     $response = dosomething_rogue_client()->getAllReportbacks([
       'filter' => [
         'campaign_id' => $campaigns,
+        'status' => 'accepted',
       ],
       'as_user' => $as_user,
       'limit' => $count,
