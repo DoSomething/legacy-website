@@ -164,6 +164,7 @@ function _reportback_item_resource_index($campaigns, $exclude, $status, $count, 
       'filter' => [
         'campaign_id' => $campaigns,
         'exclude' => $exclude,
+        'status' => 'accepted',
       ],
       // If `?as_user` provided with UID or Northstar ID, use that. Otherwise, send logged-in user's NS ID.
       'as_user' => dosomething_user_convert_to_northstar_id($as_user ? $as_user : $user->uid),
