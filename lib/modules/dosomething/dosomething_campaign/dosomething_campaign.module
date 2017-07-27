@@ -804,9 +804,8 @@ function dosomething_campaign_add_signup_data_form_vars(&$node, $langcode) {
     $node->required_signup_data_form = 1;
     // If form is configured to include a skip button:
     if ($config['required_allow_skip']) {
-      // Include the skip form:
+    // Include the skip form:
       $node->skippable_signup_data_form = 1;
-      $node->content['skip_signup_data_form'] = drupal_get_form('dosomething_signup_user_skip_signup_data_form', $signup);
     }
   }
 }

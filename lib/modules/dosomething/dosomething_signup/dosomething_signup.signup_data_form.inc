@@ -85,7 +85,7 @@ function dosomething_signup_node_signup_data_form($form, &$form_state, $node) {
     '#type' => 'checkbox',
     '#title' => t('Allow skip'),
     '#default_value' => $values['required_allow_skip'],
-    '#description' => t('If checked, the form modal will provide a Skip button when the user is first prompted.'),
+    '#description' => t('If checked, the form modal will provide a Skip (X) button when the user is first prompted.'),
     // Should only be visible if form is required.
     '#states' => array(
       'visible' => array(
@@ -122,12 +122,6 @@ function dosomething_signup_node_signup_data_form($form, &$form_state, $node) {
     '#title' => t('Submit Button Text'),
     '#default_value' => $values['submit_text'],
     '#description' => t('This will be used as the label of the submit button.'),
-  );
-  $form[$fieldset]['config'][$prefix . 'skip_text'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Skip button text'),
-    '#default_value' => $values['skip_text'],
-    '#description' => t('This will be used as the lable of the skip button.'),
   );
   $form[$fieldset]['config'][$prefix . 'form_header'] = array(
     '#type' => 'textfield',
@@ -259,7 +253,6 @@ function dosomething_signup_node_signup_data_form_submit(&$form, &$form_state) {
         'custom_social_share_signup' => $values[$prefix . 'custom_social_share_signup'],
         'link_text' => $values[$prefix . 'link_text'],
         'submit_text' => $values[$prefix . 'submit_text'],
-        'skip_text' => $values[$prefix . 'skip_text'],
         'form_header' => $values[$prefix . 'form_header'],
         'form_copy' => $values[$prefix . 'form_copy'],
         'form_submitted_copy' => $values[$prefix . 'form_submitted_copy'],
@@ -584,39 +577,6 @@ function dosomething_signup_user_signup_data_form_validate_school($form, &$form_
     // No form submit for you.
     form_set_error('school_id', t("Please select a school."));
   }
-}
-
-/**
- * Form constructor for a user skip signup data form.
- *
- * @param object $signup
- *   The signup entity to save additional data to.
- */
-function dosomething_signup_user_skip_signup_data_form($form, &$form_state, $signup) {
-  $nid = isset($signup->nid) ? $signup->nid : $signup['campaign_id'];
-  $sid = isset($signup->sid) ? $signup->sid : $signup['signup_id'];
-  $run_nid = isset($signup->run_nid) ? $signup->run_nid : $signup['campaign_run_id'];
-
-  $config = dosomething_signup_get_signup_data_form_info($nid);
-  $skip_label = ($config['skip_text']) ? t($config['skip_text']) : t('Skip');
-
-  $form['#attributes']['class'] = ['modal__block', 'form-actions'];
-  $form['sid'] = [
-    '#type' => 'hidden',
-    '#value' => $sid,
-    '#access' => FALSE,
-  ];
-  $form['submit'] = [
-    '#type' => 'submit',
-    '#value' => $skip_label,
-    '#attributes' => [
-      'class' => [
-        'button',
-        '-tertiary',
-      ],
-    ],
-  ];
-  return $form;
 }
 
 /*
