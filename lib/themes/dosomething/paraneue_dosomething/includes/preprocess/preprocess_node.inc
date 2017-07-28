@@ -199,7 +199,7 @@ function paraneue_dosomething_preprocess_node_campaign(&$vars) {
 
     // Add skip button if setting is enabled
     if (isset($vars['node']->skippable_signup_data_form)) {
-      $closeButton = 'X';
+      $closeButton = '×';
     }
 
     $js = 'jQuery(document).ready(function() { DSModal.open( jQuery("#' . $id . '"), {animated: false, closeButton: "' . $closeButton . '"}); });';
