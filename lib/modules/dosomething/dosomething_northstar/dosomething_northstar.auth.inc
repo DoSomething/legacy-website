@@ -40,7 +40,8 @@ function dosomething_northstar_openid_authorize() {
     $url_options['query'] = ['mode' => $_GET['mode']];
   }
 
-  if(isset($_GET['action']) && isset($_GET['node'])) {
+  if (isset($_GET['action']) && isset($_GET['node'])) {
+    $campaign = dosomething_campaign_load(node_load($_GET['node']));
     $params = [];
 
     if (isset($_GET['affiliate_messaging_opt_in'])) {
@@ -49,8 +50,12 @@ function dosomething_northstar_openid_authorize() {
 
     dosomething_northstar_set_authorization_action($_GET['action'], $_GET['node'], $params);
 
-    // @TODO: Rename parameter on the Northstar side to 'title'.
-    $url_options['query'] = ['destination' => $_GET['title']];
+    $url_options['query'] = [
+      'destination' => $campaign->title,
+      'title' => $campaign->title,
+      'callToAction' => $campaign->call_to_action,
+      'coverImage' => $campaign->image_cover['src'],
+    ];
   }
 
   drupal_goto($authorize_url, $url_options);
