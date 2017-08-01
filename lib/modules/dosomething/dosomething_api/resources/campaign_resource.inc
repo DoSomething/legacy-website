@@ -321,18 +321,27 @@ function _campaign_resource_reportback($nid, $values) {
     return dosomething_helpers_basic_http_response(401, 'Unauthorized.');
   }
 
-  if (empty($values['uid'])) {
-    return dosomething_helpers_basic_http_response(422, 'Missing uid query parameter specifying a user id.');
+  // Include support for passing user ID as `northstar_id`.
+  if (isset($values['northstar_id'])) {
+    $values['uid'] = $values['northstar_id'];
+    unset($values['northstar_id']);
   }
 
-  $user = user_load(dosomething_user_convert_to_legacy_id($values['uid']));
+  // If we pass either a Northstar ID or Drupal UID to `uid`, convert it to a real UID.
+  $uid = dosomething_user_convert_to_legacy_id($values['uid']);
+
+  if (empty($uid)) {
+    return services_error('Cannot create reportback without a `northstar_id` or `uid`.');
+  }
+
+  $user = user_load($uid);
 
   if (!$user) {
     return dosomething_helpers_basic_http_response(404, 'The specified user was not found.');
   }
 
   // Set uid to member user submitting reportback.
-  $values['uid'] = $uid = $user->uid;
+  $values['uid'] = $uid;
 
   // @todo: Return error if signup doesn't exist.
 
