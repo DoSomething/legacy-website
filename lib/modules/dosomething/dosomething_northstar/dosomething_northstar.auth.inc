@@ -55,6 +55,7 @@ function dosomething_northstar_openid_authorize() {
       'title' => $campaign->title,
       'callToAction' => $campaign->call_to_action,
       'coverPhoto' => $campaign->image_cover['url']['landscape']['raw'],
+      'coverImage' => $campaign->image_cover['url']['landscape']['raw'],
     ];
   }
 
