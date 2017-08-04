@@ -86,7 +86,7 @@ foreach ($promoted_posts_in_rogue as $promoted) {
 		if ($response) {
 			echo 'Tagged Rogue post ' . $promoted->rogue_post_id . ' as Good Photo';
 
-			// @TODO: update sent variable
+			variable_set('dosomething_rogue_last_post_promoted', $promoted->rogue_post_id);
 		}
 		else {
 			echo '***FAILED TO TAG ROGUE POST '. $promoted->rogue_post_id . ' as Good Photo***';
@@ -95,13 +95,9 @@ foreach ($promoted_posts_in_rogue as $promoted) {
     catch (GuzzleHttp\Exception\ServerException $e) {
 		// These aren't yet caught by Gateway
 		echo '***SERVER EXCEPTION ON ROGUE POST '. $promoted->rogue_post_id . ' as Good Photo***';
-
-		// @TODO: update sent variable
     }
     catch (DoSomething\Gateway\Exceptions\ApiException $e) {
 		echo '***API EXCEPTION ON ROGUE POST '. $promoted->rogue_post_id . ' as Good Photo***';
-
-		// @TODO: update sent variable
     }
 
 }
