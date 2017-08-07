@@ -107,4 +107,31 @@ class Rogue extends RestApiClient {
 
     return $response;
   }
+
+  /**
+   * Send a GET request to return all posts matching a given
+   * query from Rogue.
+   *
+   * @param array $inputs
+   * @return array - JSON response
+   */
+  public function getPosts($inputs = [])
+  {
+    $response = $this->get('v2/posts', $inputs);
+
+    return $response;
+  }
+
+  /**
+   * Send a POST request to add a the given tag to the given post in Rogue
+   *
+   * @param array $data
+   * @return array - JSON response
+   */
+  public function postTag($data)
+  {
+    $response = $this->post('v2/tags', $data);
+
+    return $response;
+  }
 }
