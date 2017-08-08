@@ -27,17 +27,17 @@ else {
 										FROM dosomething_reportback_file f
 										JOIN dosomething_rogue_reportbacks r ON f.fid = r.fid
 										JOIN dosomething_reportback rb ON f.rbid = rb.rbid
-										WHERE f.status = \"promoted\"
+										WHERE f.status = 'promoted'
 										ORDER BY r.rogue_post_id");
 }
 
 // Get all the excluded posts to send
-if ($last_excluded) {
+if (isset($last_excluded)) {
 	$excluded_posts_in_rogue = db_query("SELECT r.rogue_post_id, rb.uid, rb.nid
 										FROM dosomething_reportback_file f
 										JOIN dosomething_rogue_reportbacks r ON f.fid = r.fid
 										JOIN dosomething_reportback rb ON f.rbid = rb.rbid
-										WHERE f.status = \"excluded\"
+										WHERE f.status = 'excluded'
 										AND r.rogue_post_id > $last_excluded
 										ORDER BY r.rogue_post_id");
 }
@@ -46,7 +46,7 @@ else {
 										FROM dosomething_reportback_file f
 										JOIN dosomething_rogue_reportbacks r ON f.fid = r.fid
 										JOIN dosomething_reportback rb ON f.rbid = rb.rbid
-										WHERE f.status = \"excluded\"
+										WHERE f.status = 'excluded'
 										ORDER BY r.rogue_post_id");
 }
 
@@ -191,3 +191,5 @@ foreach ($excluded_posts_in_rogue as $excluded) {
 		echo '***API EXCEPTION ON ROGUE POST '. $excluded->rogue_post_id . ' as Hide In Gallery***' . PHP_EOL;
     }
 }
+
+echo 'Nothing else to tag!' . PHP_EOL;
