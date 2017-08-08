@@ -210,7 +210,7 @@
             </div>
             <button role="submit" class="button">Submit</button>
           </form>
-          <button role="revealer" class="button -secondary">Show form</button>
+          <button role="revealer" class="button -secondary">Click to order</button>
         </div>
       <?php endif; ?>
 
