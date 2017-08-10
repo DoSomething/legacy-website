@@ -54,7 +54,7 @@
 
               <div class="figure__body">
                 <?php if (isset($rec['title'])): ?>
-                  <h3><?php print l($rec['title'], $rec['path_alias']); ?></h3>
+                  <h3><a href="/<?php print $rec['path_alias']; ?>"><?php print $rec['title']; ?></a></h3>
                 <?php endif; ?>
 
                 <?php if (isset($rec['call_to_action'])): ?>
