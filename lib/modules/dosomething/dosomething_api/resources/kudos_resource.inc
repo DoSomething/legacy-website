@@ -246,6 +246,7 @@ function _kudos_resource_delete($kudos_id) {
     // Make sure authenticated user is an admin or the kudo owner.
     $api_user_is_an_admin = user_access('view any reportback', $user);
     $logged_in_user_matches_given_id = dosomething_user_get_northstar_id($user->uid) === $northstar_id;
+
     if (!$api_user_is_an_admin && !$logged_in_user_matches_given_id) {
       return [
         'error' => [
