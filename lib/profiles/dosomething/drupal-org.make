@@ -74,7 +74,7 @@ projects[entityconnect][version] = "1.0-rc1"
 projects[entityconnect][subdir] = "contrib"
 
 ; Entity Reference
-projects[entityreference][version] = "1.1"
+projects[entityreference][version] = "1.5"
 projects[entityreference][subdir] = "contrib"
 
 ; Features
@@ -240,7 +240,7 @@ projects[view_unpublished][version] = "1.2"
 projects[view_unpublished][subdir] = "contrib"
 
 ; Views
-projects[views][version] = "3.16"
+projects[views][version] = "3.17"
 projects[views][subdir] = "contrib"
 
 ; Views Data Export
