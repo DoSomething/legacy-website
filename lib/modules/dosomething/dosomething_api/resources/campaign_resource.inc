@@ -261,7 +261,7 @@ function _campaign_resource_index($ids, $staff_pick, $term_ids, $count, $random,
  *   The Node nid to post the signup to.
  * @param array $values
  *   The signup data to post. Expected keys:
- *   - northstar_id: The user's Northstar ID uid (string).
+ *   - northstar_id: The user's Northstar ID (string).
  *   - source (string).
  *   - transactionals (bool). Optional flag to disable sending transactional messages.
  *       Defaults to sending messages.
@@ -303,7 +303,7 @@ function _campaign_resource_signup($nid, $values) {
  *   The Node nid to post the reportback to.
  * @param array $values
  *   The reportback data to post. Expected keys:
- *   - uid: The user uid (int).
+ *   - northstar_id: The user's Northstar ID (string).
  *   - file: Base64 encoded file string to save (required if using 'filename').
  *   - filename: The filename of the file provided as file (required if using 'file').
  *   - file_url: The URL of the reportback file to save (used if no 'file'/'filename' exist).
