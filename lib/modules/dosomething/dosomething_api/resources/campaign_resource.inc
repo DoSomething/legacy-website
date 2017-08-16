@@ -327,14 +327,14 @@ function _campaign_resource_reportback($nid, $values) {
     unset($values['northstar_id']);
   }
 
-  // If we pass either a Northstar ID or Drupal UID to `uid`, convert it to a real UID.
-  $uid = dosomething_user_convert_to_legacy_id($values['uid']);
+  // If a Drupal UID is passed to `uid`, convert it to the user's Northstar ID.
+  $uid = dosomething_user_convert_to_northstar_id($values['uid']);
 
   if (empty($uid)) {
     return services_error('Cannot create reportback without a `northstar_id` or `uid`.');
   }
 
-  $user = user_load($uid);
+  $user = dosomething_user_get_user_by_northstar_id($uid);
 
   if (!$user) {
     return dosomething_helpers_basic_http_response(404, 'The specified user was not found.');
