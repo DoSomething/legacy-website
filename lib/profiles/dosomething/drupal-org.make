@@ -74,7 +74,7 @@ projects[entityconnect][version] = "1.0-rc1"
 projects[entityconnect][subdir] = "contrib"
 
 ; Entity Reference
-projects[entityreference][version] = "1.1"
+projects[entityreference][version] = "1.5"
 projects[entityreference][subdir] = "contrib"
 
 ; Features
