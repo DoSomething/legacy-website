@@ -261,7 +261,7 @@ function _campaign_resource_index($ids, $staff_pick, $term_ids, $count, $random,
  *   The Node nid to post the signup to.
  * @param array $values
  *   The signup data to post. Expected keys:
- *   - uid: The user uid (int).  Optional, uses global $user if not set.
+ *   - northstar_id: The user's Northstar ID uid (string).
  *   - source (string).
  *   - transactionals (bool). Optional flag to disable sending transactional messages.
  *       Defaults to sending messages.
@@ -274,8 +274,8 @@ function _campaign_resource_signup($nid, $values) {
     unset($values['northstar_id']);
   }
 
-  // If we pass either a Northstar ID or Drupal UID to `uid`, convert it to a real UID.
-  $values['uid'] = dosomething_user_convert_to_legacy_id($values['uid']);
+  // If a Drupal UID is passed to `uid`, convert it to the user's Northstar ID.
+  $values['uid'] = dosomething_user_convert_to_northstar_id($values['uid']);
 
   if (!isset($values['uid'])) {
     return services_error('Cannot create signup without a `northstar_id` or `uid`.');

@@ -254,7 +254,6 @@ function dosomething_signup_get_query_source() {
  */
 function dosomething_signup_create($nid, $uid = NULL, $source = NULL, $timestamp = NULL, $transactionals = TRUE) {
   global $user;
-
   if (!isset($uid)) {
     $uid = $user->uid;
   }
@@ -266,7 +265,6 @@ function dosomething_signup_create($nid, $uid = NULL, $source = NULL, $timestamp
   $campaign_node = node_load($nid);
   $run = dosomething_helpers_get_current_campaign_run_for_user($nid, $user, $campaign);
   $account = user_load($uid);
-
   $values = [
     'nid' => $nid,
     'uid' => $uid,
