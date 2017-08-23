@@ -203,16 +203,18 @@ function _signup_resource_index($user, $users, $campaigns, $count, $page, $compe
     $user = implode(',', $user);
     $parameters['user'] = $user;
 
-    $rogue_response = dosomething_rogue_get_activity([
-      'filter' => [
+    // Transform Phoenix Ashes query string into equivalent
+    // query for Rogue's `api/v2/activity` endpoint:
+    $rogue_response = dosomething_rogue_get_activity(array_filter([
+      'filter' => array_filter([
         'campaign_id' => data_get($parameters, 'campaigns'),
         'campaign_run_id' => data_get($parameters, 'runs'),
         'northstar_id' => data_get($parameters, 'user'),
         'id' => data_get($parameters, 'id'),
-      ],
+      ]),
       'limit' => data_get($parameters, 'count'),
       'page' => data_get($parameters, 'page'),
-    ]);
+    ]));
 
     return json_decode(dosomething_rogue_format_activity($rogue_response));
   }
