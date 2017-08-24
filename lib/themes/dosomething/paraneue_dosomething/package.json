@@ -18,7 +18,7 @@
     "extends": "@dosomething/eslint-config"
   },
   "dependencies": {
-    "@dosomething/analytics": "^1.0.0",
+    "@dosomething/analytics": "^2.1.1",
     "@dosomething/forge": "~6.7.10",
     "dosomething-modal": "0.3.3",
     "dosomething-validation": "~0.2.4",
