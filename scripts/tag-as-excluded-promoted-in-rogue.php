@@ -66,7 +66,6 @@ foreach ($promoted_posts_in_rogue as $promoted) {
 	    // Grab all posts for the given user for the given campaign from Rogue so we can check for existing tags
 	    $posts = $client->getPosts($params);
 
-
 	    // Grab the particular post we are looking for from the response
 	    $rogue_post = null;
 	    foreach ($posts['data'] as $post) {
@@ -82,7 +81,7 @@ foreach ($promoted_posts_in_rogue as $promoted) {
 	    }
 
 	    // If the post is already tagged good-photo in Rogue, skip it
-	    if (in_array('good-photo', $rogue_post['tagged'])) {
+	    if (in_array('good-photo', $rogue_post['tags'])) {
 			echo 'Post ' . $promoted->rogue_post_id . ' already tagged good-photo in Rogue' . PHP_EOL;
 
 			// We can say that this post is done because it is already marked
@@ -152,7 +151,7 @@ foreach ($excluded_posts_in_rogue as $excluded) {
 	    }
 
 	    // If the post is already tagged hide-in-gallery in Rogue, skip it
-	    if (in_array('hide-in-gallery', $rogue_post['tagged'])) {
+	    if (in_array('hide-in-gallery', $rogue_post['tags'])) {
 			echo 'Post ' . $excluded->rogue_post_id . ' already tagged hide-in-gallery in Rogue' . PHP_EOL;
 
 			// We can say that this post is done because it is already marked
