@@ -1,58 +1,11 @@
-Vagrant.configure("2") do |config|
+# The absolute path to the root directory of the project. Both Drupal VM and
+# the config file need to be contained within this path.
+ENV['DRUPALVM_PROJECT_ROOT'] = "#{__dir__}"
+# The relative path from the project root to the config directory where you
+# placed your config.yml file.
+ENV['DRUPALVM_CONFIG_DIR'] = "env"
+# The relative path from the project root to the directory where Drupal VM is located.
+ENV['DRUPALVM_DIR'] = "vendor/geerlingguy/drupal-vm"
 
-  ## Choose your base box
-  config.vm.box = "dosomething/phoenix"
-
-  config.vm.box_version = "2.0.0.beta1"
-
-  config.vm.provider "virtualbox" do |v|
-    v.customize ["modifyvm", :id, "--memory", 3072]
-    # Fixes slow DNS on virtual Ubuntu 14.04.
-    v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
-  end
-
-  # Use custom created user to manage vagrant.
-  config.ssh.username = 'dosomething'
-
-  # Since authorized keys were prepopulated, vagrant needs a path to your key.
-  config.ssh.private_key_path = '~/.ssh/id_rsa'
-
-  # SSH Agent forwarding
-  config.ssh.forward_agent = true
-
-  # Mount shared folders
-  # NFS
-  config.vm.network :private_network, ip: "10.11.12.13"
-  config.vm.synced_folder ".", "/var/www/dev.dosomething.org", type: "nfs"
-
-  # Allow `npm link` for Neue
-  if File.exists?("/usr/local/lib/node_modules/@dosomething/forge")
-    config.vm.synced_folder "/usr/local/lib/node_modules/@dosomething/forge",
-      "/usr/local/lib/node_modules/@dosomething/forge",
-      owner: "www-data", group: "www-data"
-  end
-
-  # Http and https.
-  config.vm.network :forwarded_port, guest: 80, host: 8888
-  config.vm.network :forwarded_port, guest: 443, host: 8889
-
-  config.vm.host_name = "dev.dosomething.org"
-
-  # With Varnish
-  config.vm.network :forwarded_port, guest: 6081, host: 9999
-
-  # Rabbit
-  if ENV['DS_VAGRANT_RABBITMQ_MANAGEMENT']
-    config.vm.network :forwarded_port, guest: 15672, host: 15672
-  end
-
-  # Solr.
-  config.vm.network :forwarded_port, guest: 8983, host: 8983
-
-  # Welcome message.
-  config.vm.provision :shell do |h|
-    h.inline = 'cat /var/www/dev.dosomething.org/scripts/install_complete.txt'
-  end
-
-end
-
+# Load the real Vagrantfile
+load "#{__dir__}/#{ENV['DRUPALVM_DIR']}/Vagrantfile"

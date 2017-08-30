@@ -4,8 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "69a75a1b203587a0c5bd3082ce60e3e4",
-    "content-hash": "6fad5f3cef115a7b880d8f06b3982aeb",
+    "content-hash": "28d030c783e6025d5386aef5903a3de4",
     "packages": [
         {
             "name": "dosomething/gateway",
@@ -54,7 +53,7 @@
                 }
             ],
             "description": "Standard PHP API client for DoSomething.org services.",
-            "time": "2016-10-06 20:04:26"
+            "time": "2016-10-06T20:04:26+00:00"
         },
         {
             "name": "giggsey/libphonenumber-for-php",
@@ -116,7 +115,7 @@
                 "phonenumber",
                 "validation"
             ],
-            "time": "2016-10-26 13:35:16"
+            "time": "2016-10-26T13:35:16+00:00"
         },
         {
             "name": "giggsey/locale",
@@ -165,7 +164,7 @@
                 }
             ],
             "description": "Locale functions required by libphonenumber-for-php",
-            "time": "2016-10-24 20:49:55"
+            "time": "2016-10-24T20:49:55+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -227,7 +226,7 @@
                 "rest",
                 "web service"
             ],
-            "time": "2016-10-08 15:01:37"
+            "time": "2016-10-08T15:01:37+00:00"
         },
         {
             "name": "guzzlehttp/promises",
@@ -278,7 +277,7 @@
             "keywords": [
                 "promise"
             ],
-            "time": "2016-05-18 16:56:05"
+            "time": "2016-05-18T16:56:05+00:00"
         },
         {
             "name": "guzzlehttp/psr7",
@@ -336,7 +335,7 @@
                 "stream",
                 "uri"
             ],
-            "time": "2016-06-24 23:00:38"
+            "time": "2016-06-24T23:00:38+00:00"
         },
         {
             "name": "ircmaxell/random-lib",
@@ -391,7 +390,7 @@
                 "random-numbers",
                 "random-strings"
             ],
-            "time": "2016-09-07 15:52:06"
+            "time": "2016-09-07T15:52:06+00:00"
         },
         {
             "name": "ircmaxell/security-lib",
@@ -437,7 +436,7 @@
             ],
             "description": "A Base Security Library",
             "homepage": "https://github.com/ircmaxell/SecurityLib",
-            "time": "2015-03-20 14:31:23"
+            "time": "2015-03-20T14:31:23+00:00"
         },
         {
             "name": "lcobucci/jwt",
@@ -495,7 +494,7 @@
                 "JWS",
                 "jwt"
             ],
-            "time": "2016-10-31 20:09:32"
+            "time": "2016-10-31T20:09:32+00:00"
         },
         {
             "name": "league/oauth2-client",
@@ -558,7 +557,7 @@
                 "oauth2",
                 "single sign on"
             ],
-            "time": "2016-07-28 13:20:43"
+            "time": "2016-07-28T13:20:43+00:00"
         },
         {
             "name": "nesbot/carbon",
@@ -611,7 +610,7 @@
                 "datetime",
                 "time"
             ],
-            "time": "2017-01-16 07:55:07"
+            "time": "2017-01-16T07:55:07+00:00"
         },
         {
             "name": "psr/http-message",
@@ -661,7 +660,7 @@
                 "request",
                 "response"
             ],
-            "time": "2016-08-06 14:39:51"
+            "time": "2016-08-06T14:39:51+00:00"
         },
         {
             "name": "stripe/stripe-php",
@@ -709,7 +708,7 @@
                 "payment processing",
                 "stripe"
             ],
-            "time": "2015-01-22 05:01:46"
+            "time": "2015-01-22T05:01:46+00:00"
         },
         {
             "name": "symfony/http-foundation",
@@ -762,7 +761,7 @@
             ],
             "description": "Symfony HttpFoundation Component",
             "homepage": "https://symfony.com",
-            "time": "2016-10-24 15:52:44"
+            "time": "2016-10-24T15:52:44+00:00"
         },
         {
             "name": "symfony/polyfill-mbstring",
@@ -821,7 +820,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2016-05-18 14:26:46"
+            "time": "2016-05-18T14:26:46+00:00"
         },
         {
             "name": "symfony/psr-http-message-bridge",
@@ -881,7 +880,7 @@
                 "http-message",
                 "psr-7"
             ],
-            "time": "2016-09-14 18:37:20"
+            "time": "2016-09-14T18:37:20+00:00"
         },
         {
             "name": "symfony/translation",
@@ -945,7 +944,7 @@
             ],
             "description": "Symfony Translation Component",
             "homepage": "https://symfony.com",
-            "time": "2016-10-18 04:30:12"
+            "time": "2016-10-18T04:30:12+00:00"
         },
         {
             "name": "tightenco/collect",
@@ -992,7 +991,7 @@
                 "collection",
                 "laravel"
             ],
-            "time": "2017-04-27 15:27:15"
+            "time": "2017-04-27T15:27:15+00:00"
         },
         {
             "name": "zendesk/zendesk_api_client_php",
@@ -1026,7 +1025,7 @@
             ],
             "description": "PHP Client for Zendesk REST API. See http://developer.zendesk.com/api-docs",
             "homepage": "https://github.com/zendesk/zendesk_api_client_php",
-            "time": "2015-05-31 00:16:34"
+            "time": "2015-05-31T00:16:34+00:00"
         },
         {
             "name": "zendframework/zend-diactoros",
@@ -1076,10 +1075,49 @@
                 "psr",
                 "psr-7"
             ],
-            "time": "2016-10-11 13:25:21"
+            "time": "2016-10-11T13:25:21+00:00"
         }
     ],
     "packages-dev": [
+        {
+            "name": "geerlingguy/drupal-vm",
+            "version": "4.6.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/geerlingguy/drupal-vm.git",
+                "reference": "f04cf99e94eb2d23cd0e972c985c82947d5aba19"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/geerlingguy/drupal-vm/zipball/f04cf99e94eb2d23cd0e972c985c82947d5aba19",
+                "reference": "f04cf99e94eb2d23cd0e972c985c82947d5aba19",
+                "shasum": ""
+            },
+            "type": "vm",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jeff Geerling",
+                    "homepage": "http://www.jeffgeerling.com"
+                },
+                {
+                    "name": "Oskar Schöldström",
+                    "homepage": "http://oxy.fi"
+                }
+            ],
+            "description": "A VM for local Drupal development, built with Vagrant + Ansible",
+            "homepage": "https://www.drupalvm.com",
+            "keywords": [
+                "drupal",
+                "vagrant",
+                "virtual machine",
+                "vm"
+            ],
+            "time": "2017-06-29T03:33:03+00:00"
+        },
         {
             "name": "symfony/var-dumper",
             "version": "v3.1.6",
@@ -1141,7 +1179,7 @@
                 "debug",
                 "dump"
             ],
-            "time": "2016-10-18 15:46:07"
+            "time": "2016-10-18T15:46:07+00:00"
         }
     ],
     "aliases": [],
