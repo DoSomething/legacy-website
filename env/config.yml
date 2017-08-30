@@ -107,7 +107,7 @@ drupalvm_cron_jobs: []
 
 # Drupal VM automatically creates a drush alias file in your ~/.drush folder if
 # this variable is 'true'.
-configure_drush_aliases: true
+configure_drush_aliases: false
 drush_aliases_host_template: "templates/drupalvm.aliases.drushrc.php.j2"
 drush_aliases_guest_template: "templates/drupalvm-local.aliases.drushrc.php.j2"
 
@@ -157,7 +157,7 @@ apache_mods_enabled:
 # here. Set the 'is_php' property for document roots that contain PHP apps like
 # Drupal.
 nginx_hosts:
-  - server_name: "{{ drupal_domain }} www.{{ drupal_domain }}"
+  - server_name: "{{ drupal_domain }}"
     root: "{{ drupal_core_path }}"
     is_php: true
 
@@ -206,25 +206,25 @@ postgresql_users:
 # Comment out any extra utilities you don't want to install. If you don't want
 # to install *any* extras, set this value to an empty set, e.g. `[]`.
 installed_extras:
-#####  - adminer
+  - adminer
   # - blackfire
   # - drupalconsole
   - drush
   # - elasticsearch
   # - java
-#####  - mailhog
+  - mailhog
   # - memcached
   # - newrelic
-#####  - nodejs
-#####  - pimpmylog
-#####  - redis
+  - nodejs
+  - pimpmylog
+  - redis
   # - ruby
   # - selenium
-#####  - solr
+  - solr
   # - tideways
   # - upload-progress
-#####  - varnish
-#####  - xdebug
+  - varnish
+  - xdebug
   # - xhprof # use `tideways` if you're installing PHP 7+
 
 # Add any extra apt or yum packages you would like installed.
