@@ -3,7 +3,7 @@
 /**
  * Require Composer's class loader.
  */
-//require_once __DIR__ . '/../lib/autoload.php';
+require_once __DIR__ . '/../../../lib/autoload.php';
 
 /**
  * Lets do something about globals
