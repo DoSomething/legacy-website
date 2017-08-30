@@ -33,7 +33,7 @@ $hostname = $_SERVER['HTTP_HOST'] ?: 'dev.dosomething.org';
 
 $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? 'https://' : 'http://';
 
-$insecure_port = getenv('DS_INSECURE_PORT') ?: 8888;
+$insecure_port = getenv('DS_INSECURE_PORT') ?: 80;
 $secure_port = getenv('DS_SECURE_PORT') ?: 8889;
 
 // $hostname may already have port included. Check it before you wreck it!

@@ -285,7 +285,7 @@ composer_global_packages:
 pre_provision_scripts:
   - "{{ config_dir }}/preprovision.sh"
 post_provision_scripts: []
-  # - "../examples/scripts/configure-solr.sh"
+  - "{{ config_dir }}/postprovision.sh"
 
 # MySQL Configuration.
 mysql_root_password: root
