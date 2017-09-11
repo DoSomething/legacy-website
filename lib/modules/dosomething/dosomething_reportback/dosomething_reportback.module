@@ -1158,22 +1158,28 @@ function dosomething_reportback_get_reportbacks($uid = NULL) {
       ],
     ]);
 
+    $response = dosomething_rogue_get_posts([
+      'filter' => [
+        'northstar_id' => $northstar_id,
+      ],
+      'include' => 'signup',
+    ]);
+
     foreach ($response['data'] as $delta => $reportback) {
       $reportback = (object) $reportback;
 
+      // @TODO: figure out how to get kudos (not included in response)
       $total_kudos = $reportback->kudos['data'][0]['term']['total'];
       $liked_by_current_user = $reportback->kudos['data'][0]['current_user']['reacted'] ? TRUE : FALSE;
-
-      $campaign = node_load($reportback->campaign['id']);
-
-      $impact = $reportback->reportback['quantity'] . ' ' . dosomething_helpers_extract_field_data($campaign->field_reportback_noun) . ' ' . dosomething_helpers_extract_field_data($campaign->field_reportback_verb);
+      $campaign = node_load($reportback->signup['data']['campaign_id']);
+      $impact = $reportback->signup['data']['quantity'] . ' ' . dosomething_helpers_extract_field_data($campaign->field_reportback_noun) . ' ' . dosomething_helpers_extract_field_data($campaign->field_reportback_verb);
 
       $args = [
-       'path' => $reportback->media['uri'],
+       'path' => $reportback->media['url'],
       ];
 
       $img = theme_image($args);
-      $url = dosomething_global_url('node/' . $reportback->campaign['id']);
+      $url = dosomething_global_url('node/' . $reportback->signup['data']['campaign_id']);
 
       $content = [
         'url' => $url,
