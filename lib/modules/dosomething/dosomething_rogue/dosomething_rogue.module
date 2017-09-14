@@ -61,6 +61,21 @@ function dosomething_rogue_get_reportback_items($inputs)
 }
 
 /**
+  * Send a GET request to return all posts matching a given
+  * query from Rogue.
+  *
+  * @param array $inputs
+  */
+function dosomething_rogue_get_posts($inputs)
+{
+  $client = dosomething_rogue_client();
+
+  $response = $client->getPosts($inputs);
+
+  return $response;
+}
+
+/**
  * Send a GET request to return all activity matching a given
  * query from Rogue.
  *

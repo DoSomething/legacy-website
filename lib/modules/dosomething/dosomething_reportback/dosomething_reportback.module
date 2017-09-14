@@ -1140,8 +1140,9 @@ function dosomething_reportback_rogue_mbp_request($rb, $signup) {
  * @return array
  */
 function dosomething_reportback_get_reportbacks($uid = NULL) {
+  global $user;
+
   if (!$uid) {
-    global $user;
     $uid = $user->uid;
   }
 
@@ -1149,31 +1150,32 @@ function dosomething_reportback_get_reportbacks($uid = NULL) {
   // This will be okay because this function is only called in dosomething_user.theme.inc for user profile page.
   if (variable_get('rogue_collection', FALSE)) {
     $northstar_id = dosomething_user_get_northstar_id($uid);
+    $current_user_northstar_id = dosomething_user_get_northstar_id($user->uid);
 
     $reportback_items = [];
 
-    $response = dosomething_rogue_get_reportback_items([
+    $response = dosomething_rogue_get_posts([
       'filter' => [
         'northstar_id' => $northstar_id,
       ],
+      'include' => 'signup',
+      'as_user' => $current_user_northstar_id,
     ]);
 
     foreach ($response['data'] as $delta => $reportback) {
       $reportback = (object) $reportback;
 
-      $total_kudos = $reportback->kudos['data'][0]['term']['total'];
-      $liked_by_current_user = $reportback->kudos['data'][0]['current_user']['reacted'] ? TRUE : FALSE;
-
-      $campaign = node_load($reportback->campaign['id']);
-
-      $impact = $reportback->reportback['quantity'] . ' ' . dosomething_helpers_extract_field_data($campaign->field_reportback_noun) . ' ' . dosomething_helpers_extract_field_data($campaign->field_reportback_verb);
+      $total_kudos = $reportback->reactions['total'];
+      $liked_by_current_user = $reportback->reactions['reacted'] ? TRUE : FALSE;
+      $campaign = node_load($reportback->signup['data']['campaign_id']);
+      $impact = $reportback->signup['data']['quantity'] . ' ' . dosomething_helpers_extract_field_data($campaign->field_reportback_noun) . ' ' . dosomething_helpers_extract_field_data($campaign->field_reportback_verb);
 
       $args = [
-       'path' => $reportback->media['uri'],
+       'path' => $reportback->media['url'],
       ];
 
       $img = theme_image($args);
-      $url = dosomething_global_url('node/' . $reportback->campaign['id']);
+      $url = dosomething_global_url('node/' . $reportback->signup['data']['campaign_id']);
 
       $content = [
         'url' => $url,
