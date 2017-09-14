@@ -1140,8 +1140,9 @@ function dosomething_reportback_rogue_mbp_request($rb, $signup) {
  * @return array
  */
 function dosomething_reportback_get_reportbacks($uid = NULL) {
+  global $user;
+
   if (!$uid) {
-    global $user;
     $uid = $user->uid;
   }
 

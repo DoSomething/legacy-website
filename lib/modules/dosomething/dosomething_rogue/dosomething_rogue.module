@@ -68,7 +68,6 @@ function dosomething_rogue_get_reportback_items($inputs)
   */
 function dosomething_rogue_get_posts($inputs)
 {
-  // die(dump($inputs));
   $client = dosomething_rogue_client();
 
   $response = $client->getPosts($inputs);
