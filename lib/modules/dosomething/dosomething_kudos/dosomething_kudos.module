@@ -321,18 +321,16 @@ function dosomething_kudos_disable_reactions($nid) {
  * @return array Values needed to render Kudos markup
  */
 function dosomething_kudos_get_kudos_data_for_fid($fid = NULL, $total_rogue_kudos = NULL, $liked_by_current_user = NULL) {
+  global $user;
+
   if (! $fid) {
     return [];
   }
 
-  if (variable_get('rogue_collection', FALSE)) {
-    $total_kudos = $total_rogue_kudos;
-  } else {
-    $total_kudos = dosomething_kudos_get_total_for_file_by_term_name($fid, 'heart');
-  }
+  $total_kudos = $total_rogue_kudos;
 
   $kudos = [];
-  $kudos['fid'] = $fid;
+  $kudos['fid'] = $fid . '|' . dosomething_user_get_northstar_id($user->uid);
   $kudos['existing_kids'] = dosomething_kudos_get_kudos_for_user_by_file($fid);
   $kudos['reaction_totals'] = [
     'heart' =>

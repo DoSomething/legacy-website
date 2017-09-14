@@ -247,17 +247,13 @@ function _kudos_resource_delete($kudos_id) {
     $api_user_is_an_admin = user_access('view any reportback', $user);
 
     // Reactions from the user profile page will not have $northstar_id
-    if ($northstar_id) {
-      $logged_in_user_matches_given_id = dosomething_user_get_northstar_id($user->uid) === $northstar_id;
-      if (!$api_user_is_an_admin && !$logged_in_user_matches_given_id) {
-        return [
-          'error' => [
-            'message' => 'There was an error deleting the specified kudos record.',
-          ],
-        ];
-      }
-    } else {
-      $northstar_id = dosomething_user_get_northstar_id($user->uid);
+    $logged_in_user_matches_given_id = dosomething_user_get_northstar_id($user->uid) === $northstar_id;
+    if (!$api_user_is_an_admin && !$logged_in_user_matches_given_id) {
+      return [
+        'error' => [
+          'message' => 'There was an error deleting the specified kudos record.',
+        ],
+      ];
     }
 
     $data = [
