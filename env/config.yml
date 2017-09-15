@@ -284,8 +284,8 @@ composer_global_packages:
 # the `provisioning/playbook.yml` file.
 pre_provision_scripts:
   - "{{ config_dir }}/preprovision.sh"
-post_provision_scripts: []
-  # - "../examples/scripts/configure-solr.sh"
+post_provision_scripts:
+  - "{{ config_dir }}/postprovision.sh"
 
 # MySQL Configuration.
 mysql_root_password: root
