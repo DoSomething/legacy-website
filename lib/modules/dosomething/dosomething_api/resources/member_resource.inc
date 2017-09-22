@@ -212,26 +212,9 @@ function _member_resource_create($request) {
   }
 
   // Check if email is formatted correctly and not already in use.
-  $email = $request['email'];
-  if ($user = user_load_by_mail($email)) {
-    return services_error(t('Email @email is registered to User uid @uid.', ['@email' => $email, '@uid' => $user->uid]), 403);
-  }
-  if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    return services_error(t('Email @email is not a valid email address.', ['@email' => $email]), 422);
-  }
-
-  // Check if account exists for phone.
-  $mobile = $request['mobile'];
-  if ($mobile && $user = dosomething_user_get_user_by_mobile($mobile)) {
-    return services_error(t('Mobile @mobile is registered to User uid @uid.', ['@mobile' => $mobile, '@uid' => $user->uid]), 403);
-  }
-  if ($mobile && !dosomething_user_valid_mobile($mobile)) {
-    return services_error(t('Mobile @mobile is not a valid phone number.', ['@mobile' => $mobile]), 422);
-  }
-
   // Initialize array to pass to user_save().
   $edit = [
-    'mail' => $email,
+    'mail' => $request['email'],
     'name' => user_password(), // Overridden below.
     'status' => 1,
     'created' => REQUEST_TIME,
