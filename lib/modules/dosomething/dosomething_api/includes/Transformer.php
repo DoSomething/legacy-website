@@ -236,6 +236,14 @@ abstract class Transformer {
           }
         }
 
+        foreach ($data->campaign_runs as $timeframe => $runs) {
+          foreach ($runs as $language => $value) {
+            $run = node_load($value['id']);
+            $output['campaign_runs'][$timeframe][$language]['start_date'] = $run->field_run_date[$language][0][value];
+          }
+        }
+
+
         $output['pre_step'] = $data->pre_step;
 
         $output['latest_news'] = $data->latest_news;
