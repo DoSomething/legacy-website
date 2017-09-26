@@ -56,7 +56,8 @@ Example response:
     campaign_runs: {
       current: {
         en: {
-          id: "1227"
+          id: "1227",
+          "start_date":"2015-10-19 00:00:00"
         }
       },
       past: [ ]
