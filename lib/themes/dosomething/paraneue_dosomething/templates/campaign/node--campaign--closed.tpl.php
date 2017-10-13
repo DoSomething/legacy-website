@@ -225,7 +225,7 @@
 
   <?php if ($display_winners): ?>
   <?php // CONGRATULATIONS TO... ////////////////////////////////////////////////////// ?>
-  <section class="container container--congrats">
+  <section id="congrats" class="container container--congrats">
     <h2 class="heading -banner"><span><?php print t('Congrats to&hellip;'); ?></span></h2>
 
     <div class="wrapper">
