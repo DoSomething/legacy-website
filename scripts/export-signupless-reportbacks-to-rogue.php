@@ -1,0 +1,100 @@
+<?php
+/**
+ * Script to export Reportbacks that do not have a corresponding Signup from drupal into Rogue.
+ *
+ * to run:
+ * drush --script-path=../scripts/ php-script export-signupless-reportbacks-to-rogue.php
+ */
+
+// get all the signupless reportbacks
+$reportbacks = db_query("SELECT rb.rbid, rb.nid, rb.run_nid, rb.quantity, rb.why_participated, rb.rbid, rb.flagged, rb.uid
+  FROM dosomething.dosomething_reportback rb
+  LEFT JOIN dosomething.dosomething_signup ds on rb.uid = ds.uid AND rb.run_nid = ds.run_nid where ds.sid IS NULL");
+
+
+// for each reportback, send a request for each reportback file to POST /posts and Rogue will automatically create the signup
+foreach ($reportbacks as $reportback) {
+  echo 'On rbid ' . $reportback->rbid . '...' . PHP_EOL;
+
+  // Try to get Northstar ID
+  $northstar_id = dosomething_user_get_northstar_id($reportback->uid, 'drupal_id');
+
+  if (!$northstar_id) {
+    echo 'No northstar id, that is terrible ' . $reportback->rbid . PHP_EOL;
+
+    // @TODO: do we need this continue here?
+    continue;
+  }
+
+  // Get reportback files
+  $photos = db_query('SELECT rbf.fid, rbf.remote_addr, rbf.caption, rbf.status, rbf.reviewed, rbf.reviewer, rbf.source, rbf.status, rblog.timestamp
+                          FROM dosomething_reportback_file rbf
+                          INNER JOIN dosomething_reportback_log rblog ON rbf.fid = substring_index(rblog.files, \',\',-1)
+                          WHERE rbf.rbid = $reportback->rbid
+                          AND rbf.fid NOT IN (SELECT fid from dosomething_rogue_reportbacks)
+                          GROUP BY rbf.fid')->fetchAll();
+
+  foreach ($photos as $photo) {
+    $data = [];
+
+    echo "\t" . 'Trying fid ' . $photo->fid . '...' . PHP_EOL;
+
+    // we are also able to backdate the signup this way as long as we pass $data['created_at']
+    // Match Rogue's timestamp format
+    $photo_created_at = date('Y-m-d H:i:s', $photo->timestamp);
+    $sent_at = date('Y-m-d H:i:s');
+
+    echo "\t" . 'Sending at approximately ' . $sent_at . PHP_EOL;
+
+    // @TODO: log out NOW timestamp
+    $data = [
+      'northstar_id' => $northstar_id,
+      'campaign_id' => $reportback->nid,
+      'campaign_run_id' => $reportback->run_nid,
+      'created_at' => $photo_created_at,
+      'updated_at' => $sent_at,
+      'quantity' => $reportback->quantity,
+      'why_participated' => $reportback->why_participated,
+      'caption' => $photo->caption,
+      'status' => $photo->status,
+      // @TODO: I think if creating a new signup, the signup source will get set at this value
+      'source' => $photo->source,
+      'remote_addr' => $photo->remote_addr,
+      'file' => dosomething_helpers_get_data_uri_from_fid($photo->fid),
+    ];
+
+    // Send the request to Rogue
+    try {
+      $response = $client->postPost($data);
+
+      // Make sure we get a successful response
+      if ($response) {
+        echo 'Migrated reportback ' . $reportback->rbid . ' file ' . $photo->fid . ' to Rogue.' . PHP_EOL;
+
+        // Store reference to reportback so we don't try to send repeats upon further runs of the script
+        db_insert('dosomething_rogue_reportbacks')
+              ->fields([
+                'fid' => $photo->fid,
+                'rogue_post_id' => $response['data']['id'],
+                'rbid' => $reportback->rbid,
+                'rogue_signup_id' => $response['data']['signup_id'],
+                'created_at' => REQUEST_TIME,
+                ])
+              ->execute();
+
+        // Handle getting a 404
+        if (!$response) {
+          echo 'ERROR: 404 on reportback ' . $reportback->rbid . ' file ' . $photo->fid . ' to Rogue.' . PHP_EOL;
+        }
+      }
+    }
+    catch (GuzzleHttp\Exception\ServerException $e) {
+      // These aren't yet caught by Gateway
+
+      echo 'ERROR: SERVER EXCEPTION on reportback ' . $reportback->rbid . ' file ' . $photo->fid . ' to Rogue.' . PHP_EOL;
+    }
+    catch (DoSomething\Gateway\Exceptions\ApiException $e) {
+      echo 'ERROR: API EXCEPTION on reportback ' . $reportback->rbid . ' file ' . $photo->fid . ' to Rogue.' . PHP_EOL;
+    }
+  }
+}
