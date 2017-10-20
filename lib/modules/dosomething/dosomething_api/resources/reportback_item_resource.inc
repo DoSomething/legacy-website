@@ -158,51 +158,46 @@ function _reportback_item_resource_index($campaigns, $exclude, $status, $count, 
     'as_user' => $as_user,
   ];
 
-  // If Rogue is enabled, fetch reportback items from there.
-  if (variable_get('rogue_collection', FALSE)) {
-    $response = dosomething_rogue_client()->getAllReportbacks([
-      'filter' => [
-        'campaign_id' => $campaigns,
-        'exclude' => $exclude,
-        'status' => 'accepted',
-      ],
-      // If `?as_user` provided with UID or Northstar ID, use that. Otherwise, send logged-in user's NS ID.
-      'as_user' => dosomething_user_convert_to_northstar_id($as_user ? $as_user : $user->uid),
-      'limit' => $count,
-      'page' => $page,
-    ]);
+  // Fetch reportback items from Rogue.
+  $response = dosomething_rogue_client()->getAllReportbacks([
+    'filter' => [
+      'campaign_id' => $campaigns,
+      'exclude' => $exclude,
+      'status' => 'accepted',
+    ],
+    // If `?as_user` provided with UID or Northstar ID, use that. Otherwise, send logged-in user's NS ID.
+    'as_user' => dosomething_user_convert_to_northstar_id($as_user ? $as_user : $user->uid),
+    'limit' => $count,
+    'page' => $page,
+  ]);
 
-    $response['data'] = collect($response['data'])->map(function ($item) use ($load_user) {
-      // Add campaign to each item:
-      try {
-        $campaign = Campaign::get($item['campaign']['id']);
-        $item['campaign'] = $campaign;
-      } catch (Exception $e) {
-        // Oh well!
-      }
+  $response['data'] = collect($response['data'])->map(function ($item) use ($load_user) {
+    // Add campaign to each item:
+    try {
+      $campaign = Campaign::get($item['campaign']['id']);
+      $item['campaign'] = $campaign;
+    } catch (Exception $e) {
+      // Oh well!
+    }
 
-      // If requested, add full user to each item:
-      if ($load_user) {
-        $profile = dosomething_northstar_get_user($item['user']['id']);
+    // If requested, add full user to each item:
+    if ($load_user) {
+      $profile = dosomething_northstar_get_user($item['user']['id']);
 
-        $item['user'] = [
-          'id' => $profile->id,
-          'drupal_id' => $profile->drupal_id,
-          'first_name' => $profile->first_name,
-          'last_initial' => $profile->last_initial,
-          'photo' => $profile->photo,
-          'country' => $profile->country,
-        ];
-      }
+      $item['user'] = [
+        'id' => $profile->id,
+        'drupal_id' => $profile->drupal_id,
+        'first_name' => $profile->first_name,
+        'last_initial' => $profile->last_initial,
+        'photo' => $profile->photo,
+        'country' => $profile->country,
+      ];
+    }
 
-      return $item;
-    });
+    return $item;
+  });
 
-    return $response;
-  }
-
-  $reportbackItems = new ReportbackItemTransformer;
-  return $reportbackItems->index($parameters);
+  return $response;
 }
 
 

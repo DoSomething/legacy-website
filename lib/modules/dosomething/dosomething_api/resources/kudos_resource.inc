@@ -192,42 +192,32 @@ function _kudos_resource_index($reportbackitems, $count) {
 function _kudos_resource_create($reportback_item_id, $term_ids, $northstar_id) {
   global $user;
 
-  if (variable_get('rogue_collection', FALSE)) {
-    if (!isset($northstar_id)) {
-      $northstar_id = dosomething_user_get_northstar_id($user->uid);
-    }
-
-    $data = [
-      'northstar_id' => $northstar_id,
-      'post_id' => $reportback_item_id,
-    ];
-
-    $response = dosomething_rogue_client()->postReaction($data);
-
-    // If Rogue doesn't acknowledge that we liked a post, return Phoenix-style failure.
-    if ($response['meta']['action'] !== 'liked') {
-      return [false];
-    }
-
-    // Otherwise, return Phoenix-style success!
-    return [
-      [
-        'kid' => $response['data']['post_id'] . '|' . $northstar_id,
-        'fid' => $reportback_item_id,
-        'uid' => $northstar_id,
-        'tid' => $term_ids[0],
-        'created' => (new Carbon($response['data']['created_at']))->timestamp,
-      ]
-    ];
+  if (!isset($northstar_id)) {
+    $northstar_id = dosomething_user_get_northstar_id($user->uid);
   }
 
-  $parameters = [
-    'fid' => $reportback_item_id,
-    'tids' => $term_ids,
+  $data = [
     'northstar_id' => $northstar_id,
+    'post_id' => $reportback_item_id,
   ];
 
-  return (new KudosTransformer)->create($parameters);
+  $response = dosomething_rogue_client()->postReaction($data);
+
+  // If Rogue doesn't acknowledge that we liked a post, return Phoenix-style failure.
+  if ($response['meta']['action'] !== 'liked') {
+    return [false];
+  }
+
+  // Otherwise, return Phoenix-style success!
+  return [
+    [
+      'kid' => $response['data']['post_id'] . '|' . $northstar_id,
+      'fid' => $reportback_item_id,
+      'uid' => $northstar_id,
+      'tid' => $term_ids[0],
+      'created' => (new Carbon($response['data']['created_at']))->timestamp,
+    ]
+  ];
 }
 
 /**
@@ -240,43 +230,39 @@ function _kudos_resource_create($reportback_item_id, $term_ids, $northstar_id) {
 function _kudos_resource_delete($kudos_id) {
   global $user;
 
-  if (variable_get('rogue_collection', FALSE)) {
-    list($post_id, $northstar_id) = explode('|', $kudos_id);
+  list($post_id, $northstar_id) = explode('|', $kudos_id);
 
-    // Make sure authenticated user is an admin or the kudo owner.
-    $api_user_is_an_admin = user_access('view any reportback', $user);
-    $logged_in_user_matches_given_id = dosomething_user_get_northstar_id($user->uid) === $northstar_id;
-    if (!$api_user_is_an_admin && !$logged_in_user_matches_given_id) {
-      return [
-        'error' => [
-          'message' => 'There was an error deleting the specified kudos record.',
-        ],
-      ];
-    }
-
-    $data = [
-      'northstar_id' => $northstar_id,
-      'post_id' => $post_id,
-    ];
-
-    $response = dosomething_rogue_client()->postReaction($data);
-
-    // If Rogue doesn't acknowledge that we unliked a post, return Phoenix-style failure.
-    if ($response['meta']['action'] !== 'unliked') {
-      return [
-        'error' => [
-          'message' => 'There was an error deleting the specified kudos record.',
-        ],
-      ];
-    }
-
-    // Otherwise, return Phoenix-style success!
+  // Make sure authenticated user is an admin or the kudo owner.
+  $api_user_is_an_admin = user_access('view any reportback', $user);
+  $logged_in_user_matches_given_id = dosomething_user_get_northstar_id($user->uid) === $northstar_id;
+  if (!$api_user_is_an_admin && !$logged_in_user_matches_given_id) {
     return [
-      'success' => [
-        'message' => 'Kudos record successfully deleted.',
+      'error' => [
+        'message' => 'There was an error deleting the specified kudos record.',
       ],
     ];
   }
 
-  return (new KudosTransformer)->delete($kudos_id);
+  $data = [
+    'northstar_id' => $northstar_id,
+    'post_id' => $post_id,
+  ];
+
+  $response = dosomething_rogue_client()->postReaction($data);
+
+  // If Rogue doesn't acknowledge that we unliked a post, return Phoenix-style failure.
+  if ($response['meta']['action'] !== 'unliked') {
+    return [
+      'error' => [
+        'message' => 'There was an error deleting the specified kudos record.',
+      ],
+    ];
+  }
+
+  // Otherwise, return Phoenix-style success!
+  return [
+    'success' => [
+      'message' => 'Kudos record successfully deleted.',
+    ],
+  ];
 }

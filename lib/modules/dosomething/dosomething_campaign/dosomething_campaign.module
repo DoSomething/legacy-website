@@ -519,34 +519,22 @@ function dosomething_campaign_get_campaigns_doing($uid = NULL) {
   }
 
   // Get all signups.
-  if (variable_get('rogue_collection', FALSE)) {
-    $northstar_id = dosomething_user_get_northstar_id($uid);
+  $northstar_id = dosomething_user_get_northstar_id($uid);
 
-    $rogue_signups = dosomething_rogue_get_activity([
-      'filter' => [
-        'northstar_id' => $northstar_id,
-      ],
-    ]);
+  $rogue_signups = dosomething_rogue_get_activity([
+    'filter' => [
+      'northstar_id' => $northstar_id,
+    ],
+  ]);
 
-    // Filter through response and put all signup ids with no posts in an array
-    $signup_nids = [];
+  // Filter through response and put all signup ids with no posts in an array
+  $signup_nids = [];
 
-    foreach ($rogue_signups['data'] as $signup) {
-      if ($signup['posts']['data']) {
-        continue;
-      } else {
-        array_push($signup_nids, $signup['campaign_id']);
-      }
-    }
-  }
-  else {
-    $signup_nids = dosomething_signup_get_signup_nids_by_uid($uid);
-
-    // Remove signups that have already been reported back for.
-    foreach ($signup_nids as $delta => $nid) {
-      if (dosomething_reportback_exists($nid, NULL, $uid)) {
-        unset($signup_nids[$delta]);
-      }
+  foreach ($rogue_signups['data'] as $signup) {
+    if ($signup['posts']['data']) {
+      continue;
+    } else {
+      array_push($signup_nids, $signup['campaign_id']);
     }
   }
 
@@ -787,12 +775,7 @@ function dosomething_campaign_add_signup_data_form_vars(&$node, $langcode) {
   $node->content['signup_data_form'] = drupal_get_form('dosomething_signup_user_signup_data_form', $signup);
 
   // If the signup_data_form is required and user has not submitted form yet:
-  if (!variable_get('rogue_collection', FALSE)) {
-    $hasCompetitionRecordedLocally = $signup->signup_data_form_timestamp;
-    $shouldShowCompetitionPrompt = $config['required'] && !$hasCompetitionRecordedLocally;
-  } else {
-    $shouldShowCompetitionPrompt = $config['required'];
-  }
+  $shouldShowCompetitionPrompt = $config['required'];
 
   // If Gladiator is enabled, check there too!
   if (module_exists('dosomething_gladiator')) {

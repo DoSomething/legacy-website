@@ -390,30 +390,18 @@ function _campaign_resource_reportback($nid, $values) {
 
   $headers = getallheaders();
 
-  if (variable_get('rogue_collection', FALSE) && ! isset($headers['X-Request-Id'])) {
-    $rogue_reportback = dosomething_rogue_send_reportback_to_rogue($values, $user);
+  $rogue_reportback = dosomething_rogue_send_reportback_to_rogue($values, $user);
 
-    // Get signup associated with the post.
-    $rid = $rogue_reportback['data']['signup_id'];
-    $rogue_signup = dosomething_rogue_get_activity(['filter' => ['id' => $rid]]);
+  // Get signup associated with the post.
+  $rid = $rogue_reportback['data']['signup_id'];
+  $rogue_signup = dosomething_rogue_get_activity(['filter' => ['id' => $rid]]);
 
-    // Send an email if it is the first post.
-    if (dosomething_rogue_get_post_count($rogue_signup['data'][0]) === 1) {
-      if (module_exists('dosomething_mbp')) {
-        dosomething_reportback_rogue_mbp_request($rogue_reportback['data'], $rogue_signup['data'][0]);
-      }
+  // Send an email if it is the first post.
+  if (dosomething_rogue_get_post_count($rogue_signup['data'][0]) === 1) {
+    if (module_exists('dosomething_mbp')) {
+      dosomething_reportback_rogue_mbp_request($rogue_reportback['data'], $rogue_signup['data'][0]);
     }
-
-    return isset($rogue_reportback['data']['id']) ? $rogue_reportback['data']['id'] : FALSE;
   }
-  else {
-    if (isset($headers['X-Request-Id'])) {
-      // Increment transaction id and log that the request has been received with new transaction id.
-      $incremented_transaction_id = dosomething_api_increment_transaction_id($headers['X-Request-Id']);
 
-      watchdog('PhoenixTransactionBridge', 'Request received. Transaction ID: !incremented_transaction_id', ['!incremented_transaction_id' => $incremented_transaction_id], WATCHDOG_INFO);
-    }
-
-    return dosomething_reportback_save($values, $user);
-  }
+  return isset($rogue_reportback['data']['id']) ? $rogue_reportback['data']['id'] : FALSE;
 }
