@@ -471,7 +471,7 @@ function pull_db {
       drush -y en stage_file_proxy
 
       echo "Setting Stage File Proxy to staging URL..."
-      drush vset stage_file_proxy_origin "http://staging.beta.dosomething.org"
+      drush vset stage_file_proxy_origin "http://staging.dosomething.org"
 
       echo "Unsetting tagged version variable..."
       drush variable-delete ds_version -y
