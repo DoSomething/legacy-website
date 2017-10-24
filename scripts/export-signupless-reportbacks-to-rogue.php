@@ -6,7 +6,7 @@
  * drush --script-path=../scripts/ php-script export-signupless-reportbacks-to-rogue.php
  */
 
-// get all the signupless reportbacks
+// Get all the signupless reportbacks
 $reportbacks = db_query("SELECT rb.rbid, rb.nid, rb.run_nid, rb.quantity, rb.why_participated, rb.rbid, rb.flagged, rb.uid
   FROM dosomething.dosomething_reportback rb
   LEFT JOIN dosomething.dosomething_signup ds on rb.uid = ds.uid AND rb.run_nid = ds.run_nid
@@ -19,7 +19,7 @@ if (!$reportbacks) {
   echo 'Nothing to migrate!';
 }
 
-// for each reportback, send a request for each reportback file to POST /posts and Rogue will automatically create the signup
+// For each reportback, send a request for each reportback file to POST /posts and Rogue will automatically create the signup
 foreach ($reportbacks as $reportback) {
   echo 'On rbid ' . $reportback->rbid . '...' . PHP_EOL;
   $sent_at = date('Y-m-d H:i:s');
@@ -30,7 +30,6 @@ foreach ($reportbacks as $reportback) {
   if (!$northstar_id) {
     echo "\t" . 'No northstar id, that is terrible ' . $reportback->rbid . PHP_EOL;
 
-    // @TODO: do we need this continue here?
     continue;
   }
 
@@ -72,11 +71,9 @@ foreach ($reportbacks as $reportback) {
     }
     catch (GuzzleHttp\Exception\ServerException $e) {
       // These aren't yet caught by Gateway
-
       echo '***ERROR: SERVER EXCEPTION on reportback ' . $reportback->rbid . ' file ' . $photo->fid . PHP_EOL;
     }
     catch (DoSomething\Gateway\Exceptions\ApiException $e) {
-      // dump($e->getMessage())
       echo '***ERROR: API EXCEPTION on reportback ' . $reportback->rbid . PHP_EOL;
     }
 
@@ -88,10 +85,10 @@ foreach ($reportbacks as $reportback) {
 
     echo "\t" . 'Trying fid ' . $photo->fid . '...' . PHP_EOL;
 
-    // we are also able to backdate the signup this way as long as we pass $data['created_at']
     // Match Rogue's timestamp format
     $photo_created_at = date('Y-m-d H:i:s', $photo->timestamp);
 
+    // We want to print this out so we can tell the data team when to start looking
     echo "\t\t" . 'Sending at approximately ' . $sent_at . PHP_EOL;
 
     $data = [
@@ -104,7 +101,7 @@ foreach ($reportbacks as $reportback) {
       'why_participated' => $reportback->why_participated,
       'caption' => $photo->caption,
       'status' => dosomething_rogue_transform_status($photo->status),
-      // @TODO: I think if creating a new signup, the signup source will get set at this value
+      // This will also be the signup source
       'source' => $photo->source,
       'remote_addr' => $photo->remote_addr,
       'file' => dosomething_helpers_get_data_uri_from_fid($photo->fid),
@@ -112,7 +109,6 @@ foreach ($reportbacks as $reportback) {
 
     // Send the request to Rogue
     try {
-      // dump($data);
       $response = $client->postPost($data);
       // Make sure we get a successful response
       if ($response) {
@@ -140,7 +136,6 @@ foreach ($reportbacks as $reportback) {
     }
     catch (GuzzleHttp\Exception\ServerException $e) {
       // These aren't yet caught by Gateway
-      dump($e->getMessage());
       echo '***ERROR: SERVER EXCEPTION on reportback ' . $reportback->rbid . ' file ' . $photo->fid . ' to Rogue.' . PHP_EOL;
     }
     catch (DoSomething\Gateway\Exceptions\ApiException $e) {
