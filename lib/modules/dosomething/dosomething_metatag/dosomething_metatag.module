@@ -82,8 +82,9 @@ function dosomething_metatag_preprocess_page(&$vars) {
 
   // Add special share info to the permalink page.
   $isReportbackFailure = in_array('page__reportback__failure', $vars['theme_hook_suggestions']);
+  $isRogueReportback = variable_get('rogue_collection', FALSE);
 
-  if (in_array('page__reportback', $vars['theme_hook_suggestions']) && !$isReportbackFailure) {
+  if (in_array('page__reportback', $vars['theme_hook_suggestions']) && !$isReportbackFailure && !$isRogueReportback) {
     dosomething_metatag_get_permalink_vars();
   }
 }
