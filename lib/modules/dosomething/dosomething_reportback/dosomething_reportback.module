@@ -526,11 +526,7 @@ function dosomething_reportback_form_alter(&$form, &$form_state, $form_id) {
 function dosomething_reportback_permalink_view($rbid) {
   $fid = $_GET['fid'];
 
-  if (variable_get('rogue_collection', FALSE)) {
-    return dosomething_reportback_view_rogue($rbid, $fid);
-  }
-
-  return dosomething_reportback_view_entity(reportback_load($rbid));
+  return dosomething_reportback_view_rogue($rbid, $fid);
 }
 
 /**
@@ -1146,61 +1142,51 @@ function dosomething_reportback_get_reportbacks($uid = NULL) {
     $uid = $user->uid;
   }
 
-  // If Rogue is on, return array of themed reportbacks as done in https://github.com/DoSomething/phoenix/blob/76164b2006fb5a266e8166688472742556eae33e/lib/themes/dosomething/paraneue_dosomething/includes/preprocess/preprocess_user.inc#L32-L51 for user profile page.
+  // Return array of themed reportbacks as done in https://github.com/DoSomething/phoenix/blob/76164b2006fb5a266e8166688472742556eae33e/lib/themes/dosomething/paraneue_dosomething/includes/preprocess/preprocess_user.inc#L32-L51 for user profile page.
   // This will be okay because this function is only called in dosomething_user.theme.inc for user profile page.
-  if (variable_get('rogue_collection', FALSE)) {
-    $northstar_id = dosomething_user_get_northstar_id($uid);
-    $current_user_northstar_id = dosomething_user_get_northstar_id($user->uid);
+  $northstar_id = dosomething_user_get_northstar_id($uid);
+  $current_user_northstar_id = dosomething_user_get_northstar_id($user->uid);
 
-    $reportback_items = [];
+  $reportback_items = [];
 
-    $response = dosomething_rogue_get_posts([
-      'filter' => [
-        'northstar_id' => $northstar_id,
-      ],
-      'include' => 'signup',
-      'as_user' => $current_user_northstar_id,
-    ]);
+  $response = dosomething_rogue_get_posts([
+    'filter' => [
+      'northstar_id' => $northstar_id,
+    ],
+    'include' => 'signup',
+    'as_user' => $current_user_northstar_id,
+  ]);
 
-    foreach ($response['data'] as $delta => $reportback) {
-      $reportback = (object) $reportback;
+  foreach ($response['data'] as $delta => $reportback) {
+    $reportback = (object) $reportback;
 
-      $total_kudos = $reportback->reactions['total'];
-      $liked_by_current_user = $reportback->reactions['reacted'] ? TRUE : FALSE;
-      $campaign = node_load($reportback->signup['data']['campaign_id']);
-      $impact = $reportback->signup['data']['quantity'] . ' ' . dosomething_helpers_extract_field_data($campaign->field_reportback_noun) . ' ' . dosomething_helpers_extract_field_data($campaign->field_reportback_verb);
+    $total_kudos = $reportback->reactions['total'];
+    $liked_by_current_user = $reportback->reactions['reacted'] ? TRUE : FALSE;
+    $campaign = node_load($reportback->signup['data']['campaign_id']);
+    $impact = $reportback->signup['data']['quantity'] . ' ' . dosomething_helpers_extract_field_data($campaign->field_reportback_noun) . ' ' . dosomething_helpers_extract_field_data($campaign->field_reportback_verb);
 
-      $args = [
-       'path' => $reportback->media['url'],
-      ];
+    $args = [
+     'path' => $reportback->media['url'],
+    ];
 
-      $img = theme_image($args);
-      $url = dosomething_global_url('node/' . $reportback->signup['data']['campaign_id']);
+    $img = theme_image($args);
+    $url = dosomething_global_url('node/' . $reportback->signup['data']['campaign_id']);
 
-      $content = [
-        'url' => $url,
-        'title' => htmlspecialchars_decode($campaign->title, ENT_QUOTES),
-        'image' => $img,
-        'description' => $impact,
-      ];
+    $content = [
+      'url' => $url,
+      'title' => htmlspecialchars_decode($campaign->title, ENT_QUOTES),
+      'image' => $img,
+      'description' => $impact,
+    ];
 
-      if (! dosomething_kudos_disable_reactions($campaign->nid)) {
-        $content['kudos'] = dosomething_kudos_get_kudos_data_for_fid($reportback->id, $total_kudos, $liked_by_current_user);
-      }
-
-      $reportback_items[$delta] = paraneue_dosomething_get_gallery_item($content, 'figure', TRUE, ['-left', '-medium']);
+    if (! dosomething_kudos_disable_reactions($campaign->nid)) {
+      $content['kudos'] = dosomething_kudos_get_kudos_data_for_fid($reportback->id, $total_kudos, $liked_by_current_user);
     }
 
-    return $reportback_items;
+    $reportback_items[$delta] = paraneue_dosomething_get_gallery_item($content, 'figure', TRUE, ['-left', '-medium']);
   }
-  else {
-    return db_select('dosomething_reportback', 'rb')
-      ->fields('rb', array('rbid'))
-      ->condition('uid', $uid)
-      ->orderBy('created', 'DESC')
-      ->execute()
-      ->fetchCol(0);
-  }
+
+  return $reportback_items;
 }
 
 

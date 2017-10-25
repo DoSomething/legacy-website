@@ -354,22 +354,6 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
     );
   }
 
-  // If the user has submitted form already:
-  if (!variable_get('rogue_collection', FALSE)) {
-    if (($timestamp = $signup->signup_data_form_timestamp) && $signup->signup_data_form_response == 1) {
-      // Get filtered form_submitted_copy.
-      $copy = dosomething_signup_filter_form_submitted_copy($config['form_submitted_copy'], $timestamp);
-      // Display the form submitted copy:
-      $form['submitted_copy'] = array(
-        '#prefix' => '<div class="modal__block"><p>',
-        '#markup' => $copy,
-        '#suffix' => '</p></div>',
-      );
-      // Return form as is (without a submit button).
-      return $form;
-    }
-  }
-
   // Container for form elements
   $form['elements'] = array(
     '#type' => 'container',
@@ -551,11 +535,6 @@ function dosomething_signup_user_signup_data_form_submit($form, &$form_state) {
     dosomething_user_save_school_id($values['school_id']);
   }
 
-  // Update signup record.
-  if (!variable_get('rogue_collection', FALSE)) {
-    dosomething_signup_update_signup_data($values, $config);
-  }
-
   // If this is a competition sign up, send it to gladiator.
   if ($config['competition_signup'] && module_exists('dosomething_gladiator')) {
     dosomething_gladiator_send_user_to_gladiator($user, $values);
@@ -576,16 +555,6 @@ function dosomething_signup_user_signup_data_form_validate_school($form, &$form_
   if ($values['school_not_affiliated'] != 1 && empty($values['school_id'])) {
     // No form submit for you.
     form_set_error('school_id', t("Please select a school."));
-  }
-}
-
-/*
- * Form submit handler for dosomething_signup_user_skip_signup_data_form().
- */
-function dosomething_signup_user_skip_signup_data_form_submit($form, &$form_state) {
-  // Update signup record with response = 0.
-  if (!variable_get('rogue_collection', FALSE)) {
-    dosomething_signup_update_signup_data($form_state['values'], NULL, 0);
   }
 }
 

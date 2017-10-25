@@ -186,18 +186,14 @@ function dosomething_signup_permission() {
  * Menu autoloader for /signup.
  */
 function signup_load($id) {
-  // If rogue is on load signup from rogue.
-  if (variable_get('rogue_collection', FALSE)) {
-    $response = dosomething_rogue_get_activity([
-      'filter' => [
-        'id' => $id
-      ],
-    ]);
+  // Load signup from rogue.
+  $response = dosomething_rogue_get_activity([
+    'filter' => [
+      'id' => $id
+    ],
+  ]);
 
-    return isset($response['data']) && count($response['data']) === 1 ? $response['data'][0] : FALSE;
-  } else {
-    return entity_load_single('signup', $id);
-  }
+  return isset($response['data']) && count($response['data']) === 1 ? $response['data'][0] : FALSE;
 }
 
 /**
@@ -281,41 +277,21 @@ function dosomething_signup_create($nid, $uid = NULL, $source = NULL, $timestamp
     return $existing_id;
   }
 
-  // If Rogue is enabled, create the signup there.
-  if (variable_get('rogue_collection', FALSE)) {
-    $response = dosomething_rogue_send_signup_to_rogue($values, $account);
+  // Create signup in Rogue.
+  $response = dosomething_rogue_send_signup_to_rogue($values, $account);
 
-    $sid = $response ? $response['data']['signup_id'] : NULL;
-    _dosomething_signup_log_signup($sid, $source);
+  $sid = $response ? $response['data']['signup_id'] : NULL;
+  _dosomething_signup_log_signup($sid, $source);
 
-    // Send relevant third-party subscribe requests.
-    // @NOTE: For legacy signups, this was handled in an entity save hook.
-    dosomething_signup_third_party_subscribe($account, $campaign_node, [
-      'transactionals' => $transactionals,
-      'source' => $source,
-      'signup_id' => $sid,
-    ]);
+  // Send relevant third-party subscribe requests.
+  // @NOTE: For legacy signups, this was handled in an entity save hook.
+  dosomething_signup_third_party_subscribe($account, $campaign_node, [
+    'transactionals' => $transactionals,
+    'source' => $source,
+    'signup_id' => $sid,
+  ]);
 
-    return $sid ? $sid : FALSE;
-  }
-
-  // Otherwise, create a local Phoenix entity.
-  // @TODO: Remove this once Rogue is shipped.
-  try {
-    // Create a signup entity.
-    // @see: SignupsController.php save()
-    $entity = entity_create('signup', $values);
-    $entity->save();
-
-    _dosomething_signup_log_signup($entity->sid, $source);
-
-    return isset($entity->sid) ? $entity->sid : FALSE;
-  }
-  catch (Exception $e) {
-    _dosomething_signup_log_signup(NULL);
-
-    return FALSE;
-  }
+  return $sid ? $sid : FALSE;
 }
 
 /**
@@ -396,44 +372,17 @@ function dosomething_signup_exists($nid, $run_nid = NULL, $uid = NULL, $presignu
     $run_nid = $run->nid;
   }
 
-  if (variable_get('rogue_collection', FALSE)) {
-    $response = dosomething_rogue_get_activity([
-      'filter' => [
-        'northstar_id' => dosomething_user_get_northstar_id($uid),
-        'campaign_id' => $nid,
-        'campaign_run_id' => $run_nid,
-      ],
-    ]);
+  $response = dosomething_rogue_get_activity([
+    'filter' => [
+      'northstar_id' => dosomething_user_get_northstar_id($uid),
+      'campaign_id' => $nid,
+      'campaign_run_id' => $run_nid,
+    ],
+  ]);
 
-    $has_signup = isset($response['data']) && count($response['data']) === 1;
-    return $has_signup ? $response['data'][0]['signup_id'] : FALSE;
-  }
+  $has_signup = isset($response['data']) && count($response['data']) === 1;
 
-  if ($presignup) {
-    $result = db_select('dosomething_signup_presignup', 's')
-      ->condition('uid', $uid)
-      ->condition('nid', $nid)
-      ->fields('s', array('sid'))
-      ->execute();
-  }
-  else {
-    // First check to see if a user has a signup with a run.
-    $result = db_select('dosomething_signup', 's')
-      ->condition('uid', $uid)
-      ->condition('nid', $nid)
-      ->condition('run_nid', $run_nid)
-      ->fields('s', ['sid'])
-      ->execute();
-  }
-  $sid = $result->fetchField();
-
-  // If a sid was found, return it.
-  if (is_numeric($sid)) {
-    return $sid;
-  }
-
-  // Otherwise return FALSE.
-  return FALSE;
+  return $has_signup ? $response['data'][0]['signup_id'] : FALSE;
 }
 
 /**

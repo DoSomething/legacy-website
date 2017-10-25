@@ -334,36 +334,32 @@ function dosomething_reportback_files_form_submit($form, &$form_state) {
       image_path_flush($image->source);
     }
 
-    // Check to see if Rogue feature flag is enabled.
-    if (variable_get('rogue_collection', FALSE)) {
-      $rogue_item_id = dosomething_rogue_get_by_file_id($fid);
-      // If there is a rogue_item_id in the dosomething_rogue_reportbacks table, send update to Rogue.
-      if ($rogue_item_id[0]->rogue_event_id) {
-        if ($values['status'] === 'promoted' || $values['status'] === 'approved' || $values['status'] === 'excluded') {
-          $rogue_status = 'accepted';
-        } else {
-          $rogue_status = 'rejected';
-        }
+    $rogue_item_id = dosomething_rogue_get_by_file_id($fid);
 
-        $data = [
-          'rogue_event_id' => $rogue_item_id[0]->rogue_event_id,
-          'status' => $rogue_status,
-          'event_type' => 'review_photo',
-        ];
-
-        $updates_to_send_to_rogue[] = $data;
+    // If there is a rogue_item_id in the dosomething_rogue_reportbacks table, send update to Rogue.
+    if ($rogue_item_id[0]->rogue_event_id) {
+      if ($values['status'] === 'promoted' || $values['status'] === 'approved' || $values['status'] === 'excluded') {
+        $rogue_status = 'accepted';
+      } else {
+        $rogue_status = 'rejected';
       }
+
+      $data = [
+        'rogue_event_id' => $rogue_item_id[0]->rogue_event_id,
+        'status' => $rogue_status,
+        'event_type' => 'review_photo',
+      ];
+
+      $updates_to_send_to_rogue[] = $data;
     }
   }
 
   // Send updates to Rogue.
-  if (variable_get('rogue_collection', FALSE)) {
-    $response = dosomething_rogue_update_rogue_reportback_items($updates_to_send_to_rogue);
-    if ($response->code != 201) {
-      drupal_set_message(print_r($response->code, TRUE) . ' ' . print_r($response->status_message, TRUE), 'warning');
-    } else {
-      drupal_set_message(t("Updated."));
-    }
+  $response = dosomething_rogue_update_rogue_reportback_items($updates_to_send_to_rogue);
+  if ($response->code != 201) {
+    drupal_set_message(print_r($response->code, TRUE) . ' ' . print_r($response->status_message, TRUE), 'warning');
+  } else {
+    drupal_set_message(t("Updated."));
   }
 }
 

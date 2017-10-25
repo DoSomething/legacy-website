@@ -16,11 +16,7 @@
   <?php if (isset($content->kudos) && isset($content->kudos['fid'])): ?>
     <ul class="form-actions -inline kudos">
       <li>
-        <?php if (variable_get('rogue_collection', FALSE)): ?>
-          <button class="js-kudos-button kudos__icon <?php print $content->kudos['liked_in_rogue'] ? 'is-active' : '' ?>" data-kudos-term-id="1" data-kid="<?php print $content->kudos['liked_in_rogue'] ? $content->id : null ?>"></button>
-        <?php else: ?>
-          <button class="js-kudos-button kudos__icon <?php print dosomething_kudos_term_is_selected($content->kudos, 'heart') ? 'is-active' : '' ?>" data-kudos-term-id="<?php print $content->kudos['allowed_reactions'][0]; ?>" data-kid="<?php print data_get($content->kudos['existing_kids'], [$content->kudos['allowed_reactions'][0], 'kid']) ?>"></button>
-        <?php endif; ?>
+        <button class="js-kudos-button kudos__icon <?php print $content->kudos['liked_in_rogue'] ? 'is-active' : '' ?>" data-kudos-term-id="1" data-kid="<?php print $content->kudos['liked_in_rogue'] ? $content->id : null ?>"></button>
         <span class="counter"><?php print $content->kudos['reaction_totals']['heart']; ?></span>
       </li>
     </ul>

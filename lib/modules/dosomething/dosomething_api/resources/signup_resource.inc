@@ -189,37 +189,33 @@ function _signup_resource_index($user, $users, $campaigns, $count, $page, $compe
     'runs' => $runs,
   ];
 
-  // Return data from Rogue if Rogue is turned on
-  if (variable_get('rogue_collection', FALSE)) {
-    // Replace all drupal ids with northstar ids
-    $user = explode(',', $user);
+  // Return data from Rogue
+  // Replace all drupal ids with northstar ids
+  $user = explode(',', $user);
 
-    foreach ($user as $key=>$current_user) {
-      if (is_numeric($current_user)) {
-        $user[$key] = dosomething_user_get_northstar_id($current_user);
-      }
+  foreach ($user as $key=>$current_user) {
+    if (is_numeric($current_user)) {
+      $user[$key] = dosomething_user_get_northstar_id($current_user);
     }
-
-    $user = implode(',', $user);
-    $parameters['user'] = $user;
-
-    // Transform Phoenix Ashes query string into equivalent
-    // query for Rogue's `api/v2/activity` endpoint:
-    $rogue_response = dosomething_rogue_get_activity(array_filter([
-      'filter' => array_filter([
-        'campaign_id' => data_get($parameters, 'campaigns'),
-        'campaign_run_id' => data_get($parameters, 'runs'),
-        'northstar_id' => data_get($parameters, 'user'),
-        'id' => data_get($parameters, 'id'),
-      ]),
-      'limit' => data_get($parameters, 'count'),
-      'page' => data_get($parameters, 'page'),
-    ]));
-
-    return json_decode(dosomething_rogue_format_activity($rogue_response));
   }
 
-  return (new SignupTransformer)->index($parameters);
+  $user = implode(',', $user);
+  $parameters['user'] = $user;
+
+  // Transform Phoenix Ashes query string into equivalent
+  // query for Rogue's `api/v2/activity` endpoint:
+  $rogue_response = dosomething_rogue_get_activity(array_filter([
+    'filter' => array_filter([
+      'campaign_id' => data_get($parameters, 'campaigns'),
+      'campaign_run_id' => data_get($parameters, 'runs'),
+      'northstar_id' => data_get($parameters, 'user'),
+      'id' => data_get($parameters, 'id'),
+    ]),
+    'limit' => data_get($parameters, 'count'),
+    'page' => data_get($parameters, 'page'),
+  ]));
+
+  return json_decode(dosomething_rogue_format_activity($rogue_response));
 }
 
 /**
@@ -250,30 +246,25 @@ function _signup_resource_create($campaign_id, $campaign_run_id, $key, $user_id)
  * @return array
  */
 function _signup_resource_retrieve($sid) {
-  // Return data from Rogue if Rogue is turned on
-  if (variable_get('rogue_collection', FALSE)) {
+  // Return data from Rogue
+  $rogue_response = dosomething_rogue_get_activity([
+    'filter'=> [
+      'id' => $sid,
+    ],
+  ]);
 
-    $rogue_response = dosomething_rogue_get_activity([
-      'filter'=> [
-        'id' => $sid,
+  // If Rogue response is empty, return expected error.
+  if (empty($rogue_response['data'])) {
+    return [
+      'error' => [
+        'message' => 'No signup data found.',
       ],
-    ]);
-
-    // If Rogue response is empty, return expected error.
-    if (empty($rogue_response['data'])) {
-      return [
-        'error' => [
-          'message' => 'No signup data found.',
-        ],
-      ];
-    }
-
-    $formatted_signup = (object) dosomething_rogue_format_signup($rogue_response['data'][0]);
-
-    $data['data'] = $formatted_signup;
-
-    return $data;
+    ];
   }
 
-  return (new SignupTransformer)->show($sid);
+  $formatted_signup = (object) dosomething_rogue_format_signup($rogue_response['data'][0]);
+
+  $data['data'] = $formatted_signup;
+
+  return $data;
 }
