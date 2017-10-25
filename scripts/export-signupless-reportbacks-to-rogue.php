@@ -46,7 +46,7 @@ foreach ($reportbacks as $reportback) {
     echo "\t" . 'Reportback ' . $reportback->rbid . ' has no files, sending just a signup' . PHP_EOL;
 
     // Match Rogue's timestamp format
-    $rb_created_at = date('Y-m-d H:i:s', $photo->timestamp);
+    $rb_created_at = date('Y-m-d H:i:s', $reportback->timestamp);
 
     $data = [
       'northstar_id' => $northstar_id,
@@ -69,12 +69,12 @@ foreach ($reportbacks as $reportback) {
 
       // Handle getting a 404
       if (!$response) {
-        echo '***ERROR: 404 on reportback ' . $reportback->rbid . ' file ' . $photo->fid . PHP_EOL;
+        echo '***ERROR: 404 on reportback ' . $reportback->rbid . PHP_EOL;
       }
     }
     catch (GuzzleHttp\Exception\ServerException $e) {
       // These aren't yet caught by Gateway
-      echo '***ERROR: SERVER EXCEPTION on reportback ' . $reportback->rbid . ' file ' . $photo->fid . PHP_EOL;
+      echo '***ERROR: SERVER EXCEPTION on reportback ' . $reportback->rbid . PHP_EOL;
     }
     catch (DoSomething\Gateway\Exceptions\ApiException $e) {
       echo '***ERROR: API EXCEPTION on reportback ' . $reportback->rbid . PHP_EOL;
