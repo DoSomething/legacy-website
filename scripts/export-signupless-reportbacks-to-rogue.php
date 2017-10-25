@@ -63,7 +63,7 @@ foreach ($reportbacks as $reportback) {
       $response = $client->postSignup($data);
 
       if ($response) {
-        echo "\t\t" . 'Migrated reportback ' . $reportback->rbid . ' to Rogue.' . PHP_EOL;
+        echo "\t\t" . 'Migrated data on reportback ' . $reportback->rbid . ' to Rogue.' . PHP_EOL;
         echo "\t\t\t" . 'Rogue Signup ID: ' . $response['data']['signup_id'] . PHP_EOL;
       }
 
