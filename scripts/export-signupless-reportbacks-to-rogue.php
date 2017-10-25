@@ -7,7 +7,7 @@
  */
 
 // Get all the signupless reportbacks
-$reportbacks = db_query("SELECT rb.rbid, rb.nid, rb.run_nid, rb.quantity, rb.why_participated, rb.rbid, rb.flagged, rb.uid
+$reportbacks = db_query("SELECT rb.rbid, rb.nid, rb.run_nid, rb.quantity, rb.why_participated, rb.rbid, rb.flagged, rb.uid, rb.created
   FROM dosomething.dosomething_reportback rb
   LEFT JOIN dosomething.dosomething_signup ds on rb.uid = ds.uid AND rb.run_nid = ds.run_nid
   WHERE ds.sid IS NULL
@@ -45,11 +45,14 @@ foreach ($reportbacks as $reportback) {
   if (!$photos) {
     echo "\t" . 'Reportback ' . $reportback->rbid . ' has no files, sending just a signup' . PHP_EOL;
 
+    // Match Rogue's timestamp format
+    $rb_created_at = date('Y-m-d H:i:s', $photo->timestamp);
+
     $data = [
       'northstar_id' => $northstar_id,
       'campaign_id' => $reportback->nid,
       'campaign_run_id' => $reportback->run_nid,
-      'created_at' => $photo_created_at,
+      'created_at' => $rb_created_at,
       'updated_at' => $sent_at,
       'quantity' => $reportback->quantity,
       'why_participated' => $reportback->why_participated,
