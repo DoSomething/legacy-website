@@ -134,4 +134,17 @@ class Rogue extends RestApiClient {
 
     return $response;
   }
+
+  /**
+   * Send a POST request to create a new post in Rogue
+   *
+   * @param array $data
+   * @return array - JSON response
+   */
+  public function postPost($data)
+  {
+    $response = $this->post('v2/posts', $data);
+
+    return $response;
+  }
 }
