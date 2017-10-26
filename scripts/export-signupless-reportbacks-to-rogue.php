@@ -56,6 +56,7 @@ foreach ($reportbacks as $reportback) {
       'updated_at' => $sent_at,
       'quantity' => $reportback->quantity,
       'why_participated' => $reportback->why_participated,
+      'dont_send_to_blink' => true,
     ];
 
     try {
@@ -108,6 +109,7 @@ foreach ($reportbacks as $reportback) {
       'source' => $photo->source,
       'remote_addr' => $photo->remote_addr,
       'file' => dosomething_helpers_get_data_uri_from_fid($photo->fid),
+      'dont_send_to_blink' => true,
     ];
 
     // Send the request to Rogue
