@@ -23,57 +23,6 @@ function dosomething_mbp_menu() {
 }
 
 /**
- * A request to send a queue entry to the Message Broker system.
- *
- * @param string $origin
- *   Where the message request came from.
- * @param array $params
- *   (optional) Keyed array of data to build payload from.
- *
- * @return bool
- *   The status of the request.
- */
-function dosomething_mbp_request($origin, $params = NULL) {
-
-  $production = NULL;
-  switch ($origin) {
-    case 'user_register':
-      $production = 'transactional_user_register';
-      break;
-
-    case 'user_password':
-      $production = 'transactional_user_password';
-      break;
-
-    case 'campaign_signup':
-      $production = 'transactional_campaign_signup';
-      break;
-
-    case 'campaign_reportback':
-      $production = 'transactional_campaign_reportback';
-      break;
-
-    default:
-      watchdog('dosomething_mbp', 'Undefined origin: %origin sent to dosomething_mbp_request()', array('%origin' => $origin), WATCHDOG_ERROR);
-
-  }
-  $payload = dosomething_mbp_get_transactional_payload($origin, $params);
-  if (variable_get('dosomething_mbp_log')) {
-    watchdog('dosomething_mbp', $production . " params: " . json_encode($params));
-    watchdog('dosomething_mbp', "Payload: " . json_encode($payload));
-  }
-
-  try {
-    return message_broker_producer_request($production, $payload);
-  }
-  catch (Exception $e) {
-    watchdog('dosomething_mbp', $e, array(), WATCHDOG_ERROR);
-    return FALSE;
-  }
-
-}
-
-/**
  * Build payload for transactional producer requests.
  *
  * NOTE:
