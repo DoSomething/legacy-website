@@ -6,28 +6,6 @@
  */
 
 /**
- * Returns multi-dimensional array of relevant Signup helpers variable names.
- *
- * @return array
- *   Returns multi-dimensional array, indexed by the Campaign type.
- */
-function dosomething_signup_get_signup_helpers_var_names() {
-  return array(
-    'campaign' => array(
-      'mailchimp_grouping_id' => t('The numeric Grouping ID for the Group Name.'),
-      'mailchimp_group_name' => t('The alphanumeric Interest Group Name.'),
-      'mobilecommons_opt_in_path' => t('The numeric Mobilecommons opt-in path.'),
-    ),
-    'sms_game' => array(
-      'mobilecommons_opt_in_path' => t('Single-player: Mobile Commons Alpha Opt-In Path'),
-      'mobilecommons_friends_opt_in_path' => t('Single-player: Mobile Commons Beta Opt-In Path'),
-      'sms_game_mp_story_id' => t('Multi-player: Story Id'),
-      'sms_game_mp_story_type' => t('Multi-player: Story Type'),
-    ),
-  );
-}
-
-/**
  * System settings form for DoSomething Signup specific variables.
  */
 function dosomething_signup_admin_config_form($form, &$form_state) {
