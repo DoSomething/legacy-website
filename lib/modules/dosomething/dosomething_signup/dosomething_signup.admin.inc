@@ -6,40 +6,6 @@
  */
 
 /**
- * Adds form elements to store third party values for given set of $node_vars.
- *
- * @param array $form
- *   The Form API form to add the elements to.
- * @param array $node_vars
- *   The relevant node variables for these form elements. Expected values:
- *   - nid: The node nid (int).
- *   - title: The node title (string).
- * @param array $helpers_vars
- *   The helpers variable names to get/set for this node.
- */
-function dosomething_signup_opt_in_config_form_add_elements(&$form, $node_vars, $helpers_vars) {
-  $nid = $node_vars['nid'];
-  $title = !empty($node_vars['title']) ? $node_vars['title'] : t("Undefined");
-  // Create a fieldset for each campaign.
-  $form[$nid] = array(
-    '#type' => 'fieldset',
-    '#title' => $title . ' | NID ' . $nid,
-    '#collapsible' => TRUE,
-    '#collapsed' => TRUE,
-  );
-  // Loop through each helpers variable name for this node:
-  foreach ($helpers_vars as $name => $description) {
-    // Create a form element for setting the node helpers variable.
-    $form[$nid][$nid . '_' . $name] = array(
-      '#type' => 'textfield',
-      '#title' => $name,
-      '#default_value' => dosomething_helpers_get_variable('node', $nid, $name),
-      '#description' => $description,
-    );
-  }
-}
-
-/**
  * Returns multi-dimensional array of relevant Signup helpers variable names.
  *
  * @return array
