@@ -26,16 +26,6 @@ include_once 'includes/SignupTransformer.php';
  */
 function dosomething_signup_menu() {
   $items = [];
-
-  $items['admin/config/dosomething/opt_in'] = array(
-    'title' => t('Third Party Opt-Ins'),
-    'description' => 'Admin form to manage custom opt-ins',
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('dosomething_signup_opt_in_config_form'),
-    'access callback' => 'user_access',
-    'access arguments' => array('administer third party communication'),
-    'file' => 'dosomething_signup.admin.inc'
-  );
   $items['admin/config/dosomething/dosomething_signup'] = array(
     'title' => t('DoSomething Signup'),
     'description' => t('Admin configuration form for DoSomething Signup.'),
