@@ -21,31 +21,3 @@ function dosomething_mbp_menu() {
 
   return $items;
 }
-
-/**
- * Define template name to use for transaction based on the event and the
- * affiliate code.
- *
- * @param string $event_name
- *   Example: "campaign_signup", "password_reset", etc
- * @param string $language
- *   (optional) Language setting used to define the message template name.
- *
- * @return string
- *   Name of Mandrill template to use for transactional message.
- */
-function dosomething_mbp_get_template_name($event_name, $language = NULL) {
-  if (isset($langauge)) {
-    $country_code = dosomething_global_convert_language_to_country($language);
-    if ($country_code == NULL) {
-      $country_code = DOSOMETHING_GLOBAL_DEFAULT_COUNTRY_CODE;
-    }
-  }
-  else {
-    $country_code = dosomething_settings_get_affiliate_country_code();
-  }
-
-  // Convert from $origin use of "_" to "-" for template name
-  $event_name = str_replace('_', '-', $event_name);
-  return 'mb-' . $event_name . '-' . $country_code;
-}
