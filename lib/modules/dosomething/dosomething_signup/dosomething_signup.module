@@ -556,46 +556,6 @@ function dosomething_signup_user_signup($nid, $account = NULL, $source = NULL, $
 }
 
 /**
- * Sends mbp request for a signup.
- *
- * @param object account
- *   Details about the user account that made the signup.
- * @param object node
- *   Details about the node that the signup was made on.
- * @param int $opt_in
- *   The opt-in path to use for opt-in.
- * @param array $options
- *   - transactionals
- *   (optional) A flag to disable sending transactional messages.
- *   - source
- *   (optional) A idendify name of the original source that requested the campaign signup.
- */
-function dosomething_signup_mbp_request($account, $node, $opt_in, $options = []) {
-  // Send MBP request.
-  if (!module_exists('dosomething_mbp')) {
-    return;
-  }
-
-  // Exclude 26+ Club.
-  if (dosomething_signup_is_26plusclub_member($account)) {
-    return;
-  }
-
-  // Don't sign users under 13 up for messaging
-  if (dosomething_user_is_under_thirteen($account)) {
-    return;
-  }
-
-  // Gather mbp params for the signup.
-  $params = dosomething_signup_get_mbp_params($account, $node, $opt_in, $options);
-
-  // Send campaign mbp request.
-  if ($node->type == 'campaign') {
-    dosomething_mbp_request('campaign_signup', $params);
-  }
-}
-
-/**
  * Get params for a signup mbp request.
  *
  * @param object $account
