@@ -189,6 +189,7 @@ function dosomething_mbp_install_productions() {
   $productions[0]['exchange'] = 'transactionalExchange';
   $productions[0]['queues'][] = 'transactionalQueue';
   $productions[0]['queues'][] = 'loggingQueue';
+  $productions[0]['queues'][] = 'mobileCommonsQueue';
   $productions[0]['routing_key'] = 'user.registration.transactional';
   $productions[0]['status'] = 1;
 
@@ -196,6 +197,7 @@ function dosomething_mbp_install_productions() {
   $productions[1]['exchange'] = 'transactionalExchange';
   $productions[1]['queues'][] = 'transactionalQueue';
   $productions[1]['queues'][] = 'loggingQueue';
+  $productions[1]['queues'][] = 'mobileCommonsQueue';
   $productions[1]['routing_key'] = 'user.password_reset.transactional';
   $productions[1]['status'] = 1;
 
@@ -203,6 +205,7 @@ function dosomething_mbp_install_productions() {
   $productions[2]['exchange'] = 'transactionalExchange';
   $productions[2]['queues'][] = 'transactionalQueue';
   $productions[2]['queues'][] = 'loggingQueue';
+  $productions[2]['queues'][] = 'mobileCommonsQueue';
   $productions[2]['queues'][] = 'messagingGroupsQueue';
   $productions[2]['queues'][] = 'dispatchDelayedTextsQueue';
   $productions[2]['routing_key'] = 'campaign.signup.transactional';
