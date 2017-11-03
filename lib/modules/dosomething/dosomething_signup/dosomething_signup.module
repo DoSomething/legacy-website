@@ -741,8 +741,6 @@ function dosomething_signup_get_mbp_params($account, $node, $opt_in, $options = 
 
   // Add additional values to $params based on campaign
   dosomething_signup_get_mbp_params_campaign($params, $wrapper);
-  // Add any mailchimp params if needed.
-  dosomething_signup_get_mbp_params_mailchimp($params, $node);
 
   return $params;
 }
@@ -762,31 +760,6 @@ function dosomething_signup_get_mbp_params_campaign(&$params, $wrapper) {
     $params['step_one'] = $content->field_pre_step_header->value();
     $params['step_two'] = DOSOMETHING_CAMPAIGN_PIC_STEP_HEADER;
     $params['step_three'] = $content->field_post_step_header->value();
-  }
-}
-
-
-/**
- * Checks if Mailchimp params should be included in a signup mbp request.
- *
- * @param array $params
- *   Params array to be sent to a mbp request.
- * @param object $node
- *   Details about the node that the signup was made on.
- */
-function dosomething_signup_get_mbp_params_mailchimp(&$params, $node) {
-  $nid = $node->nid;
-  $grouping_id = dosomething_helpers_get_variable('node', $nid, 'mailchimp_grouping_id');
-  $group_name = dosomething_helpers_get_variable('node', $nid, 'mailchimp_group_name');
-
-  // MailChimp List Id.
-  $mli = dosomething_signup_get_mailchimp_list_id();
-  // If a value is present for Mailchimp groups:
-  if (!empty($mli) && !empty($grouping_id) && !empty($group_name)) {
-    // Add it into the mbp_request params.
-    $params['mailchimp_list_id'] = $mli;
-    $params['mailchimp_grouping_id'] = $grouping_id;
-    $params['mailchimp_group_name'] = $group_name;
   }
 }
 
