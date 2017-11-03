@@ -283,14 +283,6 @@ function dosomething_signup_create($nid, $uid = NULL, $source = NULL, $timestamp
   $sid = $response ? $response['data']['signup_id'] : NULL;
   _dosomething_signup_log_signup($sid, $source);
 
-  // Send relevant third-party subscribe requests.
-  // @NOTE: For legacy signups, this was handled in an entity save hook.
-  dosomething_signup_third_party_subscribe($account, $campaign_node, [
-    'transactionals' => $transactionals,
-    'source' => $source,
-    'signup_id' => $sid,
-  ]);
-
   return $sid ? $sid : FALSE;
 }
 
@@ -516,40 +508,6 @@ function dosomething_signup_views_data() {
     ),
   );
   return $data;
-}
-
-/**
- * Sends third-party subscription requests for given $account and $node.
- *
- * @param object $account
- *    User details who signed up for a campaign.
- * @param object $node
- *   Details about the campaign the user signed up to.
- * @parm array $options
- *   Possible options used for the subscribe request.
- *   - source
- *     A value defining where the request to sign a user up to a campaign originated.
- *   - transactionals
- *     A flag to prevent sending transactionals when FALSE. Defaults to TRUE when NULL.
- */
-function dosomething_signup_third_party_subscribe($account, $node, $options = []) {
-  // If this is a SMS Game Campaign node:
-  if (module_exists('dosomething_campaign') && dosomething_campaign_get_campaign_type($node) == 'sms_game') {
-    // @see dosomething_signup_friends_form_submit.
-    return;
-  }
-
-  $var_name  = 'mobilecommons_opt_in_path';
-  // Is there an override set on this campaign?
-  $opt_in = dosomething_helpers_get_variable('node', $node->nid, $var_name);
-  // If not:
-  if (!$opt_in) {
-    // Use general opt_in_path.
-    $var_name = 'dosomething_signup_mobilecommons_opt_in_path_general_campaign';
-    $opt_in = variable_get($var_name);
-  }
-  // Send message broker request.
-  dosomething_signup_mbp_request($account, $node, $opt_in, $options);
 }
 
 /**
