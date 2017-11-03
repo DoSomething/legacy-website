@@ -743,33 +743,6 @@ function dosomething_signup_get_mbp_params($account, $node, $opt_in, $options = 
 }
 
 /**
- * Returns MailChimp list id for current user.
- *
- * @return string
- *   MailChimp List id.
- */
-function dosomething_signup_get_mailchimp_list_id() {
-  // 26+ Club override.
-  if (dosomething_signup_is_26plusclub_member()) {
-    // If `dosomething_signup_26plusclub_mailchimp_list_id` isn't set,
-    // fallback to `dosomething_signup_mailchimp_general_list_id`.
-    if ($mli = variable_get('dosomething_signup_26plusclub_mailchimp_list_id')) {
-      return $mli;
-    }
-  }
-  global $user;
-  $user_language = $user->language;
-  $country_code = dosomething_global_convert_language_to_country($user_language);
-  // Default to the global MailChimp list if a country is not found for the user language
-  // Most global users will have a language setting of en-global.
-  if (empty($country_code)) {
-    $country_code = 'global';
-  }
-  $field_name = "dosomething_signup_" . strtolower($country_code) . '_mail_list_id';
-  return variable_get($field_name);
-}
-
-/**
  * Checks if 26+ club is enabled and the user is a member of it.
  *
  * @param object $user
