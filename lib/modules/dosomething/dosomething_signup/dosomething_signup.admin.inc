@@ -28,33 +28,6 @@ function dosomething_signup_get_signup_helpers_var_names() {
 }
 
 /**
- * Returns list of variables to construct the Op-tin Config form.
- *
- * @return array
- */
-function dosomething_signup_get_opt_in_config_form_helpers_vars() {
-  $vars = array();
-  $helpers_var_names = dosomething_signup_get_signup_helpers_var_names();
-  $vars['staff_pick'] = array(
-    'title' => t("Staff Picks"),
-    'node_vars' => dosomething_campaign_get_staff_picks(),
-    'helpers_vars' => $helpers_var_names['campaign'],
-  );
-  $vars['campaign_group'] = array(
-    'title' => t("Campaign Collections"),
-    'node_vars' => dosomething_helpers_get_node_vars('campaign_group'),
-    // A Campaign Group uses the same helpers variables as a standard Campaign.
-    'helpers_vars' => $helpers_var_names['campaign'],
-  );
-  $vars['sms_game'] = array(
-    'title' => t("SMS Games"),
-    'node_vars' => dosomething_campaign_get_sms_games(),
-    'helpers_vars' => $helpers_var_names['sms_game'],
-  );
-  return $vars;
-}
-
-/**
  * System settings form for DoSomething Signup specific variables.
  */
 function dosomething_signup_admin_config_form($form, &$form_state) {
