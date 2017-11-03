@@ -70,7 +70,6 @@ function _transactional_resource_create($request) {
   }
 
   $user = $account;
-  _dosomething_user_send_to_message_broker();
 
   return ['success' => true];
 }
