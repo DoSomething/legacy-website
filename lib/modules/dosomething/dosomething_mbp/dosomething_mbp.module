@@ -23,56 +23,6 @@ function dosomething_mbp_menu() {
 }
 
 /**
- * Common payload for campaign / group_campaign transactional producer requests.
- *
- * NOTE:
- * Any adjustments to the data before it becomes common campaign /
- * group_campaign payload should be done in this function.
- *
- * @param array $params
- *   Keyed array of data to build payload from.
- *
- * @return array
- *   $payload - Composed values ready to be sent as a message payload.
- */
-function dosomething_mbp_get_common_campaign_payload(&$payload, $params) {
-  $payload['subscribed'] = 1;
-  $payload['event_id']   = $params['event_id'];
-
-  // Signup Id.
-  if (!empty($params['signup_id'])) {
-    $payload['signup_id'] = $params['signup_id'];
-  }
-
-  if (isset($params['campaign_language'])) {
-    $payload['campaign_language'] = $params['campaign_language'];
-    $payload['campaign_country'] = $params['campaign_country'];
-  }
-
-  $payload['email_tags'][] = $params['event_id'];
-  // Check for Mailchimp grouping_id+group_name:
-  $mailchimp = !empty($params['mailchimp_group_name'])
-            && !empty($params['mailchimp_grouping_id'])
-            && !empty($params['mailchimp_list_id']);
-
-  if ($mailchimp) {
-    $payload['mailchimp_list_id']     = $params['mailchimp_list_id'];
-    $payload['mailchimp_grouping_id'] = $params['mailchimp_grouping_id'];
-    $payload['mailchimp_group_name']  = $params['mailchimp_group_name'];
-  }
-  $payload['merge_vars']['FNAME'] = $params['first_name'];
-  $payload['merge_vars']['CAMPAIGN_TITLE'] = $params['campaign_title'];
-  $payload['merge_vars']['CAMPAIGN_LINK'] = $params['campaign_link'];
-
-  if (!empty($params['mobile'])) {
-    $payload['mobile'] = $params['mobile'];
-    if (!empty($params['mc_opt_in_path_id'])) {
-      $payload['mc_opt_in_path_id'] = $params['mc_opt_in_path_id'];
-    }
-  }
-}
-
-/**
  * Define template name to use for transaction based on the event and the
  * affiliate code.
  *
