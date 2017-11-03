@@ -644,24 +644,6 @@ function dosomething_signup_get_mbp_params($account, $node, $opt_in, $options = 
 }
 
 /**
- * Checks if 26+ club is enabled and the user is a member of it.
- *
- * @param object $user
- *   (optional) The loaded user object.
- *   If omitted, falls back to the current user.
- *
- * @return bool
- *   True if 26+ club is enabled and the user is a member of it.
- */
-function dosomething_signup_is_26plusclub_member($user = NULL) {
-  if ($user === NULL) {
-    global $user;
-  }
-  $club_enabld = variable_get('dosomething_signup_26plusclub_enabled', FALSE);
-  return $club_enabld && dosomething_user_is_old_person($user);
-}
-
-/**
  * Sets Drupal message for a signup for given $title.
  *
  * @param string $title
