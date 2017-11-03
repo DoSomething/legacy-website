@@ -519,23 +519,6 @@ function dosomething_signup_views_data() {
 }
 
 /**
- * Implements hook_entity_insert().
- */
-function dosomething_signup_entity_insert($entity, $type) {
-  // If not a signup, exit out of function.
-  if ($type != 'signup') { return; }
-  $node = node_load($entity->nid);
-  $account = user_load($entity->uid);
-
-  // Send relevant third-party subscribe requests.
-  dosomething_signup_third_party_subscribe($account, $node, [
-    'transactionals' => $entity->transactionals,
-    'source' => $entity->source,
-    'signup_id' => $entity->sid,
-  ]);
-}
-
-/**
  * Sends third-party subscription requests for given $account and $node.
  *
  * @param object $account
