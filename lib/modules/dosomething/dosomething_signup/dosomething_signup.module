@@ -739,28 +739,7 @@ function dosomething_signup_get_mbp_params($account, $node, $opt_in, $options = 
     $params['mc_opt_in_path_id'] = $opt_in;
   }
 
-  // Add additional values to $params based on campaign
-  dosomething_signup_get_mbp_params_campaign($params, $wrapper);
-
   return $params;
-}
-
-/**
- * Adds campaign params in a signup mbp request.
- *
- * @param array $params
- *   Params array to be sent to a mbp request.
- * @param object $node
- *   Details about the node that the signup was made on.
- */
-function dosomething_signup_get_mbp_params_campaign(&$params, $wrapper) {
-  if ($wrapper->type->value() == 'campaign') {
-    $content = $wrapper->language($params['campaign_language']);
-    $params['call_to_action'] = $content->field_call_to_action->value();
-    $params['step_one'] = $content->field_pre_step_header->value();
-    $params['step_two'] = DOSOMETHING_CAMPAIGN_PIC_STEP_HEADER;
-    $params['step_three'] = $content->field_post_step_header->value();
-  }
 }
 
 /**
