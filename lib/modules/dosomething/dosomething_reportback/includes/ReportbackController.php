@@ -125,10 +125,6 @@ class ReportbackController extends EntityAPIController {
 
     // If this was an insert:
     if ($op == 'insert') {
-      // Send Message Broker request.
-      if (module_exists('dosomething_mbp')) {
-        dosomething_reportback_mbp_request($entity);
-      }
       if (module_exists('dosomething_reward')) {
         // Check for Reportback Count Reward.
         dosomething_reward_reportback_count($entity);
