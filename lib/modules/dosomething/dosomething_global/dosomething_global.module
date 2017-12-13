@@ -10,12 +10,6 @@ define('TRANSLATABLE_TYPES', 'static_content,campaign,home');
 // Default language: Global English
 define('DOSOMETHING_GLOBAL_DEFAULT_LANG_CODE', 'en-global');
 
-// Default country code
-// https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
-// Used for transactional messaging in dosomething_mbp for default template name
-// of non-affiliate counties.
-define('DOSOMETHING_GLOBAL_DEFAULT_COUNTRY_CODE', 'XG');
-
 /**
  * Implements hook_init().
  */

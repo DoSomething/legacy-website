@@ -741,3 +741,20 @@ function dosomething_signup_update_7026() {
     db_add_field($table, 'custom_social_share_signup', $spec);
   }
 }
+
+/**
+ * Post-mbp deprecation cleanup
+ */
+function dosomething_signup_update_7027() {
+  $vars = array(
+    'dosomething_signup_mobilecommons_opt_in_path_general_campaign',
+    'dosomething_signup_26plusclub_mailchimp_list_id',
+    'dosomething_signup_26plusclub_mailchimp_grouping_id_register',
+    'dosomething_signup_26plusclub_mailchimp_group_name_register',
+    'dosomething_signup_26plusclub_mailchimp_template_name_register',
+    'dosomething_signup_26plusclub_enabled',
+  );
+  foreach ($vars as $var) {
+    variable_del($var);
+  }
+}
