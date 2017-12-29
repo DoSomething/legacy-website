@@ -3,7 +3,7 @@
 /**
  * Require Composer's class loader.
  */
-require_once __DIR__ . '/../lib/autoload.php';
+require_once __DIR__ . '/../../../lib/autoload.php';
 
 /**
  * Lets do something about globals
@@ -19,7 +19,7 @@ define('DS_LIBRARIES_PATH', DS_PROFILE_PATH . '/libraries');
 $databases['default']['default'] = [
   'database' => getenv('DS_DB_MASTER_NAME') ?: 'dosomething',
   'username' => getenv('DS_DB_MASTER_USER') ?: 'root',
-  'password' => getenv('DS_DB_MASTER_PASS') ?: '',
+  'password' => getenv('DS_DB_MASTER_PASS') ?: 'root',
   'host' => getenv('DS_DB_MASTER_HOST') ?: 'localhost',
   'port' => getenv('DS_DB_MASTER_PORT') ?: '3306',
   'driver' => getenv('DS_DB_MASTER_DRIVER') ?: 'mysql',
@@ -33,7 +33,7 @@ $hostname = $_SERVER['HTTP_HOST'] ?: 'dev.dosomething.org';
 
 $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? 'https://' : 'http://';
 
-$insecure_port = getenv('DS_INSECURE_PORT') ?: 8888;
+$insecure_port = getenv('DS_INSECURE_PORT') ?: 80;
 $secure_port = getenv('DS_SECURE_PORT') ?: 8889;
 
 // $hostname may already have port included. Check it before you wreck it!

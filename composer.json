@@ -19,6 +19,7 @@
     "nesbot/carbon": "^1.22"
   },
   "require-dev": {
-    "symfony/var-dumper": "^3.1"
+    "symfony/var-dumper": "^3.1",
+    "geerlingguy/drupal-vm": "^4.6"
   }
 }
