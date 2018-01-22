@@ -269,7 +269,7 @@ projects[external_auth][subdir] = "contrib"
 projects[message_broker_producer][type] = "module"
 projects[message_broker_producer][download][type] = "git"
 projects[message_broker_producer][download][url] = "https://github.com/DoSomething/message_broker_producer.git"
-projects[message_broker_producer][download][tag] = "0.2.5"
+projects[message_broker_producer][download][tag] = "0.2.6"
 projects[message_broker_producer][subdir] = "contrib"
 
 ; DEVELOPMENT
