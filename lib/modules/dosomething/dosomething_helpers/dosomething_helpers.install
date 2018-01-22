@@ -193,3 +193,18 @@ function dosomething_helpers_update_7008() {
     ->condition('name', 'sum_rb_quanity', '=')
     ->execute();
 }
+
+/**
+ * Uninstall 'dosomething_mbp' and 'message_broker_producer' modules.
+ */
+function dosomething_helpers_update_7009() {
+  if (module_exists('dosomething_mbp')) {
+    module_disable(['dosomething_mbp']);
+    drupal_uninstall_modules(['dosomething_mbp']);
+  }
+
+  if (module_exists('message_broker_producer')) {
+    module_disable(['message_broker_producer']);
+    drupal_uninstall_modules(['message_broker_producer']);
+  }
+}
