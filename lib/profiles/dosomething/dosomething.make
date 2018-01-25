@@ -91,12 +91,6 @@ projects[dosomething_kudos][download][type] = local
 projects[dosomething_kudos][download][source] = './lib/modules/dosomething/dosomething_kudos'
 projects[dosomething_kudos][subdir] = "dosomething"
 
-; Dosomething MBP (Message Broker Producer)
-projects[dosomething_mbp][type] = "module"
-projects[dosomething_mbp][download][type] = local
-projects[dosomething_mbp][download][source] = './lib/modules/dosomething/dosomething_mbp'
-projects[dosomething_mbp][subdir] = "dosomething"
-
 ; Dosomething Metatag
 projects[dosomething_metatag][type] = "module"
 projects[dosomething_metatag][download][type] = local

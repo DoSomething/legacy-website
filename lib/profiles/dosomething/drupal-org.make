@@ -265,12 +265,6 @@ projects[external_auth][download][url] = "https://github.com/DoSomething/drupal-
 projects[external_auth][download][revision] = "c6bda54"
 projects[external_auth][subdir] = "contrib"
 
-; Message Broker Producer
-projects[message_broker_producer][type] = "module"
-projects[message_broker_producer][download][type] = "git"
-projects[message_broker_producer][download][url] = "https://github.com/DoSomething/message_broker_producer.git"
-projects[message_broker_producer][download][tag] = "0.2.5"
-projects[message_broker_producer][subdir] = "contrib"
 
 ; DEVELOPMENT
 
@@ -288,19 +282,6 @@ projects[stage_file_proxy][subdir] = "contrib"
 
 
 ; LIBRARIES
-
-; Message Broker PHP Library
-libraries[messagebroker-phplib][download][type] = "git"
-libraries[messagebroker-phplib][download][url] = "https://github.com/DoSomething/messagebroker-phplib.git"
-libraries[messagebroker-phplib][download][tag] = "0.2.9"
-
-; Message Broker Configuration
-libraries[messagebroker-config][download][type] = "git"
-libraries[messagebroker-config][download][url] = "https://github.com/DoSomething/messagebroker-config.git"
-
-; Mobile Commons PHP
-libraries[mobilecommons-php][download][type] = "git"
-libraries[mobilecommons-php][download][url] = "https://github.com/DoSomething/mobilecommons-php.git"
 
 ; Predis
 libraries[predis][download][type] = "git"
