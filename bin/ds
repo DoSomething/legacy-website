@@ -394,10 +394,6 @@ function composer {
     echo -e "\e[4mInstalling Composer dependencies...\e[0m"
     eval "/usr/local/bin/composer install"
 
-    cd $WEB_PATH/profiles/dosomething/libraries/messagebroker-phplib
-    echo -e "\e[4mInstalling Composer dependencies for Message Broker PHPLIB...\e[0m"
-    eval "/usr/local/bin/composer install"
-
     cd $BASE_PATH
   fi
 }

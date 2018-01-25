@@ -283,19 +283,6 @@ projects[stage_file_proxy][subdir] = "contrib"
 
 ; LIBRARIES
 
-; Message Broker PHP Library
-libraries[messagebroker-phplib][download][type] = "git"
-libraries[messagebroker-phplib][download][url] = "https://github.com/DoSomething/messagebroker-phplib.git"
-libraries[messagebroker-phplib][download][tag] = "0.2.9"
-
-; Message Broker Configuration
-libraries[messagebroker-config][download][type] = "git"
-libraries[messagebroker-config][download][url] = "https://github.com/DoSomething/messagebroker-config.git"
-
-; Mobile Commons PHP
-libraries[mobilecommons-php][download][type] = "git"
-libraries[mobilecommons-php][download][url] = "https://github.com/DoSomething/mobilecommons-php.git"
-
 ; Predis
 libraries[predis][download][type] = "git"
 libraries[predis][download][url] = "https://github.com/nrk/predis.git"
