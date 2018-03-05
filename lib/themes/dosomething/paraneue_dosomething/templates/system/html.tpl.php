@@ -70,6 +70,8 @@
     src="https://www.facebook.com/tr?id=883788485091123&ev=PageView&noscript=1"
     /></noscript>
   <?php endif; ?>
+
+  <script src="https://my.hellobar.com/f70465b5f088ff5df39e838a358d27109b365641.js" type="text/javascript" charset="utf-8" async="async"></script>
 </body>
 
 </html>
