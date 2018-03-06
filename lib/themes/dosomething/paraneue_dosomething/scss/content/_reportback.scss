@@ -236,7 +236,6 @@
     padding-bottom: 100%;
   }
 
-
   &:before {
     background-color: $blue;
     border-radius: 100%;
@@ -255,6 +254,10 @@
     width: 70px;
   }
 
+  &.hide-message-callout:before {
+    display: none;
+  }
+
   &:hover:before {
     background-color: lighten($blue, $color-tint);
   }
@@ -269,6 +272,10 @@
     @include media($medium) {
       bottom: 20%;
     }
+  }
+
+  &.hide-message-callout > .message-callout {
+    display: none;
   }
 
   .message-callout__copy {
