@@ -10,7 +10,7 @@ include_once('dosomething_rogue.admin.inc');
 include_once('dosomething_rogue.cron.inc');
 include_once('includes/Rogue.php');
 
-define('ROGUE_API_URL', variable_get('dosomething_rogue_url', 'http://rogue.app/api'));
+define('ROGUE_API_URL', variable_get('dosomething_rogue_url', 'http://rogue.test/api'));
 define('ROGUE_API_VERSION', variable_get('dosomething_rogue_api_version', 'v1'));
 define('ROGUE_API_KEY', variable_get('dosomething_rogue_api_key', 'abc123'));
 
