@@ -49,6 +49,10 @@ class Rogue extends RestApiClient {
    */
   public function postReportback($data)
   {
+    // Remove 'type' => 'reportback' from payload, since
+    // this conflicts with optional field in Rogue's API.
+    unset($data['type']);
+
     $response = $this->post('v2/posts', $data);
 
     return $response;
