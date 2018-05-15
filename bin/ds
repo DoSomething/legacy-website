@@ -421,6 +421,9 @@ function grunt {
     eval "/usr/bin/npm install"
   fi
 
+  mkdir ./node_modules/@dosomething/forge/node_modules
+  cp -r ./node_modules/susy ./node_modules/@dosomething/forge/node_modules/susy
+
   if hash grunt 2>/dev/null;
   then
     if [[ $1 == "--watch" ]]
