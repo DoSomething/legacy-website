@@ -1,15 +1,7 @@
 <?php
 
 $countries = [
-  'botswana',
-  'canada',
-  'congo',
-  'ghana',
-  'kenya',
   'indonesia',
-  'nigeria',
-  'training',
-  'uk',
 ];
 
 $sites = [];
