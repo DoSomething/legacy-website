@@ -37,7 +37,7 @@
     "grunt-eslint": "^16.0.0",
     "grunt-modernizr": "^0.6.0",
     "grunt-postcss": "^0.2.0",
-    "grunt-sass": "^0.18.0",
+    "grunt-sass": "^2.0.0",
     "grunt-sasslint": "0.0.5",
     "grunt-webpack": "^1.0.8",
     "load-grunt-tasks": "^3.1.0",
