@@ -1,15 +1,7 @@
 <?php
 
 $countries = array(
-  'botswana',
-  'canada',
-  'congo',
-  'ghana',
-  'kenya',
   'indonesia',
-  'nigeria',
-  'training',
-  'uk',
 );
 
 $sites = array();
