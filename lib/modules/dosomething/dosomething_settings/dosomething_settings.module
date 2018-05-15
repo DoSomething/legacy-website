@@ -40,15 +40,7 @@ function dosomething_settings_is_affiliate() {
  *
  * @return string
  *   One of the list:
- *   - botswana
- *   - canada
- *   - default
- *   - ghana
  *   - indonesia
- *   - kenya
- *   - nigeria
- *   - training
- *   - uk
  */
 function dosomething_settings_get_affiliate_code() {
   $code = &drupal_static(__FUNCTION__);
@@ -80,13 +72,7 @@ function dosomething_settings_get_affiliate_country_code() {
   $country_code = &drupal_static(__FUNCTION__);
   if (!isset($country_code)) {
     $mapping = array(
-      'botswana'  => 'BW',
-      'canada'    => 'CA',
-      'ghana'     => 'GH',
       'indonesia' => 'ID',
-      'kenya'     => 'KE',
-      'nigeria'   => 'NG',
-      'uk'        => 'GB',
     );
     $code = strtolower(dosomething_settings_get_affiliate_code());
     $country_code = isset($mapping[$code]) ? $mapping[$code] : 'US';

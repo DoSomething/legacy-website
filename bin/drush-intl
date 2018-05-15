@@ -19,8 +19,9 @@ WEB_PATH=$BASE_PATH/$WEB_DIR
 
 # ==============================================================================
 # Functions
+# Maintaining this syntax in case we ever re-add countries.
 
-for SITE in botswana canada ghana kenya indonesia nigeria training uk
+for SITE in indonesia
 do
   echo -e "\e[38;5;071mRunning drush on \e[4m$SITE\e[24m...\e[0m"
   cd "$WEB_PATH/sites/$SITE" && drush -l https://$SITE.dosomething.org "$@"
