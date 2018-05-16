@@ -272,6 +272,7 @@ libraries[guzzle][download][url] = "https://github.com/guzzle/guzzle.git"
 ; Message Broker PHP Library
 libraries[messagebroker-phplib][download][type] = "git"
 libraries[messagebroker-phplib][download][url] = "https://github.com/DoSomething/messagebroker-phplib.git"
+libraries[messagebroker-phplib][download][tag] = "0.2.9"
 
 ; Message Broker Configuration
 libraries[messagebroker-config][download][type] = "git"
