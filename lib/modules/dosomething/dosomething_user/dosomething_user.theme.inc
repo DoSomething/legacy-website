@@ -75,7 +75,7 @@ function dosomething_user_preprocess_user_profile(&$variables) {
   );
 
   $variables['first_name'] = $nsUser->first_name;
-  $variables['last_name'] = $nsUser->last_name;
+  $variables['last_name'] = isset($nsUser->last_name) ? $nsUser->last_name : null;
   // The edit link will redirect to profile.dosomething.org for non-admins.
   $variables['edit_link'] = 'user/' . $uid . '/edit';
   $variables['email'] = $nsUser->email;
