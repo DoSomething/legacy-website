@@ -69,12 +69,17 @@ function dosomething_user_get_register_link($label, array $class = []) {
 function dosomething_user_preprocess_user_profile(&$variables) {
   // Collect User Account data.
   $uid = $variables['elements']['#account']->uid;
-  $user = user_load($uid);
-  $variables['first_name'] = dosomething_user_get_field('field_first_name', $user, 'ucwords');
-  $variables['last_name'] = dosomething_user_get_field('field_last_name', $user, 'ucwords');
+
+  $nsUser = dosomething_northstar_get_user(
+    dosomething_user_get_northstar_id($uid)
+  );
+
+  $variables['first_name'] = $nsUser->first_name;
+  $variables['last_name'] = isset($nsUser->last_name) ? $nsUser->last_name : null;
+  // The edit link will redirect to profile.dosomething.org for non-admins.
   $variables['edit_link'] = 'user/' . $uid . '/edit';
-  $variables['email'] = $user->mail;
-  $variables['mobile'] = dosomething_user_get_field('field_mobile', $user);
+  $variables['email'] = $nsUser->email;
+  $variables['mobile'] = $nsUser->mobile;
 
   // Collect Campaigns Doing.
   $variables['doing'] = array();
