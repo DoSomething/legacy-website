@@ -69,7 +69,10 @@ function dosomething_user_get_register_link($label, array $class = []) {
 function dosomething_user_preprocess_user_profile(&$variables) {
   // Collect User Account data.
   $uid = $variables['elements']['#account']->uid;
-  $nsUser = dosomething_northstar_get_user($uid, 'drupal_id');
+
+  $nsUser = dosomething_northstar_get_user(
+    dosomething_user_get_northstar_id($uid)
+  );
 
   $variables['first_name'] = $nsUser->first_name;
   $variables['last_name'] = $nsUser->last_name;
