@@ -70,6 +70,10 @@ function dosomething_user_preprocess_user_profile(&$variables) {
   // Collect User Account data.
   $uid = $variables['elements']['#account']->uid;
   $user = user_load($uid);
+  $variables['fake'] = "fake";
+  $nsUser = dosomething_northstar_get_user($uid, 'drupal_id');
+  dump($nsUser->first_name);
+  die();
   $variables['first_name'] = dosomething_user_get_field('field_first_name', $user, 'ucwords');
   $variables['last_name'] = dosomething_user_get_field('field_last_name', $user, 'ucwords');
   $variables['edit_link'] = 'user/' . $uid . '/edit';
