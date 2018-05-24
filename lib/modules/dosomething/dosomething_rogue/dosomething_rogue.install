@@ -562,8 +562,7 @@ function dosomething_rogue_update_7014(&$sandbox) {
 /**
  * remove dosomething_rogue_reportbacks tables
  */
-function dosomething_rogue_update_7015(&$sandbox)
-{
+function dosomething_rogue_update_7015(&$sandbox) {
   $tables = ['dosomething_rogue_reportbacks', 'dosomething_rogue_failed_migrations', 'dosomething_rogue_signups', 'dosomething_rogue_failed_task_log'];
 
   foreach ($tables as $table) {

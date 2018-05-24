@@ -982,8 +982,7 @@ function dosomething_reportback_update_7036() {
 /**
  * Remove unused reportbacks tables now that Rogue is collecting posts.
  */
-function dosomething_reportback_update_7037(&$sandbox)
-{
+function dosomething_reportback_update_7037(&$sandbox) {
   $tables = ['dosomething_reportback', 'dosomething_reportback_file', 'dosomething_reportback_log'];
 
   foreach ($tables as $table) {

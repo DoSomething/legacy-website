@@ -109,3 +109,14 @@ function dosomething_gladiator_update_7003(&$sandbox) {
     )
   );
 }
+
+/**
+ * Remove dosomething_gladiator_failed_task_log table
+ */
+function dosomething_gladiator_update_7003(&$sandbox) {
+  $table = 'dosomething_gladiator_failed_task_log';
+
+  if (db_table_exists($table)) {
+    db_drop_table($table);
+  }
+}
