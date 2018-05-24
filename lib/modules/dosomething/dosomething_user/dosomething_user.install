@@ -145,18 +145,9 @@ function dosomething_user_update_7012() {
 }
 
 /**
- * Remove mail field for GDPR compliance.
- */
-function dosomething_user_update_7013()
-{
-  db_drop_index('users', 'mail');
-  db_drop_field('users', 'mail');
-}
-
-/**
  * Remove blocked Ips table that isn't used and remove IPs from sessions table.
  */
-function dosomething_user_update_7014()
+function dosomething_user_update_7013()
 {
   $tables = 'blocked_ips';
 
