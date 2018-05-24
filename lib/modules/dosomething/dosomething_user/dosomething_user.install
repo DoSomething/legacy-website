@@ -145,17 +145,9 @@ function dosomething_user_update_7012() {
 }
 
 /**
- * Remove blocked Ips table that isn't used and remove IPs from sessions table.
+ * Remove IPs from sessions table.
  */
 function dosomething_user_update_7013()
 {
-  $tables = 'blocked_ips';
-
-  foreach ($tables as $table) {
-    if (db_table_exists($table)) {
-      db_drop_table($table);
-    }
-  }
-
   db_drop_field('sessions', 'hostname');
 }
