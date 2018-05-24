@@ -767,6 +767,6 @@ function dosomething_signup_update_7028(&$sandbox)
   $table = 'dosomething_signup';
 
   if (db_table_exists($table)) {
-    db_drop_table($table);
+    $result = db_truncate($table)->execute();
   }
 }

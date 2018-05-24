@@ -116,7 +116,5 @@ function dosomething_gladiator_update_7003(&$sandbox) {
 function dosomething_gladiator_update_7004(&$sandbox) {
   $table = 'dosomething_gladiator_failed_task_log';
 
-  if (db_table_exists($table)) {
-    db_drop_table($table);
-  }
+  $result = db_truncate($table)->execute();
 }
