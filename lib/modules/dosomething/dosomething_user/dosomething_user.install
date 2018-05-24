@@ -130,3 +130,16 @@ function dosomething_user_uninstall() {
     variable_del($var);
   }
 }
+
+/**
+ * Remove database tables for unused fields.
+ */
+function dosomething_user_update_7012() {
+  field_delete_field('field_address');
+  field_delete_field('field_birthdate');
+  field_delete_field('field_mobile');
+  field_delete_field('field_first_name');
+  field_delete_field('field_last_name');
+  field_delete_field('field_school_id');
+  field_delete_field('field_user_registration_source');
+}
