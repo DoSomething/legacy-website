@@ -131,7 +131,7 @@ function dosomething_campaign_run_preprocess_winners(&$vars, $nid) {
       // Else, grab the first name from the user account.
       else {
         $nsUser = dosomething_northstar_get_user(
-          dosomething_user_get_northstar_id($uid)
+          dosomething_user_get_northstar_id($winners[$i]['uid'])
         );
 
         $winners[$i]['fname'] = $nsUser->first_name;
