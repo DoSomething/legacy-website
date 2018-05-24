@@ -121,3 +121,15 @@ function dosomething_northstar_update_7004() {
     }
   }
 }
+
+/**
+ * Remove dosomething_northstar_request_log table
+ */
+function dosomething_northstar_update_7005(&$sandbox)
+{
+  $table = 'dosomething_northstar_request_log';
+
+  if (db_table_exists($table)) {
+    db_drop_table($table);
+  }
+}

@@ -258,37 +258,6 @@ function dosomething_northstar_save_id_field($uid, $northstar_response) {
 }
 
 /**
- * If the log is enabled, log this request to the database.
- *
- * @param string $op - label for the operation being performed
- * @param object $user - the Drupal user
- * @param array $request_body - the body of the request
- * @param array $response - response JSON
- * @param integer|null $code
- */
-function dosomething_northstar_log_request($op, $user, $request_body, $response, $code = NULL) {
-  if (!variable_get('dosomething_northstar_log')) return;
-
-  // Don't log plaintext passwords.
-  if (isset($request_body['password'])) {
-    $request_body['password'] = '*****';
-  }
-
-  db_insert('dosomething_northstar_request_log')
-    ->fields([
-      'op' => $op,
-      'uid' => $user->uid,
-      'user_lang' => $user->language,
-      'user_country' => $user->field_address[LANGUAGE_NONE][0]['country'],
-      'fastly_country' => dosomething_settings_get_geo_country_code(),
-      'request_values' => json_encode($request_body),
-      'response_code' => $code,
-      'response_values' => json_encode($response),
-    ])
-    ->execute();
-}
-
-/**
  * Return whether the response has a "successful" status code or not.
  *
  * @param $response
