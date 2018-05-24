@@ -233,11 +233,14 @@ function dosomething_signup_sms_game_form($form, &$form_state, $node, $num_frien
     '#markup' => $all_participants_copy,
     '#suffix' => '</p></div></div>',
   );
+  $nsUser = dosomething_northstar_get_user(
+    dosomething_user_get_northstar_id($uid)
+  );
   $form['alpha_first_name'] = array(
     '#type' => 'textfield',
     '#required' => TRUE,
     '#title' => 'Your First Name',
-    '#default_value' => dosomething_user_get_field('field_first_name'),
+    '#default_value' => $nsUser->first_name,
     '#attributes' => array(
       'data-validate' => 'fname',
       'data-validate-required' => '',
@@ -248,7 +251,7 @@ function dosomething_signup_sms_game_form($form, &$form_state, $node, $num_frien
     '#type' => 'textfield',
     '#required' => TRUE,
     '#title' => 'Your Cell Number',
-    '#default_value' => dosomething_user_get_field('field_mobile'),
+    '#default_value' => $nsUser->mobile,
     '#attributes' => array(
       'data-validate' => 'phone',
       'data-validate-required' => '',
