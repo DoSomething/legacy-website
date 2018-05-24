@@ -758,3 +758,15 @@ function dosomething_signup_update_7027() {
     variable_del($var);
   }
 }
+
+/**
+ * Remove unused signups table now that Rogue is collecting signups.
+ */
+function dosomething_signup_update_7028(&$sandbox)
+{
+  $table = 'dosomething_signup';
+
+  if (db_table_exists($table)) {
+    db_drop_table($table);
+  }
+}

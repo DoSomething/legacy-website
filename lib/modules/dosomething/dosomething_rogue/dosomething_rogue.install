@@ -558,3 +558,18 @@ function dosomething_rogue_update_7014(&$sandbox) {
     }
   }
 }
+
+/**
+ * remove dosomething_rogue_reportbacks tables
+ */
+function dosomething_rogue_update_7015(&$sandbox) {
+  $tables = ['dosomething_rogue_reportbacks', 'dosomething_rogue_failed_migrations', 'dosomething_rogue_signups'];
+
+  foreach ($tables as $table) {
+    if (db_table_exists($table)) {
+      db_drop_table($table);
+    }
+  }
+
+  $result = db_truncate('dosomething_rogue_failed_task_log')->execute();
+}

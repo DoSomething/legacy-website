@@ -978,3 +978,16 @@ function dosomething_reportback_update_7036() {
     db_add_field($table_name, $field_name, $schema[$table_name]['fields'][$field_name]);
   }
 }
+
+/**
+ * Remove unused reportbacks tables now that Rogue is collecting posts.
+ */
+function dosomething_reportback_update_7037(&$sandbox) {
+  $tables = ['dosomething_reportback', 'dosomething_reportback_file', 'dosomething_reportback_log'];
+
+  foreach ($tables as $table) {
+    if (db_table_exists($table)) {
+      db_drop_table($table);
+    }
+  }
+}
