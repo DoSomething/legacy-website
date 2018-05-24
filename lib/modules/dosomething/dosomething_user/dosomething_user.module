@@ -592,27 +592,6 @@ function dosomething_user_set_global_attributes($user = NULL, $country_code = NU
 }
 
 /**
- * Checks that user is over 13.
- *
- * This is needed to make sure a new user is old enough
- * to get any external messages from us.
- *
- * @return bool
- *  Returns true if user is under 13, else false.
- */
-function dosomething_user_is_under_thirteen($user = NULL) {
-  if ($user == NULL) {
-    global $user;
-  }
-
-  $birthday = dosomething_user_get_field('field_birthdate', $user);
-
-  // Get the date 13 years ago today.
-  $date_cutoff = strtotime('-13 years');
-  return $date_cutoff < $birthday;
-}
-
-/**
  * Calculates the age of a user on a certain date
  *
  * @param $date
