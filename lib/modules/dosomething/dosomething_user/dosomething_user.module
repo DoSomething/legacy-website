@@ -864,20 +864,6 @@ function dosomething_user_register_validate($form, &$form_state) {
   }
 }
 
-// /**
-//  * Get a user by email address.
-//  *
-//  * @param string $email
-//  *   The user's email.
-//  *
-//  * @return object/bool
-//  *   If true return the user object, else false.
-//  */
-// function dosomething_user_get_user_by_email($email) {
-//   $user = user_load_by_mail($email);
-//   return $user ? $user : FALSE;
-// }
-
 /**
  * Search for users users by their northstar id.
  *
@@ -1048,38 +1034,6 @@ function dosomething_user_get_field($field_name, $account = NULL, $format = NULL
   return $field_value;
 
 }
-
-// /**
-//  * Returns a user's first name.
-//  *
-//  * @param object $account
-//  *   The account to return value for.
-//  * @param string $format
-//  *   Optional- format to return.
-//  *    strtolower, strtoupper, ucwords
-//  *
-//  * @return mixed
-//  *   Returns NULL if not set, otherwise string.
-//  */
-// function dosomething_user_get_field_first_name($field_value, $format = 'ucwords') {
-//   return dosomething_user_format_string($field_value, $format);
-// }
-
-// /**
-//  * Returns a user's last name.
-//  *
-//  * @param object $account
-//  *   The account to return value for.
-//  * @param string $format
-//  *   Optional- format to return.
-//  *    strtolower, strtoupper, ucwords
-//  *
-//  * @return mixed
-//  *   Returns NULL if not set, otherwise string.
-//  */
-// function dosomething_user_get_field_last_name($field_value, $format = 'ucwords') {
-//   return dosomething_user_format_string($field_value, $format);
-// }
 
 /**
  * Returns user's Northstar ID.
