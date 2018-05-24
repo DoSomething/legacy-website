@@ -222,24 +222,6 @@ function paraneue_dosomething_form_user_profile_form_alter(&$form, &$form_state,
   $form['#after_build'][] = 'paraneue_dosomething_form_user_profile_after_build';
 }
 
-/**
- * Form submission handler for the profile form.
- *
- * @param $form
- * @param $form_state
- */
-function paraneue_dosomething_user_profile_submit_handler(&$form, &$form_state)
-{
-  // Send the new password to Northstar so that it can be used for future logins.
-  // @TODO: Remove this once we've shipped Northstar password reset flow.
-  $id = dosomething_user_get_field('field_northstar_id', $form_state['user']);
-  dosomething_northstar_client()->put('v1/users/id/' . $id, [
-    'password' => $form_state['values']['pass']
-  ]);
-
-  $form_state['redirect'] = 'user';
-}
-
 function paraneue_dosomething_form_user_profile_after_build($form, &$form_state) {
   // These fields are needed for form processing, but should not be visible/editable.
   $form['account']['name']['#access'] = FALSE;
