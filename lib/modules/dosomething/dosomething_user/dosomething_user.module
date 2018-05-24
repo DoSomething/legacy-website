@@ -618,22 +618,6 @@ function dosomething_user_age_on_date($date, $user = NULL) {
 }
 
 /**
- * Checks if user is an "old person", meaning age 26 or older.
- *
- * @return bool
- *  Returns TRUE if user is an old person, else FALSE.
- */
-function dosomething_user_is_old_person($user = NULL) {
-  if ($user == NULL) {
-    global $user;
-  }
-  $birthday = dosomething_user_get_field('field_birthdate', $user);
-  // Get the date 26 years ago today.
-  $date_cutoff = strtotime('-26 years');
-  return $date_cutoff > $birthday;
-}
-
-/**
  * Custom login submission handler. This does _not_ trigger on log-ins
  * that happen post-registration.
  */
