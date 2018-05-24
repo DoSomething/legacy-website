@@ -143,3 +143,12 @@ function dosomething_user_update_7012() {
   field_delete_field('field_school_id');
   field_delete_field('field_user_registration_source');
 }
+
+/**
+ * Remove mail field for GDPR compliance.
+ */
+function dosomething_user_update_7013()
+{
+  db_drop_index('users', 'mail');
+  db_drop_field('users', 'mail');
+}
