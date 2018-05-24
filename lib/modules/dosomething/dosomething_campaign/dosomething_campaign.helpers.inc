@@ -297,25 +297,33 @@ function dosomething_campaign_load($node, $public = FALSE, $cache = TRUE) {
  */
 function dosomething_campaign_load_creator(&$campaign, $wrapper) {
   $campaign->creator = NULL;
+
   if (isset($wrapper->field_created_by)) {
     // If a Created By field value exists:
     if ($account = $wrapper->field_created_by->value()) {
+      // Northstar user info.
+      $nsUser = dosomething_northstar_get_user(
+        dosomething_user_get_northstar_id($account->uid)
+      );
+
       // Initialize Creator array.
       $campaign->creator = array(
         'uid' => $account->uid,
-        'first_name' => dosomething_user_get_field('field_first_name', $account),
+        'first_name' => $nsUser->first_name,
         'last_initial' => NULL,
         'city' => NULL,
         'state' => NULL,
         'picture' => NULL,
         'copy' => NULL,
       );
-      if ($last_name = dosomething_user_get_field('field_last_name', $account)) {
+      if ($last_name = $nsUser->last_name) {
         $campaign->creator['last_initial'] = $last_name[0];
       }
-      if ($address = dosomething_user_get_field('field_address', $account)) {
-        $campaign->creator['city'] = $address['locality'];
-        $campaign->creator['state'] = $address['administrative_area'];
+      if ($city = $nsUser->addr_city) {
+        $campaign->creator['city'] = $city;
+      }
+      if ($state = $nsUser->addr_state) {
+        $campaign->creator['state'] = $state;
       }
       if ($file = $account->picture) {
         $campaign->creator['picture'] = array(

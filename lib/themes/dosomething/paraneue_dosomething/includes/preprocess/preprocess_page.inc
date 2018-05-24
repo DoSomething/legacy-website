@@ -14,16 +14,11 @@ function paraneue_dosomething_preprocess_page(&$vars) {
   /**
    * User Info
    */
+  $nsUser = dosomething_northstar_get_user(
+    dosomething_user_get_northstar_id($uid)
+  );
 
-  $user_info = user_load($vars['user']->uid);
-
-  if (isset($user_info->field_first_name['und'][0]['safe_value'])) {
-    $vars['user_identifier'] = $user_info->field_first_name['und'][0]['safe_value'];
-  } else if (isset($user_info->name)) {
-    $vars['user_identifier'] = $user_info->name;
-  } else {
-    $vars['user_identifier'] = $user_info->mail;
-  }
+  $vars['user_identifier'] = $nsUser->first_name;
 
   /**
    * Global Main Navigation

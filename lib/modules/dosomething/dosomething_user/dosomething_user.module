@@ -592,27 +592,6 @@ function dosomething_user_set_global_attributes($user = NULL, $country_code = NU
 }
 
 /**
- * Checks that user is over 13.
- *
- * This is needed to make sure a new user is old enough
- * to get any external messages from us.
- *
- * @return bool
- *  Returns true if user is under 13, else false.
- */
-function dosomething_user_is_under_thirteen($user = NULL) {
-  if ($user == NULL) {
-    global $user;
-  }
-
-  $birthday = dosomething_user_get_field('field_birthdate', $user);
-
-  // Get the date 13 years ago today.
-  $date_cutoff = strtotime('-13 years');
-  return $date_cutoff < $birthday;
-}
-
-/**
  * Calculates the age of a user on a certain date
  *
  * @param $date
@@ -636,22 +615,6 @@ function dosomething_user_age_on_date($date, $user = NULL) {
   $age = $day->diff($birthday)->y;
 
   return $age;
-}
-
-/**
- * Checks if user is an "old person", meaning age 26 or older.
- *
- * @return bool
- *  Returns TRUE if user is an old person, else FALSE.
- */
-function dosomething_user_is_old_person($user = NULL) {
-  if ($user == NULL) {
-    global $user;
-  }
-  $birthday = dosomething_user_get_field('field_birthdate', $user);
-  // Get the date 26 years ago today.
-  $date_cutoff = strtotime('-26 years');
-  return $date_cutoff > $birthday;
 }
 
 /**
@@ -865,20 +828,6 @@ function dosomething_user_register_validate($form, &$form_state) {
 }
 
 /**
- * Get a user by email address.
- *
- * @param string $email
- *   The user's email.
- *
- * @return object/bool
- *   If true return the user object, else false.
- */
-function dosomething_user_get_user_by_email($email) {
-  $user = user_load_by_mail($email);
-  return $user ? $user : FALSE;
-}
-
-/**
  * Search for users users by their northstar id.
  *
  * @param string $nid
@@ -1047,38 +996,6 @@ function dosomething_user_get_field($field_name, $account = NULL, $format = NULL
   }
   return $field_value;
 
-}
-
-/**
- * Returns a user's first name.
- *
- * @param object $account
- *   The account to return value for.
- * @param string $format
- *   Optional- format to return.
- *    strtolower, strtoupper, ucwords
- *
- * @return mixed
- *   Returns NULL if not set, otherwise string.
- */
-function dosomething_user_get_field_first_name($field_value, $format = 'ucwords') {
-  return dosomething_user_format_string($field_value, $format);
-}
-
-/**
- * Returns a user's last name.
- *
- * @param object $account
- *   The account to return value for.
- * @param string $format
- *   Optional- format to return.
- *    strtolower, strtoupper, ucwords
- *
- * @return mixed
- *   Returns NULL if not set, otherwise string.
- */
-function dosomething_user_get_field_last_name($field_value, $format = 'ucwords') {
-  return dosomething_user_format_string($field_value, $format);
 }
 
 /**
