@@ -152,3 +152,19 @@ function dosomething_user_update_7013()
   db_drop_index('users', 'mail');
   db_drop_field('users', 'mail');
 }
+
+/**
+ * Remove blocked Ips table that isn't used and remove IPs from sessions table.
+ */
+function dosomething_user_update_7014()
+{
+  $tables = 'blocked_ips';
+
+  foreach ($tables as $table) {
+    if (db_table_exists($table)) {
+      db_drop_table($table);
+    }
+  }
+
+  db_drop_field('sessions', 'hostname');
+}
