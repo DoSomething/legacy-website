@@ -987,7 +987,7 @@ function dosomething_reportback_update_7037(&$sandbox) {
 
   foreach ($tables as $table) {
     if (db_table_exists($table)) {
-      db_drop_table($table);
+      $result = db_truncate($table)->execute();
     }
   }
 }

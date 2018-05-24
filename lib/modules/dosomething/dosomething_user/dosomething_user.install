@@ -143,11 +143,3 @@ function dosomething_user_update_7012() {
   field_delete_field('field_school_id');
   field_delete_field('field_user_registration_source');
 }
-
-/**
- * Remove IPs from sessions table.
- */
-function dosomething_user_update_7013()
-{
-  db_drop_field('sessions', 'hostname');
-}
