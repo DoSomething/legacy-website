@@ -130,7 +130,11 @@ function dosomething_campaign_run_preprocess_winners(&$vars, $nid) {
       }
       // Else, grab the first name from the user account.
       else {
-        $winners[$i]['fname'] = dosomething_user_get_field('field_first_name', user_load($winners[$i]['uid']), 'ucwords');
+        $nsUser = dosomething_northstar_get_user(
+          dosomething_user_get_northstar_id($uid)
+        );
+
+        $winners[$i]['fname'] = $nsUser->first_name;
       }
 
       if (isset($winner[$entity_id]->field_gallery_image[LANGUAGE_NONE])) {
