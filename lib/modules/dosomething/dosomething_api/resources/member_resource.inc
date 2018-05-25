@@ -191,22 +191,12 @@ function _member_update_access($id) {
  *
  * @param $request
  *   Array passed to the endpoint. Possible keys:
- *   - email (string). Required.
- *   - password (string).
- *   - birthdate (date string).
- *   - first_name (string).
- *   - last_name (string).
- *   - mobile (string).
- *   - user_registration_source (string).
+ *   - _id (string). Required.
  *
  * @return mixed
  *   Object of the newly created user if successful. String if errors.
  */
 function _member_resource_create($request) {
-  if (!isset($request['email'])) {
-    return services_error("Email is required.");
-  }
-
   if (!isset($request['_id'])) {
     return services_error("New Drupal accounts must be registered via Northstar.");
   }
@@ -214,30 +204,18 @@ function _member_resource_create($request) {
   // Check if email is formatted correctly and not already in use.
   // Initialize array to pass to user_save().
   $edit = [
-    'mail' => $request['email'],
-    'name' => user_password(), // Overridden below.
+    'mail' => $request['_id'] . '@dosomething.org',
+    'name' => user_password(),
     'status' => 1,
     'created' => REQUEST_TIME,
   ];
 
   // Map request input to Drupal fields, or use default values.
   $fields = [
-    'birthdate' => $request['birthdate'],
-    'first_name' => dosomething_helpers_remove_emoji_from_string($request['first_name']),
-    'country' => !empty($request['country']) ? $request['country'] : 'US',
-    'last_name' => !empty($request['last_name']) ? dosomething_helpers_remove_emoji_from_string($request['last_name']) : NULL,
-    'mobile' => !empty($request['mobile']) ? dosomething_user_clean_mobile_number($request['mobile']) : NULL,
-    'user_registration_source' => !empty($request['user_registration_source']) ? $request['user_registration_source'] : NULL,
     'northstar_id' => $request['_id'],
   ];
 
   dosomething_user_set_fields($edit, $fields);
-
-  // Set given password, or generate a random one if blank.
-  $edit['pass'] = !empty($request['password']) ? $request['password'] : user_password();
-
-  // Infer the user's language from their country code field.
-  $edit['language'] = dosomething_global_convert_country_to_language($fields['country']);
 
   try {
     $user = user_save('', $edit);
