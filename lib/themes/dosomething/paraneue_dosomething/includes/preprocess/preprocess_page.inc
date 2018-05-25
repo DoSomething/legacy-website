@@ -14,11 +14,13 @@ function paraneue_dosomething_preprocess_page(&$vars) {
   /**
    * User Info
    */
-  $nsUser = dosomething_northstar_get_user(
-    dosomething_user_get_northstar_id($vars['user']->uid)
-  );
+  if (!empty($vars['user']->uid)) {
+    $nsUser = dosomething_northstar_get_user(
+      dosomething_user_get_northstar_id($vars['user']->uid)
+    );
 
-  $vars['user_identifier'] = $nsUser->first_name;
+    $vars['user_identifier'] = $nsUser->first_name;
+  }
 
   /**
    * Global Main Navigation
