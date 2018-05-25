@@ -131,3 +131,14 @@ function dosomething_northstar_update_7005(&$sandbox)
 
   $result = db_truncate($table)->execute();
 }
+
+/**
+ * Remove duplicate field.
+ */
+function dosomething_northstar_update_7006() {
+  $field = 'field_northstar_id';
+
+  db_truncate('field_data_' . $field)->execute();
+  db_truncate('field_revision_' . $field)->execute();
+  field_delete_field($field);
+}
