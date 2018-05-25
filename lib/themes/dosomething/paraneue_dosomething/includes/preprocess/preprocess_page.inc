@@ -14,6 +14,7 @@ function paraneue_dosomething_preprocess_page(&$vars) {
   /**
    * User Info
    */
+  $vars['user_identifier'] = null;
   if (!empty($vars['user']->uid)) {
     $nsUser = dosomething_northstar_get_user(
       dosomething_user_get_northstar_id($vars['user']->uid)

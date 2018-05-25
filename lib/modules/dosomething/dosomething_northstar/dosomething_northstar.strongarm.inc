@@ -24,12 +24,7 @@ function dosomething_northstar_strongarm() {
   $strongarm->api_version = 1;
   $strongarm->name = 'openid_connect_userinfo_mapping_claims';
   $strongarm->value = array(
-    0 => 'birthdate',
-    1 => 'given_name',
-    2 => 'phone_number',
-    3 => 'address',
-    4 => 'family_name',
-    5 => 'zoneinfo',
+    0 => 'zoneinfo',
   );
   $export['openid_connect_userinfo_mapping_claims'] = $strongarm;
 
