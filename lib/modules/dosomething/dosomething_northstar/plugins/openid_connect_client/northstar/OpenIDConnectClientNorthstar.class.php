@@ -144,6 +144,7 @@ class OpenIDConnectClientNorthstar extends OpenIDConnectClientBase {
 
     $userinfo = $base['data'];
     $userinfo['email'] = $userinfo['id'] . '@dosomething.org';
+    $userinfo['birthdate'] = 0; // Jan 1st 1970!
 
     return $userinfo;
   }
