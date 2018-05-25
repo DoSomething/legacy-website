@@ -135,8 +135,6 @@ function dosomething_user_uninstall() {
  * Remove database tables for unused fields.
  */
 function dosomething_user_update_7012() {
-  // Truncate unwanted fields before we mark them for deletion so this doesn't take forever.
-  // @see: http://www.pixelite.co.nz/article/deleting-multiple-fields-with-large-amounts-of-data-in-drupal-7/
   $fields_to_delete = [
     'field_address',
     'field_birthdate',
@@ -147,15 +145,10 @@ function dosomething_user_update_7012() {
     'field_user_registration_source',
   ];
 
+  // Truncate unwanted fields before we mark them for deletion so this doesn't take forever.
   foreach ($fields_to_delete as $field) {
     db_truncate('field_data_' . $field)->execute();
     db_truncate('field_revision_' . $field)->execute();
     field_delete_field($field);
-    watchdog('EXAMPLE', 'Deleted the field @field from all content types.', array('@field' => $field));
   }
-
-  // The fields aren't really deleted until the purge function runs, ordinarily
-  // during cron. Count the number of fields we need to purge, and add five in
-  // case a few other miscellaneous fields are in there somehow.
-  field_purge_batch(count($fields_to_delete) + 5);
 }
