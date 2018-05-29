@@ -326,8 +326,9 @@ function dosomething_signup_user_signup_data_form($form, &$form_state, $signup) 
 
     $campaign_path = url(current_path(), array('absolute' => TRUE));
 
-    if (dosomething_user_get_field('field_northstar_id')) {
-      $share_path = 'user/' . dosomething_user_get_field('field_northstar_id');
+    $northstarId = dosomething_user_get_northstar_id();
+    if ($northstarId) {
+      $share_path = 'user/' . $northstarId;
     }
     else {
       $share_path = 'user/' . dosomething_user_get_field('uid');

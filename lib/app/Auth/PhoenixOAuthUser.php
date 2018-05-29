@@ -21,6 +21,7 @@ class PhoenixOAuthUser implements NorthstarUserContract {
    * @param $user
    */
   public function __construct($uid) {
+    $this->id = dosomething_user_get_northstar_id($uid);
     $this->user = user_load($uid);
     $this->role = 'user'; // Hardcoding this is acceptable in Phoenix for now.
   }
@@ -31,7 +32,7 @@ class PhoenixOAuthUser implements NorthstarUserContract {
    * @return string|null
    */
   public function getNorthstarIdentifier() {
-    return $this->user->field_northstar_id[LANGUAGE_NONE][0]['value'];
+    return $this->id;
   }
 
   /**
@@ -40,8 +41,9 @@ class PhoenixOAuthUser implements NorthstarUserContract {
    * @return void
    */
   public function setNorthstarIdentifier($id) {
-    $this->user->field_northstar_id[LANGUAGE_NONE][0]['value'];
-    user_save($this->user);
+    $this->id = $id;
+
+    openid_connect_connect_account('northstar', $id);
   }
 
   /**

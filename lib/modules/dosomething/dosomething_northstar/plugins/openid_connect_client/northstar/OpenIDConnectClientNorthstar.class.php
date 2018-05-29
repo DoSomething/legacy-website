@@ -144,7 +144,13 @@ class OpenIDConnectClientNorthstar extends OpenIDConnectClientBase {
 
     $userinfo = $base['data'];
     $userinfo['email'] = $userinfo['id'] . '@dosomething.org';
-    $userinfo['birthdate'] = 0; // Jan 1st 1970!
+    $userinfo['birthdate'] = 0; // Jan 1st 1970d = $userinfo['id'];
+
+    // If the authmap doesn't exist, try to match it to an existing user.
+    $account = openid_connect_user_load_by_sub($id, $this->getName());
+    if (! $account && $existingEmail = user_load_by_mail($userinfo['email'])) {
+      dosomething_northstar_save_id_field($existingEmail->uid, $base);
+    }
 
     return $userinfo;
   }

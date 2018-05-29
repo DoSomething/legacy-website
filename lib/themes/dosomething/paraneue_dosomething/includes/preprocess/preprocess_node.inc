@@ -241,7 +241,7 @@ function paraneue_dosomething_preprocess_reportback_gallery(&$vars, $count = 6) 
       'campaign_id' => $gallery['campaign_id'],
       'status' => 'accepted',
     ],
-    'as_user' => dosomething_user_get_field('field_northstar_id'),
+    'as_user' => dosomething_user_get_northstar_id(),
     'limit' => 6
   ]);
 

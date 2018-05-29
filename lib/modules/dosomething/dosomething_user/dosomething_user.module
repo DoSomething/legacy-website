@@ -290,7 +290,6 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
         unset($form['field_partner']);
         unset($form['field_school_id']);
         unset($form['field_user_registration_source']);
-        unset($form['field_northstar_id']);
         unset($form['field_access_token']);
         unset($form['field_access_token_expiration']);
         unset($form['field_refresh_token']);
@@ -303,7 +302,6 @@ function dosomething_user_form_alter(&$form, $form_state, $form_id) {
       else {
         // Set read-only for fields that should not be editable.
         $form['field_user_registration_source']['#disabled'] = TRUE;
-        $form['field_northstar_id']['#disabled'] = TRUE;
         $form['field_access_token']['#disabled'] = TRUE;
         $form['field_access_token_expiration']['#disabled'] = TRUE;
         $form['field_refresh_token']['#disabled'] = TRUE;
@@ -833,18 +831,11 @@ function dosomething_user_register_validate($form, &$form_state) {
  * @param string $nid
  *   The northstar id for which you are searching.
  *
- * @return string/bool
- *   The user's id in phoenix, or false if no user was found.
+ * @return object/bool
+ *   The phoenix user account, or false if no user was found.
  */
 function dosomething_user_get_user_by_northstar_id($id) {
-  $query = db_select('field_data_field_northstar_id', 'f')
-          ->condition('f.field_northstar_id_value', $id)
-          ->fields('f', ['entity_id']);
-  $uid = $query->execute()->fetchField();
-  if ($uid) {
-    return user_load($uid);
-  }
-  return FALSE;
+  return openid_connect_user_load_by_sub($id, 'northstar');
 }
 
 /**
@@ -1023,14 +1014,16 @@ function dosomething_user_get_field_northstar_id($field_value) {
  * @param  string $drupal_id
  * @return mixed
  */
-function dosomething_user_get_northstar_id($drupal_id = NULL) {
-  $user = NULL;
+function dosomething_user_get_northstar_id($uid = NULL) {
+  global $user;
 
-  if ($drupal_id) {
-    $user = user_load($drupal_id);
+  if (! $uid) {
+    $uid = $user->uid;
   }
 
-  return dosomething_user_get_field('field_northstar_id', $user);
+  $authmap = db_query("SELECT authname FROM {authmap} WHERE uid = :uid", [':uid' => $uid])->fetch();
+
+  return $authmap ? $authmap->authname : NULL;
 }
 
 /**
