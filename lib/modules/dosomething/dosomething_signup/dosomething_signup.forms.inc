@@ -204,9 +204,17 @@ function dosomething_signup_presignup_form_submit($form, &$form_state) {
  *   Number of inputs to provide for friends' numbers.
  */
 function dosomething_signup_sms_game_form($form, &$form_state, $node, $num_friends = 3) {
+  global $user;
+
   $nid = $node->nid;
   // Add relevant configuration form elements.
   dosomething_signup_sms_game_form_config($form, $nid);
+
+  if (user_is_logged_in()) {
+    $userProfile = dosomething_northstar_get_user(
+      dosomething_user_get_northstar_id($user->uid)
+    );
+  }
 
   $form['nid'] = array(
     '#type' => 'hidden',
@@ -233,14 +241,11 @@ function dosomething_signup_sms_game_form($form, &$form_state, $node, $num_frien
     '#markup' => $all_participants_copy,
     '#suffix' => '</p></div></div>',
   );
-  $nsUser = dosomething_northstar_get_user(
-    dosomething_user_get_northstar_id($uid)
-  );
   $form['alpha_first_name'] = array(
     '#type' => 'textfield',
     '#required' => TRUE,
     '#title' => 'Your First Name',
-    '#default_value' => $nsUser->first_name,
+    '#default_value' => $userProfile ? $userProfile->first_name : NULL,
     '#attributes' => array(
       'data-validate' => 'fname',
       'data-validate-required' => '',
@@ -251,7 +256,7 @@ function dosomething_signup_sms_game_form($form, &$form_state, $node, $num_frien
     '#type' => 'textfield',
     '#required' => TRUE,
     '#title' => 'Your Cell Number',
-    '#default_value' => $nsUser->mobile,
+    '#default_value' => $userProfile ? $userProfile->mobile : NULL,
     '#attributes' => array(
       'data-validate' => 'phone',
       'data-validate-required' => '',
