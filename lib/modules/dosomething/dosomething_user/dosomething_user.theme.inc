@@ -83,7 +83,7 @@ function dosomething_user_preprocess_user_profile(&$variables) {
 
   // Collect Campaigns Doing.
   $variables['doing'] = array();
-  $doing = dosomething_campaign_get_campaigns_doing($user->uid);
+  $doing = dosomething_campaign_get_campaigns_doing($uid);
   // If user isn't doing anything:
   if (empty($doing)) {
     // Set No Signups Header.
