@@ -45,6 +45,10 @@ function dosomething_signup_form($form, &$form_state, $nid, $label = "Sign Up") 
 
   // Check query string for signup source value.
   if ($source = dosomething_signup_get_query_source()) {
+    if ($source === NULL) {
+      $source = 'phoenix-ashes';
+    }
+
     $form['source'] = [
       '#type' => 'hidden',
       '#value' => $source,
@@ -88,7 +92,7 @@ function dosomething_signup_form_submit($form, &$form_state) {
 
   $nid = $form_state['values']['nid'];
 
-  $source = NULL;
+  $source = 'phoenix-ashes';
   if (isset($form_state['values']['source'])) {
     $source = $form_state['values']['source'];
   }
