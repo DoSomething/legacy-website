@@ -29,6 +29,10 @@ function paraneue_dosomething_form_system_theme_settings_alter(&$form, &$form_st
       '#title' => t('Show problem statement share buttons'),
       '#description' => t('Toggles the display of problem statement share buttons on the action page.')
     ],
+    'use_facebook_pixel' => [
+      '#title' => t('Use the Facebook Pixel event tracking script'),
+      '#description' => t('Toggles including the Facebook Pixel event tracking script on all pages.'),
+    ],
   ];
 
   foreach ($flags as $name => $flag) {

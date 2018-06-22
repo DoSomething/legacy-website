@@ -16,6 +16,7 @@ features[] = secondary_menu
 ; Blocks
 settings[show_campaign_finder] = 0
 settings[show_sponsors] = 1
+settings[use_facebook_pixel] = 0
 ; Header
 settings[header_who_we_are_text] = 'What is DoSomething.org?'
 settings[header_who_we_are_subtext] = 'Young people + Social change'
