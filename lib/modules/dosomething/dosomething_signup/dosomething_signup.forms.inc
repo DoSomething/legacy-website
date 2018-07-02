@@ -43,15 +43,6 @@ function dosomething_signup_form($form, &$form_state, $nid, $label = "Sign Up") 
     '#access' => FALSE,
   ];
 
-  // Check query string for signup source value.
-  // if ($source_details = dosomething_signup_get_query_source()) {
-  //   $form['source_details'] = [
-  //     '#type' => 'hidden',
-  //     '#value' => $source_details,
-  //     '#access' => FALSE,
-  //   ];
-  // }
-
   $form['submit'] = [
     '#type' => 'submit',
     '#value' => t($label),
