@@ -30,7 +30,9 @@ function paraneue_dosomething_preprocess_html(&$vars) {
 
   $vars['use_facebook_pixel'] = theme_get_setting('use_facebook_pixel');
 
-  $vars['enable_ad_tracking'] = variable_get('dosomething_setting_ad_tracking_enabled', FALSE);
+  $vars['use_google_tag_manager'] = theme_get_setting('use_google_tag_manager');
+
+  $vars['enable_ad_tracking'] = FALSE;
 
   $update_url = variable_get('dosomething_settings_realtimefeed_update_url');
   drupal_add_js(
