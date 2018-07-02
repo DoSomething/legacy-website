@@ -402,7 +402,7 @@ function dosomething_reportback_form_submit($form, &$form_state) {
   if (array_key_exists('storage', $form_state)) {
     $file = $form_state['storage']['file'];
     $values['file'] = dosomething_helpers_get_data_uri_from_fid($file->fid);
-    $values['source'] = variable_get('dosomething_northstar_app_id');;
+    $values['source'] = variable_get('dosomething_northstar_app_id');
   } else {
     // If there is no file and there is a RB in Phoenix, check the dosomething_rogue_reportback table to see if the RB already exists in Rogue.
     if ($rbid) {

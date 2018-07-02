@@ -44,17 +44,13 @@ function dosomething_signup_form($form, &$form_state, $nid, $label = "Sign Up") 
   ];
 
   // Check query string for signup source value.
-  if ($source = dosomething_signup_get_query_source()) {
-    if ($source === NULL) {
-      $source = 'phoenix-ashes';
-    }
-
-    $form['source'] = [
-      '#type' => 'hidden',
-      '#value' => $source,
-      '#access' => FALSE,
-    ];
-  }
+  // if ($source_details = dosomething_signup_get_query_source()) {
+  //   $form['source_details'] = [
+  //     '#type' => 'hidden',
+  //     '#value' => $source_details,
+  //     '#access' => FALSE,
+  //   ];
+  // }
 
   $form['submit'] = [
     '#type' => 'submit',
@@ -92,17 +88,15 @@ function dosomething_signup_form_submit($form, &$form_state) {
 
   $nid = $form_state['values']['nid'];
 
-  $source = 'phoenix-ashes';
-  if (isset($form_state['values']['source'])) {
-    $source = $form_state['values']['source'];
-  }
+  $source = variable_get('dosomething_northstar_app_id');;
+  $source_details = dosomething_signup_get_query_source() ? dosomething_signup_get_query_source() : NULL;
 
   if (isset($form_state['values']['affiliate_messaging_opt_in'])) {
     $params['affiliate_messaging_opt_in'] = (bool) $form_state['values']['affiliate_messaging_opt_in'];
   }
 
   // Create signup for logged in user.
-  dosomething_signup_user_signup($nid, NULL, $source, $params);
+  dosomething_signup_user_signup($nid, NULL, $source, $params, $source_details);
 }
 
 /**

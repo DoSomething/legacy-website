@@ -732,8 +732,8 @@ function dosomething_rogue_send_signup_to_rogue($values, $user = NULL, $failed_t
 
   $data = dosomething_rogue_transform_signup($values, $northstar_id, $user);
   $data['type'] = 'signup';
-
   try {
+
     $response = $client->postSignup($data);
 
     if (module_exists('stathat')) {
@@ -775,6 +775,7 @@ function dosomething_rogue_transform_signup($values, $northstar_id, $user) {
     'campaign_id' => $values['campaign_id'],
     'campaign_run_id' => $run->nid,
     'source' => $values['source'],
+    'source_details' => $values['source_details'],
   ];
 
  return $data;
