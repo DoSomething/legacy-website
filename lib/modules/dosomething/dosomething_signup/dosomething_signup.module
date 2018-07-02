@@ -228,6 +228,8 @@ function dosomething_signup_get_query_source() {
  *   If not provided, uses global $user->uid.
  * @param string $source
  *   (optional) Signup source.
+ * @param string $source_details
+ *   (optional) Signup source details (e.g. taken from the query string).
  * @param int $timestamp
  *   (optional) The timestamp of the signup.
  *   If not provided, uses @dries time.
@@ -238,7 +240,7 @@ function dosomething_signup_get_query_source() {
  * @return mixed
  *   The sid of the newly inserted signup, or FALSE if error.
  */
-function dosomething_signup_create($nid, $uid = NULL, $source = NULL, $timestamp = NULL, $transactionals = TRUE) {
+function dosomething_signup_create($nid, $uid = NULL, $source = NULL, $source_details = NULL, $timestamp = NULL, $transactionals = TRUE) {
   global $user;
 
   if (!isset($uid)) {
@@ -258,6 +260,7 @@ function dosomething_signup_create($nid, $uid = NULL, $source = NULL, $timestamp
     'uid' => $uid,
     'run_nid' => $run->nid,
     'source'=> $source,
+    'source_details' => $source_details,
     'timestamp' => $timestamp,
     'transactionals' => $transactionals,
   ];
@@ -513,15 +516,17 @@ function dosomething_signup_views_data() {
  *   If not provided, uses global $user.
  * @param string $source
  *   (optional) The signup source.
+ * @param string $source_details
+ *   (optional) The signup source details (e.g. taken from the query string).
  */
-function dosomething_signup_user_signup($nid, $account = NULL, $source = NULL, $params = []) {
+function dosomething_signup_user_signup($nid, $account = NULL, $source = NULL, $params = [], $source_details = NULL) {
   if ($account == NULL) {
     global $user;
     $account = $user;
   }
 
   // Insert signup.
-  $sid = dosomething_signup_create($nid, $account->uid, $source);
+  $sid = dosomething_signup_create($nid, $account->uid, $source, $source_details);
 
   if ($sid && $params) {
     if (isset($params['affiliate_messaging_opt_in']) && $params['affiliate_messaging_opt_in']) {
