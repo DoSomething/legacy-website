@@ -28,8 +28,6 @@ function paraneue_dosomething_preprocess_html(&$vars) {
   $member_count = dosomething_user_get_member_count(TRUE);
   $vars['head_title'] = token_replace($vars['head_title'], ['member-count-readable' => $member_count]);
 
-  $vars['use_facebook_pixel'] = theme_get_setting('use_facebook_pixel');
-
   $vars['use_google_tag_manager'] = theme_get_setting('use_google_tag_manager');
 
   $vars['enable_ad_tracking'] = FALSE;
