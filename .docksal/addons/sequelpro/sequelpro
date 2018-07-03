@@ -1,0 +1,67 @@
+#!/usr/bin/env bash
+
+## Opens SequelPro
+##
+## Usage: fin sequelpro
+
+# Abort if anything fails
+set -e
+
+container_port=$(docker ps --all --filter 'label=com.docker.compose.service=db' --filter "label=com.docker.compose.project=${COMPOSE_PROJECT_NAME_SAFE}" --format '{{.Ports}}' | sed 's/.*0.0.0.0://g'|sed 's/->.*//g')
+HOST=${VIRTUAL_HOST}
+DB=${MYSQL_DATABASE:-default}
+USER=${MYSQL_USER:-user}
+PASS=${MYSQL_PASSWORD:-user}
+NAME=${COMPOSE_PROJECT_NAME}
+
+PORT=${PORT:-$container_port}
+
+FILENAME=/tmp/docksal-sequelpro-${RANDOM}.spf
+cat <<EOT >> $FILENAME
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>ContentFilters</key>
+  <dict/>
+  <key>auto_connect</key>
+  <true/>
+  <key>data</key>
+  <dict>
+    <key>connection</key>
+    <dict>
+      <key>database</key>
+      <string>${DB}</string>
+      <key>host</key>
+      <string>${HOST}</string>
+      <key>name</key>
+      <string>${NAME}</string>
+      <key>user</key>
+      <string>${USER}</string>
+      <key>password</key>
+      <string>${PASS}</string>
+      <key>port</key>
+      <integer>${PORT}</integer>
+      <key>rdbms_type</key>
+      <string>mysql</string>
+    </dict>
+    <key>session</key>
+    <dict/>
+  </dict>
+  <key>encrypted</key>
+  <false/>
+  <key>format</key>
+  <string>connection</string>
+  <key>queryFavorites</key>
+  <array/>
+  <key>queryHistory</key>
+  <array/>
+  <key>rdbms_type</key>
+  <string>mysql</string>
+  <key>version</key>
+  <integer>1</integer>
+</dict>
+</plist>
+EOT
+
+open $FILENAME
