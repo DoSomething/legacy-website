@@ -1,5 +1,7 @@
 <?php
 
+module_load_include('php', 'dosomething_api', 'includes/Transformer');
+
 /**
  * Reportback Transformer Class
  */
