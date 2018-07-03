@@ -1,7 +1,8 @@
 {
   "private": true,
   "scripts": {
-    "postinstall": "find node_modules/ -name '*.info' -type f -delete"
+    "postinstall": "find node_modules/ -name '*.info' -type f -delete",
+    "grunt": "grunt"
   },
   "dependencies": {
     "@dosomething/forge": "~6.5.0",
@@ -46,8 +47,5 @@
     "time-grunt": "^1.0.0",
     "webpack": "^1.4.5",
     "webpack-dev-server": "^1.8.0"
-  },
-  "scripts": {
-    "grunt": "grunt"
   }
 }

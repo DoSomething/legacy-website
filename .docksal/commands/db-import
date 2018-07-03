@@ -20,3 +20,4 @@ wget -O db.sql.gz `terminus backup:get dosomething-indonesia.dev --element=db`
 echo
 echo -e "${yellow}Importing database dump...${NC}"
 zcat < $PROJECT_ROOT/db.sql.gz | mysql -u user -puser -h db default
+rm $PROJECT_ROOT/db.sql.gz

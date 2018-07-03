@@ -21,14 +21,13 @@ echo "include_once('sites/default/settings.local.php');" >> web/sites/default/se
 echo
 echo -e "${yellow}Compiling the theme...${NC}"
 
-# Install g++ if it's missing, for node compilation.
-if [ -x "$(command -v g++)" ]; then
-  fin exec sudo apt-get -y update
-  fin exec sudo apt-get -y install build-essential
-fi
+fin exec sudo apt-get -y update
+fin exec sudo apt-get -y install build-essential
 
 cd web/profiles/dosomething/themes/dosomething/paraneue_dosomething
 fin exec npm install
+mkdir ./node_modules/@dosomething/forge/node_modules
+cp -r ./node_modules/susy ./node_modules/@dosomething/forge/node_modules/
 fin exec npm run grunt build
 
 cd "$PROJECT_ROOT"
