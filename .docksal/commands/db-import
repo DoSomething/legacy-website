@@ -1,0 +1,22 @@
+#!/bin/bash
+
+## Creates new Gatsby site in $DOCROOT
+##
+## Removes existing files in $DOCROOT
+
+#: exec_target = cli
+
+yellow='\033[1;33m'
+NC='\033[0m'
+
+cd "$PROJECT_ROOT"
+
+echo
+echo -e "${yellow}Downloading database from Pantheon...${NC}"
+terminus env:clear-cache dosomething-indonesia.dev
+terminus backup:create dosomething-indonesia.dev --element=db
+wget -O db.sql.gz `terminus backup:get dosomething-indonesia.dev --element=db`
+
+echo
+echo -e "${yellow}Importing database dump...${NC}"
+zcat < $PROJECT_ROOT/db.sql.gz | mysql -u user -puser -h db default

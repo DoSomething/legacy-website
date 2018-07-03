@@ -1,0 +1,34 @@
+#!/bin/bash
+
+## Creates new Gatsby site in $DOCROOT
+##
+## Removes existing files in $DOCROOT
+
+yellow='\033[1;33m'
+NC='\033[0m'
+
+cd "$PROJECT_ROOT"
+
+echo
+echo -e "${yellow}Building the site...${NC}"
+
+fin drush dl make_local-6.x-1.0
+fin drush make build-dosomething.make web
+cp web/sites/default/default.settings.php web/sites/default/settings.php
+cp settings.local.php web/sites/default
+echo "include_once('sites/default/settings.local.php');" >> web/sites/default/settings.php
+
+echo
+echo -e "${yellow}Compiling the theme...${NC}"
+
+# Install g++ if it's missing, for node compilation.
+if [ -x "$(command -v g++)" ]; then
+  fin exec sudo apt-get -y update
+  fin exec sudo apt-get -y install build-essential
+fi
+
+cd web/profiles/dosomething/themes/dosomething/paraneue_dosomething
+fin exec npm install
+fin exec npm run grunt build
+
+cd "$PROJECT_ROOT"
