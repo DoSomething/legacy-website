@@ -1,8 +1,6 @@
 #!/bin/bash
 
-## Creates new Gatsby site in $DOCROOT
-##
-## Removes existing files in $DOCROOT
+## Build the DoSomething codebase
 
 yellow='\033[1;33m'
 NC='\033[0m'
@@ -16,7 +14,7 @@ fin drush dl make_local-6.x-1.0
 fin drush make build-dosomething.make web
 cp web/sites/default/default.settings.php web/sites/default/settings.php
 cp settings.local.php web/sites/default
-echo "include_once('sites/default/settings.local.php');" >> web/sites/default/settings.php
+echo "include_once 'sites/default/settings.local.php';" >> web/sites/default/settings.php
 
 echo
 echo -e "${yellow}Compiling the theme...${NC}"

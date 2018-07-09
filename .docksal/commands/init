@@ -1,8 +1,6 @@
 #!/bin/bash
 
-## Creates new Gatsby site in $DOCROOT
-##
-## Removes existing files in $DOCROOT
+## Spin up the local environment and build the codebase.
 
 yellow='\033[1;33m'
 NC='\033[0m'
@@ -14,4 +12,7 @@ echo -e "${yellow}Starting the containers...${NC}"
 fin project start
 
 ${PROJECT_ROOT}/.docksal/commands/rebuild
-${PROJECT_ROOT}/.docksal/commands/db-import
+fin exec ${PROJECT_ROOT}/.docksal/commands/db-import
+
+echo
+echo -e "${yellow}All done! Visit http://dosomething.docksal/${NC}"
