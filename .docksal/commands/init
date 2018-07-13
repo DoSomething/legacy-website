@@ -12,7 +12,7 @@ echo -e "${yellow}Starting the containers...${NC}"
 fin project start
 
 ${PROJECT_ROOT}/.docksal/commands/rebuild
-fin exec ${PROJECT_ROOT}/.docksal/commands/db-import
+fin exec .docksal/commands/db-import
 
 echo
 echo -e "${yellow}All done! Visit http://dosomething.docksal/${NC}"
