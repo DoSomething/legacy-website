@@ -10,8 +10,14 @@ cd "$PROJECT_ROOT"
 echo
 echo -e "${yellow}Building the site...${NC}"
 
+# Delete the old web directory so that we can start from scratch.
+rm -rf web
+
+# Run Drush Make to rebuild the website.
 fin drush dl make_local-6.x-1.0
 fin drush make build-dosomething.make web
+
+# Set up the settings files.
 cp web/sites/default/default.settings.php web/sites/default/settings.php
 cp settings.local.php web/sites/default
 echo "include_once 'sites/default/settings.local.php';" >> web/sites/default/settings.php
@@ -19,9 +25,11 @@ echo "include_once 'sites/default/settings.local.php';" >> web/sites/default/set
 echo
 echo -e "${yellow}Compiling the theme...${NC}"
 
+# Install build-essential to get g++ so that we can run node-sass.
 fin exec sudo apt-get -y update
 fin exec sudo apt-get -y install build-essential
 
+# Compile the theme.
 cd web/profiles/dosomething/themes/dosomething/paraneue_dosomething
 fin exec npm install
 mkdir ./node_modules/@dosomething/forge/node_modules
