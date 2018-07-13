@@ -5,7 +5,7 @@ tests/visual/failures
 *.DS_Store
 .idea
 html/
-settings.local.php
+web/sites/default/settings.local.php
 build/
 config/deploy_vars.yml
 docs
