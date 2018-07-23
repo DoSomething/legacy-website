@@ -5,7 +5,7 @@ tests/visual/failures
 *.DS_Store
 .idea
 html/
-settings.local.php
+web/sites/default/settings.local.php
 build/
 config/deploy_vars.yml
 docs
@@ -20,3 +20,4 @@ lib/themes/dosomething/paraneue_dosomething/bower_components/
 lib/themes/dosomething/paraneue_dosomething/vendor/
 tmp/
 .sass-cache
+web

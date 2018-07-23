@@ -1,16 +1,18 @@
 {
   "private": true,
   "scripts": {
-    "postinstall": "find node_modules/ -name '*.info' -type f -delete"
+    "postinstall": "find node_modules/ -name '*.info' -type f -delete",
+    "grunt": "grunt"
   },
   "dependencies": {
-    "chart.js": "~1.0.2",
     "@dosomething/forge": "~6.5.0",
+    "chart.js": "~1.0.2",
     "dosomething-modal": "~0.3.0",
     "dosomething-validation": "~0.2.0",
     "dotty": "0.0.2",
     "es5-shim": "^4.1.1",
     "fixed-sticky": "DFurnes/fixed-sticky#umd",
+    "grunt-cli": "^1.2.0",
     "html5shiv": "aFarkas/html5shiv.git#3.7.2",
     "jquery": "~1.11.0",
     "jquery-once": "~2.0.0",

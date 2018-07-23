@@ -1,0 +1,38 @@
+#!/bin/bash
+
+## Creates new Gatsby site in $DOCROOT
+##
+## Removes existing files in $DOCROOT
+
+yellow='\033[1;33m'
+NC='\033[0m'
+
+cd "$PROJECT_ROOT"
+
+echo
+echo -e "${yellow}Cloning Pantheon repo...${NC}"
+git clone ssh://codeserver.dev.f5ee6474-0663-441f-8ef0-9f5f54e427d4@codeserver.dev.f5ee6474-0663-441f-8ef0-9f5f54e427d4.drush.in:2222/~/repository.git pantheon-codebase
+
+echo
+echo -e "${yellow}Copying web directory to Pantheon repo...${NC}"
+rm -rf pantheon-codebase/*
+cp -r web/* pantheon-codebase
+cd pantheon-codebase
+git checkout -- sites/default/settings.php
+git add *
+git status
+
+read -p "Does this look correct? (y/n)" -n 1 -r
+echo
+if [[ $REPLY =~ ^[Yy]$ ]]
+then
+  echo
+  echo -e "${yellow}Pushing to Pantheon...${NC}"
+  git commit -m "Updates from GitHub repo"
+  git push
+fi
+
+echo
+echo -e "${yellow}Cleaning up...${NC}"
+cd "$PROJECT_ROOT"
+rm -rf pantheon-codebase
