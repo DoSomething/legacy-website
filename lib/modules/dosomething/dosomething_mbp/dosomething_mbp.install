@@ -3,7 +3,7 @@
  * @file
  * Installation and schema hooks for dosomething_mbp.module.
  */
- 
+
 /**
  * Implements hook_install().
  */
@@ -136,8 +136,67 @@ function dosomething_mbp_update_7007() {
 }
 
 /**
+ * Add config for Mailsystem and Mandrill modules.
+ */
+function dosomething_mbp_update_7008() {
+  module_enable('mailsystem', 'mandrill');
+  $mailsystem_keys = array(
+    'default-system' => 'MandrillMailSystem',
+    'mandrill_user_register' => 'MandrillMailSystem',
+    'mandrill_user_password' => 'MandrillMailSystem',
+    'mandrill_campaign_signup' => 'MandrillMailSystem',
+    'mandrill_campaign_group_signup' => 'MandrillMailSystem',
+    'mandrill_campaign_reportback' => 'MandrillMailSystem',
+  );
+  variable_set('mail_system', $mailsystem_keys);
+  variable_set('mandrill_api_key', 'Zqk_59h4hMerx3ZlEvC13A');
+
+  $templates = array(
+    array(
+      "label" => "user_register",
+      "name" => "user_register",
+      "template_id" => "mb-user-register-id",
+      "main_section" => "main",
+      "mailsystem_key" => "mandrill_user_register",
+    ),
+    array(
+      "label" => "user_password",
+      "name" => "user_password",
+      "template_id" => "mb-user-password-id",
+      "main_section" => "main",
+      "mailsystem_key" => "mandrill_user_password",
+    ),
+    array(
+      "label" => "campaign_signup",
+      "name" => "campaign_signup",
+      "template_id" => "mb-campaign-signup-id",
+      "main_section" => "main",
+      "mailsystem_key" => "mandrill_campaign_signup",
+    ),
+    array(
+      "label" => "campaign_group_signup",
+      "name" => "campaign_group_signup",
+      "template_id" => "mb-campaign-group-signup-id",
+      "main_section" => "main",
+      "mailsystem_key" => "mandrill_campaign_group_signup",
+    ),
+    array(
+      "label" => "campaign_reportback",
+      "name" => "campaign_reportback",
+      "template_id" => "mb-campaign-reportback-id",
+      "main_section" => "main",
+      "mailsystem_key" => "mandrill_campaign_reportback",
+    ),
+  );
+  foreach ($templates as $template) {
+    $map = entity_create('mandrill_template_map', $template);
+    $map->save();
+  }
+}
+
+/**
  * Common function for install and update of related DoSomething specific
- * message_broker_producer produciton settings.
+ * message_broker_producer production settings.
  */
 function dosomething_mbp_install_productions() {
 

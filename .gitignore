@@ -21,3 +21,4 @@ lib/themes/dosomething/paraneue_dosomething/vendor/
 tmp/
 .sass-cache
 web
+.vscode
