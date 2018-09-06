@@ -149,7 +149,6 @@ function dosomething_mbp_update_7008() {
     'mandrill_campaign_reportback' => 'MandrillMailSystem',
   );
   variable_set('mail_system', $mailsystem_keys);
-  variable_set('mandrill_api_key', 'Zqk_59h4hMerx3ZlEvC13A');
 
   $templates = array(
     array(
