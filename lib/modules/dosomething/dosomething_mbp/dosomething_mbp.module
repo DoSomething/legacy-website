@@ -67,8 +67,16 @@ function dosomething_mbp_request($origin, $params = NULL) {
     watchdog('dosomething_mbp', "Payload: " . json_encode($payload));
   }
 
+  foreach ($payload['merge_vars'] as $name => $value) {
+    $payload['mandrill']['overrides']['global_merge_vars'][] = array(
+      'name' => $name,
+      'content' => $value,
+    );
+    unset($payload['merge_vars'][$name]);
+  }
+
   try {
-    return message_broker_producer_request($production, $payload);
+    return drupal_mail('mandrill', $origin, $params['email'], language_default(), $payload, variable_get('site_mail'));
   }
   catch (Exception $e) {
     watchdog('dosomething_mbp', $e, array(), WATCHDOG_ERROR);

@@ -97,6 +97,12 @@ projects[dosomething_metatag][download][type] = local
 projects[dosomething_metatag][download][source] = './lib/modules/dosomething/dosomething_metatag'
 projects[dosomething_metatag][subdir] = "dosomething"
 
+; Dosomething Northstar
+projects[dosomething_northstar][type] = "module"
+projects[dosomething_northstar][download][type] = local
+projects[dosomething_northstar][download][source] = './lib/modules/dosomething/dosomething_northstar'
+projects[dosomething_northstar][subdir] = "dosomething"
+
 ; Dosomething Notfound
 projects[dosomething_notfound][type] = "module"
 projects[dosomething_notfound][download][type] = local

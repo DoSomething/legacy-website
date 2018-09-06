@@ -111,6 +111,14 @@ projects[libraries][subdir] = "contrib"
 projects[link][version] = "1.2"
 projects[link][subdir] = "contrib"
 
+; Mailsystem
+projects[mailsystem][version] = "2.35"
+projects[mailsystem][subdir] = "contrib"
+
+; Mandrill
+projects[mandrill][version] = "2.3"
+projects[mandrill][subdir] = "contrib"
+
 ; Markdown
 projects[markdown][version] = "1.2"
 projects[markdown][subdir] = "contrib"
@@ -268,6 +276,12 @@ projects[stage_file_proxy][subdir] = "contrib"
 ; Guzzle
 libraries[guzzle][download][type] = "git"
 libraries[guzzle][download][url] = "https://github.com/guzzle/guzzle.git"
+
+; Mandrill PHP Library
+libraries[mandrill][download][type] = "get"
+libraries[mandrill][download][url] = "https://bitbucket.org/mailchimp/mandrill-api-php/get/1.0.52.tar.gz"
+libraries[mandrill][directory_name] = "mandrill"
+libraries[mandrill][destination] = "libraries"
 
 ; Message Broker PHP Library
 libraries[messagebroker-phplib][download][type] = "git"
