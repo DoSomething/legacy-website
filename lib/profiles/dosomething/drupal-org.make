@@ -44,7 +44,7 @@ projects[diff][version] = "3.2"
 projects[diff][subdir] = "contrib"
 
 ; Entity
-projects[entity][version] = "1.6"
+projects[entity][version] = "1.9"
 projects[entity][subdir] = "contrib"
 
 ; Entity Autocomplete
@@ -52,7 +52,7 @@ projects[entity_autocomplete][version] = "1.0-beta3"
 projects[entity_autocomplete][subdir] = "contrib"
 
 ; Entity Translation
-projects[entity_translation][version] = "1.0-beta4"
+projects[entity_translation][version] = "1.0"
 projects[entity_translation][subdir] = "contrib"
 
 ; Entity Connect
@@ -60,7 +60,7 @@ projects[entityconnect][version] = "1.0-rc1"
 projects[entityconnect][subdir] = "contrib"
 
 ; Entity Reference
-projects[entityreference][version] = "1.1"
+projects[entityreference][version] = "1.5"
 projects[entityreference][subdir] = "contrib"
 
 ; Features
@@ -80,11 +80,11 @@ projects[file_entity][version] = "2.0-alpha3"
 projects[file_entity][subdir] = "contrib"
 
 ; Flag
-projects[flag][version] = "3.5"
+projects[flag][version] = "3.9"
 projects[flag][subdir] = "contrib"
 
 ; Google Analytics
-projects[google_analytics][version] = "2.1"
+projects[google_analytics][version] = "2.5"
 projects[google_analytics][subdir] = "contrib"
 
 ; Http Client
@@ -124,7 +124,7 @@ projects[markdown][version] = "1.2"
 projects[markdown][subdir] = "contrib"
 
 ; Metatag
-projects[metatag][version] = "1.4"
+projects[metatag][version] = "1.25"
 projects[metatag][subdir] = "contrib"
 
 ; Mobile Commons
@@ -174,7 +174,7 @@ projects[seckit][subdir] = "contrib"
 projects[seckit][version] = "1.9"
 
 ; Services
-projects[services][version] = "3.12"
+projects[services][version] = "3.20"
 projects[services][subdir] = "contrib"
 
 ; Stathat
@@ -204,7 +204,7 @@ projects[token][version] = "1.5"
 projects[token][subdir] = "contrib"
 
 ; UUID
-projects[uuid][version] = "1.0-alpha5"
+projects[uuid][version] = "1.2"
 projects[uuid][subdir] = "contrib"
 
 ; UUID Features
@@ -224,15 +224,15 @@ projects[view_unpublished][version] = "1.2"
 projects[view_unpublished][subdir] = "contrib"
 
 ; Views
-projects[views][version] = "3.11"
+projects[views][version] = "3.20"
 projects[views][subdir] = "contrib"
 
 ; Views Data Export
-projects[views_data_export][version] = "3.0-beta8"
+projects[views_data_export][version] = "3.2"
 projects[views_data_export][subdir] = "contrib"
 
 ; XML Sitemap
-projects[xmlsitemap][version] = "2.0"
+projects[xmlsitemap][version] = "2.6"
 projects[xmlsitemap][subdir] = "contrib"
 
 
