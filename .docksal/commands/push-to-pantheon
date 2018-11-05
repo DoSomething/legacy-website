@@ -17,6 +17,12 @@ echo
 echo -e "${yellow}Copying web directory to Pantheon repo...${NC}"
 rm -rf pantheon-codebase/*
 cp -r web/* pantheon-codebase
+
+git clone git@github.com:pantheon-systems/drops-7.git
+cp -r drops-7/modules/pantheon pantheon-codebase/modules
+cp -r drops-7/misc/healthchecks pantheon-codebase/misc
+cp -r drops-7/profiles/pantheon pantheon-codebase/profiles
+
 cd pantheon-codebase
 git checkout -- sites/default/settings.php
 git add *
