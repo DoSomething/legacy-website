@@ -18,7 +18,6 @@ projects[dosomething_api][download][type] = local
 projects[dosomething_api][download][source] = './lib/modules/dosomething/dosomething_api'
 projects[dosomething_api][subdir] = "dosomething"
 
-
 ; Dosomething Campaign
 projects[dosomething_campaign][type] = "module"
 projects[dosomething_campaign][download][type] = local
@@ -26,10 +25,10 @@ projects[dosomething_campaign][download][source] = './lib/modules/dosomething/do
 projects[dosomething_campaign][subdir] = "dosomething"
 
 ; Dosomething Campaign Problem Shares
-projects[dosomething_campaign][type] = "module"
-projects[dosomething_campaign][download][type] = local
-projects[dosomething_campaign][download][source] = './lib/modules/dosomething/dosomething_campaign/dosomething_campaign_problem_shares'
-projects[dosomething_campaign][subdir] = "dosomething"
+projects[dosomething_campaign_problem_shares][type] = "module"
+projects[dosomething_campaign_problem_shares][download][type] = local
+projects[dosomething_campaign_problem_shares][download][source] = './lib/modules/dosomething/dosomething_campaign/dosomething_campaign_problem_shares'
+projects[dosomething_campaign_problem_shares][subdir] = "dosomething"
 
 ; Dosomething Campaign Group
 projects[dosomething_campaign_group][type] = "module"

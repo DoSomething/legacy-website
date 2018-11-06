@@ -22,3 +22,5 @@ tmp/
 .sass-cache
 web
 .vscode
+pantheon-codebase
+drops-7
