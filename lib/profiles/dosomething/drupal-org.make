@@ -120,7 +120,7 @@ projects[libraries][version] = "2.2"
 projects[libraries][subdir] = "contrib"
 
 ; Link
-projects[link][version] = "1.2"
+projects[link][version] = "1.6"
 projects[link][subdir] = "contrib"
 
 ; Markdown
@@ -187,7 +187,7 @@ projects[seckit][subdir] = "contrib"
 projects[seckit][version] = "1.9"
 
 ; Services
-projects[services][version] = "3.20"
+projects[services][version] = "3.21"
 projects[services][subdir] = "contrib"
 
 ; Stathat
@@ -220,7 +220,7 @@ projects[token][version] = "1.5"
 projects[token][subdir] = "contrib"
 
 ; UUID
-projects[uuid][version] = "1.0"
+projects[uuid][version] = "1.2"
 projects[uuid][subdir] = "contrib"
 
 ; UUID Features
@@ -252,7 +252,7 @@ projects[views_limit_grouping][version] = "1.x-dev"
 projects[views_limit_grouping][subdir] = "contrib"
 
 ; XML Sitemap
-projects[xmlsitemap][version] = "2.3"
+projects[xmlsitemap][version] = "2.6"
 projects[xmlsitemap][subdir] = "contrib"
 
 
