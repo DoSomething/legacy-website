@@ -139,7 +139,7 @@ function dosomething_mbp_update_7007() {
  * Add config for Mailsystem and Mandrill modules.
  */
 function dosomething_mbp_update_7008() {
-  module_enable('mailsystem', 'mandrill');
+  module_enable(array('mailsystem', 'mandrill', 'mandrill_template'));
   $mailsystem_keys = array(
     'default-system' => 'MandrillMailSystem',
     'mandrill_user_register' => 'MandrillMailSystem',
