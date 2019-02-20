@@ -540,7 +540,7 @@ function restart_php7_fpm {
   PHP_FPM_STATUS="$(sudo service php7.2-fpm status)"
   PHP_VERSION="$(php -v|grep --only-matching --perl-regexp "7\.\\d+\.\\d+")"
 
-  if $(echo ${PHP_FPM_STATUS} | grep --quiet "php7.2-fpm start/running") && $(echo ${PHP_VERSION} | grep --quiet "7.0")
+  if $(echo ${PHP_FPM_STATUS} | grep --quiet "php7.2-fpm start/running") && $(echo ${PHP_VERSION} | grep --quiet "7.2")
   then
     echo "Restarting PHP-FPM now"
     sudo service php7.2-fpm restart
