@@ -187,7 +187,7 @@ projects[seckit][subdir] = "contrib"
 projects[seckit][version] = "1.9"
 
 ; Services
-projects[services][version] = "3.22"
+projects[services][version] = "3.23"
 projects[services][subdir] = "contrib"
 
 ; Stathat
