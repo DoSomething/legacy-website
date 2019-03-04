@@ -24,7 +24,7 @@ projects[apachesolr_views][version] = "1.0-beta2"
 projects[apachesolr_views][subdir] = "contrib"
 
 ; Blockreference
-projects[blockreference][version] = "1.16"
+projects[blockreference][version] = "2.7"
 projects[blockreference][subdir] = "contrib"
 
 ; CDN
@@ -56,7 +56,7 @@ projects[entity_translation][version] = "1.0"
 projects[entity_translation][subdir] = "contrib"
 
 ; Entity Connect
-projects[entityconnect][version] = "1.0-rc1"
+projects[entityconnect][version] = "2.0-rc2"
 projects[entityconnect][subdir] = "contrib"
 
 ; Entity Reference
@@ -84,7 +84,7 @@ projects[flag][version] = "3.9"
 projects[flag][subdir] = "contrib"
 
 ; Google Analytics
-projects[google_analytics][version] = "2.5"
+projects[google_analytics][version] = "2.6"
 projects[google_analytics][subdir] = "contrib"
 
 ; Http Client
@@ -108,7 +108,7 @@ projects[libraries][version] = "2.2"
 projects[libraries][subdir] = "contrib"
 
 ; Link
-projects[link][version] = "1.2"
+projects[link][version] = "1.6"
 projects[link][subdir] = "contrib"
 
 ; Mailsystem
@@ -174,7 +174,7 @@ projects[seckit][subdir] = "contrib"
 projects[seckit][version] = "1.9"
 
 ; Services
-projects[services][version] = "3.20"
+projects[services][version] = "3.23"
 projects[services][subdir] = "contrib"
 
 ; Stathat

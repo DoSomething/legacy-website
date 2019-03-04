@@ -19,6 +19,12 @@ rm -rf pantheon-codebase/*
 cp -r web/* pantheon-codebase
 
 git clone git@github.com:pantheon-systems/drops-7.git
+cp -r drops-7/includes pantheon-codebase/
+cp -r drops-7/modules pantheon-codebase/
+cp -r drops-7/profiles pantheon-codebase/
+cp -r drops-7/themes pantheon-codebase/
+cp -r drops-7/pantheon.upstream.yml pantheon-codebase/pantheon.upstream.yml
+cp drops-7/LICENSE.txt pantheon-codebase/LICENSE.txt
 cp -r drops-7/modules/pantheon pantheon-codebase/modules
 cp -r drops-7/misc/healthchecks pantheon-codebase/misc
 cp -r drops-7/profiles/pantheon pantheon-codebase/profiles

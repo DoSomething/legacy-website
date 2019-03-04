@@ -139,7 +139,7 @@ function dosomething_mbp_update_7007() {
  * Add config for Mailsystem and Mandrill modules.
  */
 function dosomething_mbp_update_7008() {
-  module_enable('mailsystem', 'mandrill');
+  module_enable(array('mailsystem', 'mandrill'));
   $mailsystem_keys = array(
     'default-system' => 'MandrillMailSystem',
     'mandrill_user_register' => 'MandrillMailSystem',
@@ -187,6 +187,9 @@ function dosomething_mbp_update_7008() {
       "mailsystem_key" => "mandrill_campaign_reportback",
     ),
   );
+
+  module_enable(array('mandrill_template'));
+
   foreach ($templates as $template) {
     $map = entity_create('mandrill_template_map', $template);
     $map->save();
