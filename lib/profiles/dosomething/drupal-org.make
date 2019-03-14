@@ -224,7 +224,7 @@ projects[view_unpublished][version] = "1.2"
 projects[view_unpublished][subdir] = "contrib"
 
 ; Views
-projects[views][version] = "3.20"
+projects[views][version] = "3.21"
 projects[views][subdir] = "contrib"
 
 ; Views Data Export
