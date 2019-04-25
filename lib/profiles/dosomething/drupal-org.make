@@ -132,7 +132,7 @@ projects[mobilecommons][version] = "1.1"
 projects[mobilecommons][subdir] = "contrib"
 
 ; Module Filter
-projects[module_filter][version] = "2.0-alpha2"
+projects[module_filter][version] = "2.2"
 projects[module_filter][subdir] = "contrib"
 
 ; New Relic
@@ -174,7 +174,7 @@ projects[seckit][subdir] = "contrib"
 projects[seckit][version] = "1.9"
 
 ; Services
-projects[services][version] = "3.23"
+projects[services][version] = "3.24"
 projects[services][subdir] = "contrib"
 
 ; Stathat
